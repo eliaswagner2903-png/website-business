@@ -1,0 +1,59 @@
+/* ---------- Baustein: galerie ----------
+   Wisch-Streifen mit Einrasten (scroll-snap) + Großansicht im nativen <dialog>.
+   Ohne JS: Streifen wischbar, jedes Bild ist ein Link auf die große Datei. Mit JS: Großansicht mit
+   Zähler, Pfeiltasten, Wischen, Escape; Knöpfe „zurück/weiter“ für den Streifen (nur mit Maus nötig).
+   Öffnen 0,5 s sanft, Schließen 0,42 s; bei „Bewegung reduzieren“ sofort. */
+.galerie { display: grid; gap: 1rem; min-width: 0; }
+.galerie-streifen {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: .75rem;
+  list-style: none; margin: 0; padding: 0 0 .75rem; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--farbe-linie) transparent;
+}
+.galerie-streifen li { scroll-snap-align: start; min-width: 0; }
+.galerie-streifen figure { display: grid; gap: .5rem; }
+.galerie-streifen figcaption { font-size: .9375rem; color: var(--farbe-leise); }
+.galerie-bild { display: block; overflow: hidden; border-radius: var(--radius-gross); background: var(--farbe-flaeche); }
+.galerie-bild img { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform var(--tempo-lang) var(--kurve-standard); }
+@media (hover: hover) and (pointer: fine) { .galerie-bild:hover img { transform: scale(1.03); } }
+.galerie-bild:active img { transform: scale(.985); }
+.galerie-bild:focus-visible { outline-offset: 4px; }
+@media (min-width: 40rem) { .galerie-streifen { grid-auto-columns: calc((100% - .75rem) / 2); } }
+@media (min-width: 64rem) { .galerie-streifen { grid-auto-columns: calc((100% - 1.5rem) / 3); } }
+
+.galerie-leiste { display: none; }
+.js .galerie-leiste { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.galerie-leiste p { color: var(--farbe-leise); font-variant-numeric: tabular-nums; }
+.galerie-knoepfe { display: flex; gap: .5rem; }
+.galerie-knopf {
+  display: inline-grid; place-items: center; inline-size: 48px; block-size: 48px; padding: 0;
+  font: 500 1.25rem/1 var(--schrift-text); color: var(--farbe-text); background: var(--farbe-flaeche);
+  border: 1px solid var(--farbe-linie); border-radius: 50%; cursor: pointer;
+  transition: transform var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard);
+}
+@media (hover: hover) and (pointer: fine) { .galerie-knopf:hover { border-color: var(--farbe-akzent); } }
+.galerie-knopf:active { transform: scale(.94); }
+.galerie-knopf:disabled { opacity: .45; cursor: default; transform: none; }
+
+/* Großansicht */
+.galerie-dialog {
+  inline-size: min(100% - 1.5rem, 72rem); max-inline-size: none; max-block-size: calc(100dvh - 1.5rem);
+  margin: auto; padding: 0; border: 0; border-radius: var(--radius-gross); overflow: hidden;
+  color: var(--farbe-text); background: var(--farbe-flaeche);
+}
+.galerie-dialog::backdrop { background: color-mix(in srgb, var(--farbe-text) 82%, transparent); }
+.galerie-dialog[open] { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+.galerie-dialog img { inline-size: 100%; block-size: 100%; max-block-size: calc(100dvh - 6rem); object-fit: contain; background: var(--farbe-grund); }
+.galerie-dialog-fuss { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .6rem .75rem; }
+.galerie-dialog-fuss p { min-width: 0; font-size: .9375rem; color: var(--farbe-leise); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) {
+  .galerie-dialog, .galerie-dialog::backdrop {
+    opacity: 0; transition: opacity var(--tempo-mittel) var(--kurve-schliessen), transform var(--tempo-mittel) var(--kurve-schliessen),
+      overlay var(--tempo-mittel) allow-discrete, display var(--tempo-mittel) allow-discrete;
+  }
+  .galerie-dialog { transform: scale(.96); }
+  .galerie-dialog[open], .galerie-dialog[open]::backdrop { opacity: 1; transform: none; transition-duration: .5s; transition-timing-function: var(--kurve-sanft); }
+  @starting-style {
+    .galerie-dialog[open], .galerie-dialog[open]::backdrop { opacity: 0; }
+    .galerie-dialog[open] { transform: scale(.96); }
+  }
+}

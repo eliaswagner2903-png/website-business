@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bento – Baustein-Demo</title>
+<meta name="description" content="Raster mit Größenspannung: große, breite, hohe und Akzent-Kacheln.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="bento.css">
+<script>document.documentElement.classList.add('js')</script>
+
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <nav class="nav" aria-label="Bausteine">
+      <ul>
+        <li><a href="../index.html">Übersicht</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel">Bento-Raster</h1>
+        <p>Eine große Kachel neben kleinen statt einer gleichförmigen Reihe. Drei Spalten am Computer, zwei am Tablet, eine am Handy.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" aria-labelledby="t-bento">
+    <div class="huelle">
+      <h2 id="t-bento" class="unsichtbar">Beispielraster</h2>
+      <div class="bento">
+        <article class="bento-kachel bento-kachel--gross">
+          <span class="bento-nummer" aria-hidden="true">01</span>
+          <div><h3>Groß (2 × 2)</h3><p>Die wichtigste Aussage bekommt die größte Fläche und die größte Zahl.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">02</span>
+          <div><h3>Normal</h3><p>Eine Zelle.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">03</span>
+          <div><h3>Mit Link</h3><p><a href="../index.html">Ganze Kachel klickbar</a> – nur Kacheln mit Link heben sich beim Hover.</p></div>
+        </article>
+        <article class="bento-kachel einblenden bento-kachel--hoch">
+          <span class="bento-nummer" aria-hidden="true">04</span>
+          <div><h3>Hoch</h3><p>Zwei Zeilen hoch ab 1024 px.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">05</span>
+          <div><h3>Normal</h3><p>Eine Zelle.</p></div>
+        </article>
+        <article class="bento-kachel einblenden bento-kachel--akzent">
+          <span class="bento-nummer" aria-hidden="true">06</span>
+          <div><h3>Akzent</h3><p>Eine Akzentfläche setzt den Takt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden bento-kachel--breit">
+          <span class="bento-nummer" aria-hidden="true">07</span>
+          <div><h3>Breit</h3><p>Füllt die ganze Zeile: 4 + 1 + 1 + 2 + 1 + 1 + 3 = 12 Zellen, keine Lücke bei drei Spalten.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>
