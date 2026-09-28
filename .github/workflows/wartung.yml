@@ -25,4 +25,6 @@ jobs:
         if: steps.check.outcome == 'failure'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh issue create --title "Wartung: Handlungsbedarf $(date +%F)" --body-file bericht.md --label wartung || gh issue create --title "Wartung: Handlungsbedarf $(date +%F)" --body-file bericht.md
+        run: |
+          titel="Wartung: Handlungsbedarf $(date +%F)"
+          gh issue create --title "$titel" --body-file bericht.md --label wartung || gh issue create --title "$titel" --body-file bericht.md
