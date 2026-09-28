@@ -187,8 +187,10 @@ def page(fname, title, desc, body, current=None, jsonld=None, robots=None, prelo
   <meta property="og:image:height" content="535">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="assets/fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/lato-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>{pl}
-  <link rel="stylesheet" href="assets/css/style.css">{ld}
+  <link rel="preload" href="assets/fonts/lato-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/lato-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>{pl}
+  <link rel="stylesheet" href="assets/css/style.css">
+  <noscript><link rel="stylesheet" href="assets/css/schriften-spaeter.css"></noscript>{ld}
 </head>
 <body{bc}>
   {kopf(current)}

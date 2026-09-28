@@ -3,7 +3,10 @@
   "private": true,
   "description": "Prüfwerkzeuge für alle Kundenseiten. Einmal: cd werkzeuge && npm install",
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "html-validate": "^11.16.1",
-    "lighthouse": "^13.5.0"
+    "lighthouse": "^13.5.0",
+    "sharp": "^0.35.5",
+    "three": "^0.186.1"
   }
 }

@@ -1,0 +1,15 @@
+/* Schema „warm & handwerklich“ – zum Testen der Anpassbarkeit (Meisterstandard P4).
+   Einspielen: nach marke.css einbinden oder diesen Block in marke.css ersetzen.
+   Kontrast gemessen: text/grund 14,0 · leise/grund 6,1 · akzent/grund 5,5 · auf-akzent/akzent 6,4 */
+:root {
+  --farbe-grund: #f6ece0;
+  --farbe-flaeche: #fffaf3;
+  --farbe-text: #2b1d14;
+  --farbe-leise: #6a5344;
+  --farbe-linie: #e2cfba;
+  --farbe-akzent: #a63d1a;
+  --farbe-auf-akzent: #ffffff;
+  --radius-klein: 4px;
+  --radius-gross: 12px;
+  color-scheme: light;
+}

@@ -1,16 +1,7 @@
-// Kleines Zusatzskript. Die Seite funktioniert vollständig ohne JavaScript.
+// Kleines Zusatzskript der Seite. Die Seite funktioniert vollständig ohne JavaScript.
+// Menü, Einblenden, Video usw. kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs).
 function start() {
   document.documentElement.classList.add('js');
-
-  const knopf = document.querySelector('.menue-knopf');
-  const nav = document.getElementById('nav');
-  if (knopf && nav) {
-    const setze = (offen) => { nav.classList.toggle('offen', offen); knopf.setAttribute('aria-expanded', String(offen)); };
-    knopf.addEventListener('click', () => setze(!nav.classList.contains('offen')));
-    nav.addEventListener('click', (e) => { if (e.target.closest('a')) setze(false); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setze(false); });
-  }
-
   if (location.hash === '#pruefen') document.documentElement.classList.add('pruefmodus');
 
   // Doppelte Zahlungs-Klicks verhindern
