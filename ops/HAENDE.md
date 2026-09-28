@@ -37,5 +37,5 @@ Reihenfolge = Priorität. Abgehakt wird hier und im Auftragslog.
 
 ## Offen aus früheren Aufträgen
 
-- [ ] URFA SOFRASI: welches Logo? (Säulen/Arkaden/Harran-Kuppeln oder Baum/Palmen) → Auftrag A-002
+- [x] URFA SOFRASI: Logo entschieden, die Original-Skyline bleibt → Auftrag A-002
 - [ ] Bruder C (Hairstyle by Ümit): „3 umsetzen?“ beantworten → Auftrag A-004

@@ -392,7 +392,6 @@ index_body = f'''    <section class="hero" aria-labelledby="hero-titel">
           </div>
         </div>
       </div>
-      <!-- [html-validate-disable-next aria-label-misuse: Liste mit Namen ist nach WAI-ARIA erlaubt] -->
       <ul class="streifen" aria-label="Fotos aus dem Restaurant">
 {chr(10).join(streifen_karte(n) for n in STREIFEN)}
       </ul>
