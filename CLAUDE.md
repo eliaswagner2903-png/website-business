@@ -32,6 +32,7 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `hosting/CLOUDFLARE.md` | Einrichtung Hosting, Domain, Schutz, Variablen |
 | `recht/LEITFADEN.md` | Gewerbe, Umsatzsteuer, Buchhaltung, Verträge, Pflichten der Kundenseiten |
 | `wissen/` | Gelernte Fehler und Design-Wissen aus früheren Projekten – **vor dem Bauen lesen** |
+| `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
 
 ## Pflicht für jede Kundenseite
@@ -68,6 +69,7 @@ Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext
 | `/pruefen` | komplette Qualitätsprüfung einer Seite |
 | `/sicherheit` | Sicherheitsprüfung vor Launch |
 | `/aufklaerung <url>` | Fernspäherkommando auf eine Seite ansetzen |
+| `/referenz` | Aufklärungsbericht auswerten, Muster ins System, Referenzliste |
 | `/wartung` | Betreuungslauf aller Kundenseiten |
 | `/sichern` | Log, Prüfen, Commit, Push, PR, Merge-Vorschlag |
 
