@@ -1,6 +1,19 @@
 {
   "hinweis": "Jede betreute Seite hier eintragen. aktiv:false pausiert die Prüfung. paket: basis | plus | premium",
   "kunden": [
-    { "name": "Beispiel (Vorlage)", "slug": "kundenseite", "domain": "www.beispiel.de", "paket": "basis", "aktiv": false }
+    {
+      "name": "Beispiel (Vorlage)",
+      "slug": "kundenseite",
+      "domain": "www.beispiel.de",
+      "paket": "basis",
+      "aktiv": false
+    },
+    {
+      "name": "URFA SOFRASI",
+      "slug": "urfa-sofrasi",
+      "domain": "www.urfasofrasi-eislingen.de",
+      "paket": "offen",
+      "aktiv": false
+    }
   ]
 }

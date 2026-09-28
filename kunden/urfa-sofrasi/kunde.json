@@ -1,0 +1,10 @@
+{
+  "name": "URFA SOFRASI",
+  "slug": "urfa-sofrasi",
+  "domain": "www.urfasofrasi-eislingen.de",
+  "paket": "offen",
+  "herkunft": "Repo urfa (main, Variante 1), übernommen 2026-09-28",
+  "stripe_produkte": [],
+  "termine": "",
+  "offen": ["Logo-Entscheidung (A-002)", "Öffnungszeiten bestätigen", "E-Mail bestätigen", "Allergen-Legende", "Impressum/Datenschutz Originaltext", "Paket und Vertrag mit dem Betreiber"]
+}
