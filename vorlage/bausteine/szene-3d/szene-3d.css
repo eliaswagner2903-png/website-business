@@ -1,5 +1,8 @@
 /* 3D-Szene: Poster (Standbild, LCP) liegt im Fluss, die Leinwand blendet deckungsgleich darüber ein. */
-.szene-3d { position: relative; margin: 0; aspect-ratio: var(--szene-seiten, 1); isolation: isolate; }
+.szene-3d { position: relative; margin: 0; aspect-ratio: 1; isolation: isolate; }
+/* Seitenverhältnis muss zum Poster passen */
+.szene-3d--4x3 { aspect-ratio: 4 / 3; }
+.szene-3d--16x9 { aspect-ratio: 16 / 9; }
 .szene-3d__poster, .szene-3d__poster img { display: block; width: 100%; height: 100%; }
 .szene-3d__poster img { object-fit: contain; }
 .szene-3d__leinwand {
@@ -14,7 +17,7 @@
 /* Weicher Bodenschatten – bewusst CSS, damit Poster und Szene ihn identisch teilen */
 .szene-3d::after {
   content: ""; position: absolute; z-index: -1; left: 22%; right: 22%; bottom: 3%; height: 7%;
-  background: radial-gradient(closest-side, var(--szene-schatten, rgb(0 0 0 / .35)), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--farbe-text) 35%, transparent), transparent);
 }
 .szene-3d--ohne-schatten::after { content: none; }
 /* Werkzeug-Modus (poster-rendern.mjs) */

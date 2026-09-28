@@ -48,7 +48,7 @@ Im ersten Bildschirm `fetchpriority="high"` und **kein** `loading="lazy"` (FEHLE
 | `data-drehung` | `0.16` | Bogenmaß pro Sekunde (eine Umdrehung ≈ 40 s). Mehr wirkt schnell unruhig |
 | `data-dpr-max` | `2` | Obergrenze der Pixeldichte |
 | `data-min-fps` | `45` | darunter: erst gröber rechnen, dann zurück zum Standbild |
-| `--szene-seiten` (CSS) | `1` | Seitenverhältnis des Rahmens; **muss** zum Poster passen |
+| Klasse `szene-3d--4x3` / `szene-3d--16x9` | quadratisch | Seitenverhältnis des Rahmens; **muss** zum Poster passen |
 
 Die Szene meldet ihren Zustand am Element: `data-szene` (`zu-langsam`, `gestoppt`) und `data-szene-fps` – praktisch
 für Prüfskripte.
