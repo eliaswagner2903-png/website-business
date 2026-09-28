@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Marke „Zwischenbild“ (Demo-Studio) – die ganze Marke steckt in dieser Datei.
+   Farben (Rollen), Schriften, Radien, Tempi, Kurven, Abstände. stil.css benutzt
+   nur diese Variablen. Zweites Schema zum Test: ganz unten („Blaupause“).
+   ========================================================================== */
+
+/* Schriften: Archivo (variabel, Breite 62–125 %, Gewicht 100–900) und JetBrains Mono,
+   beide aus @fontsource-variable, auf die benötigten Zeichen verkleinert (latin),
+   latin-ext wird nur bei Bedarf geladen. */
+@font-face {
+  font-family: "Archivo Zb";
+  src: url("/fonts/archivo-latin-wdth.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+0152-0153, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Archivo Zb";
+  src: url("/fonts/archivo-latin-ext-wdth.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+  unicode-range: U+0100-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Mono Zb";
+  src: url("/fonts/jetbrains-mono-basis.woff2") format("woff2");
+  font-weight: 100 800; font-style: normal; font-display: swap;
+  unicode-range: U+0020-007E, U+00A0, U+00B7, U+00C4, U+00D6, U+00DC, U+00DF, U+00E4, U+00F6, U+00FC, U+2013-2014, U+2019-201E, U+2026, U+20AC;
+}
+/* Ersatzschriften, gemessen (ctx.measureText): so springt beim Tausch nichts */
+@font-face { font-family: "Archivo Ersatz"; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 99%; }
+@font-face { font-family: "Mono Ersatz"; src: local("Courier New"), local("Liberation Mono"), local("Menlo"); size-adjust: 100%; }
+
+:root {
+  /* Farben: 6 Rollen + Text auf Akzent */
+  --farbe-grund: #f1ede4;       /* Papier */
+  --farbe-flaeche: #e6e0d3;     /* Karton */
+  --farbe-text: #141210;        /* Tinte */
+  --farbe-leise: #5a534a;       /* Nebentext, AA auf Grund und Fläche */
+  --farbe-linie: #c9c1b2;
+  --farbe-akzent: #ff4a1c;      /* Signalorange */
+  --farbe-auf-akzent: #141210;
+
+  /* Schriften */
+  --schrift-display: "Archivo Zb", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-text: "Archivo Zb", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-mono: "Mono Zb", "Mono Ersatz", ui-monospace, monospace;
+  --breite-display: 125%;       /* Archivo Expanded */
+  --breite-schmal: 62%;         /* Archivo Condensed */
+  --gewicht-display: 800;
+
+  /* Formen */
+  --radius-klein: 6px;
+  --radius-gross: 28px;
+
+  /* Bewegung */
+  --tempo-kurz: .28s;
+  --tempo-mittel: .6s;
+  --tempo-lang: 1.2s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Abstände */
+  --abstand-abschnitt: clamp(5rem, 11vw, 9.5rem);
+
+  color-scheme: light;
+}
+
+/* Zweites Schema „Blaupause“ zum Test der Anpassbarkeit (P4):
+   <html data-schema="blaupause"> oder diesen Block als :root übernehmen. */
+:root[data-schema="blaupause"] {
+  --farbe-grund: #2320c8;
+  --farbe-flaeche: #1b1899;
+  --farbe-text: #ffffff;
+  --farbe-leise: #d4d3ff;
+  --farbe-linie: #5552de;
+  --farbe-akzent: #d7ff3d;
+  --farbe-auf-akzent: #16141f;
+  color-scheme: dark;
+}
