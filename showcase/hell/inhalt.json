@@ -47,6 +47,7 @@
   "gruende": {
     "titel": "Weshalb Menschen zu uns kommen",
     "text": "Die meisten Termine beginnen mit einem Satz wie diesen. Was dahintersteckt, finden wir gemeinsam heraus.",
+    "hinweis": "Sie wissen nicht, was zu Ihnen passt? Rufen Sie an. Meist ist in fünf Minuten klar, ob ein Termin bei uns hilft oder ob Sie zuerst zur Ärztin sollten.",
     "liste": [
       { "satz": "„Mein Nacken zieht beim Schulterblick.“", "leistung": "Manuelle Therapie", "anker": "manuelle-therapie" },
       { "satz": "„Nach acht Stunden Sitzen tut mir der Rücken weh.“", "leistung": "Rückenkurs „Lot & Linie“", "anker": "rueckenkurs" },

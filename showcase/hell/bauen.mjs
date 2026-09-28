@@ -127,7 +127,7 @@ ${menue(id)}
 </html>
 `;
 
-const ueber = (text) => `<p class="ueberzeile">${icon('lot', 'ueber-lot')}${esc(text)}</p>`;
+const ueber = (text) => `<p class="ueberzeile">${esc(text)}</p>`;
 
 // Zeichnung: Mensch im Profil am Lot. Nur Striche, eingefärbt über die Marke.
 const PUNKTE = [['Ohr', 94], ['Schulter', 166], ['Hüfte', 318], ['Knie', 448], ['Knöchel', 556]];
@@ -224,9 +224,10 @@ ${A.schritte.map((s, i) => `      <li class="schritt auftauchen"><p class="schri
       <h2 id="t-gruende">${esc(G.titel)}</h2>
       <p>${esc(G.text)}</p>
       <p><a class="pfeil-link" href="/leistungen.html">Alle Leistungen mit Dauer und Preis${icon('pfeil')}</a></p>
+      <p class="gruende-hinweis">${esc(G.hinweis)} <a class="tel-zeile" href="${P.telefon_link}"${pr(FIKTIV)}>${icon('tel')}${tel}</a></p>
     </div>
     <ul class="saetze">
-${G.liste.map((g) => `      <li class="auftauchen"><a href="/leistungen.html#${g.anker}"><span class="satz">${esc(g.satz)}</span><span class="satz-ziel">${esc(g.leistung)}${icon('pfeil')}</span></a></li>`).join('\n')}
+${G.liste.map((g, i) => `      <li class="auftauchen${[' gross', '', ' gross', '', ''][i]}" data-tiefe="${[0, 3, 1, 4, 2][i]}"><a href="/leistungen.html#${g.anker}"><span class="satz">${esc(g.satz)}</span><span class="satz-ziel">${esc(g.leistung)}${icon('pfeil')}</span></a></li>`).join('\n')}
     </ul>
   </div>
 </section>
@@ -397,12 +398,13 @@ const termin = seite('termin', `
       <p class="weg-nr" aria-hidden="true">01</p>
       <h2 id="t-buchen">Online buchen</h2>
       <p>${esc(K.buchen_text)}</p>
+      <p class="woche-legende"><span class="w-frei">frei</span><span class="w-belegt">belegt</span><span class="w-hinweis">Beispielwoche, keine echten Zeiten</span></p>
       <ul class="woche" aria-hidden="true">
-        <li><b>Mo</b><span></span><span class="frei"></span><span></span></li>
-        <li><b>Di</b><span class="frei"></span><span></span><span class="frei"></span></li>
-        <li><b>Mi</b><span></span><span></span><span></span></li>
-        <li><b>Do</b><span class="frei"></span><span class="frei"></span><span></span></li>
-        <li><b>Fr</b><span class="frei"></span><span></span></li>
+        <li><b>Mo</b><span class="belegt"></span><span class="frei"></span><span class="belegt"></span></li>
+        <li><b>Di</b><span class="frei"></span><span class="belegt"></span><span class="frei"></span></li>
+        <li><b>Mi</b><span class="belegt"></span><span class="belegt"></span><span class="belegt"></span></li>
+        <li><b>Do</b><span class="frei"></span><span class="frei"></span><span class="belegt"></span></li>
+        <li><b>Fr</b><span class="frei"></span><span class="belegt"></span></li>
       </ul>
       <p><a class="knopf knopf-voll" href="${esc(P.termin_link)}" rel="noopener"${pr('Platzhalter: Cal.com-Link der echten Praxis eintragen')}>${icon('kalender')}Freie Termine ansehen</a></p>
     </div>

@@ -37,3 +37,34 @@ Stand 2026-09-28. Seite: `showcase/hell/` (Inhalte `inhalt.json`, gebaut mit `no
 
 - `theme-color` steht in `bauen.mjs` fest (#f6f0e7) und folgt dem Schema nicht.
 - Firefox/Safari ohne Scroll-Timeline: kein Einblenden (bewusst), Menü ohne `@starting-style` öffnet ohne Animation.
+
+## Nachbesserung nach der Zweitnote (W2 und W6 waren 3)
+
+Der Gutachter fand die Lot-Idee gut, aber die Umsetzung „Creme, Serif-Headline, runde Knöpfe“ austauschbar, und er
+konnte Hover/Fokus/Aktiv an Standbildern nicht beurteilen. Daraus:
+
+- **Ein Motiv wird erst durch die Struktur eigenständig, nicht durch Illustrationen.** Das Lot ist jetzt die
+  senkrechte Achse der ganzen Seite: eine durchgehende Linie auf der linken Kante der Hülle
+  (`main { background: linear-gradient(…) var(--achse-x) 0 / 1px 100% no-repeat }` mit
+  `--achse-x: max(1.25rem, (100% - var(--breite)) / 2)`), an jedem Abschnitt ein Messpunkt plus Nummer
+  (`main > section::before/::after` mit `counter(mass, decimal-leading-zero)`), am Ende der Seite das Lotgewicht
+  (`clip-path: polygon(…)` auf `main::before`). Der Text rückt über `padding-inline-start: var(--einzug)`
+  auf der Hülle von der Achse ab – ein Einzug, der auf allen Seiten gleich ist, macht die Achse erst glaubhaft.
+- **Der Hero misst sich selbst:** je ein Punkt an Überzeile, Überschrift, Fließtext, Knopfzeile und Faktenzeile
+  (`.held-text > *::before`). Damit ist das Motiv auf dem Handy im ersten Bildschirm sichtbar, ohne ein Bild zu laden
+  (LCP bleibt die Überschrift, Lighthouse 100).
+- **Trennlinien als Messmarken:** statt `border-top: 1px solid` eine Lineal-Kante aus zwei Hintergrundebenen –
+  `repeating-linear-gradient(90deg, linie 0 6px, transparent 6px 11px)` plus ein 18 × 2 px Akzentstrich links.
+- **Gleichförmige Reihen auflösen:** die fünf Patientensätze hängen jetzt in fünf verschiedenen Tiefen am Lot
+  (Messstrich zeigt die „Abweichung“), zwei davon groß. Aus fünf gleichen Zeilen wird eine Messreihe.
+- **`attr()` mit `type(<number>)` in `calc()`** ist zu neu (Chrome 133+): brach still ab und alle Tiefen waren 0.
+  Zahlen aus Attributen lieber über `[data-tiefe="2"] { --tiefe: … }` setzen.
+- **Zustände selbst belegen:** Tastaturfokus lässt sich in Playwright erzwingen mit `keyboard.press('Tab')`
+  (setzt den Tastatur-Modus), danach `el.focus()`; `el.matches(':focus-visible')` bestätigt es. Ausschnitt über
+  `boundingBox()` als Beleg speichern (`showcase/hell/screenshots/zustaende-*.png`).
+- **Kontrast messen statt schätzen:** Im Browser jeden Knoten mit eigenem Text durchgehen, den wirksamen
+  Hintergrund über die Vorfahren suchen und das Verhältnis rechnen. Achtung: `color-mix()` kommt als
+  `color(srgb 0.51 0.47 0.42)` zurück – Werte 0…1, nicht 0…255. Wer das übersieht, misst Traumwerte.
+- **Fläche auf Fläche:** Beige auf Beige hat nur 1,1:1. Das ist als Dekoration erlaubt, aber sobald eine Fläche
+  etwas bedeutet (belegt/frei), braucht sie ≥ 3:1 – hier über `color-mix(in srgb, var(--farbe-leise) 72%, …)`
+  und eine Legende in Worten, nicht nur Farbe.

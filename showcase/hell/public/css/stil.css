@@ -20,23 +20,57 @@ h3 { font-size: clamp(1.3rem, 1.15rem + .5vw, 1.6rem); letter-spacing: -.01em; }
 h1 em, h2 em { font-style: italic; font-weight: 360; color: var(--farbe-akzent); }
 p { margin: 0; }
 a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-offset: .2em; }
-:focus-visible { outline: 3px solid var(--farbe-akzent); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--farbe-akzent); outline-offset: 3px; border-radius: 4px; box-shadow: 0 0 0 6px color-mix(in srgb, var(--farbe-akzent) 18%, transparent); }
+.knopf-voll:focus-visible, .schnell a:focus-visible { outline-color: var(--farbe-text); box-shadow: 0 0 0 6px color-mix(in srgb, var(--farbe-text) 22%, transparent); }
 [hidden] { display: none !important; }
 .nur-lesbar { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .ic { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-.huelle { width: min(100% - 2.5rem, 78rem); margin-inline: auto; }
-.huelle.schmal { width: min(100% - 2.5rem, 46rem); }
+:root {
+  --breite: 84rem;
+  /* Einzug = Abstand von der Lot-Achse zum Text. Die Achse liegt auf der linken Kante der Hülle. */
+  --einzug: clamp(2.1rem, .9rem + 4.2vw, 5.5rem);
+  /* Von der Marke abgeleitet: Linie mit mindestens 3:1 gegen den Grund (gemessen), für Messmarken und Umrisse */
+  --linie-kraeftig: color-mix(in srgb, var(--farbe-leise) 78%, var(--farbe-grund));
+  --achse-x: max(1.25rem, (100% - var(--breite)) / 2);
+}
+.huelle { width: min(100% - 2.5rem, var(--breite)); margin-inline: auto; padding-inline-start: var(--einzug); }
+.huelle.schmal { width: min(100% - 2.5rem, calc(46rem + var(--einzug))); }
+
+/* ---------- Die Lot-Achse: trägt die ganze Seite ----------
+   Eine durchgehende senkrechte Linie auf der linken Kante der Hülle, an jedem Abschnitt ein Messpunkt
+   mit Nummer, am Ende der Seite das Lotgewicht. Alles nur aus Hintergrund und Pseudo-Elementen. */
+main { position: relative; counter-reset: mass;
+  background: linear-gradient(var(--farbe-linie), var(--farbe-linie)) var(--achse-x) 0 / 1px 100% no-repeat; }
+main > section { position: relative; --oben: var(--abstand-abschnitt); }
+main > section.held::before { content: none; }
+main > section::before {
+  content: ""; position: absolute; top: var(--oben); left: calc(var(--achse-x) - 4.5px);
+  width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--farbe-akzent); background: var(--farbe-grund);
+}
+main > section:not(.held)::after {
+  counter-increment: mass; content: counter(mass, decimal-leading-zero);
+  position: absolute; top: calc(var(--oben) - .1rem); left: calc(var(--achse-x) + .75rem);
+  font: 600 .7rem/1 var(--schrift-text); letter-spacing: .1em; color: var(--farbe-leise);
+}
+@media (max-width: 30rem) { main > section:not(.held)::after { content: none; } }
+/* Abschnitte mit eigener großer Nummer (Leistungsgruppen) bekommen an der Achse nur den Punkt */
+main > section.gruppe::after, main > section.fragen::after { content: none; }
+/* Lotgewicht am Ende der Achse */
+main::before {
+  content: ""; position: absolute; bottom: 0; left: calc(var(--achse-x) - 6px);
+  width: 13px; height: 17px; background: var(--farbe-akzent);
+  clip-path: polygon(50% 100%, 0 38%, 50% 0, 100% 38%);
+}
 .abschnitt { padding-block: var(--abstand-abschnitt); overflow-x: clip; }
 
 .sprung { position: absolute; left: 1rem; top: -5rem; z-index: 50; background: var(--farbe-akzent); color: var(--farbe-auf-akzent); padding: .8rem 1.1rem; border-radius: var(--radius-klein); }
 .sprung:focus { top: 1rem; }
 
 /* Überzeile mit kleinem Lot: das Leitmotiv im Kleinen */
-.ueberzeile { display: flex; align-items: center; gap: .6rem; font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-leise); margin-bottom: 1.4rem; }
-.ueber-lot { width: .7rem; height: 1rem; flex: none; stroke: var(--farbe-akzent); stroke-width: 2; fill: none; }
-.ueber-lot .voll, .marke-lot .voll { fill: var(--farbe-akzent); stroke: none; }
+.ueberzeile { font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-leise); margin-bottom: 1.4rem; }
+.marke-lot .voll { fill: var(--farbe-akzent); stroke: none; }
 
 /* ---------- Demo-Band ---------- */
 .demo-band { margin: 0; display: flex; justify-content: center; align-items: center; gap: .6rem; padding: .5rem 1.25rem; background: var(--farbe-text); color: var(--farbe-grund); font-size: .875rem; line-height: 1.35; text-align: center; }
@@ -103,7 +137,16 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 .held { padding-block: clamp(1.5rem, 4vw, 4.5rem) clamp(3.5rem, 7vw, 6.5rem); overflow-x: clip; }
 .held-raster { display: grid; gap: clamp(2.5rem, 5vw, 4rem); grid-template-columns: minmax(0, 1fr); align-items: center; }
 @media (min-width: 56rem) { .held-raster { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); } }
+.held { --oben: clamp(1.5rem, 4vw, 4.5rem); }
 .held h1 { margin-bottom: 1.6rem; }
+/* Der Hero-Text wird selbst am Lot gemessen: ein Punkt je Zeile des Aufbaus. */
+.held-text > * { position: relative; }
+.held-text > *::before {
+  content: ""; position: absolute; top: .5em; left: calc(-1 * var(--einzug) - 3.5px);
+  width: 7px; height: 7px; border-radius: 50%; background: var(--farbe-akzent);
+}
+.held-text > .ueberzeile::before { top: .15em; }
+.held-text > .aktionen::before { top: 1.4rem; }
 .held-lead { font-size: clamp(1.1rem, 1rem + .35vw, 1.3rem); line-height: 1.6; color: var(--farbe-leise); max-width: 36em; }
 .seitenkopf .held-lead { max-width: 40em; }
 .aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.6rem; margin-top: 2.2rem; }
@@ -111,11 +154,13 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
   background: linear-gradient(var(--farbe-akzent), var(--farbe-akzent)) 0 100% / 0 1.5px no-repeat, linear-gradient(var(--farbe-linie), var(--farbe-linie)) 0 100% / 100% 1.5px no-repeat;
   transition: background-size var(--tempo-mittel) var(--kurve-standard); }
 @media (hover: hover) and (pointer: fine) { .tel-gross:hover { background-size: 100% 1.5px, 100% 1.5px; } }
-.held-fakten { list-style: none; margin: 2.4rem 0 0; padding: 1.1rem 0 0; border-top: 1px solid var(--farbe-linie); display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; color: var(--farbe-leise); font-size: .95rem; }
+.held-fakten { list-style: none; margin: 2.4rem 0 0; padding: 1.1rem 0 0;
+  background: repeating-linear-gradient(90deg, var(--farbe-linie) 0 6px, transparent 6px 11px) top left / 100% 1px no-repeat,
+              linear-gradient(var(--farbe-akzent), var(--farbe-akzent)) top left / 18px 2px no-repeat; display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; color: var(--farbe-leise); font-size: .95rem; }
 .held-fakten li { display: flex; align-items: center; min-height: 44px; }
 .held-fakten a { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; color: inherit; }
 
-.held-bild { position: relative; background: var(--farbe-flaeche); border-radius: var(--radius-gross); padding: clamp(1rem, 3vw, 2rem) clamp(.75rem, 2vw, 1.5rem) 1.1rem; }
+.held-bild { position: relative; background: var(--farbe-flaeche); border: 1px solid var(--linie-kraeftig); border-radius: var(--radius-gross); padding: clamp(1rem, 3vw, 2rem) clamp(.75rem, 2vw, 1.5rem) 1.1rem; }
 .held-bild figcaption, .raum-plan figcaption { font-size: .875rem; color: var(--farbe-leise); text-align: center; margin-top: .6rem; }
 .lot { width: 100%; height: auto; aspect-ratio: 420 / 600; max-height: min(74vh, 40rem); margin-inline: auto; overflow: visible; }
 .lot-raster path { stroke: var(--farbe-linie); stroke-width: 1; fill: none; stroke-dasharray: 1 7; stroke-linecap: round; }
@@ -135,7 +180,7 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 
 /* ---------- Ablauf: Zeitband 45 Minuten ---------- */
 .zeitband { display: grid; grid-template-columns: 10fr 10fr 20fr 5fr; gap: 4px; }
-.zeit-seg { display: flex; align-items: flex-end; min-height: 4.2rem; padding: .6rem .7rem; background: var(--farbe-flaeche); border-top: 3px solid var(--farbe-akzent); font-size: .85rem; color: var(--farbe-leise); white-space: nowrap; overflow: hidden; transform-origin: left; }
+.zeit-seg { display: flex; align-items: flex-end; min-height: 4.2rem; padding: .6rem .7rem; background: var(--farbe-flaeche); border-top: 3px solid var(--farbe-akzent); border-left: 1px solid var(--linie-kraeftig); font-size: .85rem; color: var(--farbe-leise); white-space: nowrap; overflow: hidden; transform-origin: left; }
 .zeit-seg b { font: 500 1.1rem var(--schrift-display); color: var(--farbe-text); margin-right: .35rem; }
 .zeit-seg.m5 { padding-inline: .45rem; }
 .zeit-seg.m5 span { display: none; }
@@ -149,7 +194,9 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 .schritte { list-style: none; margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0; display: grid; gap: 2.2rem 2.5rem; grid-template-columns: minmax(0, 1fr); counter-reset: s; }
 @media (min-width: 40rem) { .schritte { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 64rem) { .schritte { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.schritt { border-top: 1px solid var(--farbe-linie); padding-top: 1.1rem; }
+.schritt { padding-top: 1.1rem;
+  background: repeating-linear-gradient(90deg, var(--farbe-linie) 0 6px, transparent 6px 11px) top left / 100% 1px no-repeat,
+              linear-gradient(var(--farbe-akzent), var(--farbe-akzent)) top left / 18px 2px no-repeat; }
 .schritt-nr { font: 500 1rem var(--schrift-display); color: var(--farbe-akzent); margin-bottom: .6rem; }
 .schritt-nr span { font: 500 .85rem var(--schrift-text); color: var(--farbe-leise); }
 .schritt h3 { margin-bottom: .6rem; }
@@ -161,10 +208,27 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
   .gruende-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
   .gruende-kopf { position: sticky; top: 7rem; margin-bottom: 0; }
 }
-.saetze { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--farbe-linie); }
-.saetze li { border-bottom: 1px solid var(--farbe-linie); }
-.saetze a { display: grid; gap: .7rem; padding: 1.6rem 0 1.5rem; text-decoration: none; color: var(--farbe-text); }
-.satz { font: 380 clamp(1.45rem, 1.1rem + 1.4vw, 2.3rem)/1.18 var(--schrift-display); letter-spacing: -.015em; text-wrap: balance; transition: transform var(--tempo-mittel) var(--kurve-standard); }
+.gruende-hinweis { margin-top: clamp(2rem, 6vw, 4.5rem); padding-top: 1.1rem; max-width: 26em; color: var(--farbe-leise); font-size: .95rem;
+  background: repeating-linear-gradient(90deg, var(--farbe-linie) 0 6px, transparent 6px 11px) top left / 100% 1px no-repeat,
+              linear-gradient(var(--farbe-akzent), var(--farbe-akzent)) top left / 18px 2px no-repeat; }
+.tel-zeile { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-weight: 600; white-space: nowrap; }
+.saetze { list-style: none; margin: 0; padding: 0; }
+/* Jeder Satz hängt in einer anderen Tiefe am Lot – der Strich davor zeigt die Abweichung. */
+.saetze li { --schritt: clamp(.45rem, 1.6vw, 1.1rem); --tiefe: 0rem; position: relative; }
+.saetze [data-tiefe="1"] { --tiefe: var(--schritt); }
+.saetze [data-tiefe="2"] { --tiefe: calc(2 * var(--schritt)); }
+.saetze [data-tiefe="3"] { --tiefe: calc(3 * var(--schritt)); }
+.saetze [data-tiefe="4"] { --tiefe: calc(4 * var(--schritt)); }
+.saetze li + li { margin-top: .2rem; }
+.saetze a { display: grid; gap: .5rem; padding: 1.1rem 0 1.1rem calc(var(--tiefe) + 2.6rem); text-decoration: none; color: var(--farbe-leise); }
+.saetze a::before { content: ""; position: absolute; left: 0; top: 2.05rem; width: calc(var(--tiefe) + 2rem); height: 1px; background: var(--farbe-linie); }
+.saetze a::after { content: ""; position: absolute; left: 0; top: 1.75rem; width: 1px; height: .6rem; background: var(--linie-kraeftig); }
+.saetze .gross a { color: var(--farbe-text); }
+.satz { font: 380 clamp(1.15rem, 1.02rem + .55vw, 1.6rem)/1.22 var(--schrift-display); letter-spacing: -.01em; text-wrap: balance; transition: transform var(--tempo-mittel) var(--kurve-standard); }
+.gross .satz { font-size: clamp(1.55rem, 1.15rem + 1.8vw, 2.6rem); line-height: 1.14; }
+.gross a { padding-block: 1.5rem; }
+.gross a::before { top: 2.5rem; background: var(--linie-kraeftig); }
+.gross a::after { top: 2.2rem; height: .75rem; }
 .satz-ziel { display: inline-flex; align-items: center; gap: .45rem; font-size: .92rem; font-weight: 600; color: var(--farbe-akzent); }
 .satz-ziel .ic { transition: transform var(--tempo-kurz) var(--kurve-standard); }
 @media (hover: hover) and (pointer: fine) {
@@ -176,7 +240,7 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 /* ---------- Praxis: Grundriss ---------- */
 .raum-raster, .plan-raster { display: grid; gap: clamp(2.5rem, 5vw, 5rem); grid-template-columns: minmax(0, 1fr); align-items: center; }
 @media (min-width: 60rem) { .raum-raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .plan-raster { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); } }
-.raum-plan { background: var(--farbe-flaeche); border-radius: var(--radius-gross); padding: clamp(1rem, 3vw, 2.5rem); }
+.raum-plan { background: var(--farbe-flaeche); border: 1px solid var(--linie-kraeftig); border-radius: var(--radius-gross); padding: clamp(1rem, 3vw, 2.5rem); }
 .grundriss { width: 100%; height: auto; aspect-ratio: 3 / 2; overflow: visible; }
 .gr-waende path { stroke: var(--farbe-text); stroke-width: 5; fill: none; stroke-linecap: square; }
 .gr-tueren path { stroke: var(--farbe-leise); stroke-width: 1; fill: none; stroke-dasharray: 3 4; }
@@ -243,11 +307,15 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 
 .faq details { border-top: 1px solid var(--farbe-linie); }
 .faq details:last-child { border-bottom: 1px solid var(--farbe-linie); }
-.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 64px; padding: 1rem 0; cursor: pointer; list-style: none; font: 420 clamp(1.2rem, 1.05rem + .5vw, 1.5rem)/1.25 var(--schrift-display); }
+.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 64px; padding: 1rem .9rem; margin-inline: -.9rem; border-radius: var(--radius-klein); cursor: pointer; list-style: none; font: 420 clamp(1.2rem, 1.05rem + .5vw, 1.5rem)/1.25 var(--schrift-display); transition: background-color var(--tempo-kurz) var(--kurve-standard); }
+@media (hover: hover) and (pointer: fine) { .faq summary:hover { background: var(--farbe-flaeche); } }
+.faq summary:active { background: var(--farbe-flaeche); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: ""; flex: none; width: 14px; height: 14px; background: linear-gradient(currentColor, currentColor) center / 100% 1.6px no-repeat, linear-gradient(currentColor, currentColor) center / 1.6px 100% no-repeat; color: var(--farbe-akzent); transition: transform var(--tempo-mittel) var(--kurve-standard); }
+.faq summary::after { content: ""; flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--farbe-akzent); color: var(--farbe-akzent);
+  background: linear-gradient(currentColor, currentColor) center / 15px 2px no-repeat, linear-gradient(currentColor, currentColor) center / 2px 15px no-repeat;
+  transition: transform var(--tempo-mittel) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard); }
 .faq details[open] summary::after { transform: rotate(45deg); }
-.faq details p { padding-bottom: 1.4rem; color: var(--farbe-leise); max-width: 38em; }
+.faq details p { padding-bottom: 1.4rem; padding-top: .2rem; color: var(--farbe-leise); max-width: 38em; }
 @supports (interpolate-size: allow-keywords) {
   .faq { interpolate-size: allow-keywords; }
   .faq details::details-content { block-size: 0; overflow: clip; transition: block-size var(--tempo-mittel) var(--kurve-sanft), content-visibility var(--tempo-mittel) allow-discrete; }
@@ -279,8 +347,8 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 .wege-raster { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 60rem) { .wege-raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: stretch; } }
 .weg { border-radius: var(--radius-gross); padding: clamp(1.6rem, 4vw, 3rem); scroll-margin-top: 6rem; }
-.weg-online { background: var(--farbe-flaeche); }
-.weg-telefon { border: 1px solid var(--farbe-linie); }
+.weg-online { background: var(--farbe-flaeche); border: 1px solid var(--linie-kraeftig); }
+.weg-telefon { border: 1px solid var(--linie-kraeftig); }
 .weg-nr { font: 400 1rem var(--schrift-display); color: var(--farbe-akzent); margin-bottom: 1rem; }
 .weg h2 { margin-bottom: 1rem; font-size: clamp(1.9rem, 1.4rem + 2vw, 3rem); }
 .weg > p:not(.weg-nr) { color: var(--farbe-leise); margin-bottom: 1.6rem; max-width: 34em; }
@@ -288,8 +356,15 @@ a { color: var(--farbe-akzent); text-decoration-thickness: 1px; text-underline-o
 .woche { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .5rem; max-width: 26rem; }
 .woche li { display: grid; gap: .35rem; }
 .woche b { font: 600 .8rem var(--schrift-text); color: var(--farbe-leise); letter-spacing: .06em; }
-.woche span { height: 1.4rem; border-radius: 6px; background: color-mix(in srgb, var(--farbe-linie) 55%, var(--farbe-flaeche)); }
+.woche span { height: 1.4rem; border-radius: 6px; }
+.woche .belegt { background: color-mix(in srgb, var(--farbe-leise) 72%, var(--farbe-flaeche)); }
 .woche .frei { background: var(--farbe-grund); border: 1.5px solid var(--farbe-akzent); }
+.woche-legende { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; font-size: .85rem; color: var(--farbe-leise); margin-bottom: .9rem; }
+.woche-legende span { display: inline-flex; align-items: center; gap: .45rem; }
+.woche-legende span::before { content: ""; width: 1.1rem; height: 1.1rem; border-radius: 4px; }
+.w-frei::before { background: var(--farbe-grund); border: 1.5px solid var(--farbe-akzent); }
+.w-belegt::before { background: color-mix(in srgb, var(--farbe-leise) 72%, var(--farbe-flaeche)); }
+.w-hinweis::before { display: none; }
 .infos-raster { gap: 3rem 4rem; }
 @media (min-width: 60rem) { .infos-raster { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .info-block h2 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); margin-bottom: 1.2rem; }
