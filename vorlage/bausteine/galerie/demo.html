@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Galerie – Baustein-Demo</title>
+<meta name="description" content="Wisch-Streifen mit scroll-snap und Großansicht im nativen dialog.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="galerie.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="galerie.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <nav class="nav" aria-label="Bausteine">
+      <ul>
+        <li><a href="../index.html">Übersicht</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel">Galerie</h1>
+        <p>Auf dem Handy ein Wisch-Streifen, der einrastet. Ein Tipp öffnet die Großansicht: wischen, Pfeiltasten, Escape. Ohne JavaScript öffnet der Link die große Bilddatei.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" aria-labelledby="t-galerie">
+    <div class="huelle galerie">
+      <div class="galerie-leiste">
+        <h2 id="t-galerie">Einblicke</h2>
+        <div class="galerie-knoepfe">
+          <button class="galerie-knopf" type="button" data-galerie="zurueck" aria-label="Vorherige Bilder">←</button>
+          <button class="galerie-knopf" type="button" data-galerie="weiter" aria-label="Nächste Bilder">→</button>
+        </div>
+      </div>
+      <ul class="galerie-streifen">
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-1-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-1-640.webp" srcset="medien/bild-1-640.webp 640w, medien/bild-1-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 1" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 1 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-2-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-2-640.webp" srcset="medien/bild-2-640.webp 640w, medien/bild-2-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 2" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 2 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-3-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-3-640.webp" srcset="medien/bild-3-640.webp 640w, medien/bild-3-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 3" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 3 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-4-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-4-640.webp" srcset="medien/bild-4-640.webp 640w, medien/bild-4-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 4" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 4 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-5-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-5-640.webp" srcset="medien/bild-5-640.webp 640w, medien/bild-5-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 5" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 5 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <a class="galerie-bild" href="medien/bild-6-1280.webp" data-breite="1280" data-hoehe="960"><img src="medien/bild-6-640.webp" srcset="medien/bild-6-640.webp 640w, medien/bild-6-1280.webp 1280w" sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 80vw" width="640" height="480" alt="Platzhalterbild 6" loading="lazy" decoding="async"></a>
+            <figcaption>Platzhalter 6 – Foto vom Kunden</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <dialog class="galerie-dialog" aria-label="Großansicht">
+        <img src="medien/bild-1-1280.webp" width="1280" height="960" alt="">
+        <div class="galerie-dialog-fuss">
+          <button class="galerie-knopf" type="button" data-dialog="zurueck" aria-label="Vorheriges Bild">←</button>
+          <p class="galerie-zaehler" aria-live="polite">01 / 06</p>
+          <div class="galerie-knoepfe">
+            <button class="galerie-knopf" type="button" data-dialog="weiter" aria-label="Nächstes Bild">→</button>
+            <button class="galerie-knopf" type="button" data-dialog="zu" aria-label="Großansicht schließen">×</button>
+          </div>
+        </div>
+      </dialog>
+    </div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>

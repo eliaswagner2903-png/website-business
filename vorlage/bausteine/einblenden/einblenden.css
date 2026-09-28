@@ -1,0 +1,22 @@
+/* ---------- Baustein: einblenden ----------
+   Elemente mit class="einblenden" gleiten beim Hereinscrollen 24 px hoch und werden sichtbar.
+   1. Wahl: CSS-Scroll-Timeline (ohne JS). 2. Wahl: einblenden.js mit IntersectionObserver.
+   Bewegt wird die Eigenschaft `translate` (nicht `transform`): Hover-Transforms bleiben frei.
+   Was beim Laden schon ganz im Bild ist, bleibt unverändert sichtbar (Bereich endet bei „entry 100 %“). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not(.einblenden-rueckfall) .einblenden {
+      animation: einblenden-auf var(--kurve-standard) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 100%;
+    }
+  }
+  .js .einblenden--wartet { opacity: 0; translate: 0 24px; }
+  .js .einblenden--los {
+    transition: opacity var(--tempo-lang) var(--kurve-standard), translate var(--tempo-lang) var(--kurve-standard);
+  }
+}
+@keyframes einblenden-auf {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
