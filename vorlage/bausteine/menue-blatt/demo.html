@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menü-Blatt – Baustein-Demo</title>
+<meta name="description" content="Handy-Menü als Blatt von unten, ohne JavaScript als Zeile erreichbar.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="menue-blatt.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="menue-blatt.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+    <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#eins">Abschnitt eins</a></li>
+        <li><a href="#zwei">Abschnitt zwei</a></li>
+        <li><a href="../index.html">Alle Bausteine</a></li>
+        <li><a class="knopf" href="#zwei">Termin buchen</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel">Menü-Blatt</h1>
+        <p>Auf dem Handy (unter 768 px) öffnet „Menü“ ein Blatt von unten: 0,85 s sanft auf, 0,42 s zu. Escape, Tipp auf den Schleier oder Wischen nach unten schließen es. Am Computer steht die Navigation als Zeile im Kopf.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" id="eins" aria-labelledby="t-eins"><div class="huelle"><h2 id="t-eins">Abschnitt eins</h2><p>Solange das Blatt offen ist, ist alles andere inert: Tab bleibt im Blatt.</p></div></section>
+  <section class="abschnitt" id="zwei" aria-labelledby="t-zwei"><div class="huelle"><h2 id="t-zwei">Abschnitt zwei</h2><p>Ein Link im Blatt schließt es und springt hierher.</p></div></section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>
