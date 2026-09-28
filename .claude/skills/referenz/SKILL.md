@@ -15,4 +15,7 @@ description: Einen Aufklärungsbericht über eine fremde Website (z. B. von Hfw 
 4. Jedes Muster als Zeile in `MUSTER.md` (nächste freie ID `M-###`), Seite in `REFERENZLISTE.md`.
 5. Kleine Regeln sofort ins Ziel übernehmen (`DESIGN-WISSEN.md`, `FEHLER.md`, `MEISTERSTANDARD.md`: nur anhängen,
    Quelle nennen) und Status `drin` setzen. Neue Bausteine als eigenen Auftrag loggen (Status `geplant`).
-6. Dossier nach `ausgewertet/` verschieben, `/sichern`. Dem Nutzer: 3–5 wichtigste Muster in je einem Satz.
+6. Dossier nach `ausgewertet/` verschieben, `/sichern`.
+7. **Meldung an Elias (Pflicht, sofort):** ein Visual (Screenshot der fremden Seite Handy + Computer oder eine
+   Grafik, als Datei unter `/mnt/project-files/referenzen/` bzw. Artifact), die 3–5 wichtigsten Erkenntnisse und die
+   **Top 3 Innovationen/Features** mit je einem Satz, wie wir sie selbst umsetzen.
