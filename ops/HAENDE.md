@@ -4,7 +4,7 @@ Reihenfolge = Priorität. Abgehakt wird hier und im Auftragslog.
 
 ## Sofort (blockiert die Arbeit)
 
-- [ ] **GitHub:** leeres, privates Repo `website-business` anlegen (https://github.com/new, ohne README) und der
+- [x] **GitHub:** leeres, privates Repo `website-business` anlegen (https://github.com/new, ohne README) und der
       Claude-App Zugriff geben (https://github.com/apps/claude/installations/select_target). Dann pushe ich.
 
 ## Front 1 – Website-Erstellung
