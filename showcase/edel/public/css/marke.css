@@ -1,0 +1,69 @@
+/* Marke „Lindgrund“ (ausgedachte Uhrmacherei, Demo). Die ganze Marke steckt in dieser Datei:
+   Farben (Rollen), Schriften, Radien, Tempi, Kurven, Abstände. stil.css verwendet nur diese Variablen.
+   Zweites Schema zum Test der Anpassbarkeit: <html data-marke="elfenbein"> (siehe unten). */
+
+@font-face { font-family: "Marcellus"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/marcellus-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Marcellus"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/marcellus-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/hanken-grotesk-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/hanken-grotesk-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 200 800; font-display: optional;
+  src: url("/fonts/newsreader-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 200 800; font-display: optional;
+  src: url("/fonts/newsreader-latin-wght-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Ersatzschriften mit gemessener Größe, damit beim Tausch nichts springt */
+@font-face { font-family: "Marcellus Ersatz"; src: local("Times New Roman"), local("Liberation Serif"); size-adjust: 111.8%; ascent-override: 90%; descent-override: 22%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken Ersatz"; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 99.9%; }
+@font-face { font-family: "Newsreader Ersatz"; src: local("Georgia"), local("Times New Roman"), local("Liberation Serif"); size-adjust: 105.7%; ascent-override: 96%; descent-override: 26%; line-gap-override: 0%; }
+
+:root {
+  color-scheme: dark;
+  --farbe-grund: #0f0e0c;
+  --farbe-flaeche: #1a1814;
+  --farbe-text: #ece6da;
+  --farbe-leise: #a69e90;
+  --farbe-linie: #3b362e;
+  --farbe-akzent: #d4b37c;
+  --farbe-auf-akzent: #17130d;
+
+  --schrift-display: "Marcellus", "Marcellus Ersatz", "Times New Roman", serif;
+  --schrift-text: "Hanken Grotesk", "Hanken Ersatz", Arial, sans-serif;
+
+  --radius-klein: 2px;
+  --radius-gross: 6px;
+
+  --tempo-kurz: .3s;
+  --tempo-mittel: .8s;
+  --tempo-lang: 1.4s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  --abstand-abschnitt: clamp(88px, 6rem + 5vw, 168px);
+}
+
+/* Newsreader gehört zum zweiten Schema und wird nicht vorgeladen: „optional“ verhindert den späten
+   Schriftwechsel und damit ein Verrutschen des Layouts (CLS). Wer das Schema fest nimmt, lädt sie im Kopf vor. */
+
+/* Zweites Schema (P4-Test): hell, andere Display-Schrift. Aktivieren mit <html data-marke="elfenbein">. */
+:root[data-marke="elfenbein"] {
+  color-scheme: light;
+  --farbe-grund: #f2eee5;
+  --farbe-flaeche: #e6e0d3;
+  --farbe-text: #1c1a16;
+  --farbe-leise: #5e574b;
+  --farbe-linie: #c9c0ae;
+  --farbe-akzent: #6e4f1f;
+  --farbe-auf-akzent: #fbf8f1;
+  --schrift-display: "Newsreader", "Newsreader Ersatz", Georgia, serif;
+}

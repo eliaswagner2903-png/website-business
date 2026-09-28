@@ -1,0 +1,10 @@
+{
+  "name": "Lindgrund Uhrmacherei (ausgedacht, Demo)",
+  "slug": "showcase-edel",
+  "domain": "www.beispiel.de",
+  "paket": "showcase",
+  "ansprechpartner": "",
+  "start": "2026-09-28",
+  "stripe_produkte": [],
+  "offen": ["Demo: Marke, Adresse, Telefon und Preise sind ausgedacht", "Rechtstexte erst bei echter Nutzung aus Generator"]
+}

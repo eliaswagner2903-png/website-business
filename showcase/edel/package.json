@@ -1,0 +1,26 @@
+{
+  "name": "showcase-edel",
+  "private": true,
+  "type": "module",
+  "description": "Showcase „dunkel & edel“: ausgedachte Uhrmacherei Lindgrund (Demo) mit prozeduraler 3D-Uhr.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "html": "html-validate -c ../../werkzeuge/.htmlvalidate.json public/*.html",
+    "kopf": "python3 ../../werkzeuge/kopf-pruefen.py public",
+    "pruefen": "npm test && npm run html && npm run kopf",
+    "dev": "wrangler pages dev public",
+    "deploy": "wrangler pages deploy public",
+    "bauen": "esbuild src/worker.js --bundle --minify --format=esm --target=es2022 --outfile=public/js/uhr-worker.js && esbuild src/haupt.js --bundle --minify --format=esm --target=es2022 --outfile=public/js/uhr-haupt.js"
+  },
+  "devDependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/marcellus": "^5.3.0",
+    "esbuild": "^0.28.2",
+    "html-validate": "^11.16.1",
+    "three": "^0.186.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
