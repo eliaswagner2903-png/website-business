@@ -30,6 +30,6 @@ jobs:
             echo "::endgroup::"
           done
       - name: Auftragslog lesbar
-        run: python3 ops/log.py liste --n 3
+        run: python3 ops/log_vereinen.py --pruefen && python3 ops/log.py liste --n 3
       - name: Wartungsprüfung ist ausführbar
         run: node --check wartung/check.mjs
