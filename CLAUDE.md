@@ -18,6 +18,8 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 4. **Geheimnisse** (Stripe, Resend, Cloudflare) nur als Cloudflare-Secrets oder GitHub-Secrets, nie im Repo, nie im Log.
 5. **Was nur der Nutzer tun kann** (Konten, Schlüssel, Amt, Verträge, Zahlungen) steht in `ops/HAENDE.md`.
 6. Unumkehrbares (Live-Schaltung, Löschen, E-Mails an Kunden, echte Zahlungen) nur auf ausdrückliche Anweisung.
+7. **Higgsfield-Credits** (und jede andere kostenpflichtige Generierung) nur mit ausdrücklicher Erlaubnis von Elias:
+   vorher fragen, was, wie viele Credits ungefähr und wozu. Nur lesende Aufrufe (Guthaben, Modelle) sind frei.
 
 ## Aufbau
 
