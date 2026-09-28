@@ -1,0 +1,14 @@
+{
+  "name": "showcase-laut",
+  "private": true,
+  "type": "module",
+  "description": "Showcase „laut & modern“: Demo-Seite des ausgedachten Motion-Studios Zwischenbild. Statisch, ohne Functions.",
+  "scripts": {
+    "bauen": "node bauen.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "html": "../../werkzeuge/node_modules/.bin/html-validate -c ../../werkzeuge/.htmlvalidate.json public/*.html",
+    "kopf": "python3 ../../werkzeuge/kopf-pruefen.py public",
+    "pruefen": "npm run bauen && npm test && npm run html && npm run kopf"
+  },
+  "engines": { "node": ">=20" }
+}
