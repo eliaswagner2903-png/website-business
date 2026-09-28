@@ -61,3 +61,18 @@ Das Herzstück ist eine prozedural modellierte Armbanduhr (three.js), kein Foto 
   Versal-Überzeilen mit 0,24 em Laufweite tragen den „edel“-Eindruck mehr als jede Farbe.
 - Der Demo-Hinweis wurde **gestaltet** (Band mit Rahmen-Etikett oben, Absatz im Fuß) statt als Warnung – so stört er
   den Eindruck nicht und ist trotzdem auf jedem Bildschirm da.
+
+## 5. Nachbesserung nach der Zweitnote (A-032, W5 = 2, W6 = 3)
+
+| Befund | Ursache | Regel |
+|---|---|---|
+| Bildfolge des Zifferblatt-Wechsels zeigte nur die Liste | Ausschnitt war der Bildschirm nach dem Klick; die Uhr lag darüber | Bildfolgen mit **gezieltem Ausschnitt** (Bild + Auslöser zusammen), Abschnitt vorher so scrollen, dass beides im Bild ist; bei Radien/Masken den berechneten Wert (`getComputedStyle(...).clipPath`) je Zeitpunkt mitschreiben |
+| Übergang Poster → Szene belegt keine Bewegung | er ist absichtlich unsichtbar | langsame Bewegung als **Einzelbilder über Sekunden** belegen und die mittlere Pixelabweichung zum ersten Bild daneben schreiben (Zahl statt Behauptung) |
+| Fokusbild Telefon war schwarz | erster `a[href^="tel:"]` war der versteckte in der Handyleiste | Zustands-Skripte nur mit `locator(sel).locator('visible=true')`; `Tab` vor `focus()` fokussiert den Skip-Link und scrollt nach oben → stattdessen `keyboard.press('Shift')` und `el.focus()`; `scroll-behavior` im Test per `style` auf `auto` (CSP verbietet `addStyleTag`) |
+| Hover/Aktiv kaum vom Ruhezustand zu unterscheiden | nur 2 px Verschiebung und 16 % Farbmischung | Hover: deutlich heller (+20 % Weiß) **und** feine Linie unter der Schrift (`::after`, `scaleX`); Aktiv: `scale(.975)`, 24 % dunkler, Übergang 80 ms; Fokus: Ring mit 4 px Abstand. Alle vier Zustände nebeneinander aufnehmen |
+| Kreis des Zifferblatt-Wechsels öffnete sich neben der Zeigerachse | Mitte `52% 50%` geschätzt | Mitte aus dem Standbild messen (`--mitte`), auf dem Handy mit `object-fit: contain` umrechnen; Endradius so wählen, dass die entfernteste Ecke gedeckt ist (hier 85 %) |
+
+**Ladezustand der 3D-Szene – bewusst kein Hinweis:** Das Poster ist mit dem ersten 3D-Bild deckungsgleich und
+vollwertig. Ein Lade-Symbol würde fehlenden Inhalt vortäuschen und bliebe dort, wo die Szene nie startet
+(„Bewegung reduzieren“, „Daten sparen“, kein WebGL), für immer stehen. Der Zustand steckt leise im Punkt der
+Bildunterschrift: leer = Standbild, golden = Szene läuft (Beleg `zustaende-3d-laedt.png`).

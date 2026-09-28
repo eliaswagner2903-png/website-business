@@ -37,19 +37,33 @@ p { margin: 0 0 1em; }
     repeating-linear-gradient(90deg, var(--farbe-linie) 0 1px, transparent 1px 12px) 0 100% / 100% 7px no-repeat;
 }
 
-/* Knöpfe */
+/* Knöpfe – vier klar getrennte Zustände:
+   Ruhe: goldene Fläche. Hover (nur Maus): heller, eine feine Linie läuft unter der Schrift auf.
+   Aktiv: drückt sich ein (kleiner, dunkler, kurz). Fokus: Ring mit Abstand in der Akzentfarbe. */
 .knopf {
+  position: relative; isolation: isolate;
   display: inline-flex; align-items: center; justify-content: center; gap: .6em; min-height: 50px; padding: 0 26px;
   background: var(--farbe-akzent); color: var(--farbe-auf-akzent); border: 1px solid var(--farbe-akzent); border-radius: var(--radius-klein);
   font: 600 .8rem/1.2 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer;
   transition: transform var(--tempo-kurz) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard);
 }
+.knopf::after {
+  content: ""; position: absolute; left: 22px; right: 22px; bottom: 11px; height: 1px; background: currentColor; opacity: .55;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-standard);
+}
 .knopf--rahmen { background: none; color: var(--farbe-text); border-color: var(--farbe-linie); }
-.knopf:active { transform: translateY(1px) scale(.985); }
+.knopf:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 4px; }
+.knopf:active { transform: scale(.975); background: color-mix(in oklab, var(--farbe-akzent) 76%, #000); border-color: color-mix(in oklab, var(--farbe-akzent) 76%, #000); transition-duration: .08s; }
+.knopf--rahmen:active { background: color-mix(in oklab, var(--farbe-flaeche) 60%, #000); border-color: var(--farbe-akzent); color: var(--farbe-akzent); }
 .knopf[disabled] { cursor: progress; opacity: .7; }
 @media (hover: hover) and (pointer: fine) {
-  .knopf:hover { transform: translateY(-2px); background: color-mix(in oklab, var(--farbe-akzent) 84%, var(--farbe-text)); }
-  .knopf--rahmen:hover { background: none; border-color: var(--farbe-akzent); color: var(--farbe-akzent); }
+  .knopf:hover { background: color-mix(in oklab, var(--farbe-akzent) 80%, #fff); border-color: color-mix(in oklab, var(--farbe-akzent) 80%, #fff); }
+  .knopf:hover::after { transform: scaleX(1); }
+  .knopf--rahmen:hover { background: color-mix(in oklab, var(--farbe-akzent) 8%, transparent); border-color: var(--farbe-akzent); color: var(--farbe-akzent); }
+  .knopf:active { background: color-mix(in oklab, var(--farbe-akzent) 76%, #000); border-color: color-mix(in oklab, var(--farbe-akzent) 76%, #000); }
+  .knopf--rahmen:active { background: color-mix(in oklab, var(--farbe-flaeche) 60%, #000); border-color: var(--farbe-akzent); }
+  .knopf[disabled]:hover { background: var(--farbe-akzent); }
+  .knopf[disabled]:hover::after { transform: scaleX(0); }
 }
 
 /* Demo-Band */
@@ -90,6 +104,8 @@ p { margin: 0 0 1em; }
 .held__raster { display: grid; gap: 0; }
 .held h1 { font-size: clamp(2.2rem, 1.1rem + 4.6vw, 4.7rem); line-height: 1.06; letter-spacing: .012em; max-width: 13ch; margin-bottom: 22px; }
 .held__intro { color: var(--farbe-leise); max-width: 44ch; font-size: 1.0625rem; }
+.held__fuer { max-width: 40ch; margin: 0; padding-left: 16px; border-left: 1px solid var(--farbe-akzent); font-size: 1.0625rem; line-height: 1.55; }
+.held__fuer-label { display: block; margin-bottom: 2px; font-size: .7rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--farbe-akzent); }
 .aktionen { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 @media (max-width: 480px) { .aktionen .knopf { padding: 0 18px; letter-spacing: .12em; } }
 .buehne { position: relative; margin-top: -28px; }
@@ -189,17 +205,18 @@ p { margin: 0 0 1em; }
 /* Modelle */
 .modelle__raster { display: grid; gap: 32px; }
 .modelle__kopf h2 { margin-bottom: 0; }
-.modelle__bilder { position: relative; aspect-ratio: 1; }
-.modell-bild { position: absolute; inset: 0; z-index: 1; clip-path: circle(0% at 52% 50%); transition: clip-path 0s linear var(--tempo-lang); }
+.modelle__bilder { position: relative; aspect-ratio: 1; --mitte: 57% 42%; }
+/* Der Kreis öffnet sich aus der Zeigerachse des Zifferblatts (--mitte), nicht aus der Bildmitte. */
+.modell-bild { position: absolute; inset: 0; z-index: 1; clip-path: circle(0% at var(--mitte)); transition: clip-path 0s linear var(--tempo-lang); }
 .modell-bild img { width: 100%; height: 100%; }
 .modelle:has([value="tanne"]:checked) .modell-bild--tanne,
 .modelle:has([value="schiefer"]:checked) .modell-bild--schiefer,
-.modelle:has([value="elfenbein"]:checked) .modell-bild--elfenbein { z-index: 2; clip-path: circle(75% at 52% 50%); transition: clip-path var(--tempo-lang) var(--kurve-sanft); }
+.modelle:has([value="elfenbein"]:checked) .modell-bild--elfenbein { z-index: 2; clip-path: circle(85% at var(--mitte)); transition: clip-path var(--tempo-lang) var(--kurve-sanft); }
 @supports not selector(:has(*)) { .modell-bild--tanne { clip-path: none; } }
 @media (max-width: 959px) {
   /* Auf dem Handy flacher, damit Uhr und Auswahl zusammen auf einen Bildschirm passen. */
   .modelle__raster { gap: 20px; }
-  .modelle__bilder { aspect-ratio: 1 / .66; }
+  .modelle__bilder { aspect-ratio: 1 / .66; --mitte: 54.6% 42%; }
   .modell-bild img { object-fit: contain; }
   .wahl__zeile { padding-block: 16px; }
 }
@@ -269,6 +286,7 @@ details p { color: var(--farbe-leise); padding-bottom: 20px; margin: 0; }
   transition: background-size var(--tempo-mittel) var(--kurve-standard);
 }
 .telefon__label { display: block; font: 600 .72rem/1.4 var(--schrift-text); letter-spacing: .24em; text-transform: uppercase; color: var(--farbe-akzent); margin-bottom: 6px; }
+.telefon:focus-visible { outline-offset: 10px; }
 @media (hover: hover) and (pointer: fine) { .telefon:hover { background-size: 100% 1px; } }
 .adresse { font-style: normal; font-size: 1.15rem; margin-bottom: 24px; }
 .zeiten { margin: 0; max-width: 380px; border-top: 1px solid var(--farbe-linie); }
