@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/ops/log.py\" kurz", "timeout": 10 } ] }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [ { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/werkzeuge/hook-pruefen.sh\"", "timeout": 60 } ]
+      }
+    ]
+  }
+}

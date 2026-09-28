@@ -1,0 +1,35 @@
+name: Prüfen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  seiten:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Werkzeuge installieren
+        run: cd werkzeuge && npm install --no-audit --no-fund
+      - name: Vorlage und alle Kundenseiten prüfen
+        run: |
+          set -e
+          for s in vorlage kunden/*/; do
+            [ -f "$s/package.json" ] || continue
+            echo "::group::$s"
+            (cd "$s" && node --test tests/*.test.mjs)
+            werkzeuge/node_modules/.bin/html-validate -c werkzeuge/.htmlvalidate.json "$s"/public/*.html
+            python3 werkzeuge/kopf-pruefen.py "$s/public"
+            echo "::endgroup::"
+          done
+      - name: Auftragslog lesbar
+        run: python3 ops/log.py liste --n 3
+      - name: Wartungsprüfung ist ausführbar
+        run: node --check wartung/check.mjs

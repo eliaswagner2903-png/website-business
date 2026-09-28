@@ -1,0 +1,7 @@
+node_modules/
+werkzeuge/ausgabe/
+.fernspaeher-output/
+.dev.vars
+.wrangler/
+*.log
+.DS_Store

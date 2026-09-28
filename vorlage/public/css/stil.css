@@ -1,0 +1,99 @@
+/* ===== Design-Tokens: hier passt man jede Kundenseite an ===== */
+:root {
+  --grund: #f6f5f2;
+  --flaeche: #ffffff;
+  --text: #1c1f24;
+  --leise: #5b616b;
+  --linie: #d9d6cf;
+  --akzent: #1f5c4a;        /* Hauptfarbe des Kunden */
+  --akzent-text: #ffffff;
+  --schrift-titel: Georgia, "Times New Roman", serif;     /* lokale Schrift per @fontsource ersetzen */
+  --schrift-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius: 10px;
+  --breite: 72rem;
+  --abstand: clamp(3rem, 8vw, 6rem);
+  --kurve: cubic-bezier(.45, .05, .25, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grund: #121417; --flaeche: #1b1e22; --text: #eceae6; --leise: #a3a8b0; --linie: #2e3238;
+    --akzent: #5fb99a; --akzent-text: #0d1512; color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--grund); color: var(--text); font: 1.0625rem/1.65 var(--schrift-text); }
+img, video, svg { max-width: 100%; height: auto; display: block; }
+h1, h2, h3 { font-family: var(--schrift-titel); line-height: 1.15; text-wrap: balance; margin: 0; overflow-wrap: break-word; hyphens: auto; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); }
+h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--akzent); }
+:focus-visible { outline: 3px solid var(--akzent); outline-offset: 3px; }
+figure { margin: 0; }
+
+.huelle { width: min(100% - 2rem, var(--breite)); margin-inline: auto; }
+.sprung { position: absolute; left: 1rem; top: -4rem; background: var(--akzent); color: var(--akzent-text); padding: .75rem 1rem; border-radius: var(--radius); z-index: 10; }
+.sprung:focus { top: 1rem; }
+
+/* Kopfzeile: ohne JS ist die Navigation einfach sichtbar */
+.kopf { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--grund) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linie); }
+.kopf .huelle { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; flex-wrap: wrap; }
+.marke { font: 700 1.25rem var(--schrift-titel); color: var(--text); text-decoration: none; padding-block: .5rem; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .25rem; }
+.nav a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: .75rem; color: var(--text); text-decoration: none; border-radius: var(--radius); }
+.menue-knopf { display: none; }
+@media (max-width: 47.99rem) {
+  .js .menue-knopf { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding-inline: .9rem; font: inherit; background: var(--flaeche); color: var(--text); border: 1px solid var(--linie); border-radius: var(--radius); }
+  .js .nav { flex-basis: 100%; display: none; padding-bottom: .75rem; }
+  .js .nav.offen { display: block; }
+  .js .nav ul { flex-direction: column; }
+}
+
+.knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .75rem 1.4rem; border-radius: var(--radius); font: 600 1rem var(--schrift-text); text-decoration: none; cursor: pointer; border: 2px solid var(--akzent); background: var(--akzent); color: var(--akzent-text); transition: transform .2s var(--kurve); }
+.knopf.zweit { background: transparent; color: var(--akzent); }
+@media (hover: hover) and (pointer: fine) { .knopf:hover { transform: translateY(-2px); } }
+.knopf:active { transform: scale(.98); }
+
+.abschnitt { padding-block: var(--abstand); }
+.abschnitt > .huelle { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+.eyebrow { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--leise); }
+
+.held { padding-block: clamp(3rem, 10vw, 7rem); }
+.held .huelle { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+.held p { font-size: 1.2rem; color: var(--leise); }
+.held .aktionen { display: flex; flex-wrap: wrap; gap: .75rem; }
+/* Platz für Higgsfield-Visual: Poster zuerst (LCP), Video nur ohne „Bewegung reduzieren“ */
+.held-medien { aspect-ratio: 16 / 9; border-radius: calc(var(--radius) * 1.5); overflow: hidden; background: linear-gradient(135deg, var(--akzent), color-mix(in srgb, var(--akzent) 40%, var(--grund))); }
+.held-medien video, .held-medien img { width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: reduce) { .held-medien video { display: none; } }
+
+.raster { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.karte { background: var(--flaeche); border: 1px solid var(--linie); border-radius: var(--radius); padding: 1.5rem; display: grid; gap: .75rem; align-content: start; }
+.preis { font: 700 1.6rem var(--schrift-titel); font-variant-numeric: tabular-nums; }
+.karte form { margin-top: .5rem; }
+
+.formular { display: grid; gap: 1rem; max-width: 40rem; }
+.formular label { display: grid; gap: .35rem; font-weight: 600; }
+.formular input, .formular textarea { font: inherit; padding: .75rem .9rem; min-height: 48px; border: 1px solid var(--linie); border-radius: var(--radius); background: var(--flaeche); color: var(--text); }
+.formular textarea { min-height: 9rem; resize: vertical; }
+.honig { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.hinweis { font-size: .9rem; color: var(--leise); }
+
+.fuss { border-top: 1px solid var(--linie); padding-block: 2rem 6rem; color: var(--leise); }
+.fuss .huelle { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
+.fuss ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.fuss a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Feste Leiste auf dem Handy: das Wichtigste immer erreichbar */
+.schnell { position: fixed; inset: auto 0 0 0; z-index: 6; display: flex; gap: .5rem; padding: .5rem 1rem calc(.5rem + env(safe-area-inset-bottom, 0px)); background: var(--flaeche); border-top: 1px solid var(--linie); }
+.schnell .knopf { flex: 1; }
+@media (min-width: 48rem) { .schnell { display: none; } .fuss { padding-bottom: 2rem; } }
+
+/* Prüfmodus: seite.html#pruefen zeigt alle unbestätigten Angaben */
+.pruefmodus [data-pruefen] { outline: 2px dashed #c0392b; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }

@@ -1,0 +1,6 @@
+{
+  "hinweis": "Jede betreute Seite hier eintragen. aktiv:false pausiert die Prüfung. paket: basis | plus | premium",
+  "kunden": [
+    { "name": "Beispiel (Vorlage)", "slug": "kundenseite", "domain": "www.beispiel.de", "paket": "basis", "aktiv": false }
+  ]
+}

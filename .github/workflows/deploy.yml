@@ -1,0 +1,35 @@
+name: Deploy (manuell)
+
+# Nur nötig, wenn ein Projekt NICHT per Git mit Cloudflare verbunden ist.
+on:
+  workflow_dispatch:
+    inputs:
+      kunde:
+        description: "Ordnername unter kunden/ (slug)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Slug prüfen
+        env:
+          KUNDE: ${{ inputs.kunde }}
+        run: |
+          [[ "$KUNDE" =~ ^[a-z0-9-]+$ ]] && [ -d "kunden/$KUNDE" ] || { echo "Unbekannter Kunde"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tests
+        working-directory: kunden/${{ inputs.kunde }}
+        run: node --test tests/*.test.mjs
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: kunden/${{ inputs.kunde }}
+          command: pages deploy public --project-name=${{ inputs.kunde }}

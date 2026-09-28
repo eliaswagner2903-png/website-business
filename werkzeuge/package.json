@@ -1,0 +1,9 @@
+{
+  "name": "website-business-werkzeuge",
+  "private": true,
+  "description": "Prüfwerkzeuge für alle Kundenseiten. Einmal: cd werkzeuge && npm install",
+  "devDependencies": {
+    "html-validate": "^9.0.0",
+    "lighthouse": "^12.0.0"
+  }
+}
