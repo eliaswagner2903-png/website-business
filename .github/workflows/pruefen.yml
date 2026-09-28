@@ -25,7 +25,7 @@ jobs:
             [ -f "$s/package.json" ] || continue
             echo "::group::$s"
             (cd "$s" && node --test tests/*.test.mjs)
-            werkzeuge/node_modules/.bin/html-validate -c werkzeuge/.htmlvalidate.json "$s"/public/*.html
+            werkzeuge/node_modules/.bin/html-validate -c werkzeuge/.htmlvalidate.json "$s"/public/*.htm*
             python3 werkzeuge/kopf-pruefen.py "$s/public"
             echo "::endgroup::"
           done

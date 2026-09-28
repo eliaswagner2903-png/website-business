@@ -1,0 +1,11 @@
+{
+  "name": "urfa-sofrasi",
+  "private": true,
+  "type": "module",
+  "description": "URFA SOFRASI, Eislingen/Fils – statische Seite auf Cloudflare Pages. Seiten entstehen mit werkzeuge/seiten.py.",
+  "scripts": {
+    "bauen": "python3 werkzeuge/seiten.py",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
