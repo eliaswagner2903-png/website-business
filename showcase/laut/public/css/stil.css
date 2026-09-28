@@ -8,14 +8,16 @@ body {
   font: 400 1.0625rem/1.62 var(--schrift-text); font-stretch: 100%;
   --rand: clamp(1rem, 4vw, 3rem);
   --fokus: var(--farbe-text);
+  --fokus-ring: var(--farbe-akzent);
 }
 img, svg { display: block; max-width: 100%; }
 h1, h2, h3, h4 { margin: 0; font-weight: 700; line-height: 1.1; overflow-wrap: break-word; hyphens: auto; text-wrap: balance; }
 p, ul, ol, dl, dd, figure { margin: 0; }
+p, li, dd { text-wrap: pretty; }
 ul, ol { padding: 0; list-style: none; }
 a { color: inherit; text-underline-offset: .18em; text-decoration-thickness: 2px; }
 code { font: 500 .85em/1.4 var(--schrift-mono); }
-:focus-visible { outline: 3px solid var(--fokus); outline-offset: 3px; border-radius: 2px; }
+:focus-visible { outline: 3px solid var(--fokus-ring); outline-offset: 3px; box-shadow: 0 0 0 6px var(--fokus); }
 [hidden] { display: none !important; }
 .nur-lesbar { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .icon { width: 1.25em; height: 1.25em; flex: none; }
@@ -28,9 +30,15 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 
 /* Kleine Überzeilen in Mono */
 .marke-klein, .werk-meta, .ueberzeile, .zeitleiste figcaption, .schritt-wann, .hinweis, .spur-wert, .demo-band, .kontakt-daten dt, .projekt-fakten dt {
-  font: 500 .78rem/1.4 var(--schrift-mono); letter-spacing: .08em; text-transform: uppercase;
+  font: 500 .78rem/1.4 var(--schrift-mono); letter-spacing: .11em; text-transform: uppercase;
 }
 .marke-klein-nr { display: inline-block; padding: .15rem .45rem; margin-right: .35rem; border-radius: var(--radius-klein); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font-family: var(--schrift-mono); font-weight: 600; letter-spacing: .04em; }
+
+/* Optischer Randausgleich: gemessene Vorbreite der ersten Glyphe (bauen.mjs) */
+.lsb-15 { --lsb: .015em; } .lsb-31 { --lsb: .031em; } .lsb-46 { --lsb: .046em; } .lsb-62 { --lsb: .062em; } .lsb-78 { --lsb: .078em; }
+.rand { text-indent: calc(-1 * var(--lsb, 0em)); }
+.anfang-h { margin-left: calc(-1 * var(--lsb, 0em)); }
+@media (min-width: 48rem) { .anfang-h { margin-left: 0; } .anfang-c { margin-left: calc(-1 * var(--lsb, 0em)); } }
 
 /* Überschriften der Abschnitte: breit und schwer */
 .abschnitt-kopf { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
@@ -38,7 +46,7 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
   font-family: var(--schrift-display); font-weight: var(--gewicht-display); font-stretch: var(--breite-display);
   font-size: clamp(2.1rem, 1.1rem + 4.6vw, 5.6rem); line-height: .95; letter-spacing: -.04em; max-width: 16ch;
 }
-.lead { font-size: clamp(1.08rem, 1rem + .45vw, 1.35rem); line-height: 1.55; max-width: 38em; }
+.lead { font-size: clamp(1.08rem, 1rem + .45vw, 1.35rem); line-height: 1.55; letter-spacing: -.008em; max-width: 38em; }
 .hinweis { color: var(--farbe-leise); margin-top: 1.5rem; }
 
 /* ---------- Knöpfe ---------- */
@@ -55,7 +63,10 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .knopf--klein { min-height: 44px; padding: .55rem 1.1rem; font-size: .92rem; }
 .knopf:active { transform: scale(.97); }
 @media (hover: hover) and (pointer: fine) {
-  .knopf:hover { transform: translateY(-2px); }
+  .knopf:hover { transform: translateY(-3px); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+  .knopf--hell:hover { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+  .knopf--dunkel:hover { background: var(--farbe-grund); color: var(--farbe-text); }
+  .schnell-haupt:hover { background: var(--farbe-grund); color: var(--farbe-text); }
   .knopf:hover .icon { transform: translateX(3px); }
   .knopf--rand:hover { background: var(--farbe-text); color: var(--farbe-grund); box-shadow: none; }
 }
@@ -74,12 +85,13 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
   min-height: 4rem; padding: .5rem var(--rand); background: var(--farbe-grund); border-bottom: 1px solid var(--farbe-linie);
   view-transition-name: kopf;
 }
-.wortmarke { display: inline-flex; align-items: center; min-height: 44px; font: 800 1.3rem/1 var(--schrift-display); font-stretch: var(--breite-display); letter-spacing: -.03em; text-decoration: none; }
+.wortmarke { display: inline-flex; align-items: center; min-height: 44px; padding-inline: .25rem; margin-inline: -.25rem; border-radius: var(--radius-klein); font: 800 1.3rem/1 var(--schrift-display); font-stretch: var(--breite-display); letter-spacing: -.03em; text-decoration: none; }
 .wortmarke-strich { color: var(--farbe-akzent); margin-inline: .02em; }
 .nav ul { display: flex; flex-wrap: wrap; gap: 0 .25rem; }
-.nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: .6rem; font: 600 .78rem/1 var(--schrift-mono); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
-.nav a::after { content: ""; position: absolute; left: .6rem; right: .6rem; bottom: .55rem; height: 2px; background: var(--farbe-akzent); transform: scaleX(0); transform-origin: right; transition: transform var(--tempo-mittel) var(--kurve-standard); }
-@media (hover: hover) and (pointer: fine) { .nav a:hover::after { transform: scaleX(1); transform-origin: left; } }
+.nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: .6rem; font: 600 .78rem/1 var(--schrift-mono); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+.nav a::after { content: ""; position: absolute; left: .6rem; right: .6rem; bottom: .5rem; height: 3px; background: var(--farbe-akzent); transform: scaleX(0); transform-origin: right; transition: transform var(--tempo-mittel) var(--kurve-standard); }
+@media (hover: hover) and (pointer: fine) { .nav a:hover::after { transform: scaleX(1); transform-origin: left; } .nav a { transition: color var(--tempo-kurz) var(--kurve-standard); } .nav a:hover { color: var(--farbe-text); } }
+.nav a:active::after { transform: scaleX(1); }
 .kopf-tel { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .4rem .9rem; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--farbe-text); font: 600 .8rem/1 var(--schrift-mono); text-decoration: none; white-space: nowrap; transition: background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard); }
 .kopf-tel .icon { width: 1.05rem; height: 1.05rem; }
 .kopf-tel:active { transform: scale(.97); }
@@ -97,9 +109,9 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 /* ---------- Erster Bildschirm ---------- */
 .held { padding: clamp(1.5rem, 4vw, 3.5rem) var(--rand) 0; max-width: 100rem; margin-inline: auto; overflow-x: clip; }
 .ueberzeile { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .9rem; color: var(--farbe-leise); }
-.timecode { padding: .25rem .5rem; border-radius: var(--radius-klein); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font-weight: 600; }
+.timecode { font-variant-numeric: tabular-nums; padding: .25rem .5rem; border-radius: var(--radius-klein); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font-weight: 600; }
 .held-titel {
-  margin-block: clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  margin-block: clamp(.6rem, 1.4vw, 1.25rem) clamp(1.5rem, 3vw, 2.5rem);
   font-family: var(--schrift-display); font-weight: var(--gewicht-display); font-stretch: var(--breite-display);
   /* „Wir bringen“ ist 6,44 em breit (gemessen), also so groß, wie die Zeile es erlaubt */
   font-size: calc((100vw - 2 * var(--rand)) / 6.7); line-height: .9; letter-spacing: -.045em; hyphens: manual;
@@ -132,6 +144,8 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
   background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font: 600 .72rem/1.3 var(--schrift-mono); white-space: nowrap;
 }
 .zeitleiste figcaption { margin-top: .5rem; color: var(--farbe-leise); }
+@property --sek { syntax: "<integer>"; inherits: true; initial-value: 2; }
+@property --fr { syntax: "<integer>"; inherits: true; initial-value: 0; }
 @property --bild { syntax: "<integer>"; inherits: true; initial-value: 48; }
 
 /* ---------- Arbeiten ---------- */
@@ -141,19 +155,23 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .poster { position: relative; overflow: hidden; aspect-ratio: 3 / 2; border-radius: var(--radius-gross); background: var(--farbe-flaeche); }
 .werk--1 .poster { aspect-ratio: 4 / 5; }
 .plakat { width: 100%; height: 100%; transition: transform var(--tempo-lang) var(--kurve-standard); }
-.poster--brausewerk { view-transition-name: plakat-brausewerk; background: #0e3b2c; }
-.poster--hallenbad { view-transition-name: plakat-hallenbad; background: #0b4a86; }
-.poster--rauschen { view-transition-name: plakat-rauschen; background: #1b1030; }
-.titel--brausewerk { view-transition-name: titel-brausewerk; }
-.titel--hallenbad { view-transition-name: titel-hallenbad; }
-.titel--rauschen { view-transition-name: titel-rauschen; }
+.projekt .poster--brausewerk, .werk--aktiv .poster--brausewerk { view-transition-name: plakat-brausewerk; view-transition-class: plakat; }
+.poster--brausewerk { background: #0e3b2c; }
+.projekt .poster--hallenbad, .werk--aktiv .poster--hallenbad { view-transition-name: plakat-hallenbad; view-transition-class: plakat; }
+.poster--hallenbad { background: #0b4a86; }
+.projekt .poster--rauschen, .werk--aktiv .poster--rauschen { view-transition-name: plakat-rauschen; view-transition-class: plakat; }
+.poster--rauschen { background: #1b1030; }
+.projekt .titel--brausewerk, .werk--aktiv .titel--brausewerk { view-transition-name: titel-brausewerk; view-transition-class: titel; }
+.projekt .titel--hallenbad, .werk--aktiv .titel--hallenbad { view-transition-name: titel-hallenbad; view-transition-class: titel; }
+.projekt .titel--rauschen, .werk--aktiv .titel--rauschen { view-transition-name: titel-rauschen; view-transition-class: titel; }
 .p-breit { font-family: var(--schrift-display); font-weight: 800; font-stretch: 125%; letter-spacing: -.02em; }
 .p-schmal { font-family: var(--schrift-display); font-weight: 800; font-stretch: 62%; letter-spacing: -.02em; }
 .p-welle { font-family: var(--schrift-display); font-weight: 800; letter-spacing: -.01em; }
 .p-welle .s1 { font-stretch: 62%; } .p-welle .s2 { font-stretch: 75%; } .p-welle .s3 { font-stretch: 92%; } .p-welle .s4 { font-stretch: 110%; } .p-welle .s5 { font-stretch: 125%; }
 .werk-text { display: grid; gap: .45rem; padding-right: 3.5rem; }
 .werk-meta { color: var(--farbe-leise); }
-.werk-titel { font-family: var(--schrift-display); font-weight: var(--gewicht-display); font-stretch: var(--breite-display); font-size: clamp(1.55rem, 1rem + 2vw, 2.6rem); line-height: 1; letter-spacing: -.035em; width: fit-content; }
+.werk-titel { position: relative; font-family: var(--schrift-display); font-weight: var(--gewicht-display); font-stretch: var(--breite-display); font-size: clamp(1.55rem, 1rem + 2vw, 2.6rem); line-height: 1; letter-spacing: -.03em; width: fit-content; }
+.werk-titel::after { content: ""; position: absolute; left: 0; right: 0; bottom: -.12em; height: .09em; background: var(--farbe-akzent); transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-sanft); }
 .werk-pfeil {
   position: absolute; right: 0; bottom: .1rem; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
   background: var(--farbe-akzent); color: var(--farbe-auf-akzent); transform: rotate(-45deg); transition: transform var(--tempo-mittel) var(--kurve-standard);
@@ -162,9 +180,15 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .poster { transition: transform var(--tempo-kurz) var(--kurve-standard); }
 @media (hover: hover) and (pointer: fine) {
   .werk-link:hover .plakat { transform: scale(1.045) translate(calc(var(--zx, 0) * -10px), calc(var(--zy, 0) * -10px)); }
-  .werk-link:hover .werk-pfeil { transform: rotate(0); }
+  .werk-link:hover .werk-pfeil { transform: rotate(0) scale(1.12); }
+  .werk-link:hover .werk-titel::after { transform: scaleX(1); }
+  .werk-link:hover .poster { transform: translateY(-4px); }
+  .werk-link--frei:hover { background: var(--farbe-text); color: var(--farbe-grund); }
+  .werk-link--frei:hover .werk-meta { color: var(--farbe-grund); }
+  .werk-link--frei:hover .werk-pfeil { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
 }
 .werk-link--frei {
+  transition: background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard);
   align-content: end; min-height: 16rem; padding: clamp(1.5rem, 3vw, 2.5rem); padding-right: 5rem;
   background: var(--farbe-akzent); color: var(--farbe-auf-akzent);
 }
@@ -255,7 +279,7 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .schritt { position: relative; display: grid; gap: .4rem; }
 .schritt-raute { position: absolute; left: -2.4rem; top: .1rem; width: 1.1rem; height: 1.1rem; background: var(--farbe-akzent); border: 2px solid var(--farbe-text); transform: rotate(45deg); }
 .schritt-wann { color: var(--farbe-leise); }
-.schritt-was { font-family: var(--schrift-display); font-weight: 800; font-stretch: 110%; font-size: 1.5rem; letter-spacing: -.03em; }
+.schritt-was { font-family: var(--schrift-display); font-weight: 800; font-stretch: 110%; font-size: 1.5rem; letter-spacing: -.02em; }
 @media (min-width: 60rem) {
   .schritte { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; padding: 2.6rem 0 0; }
   .schritte::before { left: 0; right: 0; top: .45rem; bottom: auto; width: auto; height: 2px; transform-origin: left; }
@@ -263,7 +287,7 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 }
 
 /* ---------- Kontakt (Signalfläche) ---------- */
-.kontakt { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); --fokus: var(--farbe-auf-akzent); }
+.kontakt { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); --fokus: var(--farbe-auf-akzent); --fokus-ring: var(--farbe-grund); }
 .kontakt .marke-klein-nr { background: var(--farbe-auf-akzent); color: var(--farbe-akzent); }
 .kontakt-mail { margin-block: clamp(2rem, 5vw, 3.5rem); }
 .gross-link {
@@ -281,7 +305,7 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .chip input:focus-visible { outline: none; }
 .chip span { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1rem; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--farbe-auf-akzent); font-weight: 600; transition: background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard); }
 .chip input:checked + span { background: var(--farbe-auf-akzent); color: var(--farbe-akzent); }
-.chip input:focus-visible + span { outline: 3px solid var(--farbe-auf-akzent); outline-offset: 3px; }
+.chip input:focus-visible + span { outline: 3px solid var(--fokus-ring); outline-offset: 3px; box-shadow: 0 0 0 6px var(--fokus); }
 .chip:active span { transform: scale(.97); }
 .baukasten-vorschau { font: 500 .85rem/1.5 var(--schrift-mono); }
 .kontakt-daten { display: grid; gap: 1.5rem; }
@@ -386,7 +410,10 @@ html:has(#pruefen:target) [data-pruefen]::after { content: " ⟨prüfen: " attr(
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
   ::view-transition-group(*) { animation-duration: var(--tempo-mittel); animation-timing-function: var(--kurve-sanft); }
-  ::view-transition-old(root), ::view-transition-new(root), ::view-transition-old(*):only-child, ::view-transition-new(*):only-child { animation-duration: var(--tempo-kurz); }
+  ::view-transition-old(*.plakat), ::view-transition-new(*.plakat) { height: 100%; object-fit: cover; }
+  /* Alte Seite verschwindet schnell, neue kommt etwas später: keine doppelten Bilder in der Mitte */
+  ::view-transition-old(root), ::view-transition-old(*):only-child, ::view-transition-old(*.titel), ::view-transition-old(*.plakat) { animation-duration: .16s; animation-timing-function: linear; }
+  ::view-transition-new(root), ::view-transition-new(*):only-child, ::view-transition-new(*.titel), ::view-transition-new(*.plakat) { animation-duration: .34s; animation-delay: 0s; animation-timing-function: var(--kurve-standard); }
 
   /* Laden: Abspielkopf läuft die 2 Sekunden einmal ab, Schlüsselbilder leuchten auf, der Clip zieht sich auf */
   .abspielkopf { animation: abspielen 2s linear .25s backwards; }
@@ -396,6 +423,9 @@ html:has(#pruefen:target) [data-pruefen]::after { content: " ⟨prüfen: " attr(
   .raute--2 rect { animation-delay: .72s; }
   .raute--3 rect { animation-delay: 1.48s; }
   .raute--4 rect { animation-delay: 2.2s; }
+  .timecode { animation: tc-sek 2s steps(1, end) .25s backwards, tc-bild 2s linear .25s backwards; }
+  .timecode-text { display: none; }
+  .timecode::before { counter-reset: s var(--sek, 2) f var(--fr, 0); content: "00:00:" counter(s, decimal-leading-zero) ":" counter(f, decimal-leading-zero); }
   .clip::before { animation: clip-auf var(--tempo-lang) var(--kurve-sanft) .2s backwards; }
   .clip-wort .b { animation: hopsen var(--tempo-mittel) var(--kurve-standard) backwards; }
   .clip-wort .b:nth-child(1) { animation-delay: .75s; }
@@ -417,6 +447,8 @@ html:has(#pruefen:target) [data-pruefen]::after { content: " ⟨prüfen: " attr(
   }
 }
 @keyframes abspielen { from { transform: translateX(0); --bild: 0; } to { transform: translateX(calc(100cqw - 2px)); --bild: 48; } }
+@keyframes tc-sek { 0% { --sek: 0; } 50% { --sek: 1; } 100% { --sek: 2; } }
+@keyframes tc-bild { 0% { --fr: 0; } 49.99% { --fr: 23; } 50% { --fr: 0; } 99.99% { --fr: 23; } 100% { --fr: 0; } }
 @keyframes abspielmarke { from { transform: translateX(0); } to { transform: translateX(calc(-100% + 2px)); } }
 @keyframes schluessel { from { transform: rotate(45deg) scale(.15); } to { transform: rotate(45deg) scale(1); } }
 @keyframes clip-auf { from { transform: scaleX(0); } to { transform: scaleX(1); } }

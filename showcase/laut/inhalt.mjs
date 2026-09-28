@@ -19,12 +19,13 @@ export const studio = {
 export const start = {
   titel: 'Zwischenbild – Studio für Motion-Design (Demo)',
   beschreibung: 'Demo-Seite eines ausgedachten Studios für Motion-Design: Logo-Animationen, Kampagnen in Bewegung, Erklärfilme und Bewegung für Websites.',
-  ueberzeile: 'Motion-Design · Logo-Animation · Web',
+  ueberzeile: 'Motion-Design für Marken, Kommunen und Kultur',
   // H1 in Stücken: umbruch 'h' = Zeilenende auf dem Handy, 'c' = am Computer, 'hc' = beides.
   // Das Stück mit clip: true sitzt auf der orangefarbenen Spur (wie ein Clip in der Zeitleiste).
   h1: [{ t: 'Wir bringen', umbruch: 'h' }, { t: 'Logos', umbruch: 'c' }, { t: 'das', umbruch: 'h' }, { t: 'Laufen', clip: true, umbruch: 'h' }, { t: 'bei.' }],
   h1Text: 'Wir bringen Logos das Laufen bei.',
-  lead: 'Wir animieren Logos, bauen Kampagnen für Social Media und Bildschirme an Haltestellen und legen fest, wie sich eure Website bewegt. Vier Leute, ein Kurven-Editor und viel Geduld für die Bilder dazwischen.',
+  lead: 'Für Getränkemarken, Stadtwerke und Festivals animieren wir Logos, bauen Kampagnen für Social Media und Bildschirme an Haltestellen und legen fest, wie sich Websites bewegen. Vier Leute, ein Kurven-Editor und viel Geduld für die Bilder dazwischen.',
+  zeitcode: '00:00:02:00',
   zeitleiste: { bilder: 48, schluessel: [0, 11, 29, 47], text: '2 Sekunden Logo · 48 Bilder · jedes davon gestaltet' },
 };
 

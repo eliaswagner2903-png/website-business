@@ -37,6 +37,23 @@ function start() {
     matchMedia('(min-width: 48rem)').addEventListener('change', (e) => { if (e.matches) schliessen(false); });
   }
 
+  // ---------- Seitenwechsel: nur das gewählte Projekt gleitet hinüber (View Transitions) ----------
+  const werk = (slug) => document.querySelector(`.werk[data-projekt="${slug}"]`);
+  const aufraeumen = () => document.querySelectorAll('.werk--aktiv').forEach((e) => e.classList.remove('werk--aktiv'));
+  document.addEventListener('click', (e) => {
+    const karte = e.target.closest('.werk[data-projekt]');
+    if (karte) { aufraeumen(); karte.classList.add('werk--aktiv'); }
+  });
+  addEventListener('pageshow', (e) => { if (e.persisted) aufraeumen(); });
+  addEventListener('pagereveal', (e) => {
+    const von = window.navigation?.activation?.from?.url || '';
+    const treffer = von.match(/projekt-([a-z]+)\.html/);
+    if (e.viewTransition && treffer && werk(treffer[1])) {
+      werk(treffer[1]).classList.add('werk--aktiv');
+      e.viewTransition.finished.finally(aufraeumen);
+    }
+  });
+
   // ---------- Schnellleiste: erscheint, sobald die Knöpfe im ersten Bildschirm aus dem Bild sind ----------
   const schnell = document.querySelector('.schnell');
   const heldKnoepfe = document.querySelector('.held .aktionen');

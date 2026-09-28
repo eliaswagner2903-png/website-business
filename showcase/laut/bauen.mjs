@@ -61,6 +61,12 @@ const plakate = {
 const plakat = (p, t, beschreibung) =>
   `<svg class="plakat" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(beschreibung)}">${plakate[p.slug](t, p.farben)}</svg>`;
 
+// ---------- Optischer Randausgleich ----------
+// Linke Vorbreite der ersten Glyphe (gemessen mit measureText, Archivo 800 / 125 %), in 1/1000 em.
+// Große Zeilen rücken um diesen Betrag nach links, damit Stämme bündig mit der Spitze des „W“ stehen.
+const VORBREITE = { L: 78, D: 78, H: 78, B: 78, b: 62, l: 62, k: 62, h: 62, S: 46, d: 31, a: 31, s: 31, e: 31, z: 15 };
+const lsb = (text) => { const v = VORBREITE[String(text).trim()[0]]; return v ? ` lsb-${v}` : ''; };
+
 // ---------- Bausteine ----------
 const icon = {
   tel: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.4 4.3-2 1.5a12 12 0 0 0 5.7 5.7l1.5-2 4.3 1.4v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
@@ -146,7 +152,7 @@ function fuss() {
 }
 
 const abschnittKopf = (nummer, name, titelHtml, id) =>
-  `<div class="abschnitt-kopf"><p class="marke-klein"><span class="marke-klein-nr">${nummer}</span> ${name}</p><h2 id="${id}">${titelHtml}</h2></div>`;
+  `<div class="abschnitt-kopf"><p class="marke-klein"><span class="marke-klein-nr">${nummer}</span> ${name}</p><h2 id="${id}" class="rand${lsb(titelHtml)}">${titelHtml}</h2></div>`;
 
 // ---------- Startseite ----------
 function startseite() {
@@ -156,21 +162,25 @@ function startseite() {
     return `<line x1="${x}%" x2="${x}%" y1="0" y2="${i % 12 === 0 ? 16 : 9}"/>`;
   }).join('');
   const rauten = zl.schluessel.map((b, i) => `<svg class="raute raute--${i + 1}" x="${r((b / letzte) * 100)}%" y="34" overflow="visible"><rect x="-8" y="-8" width="16" height="16" transform="rotate(45)"/></svg>`).join('');
+  // Zeilenanfänge je Gerät bestimmen (h = Handy, c = Computer) und dort den Randausgleich setzen
+  const anfang = { h: true, c: true };
   const h1 = start.h1.map((s, i, alle) => {
+    const klassen = ['stueck', s.clip ? 'clip' : '', ...['h', 'c'].filter((g) => anfang[g] && !s.clip).map((g) => `anfang-${g}`)].filter(Boolean).join(' ') + (s.clip ? '' : lsb(s.t));
+    anfang.h = (s.umbruch || '').includes('h'); anfang.c = (s.umbruch || '').includes('c');
     const stueck = s.clip
-      ? `<span class="stueck clip"><span class="clip-wort">${s.t.split('').map((b) => `<span class="b">${b}</span>`).join('')}</span></span>`
-      : `<span class="stueck">${esc(s.t)}</span>`;
+      ? `<span class="${klassen}"><span class="clip-wort">${s.t.split('').map((b) => `<span class="b">${b}</span>`).join('')}</span></span>`
+      : `<span class="${klassen}">${esc(s.t)}</span>`;
     const br = s.umbruch ? `<br class="br-${s.umbruch}">` : '';
     return stueck + br + (i < alle.length - 1 ? ' ' : '');
   }).join('');
 
   const werke = projekte.map((p, i) => `
-      <li class="werk werk--${i + 1}">
+      <li class="werk werk--${i + 1}" data-projekt="${p.slug}">
         <a class="werk-link" href="/projekt-${p.slug}.html">
           <div class="poster poster--${p.slug}">${plakat(p, 0.15, `Plakatmotiv ${p.kunde}: ${p.kurz}`)}</div>
           <div class="werk-text">
             <p class="werk-meta">${nr(i)} · ${esc(p.leistung)} · ${p.jahr}</p>
-            <h3 class="werk-titel titel--${p.slug}">${esc(p.kunde)}</h3>
+            <h3 class="werk-titel rand${lsb(p.kunde)} titel--${p.slug}">${esc(p.kunde)}</h3>
             <p>${esc(p.kurz)}</p>
           </div>
           <span class="werk-pfeil" aria-hidden="true">${icon.pfeil}</span>
@@ -200,7 +210,7 @@ function startseite() {
   return kopf({ titel: start.titel, beschreibung: start.beschreibung, pfad: 'start' }) + `
 <main id="inhalt">
   <section class="held" aria-labelledby="titel">
-    <p class="ueberzeile"><span class="timecode">00:00:00:00</span> <span>${esc(start.ueberzeile)}</span></p>
+    <p class="ueberzeile"><span class="timecode" aria-hidden="true"><span class="timecode-text">${start.zeitcode}</span></span> <span>${esc(start.ueberzeile)}</span></p>
     <h1 id="titel" class="held-titel">${h1}</h1>
     <div class="held-unten">
       <p class="lead">${esc(start.lead)}</p>
@@ -317,7 +327,7 @@ function projektseite(p, i) {
     <div class="projekt-held">
       <div class="projekt-kopf">
         <p class="marke-klein"><span class="marke-klein-nr">${nr(i)}</span> ${esc(p.leistung)}</p>
-        <h1 class="projekt-titel titel--${p.slug}">${esc(p.kunde)}</h1>
+        <h1 class="projekt-titel rand${lsb(p.kunde)} titel--${p.slug}">${esc(p.kunde)}</h1>
         <p class="lead">${esc(p.kurz)}</p>
         <dl class="projekt-fakten">
           <div><dt>Kunde</dt><dd data-pruefen="Ausgedachter Kunde (Demo)">${esc(p.branche)} (erfunden)</dd></div>
@@ -347,7 +357,7 @@ function projektseite(p, i) {
 
     <a class="naechstes" href="/projekt-${naechstes.slug}.html">
       <span class="marke-klein">Nächstes Projekt</span>
-      <span class="naechstes-name">${esc(naechstes.kunde)} ${icon.pfeil}</span>
+      <span class="naechstes-name rand${lsb(naechstes.kunde)}">${esc(naechstes.kunde)} ${icon.pfeil}</span>
     </a>
   </div>
 </main>
@@ -359,7 +369,7 @@ function textseite(datei, titel, h1, inhalt, robots) {
   return kopf({ titel: `${titel} – Zwischenbild (Demo)`, beschreibung: `${titel} der Demo-Seite des ausgedachten Studios Zwischenbild.`, pfad: datei, robots }) + `
 <main id="inhalt" class="textseite">
   <div class="huelle">
-    <h1 class="textseite-titel">${h1}</h1>
+    <h1 class="textseite-titel rand${lsb(h1)}">${h1}</h1>
     ${inhalt}
     <p><a class="knopf" href="/">Zur Startseite</a></p>
   </div>

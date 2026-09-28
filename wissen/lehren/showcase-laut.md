@@ -33,3 +33,13 @@ Stand 2026-09-28. Ordner `showcase/laut/`. Konzept: ausgedachtes Motion-Studio, 
 - **Schriften unter Budget:** `pyftsubset` (fonttools aus PyPI) auf die @fontsource-Dateien: Archivo (Breite+Gewicht) 90 → 75 KB,
   JetBrains Mono 40 → 13 KB, `unicode-range` passend; latin-ext bleibt als Nachlade-Datei.
 - **Inhalte an einer Stelle:** `inhalt.mjs` + `bauen.mjs` erzeugen alle Seiten; ein Test vergleicht gebaut ↔ ausgeliefert.
+
+## Nachbesserung nach der Zweitnote (W 3,4)
+
+| # | Befund | Lösung |
+|---|---|---|
+| L11 | Zeitcode stand auf 00:00:00:00, während der Abspielkopf „Bild 48“ zeigte – wirkt wie ein Fehler | Endstand (00:00:02:00) als Text im HTML; mit Bewegung zählen `@property --sek/--fr` (integer, `inherits: true`, sonst sieht `::before` nur den Startwert) mit derselben Dauer/Verzögerung wie der Abspielkopf; Sekunden mit `steps(1, end)`, Bilder 0–23 zweimal linear |
+| L12 | Fokus am Logo sah aus wie der 2-px-Ruherahmen der Knöpfe | zweifarbiger Ring: `outline` Akzent mit Versatz + `box-shadow: 0 0 0 6px` in Tinte – auf jeder Fläche ist eine Hälfte kontrastreich |
+| L13 | Hover nur mit 2 px Anheben wirkte matt | Farbwechsel auf den Akzent + Anheben; Karten: wachsende Unterstreichung am Titel, Pfeil dreht und wächst |
+| L14 | Große H1 wirkte „getippt“: L, b, d standen sichtbar eingerückt neben dem W | Vorbreite der ersten Glyphe messen (`measureText().actualBoundingBoxLeft`) und je Zeilenanfang als `margin-left`/`text-indent` abziehen; Zeilenanfänge je Gerät aus den Umbruch-Daten bestimmen |
+| L15 | Seitenwechsel: das nicht angeklickte Plakat und der alte Titel lagen als „Geisterschrift“ über der Projektseite | `view-transition-name` nur am angeklickten Projekt (Klasse per Klick, Rückweg per `pagereveal` + `navigation.activation.from`); `view-transition-class` für Titel/Plakat: altes Bild 0,16 s weg, neues 0,34 s |
