@@ -1,0 +1,11 @@
+{
+  "name": "Kundenname",
+  "slug": "kundenseite",
+  "domain": "www.beispiel.de",
+  "paket": "basis",
+  "ansprechpartner": "",
+  "start": "",
+  "stripe_produkte": ["beratung"],
+  "termine": "https://cal.com/DEIN-NAME",
+  "offen": ["Fakten bestätigen", "Rechtstexte aus Generator", "Stripe-Preise anlegen"]
+}

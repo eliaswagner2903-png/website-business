@@ -1,0 +1,28 @@
+name: Wartung (wöchentlich)
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # montags 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Kundenseiten prüfen
+        id: check
+        run: node wartung/check.mjs | tee bericht.md
+        continue-on-error: true
+      - name: Bei Befunden ein Issue anlegen
+        if: steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "Wartung: Handlungsbedarf $(date +%F)" --body-file bericht.md --label wartung || gh issue create --title "Wartung: Handlungsbedarf $(date +%F)" --body-file bericht.md

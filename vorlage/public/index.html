@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kundenname – Leistung in Ort</title>
+<meta name="description" content="Ein Satz, der sagt, was der Kunde anbietet, für wen und wo.">
+<link rel="canonical" href="https://www.beispiel.de/">
+<meta property="og:title" content="Kundenname – Leistung in Ort">
+<meta property="og:description" content="Ein Satz, der sagt, was der Kunde anbietet, für wen und wo.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/stil.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="/js/seite.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="/">Kundenname</a>
+    <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#angebot">Angebot</a></li>
+        <li><a href="#termin">Termin</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <span class="eyebrow" data-pruefen="Ort und Branche vom Kunden bestätigen">Branche in Ort</span>
+      <h1 id="titel">Was der Kunde macht, in einem klaren Satz</h1>
+      <p>Für wen, was das Besondere ist und was der nächste Schritt ist. Dieser Text beantwortet in fünf Sekunden die wichtigsten Fragen.</p>
+      <div class="aktionen">
+        <a class="knopf" href="#termin">Termin buchen</a>
+        <a class="knopf zweit" href="#kontakt">Nachricht schreiben</a>
+      </div>
+      <div class="held-medien" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="leistungen" aria-labelledby="t-leistungen">
+    <div class="huelle">
+      <h2 id="t-leistungen">Leistungen</h2>
+      <div class="raster">
+        <article class="karte"><h3>Leistung eins</h3><p>Konkret beschreiben, was der Kunde bekommt.</p></article>
+        <article class="karte"><h3>Leistung zwei</h3><p>Nichts erfinden: nur Angaben aus dem Auftrag verwenden.</p></article>
+        <article class="karte"><h3>Leistung drei</h3><p>Unsicheres mit data-pruefen markieren.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="angebot" aria-labelledby="t-angebot">
+    <div class="huelle">
+      <h2 id="t-angebot">Angebot</h2>
+      <div class="raster">
+        <article class="karte">
+          <h3>Beratung</h3>
+          <p class="preis" data-pruefen="Preis muss dem Stripe-Preis entsprechen">49 €</p>
+          <p>Einmalzahlung, sicher über Stripe.</p>
+          <form method="post" action="/api/checkout" data-einmal>
+            <input type="hidden" name="produkt" value="beratung">
+            <button class="knopf" type="submit">Jetzt bezahlen</button>
+          </form>
+        </article>
+      </div>
+      <p class="hinweis">Die Zahlung läuft über eine Seite von Stripe. Kartendaten werden nicht auf dieser Website verarbeitet.</p>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="termin" aria-labelledby="t-termin">
+    <div class="huelle">
+      <h2 id="t-termin">Termin buchen</h2>
+      <p>Freie Zeiten sehen und direkt buchen. Die Buchung öffnet sich auf der Seite unseres Terminplaners.</p>
+      <p><a class="knopf" href="https://cal.com/DEIN-NAME" rel="noopener" data-pruefen="Cal.com-Link des Kunden eintragen">Freie Termine ansehen</a></p>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="kontakt" aria-labelledby="t-kontakt">
+    <div class="huelle">
+      <h2 id="t-kontakt">Kontakt</h2>
+      <form class="formular" method="post" action="/api/kontakt">
+        <label>Name <input id="k-name" name="name" type="text" autocomplete="name" required maxlength="100"></label>
+        <label>E-Mail <input id="k-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label>Nachricht <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
+        <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <p class="hinweis">Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
+        <p><button class="knopf" type="submit">Nachricht senden</button></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  <div class="huelle">
+    <p>© Kundenname</p>
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="schnell">
+  <a class="knopf" href="#termin">Termin</a>
+  <a class="knopf zweit" href="#kontakt">Kontakt</a>
+</div>
+</body>
+</html>
