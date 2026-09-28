@@ -1,0 +1,115 @@
+{
+  "_hinweis": "Alle Inhalte der Seite an einer Stelle. Nach Änderungen: node bauen.mjs. Alles ist ausgedacht (Demo).",
+  "praxis": {
+    "name": "Lotlinie",
+    "zusatz": "Physiotherapie",
+    "ort": "Musterstadt",
+    "strasse": "Musterstraße 12",
+    "plz_ort": "00000 Musterstadt",
+    "telefon": "0000 123 45 67",
+    "telefon_link": "tel:+4900001234567",
+    "mail": "hallo@lotlinie.example",
+    "domain": "https://lotlinie.example",
+    "termin_link": "https://cal.com/lotlinie-demo",
+    "route_link": "https://www.google.com/maps/dir/?api=1&destination=Musterstra%C3%9Fe+12,+00000+Musterstadt",
+    "zeiten": [
+      ["Montag bis Donnerstag", "7:00 – 20:00 Uhr"],
+      ["Freitag", "7:00 – 15:00 Uhr"],
+      ["Samstag", "nach Vereinbarung"]
+    ],
+    "zeiten_kurz": "Mo–Do 7–20 Uhr, Fr 7–15 Uhr",
+    "anfahrt": "Bus 4 bis „Musterplatz“, dann zwei Minuten zu Fuß. Zwei Parkplätze direkt am Haus, einer davon breit.",
+    "demo": "Demo-Seite: ausgedachte Praxis. Namen, Adresse, Telefonnummer und Preise sind erfunden."
+  },
+  "seiten": {
+    "index": { "titel": "Lotlinie – Physiotherapie in Musterstadt (Demo)", "beschreibung": "Ausgedachte Physiotherapie-Praxis als Demo: 45 Minuten für den ersten Termin, Befund am Lot, Übungen für zu Hause. Termine online oder per Telefon." },
+    "leistungen": { "titel": "Leistungen – Lotlinie Physiotherapie (Demo)", "beschreibung": "Krankengymnastik, Manuelle Therapie, Lymphdrainage, Training am Gerät und Angebote ohne Rezept – mit Dauer und Preisen. Demo-Seite einer ausgedachten Praxis." },
+    "praxis": { "titel": "Praxis & Team – Lotlinie Physiotherapie (Demo)", "beschreibung": "Vier Behandlungsräume und ein Trainingsraum, ebenerdig. Wer bei uns behandelt und wie Sie die Praxis finden. Demo-Seite einer ausgedachten Praxis." },
+    "termin": { "titel": "Termin & Kontakt – Lotlinie Physiotherapie (Demo)", "beschreibung": "Termin online buchen oder anrufen: Öffnungszeiten, Adresse, Anfahrt und was Sie zum ersten Termin mitbringen. Demo-Seite einer ausgedachten Praxis." }
+  },
+  "held": {
+    "ueberzeile": "Physiotherapie in Musterstadt",
+    "titel_vor": "Physiotherapie, die",
+    "titel_wort": "zuerst",
+    "titel_nach": "hinschaut.",
+    "text": "Der erste Termin dauert bei uns 45 Minuten. Wir sehen uns Haltung und Bewegung am Lot an, fragen nach Ihrem Alltag und geben Ihnen zwei, drei Übungen mit, die zu Hause wirklich machbar sind."
+  },
+  "ablauf": {
+    "titel": "Ihr erster Termin, Minute für Minute",
+    "text": "Damit Sie wissen, was Sie erwartet: So teilen wir die 45 Minuten auf. Bringen Sie bequeme Kleidung mit, umziehen können Sie sich bei uns.",
+    "schritte": [
+      { "minuten": 10, "titel": "Gespräch", "text": "Seit wann, wobei, wie stark? Und was möchten Sie wieder können – den Enkel hochheben, die Treppe ohne Geländer, zehn Kilometer laufen." },
+      { "minuten": 10, "titel": "Blick aufs Lot", "text": "Sie stehen neben einem Lot. Wir sehen, wie Ohr, Schulter, Hüfte, Knie und Knöchel zueinander stehen, und beobachten ein paar einfache Bewegungen." },
+      { "minuten": 20, "titel": "Erste Behandlung", "text": "Je nach Befund mit den Händen, mit Übungen oder beidem. Wir sagen vorher, was wir tun, und hören auf, wenn es Ihnen zu viel ist." },
+      { "minuten": 5, "titel": "Übungen mitnehmen", "text": "Höchstens drei Übungen, auf einem Blatt mit Zeichnung. Lieber drei, die Sie wirklich machen, als zehn, die im Schrank liegen." }
+    ]
+  },
+  "gruende": {
+    "titel": "Weshalb Menschen zu uns kommen",
+    "text": "Die meisten Termine beginnen mit einem Satz wie diesen. Was dahintersteckt, finden wir gemeinsam heraus.",
+    "liste": [
+      { "satz": "„Mein Nacken zieht beim Schulterblick.“", "leistung": "Manuelle Therapie", "anker": "manuelle-therapie" },
+      { "satz": "„Nach acht Stunden Sitzen tut mir der Rücken weh.“", "leistung": "Rückenkurs „Lot & Linie“", "anker": "rueckenkurs" },
+      { "satz": "„Das Knie ist operiert, jetzt soll es wieder halten.“", "leistung": "Krankengymnastik am Gerät", "anker": "kg-geraet" },
+      { "satz": "„Der Arm geht nicht mehr über den Kopf.“", "leistung": "Krankengymnastik", "anker": "krankengymnastik" },
+      { "satz": "„Seit der OP ist das Bein geschwollen.“", "leistung": "Manuelle Lymphdrainage", "anker": "lymphdrainage" }
+    ]
+  },
+  "leistungen": {
+    "einleitung": "Mit Rezept rechnen wir direkt mit Ihrer Krankenkasse ab, Sie zahlen nur die gesetzliche Zuzahlung. Privat Versicherte bekommen eine Rechnung nach der Gebührenübersicht. Angebote ohne Rezept bezahlen Sie selbst.",
+    "gruppen": [
+      {
+        "titel": "Mit Rezept",
+        "hinweis": "Kasse und privat",
+        "eintraege": [
+          { "id": "krankengymnastik", "name": "Krankengymnastik", "dauer": "20–25 Min.", "text": "Nach Operationen, Unfällen oder bei Schmerzen, die bleiben. Wir üben, was im Alltag fehlt: Treppe, Heben, Anziehen, Schulterblick beim Autofahren." },
+          { "id": "manuelle-therapie", "name": "Manuelle Therapie", "dauer": "20–25 Min.", "text": "Für Gelenke, die steif oder blockiert sind – Wirbelsäule, Schulter, Hüfte, Kiefer. Gezielte Griffe mit den Händen, danach eine Übung, die das Ergebnis hält." },
+          { "id": "lymphdrainage", "name": "Manuelle Lymphdrainage", "dauer": "30, 45 oder 60 Min.", "text": "Bei Schwellungen nach Operationen oder bei Lymphödem. Ruhige, flache Griffe; auf Wunsch zeigen wir Ihnen, wie Sie selbst nachhelfen können." },
+          { "id": "kg-geraet", "name": "Krankengymnastik am Gerät", "dauer": "60 Min.", "text": "Kraftaufbau an Zugapparat und Beinpresse in unserem Trainingsraum. Immer unter Anleitung, höchstens drei Personen gleichzeitig." },
+          { "id": "hausbesuch", "name": "Hausbesuch", "dauer": "nach Rezept", "text": "Wenn Sie nicht in die Praxis kommen können und Ihre Ärztin den Hausbesuch verordnet hat – im Umkreis von fünf Kilometern.", "pruefen": "Umkreis für Hausbesuche ausgedacht" }
+        ]
+      },
+      {
+        "titel": "Ohne Rezept",
+        "hinweis": "Selbstzahler",
+        "eintraege": [
+          { "id": "erster-blick", "name": "Erster Blick am Lot", "dauer": "45 Min.", "preis": "65 €", "text": "Der Befund aus dem ersten Termin – für alle, die ohne Rezept wissen wollen, woher der Schmerz kommt und was sie selbst tun können." },
+          { "id": "rueckenkurs", "name": "Rückenkurs „Lot & Linie“", "dauer": "8 × 60 Min.", "preis": "160 €", "text": "Dienstags um 18:30 Uhr, höchstens sechs Personen. Kräftigen, beweglich bleiben und Sitzen, ohne dass es nach einer Stunde zieht." },
+          { "id": "laufanalyse", "name": "Laufanalyse", "dauer": "60 Min.", "preis": "80 €", "text": "Auf dem Laufband mit Zeitlupen-Video. Sie bekommen die Aufnahmen und drei Punkte, an denen Sie arbeiten können." },
+          { "id": "kiefer", "name": "Kiefergelenk (CMD)", "dauer": "30 Min.", "preis": "45 €", "text": "Bei Knacken, Pressen oder Kopfschmerz am Morgen. Oft zusammen mit Ihrer Zahnärztin, gern auch mit Rezept." }
+        ]
+      }
+    ],
+    "fragen": [
+      { "frage": "Brauche ich ein Rezept?", "antwort": "Für Leistungen der Krankenkasse ja. Sie können den ersten Termin aber schon vereinbaren, bevor Sie das Rezept haben – bringen Sie es dann einfach mit." },
+      { "frage": "Was ziehe ich an?", "antwort": "Bequeme Kleidung, in der Sie sich gut bewegen können. Für die Behandlung von Rücken oder Schulter hilft ein Top oder Unterhemd. Ein großes Handtuch bringen Sie bitte mit." },
+      { "frage": "Was ist, wenn ich absagen muss?", "antwort": "Sagen Sie bitte bis 24 Stunden vorher ab – am Telefon, per E-Mail oder im Buchungskalender. Dann kann jemand anderes den Termin bekommen.", "pruefen": "Absagefrist und mögliche Ausfallgebühr sind ausgedacht" },
+      { "frage": "Wie lange muss ich auf einen Termin warten?", "antwort": "Das hängt von der Woche ab. Im Buchungskalender sehen Sie die freien Zeiten der nächsten vier Wochen, frühe Termine ab 7 Uhr sind oft noch frei." }
+    ]
+  },
+  "praxisraum": {
+    "titel": "Ebenerdig, hell und ohne Stufen",
+    "text": "Die Praxis liegt im Erdgeschoss eines Wohnhauses. Vom Parkplatz bis in jeden Raum gibt es keine Stufe, die Türen sind breit genug für Rollstuhl und Rollator.",
+    "fakten": [
+      ["4", "Behandlungsräume mit Tür, nicht nur Vorhang"],
+      ["60 m²", "Trainingsraum mit Geräten und Spiegelwand"],
+      ["0", "Stufen vom Parkplatz bis zur Liege"]
+    ]
+  },
+  "team": {
+    "titel": "Wer Sie behandelt",
+    "text": "Vier Menschen, drei davon an der Liege. Sie behalten in der Regel dieselbe Therapeutin oder denselben Therapeuten – ausgenommen Urlaub und Krankheit.",
+    "personen": [
+      { "kuerzel": "L", "name": "Lene", "rolle": "Praxisinhaberin", "schwerpunkt": "Manuelle Therapie, Kiefergelenk", "satz": "Mag die ersten zehn Minuten am liebsten: Da erzählt man ihr meistens schon, wo es hakt." },
+      { "kuerzel": "T", "name": "Tarik", "rolle": "Physiotherapeut", "schwerpunkt": "Sportphysiotherapie, Training am Gerät, Laufanalyse", "satz": "Läuft selbst jeden Sonntag und erklärt Ihnen gern, warum Ihr Knie beim Bergablaufen meckert." },
+      { "kuerzel": "M", "name": "Merle", "rolle": "Physiotherapeutin", "schwerpunkt": "Lymphdrainage, Krankengymnastik nach Operationen", "satz": "Hat die ruhigsten Hände im Team und leitet den Rückenkurs am Dienstag." },
+      { "kuerzel": "J", "name": "Jonas", "rolle": "Empfang und Termine", "schwerpunkt": "Rezepte, Abrechnung, Terminplan", "satz": "Findet auch in vollen Wochen noch einen Termin um sieben Uhr früh." }
+    ]
+  },
+  "termin": {
+    "titel": "Termin & Kontakt",
+    "text": "Am schnellsten geht es online: Sie sehen alle freien Zeiten und bekommen eine Bestätigung per E-Mail. Lieber sprechen? Rufen Sie an, Jonas nimmt ab.",
+    "buchen_text": "Der Buchungskalender öffnet sich auf der Seite unseres Terminplaners (Cal.com). Sie brauchen dafür kein Konto.",
+    "mitbringen": ["Rezept, falls vorhanden", "Versichertenkarte", "Arztberichte oder Bilder (Röntgen, MRT), wenn Sie welche haben", "ein großes Handtuch und bequeme Kleidung"]
+  }
+}

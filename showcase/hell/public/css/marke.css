@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Marke „Lotlinie“ – die ganze Marke steckt in dieser Datei.
+   Farben (Rollen), Schriften, Radien, Tempi, Kurven, Abstände.
+   Ein neues Schema: nur die Variablen unten überschreiben (siehe [data-schema="salbei"]).
+   ========================================================================== */
+
+/* Schriften lokal (npm @fontsource-variable/fraunces 5.x und /figtree 5.x), nur latin + latin-ext */
+@font-face {
+  font-family: "Fraunces Variable"; font-style: normal; font-display: swap; font-weight: 100 900;
+  src: url("/fonts/fraunces-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces Variable"; font-style: normal; font-display: swap; font-weight: 100 900;
+  src: url("/fonts/fraunces-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Fraunces Variable"; font-style: italic; font-display: swap; font-weight: 100 900;
+  src: url("/fonts/fraunces-latin-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces Variable"; font-style: italic; font-display: swap; font-weight: 100 900;
+  src: url("/fonts/fraunces-latin-ext-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Figtree Variable"; font-style: normal; font-display: swap; font-weight: 300 900;
+  src: url("/fonts/figtree-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Figtree Variable"; font-style: normal; font-display: swap; font-weight: 300 900;
+  src: url("/fonts/figtree-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Ersatzschriften mit gemessener Breite (canvas.measureText): kein Springen beim Schriftwechsel */
+@font-face { font-family: "Fraunces Ersatz"; src: local("Times New Roman"), local("Liberation Serif"), local("Times"); size-adjust: 117%; }
+@font-face { font-family: "Figtree Ersatz"; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 100%; }
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent. Kontraste (WCAG): Text 13,5 · leise 6,2 · Akzent auf Grund 5,3 */
+  --farbe-grund: #f6f0e7;        /* Papier, warm */
+  --farbe-flaeche: #ece3d5;      /* Karten, Blatt, Grundriss */
+  --farbe-text: #2a241f;
+  --farbe-leise: #62574b;
+  --farbe-linie: #d6c9b6;
+  --farbe-akzent: #a4462a;       /* Terrakotta: Lot, Hauptknopf, ein Wort */
+  --farbe-auf-akzent: #fffaf3;
+
+  --schrift-display: "Fraunces Variable", "Fraunces Ersatz", Georgia, serif;
+  --schrift-text: "Figtree Variable", "Figtree Ersatz", system-ui, sans-serif;
+
+  --radius-klein: 12px;
+  --radius-gross: 28px;
+
+  --tempo-kurz: .3s;
+  --tempo-mittel: .6s;
+  --tempo-lang: 1.2s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 9.5rem);
+  color-scheme: light;
+}
+
+/* Zweites Schema (Test P4): Salbei und Petrol. Aktiv mit <html data-schema="salbei">. */
+:root[data-schema="salbei"] {
+  --farbe-grund: #eef1ec;
+  --farbe-flaeche: #e0e7df;
+  --farbe-text: #17231f;
+  --farbe-leise: #4a5a53;
+  --farbe-linie: #c6d1c8;
+  --farbe-akzent: #1f5a4c;
+  --farbe-auf-akzent: #f4faf7;
+  --radius-klein: 6px;
+  --radius-gross: 14px;
+}

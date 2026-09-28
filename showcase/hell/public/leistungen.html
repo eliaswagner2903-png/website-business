@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leistungen – Lotlinie Physiotherapie (Demo)</title>
+<meta name="description" content="Krankengymnastik, Manuelle Therapie, Lymphdrainage, Training am Gerät und Angebote ohne Rezept – mit Dauer und Preisen. Demo-Seite einer ausgedachten Praxis.">
+<link rel="canonical" href="https://lotlinie.example/leistungen.html">
+<meta property="og:title" content="Leistungen – Lotlinie Physiotherapie (Demo)">
+<meta property="og:description" content="Krankengymnastik, Manuelle Therapie, Lymphdrainage, Training am Gerät und Angebote ohne Rezept – mit Dauer und Preisen. Demo-Seite einer ausgedachten Praxis.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f6f0e7">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/marke.css">
+<link rel="stylesheet" href="/css/stil.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="/js/seite.js" defer></script>
+</head>
+<body class="seite-leistungen">
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.5 4.2-2 1.3a11 11 0 0 0 6.3 6.3l1.3-2 4.2 1.5v2.6a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z"/></symbol>
+  <symbol id="i-kalender" viewBox="0 0 24 24"><path d="M5 6h14v13H5zM5 10h14M9 3.5v4M15 3.5v4"/></symbol>
+  <symbol id="i-ort" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-pfeil" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4.5 6.5 12 13l7.5-6.5"/></symbol>
+  <symbol id="i-zu" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-lot" viewBox="0 0 24 32"><path d="M12 1v22"/><path class="voll" d="M12 22l-4.2 5 4.2 4.5 4.2-4.5z"/></symbol>
+</svg>
+<p class="demo-band" role="note"><span class="demo-marke">Demo</span> <span>Ausgedachte Praxis<span class="lang"> – Namen, Adresse, Telefonnummer und Preise sind erfunden</span>.</span></p>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle kopf-innen">
+    <a class="marke" href="/"><svg class="marke-lot" aria-hidden="true" focusable="false"><use href="#i-lot"></use></svg><span class="marke-name">Lotlinie</span><span class="marke-zusatz">Physiotherapie</span></a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="/">Start</a></li>
+        <li><a href="/leistungen.html" aria-current="page">Leistungen<span class="nav-marke" aria-hidden="true"></span></a></li>
+        <li><a href="/praxis.html">Praxis &amp; Team</a></li>
+        <li><a href="/termin.html">Termin &amp; Kontakt</a></li>
+      </ul>
+    </nav>
+    <button class="menue-knopf" type="button" aria-haspopup="dialog" aria-controls="menue" data-menue-auf>Menü</button>
+  </div>
+</header>
+<main id="inhalt">
+<div id="pruefen" hidden></div>
+
+<section class="seitenkopf" aria-labelledby="titel">
+  <div class="huelle">
+    <p class="ueberzeile"><svg class="ueber-lot" aria-hidden="true" focusable="false"><use href="#i-lot"></use></svg>Leistungen</p>
+    <h1 id="titel">Was wir behandeln – und wie lange es dauert.</h1>
+    <p class="held-lead">Mit Rezept rechnen wir direkt mit Ihrer Krankenkasse ab, Sie zahlen nur die gesetzliche Zuzahlung. Privat Versicherte bekommen eine Rechnung nach der Gebührenübersicht. Angebote ohne Rezept bezahlen Sie selbst.</p>
+    <ul class="sprungliste">
+      <li><a href="#gruppe-1">Mit Rezept</a></li>
+      <li><a href="#gruppe-2">Ohne Rezept</a></li>
+      <li><a href="#fragen">Häufige Fragen</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="abschnitt gruppe" id="gruppe-1" aria-labelledby="t-gruppe-1">
+  <div class="huelle gruppe-raster">
+    <div class="gruppe-kopf">
+      <p class="gruppe-nr" aria-hidden="true">01</p>
+      <h2 id="t-gruppe-1">Mit Rezept</h2>
+      <p class="gruppe-hinweis">Kasse und privat</p>
+    </div>
+    <ul class="preisliste">
+      <li id="krankengymnastik" class="auftauchen">
+        <div class="preis-zeile"><h3>Krankengymnastik</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">20–25 Min.</span></p></div>
+        <p>Nach Operationen, Unfällen oder bei Schmerzen, die bleiben. Wir üben, was im Alltag fehlt: Treppe, Heben, Anziehen, Schulterblick beim Autofahren.</p>
+      </li>
+      <li id="manuelle-therapie" class="auftauchen">
+        <div class="preis-zeile"><h3>Manuelle Therapie</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">20–25 Min.</span></p></div>
+        <p>Für Gelenke, die steif oder blockiert sind – Wirbelsäule, Schulter, Hüfte, Kiefer. Gezielte Griffe mit den Händen, danach eine Übung, die das Ergebnis hält.</p>
+      </li>
+      <li id="lymphdrainage" class="auftauchen">
+        <div class="preis-zeile"><h3>Manuelle Lymphdrainage</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">30, 45 oder 60 Min.</span></p></div>
+        <p>Bei Schwellungen nach Operationen oder bei Lymphödem. Ruhige, flache Griffe; auf Wunsch zeigen wir Ihnen, wie Sie selbst nachhelfen können.</p>
+      </li>
+      <li id="kg-geraet" class="auftauchen">
+        <div class="preis-zeile"><h3>Krankengymnastik am Gerät</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">60 Min.</span></p></div>
+        <p>Kraftaufbau an Zugapparat und Beinpresse in unserem Trainingsraum. Immer unter Anleitung, höchstens drei Personen gleichzeitig.</p>
+      </li>
+      <li id="hausbesuch" class="auftauchen" data-pruefen="Umkreis für Hausbesuche ausgedacht">
+        <div class="preis-zeile"><h3>Hausbesuch</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">nach Rezept</span></p></div>
+        <p>Wenn Sie nicht in die Praxis kommen können und Ihre Ärztin den Hausbesuch verordnet hat – im Umkreis von fünf Kilometern.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="abschnitt gruppe" id="gruppe-2" aria-labelledby="t-gruppe-2">
+  <div class="huelle gruppe-raster">
+    <div class="gruppe-kopf">
+      <p class="gruppe-nr" aria-hidden="true">02</p>
+      <h2 id="t-gruppe-2">Ohne Rezept</h2>
+      <p class="gruppe-hinweis">Selbstzahler</p>
+    </div>
+    <ul class="preisliste">
+      <li id="erster-blick" class="auftauchen">
+        <div class="preis-zeile"><h3>Erster Blick am Lot</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">45 Min.</span><span class="preis" data-pruefen="Preis ausgedacht">65 €</span></p></div>
+        <p>Der Befund aus dem ersten Termin – für alle, die ohne Rezept wissen wollen, woher der Schmerz kommt und was sie selbst tun können.</p>
+      </li>
+      <li id="rueckenkurs" class="auftauchen">
+        <div class="preis-zeile"><h3>Rückenkurs „Lot &amp; Linie“</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">8 × 60 Min.</span><span class="preis" data-pruefen="Preis ausgedacht">160 €</span></p></div>
+        <p>Dienstags um 18:30 Uhr, höchstens sechs Personen. Kräftigen, beweglich bleiben und Sitzen, ohne dass es nach einer Stunde zieht.</p>
+      </li>
+      <li id="laufanalyse" class="auftauchen">
+        <div class="preis-zeile"><h3>Laufanalyse</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">60 Min.</span><span class="preis" data-pruefen="Preis ausgedacht">80 €</span></p></div>
+        <p>Auf dem Laufband mit Zeitlupen-Video. Sie bekommen die Aufnahmen und drei Punkte, an denen Sie arbeiten können.</p>
+      </li>
+      <li id="kiefer" class="auftauchen">
+        <div class="preis-zeile"><h3>Kiefergelenk (CMD)</h3><span class="punkte" aria-hidden="true"></span><p class="preis-wert"><span class="dauer">30 Min.</span><span class="preis" data-pruefen="Preis ausgedacht">45 €</span></p></div>
+        <p>Bei Knacken, Pressen oder Kopfschmerz am Morgen. Oft zusammen mit Ihrer Zahnärztin, gern auch mit Rezept.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="abschnitt fragen" id="fragen" aria-labelledby="t-fragen">
+  <div class="huelle gruppe-raster">
+    <div class="gruppe-kopf">
+      <p class="gruppe-nr" aria-hidden="true">?</p>
+      <h2 id="t-fragen">Häufige Fragen</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Brauche ich ein Rezept?</summary><p>Für Leistungen der Krankenkasse ja. Sie können den ersten Termin aber schon vereinbaren, bevor Sie das Rezept haben – bringen Sie es dann einfach mit.</p></details>
+      <details><summary>Was ziehe ich an?</summary><p>Bequeme Kleidung, in der Sie sich gut bewegen können. Für die Behandlung von Rücken oder Schulter hilft ein Top oder Unterhemd. Ein großes Handtuch bringen Sie bitte mit.</p></details>
+      <details data-pruefen="Absagefrist und mögliche Ausfallgebühr sind ausgedacht"><summary>Was ist, wenn ich absagen muss?</summary><p>Sagen Sie bitte bis 24 Stunden vorher ab – am Telefon, per E-Mail oder im Buchungskalender. Dann kann jemand anderes den Termin bekommen.</p></details>
+      <details><summary>Wie lange muss ich auf einen Termin warten?</summary><p>Das hängt von der Woche ab. Im Buchungskalender sehen Sie die freien Zeiten der nächsten vier Wochen, frühe Termine ab 7 Uhr sind oft noch frei.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt abschluss" aria-labelledby="t-abschluss">
+  <div class="huelle abschluss-raster">
+    <div class="abschluss-text">
+      <p class="ueberzeile"><svg class="ueber-lot" aria-hidden="true" focusable="false"><use href="#i-lot"></use></svg>Termin</p>
+      <h2 id="t-abschluss">Buchen Sie online oder rufen Sie an.</h2>
+      <p>Online sehen Sie alle freien Zeiten der nächsten vier Wochen. Am Telefon erreichen Sie Jonas während der Öffnungszeiten.</p>
+      <a class="knopf knopf-voll" href="https://cal.com/lotlinie-demo" rel="noopener" data-pruefen="Platzhalter: Cal.com-Link der echten Praxis eintragen"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-kalender"></use></svg>Freie Termine ansehen</a>
+    </div>
+    <div class="abschluss-kontakt">
+      <a class="tel-riesig" href="tel:+4900001234567" data-pruefen="Ausgedacht (Demo-Seite)"><span class="tel-klein">Anrufen</span>0000&nbsp;123&nbsp;45&nbsp;67</a>
+      <dl class="zeiten" data-pruefen="Ausgedacht (Demo-Seite)">
+        <div><dt>Montag bis Donnerstag</dt><dd>7:00 – 20:00 Uhr</dd></div>
+        <div><dt>Freitag</dt><dd>7:00 – 15:00 Uhr</dd></div>
+        <div><dt>Samstag</dt><dd>nach Vereinbarung</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="fuss">
+  <div class="huelle fuss-raster">
+    <div class="fuss-marke">
+      <p class="fuss-name"><svg class="marke-lot" aria-hidden="true" focusable="false"><use href="#i-lot"></use></svg>Lotlinie</p>
+      <p>Physiotherapie in Musterstadt</p>
+    </div>
+    <address class="fuss-adresse" data-pruefen="Ausgedacht (Demo-Seite)">
+      Musterstraße 12<br>00000 Musterstadt<br>
+      <a href="tel:+4900001234567">0000&nbsp;123&nbsp;45&nbsp;67</a><br>
+      <a href="mailto:hallo@lotlinie.example">hallo@lotlinie.example</a>
+    </address>
+    <div class="fuss-zeiten" data-pruefen="Ausgedacht (Demo-Seite)">
+      <p><span>Montag bis Donnerstag</span> 7:00 – 20:00 Uhr</p>
+      <p><span>Freitag</span> 7:00 – 15:00 Uhr</p>
+      <p><span>Samstag</span> nach Vereinbarung</p>
+    </div>
+    <ul class="fuss-links">
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+    <p class="fuss-demo"><span class="demo-marke">Demo</span> Demo-Seite: ausgedachte Praxis. Namen, Adresse, Telefonnummer und Preise sind erfunden. Diese Seite zeigt, wie eine Praxis-Website aussehen kann. Es gibt die Praxis nicht.</p>
+  </div>
+</footer>
+<nav class="schnell" aria-label="Schnellzugriff">
+  <a class="schnell-termin" href="https://cal.com/lotlinie-demo" rel="noopener" data-pruefen="Platzhalter: Cal.com-Link"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-kalender"></use></svg>Termin buchen</a>
+  <a class="schnell-rund" href="tel:+4900001234567" data-pruefen="Ausgedacht (Demo-Seite)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-tel"></use></svg><span>Anrufen</span></a>
+  <a class="schnell-rund" href="https://www.google.com/maps/dir/?api=1&amp;destination=Musterstra%C3%9Fe+12,+00000+Musterstadt" rel="noopener" data-pruefen="Ausgedacht (Demo-Seite)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-ort"></use></svg><span>Route</span></a>
+</nav>
+<dialog class="menue" id="menue" aria-labelledby="menue-titel">
+  <div class="menue-griff" aria-hidden="true"></div>
+  <div class="menue-kopf">
+    <p class="menue-titel" id="menue-titel">Menü</p>
+    <button class="menue-zu" type="button" data-menue-zu><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-zu"></use></svg><span class="nur-lesbar">Menü schließen</span></button>
+  </div>
+  <nav aria-label="Menü">
+    <ol class="menue-liste">
+      <li><a href="/"><span class="menue-nr">01</span><span class="menue-name">Start</span><span class="menue-unter">Worum es geht</span></a></li>
+      <li><a href="/leistungen.html" aria-current="page"><span class="menue-nr">02</span><span class="menue-name">Leistungen</span><span class="menue-unter">Dauer, Preise, Fragen</span></a></li>
+      <li><a href="/praxis.html"><span class="menue-nr">03</span><span class="menue-name">Praxis &amp; Team</span><span class="menue-unter">Räume und Menschen</span></a></li>
+      <li><a href="/termin.html"><span class="menue-nr">04</span><span class="menue-name">Termin &amp; Kontakt</span><span class="menue-unter">Buchen, anrufen, finden</span></a></li>
+    </ol>
+  </nav>
+  <div class="menue-fuss">
+    <a class="knopf knopf-voll" href="https://cal.com/lotlinie-demo" rel="noopener" data-pruefen="Platzhalter: Cal.com-Link der echten Praxis eintragen"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-kalender"></use></svg>Termin online buchen</a>
+    <a class="knopf knopf-rand" href="tel:+4900001234567" data-pruefen="Ausgedacht (Demo-Seite)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-tel"></use></svg>0000&nbsp;123&nbsp;45&nbsp;67</a>
+  </div>
+</dialog>
+</body>
+</html>
