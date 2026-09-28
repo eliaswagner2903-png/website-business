@@ -1,0 +1,12 @@
+# Cloudflare Pages – Showcase „dunkel & edel“ (Demo, ausgedachte Uhrmacherei Lindgrund).
+name = "showcase-edel"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+[vars]
+SEITE_URL = "https://www.beispiel.de"
+KONTAKT_AN = "info@beispiel.de"
+KONTAKT_VON = "website@beispiel.de"
+
+# Geheimnisse NIE hier eintragen, sondern:
+#   npx wrangler pages secret put RESEND_API_KEY
