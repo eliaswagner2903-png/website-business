@@ -1,0 +1,43 @@
+/* ---------- Baustein: hero-video ----------
+   Bildrahmen im ersten Bildschirm: das Poster (<img fetchpriority="high">) ist das LCP-Element.
+   Das Video lädt hero-video.js erst nach dem Laden der Seite – nicht bei „Bewegung reduzieren“ oder „Daten sparen“ –
+   und blendet es 1,2 s sanft über das Poster. Außerhalb des Bildes oder bei verstecktem Tab pausiert es.
+   Ohne Poster und Video (class="held-video--platzhalter") zeigt der Rahmen eine Fläche aus den Markenfarben. */
+.held-video {
+  position: relative; overflow: hidden; isolation: isolate; min-width: 0; aspect-ratio: 4 / 3;
+  border-radius: var(--radius-gross); background: var(--farbe-flaeche);
+}
+@media (min-width: 64rem) { .held-video { aspect-ratio: 4 / 5; } }
+.held-video-poster, .held-video-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.held-video-film { opacity: 0; transition: opacity 1.2s var(--kurve-sanft); }
+.held-video--laeuft .held-video-film { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .held-video-film { display: none; } }
+
+.held-video-hinweis {
+  position: absolute; z-index: 1; inset: auto auto .75rem .75rem; max-inline-size: calc(100% - 5rem);
+  padding: .45rem .75rem; font-size: .875rem; line-height: 1.35; color: var(--farbe-text);
+  background: var(--farbe-flaeche); border-radius: var(--radius-klein);
+}
+.held-video-knopf {
+  position: absolute; z-index: 1; inset: auto .75rem .75rem auto; display: inline-grid; place-items: center;
+  inline-size: 48px; block-size: 48px; padding: 0; color: var(--farbe-text); background: var(--farbe-flaeche);
+  border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--tempo-kurz) var(--kurve-standard);
+}
+.held-video-knopf::before {            /* Pause-Zeichen, im angehaltenen Zustand ein Dreieck */
+  content: ""; inline-size: 12px; block-size: 14px;
+  background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px, currentColor 8px);
+}
+.held-video-knopf[aria-pressed="true"]::before { inline-size: 12px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.held-video-knopf:active { transform: scale(.94); }
+
+/* Platzhalter aus den Markenfarben: Licht, das von oben links in den Rahmen fällt */
+.held-video--platzhalter {
+  background:
+    radial-gradient(120% 80% at 18% 8%, color-mix(in srgb, var(--farbe-auf-akzent) 30%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 90% 100%, color-mix(in srgb, var(--farbe-grund) 22%, transparent), transparent 70%),
+    linear-gradient(160deg, color-mix(in srgb, var(--farbe-akzent) 78%, var(--farbe-grund)), var(--farbe-akzent) 55%, color-mix(in srgb, var(--farbe-akzent) 70%, var(--farbe-text)));
+}
+.held-video--platzhalter::before {    /* feine Linien als Raster: zeigt, dass hier ein Bildformat sitzt */
+  content: ""; position: absolute; inset: 1.25rem; border: 1px solid color-mix(in srgb, var(--farbe-auf-akzent) 35%, transparent);
+  border-radius: calc(var(--radius-gross) - .75rem);
+}

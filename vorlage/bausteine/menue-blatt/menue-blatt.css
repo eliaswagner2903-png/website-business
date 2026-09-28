@@ -1,0 +1,61 @@
+/* ---------- Baustein: menue-blatt ----------
+   Handy-Menü als Blatt von unten (Daumenbereich). Nur mit JS und unter 48rem; ohne JS bleibt die
+   Navigation eine sichtbare Zeile im Kopf. Öffnen 0,85 s sanft, Schließen 0,42 s, Einträge ab 0,22 s
+   um 60 ms versetzt. Geschlossen: visibility hidden + inert. Schleier dunkelt die Seite ab.
+   Wichtig: Kopf (Eltern des Blatts) ohne backdrop-filter/transform, sonst ist position: fixed falsch. */
+@media (max-width: 47.99rem) {
+  .js .menue-knopf {
+    display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; min-width: 44px; padding-inline: 1rem;
+    font: 600 1rem/1 var(--schrift-text); color: var(--farbe-text); background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); cursor: pointer;
+  }
+  .js .menue-knopf::before {           /* zwei Striche, die beim Öffnen zum X werden */
+    content: ""; inline-size: 1rem; block-size: .5rem;
+    background: linear-gradient(currentColor, currentColor) top / 100% 1.5px no-repeat,
+                linear-gradient(currentColor, currentColor) bottom / 100% 1.5px no-repeat;
+    transition: transform var(--tempo-mittel) var(--kurve-standard);
+  }
+  .js .menue-knopf[aria-expanded="true"]::before { transform: scaleY(.2); }
+  .js .menue-knopf:active { transform: scale(.97); }
+
+  .js .blatt {
+    position: fixed; z-index: 2; inset: auto 0 0 0; display: grid; gap: 1rem;
+    max-block-size: min(88dvh, 44rem); overflow-y: auto; overscroll-behavior: contain;
+    padding: .75rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    background: var(--farbe-flaeche); border-radius: var(--radius-gross) var(--radius-gross) 0 0;
+    box-shadow: 0 -12px 40px -18px color-mix(in srgb, var(--farbe-text) 45%, transparent);
+    transform: translateY(100%); visibility: hidden;
+    transition: transform var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .js .blatt--offen { transform: none; visibility: visible; transition: transform var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .js .blatt--zieht { transition: none; }
+  .js .blatt::before {                 /* Griff: zeigt, dass man das Blatt nach unten wischen kann */
+    content: ""; justify-self: center; inline-size: 2.75rem; block-size: 4px; border-radius: 2px; background: var(--farbe-linie);
+  }
+  .js .blatt ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .js .blatt li { border-bottom: 1px solid var(--farbe-linie); }
+  .js .blatt li:has(.knopf) { border: 0; padding-block-start: 1.25rem; }
+  .js .blatt a:not(.knopf) {
+    display: flex; min-height: 3.75rem; padding-inline: .25rem;
+    font: 480 1.9rem/1.1 var(--schrift-display); letter-spacing: -.02em;
+  }
+  .js .blatt a:not(.knopf)::after { content: none; }
+  .js .blatt .knopf { inline-size: 100%; }
+  .js .blatt--offen li { animation: blatt-eintrag .6s var(--kurve-standard) backwards; }
+  .js .blatt--offen li:nth-child(1) { animation-delay: .22s; }
+  .js .blatt--offen li:nth-child(2) { animation-delay: .28s; }
+  .js .blatt--offen li:nth-child(3) { animation-delay: .34s; }
+  .js .blatt--offen li:nth-child(4) { animation-delay: .40s; }
+  .js .blatt--offen li:nth-child(5) { animation-delay: .46s; }
+  .js .blatt--offen li:nth-child(n+6) { animation-delay: .52s; }
+
+  .blatt-schleier {
+    position: fixed; z-index: 15; inset: 0; background: color-mix(in srgb, var(--farbe-text) 42%, transparent);
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .blatt-schleier--an { opacity: 1; visibility: visible; transition: opacity var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .menue-offen { overflow: hidden; }
+}
+@media (min-width: 48rem) { .blatt-schleier { display: none; } }
+@keyframes blatt-eintrag { from { opacity: 0; transform: translateY(14px); } }

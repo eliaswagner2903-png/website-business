@@ -1,0 +1,82 @@
+/* =====================================================================
+   MARKE – die ganze Marke der Seite steht nur hier.
+   Andere Dateien (stil.css, bausteine.css) lesen nur diese Variablen.
+   Andere Farben ausprobieren: css/schema-dunkel.css oder css/schema-warm.css
+   nach dieser Datei einbinden (oder den :root-Block hier ersetzen).
+   Kontrast (WCAG AA) muss stimmen für:
+     text/grund, text/flaeche, leise/grund, leise/flaeche ≥ 4,5
+     akzent/grund, akzent/flaeche ≥ 4,5 (Links)   auf-akzent/akzent ≥ 4,5
+   ===================================================================== */
+
+/* ---------- Schriften (lokal, npm @fontsource-variable, latin + latin-ext) ----------
+   Wechsel: npm i -D @fontsource-variable/<name>; node bausteine/schriften.mjs @fontsource-variable/<name>;
+   Namen unten und die zwei <link rel="preload"> in jeder Seite anpassen; Ersatz-Maße neu messen
+   (bausteine/README.md, Abschnitt Schriften). */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../fonts/fraunces-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../fonts/fraunces-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Ersatzschriften mit gemessenen Maßen: der Text springt beim Tausch kaum (CLS ≈ 0).
+   Gemessen gegen Times New Roman/Liberation Serif bzw. Arial/Liberation Sans (metrisch gleich). */
+@font-face {
+  font-family: "Fraunces Ersatz";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
+  size-adjust: 117.2%; ascent-override: 83.4%; descent-override: 21.8%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Instrument Sans Ersatz";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 101.4%; ascent-override: 95.7%; descent-override: 24.7%; line-gap-override: 0%;
+}
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent */
+  --farbe-grund: #f5f2ec;       /* Seitenhintergrund */
+  --farbe-flaeche: #fffdf9;     /* Karten, Formularfelder, Blatt */
+  --farbe-text: #1a1d1f;
+  --farbe-leise: #575c60;       /* Nebentext */
+  --farbe-linie: #dcd5c9;       /* Rahmen, Trennlinien */
+  --farbe-akzent: #1f5c4a;      /* Hauptfarbe des Kunden: Hauptknopf, Links, ein Wort */
+  --farbe-auf-akzent: #ffffff;  /* Schrift auf Akzentflächen */
+
+  /* Schriften */
+  --schrift-display: "Fraunces", "Fraunces Ersatz", Georgia, serif;
+  --schrift-text: "Instrument Sans", "Instrument Sans Ersatz", Arial, sans-serif;
+
+  /* Formen */
+  --radius-klein: 10px;
+  --radius-gross: 28px;
+
+  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md) */
+  --tempo-kurz: .3s;            /* Hover, Knöpfe */
+  --tempo-mittel: .42s;         /* Schließen, kleine Flächen */
+  --tempo-lang: .85s;           /* Öffnen großer Flächen, Einblenden */
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);      /* startet leise: Blatt, Vorhang, Rahmen */
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Rhythmus */
+  --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 9.5rem);
+
+  color-scheme: light;
+}
