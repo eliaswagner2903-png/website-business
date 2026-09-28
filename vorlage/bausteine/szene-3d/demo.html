@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baustein 3D-Szene – Demo</title>
+<meta name="description" content="Demo des Bausteins 3D-Szene: Standbild zuerst, three.js erst danach nachgeladen, ruhige Bewegung, pausiert außerhalb des Bildes.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="demo.css">
+<link rel="stylesheet" href="szene-3d.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="szene-3d.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="demo.html">Baukasten</a>
+    <a class="leise" href="#messwerte">Messwerte</a>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="text">
+        <span class="ueberzeile">Demo · Baustein 3D-Szene</span>
+        <h1 id="titel">Ein Objekt, das man <em>anfassen</em> möchte</h1>
+        <p>Erst steht ein Standbild da, sofort und scharf. Ist die Seite geladen und das Objekt im Bild, übernimmt unsichtbar die echte 3D-Szene und dreht sich langsam. Mit der Maus neigt es sich leicht, auf dem Handy beim Scrollen.</p>
+        <div class="aktionen">
+          <a class="knopf" href="#varianten">Varianten ansehen</a>
+          <a class="knopf zweit" href="#messwerte">Messwerte</a>
+        </div>
+      </div>
+      <figure class="szene-3d" data-objekt="gefaess" data-farbe="--farbe-akzent">
+        <picture class="szene-3d__poster">
+          <source type="image/avif" srcset="medien/szene-gefaess-640.avif 640w, medien/szene-gefaess-1280.avif 1280w" sizes="(min-width: 56rem) 38rem, calc(100vw - 2rem)">
+          <img src="medien/szene-gefaess-1280.webp" srcset="medien/szene-gefaess-640.webp 640w, medien/szene-gefaess-1280.webp 1280w" sizes="(min-width: 56rem) 38rem, calc(100vw - 2rem)" width="1280" height="1280" fetchpriority="high" alt="3D-Darstellung: bauchiges Gefäß mit feinen senkrechten Rillen und glänzender Glasur in Messington">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="varianten" aria-labelledby="varianten-titel">
+    <div class="huelle">
+      <h2 id="varianten-titel">Vier Objekte, eine Einstellung</h2>
+      <p>Jedes Objekt ist im Code gebaut, nicht aus einer fremden Datei geladen. Gewählt wird es mit <code>data-objekt</code>, die Farben kommen aus der Marke (<code>data-farbe="--farbe-akzent"</code>).</p>
+      <ul class="varianten">
+        <li>
+          <figure class="szene-3d" data-objekt="knoten" data-farbe="--farbe-akzent">
+            <picture class="szene-3d__poster">
+              <source type="image/avif" srcset="medien/szene-knoten-640.avif 640w, medien/szene-knoten-1280.avif 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)">
+              <img src="medien/szene-knoten-640.webp" srcset="medien/szene-knoten-640.webp 640w, medien/szene-knoten-1280.webp 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)" width="1280" height="1280" loading="lazy" decoding="async" alt="3D-Darstellung: in sich verschlungener Knoten aus poliertem Messing">
+            </picture>
+          </figure>
+          <h3>Knoten</h3>
+          <p>Metall, für Technik, Schmuck oder Werkstatt.</p>
+        </li>
+        <li>
+          <figure class="szene-3d" data-objekt="kiesel" data-farbe="--farbe-leise">
+            <picture class="szene-3d__poster">
+              <source type="image/avif" srcset="medien/szene-kiesel-640.avif 640w, medien/szene-kiesel-1280.avif 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)">
+              <img src="medien/szene-kiesel-640.webp" srcset="medien/szene-kiesel-640.webp 640w, medien/szene-kiesel-1280.webp 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)" width="1280" height="1280" loading="lazy" decoding="async" alt="3D-Darstellung: flacher, glatter Kieselstein in warmem Grau">
+            </picture>
+          </figure>
+          <h3>Kiesel</h3>
+          <p>Stein, ruhig und weich, für Praxis, Spa oder Garten.</p>
+        </li>
+        <li>
+          <figure class="szene-3d" data-objekt="ringe" data-farbe="--farbe-akzent" data-farbe-zwei="--farbe-text">
+            <picture class="szene-3d__poster">
+              <source type="image/avif" srcset="medien/szene-ringe-640.avif 640w, medien/szene-ringe-1280.avif 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)">
+              <img src="medien/szene-ringe-640.webp" srcset="medien/szene-ringe-640.webp 640w, medien/szene-ringe-1280.webp 1280w" sizes="(min-width: 40rem) 22rem, calc(100vw - 4rem)" width="1280" height="1280" loading="lazy" decoding="async" alt="3D-Darstellung: drei ineinander liegende Metallreifen in Messing und Hellsilber">
+            </picture>
+          </figure>
+          <h3>Ringe</h3>
+          <p>Drei Reifen wie ein Kreisel, für Uhrmacher, Beratung, Technik.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="messwerte" aria-labelledby="mess-titel">
+    <div class="huelle">
+      <h2 id="mess-titel">Was es kostet</h2>
+      <dl class="werte">
+        <div><dt>Erster Aufruf (ohne 3D)</dt><dd>Lader 1 KB, Poster als AVIF</dd></div>
+        <div><dt>3D-Modul, nachgeladen</dt><dd>138 KB gzip</dd></div>
+        <div><dt>Grenze Meisterstandard</dt><dd>180 KB</dd></div>
+        <div><dt>Ohne WebGL, bei „Bewegung reduzieren“ oder „Daten sparen“</dt><dd>nur das Standbild</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+<footer class="fuss">
+  <div class="huelle"><p>Demo-Seite des Baukastens. Keine echte Firma.</p></div>
+</footer>
+</body>
+</html>

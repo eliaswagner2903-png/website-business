@@ -52,3 +52,10 @@ Bildfolgen beurteilt, nicht am Code.
 Unter 4 in einem Punkt: konkret benennen, was fehlt, nachbessern, neu beurteilen. Die Beurteilung macht nicht nur
 der Erbauer: Uffz. Schnörkel (Optik-Späher) bewertet die Screenshots unabhängig; weichen die Noten um mehr als 1 ab,
 entscheidet die strengere.
+
+## Hinweis zur Zweitnote
+
+Der Optik-Späher (`uffz-schnoerkel`) hat in dieser Umgebung oft keinen Browser. Ihm deshalb immer die
+Screenshot-Pfade mitgeben (Handy, Computer, Ganzseite, Bildfolgen) und zusätzlich Belege für die Zustände:
+je ein Bild mit Tastaturfokus auf Hauptknopf, Telefonlink und einem aufklappbaren Element. Ohne solche Bilder
+kann er W5 und W6 nicht beurteilen und benotet zu Recht streng.

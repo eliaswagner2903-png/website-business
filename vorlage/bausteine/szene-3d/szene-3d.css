@@ -1,0 +1,25 @@
+/* 3D-Szene: Poster (Standbild, LCP) liegt im Fluss, die Leinwand blendet deckungsgleich darüber ein. */
+.szene-3d { position: relative; margin: 0; aspect-ratio: 1; isolation: isolate; }
+/* Seitenverhältnis muss zum Poster passen */
+.szene-3d--4x3 { aspect-ratio: 4 / 3; }
+.szene-3d--16x9 { aspect-ratio: 16 / 9; }
+.szene-3d__poster, .szene-3d__poster img { display: block; width: 100%; height: 100%; }
+.szene-3d__poster img { object-fit: contain; }
+.szene-3d__leinwand {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  opacity: 0; transition: opacity var(--tempo-lang, .9s) var(--kurve-sanft, cubic-bezier(.45, .05, .25, 1));
+}
+/* Probe: 1 % Deckkraft – unsichtbar über dem gleichen Poster, aber der Browser zeichnet wirklich (Messung ehrlich) */
+.szene-3d--probe .szene-3d__leinwand { opacity: .01; transition: none; }
+.szene-3d--bereit .szene-3d__leinwand { opacity: 1; }
+/* Poster erst verstecken, wenn die Leinwand voll deckt (bleibt für Screenreader im Baum: alt-Text) */
+.szene-3d--laeuft .szene-3d__poster { opacity: 0; }
+/* Weicher Bodenschatten – bewusst CSS, damit Poster und Szene ihn identisch teilen */
+.szene-3d::after {
+  content: ""; position: absolute; z-index: -1; left: 22%; right: 22%; bottom: 3%; height: 7%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--farbe-text) 35%, transparent), transparent);
+}
+.szene-3d--ohne-schatten::after { content: none; }
+/* Werkzeug-Modus (poster-rendern.mjs) */
+.szene-standbild .szene-3d__poster { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .szene-3d__leinwand { transition: none; } }

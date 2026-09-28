@@ -11,7 +11,10 @@
   var alle = function (sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); };
   var bildAus = function (f, vorlage) {
     var img = document.createElement("img");
-    img.alt = f.a || "";
+    // Alt-Text erst setzen, wenn das Foto dran ist (zeigeAlt): sonst prüft der Browser schon beim Anlegen,
+    // welche Schriftschnitte die (noch unsichtbaren) Alt-Texte brauchen, und lädt sie vorzeitig mit.
+    img.alt = "";
+    if (f.a) img.dataset.alt = f.a;
     img.decoding = "async";
     img.width = 1016;
     img.height = vorlage ? vorlage.height || 535 : 535;
@@ -26,6 +29,9 @@
     if (img.dataset.srcset) img.srcset = img.dataset.srcset;
     img.src = img.dataset.src;
     delete img.dataset.src;
+  };
+  var zeigeAlt = function (img) {
+    if (img && img.dataset.alt !== undefined) { img.alt = img.dataset.alt; delete img.dataset.alt; }
   };
 
   // ---------------------------------------------------------------- Kopfzeile wird beim Scrollen dichter
@@ -180,6 +186,30 @@
     });
   } else einblend.forEach(function (el) { el.classList.remove("einblenden"); });
 
+  // ---------------------------------------------------------------- Schriften nachladen (Kursiv, ş ı İ ğ ç)
+  // style.css bindet nur die drei Schnitte des ersten Bildschirms fest ein. Der Rest (Kursiv für <em> in
+  // Überschriften, die lateinische Erweiterung für die Gerichtnamen) steckt in schriften-spaeter.css und
+  // wird erst kurz vor dem ersten damit gesetzten Abschnitt geladen – ist der schon beim Laden zu sehen
+  // (z. B. am Computer), feuert der Beobachter sofort, ohne Wartezeit. Läuft unabhängig von „Bewegung
+  // reduzieren“, denn es geht um Schriftgewicht, nicht um Animation.
+  var schriftenGeladen = false;
+  var schriftenSpaeter = function () {
+    if (schriftenGeladen) return;
+    schriftenGeladen = true;
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "assets/css/schriften-spaeter.css";
+    document.head.appendChild(l);
+  };
+  if (einblend.length && hasIO) {
+    var schriftIO = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (en) { return en.isIntersecting; })) return;
+      schriftenSpaeter();
+      schriftIO.disconnect();
+    }, { rootMargin: "600px 0px 600px 0px" });
+    schriftIO.observe(einblend[0]);
+  } else schriftenSpaeter();
+
   // ---------------------------------------------------------------- Wort-Welle im Willkommenstext
   // Jedes Wort wird nacheinander hell (45 ms Versatz, je 1 s): gut zu verfolgen, gesamt ca. 3,5 s.
   if (!ruhig && hasIO) {
@@ -288,6 +318,7 @@
       pos = (n + bilder.length) % bilder.length;
       var neu = bilder[pos];
       laden(neu);
+      zeigeAlt(neu);
       if (alt !== neu) alt.classList.remove("an", "zoom");
       neu.classList.add("an");
       if (!ruhig) { neu.classList.remove("zoom"); void neu.offsetWidth; neu.classList.add("zoom"); }
@@ -336,6 +367,7 @@
         tafelLaden();
         var z = tafelBilder[a.dataset.bild];
         if (!z || z === tafelAktuell) return;
+        zeigeAlt(z);
         tafelAktuell.classList.remove("an");
         z.classList.add("an");
         tafelAktuell = z;

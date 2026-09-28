@@ -9,9 +9,15 @@
 <meta property="og:title" content="Kundenname – Leistung in Ort">
 <meta property="og:description" content="Ein Satz, der sagt, was der Kunde anbietet, für wen und wo.">
 <meta property="og:type" content="website">
+<meta name="theme-color" content="#f5f2ec">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
+<link rel="stylesheet" href="/css/bausteine.css">
 <script>document.documentElement.classList.add('js')</script>
+<script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
 </head>
 <body>
@@ -20,12 +26,12 @@
   <div class="huelle">
     <a class="marke" href="/">Kundenname</a>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
-    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+    <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
         <li><a href="#leistungen">Leistungen</a></li>
         <li><a href="#angebot">Angebot</a></li>
-        <li><a href="#termin">Termin</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
+        <li><a class="knopf" href="#termin">Termin buchen</a></li>
       </ul>
     </nav>
   </div>
@@ -34,72 +40,124 @@
 <main id="inhalt">
   <section class="held" aria-labelledby="titel">
     <div class="huelle">
-      <span class="eyebrow" data-pruefen="Ort und Branche vom Kunden bestätigen">Branche in Ort</span>
-      <h1 id="titel">Was der Kunde macht, in einem klaren Satz</h1>
-      <p>Für wen, was das Besondere ist und was der nächste Schritt ist. Dieser Text beantwortet in fünf Sekunden die wichtigsten Fragen.</p>
-      <div class="aktionen">
-        <a class="knopf" href="#termin">Termin buchen</a>
-        <a class="knopf zweit" href="#kontakt">Nachricht schreiben</a>
+      <div class="held-text">
+        <span class="eyebrow" data-pruefen="Ort und Branche vom Kunden bestätigen">Branche in Ort</span>
+        <h1 id="titel">Was der Kunde macht, in einem <em class="akzent-wort">klaren</em> Satz</h1>
+        <p>Für wen, was das Besondere ist und was der nächste Schritt ist. Dieser Text beantwortet in fünf Sekunden die wichtigsten Fragen.</p>
+        <div class="aktionen">
+          <a class="knopf" href="#termin">Termin buchen <span class="pfeil" aria-hidden="true">→</span></a>
+          <a class="knopf zweit" href="#kontakt">Nachricht schreiben</a>
+        </div>
+        <dl class="fakten">
+          <div><dt>Erfahrung</dt><dd data-pruefen="Zahl vom Kunden">XX Jahre</dd></div>
+          <div><dt>Ort</dt><dd data-pruefen="Ort vom Kunden">Ort</dd></div>
+          <div><dt>Antwort</dt><dd data-pruefen="Zusage vom Kunden">in 24 h</dd></div>
+        </dl>
       </div>
-      <div class="held-medien" aria-hidden="true"></div>
+      <figure class="held-video held-video--platzhalter">
+        <figcaption class="held-video-hinweis">Platz für Foto oder kurzes Video des Kunden – Poster zuerst</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="abschnitt" id="leistungen" aria-labelledby="t-leistungen">
     <div class="huelle">
-      <h2 id="t-leistungen">Leistungen</h2>
-      <div class="raster">
-        <article class="karte"><h3>Leistung eins</h3><p>Konkret beschreiben, was der Kunde bekommt.</p></article>
-        <article class="karte"><h3>Leistung zwei</h3><p>Nichts erfinden: nur Angaben aus dem Auftrag verwenden.</p></article>
-        <article class="karte"><h3>Leistung drei</h3><p>Unsicheres mit data-pruefen markieren.</p></article>
+      <div class="kopfzeile">
+        <span class="eyebrow">Leistungen</span>
+        <h2 id="t-leistungen" class="einblenden">Was der Kunde für seine Kundschaft tut</h2>
+        <p class="einblenden">Zwei, drei Sätze, die den Rahmen setzen. Konkret und ohne Floskeln: was, für wen, in welcher Qualität.</p>
+      </div>
+      <div class="bento">
+        <article class="bento-kachel bento-kachel--gross einblenden">
+          <span class="bento-nummer" aria-hidden="true">01</span>
+          <div>
+            <h3>Leistung eins</h3>
+            <p>Die wichtigste Leistung bekommt die größte Kachel. Konkret beschreiben, was der Kunde bekommt, wie lange es dauert und was es kostet.</p>
+          </div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">02</span>
+          <div><h3>Leistung zwei</h3><p>Nichts erfinden: nur Angaben aus dem Auftrag verwenden.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">03</span>
+          <div><h3>Leistung drei</h3><p>Unsicheres mit data-pruefen markieren.</p></div>
+        </article>
+        <article class="bento-kachel bento-kachel--breit bento-kachel--akzent einblenden">
+          <span class="bento-nummer" aria-hidden="true">04</span>
+          <div><h3>Ein Satz, der Vertrauen schafft</h3><p data-pruefen="Echte Aussage oder Stimme vom Kunden">Platz für eine echte Kundenstimme, eine Auszeichnung oder eine Zahl, die der Kunde belegen kann.</p></div>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="abschnitt" id="angebot" aria-labelledby="t-angebot">
-    <div class="huelle">
-      <h2 id="t-angebot">Angebot</h2>
-      <div class="raster">
-        <article class="karte">
+    <div class="huelle angebot">
+      <div class="angebot-text">
+        <span class="eyebrow">Angebot</span>
+        <h2 id="t-angebot" class="einblenden">Ein klares Angebot mit festem Preis</h2>
+        <p class="einblenden">Was genau enthalten ist, wie es abläuft und wann es losgeht. Die Zahlung läuft über eine Seite von Stripe. Kartendaten werden nicht auf dieser Website verarbeitet.</p>
+      </div>
+      <article class="karte einblenden">
+        <div class="karte-kopf">
           <h3>Beratung</h3>
           <p class="preis" data-pruefen="Preis muss dem Stripe-Preis entsprechen">49 €</p>
-          <p>Einmalzahlung, sicher über Stripe.</p>
-          <form method="post" action="/api/checkout" data-einmal>
-            <input type="hidden" name="produkt" value="beratung">
-            <button class="knopf" type="submit">Jetzt bezahlen</button>
-          </form>
-        </article>
-      </div>
-      <p class="hinweis">Die Zahlung läuft über eine Seite von Stripe. Kartendaten werden nicht auf dieser Website verarbeitet.</p>
+        </div>
+        <ul class="liste">
+          <li>Einmalzahlung, sicher über Stripe</li>
+          <li data-pruefen="Leistungsumfang vom Kunden">Was im Preis enthalten ist</li>
+          <li data-pruefen="Ablauf vom Kunden">Wie es nach der Zahlung weitergeht</li>
+        </ul>
+        <form method="post" action="/api/checkout" data-einmal>
+          <input type="hidden" name="produkt" value="beratung">
+          <button class="knopf" type="submit">Jetzt bezahlen <span class="pfeil" aria-hidden="true">→</span></button>
+        </form>
+      </article>
     </div>
   </section>
 
   <section class="abschnitt" id="termin" aria-labelledby="t-termin">
     <div class="huelle">
-      <h2 id="t-termin">Termin buchen</h2>
-      <p>Freie Zeiten sehen und direkt buchen. Die Buchung öffnet sich auf der Seite unseres Terminplaners.</p>
-      <p><a class="knopf" href="https://cal.com/DEIN-NAME" rel="noopener" data-pruefen="Cal.com-Link des Kunden eintragen">Freie Termine ansehen</a></p>
+      <div class="panel-akzent einblenden">
+        <span class="eyebrow">Termin</span>
+        <div>
+          <h2 id="t-termin">Termin buchen</h2>
+          <p>Freie Zeiten sehen und direkt buchen. Die Buchung öffnet sich auf der Seite unseres Terminplaners.</p>
+        </div>
+        <p><a class="knopf knopf--hell" href="https://cal.com/DEIN-NAME" rel="noopener" data-pruefen="Cal.com-Link des Kunden eintragen">Freie Termine ansehen <span class="pfeil" aria-hidden="true">→</span></a></p>
+      </div>
     </div>
   </section>
 
   <section class="abschnitt" id="kontakt" aria-labelledby="t-kontakt">
-    <div class="huelle">
-      <h2 id="t-kontakt">Kontakt</h2>
-      <form class="formular" method="post" action="/api/kontakt">
-        <label>Name <input id="k-name" name="name" type="text" autocomplete="name" required maxlength="100"></label>
-        <label>E-Mail <input id="k-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
-        <label>Nachricht <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
-        <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
-        <p class="hinweis">Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
-        <p><button class="knopf" type="submit">Nachricht senden</button></p>
-      </form>
+    <div class="huelle kontakt">
+      <div class="kontakt-text">
+        <span class="eyebrow">Kontakt</span>
+        <h2 id="t-kontakt" class="einblenden">Kontakt</h2>
+        <p class="einblenden">Schreiben Sie uns, wir melden uns so bald wie möglich.</p>
+        <ul class="wege">
+          <li><span>Telefon</span><a href="tel:+49000000000" data-pruefen="Telefonnummer vom Kunden">0000&nbsp;000&nbsp;000</a></li>
+          <li><span>E-Mail</span><a href="mailto:kontakt@beispiel.de" data-pruefen="E-Mail vom Kunden">kontakt@beispiel.de</a></li>
+          <li><span>Adresse</span><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Adresse" rel="noopener" data-pruefen="Adresse und Routenlink vom Kunden">Straße 1, 00000 Ort</a></li>
+        </ul>
+      </div>
+      <div class="karte einblenden">
+        <form class="formular" method="post" action="/api/kontakt">
+          <label>Name <input id="k-name" name="name" type="text" autocomplete="name" required maxlength="100"></label>
+          <label>E-Mail <input id="k-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
+          <label>Nachricht <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
+          <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <p class="hinweis">Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
+          <p><button class="knopf" type="submit">Nachricht senden <span class="pfeil" aria-hidden="true">→</span></button></p>
+        </form>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="fuss">
   <div class="huelle">
-    <p>© Kundenname</p>
+    <a class="marke" href="/">Kundenname</a>
     <ul>
       <li><a href="/impressum.html">Impressum</a></li>
       <li><a href="/datenschutz.html">Datenschutz</a></li>

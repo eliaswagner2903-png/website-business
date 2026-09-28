@@ -1,0 +1,13 @@
+/* Schema „dunkel & edel“ – zum Testen der Anpassbarkeit (Meisterstandard P4).
+   Einspielen: nach marke.css einbinden oder diesen Block in marke.css ersetzen.
+   Kontrast gemessen: text/grund 15,0 · leise/flaeche 6,9 · akzent/grund 9,3 · auf-akzent/akzent 9,2 */
+:root {
+  --farbe-grund: #121416;
+  --farbe-flaeche: #1b1e21;
+  --farbe-text: #ece7df;
+  --farbe-leise: #a3a7ab;
+  --farbe-linie: #32363a;
+  --farbe-akzent: #d8b27a;
+  --farbe-auf-akzent: #1a1409;
+  color-scheme: dark;
+}

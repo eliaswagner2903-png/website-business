@@ -6,13 +6,16 @@ import { playwright } from './_playwright.mjs';
 const [ordner, port = '8080', seite = 'index.html'] = process.argv.slice(2);
 if (!ordner) { console.log('Aufruf: node werkzeuge/budget.mjs <ordner> [port] [seite]'); process.exit(1); }
 const url = `http://localhost:${port}/${seite}`;
-const GRENZEN = { gesamt: 500, js: 60, css: 30, schrift: 120, schriftDateien: 3, anfragen: 25, fps: 55 };
+const GRENZEN = { gesamt: 500, js: 60, jsNachgeladen: 180, css: 30, schrift: 120, schriftDateien: 3, anfragen: 25, fps: 55 };
+// jsNachgeladen: JavaScript, das erst NACH dem load-Ereignis angefragt wird (z. B. 3D-Szene), plus das JS davor.
 
 const { chromium } = await playwright(); const b = await chromium.launch();
 const c = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 3 });
-const p = await c.newPage(); const antworten = [];
-p.on('requestfinished', async r => { const s = await r.sizes().catch(() => null); antworten.push({ url: r.url(), typ: r.resourceType(), bytes: s ? s.responseBodySize + s.responseHeadersSize : 0 }); });
-await p.goto(url, { waitUntil: 'load' }); await p.waitForTimeout(500);
+const p = await c.newPage(); const antworten = []; let geladen = false; const spaet = new Set();
+p.on('request', r => { if (geladen) spaet.add(r); });
+p.on('requestfinished', async r => { const s = await r.sizes().catch(() => null); antworten.push({ url: r.url(), typ: r.resourceType(), spaet: spaet.has(r), bytes: s ? s.responseBodySize + s.responseHeadersSize : 0 }); });
+await p.goto(url, { waitUntil: 'load' }); geladen = true; await p.waitForTimeout(3000); // Nachgeladenes (3D) abwarten
+const alle = antworten.slice(); antworten.splice(0, antworten.length, ...alle.filter(r => !r.spaet));
 
 const kb = n => Math.round(n / 102.4) / 10;
 const summe = f => kb(antworten.filter(f).reduce((a, r) => a + r.bytes, 0));
@@ -22,7 +25,8 @@ const werte = {
   schrift: summe(r => r.typ === 'font'), schriftDateien: antworten.filter(r => r.typ === 'font').length,
   anfragen: antworten.length,
 };
-const fremd = [...new Set(antworten.map(r => new URL(r.url).origin).filter(o => o !== eigen && !o.startsWith('data:')))];
+werte.jsNachgeladen = kb(alle.filter(r => r.typ === 'script').reduce((a, r) => a + r.bytes, 0));
+const fremd = [...new Set(alle.map(r => new URL(r.url).origin).filter(o => o !== eigen && !o.startsWith('data:')))];
 
 // Scroll-Flüssigkeit: 4× langsamere CPU, gleichmäßig bis zum Ende scrollen, Bilder pro Sekunde zählen.
 const cdp = await c.newCDPSession(p); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });

@@ -1,0 +1,45 @@
+/* ---------- Baustein: bento ----------
+   Raster mit Größenspannung statt gleichförmiger Kartenreihe.
+   Handy: eine Spalte. Ab 40rem: zwei Spalten. Ab 64rem: drei Spalten.
+   Varianten: --gross (2×2 ab 64rem), --breit (ganze Zeile), --hoch (2 Zeilen ab 64rem), --akzent (Akzentfläche).
+   Zellen vorher zählen: die Summe muss die Zeilen füllen (sonst Lücke), z. B. gross(4) + 2 × normal + breit(3) = 9.
+   Nur Kacheln mit Link bekommen Hover (ganze Kachel klickbar über den Link, kein verschachteltes <a>). */
+.bento { display: grid; gap: clamp(.75rem, .5rem + .8vw, 1.25rem); grid-template-columns: minmax(0, 1fr); }
+.bento-kachel {
+  position: relative; display: grid; align-content: space-between; gap: 2rem; min-width: 0; min-height: 13rem;
+  padding: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+  background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross);
+  transition: transform var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard);
+}
+.bento-kachel > * { min-width: 0; }
+.bento-kachel > div { display: grid; gap: .6rem; align-content: end; }
+.bento-kachel h3 { max-width: 18ch; }
+.bento-kachel p { color: var(--farbe-leise); }
+.bento-nummer {
+  font: 450 1.05rem/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: tabular-nums; letter-spacing: -.01em;
+}
+.bento-kachel--gross { gap: 3rem; }
+.bento-kachel--gross .bento-nummer { font-size: clamp(4.5rem, 3rem + 6vw, 9rem); line-height: .8; letter-spacing: -.05em; }
+.bento-kachel--gross h3 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.6rem); max-width: 14ch; }
+.bento-kachel--gross p { font-size: 1.125rem; max-width: 40ch; }
+.bento-kachel--akzent { background: var(--farbe-akzent); border-color: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+.bento-kachel--akzent p, .bento-kachel--akzent .bento-nummer, .bento-kachel--akzent a { color: var(--farbe-auf-akzent); }
+.bento-kachel--akzent :focus-visible { outline-color: var(--farbe-auf-akzent); }
+.bento-kachel a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+@media (hover: hover) and (pointer: fine) {
+  .bento-kachel:has(a):hover { transform: translateY(-3px); border-color: var(--farbe-akzent); }
+}
+.bento-kachel:has(a):active { transform: scale(.99); }
+
+@media (min-width: 40rem) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento-kachel--gross, .bento-kachel--breit { grid-column: 1 / -1; }
+}
+@media (min-width: 64rem) {
+  .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(14rem, auto); }
+  .bento-kachel--gross { grid-column: span 2; grid-row: span 2; }
+  .bento-kachel--hoch { grid-row: span 2; }
+  .bento-kachel--breit { grid-column: 1 / -1; min-height: 0; }
+  .bento-kachel--breit > div { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2rem; align-items: end; }
+  .bento-kachel--breit h3 { max-width: none; }
+}
