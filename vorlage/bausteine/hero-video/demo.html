@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hero-Video – Baustein-Demo</title>
+<meta name="description" content="Bildrahmen mit Poster als LCP und Video erst danach.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="hero-video.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="hero-video.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <nav class="nav" aria-label="Bausteine">
+      <ul>
+        <li><a href="../index.html">Übersicht</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel">Hero mit Poster und Video</h1>
+        <p>Das Poster ist das LCP-Element. Das Video lädt erst nach der Seite, nicht bei „Bewegung reduzieren“ oder „Daten sparen“, und pausiert außerhalb des Bildes.</p>
+      </div>
+      <figure class="held-video" data-webm="medien/film.webm">
+        <img class="held-video-poster" src="medien/poster-960.webp" srcset="medien/poster-640.webp 640w, medien/poster-960.webp 960w, medien/poster-1440.webp 1440w" sizes="(min-width: 64rem) 32rem, calc(100vw - 2.5rem)" width="960" height="1200" alt="Lichtstreifen fallen schräg auf eine grüne Fläche (Platzhalter-Visual)" fetchpriority="high">
+        <button class="held-video-knopf" type="button" aria-pressed="false" hidden><span class="unsichtbar">Video anhalten</span></button>
+        <figcaption class="held-video-hinweis">Platzhalter: erzeugtes Test-Video (8 s, 640 KB). Echtes Video vom Kunden, WebM + MP4, ≤ 1,5 MB</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="held" aria-labelledby="t-platz">
+    <div class="huelle">
+      <div class="held-text"><h2 id="t-platz">Ohne Visual: Platzhalter aus den Markenfarben</h2><p>Die Fläche entsteht nur aus marke.css und passt sich jedem Schema an. Genau so steht sie auf der Startseite der Vorlage.</p></div>
+      <figure class="held-video held-video--platzhalter">
+        <figcaption class="held-video-hinweis">Platz für Foto oder kurzes Video des Kunden – Poster zuerst</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>
