@@ -46,8 +46,17 @@ Kosten vorher mit `get_cost: true` abfragen (kostet nichts). Stand 2026-09-29:
 | `gpt_image_2_5` | 1k, Qualität „low“ (Standard) | 0,25 |
 | `recraft_v4_1` | 1k | 1,25 |
 | `kling3_0` | 5 s, `mode: std`, `sound: off` | 6,25 |
+| `kling3_0` | 6 s, `mode: std`, `sound: off` | 7,50 |
+| `seedance_2_0_mini` | 4 s, 480p / 720p, ohne Ton | 2 / 4 |
+| `seedance1_5` | 4 s, 720p, ohne Ton | 4,80 |
+| `seedance_2_0` | 4 s, `mode: fast`, 720p, ohne Ton | 10 |
+| `seedance_2_0` | 8 s, `mode: std`, 1080p, ohne Ton | 72 |
+| `seedance_2_5` | 4 s, 480p, ohne Ton | 12 |
 | `seedance_2_5` | 5 s | 35 |
 
+- **Seedance vs. Kling (A-048):** Seedance 2.x kann Start-/Endbild plus Bild-/Video-Referenzen und bis 15 s (2.5: 30 s)
+  in einem Zug: stark für lange Kamerafahrten (Scroll-Film). Für kurze ruhige Schleifen reicht `kling3_0` billiger.
+  `seedance_2_0_mini` nur 480p/720p: als Ersatz für einen 1080p-Kling-Film ein Rückschritt.
 - **Nahtlose Schleife:** bei `kling3_0` dasselbe Bild als `start_image` und `end_image` (Job-ID als `value`),
   Prompt „Locked-off static camera … nothing else moves“ → ruhige Bewegung, Naht praktisch unsichtbar.
 - **Download:** Ergebnisse liegen auf `d8j0ntlcm91z4.cloudfront.net`. Die Domain muss in der Netzwerkfreigabe der
