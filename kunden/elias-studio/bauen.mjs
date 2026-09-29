@@ -22,18 +22,18 @@ const ICON = {
   post: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>',
 };
 
-// ---------- Vorschaubilder der Arbeiten (werkzeuge/bilder.mjs: AVIF + WebP) ----------
-// Desktop-Aufnahme 1440×900 (DPR 2) → 640/1016/1600 px; Handy 390×844 (DPR 3) → 320/640 px.
-const MASS = { desktop: { b: [640, 1016, 1600], h: (b) => Math.round(b * 900 / 1440) }, handy: { b: [320, 640], h: (b) => Math.round(b * 844 / 390) } };
-function vorschau(a, art, sizes, { lazy = true, alt = true } = {}) {
-  const m = MASS[art];
-  const set = (typ) => m.b.map((b) => `/medien/arbeit-${a.id}-${art}-${b}.${typ} ${b}w`).join(', ');
-  const b0 = m.b[art === 'desktop' ? 1 : 0];
-  const text = alt ? esc(art === 'desktop' ? a.alt_desktop : a.alt_handy) : '';
+// ---------- Lange Aufnahmen der Arbeiten (node aufnahmen.mjs: AVIF + WebP) ----------
+// Desktop 1440 px breit, oberste 3600 px → 800/1440; Handy 390 px (DPR 2), oberste 3400 px → 320/600.
+// Im Gerät läuft die Aufnahme langsam durch (CSS), bei „Bewegung reduzieren“ steht der Anfang.
+const LANG = { desktop: { b: [800, 1440], h: (b) => Math.round(b * 3600 / 1440) }, handy: { b: [320, 600], h: (b) => Math.round(b * 6800 / 780) } };
+function aufnahme(a, art, sizes, { lazy = true } = {}) {
+  const m = LANG[art];
+  const set = (typ) => m.b.map((b) => `/medien/arbeit-${a.id}-${art}-lang-${b}.${typ} ${b}w`).join(', ');
+  const b0 = m.b[0];
+  const text = esc(art === 'desktop' ? a.alt_desktop : a.alt_handy);
   const laden = lazy ? ' loading="lazy" decoding="async"' : ' decoding="async"';
-  return `<picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-${art}-${b0}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${b0}" height="${m.h(b0)}" alt="${text}"${laden}></picture>`;
+  return `<picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-${art}-lang-${b0}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${b0}" height="${m.h(b0)}" alt="${text}"${laden}></picture>`;
 }
-const HANDY_KLEIN = '(min-width: 64rem) 220px, 32vw';   // Kontaktbogen im Hero – dieselbe Datei wie im Werk (Cache)
 
 // ---------- Navigation ----------
 const NAV = [['#arbeiten', 'Arbeiten'], ['#konfigurator', 'Konfigurator'], ['#leistungen', 'Leistungen'], ['#betreuung', 'Betreuung'], ['#ablauf', 'Ablauf']];
@@ -148,8 +148,8 @@ const held = `<section class="kino" aria-labelledby="titel" data-film-computer="
     <div class="kapitel kapitel--start">
       <div class="huelle kapitel-in">
         ${ueber('Websites mit Betreuung im Monats-Abo', 'ueberzeile--kino')}
-        <h1 id="titel">Websites für Praxen, Werkstätten und Restaurants. Gebaut, gemessen und <em>betreut</em>.</h1>
-        <p class="held-lead">Ich baue schnelle Websites ohne Tracking, die auf dem Handy funktionieren, und kümmere mich danach im Monats-Abo um Technik, Sicherheit und Änderungen.</p>
+        <h1 id="titel">Websites, die man nicht wegklickt. Gebaut, gemessen, <em>betreut</em>.</h1>
+        <p class="held-lead">Für Praxen, Werkstätten und Restaurants. Schnell, ohne Tracking, im Monats-Abo betreut.</p>
         <div class="aktionen held-aktionen">
           <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
           <a class="knopf zweit" href="#konfigurator">Seite zusammenstellen</a>
@@ -172,27 +172,24 @@ ${k.werte.map(([w, t]) => `          <div><dt>${esc(t)}</dt><dd>${esc(w)}</dd></
 
 // ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle vier untereinander) ----------
 const WERTE = [['perf', 'Performance'], ['a11y', 'Barrierefreiheit'], ['bp', 'Best Practices'], ['seo', 'SEO']];
-const werk = (a, i) => {
+const werk = (a) => {
   const urfa = a.id === 'urfa';
   const link = a.link
-    ? `<p class="werk-link"><a class="knopf" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} öffnen ${raus}</a><span class="werk-link-hinweis">Die ganze Seite mit allen Unterseiten, in einem neuen Tab</span></p>`
-    : `<p class="werk-link werk-link--offen"${pr(P.urfa)}>Öffentlicher Link folgt, sobald das Restaurant die Seite freigibt</p>`;
+    ? `<p class="werk-link"><a class="knopf" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} öffnen ${raus}</a></p>`
+    : `<p class="werk-link werk-link--offen"${pr(P.urfa)}>Link folgt nach Freigabe durch das Restaurant</p>`;
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(a.name.toLowerCase())} · ${esc(a.art.toLowerCase())}</span></span>
-        ${vorschau(a, 'desktop', '(min-width: 76rem) 760px, (min-width: 64rem) 62vw, calc(100vw - 2.5rem)', { lazy: i > 0 })}
+        <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 64vw, 1px')}</div>
       </div>
-      <div class="rahmen rahmen--handy">${vorschau(a, 'handy', HANDY_KLEIN)}</div>
+      <div class="rahmen rahmen--handy"><div class="fenster">${aufnahme(a, 'handy', '(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw')}</div></div>
     </div>
     <div class="werk-schild">
       <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art"${urfa ? pr(P.urfa) : ''}>${esc(a.art_lang)}</span></p>
       <h3 id="w-${a.id}">${esc(a.name)}</h3>
-      <p class="werk-branche">${esc(a.branche)} · Leitmotiv: ${esc(a.leitmotiv)}</p>
+      <p class="werk-branche">${esc(a.branche)} · ${esc(a.leitmotiv)}</p>
       <p class="werk-satz">${esc(a.satz)}</p>
-      <ul class="werk-punkte">
-${a.punkte.map((p) => `        <li>${esc(p)}</li>`).join('\n')}
-      </ul>
       <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
       <dl class="werk-werte">
 ${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${a.werte[k]}</dd></div>`).join('\n')}
@@ -208,7 +205,7 @@ const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelle
     <div class="kopfzeile">
       ${ueber('Arbeiten')}
       <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
-      <p class="einblenden">Drei Musterseiten mit ausgedachten Marken und ein Entwurf für ein echtes Restaurant. Jede Seite hat ein Leitmotiv aus der Welt des Betriebs, keine Vorlage, die nur umgefärbt wurde. Die Musterseiten lassen sich komplett öffnen.</p>
+      <p class="einblenden">Drei Musterseiten und ein Entwurf für ein echtes Restaurant. Jede hat ihr eigenes Leitmotiv, und im Gerät läuft die echte Seite.</p>
     </div>
     <div class="buehne">
       <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
@@ -260,12 +257,29 @@ ${K.bausteine.map((b) => `              ${wahl('bausteine', b.id, `<span class="
             <p class="feld-hinweis nur-js">Zu Ihrem Business passende Funktionen sind vorgeschlagen und lassen sich abwählen.</p>
             <p class="feld-hinweis konfig-regel" hidden>Zahlungen brauchen mindestens Sicherheitsstufe 4, der Regler geht deshalb nicht darunter.</p>`],
 ];
+// Mini-Seite im Gerät: eine echte kleine Website, die Business, Farbe, Schrift, Stufen und Funktionen sofort übernimmt.
+// Texte je Business aus seite.json (branchen[].satz/lead/knopf), Funktionen als echte Bausteine (nur sichtbar, wenn gewählt).
+const nb = (feld) => K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b[feld])}</span>`).join('');
+const miniSeite = `            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="vorschau-zeichen"></span>${nb('muster')}</span><span class="vorschau-nav">${K.muster_nav.map((t) => `<i>${esc(t)}</i>`).join('')}</span></p>
+            <p class="vorschau-ueber">${nb('name')}</p>
+            <p class="vorschau-titel">${nb('satz')}</p>
+            <p class="vorschau-lead">${nb('lead')}</p>
+            <p class="vorschau-knoepfe"><span class="vorschau-knopf">${nb('knopf')}</span><span class="vorschau-knopf vorschau-knopf--zweit">Anrufen</span></p>
+            <p class="vorschau-bild"><span class="vorschau-ring"></span><span class="vorschau-bild-text">Ihr Foto</span><span class="vb vb--film vorschau-play">▶ Film</span><span class="vb vb--dreid vorschau-wuerfel"><i></i><i></i><i></i></span></p>
+            <div class="vorschau-bausteine">
+              <p class="vb vb--termin mini-karte"><span class="mini-titel">Nächster freier Termin</span><span class="mini-chips"><i>Di 9:30</i><i>Di 16:00</i><i>Mi 8:15</i></span></p>
+              <p class="vb vb--speisekarte mini-karte"><span class="mini-titel">Heute auf der Karte</span><span class="mini-zeile">Linsensuppe <b>6,50</b></span><span class="mini-zeile">Ofengemüse <b>12,90</b></span></p>
+              <p class="vb vb--galerie mini-galerie"><i></i><i></i><i></i></p>
+              <p class="vb vb--formular mini-karte"><span class="mini-titel">Anfrage</span><span class="mini-feld">Name</span><span class="mini-feld">Ihre Nachricht</span></p>
+              <p class="vb vb--zahlung mini-karte mini-karte--zeile"><span class="mini-titel">Gutschein kaufen</span><span class="mini-schloss">sicher bezahlen</span></p>
+            </div>
+            <p class="vorschau-siegel"><span class="siegel siegel--schutz">Schutz <b>2</b>/5</span><span class="siegel siegel--betreuung">Betreuung <b>2</b>/5</span></p>`;
 const konfig = `<section class="abschnitt konfig" id="konfigurator" aria-labelledby="t-konfig">
   <div class="huelle">
     <div class="kopfzeile">
       ${ueber('Konfigurator')}
       <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
-      <p class="einblenden">Arbeiten Sie die Reiter der Reihe nach ab: Business, Farbe und Schrift wählen, dann jeden Bereich selbst von 1 bis 5 einstufen. Das Modell zeigt jede Änderung sofort, auf Wunsch auch diese ganze Seite. Ihre Einstufung geht mit der Anfrage mit und wird zur Grundlage des Angebots: gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
+      <p class="einblenden">Wählen Sie Business, Farbe und Schrift und stufen Sie jeden Bereich von 1 bis 5 ein. Gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
     </div>
     <div class="generator">
       <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
@@ -274,14 +288,7 @@ ${SCHRITTE.map(([, kurz], i) => `        <button class="gen-tab" type="button" r
       <div class="konfig-vorschau" aria-hidden="true">
         <div class="vorschau-geraet">
           <div class="vorschau-seite">
-            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="vorschau-zeichen"></span>${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.muster)}</span>`).join('')}</span><span class="vorschau-nav">${'<i></i>'.repeat(5)}</span></p>
-            <p class="vorschau-ueber">Muster · ${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.name)}</span>`).join('')}</p>
-            <p class="vorschau-titel">${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.satz)}</span>`).join('')}</p>
-            <p class="vorschau-bild"><span class="vorschau-ring"></span></p>
-            <p class="vorschau-zeilen"><span></span><span></span><span></span></p>
-            <p class="vorschau-knopf">Anfragen</p>
-            <p class="vorschau-bausteine">${K.bausteine.map((b) => `<span class="vb vb--${b.id}">${esc(b.name)}</span>`).join('')}</p>
-            <p class="vorschau-siegel"><span class="siegel siegel--schutz">Schutz <b>2</b>/5</span><span class="siegel siegel--betreuung">Betreuung <b>2</b>/5</span></p>
+${miniSeite}
           </div>
         </div>
         <div class="einstufung nur-js">
@@ -314,7 +321,7 @@ const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-l
     <div class="kopfzeile">
       ${ueber('Leistungen')}
       <h2 id="t-leistungen" class="einblenden">Was jede Seite <em>kann</em>, bevor sie online geht.</h2>
-      <p class="einblenden">Das sind keine Versprechen für die Werbung, sondern Prüfpunkte. Jede Seite wird vor der Übergabe dagegen gemessen – auch diese hier.</p>
+      <p class="einblenden">Prüfpunkte statt Versprechen. Auch diese Seite wird daran gemessen.</p>
     </div>
     <ul class="mass-liste">
 ${S.leistungen.map((l) => `      <li class="mass einblenden">
@@ -340,7 +347,7 @@ const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labe
       <div class="kopfzeile">
         ${ueber('Betreuung im Monats-Abo')}
         <h2 id="t-betreuung" class="einblenden">Nach dem Start geht die Arbeit <em>weiter</em>.</h2>
-        <p class="einblenden">Abhängigkeiten brauchen Updates, Zertifikate laufen ab, Öffnungszeiten ändern sich. Im Abo prüfe ich Ihre Seite jede Woche automatisch und schicke Ihnen jeden Monat einen kurzen Bericht.</p>
+        <p class="einblenden">Jede Woche eine automatische Prüfung, jeden Monat ein kurzer Bericht.</p>
       </div>
       <div class="pakete-tabelle">
         <table>
@@ -396,9 +403,9 @@ const ueberMich = `<section class="abschnitt ueber" id="ueber" aria-labelledby="
     <div class="ueber-text">
       ${ueber('Über mich')}
       <h2 id="t-ueber" class="einblenden">Eine Person, ein <em>Maßstab</em>.</h2>
-      <p class="einblenden">Hinter ${STUDIO} stehe ich, <span${pr(P.nachname)}>${esc(S.inhaber)}</span>, in <span${pr(P.ort)}>${esc(S.ort)}</span>. Sie sprechen vom ersten Gespräch bis zur Betreuung mit derselben Person.</p>
+      <p class="einblenden">Hinter ${STUDIO} stehe ich, <span${pr(P.nachname)}>${esc(S.inhaber)}</span>, in <span${pr(P.ort)}>${esc(S.ort)}</span>. Vom ersten Gespräch bis zur Betreuung eine Person.</p>
       <p class="einblenden platzhalter-text"${pr(P.ueber)}>[Hier ein paar Sätze von Elias: Werdegang, warum Websites, was ihn antreibt.]</p>
-      <p class="einblenden">Jede Seite, die ich übergebe, durchläuft dieselbe Prüfung wie die vier Arbeiten oben. Die Messwerte bekommen Sie mit – bei der Abnahme und danach jeden Monat im Bericht.</p>
+      <p class="einblenden">Jede Seite durchläuft dieselbe Prüfung wie die Arbeiten oben, und Sie bekommen die Messwerte.</p>
     </div>
   </div>
 </section>`;
@@ -408,7 +415,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
     <div class="kontakt-text">
       ${ueber('Kontakt')}
       <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
-      <p class="einblenden">Ein paar Sätze reichen: was Sie machen, für wen, und ob es schon eine Website gibt. Ich melde mich mit Fragen und einem Vorschlag für das erste Gespräch.</p>
+      <p class="einblenden">Ein paar Sätze reichen: was Sie machen und für wen. Ich melde mich mit einem Vorschlag.</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
         <li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>

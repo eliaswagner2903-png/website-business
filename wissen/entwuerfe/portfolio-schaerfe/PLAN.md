@@ -1,8 +1,8 @@
 # Portfolio schärfen – gespeicherter Plan (A-050)
 
-**Stand 2026-09-29: abgelegt, NICHT umgesetzt.** Elias ruft den Plan ab, wenn er will
-(„Portfolio schärfen umsetzen“ bzw. „Plan A-050 anwenden“). Bis dahin bleibt die Portfolio-Seite
-(`kunden/elias-studio/`) unverändert.
+**Stand 2026-09-29:** Schritte 3–5 sind umgesetzt (Arbeiten im Gerät, Mini-Seite im Generator, Texte halbiert).
+**Schritte 1–2 (eine dunkle Welt und neuer Hero für die ganze Seite) sind abgelegt, NICHT umgesetzt.**
+Elias ruft sie ab, wenn er will („gewählte Richtung auf die ganze Seite anwenden“).
 
 ## Warum
 
@@ -27,16 +27,16 @@ Mischungen möglich (z. B. A mit Lichtkegel aus C im Hintergrund).
 
 Branch `aufbau/portfolio-schaerfe`, Seite `kunden/elias-studio/`.
 
-1. **Eine Welt:** dunkles Atelier als Grund (`--grund #0a0b0d`, Text `#f1efe9`, leise `#a8a59d`,
+1. **Eine Welt:** (offen, auf Abruf) dunkles Atelier als Grund (`--grund #0a0b0d`, Text `#f1efe9`, leise `#a8a59d`,
    Linie `#2a2b30`), genau ein Lichtakzent (`--licht #b9c3ff`). Tag/Nacht-Schalter prüfen: behalten nur, wenn
    der helle Modus gleich hochwertig wird, sonst entfernen.
-2. **Hero:** gewählte Variante einbauen, höchstens zwei Zeilen Überschrift, echte Arbeiten statt Stimmungsbild.
+2. **Hero:** (offen, auf Abruf) gewählte Variante einbauen, höchstens zwei Zeilen Überschrift, echte Arbeiten statt Stimmungsbild.
    Scroll-Film (Kling) nur behalten, wenn er zur Variante passt.
-3. **Arbeiten bildschirmfüllend:** je Musterseite (Lotlinie, Zwischenbild, Lindgrund) ein Bildschirm,
+3. **Arbeiten bildschirmfüllend:** ✓ erledigt (A-050). je Musterseite (Lotlinie, Zwischenbild, Lindgrund) ein Bildschirm,
    echte Seite scrollt im Gerät, Link zum Artifact.
-4. **Generator rendert echte Mini-Seite:** statt Modell-Skizze eine kleine echte Seite, die Farbe, Schrift,
+4. **Generator rendert echte Mini-Seite:** ✓ erledigt (A-050). statt Modell-Skizze eine kleine echte Seite, die Farbe, Schrift,
    Stil und Stufen sofort übernimmt (vorhandene `:has()`-Logik und Reiter weiterverwenden).
-5. **Texte halbieren:** jede Überschrift ≤ 2 Zeilen, Absätze ≤ 2 Sätze.
+5. **Texte halbieren:** ✓ erledigt (A-050). jede Überschrift ≤ 2 Zeilen, Absätze ≤ 2 Sätze.
 6. **Meisterprüfung:** `/pruefen` + `/meisterpruefung` (Lighthouse ≥ 95/100/100/100, CLS 0, 320–1920 px,
    ohne JS bedienbar, reduzierte Bewegung, Kopf-Regeln, CSP ohne `unsafe-inline`).
 7. **Sichern:** Commit, PR, Portfolio-Artifact (https://claude.ai/artifact/8Yaq6z8EGEYNpf9SKEXjDE) neu

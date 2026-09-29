@@ -24,7 +24,7 @@
     "konfigurator": "Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)",
     "stufen": "Inhalt der Stufen 1–5 je Bereich ist ein Entwurf – Elias legt fest, was jede Stufe enthält (wissen/preismodell/KONFIGURATOR.md)"
   },
-  "messung": "Gemessen am 29.09.2026: Lighthouse mobil (Durchschnitt aus 3 Läufen, lokal mit Kompression) und Übertragung der Startseite bis „geladen“ auf dem Handy-Profil.",
+  "messung": "Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
     {
       "id": "hell",
@@ -33,7 +33,7 @@
       "branche": "Physiotherapie",
       "art": "Musterseite",
       "art_lang": "Musterseite – Praxis, Namen und Preise sind ausgedacht",
-      "satz": "Eine Praxis, die zuerst hinschaut: Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
+      "satz": "Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
       "punkte": [
         "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
         "Termin online oder per Telefon, feste Leiste auf dem Handy",
@@ -58,7 +58,7 @@
       "branche": "Studio für Motion-Design",
       "art": "Musterseite",
       "art_lang": "Musterseite – Studio und Projekte sind ausgedacht",
-      "satz": "Ein Studio, das Logos zum Laufen bringt: Die Seite selbst ist eine Zeitleiste mit Keyframes, Bildzähler und Timecode.",
+      "satz": "Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.",
       "punkte": [
         "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
         "Drei Projektseiten mit weichem Seitenwechsel",
@@ -83,7 +83,7 @@
       "branche": "Uhrmacherei",
       "art": "Musterseite",
       "art_lang": "Musterseite – Manufaktur, Modell und Preise sind ausgedacht",
-      "satz": "Eine Werkstatt für zwölf Uhren im Jahr: Die L-40 steht als 3D-Modell im ersten Bildschirm und dreht sich, wenn man sie bewegt.",
+      "satz": "Die Uhr steht als 3D-Modell im ersten Bildschirm und dreht sich mit.",
       "punkte": [
         "3D-Uhr im Browser, erst Standbild, dann Szene – pausiert außerhalb des Bildschirms",
         "Drei Zifferblätter zum Umschalten",
@@ -108,7 +108,7 @@
       "branche": "Restaurant in Eislingen/Fils",
       "art": "Entwurf für ein echtes Restaurant",
       "art_lang": "Entwurf für ein echtes Restaurant – noch nicht veröffentlicht",
-      "satz": "Ein türkisch-anatolisches Restaurant: Die runde Kupferplatte vom Tisch wird zum Bildrahmen, die Speisekarte ist eine durchsuchbare Seite.",
+      "satz": "Die Kupferplatte vom Tisch wird zum Bildrahmen, die Speisekarte ist durchsuchbar.",
       "punkte": [
         "Speisekarte als HTML mit Suche, 90 Positionen gegen das PDF geprüft",
         "Anrufen, Route und Karte in einer festen Leiste",
@@ -132,37 +132,37 @@
       "mass": "≥ 95",
       "einheit": "Lighthouse mobil",
       "titel": "Mobil zuerst",
-      "text": "Gebaut für das Handy, geprüft von 320 bis 1920 Pixel Breite. Tippflächen mindestens 44 Pixel, Text mindestens 16 Pixel, Kontakt in einer festen Leiste."
+      "text": "Geprüft von 320 bis 1920 Pixel, Kontakt in einer festen Leiste."
     },
     {
       "mass": "0",
       "einheit": "Cookies, Tracker, fremde Skripte",
       "titel": "Datenschutz ohne Umwege",
-      "text": "Schriften kommen vom eigenen Server, Karten sind ein Link statt eingebettet, es gibt keine Analyse-Werkzeuge."
+      "text": "Schriften vom eigenen Server, keine Analyse-Werkzeuge."
     },
     {
       "mass": "CSP",
       "einheit": "strenge Sicherheitsregeln",
       "titel": "Sicherheit ab dem ersten Tag",
-      "text": "Der Browser führt nur Code der eigenen Seite aus. Formulare prüfen die Herkunft und haben eine Falle für Spam-Programme."
+      "text": "Nur eigener Code läuft, Formulare mit Spam-Falle."
     },
     {
       "mass": "≤ 500",
       "einheit": "KB bis zur ersten Ansicht",
       "titel": "Leicht, auch mit 3D und Video",
-      "text": "3D-Objekte und kurze Filme laden erst nach einem Standbild, pausieren außerhalb des Bildschirms und bleiben bei „Bewegung reduzieren“ still."
+      "text": "Erst ein Standbild, Film und 3D laden danach."
     },
     {
       "mass": "Stripe",
       "einheit": "Checkout",
       "titel": "Termine und Zahlungen",
-      "text": "Online-Terminbuchung und Bezahlung über Stripe Checkout. Kartendaten berühren die Website nie, der Preis steht auf dem Server."
+      "text": "Kartendaten berühren die Website nie."
     },
     {
       "mass": "AA",
       "einheit": "WCAG-Kontrast",
       "titel": "Für alle bedienbar",
-      "text": "Mit Tastatur, Bildschirmleser und ohne JavaScript. Jede Seite hat genau eine Hauptüberschrift und sichtbaren Fokus."
+      "text": "Mit Tastatur, Bildschirmleser und ohne JavaScript."
     }
   ],
   "pakete": {
@@ -231,31 +231,31 @@
   "ablauf": [
     {
       "titel": "Briefing",
-      "text": "Wir sprechen über Ihren Betrieb, Ihre Kundschaft und was die Seite leisten soll. Ich sammle nur Fakten, die Sie bestätigen – alles Unsichere bleibt markiert, bis es geklärt ist."
+      "text": "Wir klären Betrieb, Kundschaft und Ziel. Unsicheres bleibt markiert."
     },
     {
       "titel": "Entwurf",
-      "text": "Sie sehen zwei bis drei Richtungen als Bilder vom Handy und vom Computer und entscheiden. Dann baue ich die ganze Seite in dieser Richtung."
+      "text": "Sie sehen zwei bis drei Richtungen und entscheiden."
     },
     {
       "titel": "Abnahme",
-      "text": "Vor dem Start prüfe ich jede Seite gegen denselben Maßstab: Breiten von 320 bis 1920 Pixel, ohne JavaScript, Lighthouse, Sicherheit. Sie bekommen die Messwerte und geben frei."
+      "text": "Ich messe nach, Sie bekommen die Werte und geben frei."
     },
     {
       "titel": "Betreuung",
-      "text": "Danach kümmere ich mich im Monats-Abo um Technik, Updates und Änderungen. Jede Woche läuft eine Prüfung, jeden Monat bekommen Sie einen kurzen Bericht."
+      "text": "Wöchentliche Prüfung, monatlicher Bericht, Änderungen im Abo."
     }
   ],
   "kino": [
     {
       "id": "gebaut",
       "wort": "Gebaut.",
-      "text": "Jede Seite entsteht aus eigenem Code und bekommt ein Leitmotiv aus der Welt des Betriebs: ein Lot für die Physiopraxis, eine Zeitleiste für das Motion-Studio, ein Zifferblatt für die Uhrmacherei."
+      "text": "Eigener Code und ein Leitmotiv aus der Welt des Betriebs: Lot, Zeitleiste, Zifferblatt."
     },
     {
       "id": "gemessen",
       "wort": "Gemessen.",
-      "text": "Vor der Übergabe wird nachgemessen, nicht geschätzt: Lighthouse auf dem Handy, Breiten von 320 bis 1920 Pixel, Gewicht bis zur ersten Ansicht, Sicherheits-Header.",
+      "text": "Vor der Übergabe nachgemessen, nicht geschätzt.",
       "werte": [
         [
           "≥ 95",
@@ -274,7 +274,7 @@
     {
       "id": "betreut",
       "wort": "Betreut.",
-      "text": "Nach dem Start prüfe ich die Seite jede Woche automatisch, halte Technik und Sicherheit aktuell und ändere Inhalte, wenn sich bei Ihnen etwas ändert."
+      "text": "Jede Woche geprüft, Technik aktuell, Änderungen inklusive."
     }
   ],
   "konfigurator": {
@@ -328,7 +328,9 @@
         "vorschlag": [
           "termin",
           "formular"
-        ]
+        ],
+        "lead": "Kurze Wege, feste Ansprechpartner und Termine auch am Abend.",
+        "knopf": "Termin buchen"
       },
       {
         "id": "handwerk",
@@ -338,7 +340,9 @@
         "vorschlag": [
           "galerie",
           "formular"
-        ]
+        ],
+        "lead": "Maßarbeit aus der eigenen Werkstatt, vom Aufmaß bis zur Montage.",
+        "knopf": "Anfrage stellen"
       },
       {
         "id": "gastro",
@@ -348,7 +352,9 @@
         "vorschlag": [
           "speisekarte",
           "galerie"
-        ]
+        ],
+        "lead": "Saisonal gekocht, mittags und abends, auch zum Mitnehmen.",
+        "knopf": "Tisch reservieren"
       },
       {
         "id": "studio",
@@ -358,7 +364,9 @@
         "vorschlag": [
           "galerie",
           "film"
-        ]
+        ],
+        "lead": "Konzept, Gestaltung und Film aus einer Hand.",
+        "knopf": "Projekt anfragen"
       }
     ],
     "bausteine": [
@@ -562,6 +570,13 @@
           ]
         ]
       }
+    ],
+    "muster_nav": [
+      "Start",
+      "Leistungen",
+      "Über uns",
+      "Galerie",
+      "Kontakt"
     ]
   }
 }
