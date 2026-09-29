@@ -1,0 +1,80 @@
+{
+  "hinweis": "Alle Fakten und Texte der Seite. Quelle: kunden/urfa-sofrasi (CLAUDE.md feste Fakten, seiten.py freigegebene Texte). Nichts ergänzen, was nicht belegt ist; Unsicheres bekommt einen Prüfgrund.",
+  "basis": "https://www.urfasofrasi-eislingen.de",
+  "name": "URFA SOFRASI",
+  "untertitel": "Türkisch-anatolische Küche",
+  "telefon_anzeige": "07161 651 75 65",
+  "telefon_link": "+4971616517565",
+  "telefon_ld": "+49 7161 6517565",
+  "email": "info@urfasofrasi-eislingen.de",
+  "strasse": "Mühlbachstraße 2",
+  "plz": "73054",
+  "ort": "Eislingen/Fils",
+  "route": "https://www.google.com/maps/dir/?api=1&destination=URFA+SOFRASI,+M%C3%BChlbachstra%C3%9Fe+2,+73054+Eislingen%2FFils",
+  "zeiten": { "tage": "Montag – Sonntag", "kurz": "Täglich", "von": "10:00", "bis": "23:00" },
+  "tagesgerichte": { "von": "11:00", "bis": "18:00" },
+  "plaetze": { "innen": 70, "terrasse": 40 },
+
+  "pruefen": {
+    "zeiten": "Öffnungszeiten stammen aus der bisherigen Website (laut Suchmaschine: Mo–So 10–23 Uhr); Google nennt teils 11–22 Uhr. Bitte bestätigen.",
+    "email": "E-Mail-Adresse stammt aus einem Suchmaschinen-Auszug der alten Kontaktseite. Bitte bestätigen.",
+    "portal": "Angabe aus Branchenportalen übernommen (vermutlich Text der alten Website). Bitte bestätigen.",
+    "gaeste": "Auf dem Foto sind Gäste zu sehen. Sind sie einverstanden bzw. nicht erkennbar? Sonst Foto austauschen oder Personen unkenntlich machen.",
+    "legende": "Die Speisekarte (PDF) enthält keine Legende zu den Kennzeichnungen. Diese ist gesetzlich erforderlich und muss vom Betreiber geliefert werden – bitte nicht raten.",
+    "formular": "Kontaktformular: Empfängeradresse (KONTAKT_AN) und Versand (Resend) sind noch nicht eingerichtet; die Datenschutzerklärung muss das Formular erwähnen. Bis dahin meldet das Formular „noch nicht eingerichtet“."
+  },
+
+  "fotos": {
+    "grillplatte-urfa-sofrasi": [452, "Gemischte Grillplatte mit Adana-Spieß, Hähnchenspießen, Reis, Lahmacun und Salat", "Gemischte Grillplatte"],
+    "sofra-platte-gemischt": [535, "Große gemischte Platte mit Grillfleisch, Lahmacun, Salat und Rucola", "Platte für die ganze Runde"],
+    "platte-mini-lahmacun-meze": [535, "Platte mit kleinen Lahmacun, Grillfleisch und einer Schale Meze", "Mini-Lahmacun und Meze"],
+    "grillplatte-mit-brot": [535, "Grillplatte mit Fladenbrot, Bulgur, gegrilltem Gemüse und Salat", "Grillplatte mit frischem Brot"],
+    "meze-teller": [535, "Meze-Teller mit verschiedenen Vorspeisen, Joghurt-Dips, Salat und Gurkendekoration", "Meze-Teller"],
+    "sofra-doener-meze": [535, "Döner mit Pommes, Bulgur, Rotkohl und verschiedenen Meze", "Döner mit Beilagen und Meze"],
+    "tagesgerichte-auslage": [535, "Auslage mit Reis, Bulgur, Sigara Böreği, gegrilltem Gemüse und Zwiebeln", "Aus unserer Auslage"],
+    "theke-grill-vitrine": [535, "Theke mit Vitrine voller Spieße und Beilagen, dahinter die kupferne Grillhaube", "Theke und Grill"],
+    "ayran-hausgemacht": [535, "Ayran-Spender mit frischem Ayran neben der Grillvitrine", "Frischer, hausgemachter Ayran"],
+    "teestation-urfa-sofrasi": [535, "Kupferne Teestation mit URFA-SOFRASI-Schriftzug", "Unsere Teestation"],
+    "innenraum-restaurant": [535, "Gastraum von URFA SOFRASI mit Tischen, Pflanzen und der kupfernen Grillhaube im Hintergrund", "Unser Gastraum"],
+    "terrasse-urfa-sofrasi": [535, "Terrasse vor dem Restaurant mit Sonnenschirmen und Olivenbäumchen", "Unsere Terrasse"]
+  },
+  "mit_gaesten": ["innenraum-restaurant", "terrasse-urfa-sofrasi"],
+
+  "texte": {
+    "lead": "Grillspezialitäten, Döner, Pide und Lahmacun sowie wechselnde Tagesgerichte – im Restaurant, auf der Terrasse",
+    "lead_mitnehmen": "oder zum Mitnehmen",
+    "willkommen_gross": "Zwischen <em>Europa und Asien</em> gelegen, hat die türkische Küche über Jahrhunderte vieles aufgenommen: Einflüsse aus der Mittelmeerküche ebenso wie aus der indischen, armenischen und arabischen Küche. Diese <em>Vielfalt</em> möchten wir Ihnen in unserem Restaurant näherbringen.",
+    "willkommen": "Genießen Sie unser großes, preiswertes Angebot und entdecken Sie mitten in Eislingen die Esskultur Anatoliens. Wir freuen uns auf Ihren Besuch!",
+    "grill_intro": "Alle Grillgerichte servieren wir mit Reis, Salat, Brot und Soße.",
+    "tagesgerichte": "Regelmäßig wechselnde Tagesgerichte gibt es zwischen 11:00 und 18:00 Uhr zu günstigen Preisen. Fragen Sie einfach nach, was es gerade gibt.",
+    "restaurant": "Unser gemütlich eingerichtetes Restaurant bietet Platz für bis zu 70 Gäste. In den warmen Monaten finden auf unserer Terrasse weitere 40 Gäste einen Platz.",
+    "restaurant_schluss": "Kommen Sie vorbei und überzeugen Sie sich selbst – bis bald im URFA SOFRASI!",
+    "mitnehmen": "Alle Gerichte bekommen Sie auch zum Mitnehmen. Rufen Sie gern vorher an.",
+    "feiern": "Ob Hochzeit, Geburtstag oder Firmenfeier: Unser Restaurant steht Ihnen auch für Veranstaltungen zur Verfügung. Das Menü stellen wir gern individuell mit Ihnen zusammen.",
+    "legende": "Die hochgestellten Zahlen und Buchstaben in der Speisekarte kennzeichnen Zusatzstoffe und Allergene. Die Legende folgt in Kürze – fragen Sie gern bei uns nach.",
+    "anfahrt": "Das Restaurant liegt in der Mühlbachstraße 2 in Eislingen/Fils. Mit einem Tipp auf „Route planen“ öffnet sich die Wegbeschreibung in Google Maps bzw. in Ihrer Karten-App.",
+    "ohne_karte": "Bewusst ohne eingebettete Karte: So werden beim Aufruf dieser Seite keine Daten an Google übertragen.",
+    "gruppen": "Für Feiern und größere Gruppen sprechen Sie uns gern direkt an.",
+    "karte_intro": "Grillgerichte, Döner, Pide, Pizza, Hausgerichte und Süßspeisen. Bestellungen und Fragen gern telefonisch."
+  },
+
+  "tafel": [
+    ["Urfa Sofrası", true, "Gemischte Grillplatte für 2, 3 oder 4 Personen", "ab 50,00 €", "grill"],
+    ["Karışık Izgara", true, "Gemischte Grillplatte", "25,00 €", "grill"],
+    ["Adana & Urfa Kebap", true, "Hackfleischspieß – Adana scharf, Urfa mild gewürzt", "je 17,00 €", "grill"],
+    ["Döner", false, "Im Fladenbrot, im Yufka, als Box oder als Teller", "ab 8,00 €", "doener-teller"],
+    ["İskender", true, "Der Klassiker unter den Dönergerichten", "19,00 €", "doener-teller"],
+    ["Pide & Lahmacun", true, "Aus dem Ofen – mit Hackfleisch, Käse, Spinat, Sucuk oder Döner", "ab 8,00 €", "pide"],
+    ["Künefe", true, "Engelshaar-Teig mit Käsefüllung – auch mit Eis", "ab 7,50 €", "dessert"]
+  ],
+
+  "galerie": ["sofra-platte-gemischt", "platte-mini-lahmacun-meze", "grillplatte-urfa-sofrasi", "grillplatte-mit-brot",
+              "meze-teller", "sofra-doener-meze", "tagesgerichte-auslage", "theke-grill-vitrine",
+              "ayran-hausgemacht", "teestation-urfa-sofrasi", "innenraum-restaurant", "terrasse-urfa-sofrasi"],
+
+  "impressum_auszug": {
+    "betreiber": "URFASOFRASI SCHNELLRESTAURANT",
+    "inhaberin": "Dilek Batmis",
+    "steuernummer": "63115/19876"
+  }
+}

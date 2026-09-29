@@ -1,0 +1,83 @@
+/* =====================================================================
+   MARKE – URFA SOFRASI (Meistervariante). Die ganze Marke steht nur hier.
+   stil.css und bausteine.css lesen nur diese Variablen.
+   Farbwelt aus dem Haus: Schwarz und Grün aus dem Logo (Untertitel #7cac4c, Schriftzug #f2efe6),
+   Kupfer von Grillhaube und Teestation (Linien, Ringe, Nummern).
+   Zweites Schema zum Test (Meisterstandard P4): <html data-schema="kalk"> – SCHEMA=kalk node bauen.mjs
+   Kontrast (WCAG AA), gemessen:
+     text/grund 16,6 · text/flaeche 15,3 · leise/grund 8,7 · leise/flaeche 7,9
+     akzent/grund 8,9 · akzent/flaeche 8,1 · auf-akzent/akzent 8,9 · linie/flaeche 3,8 (Feldrahmen ≥ 3)
+   ===================================================================== */
+
+/* ---------- Schriften: je EINE Datei (Latin + Türkisch/Latin Extended-A), lokal ----------
+   Marcellus (Titel, Versalien wie der Logo-Schriftzug) und Manrope (Text, variabel 200–800), SIL OFL.
+   Quelle: google/fonts (dieselben Dateien wie @fontsource), mit fontTools auf Latin-1 + Latin Extended-A
+   beschnitten, damit ş ğ ı İ ç in derselben Datei stecken (2 statt 4 Dateien, zusammen 44 KB):
+     pyftsubset <ttf> --unicodes="U+0000-00FF,U+0100-017F,U+0218-021B,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212,U+2215,U+FEFF,U+FFFD" \
+       --layout-features='kern,liga,calt,tnum,lnum,onum,case,ccmp,locl,mark,mkmk' --flavor=woff2
+   Wechsel: Dateinamen hier und die zwei <link rel="preload"> in bauen.mjs anpassen, Ersatz-Maße neu messen. */
+@font-face {
+  font-family: "Marcellus";
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/marcellus-tr.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url("../fonts/manrope-tr.woff2") format("woff2");
+}
+/* Ersatzschriften, gemessen mit fontTools (Breite eines Mustersatzes, hhea-Maße): Text springt beim Tausch kaum. */
+@font-face {
+  font-family: "Marcellus Ersatz";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
+  size-adjust: 111.1%; ascent-override: 87.7%; descent-override: 25.2%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Manrope Ersatz";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 103%; ascent-override: 103.5%; descent-override: 29.1%; line-gap-override: 0%;
+}
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent */
+  --farbe-grund: #0c0e0a;       /* Nacht, leicht oliv */
+  --farbe-flaeche: #161a13;     /* Tafel, Leisten, Felder */
+  --farbe-text: #f2efe6;        /* Schriftzug im Logo */
+  --farbe-leise: #b3ad9e;       /* Nebentext */
+  --farbe-linie: #9a6b45;       /* Kupfer: Linien, Ringe, Nummern */
+  --farbe-akzent: #8cbf5f;      /* Grün aus dem Logo, eine Spur heller für Kontrast */
+  --farbe-auf-akzent: #0c0e0a;
+
+  /* Schriften */
+  --schrift-display: "Marcellus", "Marcellus Ersatz", "Times New Roman", serif;
+  --schrift-text: "Manrope", "Manrope Ersatz", Arial, sans-serif;
+
+  /* Formen */
+  --radius-klein: 10px;
+  --radius-gross: 28px;
+
+  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md) */
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .85s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Rhythmus */
+  --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 9.5rem);
+
+  color-scheme: dark;
+}
+
+/* Zweites Schema „Kalk“ (heller Kalkstein aus Urfa) – nur zum Test der Anpassbarkeit. */
+:root[data-schema="kalk"] {
+  --farbe-grund: #f3ecdf;
+  --farbe-flaeche: #fbf7f0;
+  --farbe-text: #1d1b16;
+  --farbe-leise: #5f574a;
+  --farbe-linie: #a9794f;
+  --farbe-akzent: #3e6b22;
+  --farbe-auf-akzent: #ffffff;
+  color-scheme: light;
+}

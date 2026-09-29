@@ -1,0 +1,774 @@
+{
+ "quelle": "kunden/urfa-sofrasi/werkzeuge/seiten.py (= speisekarte.pdf, Stand 05/2025) – nicht von Hand ändern",
+ "tuerkische_kategorien": [
+  "dessert",
+  "duerum",
+  "grill",
+  "hausgerichte",
+  "pide",
+  "salate",
+  "suppen"
+ ],
+ "pruefen": {
+  "13": "Preis 98,00 € weicht vom Muster 25 € pro Person ab (2 P. = 50 €, 3 P. = 75 €). Absicht (Rabatt)?",
+  "10": "Keine Zusatzstoff-/Allergenangabe – alle anderen Grillgerichte haben 1,2,3. Bitte prüfen.",
+  "61": "Güveç (Lamm) für 8,00 € – deutlich günstiger als Saç Kavurma (20,00 €). Preis bitte bestätigen.",
+  "68": "Kelle Paça ist eine Kopf-/Fußsuppe. Übersetzung „Fleischsuppe“ bewusst so belassen?",
+  "90": "Kaffee steht in der PDF unter „Dosen inkl. Pfand & Becher“. Richtige Rubrik?",
+  "49": "Auf der alten Website fehlen Nr. 49/50, und die Pizzen sind dort als 50–58 nummeriert. Hier gilt die neuere PDF (Stand 05/2025)."
+ },
+ "kategorien": [
+  {
+   "id": "grill",
+   "titel": "Grillgerichte",
+   "tr": "Izgara",
+   "notiz": "Alle Grillgerichte mit Beilage (Reis, Salat, Brot, Soße).",
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "01",
+     "name": "Karışık Izgara",
+     "de": "Gemischte Grillplatte",
+     "kennz": "1,2,3,G",
+     "preis": "25,00"
+    },
+    {
+     "nr": "02",
+     "name": "Adana Kebap",
+     "de": "Hackfleischspieß, scharf",
+     "kennz": "1,2,3",
+     "preis": "17,00"
+    },
+    {
+     "nr": "03",
+     "name": "Urfa Kebap",
+     "de": "Hackfleischspieß",
+     "kennz": "1,2,3",
+     "preis": "17,00"
+    },
+    {
+     "nr": "04",
+     "name": "Tavuk Şiş",
+     "de": "Hähnchenspieß",
+     "kennz": "1,2,3,G",
+     "preis": "17,00"
+    },
+    {
+     "nr": "05",
+     "name": "Kuzu Şiş",
+     "de": "Lammspieß",
+     "kennz": "1,2,3,G",
+     "preis": "19,00"
+    },
+    {
+     "nr": "06",
+     "name": "Tavuk Pirzola",
+     "de": "Hähnchenkotelett",
+     "kennz": "1,2,3,G",
+     "preis": "17,00"
+    },
+    {
+     "nr": "07",
+     "name": "Kuzu Pirzola",
+     "de": "Lammkotelett",
+     "kennz": "1,2,3,G",
+     "preis": "23,00"
+    },
+    {
+     "nr": "08",
+     "name": "Beyti Kebap",
+     "de": "Hackfleischspieß Spezial",
+     "kennz": "1,2,3,4,G",
+     "preis": "19,00"
+    },
+    {
+     "nr": "09",
+     "name": "Dana Şiş",
+     "de": "Kalbfleischspieß",
+     "kennz": "1,2,3,G",
+     "preis": "19,00"
+    },
+    {
+     "nr": "10",
+     "name": "Tavuk Kanat",
+     "de": "Hähnchenflügel",
+     "kennz": "",
+     "preis": "17,00"
+    },
+    {
+     "nr": "11",
+     "name": "Urfa Sofrası",
+     "de": "Gemischte Grillplatte für 2 Personen",
+     "kennz": "1,2,3,A,G",
+     "preis": "50,00"
+    },
+    {
+     "nr": "12",
+     "name": "Urfa Sofrası",
+     "de": "Gemischte Grillplatte für 3 Personen",
+     "kennz": "1,2,3,A,G",
+     "preis": "75,00"
+    },
+    {
+     "nr": "13",
+     "name": "Urfa Sofrası",
+     "de": "Gemischte Grillplatte für 4 Personen",
+     "kennz": "1,2,3,A,G",
+     "preis": "98,00"
+    }
+   ]
+  },
+  {
+   "id": "duerum",
+   "titel": "Grill-Dürüm",
+   "tr": "Dürüm",
+   "notiz": "Vom Grill, gerollt im Yufka-Fladen.",
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "16",
+     "name": "Adana Dürüm",
+     "de": "Hackfleischspieß im Yufka, scharf",
+     "kennz": "1,2,3,A",
+     "preis": "10,00"
+    },
+    {
+     "nr": "17",
+     "name": "Urfa Dürüm",
+     "de": "Hackfleischspieß im Yufka",
+     "kennz": "1,2,3,A",
+     "preis": "10,00"
+    },
+    {
+     "nr": "18",
+     "name": "Tavuk Dürüm",
+     "de": "Hähnchenspieß im Yufka",
+     "kennz": "1,2,3,G",
+     "preis": "10,00"
+    },
+    {
+     "nr": "19",
+     "name": "Kuzu Şiş Dürüm",
+     "de": "Lammspieß im Yufka",
+     "kennz": "1,2,3,G",
+     "preis": "11,00"
+    }
+   ]
+  },
+  {
+   "id": "doener-teller",
+   "titel": "Dönergerichte",
+   "tr": "Döner Tabağı",
+   "notiz": "Alle Gerichte mit Beilage (Reis, Salat, Brot, Soße).",
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "23",
+     "name": "Döner-Teller mit Reis",
+     "de": "",
+     "kennz": "1,2,3,G",
+     "preis": "17,00"
+    },
+    {
+     "nr": "24",
+     "name": "Döner-Teller mit Pommes",
+     "de": "",
+     "kennz": "1,2,3,E,G",
+     "preis": "17,00"
+    },
+    {
+     "nr": "25",
+     "name": "Döner-Teller mit Salat",
+     "de": "",
+     "kennz": "1,2,3,G",
+     "preis": "15,00"
+    },
+    {
+     "nr": "26",
+     "name": "Döner-Teller mit Gemüse",
+     "de": "",
+     "kennz": "1,2,3,G",
+     "preis": "18,00"
+    },
+    {
+     "nr": "27",
+     "name": "Döner-Teller klein mit Pommes",
+     "de": "",
+     "kennz": "1,2,3,E,G",
+     "preis": "14,00"
+    },
+    {
+     "nr": "28",
+     "name": "Döner-Teller klein mit Reis",
+     "de": "",
+     "kennz": "1,2,3,G",
+     "preis": "14,00"
+    },
+    {
+     "nr": "29",
+     "name": "Döner-Teller klein mit Salat",
+     "de": "",
+     "kennz": "1,2,3,G",
+     "preis": "13,00"
+    },
+    {
+     "nr": "30",
+     "name": "İskender",
+     "de": "",
+     "kennz": "A,G",
+     "preis": "19,00"
+    },
+    {
+     "nr": "31",
+     "name": "Döner-Teller vegetarisch",
+     "de": "Reis, Gemüse, Salat, Brot",
+     "kennz": "G",
+     "preis": "13,00"
+    }
+   ]
+  },
+  {
+   "id": "doener-brot",
+   "titel": "Döner im Brot",
+   "tr": null,
+   "notiz": null,
+   "zwischen": {
+    "36": "Beilagen &amp; Extras"
+   },
+   "gerichte": [
+    {
+     "nr": "32",
+     "name": "Döner im Fladenbrot",
+     "de": "",
+     "kennz": "1,2,3,A,C,G,N",
+     "preis": "9,00"
+    },
+    {
+     "nr": "33",
+     "name": "Döner im Yufka",
+     "de": "",
+     "kennz": "1,2,3,A,C,G",
+     "preis": "11,00"
+    },
+    {
+     "nr": "34",
+     "name": "Döner vegetarisch",
+     "de": "",
+     "kennz": "4,A,C,G,N",
+     "preis": "8,00"
+    },
+    {
+     "nr": "35",
+     "name": "Döner-Box",
+     "de": "",
+     "kennz": "1,2,3,E,G",
+     "preis": "8,00"
+    },
+    {
+     "nr": "36",
+     "name": "Pommes klein",
+     "de": "",
+     "kennz": "E,G",
+     "preis": "4,00"
+    },
+    {
+     "nr": "37",
+     "name": "Pommes groß",
+     "de": "",
+     "kennz": "E,G",
+     "preis": "5,00"
+    },
+    {
+     "nr": "38",
+     "name": "Extra Käse",
+     "de": "",
+     "kennz": "G",
+     "preis": "1,00"
+    }
+   ]
+  },
+  {
+   "id": "pide",
+   "titel": "Pide &amp; Lahmacun",
+   "tr": "Pide / Hamur İşleri",
+   "notiz": "Frisch aus dem Ofen.",
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "40",
+     "name": "Kıymalı Pide",
+     "de": "Pide mit Hackfleisch",
+     "kennz": "2,3,A,C,G",
+     "preis": "10,00"
+    },
+    {
+     "nr": "41",
+     "name": "Peynirli Pide",
+     "de": "Pide mit Käse",
+     "kennz": "2,3,4,A,C,G,M",
+     "preis": "10,00"
+    },
+    {
+     "nr": "42",
+     "name": "Kaşarlı Pide",
+     "de": "Pide mit Hartkäse",
+     "kennz": "2,3,4,A,C,G,M",
+     "preis": "11,00"
+    },
+    {
+     "nr": "43",
+     "name": "Ispanaklı Peynirli Pide",
+     "de": "Pide mit Spinat und Käse",
+     "kennz": "2,3,4,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "44",
+     "name": "Sucuklu Pide",
+     "de": "Pide mit Knoblauchwurst",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "11,00"
+    },
+    {
+     "nr": "45",
+     "name": "Karışık Pide",
+     "de": "Pide mit Spinat, Käse und Ei",
+     "kennz": "2,3,4,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "46",
+     "name": "Dönerli Pide",
+     "de": "Pide mit Döner",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "10,00"
+    },
+    {
+     "nr": "47",
+     "name": "Lahmacun",
+     "de": "Türkische Pizza mit Salat",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "8,00"
+    },
+    {
+     "nr": "48",
+     "name": "Lahmacun Spezial",
+     "de": "Türkische Pizza mit Salat und Dönerfleisch",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "12,00"
+    },
+    {
+     "nr": "49",
+     "name": "Lahmacun im Teller",
+     "de": "mit Salat",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "10,00"
+    },
+    {
+     "nr": "50",
+     "name": "Lahmacun im Teller",
+     "de": "mit Salat und Dönerfleisch",
+     "kennz": "2,3,4,A,C,G",
+     "preis": "14,00"
+    }
+   ]
+  },
+  {
+   "id": "pizza",
+   "titel": "Pizzen",
+   "tr": "Pizzalar",
+   "notiz": null,
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "51",
+     "name": "Margherita",
+     "de": "",
+     "kennz": "A,C,G,M",
+     "preis": "10,00"
+    },
+    {
+     "nr": "52",
+     "name": "Salami",
+     "de": "",
+     "kennz": "1,2,3,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "53",
+     "name": "Tonno",
+     "de": "mit Thunfisch und Zwiebeln",
+     "kennz": "A,C,D,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "54",
+     "name": "Pizza Kebap",
+     "de": "mit Dönerfleisch",
+     "kennz": "2,3,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "55",
+     "name": "Funghi",
+     "de": "mit Champignons",
+     "kennz": "2,3,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "56",
+     "name": "Pizza Vegetarisch",
+     "de": "",
+     "kennz": "A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "57",
+     "name": "Pizza Sucuk",
+     "de": "mit Knoblauchwurst",
+     "kennz": "1,2,3,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "58",
+     "name": "Diavolo",
+     "de": "mit Peperoni und Oliven",
+     "kennz": "5,A,C,G,M",
+     "preis": "12,00"
+    },
+    {
+     "nr": "59",
+     "name": "Extra-Zutat",
+     "de": "je weitere Zutat",
+     "kennz": "",
+     "preis": "1,00"
+    }
+   ]
+  },
+  {
+   "id": "hausgerichte",
+   "titel": "Hausgerichte",
+   "tr": "Ev Yemekleri",
+   "notiz": "Außerdem: regelmäßig wechselnde Tagesgerichte zwischen 11:00 und 18:00 Uhr.",
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "60",
+     "name": "Kuru Fasulye",
+     "de": "Weiße Bohnen mit Fleisch",
+     "kennz": "2,3,4",
+     "preis": "8,00"
+    },
+    {
+     "nr": "61",
+     "name": "Güveç",
+     "de": "Lammfleisch mit Gemüse",
+     "kennz": "2,3,4",
+     "preis": "8,00"
+    },
+    {
+     "nr": "62",
+     "name": "Sebze",
+     "de": "Gemüse der Saison",
+     "kennz": "",
+     "preis": "6,00"
+    },
+    {
+     "nr": "63",
+     "name": "İzmir Köfte",
+     "de": "Frikadellen mit Kartoffeln",
+     "kennz": "2,3,4",
+     "preis": "8,00"
+    },
+    {
+     "nr": "64",
+     "name": "Saç Kavurma",
+     "de": "Gebratenes Lammfleisch mit Reis",
+     "kennz": "2,3,4",
+     "preis": "20,00"
+    },
+    {
+     "nr": "65",
+     "name": "Reis",
+     "de": "",
+     "kennz": "",
+     "preis": "4,00"
+    }
+   ]
+  },
+  {
+   "id": "suppen",
+   "titel": "Suppen",
+   "tr": "Çorba",
+   "notiz": null,
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "66",
+     "name": "Mercimek",
+     "de": "Linsensuppe",
+     "kennz": "3",
+     "preis": "7,00"
+    },
+    {
+     "nr": "67",
+     "name": "İşkembe",
+     "de": "Kuttelsuppe",
+     "kennz": "2,3,C,G,A",
+     "preis": "8,00"
+    },
+    {
+     "nr": "68",
+     "name": "Kelle Paça",
+     "de": "Fleischsuppe",
+     "kennz": "",
+     "preis": "8,00"
+    }
+   ]
+  },
+  {
+   "id": "salate",
+   "titel": "Salate",
+   "tr": "Salatalar",
+   "notiz": null,
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "70",
+     "name": "Çoban Salatası",
+     "de": "Hirtensalat",
+     "kennz": "",
+     "preis": "7,00"
+    },
+    {
+     "nr": "71",
+     "name": "Mevsim Salatası",
+     "de": "Grüner Salat",
+     "kennz": "",
+     "preis": "7,00"
+    },
+    {
+     "nr": "72",
+     "name": "Antep Ezme",
+     "de": "Scharf gewürzter Salat",
+     "kennz": "",
+     "preis": "4,00"
+    },
+    {
+     "nr": "73",
+     "name": "Ton Balığı Salatası",
+     "de": "Thunfischsalat",
+     "kennz": "D",
+     "preis": "8,00"
+    },
+    {
+     "nr": "74",
+     "name": "Extra Meze",
+     "de": "Vorspeisenteller",
+     "kennz": "",
+     "preis": "6,00"
+    }
+   ]
+  },
+  {
+   "id": "dessert",
+   "titel": "Süßspeisen",
+   "tr": "Tatlılar",
+   "notiz": null,
+   "zwischen": {},
+   "gerichte": [
+    {
+     "nr": "75",
+     "name": "Sütlaç",
+     "de": "Milchreis",
+     "kennz": "G",
+     "preis": "3,00"
+    },
+    {
+     "nr": "76",
+     "name": "Baklava",
+     "de": "",
+     "kennz": "A",
+     "preis": "4,00"
+    },
+    {
+     "nr": "77",
+     "name": "Künefe",
+     "de": "Engelshaar-Teig mit Käsefüllung",
+     "kennz": "A,G",
+     "preis": "7,50"
+    },
+    {
+     "nr": "78",
+     "name": "Dondurmalı Künefe",
+     "de": "Künefe mit Eis",
+     "kennz": "A,G",
+     "preis": "8,50"
+    },
+    {
+     "nr": "79",
+     "name": "Halka Tatlı",
+     "de": "Spritzkringel in Sirup",
+     "kennz": "A",
+     "preis": "2,00"
+    }
+   ]
+  },
+  {
+   "id": "getraenke",
+   "titel": "Getränke",
+   "tr": "İçecekler",
+   "notiz": null,
+   "zwischen": {
+    "80": "Dosen (inkl. Pfand &amp; Becher)",
+    "93": "Glas / Flasche"
+   },
+   "gerichte": [
+    {
+     "nr": "80",
+     "name": "Cola",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "81",
+     "name": "Fanta",
+     "de": "",
+     "kennz": "2,7",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "82",
+     "name": "Spezi",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "83",
+     "name": "Apfelschorle",
+     "de": "",
+     "kennz": "",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "84",
+     "name": "Sprite",
+     "de": "",
+     "kennz": "7",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "85",
+     "name": "Uludağ",
+     "de": "",
+     "kennz": "",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "86",
+     "name": "Mineralwasser",
+     "de": "",
+     "kennz": "",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "87",
+     "name": "Stilles Wasser",
+     "de": "",
+     "kennz": "",
+     "preis": "3,00",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "88",
+     "name": "Ayran",
+     "de": "",
+     "kennz": "",
+     "preis": "2,00",
+     "menge": "0,20 l"
+    },
+    {
+     "nr": "90",
+     "name": "Kaffee",
+     "de": "",
+     "kennz": "",
+     "preis": "3,50",
+     "menge": "0,20 l"
+    },
+    {
+     "nr": "91",
+     "name": "Ayran",
+     "de": "frisch und hausgemacht",
+     "kennz": "",
+     "preis": "3,50",
+     "menge": "0,40 l"
+    },
+    {
+     "nr": "93",
+     "name": "Cola",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "94",
+     "name": "Fanta",
+     "de": "",
+     "kennz": "2,7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "95",
+     "name": "Spezi",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "96",
+     "name": "Sprite",
+     "de": "",
+     "kennz": "7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "97",
+     "name": "Cola Zero",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "98",
+     "name": "Cola Light",
+     "de": "",
+     "kennz": "2,6,7",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    },
+    {
+     "nr": "99",
+     "name": "Lift",
+     "de": "",
+     "kennz": "",
+     "preis": "3,50",
+     "menge": "0,33 l"
+    }
+   ]
+  }
+ ]
+}

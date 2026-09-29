@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.urfasofrasi-eislingen.de/sitemap.xml

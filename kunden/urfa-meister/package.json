@@ -1,0 +1,17 @@
+{
+  "name": "urfa-meister",
+  "private": true,
+  "type": "module",
+  "description": "URFA SOFRASI Eislingen/Fils – Meistervariante. Statisch + Pages Function (Kontakt). Seiten entstehen mit node bauen.mjs.",
+  "scripts": {
+    "bauen": "node bauen.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "html": "../../werkzeuge/node_modules/.bin/html-validate -c ../../werkzeuge/.htmlvalidate.json public/*.html public/*.htm",
+    "kopf": "python3 ../../werkzeuge/kopf-pruefen.py public",
+    "pruefen": "npm test && npm run html && npm run kopf",
+    "dev": "wrangler pages dev public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
