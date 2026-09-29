@@ -17,7 +17,8 @@ test('Pflicht-Header sind gesetzt', () => {
 
 test('CSP ist streng', () => {
   assert.doesNotMatch(csp, /unsafe-inline|unsafe-eval|\*/, 'CSP darf weder unsafe-* noch * enthalten');
-  for (const d of ["default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "base-uri 'self'"]) assert.ok(csp.includes(d), `CSP fehlt: ${d}`);
+  for (const d of ["default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "base-uri 'self'"]) assert.ok(csp.includes(d), `CSP fehlt: ${d}`);  // Showcase ohne Zahlung: Formulare nur an die eigene Seite (Stripe aus der Vorlage entfernt).
+  assert.match(csp, /form-action 'self';/, "form-action nur 'self'");
 });
 
 test('Jedes Inline-Skript ist per Hash in der CSP freigegeben', () => {

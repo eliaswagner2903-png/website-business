@@ -99,9 +99,24 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 @media (max-width: 22rem) { .kopf-tel { width: 44px; padding: 0; justify-content: center; } .kopf-tel-nr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
 @media (min-width: 48rem) and (max-width: 63.99rem) { .kopf-tel { display: none; } }
 @media (min-width: 64rem) { .kopf { flex-wrap: nowrap; } .kopf-tel { font-size: .88rem; } }
+/* Menü-Knopf im Kopf: auf dem Handy von Anfang an da (die Schnellleiste erscheint erst nach dem Scrollen). Ohne JS bleibt die Navigation als Zeile. */
+.kopf-menue { display: none; }
 @media (max-width: 47.99rem) {
   .js .nav { display: none; }
   .kopf { min-height: 3.5rem; }
+  .js .kopf { column-gap: .5rem; }
+  .js .wortmarke { margin-inline-end: auto; }
+  .js .kopf-menue {
+    display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: 50%;
+    background: var(--farbe-text); color: var(--farbe-grund); cursor: pointer; font: inherit; transition: transform var(--tempo-kurz) var(--kurve-standard);
+  }
+  .js .kopf-menue .icon { width: 1.2rem; height: 1.2rem; }
+  .kopf-menue:active { transform: scale(.92); }
+}
+/* Mit Menü-Knopf passt die ausgeschriebene Nummer erst ab ~425 px in eine Zeile; darunter nur das Telefon-Symbol (Nummer bleibt vorlesbar). */
+@media (max-width: 26.49rem) {
+  .js .kopf-tel { width: 44px; padding: 0; justify-content: center; }
+  .js .kopf-tel-nr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 /* Lese-Fortschritt als Abspielkopf der Seite */
 .kopf::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--farbe-akzent); transform: scaleX(0); transform-origin: left; display: none; }

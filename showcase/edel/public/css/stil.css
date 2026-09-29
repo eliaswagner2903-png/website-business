@@ -311,6 +311,7 @@ details p { color: var(--farbe-leise); padding-bottom: 20px; margin: 0; }
 .feld:has(:user-invalid) label { color: light-dark(#a8321f, #ee8e7c); }
 .feld:has(:user-invalid) label::after { content: " – bitte prüfen"; letter-spacing: .08em; text-transform: none; font-weight: 500; }
 .hinweis { font-size: .88rem; color: var(--farbe-leise); }
+.hinweis a { padding-block: 13px; } /* Tippfläche 44 px ohne Einfluss auf die Zeilen (Innenabstand an Inline-Element) */
 .honig { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 @media (min-width: 760px) { .formular { padding: 40px; } }
 @media (min-width: 960px) { .besuch__raster { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: start; } }
