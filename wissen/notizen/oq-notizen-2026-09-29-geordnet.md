@@ -3,7 +3,7 @@
 > Stand: 2026-09-29. Geordnete Fassung von Elias' Notizen; Original wortgetreu in `oq-notizen-2026-09-29.md`.
 > Hier wurde nur sortiert und sprachlich geglättet, nichts hinzugefügt. Was Elias in *Sternchen* gesetzt hat,
 > steht als **[offen]** und muss nach vorher festgelegten Kriterien geprüft werden. Deutungen der Ordnung sind
-> als *(Deutung)* gekennzeichnet.
+> als *(Deutung)* gekennzeichnet. Ergänzt um Elias' Antworten vom 2026-09-29, 11:31 Uhr.
 
 ## 1. Firma OQ
 
@@ -31,13 +31,21 @@
 - Stichworte: `/skills`, `/Design`, `/workflow`.
 - Idee: **YouTube Kids + Claude + Higgsfield** (von Elias als Geldquelle markiert: 💸🤑🤑).
 - **Gewinnspiel.**
-- **Fotoshooting für Instagram** mit Dimi, Ümit und Elias.
-- **Google-Bewertung:** Für eine ehrliche Google-Bewertung ca. **5 % Rabatt** auf den Einkaufspreis
-  (Stichwort `/all-Profit-Chain`).
 - **Saisonale Event-Angebotspakete**, z. B. Halloween: Die Seite hat eine Halloween-Rabattaktion; der Kunde kann eine
   **Umgestaltung seiner Seite für den Angebotszeitraum** erwerben. *(Gleichung muss noch erstellt werden.)*
+
+### Profit-Chain (Elias' eigenes Konzept)
+
+Eine Kette, von der **Kunde und Elias gemeinsam profitieren**. Bestandteile:
+
+- **Google-Bewertung:** Für eine ehrliche Google-Bewertung ca. **5 % Rabatt** auf den Einkaufspreis.
 - **Weiterempfehlung:** Bei Empfehlung mit anschließendem Vertragsabschluss **x Monate kostenlos**.
   *(Gleichung muss noch erstellt werden.)*
+
+Grundgedanke: Auf den ersten Blick bringen die Rabatte weniger Geld, aber **die Neukundengewinnung ist viel wichtiger**
+als der kurzfristige Gewinn.
+
+*(Das Fotoshooting für Instagram mit Dimi und Ümit war laut Elias nur eine persönliche Idee und ist für das Geschäft nicht relevant.)*
 
 ## 4. Idee: Seite mit Erlebnis-Einstieg (Haarschnitte)
 
@@ -120,6 +128,5 @@ Aus den übrigen Notizen abgeleitet:
 
 ## Rückfragen an Elias (nur zur Klärung, nicht dringend)
 
-- „/all-Profit-Chain“: Name einer Aktion oder eines eigenen Konzepts?
 - Bezieht sich die Haarschnitt-Idee auf Hairstyle by Ümit oder allgemein auf Friseur-Kunden?
 - Wo werden BK, KSp/KAM und NkSp/NkAM eingesetzt (z. B. Rabatt für Bestandskunden)? Steht noch nicht in den Notizen.

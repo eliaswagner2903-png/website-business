@@ -78,3 +78,9 @@ Auf der Seite einen Seiten erstell Editor einbauen mit anschließender Preis err
 Mit Claude anwendbare Schablonen bauen zum Aufbau von Ai business die verkauft werden können 
 
 Theorie Prüfung auf Richtigkeit Anwendbarkeit und Sinn *Sp=Am*
+
+---
+
+## Nachtrag von Elias (2026-09-29, 11:31 Uhr, wortgetreu)
+
+Also das mit fotoshooting ist für dich nicht wirklich relevant das war nur eine Idee die ich mal hatte und das mit der profit chain ist ein Konstrukt welches ich mir einfallen lassen hab wovon der Kunde als auch ich profitieren in dieser chain ist ein mal das mit dem Rabatt für Bewertung und die weiterempfehlung gehört ebenso zur Profit chain auf den ersten Blick mache ich damit weniger Geld weil ich Rabatte anbiete aber die neu Kunden Anwerbung ist viel wichtiger
