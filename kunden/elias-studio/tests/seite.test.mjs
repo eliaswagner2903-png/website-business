@@ -41,7 +41,7 @@ test('Persönliche Angaben sind Platzhalter mit data-pruefen – nichts erfunden
   for (const [f, t] of seiten) {
     for (const [a] of t.matchAll(/<a [^>]*href="(?:tel|mailto):[^"]*"[^>]*>/g)) assert.match(a, /data-pruefen=/, `${f}: Kontakt-Link ohne Markierung: ${a}`);
   }
-  assert.match(start, /\[Studioname\]|>Studioname</, 'Arbeitstitel [Studioname] nicht sichtbar');
+  assert.ok(start.includes(`${markiert(P.studio)}>${S.studio}<`), 'Arbeitstitel nicht sichtbar markiert');
   for (const f of ['impressum.html', 'datenschutz.html']) assert.match(alle[f], /class="platzhalter" data-pruefen="Rechtstext nicht erfinden/, `${f}: kein Platzhalter`);
 });
 
