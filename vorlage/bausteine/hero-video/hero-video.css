@@ -8,6 +8,8 @@
   border-radius: var(--radius-gross); background: var(--farbe-flaeche);
 }
 @media (min-width: 64rem) { .held-video { aspect-ratio: 4 / 5; } }
+/* Breites Format für einen Film weiter unten auf der Seite (Poster dort mit loading="lazy") */
+.held-video--16x9 { aspect-ratio: 16 / 9; }   /* steht nach der 64rem-Regel und gewinnt deshalb */
 .held-video-poster, .held-video-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .held-video-film { opacity: 0; transition: opacity 1.2s var(--kurve-sanft); }
 .held-video--laeuft .held-video-film { opacity: 1; }

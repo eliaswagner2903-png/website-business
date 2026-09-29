@@ -153,7 +153,8 @@
         film.append(quelle);
       }
       film.addEventListener('playing', () => rahmen.classList.add('held-video--laeuft'), { once: true });
-      rahmen.querySelector('.held-video-poster')?.after(film);
+      const poster = rahmen.querySelector('.held-video-poster');
+      (poster?.closest('picture') || poster)?.after(film);   // nie in <picture> hinein
       if (!film.isConnected) rahmen.prepend(film);
       if (knopf) knopf.hidden = false;
       steuern();
