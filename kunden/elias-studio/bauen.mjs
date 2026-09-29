@@ -68,7 +68,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-in">
-    <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span${pr(P.studio)}>Studioname</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
+    <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -86,7 +86,7 @@ ${inhalt}
 <footer class="fuss">
   <div class="huelle fuss-raster">
     <div class="fuss-marke">
-      <p class="fuss-name"><span aria-hidden="true">[</span><span${pr(P.studio)}>Studioname</span><span aria-hidden="true">]</span></p>
+      <p class="fuss-name"><span aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span aria-hidden="true">]</span></p>
       <p>Websites mit Betreuung für Praxen, Werkstätten, Restaurants und Studios.</p>
     </div>
     <div>
@@ -309,7 +309,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 </section>`;
 
 seite('index.html', {
-  titel: '[Studioname] – Websites mit Betreuung für Praxen und Betriebe',
+  titel: `${S.studio} – Websites mit Betreuung für Praxen und Betriebe`,
   beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy und im Monats-Abo betreut. Vier Arbeiten mit Messwerten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.',
   inhalt: [held, arbeiten, leistungen, betreuung, ablauf, ueberMich, kontakt].join('\n\n'),
   start: true,
@@ -323,8 +323,8 @@ ${inhalt}
 </div>`;
 seite('impressum.html', {
   robots: 'noindex, follow',
-  titel: 'Impressum – [Studioname]',
-  beschreibung: 'Impressum von [Studioname].',
+  titel: `Impressum – ${S.studio}`,
+  beschreibung: `Impressum von ${S.studio}.`,
   inhalt: einfach(`  ${ueber(STUDIO)}
   <h1>Impressum</h1>
   <div class="platzhalter"${pr('Rechtstext nicht erfinden: Impressum aus einem Generator oder vom Anwalt einfügen (Name, Anschrift, Kontakt, ggf. USt-IdNr.).')}>
@@ -333,8 +333,8 @@ seite('impressum.html', {
 });
 seite('datenschutz.html', {
   robots: 'noindex, follow',
-  titel: 'Datenschutz – [Studioname]',
-  beschreibung: 'Datenschutzerklärung von [Studioname].',
+  titel: `Datenschutz – ${S.studio}`,
+  beschreibung: `Datenschutzerklärung von ${S.studio}.`,
   inhalt: einfach(`  ${ueber(STUDIO)}
   <h1>Datenschutz&shy;erklärung</h1>
   <div class="platzhalter"${pr('Rechtstext nicht erfinden: Datenschutzerklärung aus einem Generator oder vom Anwalt einfügen.')}>
@@ -349,7 +349,7 @@ seite('datenschutz.html', {
 });
 seite('404.html', {
   robots: 'noindex',
-  titel: 'Seite nicht gefunden – [Studioname]',
+  titel: `Seite nicht gefunden – ${S.studio}`,
   beschreibung: 'Diese Seite gibt es nicht (mehr).',
   inhalt: einfach(`  ${ueber('404')}
   <h1>Diese Seite gibt es <em>nicht</em>.</h1>
@@ -358,7 +358,7 @@ seite('404.html', {
 });
 seite('nachricht-gesendet.html', {
   robots: 'noindex',
-  titel: 'Nachricht gesendet – [Studioname]',
+  titel: `Nachricht gesendet – ${S.studio}`,
   beschreibung: 'Ihre Nachricht ist angekommen.',
   inhalt: einfach(`  ${ueber('Danke')}
   <h1>Ihre Nachricht ist <em>angekommen</em>.</h1>
