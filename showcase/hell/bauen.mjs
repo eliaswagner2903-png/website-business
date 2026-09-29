@@ -20,6 +20,31 @@ const NAV = [
   ['termin', '/termin.html', 'Termin & Kontakt', 'Buchen, anrufen, finden'],
 ];
 
+// ---------- Strukturierte Daten (JSON-LD) ----------
+// Nur Angaben, die sichtbar auf der Seite stehen; die Beschreibung sagt, dass es eine Demo ist.
+// JSON-LD wird nicht ausgeführt, braucht also keinen CSP-Hash; "<" wird maskiert, damit nichts das Skript-Element schließt.
+const ldJson = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
+const TAG = { Montag: 'Mo', Dienstag: 'Tu', Mittwoch: 'We', Donnerstag: 'Th', Freitag: 'Fr', Samstag: 'Sa', Sonntag: 'Su' };
+const uhr = (h, m) => `${h.padStart(2, '0')}:${m}`;
+// "Montag bis Donnerstag" + "7:00 – 20:00 Uhr" → "Mo-Th 07:00-20:00"; "nach Vereinbarung" fällt weg.
+const oeffnung = P.zeiten.flatMap(([tage, zeit]) => {
+  const z = zeit.match(/^(\d{1,2}):(\d{2}) – (\d{1,2}):(\d{2}) Uhr$/);
+  const t = tage.split(' bis ').map((x) => TAG[x]);
+  return z && t.every(Boolean) ? [`${t.join('-')} ${uhr(z[1], z[2])}-${uhr(z[3], z[4])}`] : [];
+});
+const [plz, ...ortTeile] = P.plz_ort.split(' ');
+const LD = ldJson({
+  '@context': 'https://schema.org',
+  '@type': 'Physiotherapy',
+  name: `${P.name} ${P.zusatz}`,
+  description: P.demo,
+  url: `${P.domain}/`,
+  telephone: P.telefon,
+  email: P.mail,
+  address: { '@type': 'PostalAddress', streetAddress: P.strasse, postalCode: plz, addressLocality: ortTeile.join(' ') },
+  openingHours: oeffnung,
+});
+
 // ---------- Bausteine ----------
 const kopf = (id, { titel, beschreibung, kursiv = false }) => `<!DOCTYPE html>
 <html lang="de"${SCHEMA}>
@@ -40,7 +65,8 @@ const kopf = (id, { titel, beschreibung, kursiv = false }) => `<!DOCTYPE html>
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <script>document.documentElement.classList.add('js')</script>
-<script src="/js/seite.js" defer></script>
+<script src="/js/seite.js" defer></script>${id === 'index' ? `
+<script type="application/ld+json">${LD}</script>` : ''}
 </head>`;
 
 const SPRITE = `<svg class="sprite" aria-hidden="true" focusable="false">

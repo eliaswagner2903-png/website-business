@@ -383,7 +383,7 @@ main::before {
 .fuss-name { display: flex; align-items: center; gap: .5rem; font: 500 1.6rem/1 var(--schrift-display); letter-spacing: -.02em; margin-bottom: .5rem; }
 .fuss-marke p:last-child, .fuss-zeiten span { color: var(--farbe-leise); }
 .fuss address { font-style: normal; line-height: 1.8; }
-.fuss address a { color: var(--farbe-text); }
+.fuss address a { display: inline-block; padding-block: calc(22px - .9em); color: var(--farbe-text); } /* Tippfläche 44 px: Zeilenhöhe 1,8em + Innenabstand */
 .fuss-zeiten p { display: grid; }
 .fuss-zeiten p + p { margin-top: .4rem; }
 .fuss-links { list-style: none; margin: 0; padding: 0; }
