@@ -258,6 +258,9 @@ main::before {
   .lot-marken text { font-size: 19px; }
 }
 .raum-text h2 { margin-bottom: 1.2rem; }
+.raum-foto { margin: 0 0 clamp(1.5rem, 3vw, 2.25rem); }
+.raum-foto img { display: block; width: 100%; height: auto; border-radius: var(--radius-gross); border: 1px solid var(--linie-kraeftig); background: var(--farbe-flaeche); }
+.raum-foto figcaption { font-size: .875rem; color: var(--farbe-leise); margin-top: .6rem; }
 .raum-text > p:not(.ueberzeile) { color: var(--farbe-leise); }
 .fakten { margin: 2rem 0 1.5rem; display: grid; gap: 0; }
 .fakten div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: .9rem 0; border-top: 1px solid var(--farbe-linie); }
