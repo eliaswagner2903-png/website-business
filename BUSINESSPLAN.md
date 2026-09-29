@@ -19,6 +19,7 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Gebaute Seiten | 10: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
+| Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
 | Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; im Brüder-Wettbewerb schon 99/100/100/100 |
 | Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf (in main); Euro-Werte offen |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
@@ -61,9 +62,16 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
 1. **Offener Preis:** Punkte je Baustein, Gewichte je Kriterium; der Kunde sieht jede Zeile und ihren Grund.
 2. **Konfigurator:** Stil → Farbe → Branche → Sicherheit → Bausteine → Preisrahmen. Aus denselben Angaben entsteht
    das Briefing für den Bau (`/kundenseite-bauen`).
-3. **Tempo:** Eine vollständige Seite in unter einer Stunde reiner Bauzeit. Das gilt für Seiten, die der Baukasten
-   abdeckt; er ist das Ergebnis von rund 4 Tagen Vorarbeit. Neue Bausteine (z. B. das Friseur-Erlebnis) kosten
-   beim ersten Mal deutlich mehr. Wartezeit entsteht sonst nur durch Inhalte des Kunden.
+3. **Tempo in zwei Stufen** (Richtwerte, gemessen):
+
+   | Stufe | Wann | Richtzeit | Beleg |
+   |---|---|---|---|
+   | Baukasten-Seite | Seite aus vorhandenen Bausteinen, eine Prüfrunde | unter 1 Stunde Bauzeit | URFA-Meistervariante 38 min, Portfolio 33 min |
+   | Meisterseite | eigenes Design, neue Bausteine, Feinschliff bis „fast makellos“ | rund 1 Tag, etwa 9 Prüfrunden | Hairstyle by Ümit, Bruder C: 27.09. 02:33 bis 18:17 Uhr, 8 Jury-Runden, 54 → 56 von 60 Punkten |
+
+   Beide Werte gelten erst dank der rund 4 Tage Vorarbeit. Neue Bausteine (z. B. das Friseur-Erlebnis) liegen bei
+   der Meisterseite. Wartezeit entsteht sonst nur durch Inhalte des Kunden. Die Stufe fließt über Design-Punkte und
+   Untergrenze C in den Preis.
 4. **Messbare Qualität:** Meisterstandard mit festen Grenzwerten, jede Seite wird vor der Abgabe geprüft und von
    einem eigenen Späher-Team „von außen“ aufgeklärt.
 5. **Datenschutz als Verkaufsargument:** keine Cookies, kein Tracking, keine eingebetteten Karten, Schriften lokal.
