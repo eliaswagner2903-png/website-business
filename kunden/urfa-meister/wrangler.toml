@@ -1,0 +1,14 @@
+# Cloudflare Pages – URFA SOFRASI, Meistervariante. Noch NICHT live (kein Deploy ohne Freigabe).
+name = "urfa-meister"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+[vars]
+SEITE_URL = "https://www.urfasofrasi-eislingen.de"
+# Empfänger erst eintragen, wenn der Betreiber die Adresse bestätigt hat (kunde.json: offen).
+KONTAKT_AN = ""
+KONTAKT_VON = ""
+
+# Geheimnisse NIE hier eintragen, sondern:
+#   npx wrangler pages secret put RESEND_API_KEY
+#   npx wrangler pages secret put TURNSTILE_SECRET   (optional)

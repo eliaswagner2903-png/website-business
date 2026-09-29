@@ -1,0 +1,5 @@
+# Kopieren nach .dev.vars (wird nie committet). Nur Test-Schlüssel!
+SEITE_URL=http://localhost:8788
+RESEND_API_KEY=
+KONTAKT_AN=
+KONTAKT_VON=

@@ -66,6 +66,7 @@ Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext
 |---|---|
 | `/auftrag` | Auftrag loggen, Status, Abschluss, Suche |
 | `/neuer-kunde` | Kundenseite aus der Vorlage anlegen |
+| `/kundenseite-bauen` | Kundenseite in einem Zug vom Briefing bis zur Abnahme (Ablauf, Richtzeiten, Stolperfallen) |
 | `/pruefen` | komplette Qualitätsprüfung einer Seite |
 | `/sicherheit` | Sicherheitsprüfung vor Launch |
 | `/aufklaerung <url>` | Fernspäherkommando auf eine Seite ansetzen |

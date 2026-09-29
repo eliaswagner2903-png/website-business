@@ -1,0 +1,12 @@
+{
+  "name": "URFA SOFRASI",
+  "slug": "urfa-meister",
+  "domain": "www.urfasofrasi-eislingen.de",
+  "paket": "offen",
+  "ansprechpartner": "",
+  "start": "",
+  "herkunft": "Generalprobe Stufe 6 (A-037): Meistervariante neben kunden/urfa-sofrasi, gleiche Fakten und Preise",
+  "stripe_produkte": [],
+  "termine": "",
+  "offen": ["Öffnungszeiten bestätigen", "E-Mail bestätigen", "Mitnehmen/Feiern bestätigen", "Allergen-Legende", "Impressum/Datenschutz Originaltext", "Fotos mit Gästen freigeben", "Kontaktformular: Empfänger und Versand (Resend) einrichten", "Paket und Vertrag mit dem Betreiber"]
+}
