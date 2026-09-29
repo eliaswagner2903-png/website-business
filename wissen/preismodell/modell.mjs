@@ -188,3 +188,62 @@ export function saison(aenderungsPunkte, jahr, aboMonate, e = EINSTELLUNGEN) {
   const roh = (aenderungsPunkte * (1 - wieder) + 2) * e.punktwert;
   return runde(roh * (1 - treueRabatt(aboMonate)), 5);
 }
+
+// ---- Eigene Vorschläge (nicht aus Elias' Notizen) ----
+
+export const ZUSATZ = {
+  aenderungFrei: 3, // kleine Änderungen (≤ 2 Punkte) bis zur Abnahme frei
+  aenderungZuschlag: { vorEntwurf: 0, nachEntwurf: 0.25, nachAbnahme: 0.5 },
+  anzahlungGrund: 0.3,
+  anzahlungMax: 0.5,
+  rabattMax: 0.15, // alle Rabatte zusammen
+  mindestmarge: 0.4, // vom Sp muss nach Rabatten mindestens so viel Marge bleiben
+  laufzeitErwartet: 36, // Monate, für den Kundenwert
+  akquiseAnteil: 0.1, // höchstens 10 % des Kundenwerts für Gewinnung (Gewinnspiel, Rabatte)
+  mietLaufzeit: 24,
+  mietAufschlag: 0.1,
+  anpassungMax: 0.05, // AM-Erhöhung pro Jahr höchstens
+};
+
+// Änderungsaufschlag: Δ-Punkte × Punktwert × (1 + Zuschlag je Phase); kleine Änderungen im Freikontingent kosten 0.
+export function aenderung(deltaPunkte, phase, nrKleineAenderung = 0, e = EINSTELLUNGEN, z = ZUSATZ) {
+  if (deltaPunkte <= 2 && nrKleineAenderung > 0 && nrKleineAenderung <= z.aenderungFrei && phase !== 'nachAbnahme') return 0;
+  return runde(deltaPunkte * e.punktwert * (1 + z.aenderungZuschlag[phase]), 5);
+}
+
+// Anzahlung: 30 % Grund, +10 % ohne Empfehlung (unbekannter Kunde), +10 % ab 3.000 €, höchstens 50 %;
+// mindestens so hoch wie die Fremdkosten.
+export function anzahlung(sp, { empfohlen, fremdkosten = 0 }, z = ZUSATZ) {
+  let q = z.anzahlungGrund + (empfohlen ? 0 : 0.1) + (sp >= 3000 ? 0.1 : 0);
+  q = Math.min(z.anzahlungMax, q);
+  return { quote: q, betrag: Math.max(runde(sp * q, 10), fremdkosten) };
+}
+
+// Rabattgrenze: Summe aller Rabatte gekappt, und Endpreis nie unter Untergrenze C.
+export function rabattGrenze(sp, rabatte, untergrenze, e = EINSTELLUNGEN, z = ZUSATZ) {
+  const gewuenscht = rabatte.reduce((s, r) => s + r, 0);
+  const margenGrenze = 1 - (1 - e.margeSp + z.mindestmarge); // so viel darf weg, bis nur noch Mindestmarge bleibt
+  const erlaubt = Math.min(gewuenscht, z.rabattMax, Math.max(0, margenGrenze));
+  return { gewuenscht, erlaubt, endpreis: Math.max(untergrenze, runde(sp * (1 - erlaubt), 10)) };
+}
+
+// Kundenwert (CLV) und Akquisebudget
+export function kundenwert(sp, am, e = EINSTELLUNGEN, z = ZUSATZ) {
+  const clv = sp * e.margeSp + am * e.margeAm * z.laufzeitErwartet;
+  return { clv, akquise: clv * z.akquiseAnteil };
+}
+
+// Mietmodell: 0 € Einmalpreis, Sp über die Mindestlaufzeit verteilt
+export function miete(sp, am, z = ZUSATZ) {
+  return runde(am + (sp * (1 + z.mietAufschlag)) / z.mietLaufzeit, 5);
+}
+
+// Jährliche AM-Anpassung: neu gerechnet oder Kostensteigerung, gekappt
+export function amAnpassung(amAlt, amNeuGerechnet, z = ZUSATZ) {
+  return runde(Math.min(amNeuGerechnet, amAlt * (1 + z.anpassungMax)), 5);
+}
+
+// Relaunch/Umbau für Bestandskunden: neue Bausteine voll, umgebaute zur Hälfte, Treue abgezogen
+export function umbau(neuePunkte, umgebautePunkte, aboMonate, e = EINSTELLUNGEN) {
+  return runde((neuePunkte + 0.5 * umgebautePunkte) * e.punktwert * (1 - treueRabatt(aboMonate)), 10);
+}

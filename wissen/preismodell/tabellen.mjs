@@ -46,3 +46,17 @@ for (const [t, teile] of [['unbekannt', { reichweite: 1, groesse: 1, netzwerk: 1
 
 console.log('\n### Saison (Halloween, 12 Änderungspunkte)\n');
 for (const [j, mo] of [[1, 6], [2, 18], [3, 30]]) console.log(`| Jahr ${j} | ${mo} Abo-Monate | Treue ${Math.round(m.treueRabatt(mo) * 100)} % | ${eur(m.saison(12, j, mo))} |`);
+
+console.log('\n### Eigene Vorschläge (Beispiel Lotlinie)\n');
+{
+  const b = m.BEISPIELE[0], sp = m.konzeptA(b).sp, am = m.abo(b, sp).am, c = m.konzeptC(b).sp;
+  console.log(`Sp ${eur(sp)}, AM ${eur(am)}, Untergrenze ${eur(c)}`);
+  console.log(`Änderung 6 Punkte: vor Entwurf ${eur(m.aenderung(6, 'vorEntwurf'))}, nach Entwurf ${eur(m.aenderung(6, 'nachEntwurf'))}, nach Abnahme ${eur(m.aenderung(6, 'nachAbnahme'))}; 2. kleine Änderung (2 P) ${eur(m.aenderung(2, 'nachEntwurf', 2))}`);
+  for (const emp of [true, false]) { const a = m.anzahlung(sp, { empfohlen: emp, fremdkosten: 25 }); console.log(`Anzahlung ${emp ? 'empfohlen' : 'ohne Empfehlung'}: ${Math.round(a.quote * 100)} % = ${eur(a.betrag)}`); }
+  const f = m.anzahlung(3660, { empfohlen: false }); console.log(`Anzahlung Friseur 3.660 € ohne Empfehlung: ${Math.round(f.quote * 100)} % = ${eur(f.betrag)}`);
+  const r = m.rabattGrenze(sp, [0.05, 0.05, 0.1], c); console.log(`Rabatte 5+5+10 %: gewünscht ${Math.round(r.gewuenscht * 100)} %, erlaubt ${Math.round(r.erlaubt * 100)} %, Endpreis ${eur(r.endpreis)}`);
+  const k = m.kundenwert(sp, am); console.log(`Kundenwert ${eur(k.clv)}, Akquisebudget ${eur(k.akquise)}`);
+  console.log(`Miete (0 € einmalig, 24 Monate): ${eur(m.miete(sp, am))}/Monat`);
+  console.log(`AM-Anpassung 95 → neu gerechnet 110: ${eur(m.amAnpassung(95, 110))}`);
+  console.log(`Umbau Bestandskunde (8 neue, 10 umgebaute Punkte, 24 Abo-Monate): ${eur(m.umbau(8, 10, 24))}`);
+}

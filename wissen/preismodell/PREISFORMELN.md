@@ -232,7 +232,80 @@ Wiederverwendung = 0 im ersten Jahr, 0,5 ab dem zweiten (Saisonvorlage liegt sch
 
 Beispiel 12 Änderungspunkte (Aktionsbanner, Farbschema, Aktionsseite): Jahr 1 480 € · Jahr 2 265 € · Jahr 3 250 €.
 
-## 7. Was als Nächstes zu entscheiden ist
+## 7. Eigene Vorschläge (nicht aus den Notizen)
+
+> Diese Formeln stammen von mir (Stahl) und schließen Lücken, die beim Rechnen aufgefallen sind. Alle Werte sind
+> Vorschläge; Beispiel ist Lotlinie mit Sp 1.960 €, AM 95 €, Untergrenze 520 €.
+
+### 7.1 Änderungsaufschlag (beantwortet die offene Frage AGB oder Erinnerung)
+
+```
+ΔSp = ΔPunkte · Punktwert · (1 + Zuschlag)
+Zuschlag: 0 % vor Entwurfsfreigabe · 25 % nach Entwurfsfreigabe · 50 % nach Abnahme
+Freikontingent: die ersten 3 kleinen Änderungen (≤ 2 Punkte) bis zur Abnahme kosten nichts
+```
+
+Grund: Spätere Änderungen werfen fertige Arbeit weg und brauchen neue Prüfung. Beispiel 6 Punkte: 210 € · 265 € · 315 €.
+Weil jede Änderung als Baustein sichtbar wird, genügt **ein Satz in den AGB** plus die Anzeige im Angebot; eine
+Erinnerung bei jedem Wunsch ist dann nicht mehr nötig.
+
+### 7.2 Anzahlungsquote (zur offenen Frage Vorauszahlung)
+
+```
+q = 30 % + 10 % (Kunde ohne Empfehlung) + 10 % (Sp ab 3.000 €), höchstens 50 %
+Anzahlung = max(Sp · q, Fremdkosten)        Rest bei Abnahme
+```
+
+Grund: Die Anzahlung deckt mindestens die Fremdkosten und die Arbeit bis zum Entwurf; das Risiko steigt bei
+Unbekannten und großen Aufträgen. Beispiele: Lotlinie empfohlen 30 % = 590 €, ohne Empfehlung 40 % = 780 €,
+Friseur-Erlebnis 3.660 € ohne Empfehlung 50 % = 1.830 €.
+
+### 7.3 Rabattgrenze der Profit-Chain
+
+```
+Summe aller Rabatte ≤ min(15 %, Marge − Mindestmarge 40 %)
+Endpreis ≥ Untergrenze C
+Gratismonate ≤ 6 (siehe 5)
+```
+
+Grund: Rabatte stapeln sich (Willkommen + Bewertung + Treue + Saisonaktion). Beispiel: gewünscht 5 + 5 + 10 = 20 %,
+erlaubt 15 %, Endpreis 1.670 €.
+
+### 7.4 Kundenwert und Akquisebudget
+
+```
+Kundenwert = Sp · Marge_Sp + AM · Marge_AM · erwartete Laufzeit (36 Monate)
+Akquisebudget je Neukunde ≤ 10 % des Kundenwerts
+```
+
+Grund: Die Profit-Chain setzt Neukunden vor kurzfristigen Gewinn; diese Zahl sagt, **wie viel** ein Neukunde kosten
+darf (Rabatte, Gratismonate, Gewinnspiel-Preise). Lotlinie: Kundenwert 3.424 €, Budget 342 €.
+
+### 7.5 Mietmodell (Lesart 2 von „Sp = AM“)
+
+```
+Miete = AM + Sp · (1 + 10 % Finanzierungsaufschlag) / 24 Monate Mindestlaufzeit
+```
+
+Für Kunden ohne Startkapital: 0 € einmalig. Lotlinie: 185 €/Monat. Nach der Mindestlaufzeit fällt die Miete auf AM.
+
+### 7.6 Jährliche AM-Anpassung
+
+```
+AM_neu = min(AM neu gerechnet, AM_alt · 1,05)
+```
+
+Grund: Kosten und Pflegepunkte ändern sich; der Kunde bekommt höchstens 5 % Erhöhung im Jahr. Beispiel 95 € → 100 €.
+
+### 7.7 Umbau für Bestandskunden (Relaunch)
+
+```
+Umbau = (neue Punkte + 50 % der umgebauten Punkte) · Punktwert · (1 − Treue)
+```
+
+Beispiel 8 neue, 10 umgebaute Punkte, 24 Abo-Monate: 420 €.
+
+## 8. Was als Nächstes zu entscheiden ist
 
 1. Konzept A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?
 2. Gewichte 30/20/20/15/10/5 so lassen oder per Paarvergleich selbst setzen (Rechner hilft).
@@ -240,5 +313,7 @@ Beispiel 12 Änderungspunkte (Aktionsbanner, Farbschema, Aktionsseite): Jahr 1 4
 4. Bewertungsrabatt rechtlich prüfen lassen oder gleich in Referenzfreigabe umwandeln.
 5. Euro-Werte (Punktwert, Stundensatz, Pakete) erst mit Marktvergleich festlegen; das ist ein eigener Auftrag.
 
-Die offenen Punkte aus den Notizen (AGB-Hinweis vs. Erinnerung bei Änderungen, Vorauszahlung) bleiben offen; die
-Formeln passen zu beiden Varianten, weil jede Änderung als Baustein mit Punkten neu gerechnet wird.
+6. Eigene Vorschläge aus Abschnitt 7 übernehmen, ändern oder streichen.
+
+Die offenen Punkte aus den Notizen (AGB-Hinweis vs. Erinnerung bei Änderungen, Vorauszahlung) entscheiden Sie; 7.1 und
+7.2 machen dazu je einen Vorschlag.
