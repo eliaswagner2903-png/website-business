@@ -13,9 +13,7 @@ gegossen, ein Tropfen wird zum Parfümflakon). Die Scrollposition bestimmt die F
 hoch rückwärts, Anhalten zeigt ein Standbild. Über dem Film liegen 3–6 kurze Kapitel als normales HTML.
 
 Abgrenzung zu `DESIGN-WISSEN.md` („Parallax und alles, was an die Scrollgeschwindigkeit gekoppelt ist, abgelehnt“):
-Der Scroll-Film hängt an der **Position**, nicht an der Geschwindigkeit, und es bewegt sich nur **eine** Ebene. Ob
-er zu uns passt, entscheidet Elias (offene Entscheidung in A-045); bis dahin nur in Showcases, nie ungefragt beim
-Kunden.
+Der Scroll-Film hängt an der **Position**, nicht an der Geschwindigkeit, und es bewegt sich nur **eine** Ebene. Elias hat ihn am 2026-09-29 mit eigener Gewichtsgrenze zugelassen (Meisterstandard P2).
 
 ## 1. Der Film – daran hängt die Wirkung (der „Drehbuch-Vertrag“)
 
@@ -88,7 +86,8 @@ Kein Export von Hunderten Einzelbildern: die MP4 direkt steuern ist leichter und
 - 390 px: Handy-Fassung wird geladen, Held bleibt im Bild, Text lesbar (Kontrast gegen den dunkelsten **und**
   hellsten Filmmoment).
 - „Bewegung reduzieren“: null Videoanfragen.
-- Gewicht: der Film zählt nicht zum ersten Aufruf, braucht aber eine eigene Grenze (Vorschlag in A-045, offen).
+- Gewicht (Meisterstandard P2, Elias 2026-09-29): Computer-Fassung ≤ 12 MB, Handy-Fassung ≤ 5 MB, erst nach dem
+  Poster und nach „geladen“; zählt nicht zum ersten Aufruf.
 
 ## 6. Warum es teuer aussieht (Kurzfassung)
 

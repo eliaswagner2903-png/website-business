@@ -22,6 +22,7 @@ Bildfolgen beurteilt, nicht am Code.
 | Schriften | ≤ 3 Dateien, ≤ 120 KB | nur Schnitte des ersten Bildschirms vorladen |
 | Anfragen bis „geladen“ | ≤ 25 | |
 | Video im Hero | nur nach dem Poster, ≤ 1,5 MB, nicht auf „Daten sparen“ | Poster ist das LCP-Element |
+| Scroll-Film (Kino-Hero, `wissen/lehren/scroll-film.md`) | Computer ≤ 12 MB, Handy ≤ 5 MB, erst nach dem Poster und nach „geladen“, nie bei „Daten sparen“ oder „Bewegung reduzieren“ | Elias 2026-09-29 (A-045); zählt nicht zum ersten Aufruf |
 
 ## P3 Bewegung (Bildfolge, `werkzeuge/bildfolge.mjs`)
 

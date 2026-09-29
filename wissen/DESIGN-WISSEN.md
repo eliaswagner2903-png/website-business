@@ -170,8 +170,8 @@ Auswertung: `wissen/referenzen/ausgewertet/2026-09-29-video-metics-media-10k-web
   Unterzeile ≤ 20 Wörter, Knopfreihe mit 1 Haupt- + höchstens 1 Nebenknopf). Kein Siegelstreifen, keine
   Stichpunkte, keine Preise im Hero. Der Hero braucht ein **echtes** Bild oder einen Film, kein Verlaufsfleck.
 - **Scroll-Film (Kino-Hero):** ein Produktfilm ohne Schnitt, den die Scrollposition abspielt. Ausnahme zur Ablehnung
-  oben (Parallax/Scrollgeschwindigkeit): hängt an der Position, eine Ebene, dunkle ruhige Bühne. Bis Elias
-  entscheidet nur in Showcases. Drehbuch-Regeln (ohne Schnitt, Held mittig, dunkler Grund, Anfang ≠ Ende, keine
+  oben (Parallax/Scrollgeschwindigkeit): hängt an der Position, eine Ebene, dunkle ruhige Bühne. Zugelassen mit
+  eigener Grenze (Meisterstandard P2: Computer ≤ 12 MB, Handy ≤ 5 MB). Drehbuch-Regeln (ohne Schnitt, Held mittig, dunkler Grund, Anfang ≠ Ende, keine
   Schrift im Film) stehen in der Lehre.
 - **Storyboard vor Video:** erst ein Bild mit 6 Feldern derselben Bewegung, dann erst Video-Credits.
 - **KI-Erkennungsmerkmale vermeiden** (daran erkennen Kunden „KI-Seiten“, gesammelt vom Higgsfield-Skill):
