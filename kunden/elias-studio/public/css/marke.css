@@ -1,0 +1,96 @@
+/* =====================================================================
+   MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
+   stil.css und bausteine.css lesen nur diese Variablen.
+   Farbwelt „Galeriewand“: kühles Papierweiß, Tinte, EIN Akzent Kobaltblau (Links, Hauptknopf, ein Wort).
+   Keine der vier Arbeiten nutzt Blau – die Seite tritt zurück, die Arbeiten stehen im Mittelpunkt.
+   Zweites Schema zum Test (Meisterstandard P4): <html data-schema="nacht"> – SCHEMA=nacht node bauen.mjs
+   Kontrast (WCAG AA), gemessen:
+     licht: text/grund 16,5 · text/flaeche 17,7 · leise/grund 6,3 · leise/flaeche 6,7
+            akzent/grund 7,4 · akzent/flaeche 8,0 · auf-akzent/akzent 8,3
+     nacht: text/grund 16,1 · leise/grund 7,9 · akzent/grund 9,3 · auf-akzent/akzent 9,3
+   Die dunkle Tafel (Betreuung) kehrt text und grund um: 16,5 bzw. 16,1.
+   ===================================================================== */
+
+/* ---------- Schriften: je Schnitt EINE Datei (Latin-1), lokal, SIL OFL ----------
+   Instrument Serif (Titel, normal + kursiv für das eine hervorgehobene Wort) und Geist (Text, variabel 100–900).
+   Quelle: npm @fontsource/instrument-serif, @fontsource-variable/geist; beschnitten mit
+     pyftsubset <woff2> --unicodes="U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212,U+2215,U+FEFF,U+FFFD" \
+       --layout-features='*' --flavor=woff2
+   Zusammen 67 KB. Wechsel: Dateinamen hier und die Preloads in bauen.mjs anpassen, Ersatz-Maße neu messen. */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif-kursiv.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Geist";
+  font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../fonts/geist.woff2") format("woff2");
+}
+/* Ersatzschriften, gemessen mit fontTools gegen Liberation (= Times/Arial metrisch): Breite eines Mustersatzes,
+   hhea-Maße ÷ size-adjust. Der Text springt beim Tausch kaum (CLS ≈ 0). */
+@font-face {
+  font-family: "Instrument Serif Ersatz";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
+  size-adjust: 82%; ascent-override: 120.7%; descent-override: 37.8%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Instrument Serif Ersatz";
+  font-style: italic;
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic");
+  size-adjust: 86.1%; ascent-override: 115%; descent-override: 36%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Geist Ersatz";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 104.9%; ascent-override: 95.8%; descent-override: 28.1%; line-gap-override: 0%;
+}
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent */
+  --farbe-grund: #f3f2ee;       /* Galeriewand */
+  --farbe-flaeche: #fbfaf7;     /* Rahmen, Felder, Blatt */
+  --farbe-text: #141414;        /* Tinte; auch Grund der dunklen Tafel */
+  --farbe-leise: #595955;       /* Nebentext, Werkangaben */
+  --farbe-linie: #d3d1c9;       /* Haarlinien, Schnittmarken */
+  --farbe-akzent: #2a3cc2;      /* Kobalt: Hauptknopf, Links, ein Wort */
+  --farbe-auf-akzent: #ffffff;
+
+  /* Schriften */
+  --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
+  --schrift-text: "Geist", "Geist Ersatz", Arial, sans-serif;
+
+  /* Formen: Rahmen fast kantig wie ein Passepartout, Knöpfe als Pille */
+  --radius-klein: 6px;
+  --radius-gross: 999px;
+
+  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md) */
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .9s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Rhythmus */
+  --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 10rem);
+
+  color-scheme: light;
+}
+
+/* Zweites Schema „Nacht“ – nur zum Test der Anpassbarkeit (P4). */
+:root[data-schema="nacht"] {
+  --farbe-grund: #111214;
+  --farbe-flaeche: #1a1b1f;
+  --farbe-text: #efeee9;
+  --farbe-leise: #a9a8a2;
+  --farbe-linie: #3a3b40;
+  --farbe-akzent: #a3b2ff;
+  --farbe-auf-akzent: #111214;
+  color-scheme: dark;
+}

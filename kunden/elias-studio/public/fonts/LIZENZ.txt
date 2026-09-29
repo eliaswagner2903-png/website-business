@@ -1,0 +1,4 @@
+Instrument Serif (Instrument, Rodrigo Fuenzalida/Jordan Egstad) und Geist (Vercel): SIL Open Font License 1.1.
+Quelle: npm @fontsource/instrument-serif (400 normal/kursiv) und @fontsource-variable/geist (wght 100–900), latin,
+mit fontTools (pyftsubset) auf Latin-1 + Satzzeichen + Pfeile beschnitten, je Schnitt EINE Datei.
+Lizenztext: https://openfontlicense.org

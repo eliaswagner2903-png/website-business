@@ -1,0 +1,243 @@
+{
+  "hinweis": "Alle Inhalte der Portfolio-Seite stehen hier. Seiten neu bauen: node bauen.mjs. Alles Persönliche ist Platzhalter mit Prüf-Grund (pruefen) – Elias füllt es aus.",
+  "basis": "https://www.beispiel.de",
+  "studio": "[Studioname]",
+  "inhaber": "Elias [Nachname]",
+  "ort": "[Ort]",
+  "telefon_anzeige": "0000 000 000",
+  "telefon_link": "+490000000000",
+  "email": "hallo@beispiel.de",
+  "pruefen": {
+    "studio": "Studioname festlegen (Arbeitstitel)",
+    "nachname": "Nachname von Elias eintragen",
+    "ort": "Ort bzw. Region eintragen, in der Elias arbeitet",
+    "telefon": "Telefonnummer von Elias eintragen (auch im tel:-Link)",
+    "email": "E-Mail-Adresse von Elias eintragen",
+    "foto": "Foto von Elias liefern (kein Stockfoto)",
+    "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
+    "preis_website": "Preis für die Website festlegen (PAKETE.md nennt keinen Preis)",
+    "preis_abo": "Monatspreis festlegen (PAKETE.md: Preise offen)",
+    "urfa": "Freigabe des Restaurants für Referenz einholen",
+    "link": "Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist",
+    "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
+    "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)"
+  },
+  "messung": "Gemessen am 29.09.2026: Lighthouse mobil (Durchschnitt aus 3 Läufen, lokal mit Kompression) und Übertragung der Startseite bis „geladen“ auf dem Handy-Profil.",
+  "arbeiten": [
+    {
+      "id": "hell",
+      "nr": "01",
+      "name": "Lotlinie",
+      "branche": "Physiotherapie",
+      "art": "Musterseite",
+      "art_lang": "Musterseite – Praxis, Namen und Preise sind ausgedacht",
+      "satz": "Eine Praxis, die zuerst hinschaut: Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
+      "punkte": [
+        "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
+        "Termin online oder per Telefon, feste Leiste auf dem Handy",
+        "Vier Seiten: Start, Leistungen, Praxis & Team, Termin"
+      ],
+      "leitmotiv": "Lot und Messpunkte",
+      "alt_desktop": "Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel.",
+      "alt_handy": "Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten.",
+      "werte": {
+        "perf": 99,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 122
+      }
+    },
+    {
+      "id": "laut",
+      "nr": "02",
+      "name": "Zwischenbild",
+      "branche": "Studio für Motion-Design",
+      "art": "Musterseite",
+      "art_lang": "Musterseite – Studio und Projekte sind ausgedacht",
+      "satz": "Ein Studio, das Logos zum Laufen bringt: Die Seite selbst ist eine Zeitleiste mit Keyframes, Bildzähler und Timecode.",
+      "punkte": [
+        "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
+        "Drei Projektseiten mit weichem Seitenwechsel",
+        "Kräftige Typografie, Bewegung nur mit Zweck"
+      ],
+      "leitmotiv": "Zeitleiste und Keyframes",
+      "alt_desktop": "Startseite von Zwischenbild am Computer: riesige Überschrift „Wir bringen Logos das Laufen bei.“, das Wort „Laufen“ auf orangem Grund, darunter eine Zeitleiste mit Keyframes.",
+      "alt_handy": "Startseite von Zwischenbild auf dem Handy mit Timecode, großer Überschrift und den Knöpfen „Projekt anfragen“ und „Arbeiten ansehen“.",
+      "werte": {
+        "perf": 99,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 112
+      }
+    },
+    {
+      "id": "edel",
+      "nr": "03",
+      "name": "Lindgrund",
+      "branche": "Uhrmacherei",
+      "art": "Musterseite",
+      "art_lang": "Musterseite – Manufaktur, Modell und Preise sind ausgedacht",
+      "satz": "Eine Werkstatt für zwölf Uhren im Jahr: Die L-40 steht als 3D-Modell im ersten Bildschirm und dreht sich, wenn man sie bewegt.",
+      "punkte": [
+        "3D-Uhr im Browser, erst Standbild, dann Szene – pausiert außerhalb des Bildschirms",
+        "Drei Zifferblätter zum Umschalten",
+        "Anfrageformular statt Warenkorb"
+      ],
+      "leitmotiv": "Zifferblatt und Minutenteilung",
+      "alt_desktop": "Startseite von Lindgrund am Computer: dunkler Grund, Überschrift „Zwölf Uhren im Jahr. Jede von Hand reguliert.“ neben einem 3D-Modell einer Armbanduhr mit grünem Zifferblatt.",
+      "alt_handy": "Startseite von Lindgrund auf dem Handy mit Überschrift, den Knöpfen „Beratung anfragen“ und „Zifferblätter“ und der Uhr darunter.",
+      "werte": {
+        "perf": 100,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 117
+      }
+    },
+    {
+      "id": "urfa",
+      "nr": "04",
+      "name": "URFA SOFRASI",
+      "branche": "Restaurant in Eislingen/Fils",
+      "art": "Entwurf für ein echtes Restaurant",
+      "art_lang": "Entwurf für ein echtes Restaurant – noch nicht veröffentlicht",
+      "satz": "Ein türkisch-anatolisches Restaurant: Die runde Kupferplatte vom Tisch wird zum Bildrahmen, die Speisekarte ist eine durchsuchbare Seite.",
+      "punkte": [
+        "Speisekarte als HTML mit Suche, 90 Positionen gegen das PDF geprüft",
+        "Anrufen, Route und Karte in einer festen Leiste",
+        "Fotos nur aus dem Bestand des Restaurants"
+      ],
+      "leitmotiv": "Kupferplatte und Skyline aus dem Logo",
+      "alt_desktop": "Entwurf der Startseite von URFA SOFRASI am Computer: dunkler Grund, Schriftzug URFA SOFRASI, Knopf zum Anrufen und eine runde Platte mit Lahmacun und Meze in einem Kupferring.",
+      "alt_handy": "Entwurf der Startseite von URFA SOFRASI auf dem Handy mit Öffnungsstatus, Schriftzug, rundem Foto und großem Knopf zum Anrufen.",
+      "werte": {
+        "perf": 98,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 364
+      }
+    }
+  ],
+  "leistungen": [
+    {
+      "mass": "≥ 95",
+      "einheit": "Lighthouse mobil",
+      "titel": "Mobil zuerst",
+      "text": "Gebaut für das Handy, geprüft von 320 bis 1920 Pixel Breite. Tippflächen mindestens 44 Pixel, Text mindestens 16 Pixel, Kontakt in einer festen Leiste."
+    },
+    {
+      "mass": "0",
+      "einheit": "Cookies, Tracker, fremde Skripte",
+      "titel": "Datenschutz ohne Umwege",
+      "text": "Schriften kommen vom eigenen Server, Karten sind ein Link statt eingebettet, es gibt keine Analyse-Werkzeuge."
+    },
+    {
+      "mass": "CSP",
+      "einheit": "strenge Sicherheitsregeln",
+      "titel": "Sicherheit ab dem ersten Tag",
+      "text": "Der Browser führt nur Code der eigenen Seite aus. Formulare prüfen die Herkunft und haben eine Falle für Spam-Programme."
+    },
+    {
+      "mass": "≤ 500",
+      "einheit": "KB bis zur ersten Ansicht",
+      "titel": "Leicht, auch mit 3D und Video",
+      "text": "3D-Objekte und kurze Filme laden erst nach einem Standbild, pausieren außerhalb des Bildschirms und bleiben bei „Bewegung reduzieren“ still."
+    },
+    {
+      "mass": "Stripe",
+      "einheit": "Checkout",
+      "titel": "Termine und Zahlungen",
+      "text": "Online-Terminbuchung und Bezahlung über Stripe Checkout. Kartendaten berühren die Website nie, der Preis steht auf dem Server."
+    },
+    {
+      "mass": "AA",
+      "einheit": "WCAG-Kontrast",
+      "titel": "Für alle bedienbar",
+      "text": "Mit Tastatur, Bildschirmleser und ohne JavaScript. Jede Seite hat genau eine Hauptüberschrift und sichtbaren Fokus."
+    }
+  ],
+  "pakete": {
+    "zeilen": [
+      [
+        "Hosting, Domain, SSL, E-Mail-Weiterleitung",
+        "✓",
+        "✓",
+        "✓"
+      ],
+      [
+        "Wöchentliche Prüfung (Erreichbarkeit, Header, Zertifikat)",
+        "✓",
+        "✓",
+        "✓"
+      ],
+      [
+        "Sicherheits- und Abhängigkeits-Updates",
+        "✓",
+        "✓",
+        "✓"
+      ],
+      [
+        "Monatlicher Kurzbericht",
+        "✓",
+        "✓",
+        "✓"
+      ],
+      [
+        "Inhaltsänderungen pro Monat",
+        "–",
+        "bis 1 Std.",
+        "bis 3 Std."
+      ],
+      [
+        "Tiefenprüfung (Design, Technik, SEO)",
+        "jährlich",
+        "quartalsweise",
+        "monatlich"
+      ],
+      [
+        "Neue Visuals",
+        "–",
+        "–",
+        "1× pro Quartal"
+      ],
+      [
+        "Antwortzeit bei Störung",
+        "2 Werktage",
+        "1 Werktag",
+        "4 Std. werktags"
+      ],
+      [
+        "Online-Terminbuchung und Zahlungen betreuen",
+        "–",
+        "✓",
+        "✓"
+      ]
+    ],
+    "namen": [
+      "Basis",
+      "Plus",
+      "Premium"
+    ]
+  },
+  "ablauf": [
+    {
+      "titel": "Briefing",
+      "text": "Wir sprechen über Ihren Betrieb, Ihre Kundschaft und was die Seite leisten soll. Ich sammle nur Fakten, die Sie bestätigen – alles Unsichere bleibt markiert, bis es geklärt ist."
+    },
+    {
+      "titel": "Entwurf",
+      "text": "Sie sehen zwei bis drei Richtungen als Bilder vom Handy und vom Computer und entscheiden. Dann baue ich die ganze Seite in dieser Richtung."
+    },
+    {
+      "titel": "Abnahme",
+      "text": "Vor dem Start prüfe ich jede Seite gegen denselben Maßstab: Breiten von 320 bis 1920 Pixel, ohne JavaScript, Lighthouse, Sicherheit. Sie bekommen die Messwerte und geben frei."
+    },
+    {
+      "titel": "Betreuung",
+      "text": "Danach kümmere ich mich im Monats-Abo um Technik, Updates und Änderungen. Jede Woche läuft eine Prüfung, jeden Monat bekommen Sie einen kurzen Bericht."
+    }
+  ]
+}

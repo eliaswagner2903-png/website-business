@@ -1,0 +1,23 @@
+/* ---------- Baustein: seitenwechsel ----------
+   Weicher Übergang zwischen Seiten derselben Website (View Transitions, ohne JS).
+   Beide Seiten brauchen diese Regeln. Kopf und Schnellleiste bleiben stehen, der Inhalt wechselt:
+   alter Inhalt geht kurz nach oben weg (0,3 s, schließende Kurve), neuer steigt 16 px auf (0,55 s).
+   Benannte Übergänge: ein Element mit class="uebergang-titel" (bzw. -bild) auf Seite A verwandelt sich in das
+   Element mit derselben Klasse auf Seite B. Jeder Name darf pro Seite nur EINMAL vorkommen.
+   Bei „Bewegung reduzieren“ gibt es keinen Übergang. Browser ohne Unterstützung laden ganz normal. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+
+  .kopf { view-transition-name: kopf; }
+  .schnell { view-transition-name: schnell; }
+  main { view-transition-name: inhalt; }
+  .uebergang-titel { view-transition-name: titel; }
+  .uebergang-bild { view-transition-name: bild; }
+
+  ::view-transition-group(*) { animation-duration: var(--tempo-lang); animation-timing-function: var(--kurve-sanft); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--tempo-mittel); }
+  ::view-transition-old(inhalt) { animation: seitenwechsel-weg .3s var(--kurve-schliessen) both; }
+  ::view-transition-new(inhalt) { animation: seitenwechsel-her .55s var(--kurve-standard) .12s both; }
+}
+@keyframes seitenwechsel-weg { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes seitenwechsel-her { from { opacity: 0; transform: translateY(16px); } }

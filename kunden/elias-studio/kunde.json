@@ -1,0 +1,12 @@
+{
+  "name": "[Studioname] – Portfolio von Elias",
+  "slug": "elias-studio",
+  "domain": "",
+  "paket": "eigen",
+  "ansprechpartner": "Elias",
+  "start": "",
+  "herkunft": "A-038: eigene Portfolio-/Agentur-Seite mit den vier Musterseiten als Referenzen",
+  "stripe_produkte": [],
+  "termine": "",
+  "offen": ["Studioname", "Nachname", "Ort", "Telefon", "E-Mail", "Foto", "Domain", "Impressum/Datenschutz (Generator/Anwalt)", "Preise für Website und Abo-Pakete", "Freigabe URFA SOFRASI als Referenz", "Kontaktformular: Empfänger und Versand (Resend) einrichten"]
+}

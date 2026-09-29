@@ -21,6 +21,13 @@
       "domain": "www.urfasofrasi-eislingen.de",
       "paket": "offen",
       "aktiv": false
+    },
+    {
+      "name": "[Studioname] (Portfolio von Elias)",
+      "slug": "elias-studio",
+      "domain": "",
+      "paket": "eigen",
+      "aktiv": false
     }
   ]
 }

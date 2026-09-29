@@ -35,7 +35,7 @@ for (const [name, opt] of [['ohne JavaScript', { javaScriptEnabled: false }], ['
   for (const s of seiten) {
     await p.goto(basis + s, { waitUntil: 'networkidle' });
     const H = await p.evaluate(() => document.documentElement.scrollHeight);
-    for (let y = 0; y < H; y += 600) { await p.evaluate(y => scrollTo(0, y), y); await p.waitForTimeout(60); }
+    for (let y = 0; y < H; y += 600) { await p.evaluate(y => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(60); } // instant: FEHLER 49
     await p.waitForTimeout(400);
     const unsichtbar = await p.$$eval('main *', a => a.filter(e => getComputedStyle(e).opacity === '0' && e.getBoundingClientRect().height > 0).length);
     if (unsichtbar) melde(`${s} (${name}): ${unsichtbar} Elemente bleiben unsichtbar`);
