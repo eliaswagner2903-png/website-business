@@ -14,18 +14,30 @@ const EMAIL = /^[^\s@<>]{1,64}@[^\s@<>]{1,190}\.[a-z]{2,}$/i;
 const ohneSteuerzeichen = (s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim();
 
 // Auswahl aus dem Konfigurator (optional): nur bekannte Werte, alles andere fällt still weg.
+// Die Stufennamen stehen auch in inhalt/seite.json; der Test prüft, dass beide gleich sind.
 const KONFIG = {
-  stil: ['hell', 'laut', 'edel'],
-  farbe: ['terrakotta', 'kobalt', 'salbei', 'messing'],
   branche: ['praxis', 'handwerk', 'gastro', 'studio'],
-  sicherheit: ['standard', 'erhoeht', 'hoch'],
+  farbe: ['terrakotta', 'kobalt', 'salbei', 'messing'],
+  stil: ['hell', 'laut', 'edel'],
   bausteine: ['termin', 'speisekarte', 'galerie', 'formular', 'zahlung', 'film', 'dreid'],
+};
+export const STUFEN = {
+  sicherheit: ['Sicherheit', 'Grundschutz', 'Geprüft', 'Überwacht', 'Abgesichert', 'Höchste Stufe'],
+  design: ['Gestaltung', 'Vorlage', 'Angepasst', 'Eigenes Design', 'Eigenes Design plus', 'Markenauftritt'],
+  umfang: ['Umfang', 'Eine Seite', 'Bis 3 Seiten', 'Bis 5 Seiten', 'Bis 8 Seiten', 'Mehr als 8 Seiten'],
+  bewegung: ['Bewegung', 'Ruhig', 'Dezent', 'Lebendig', 'Film', 'Kino'],
+  inhalte: ['Texte und Bilder', 'Alles von Ihnen', 'Geglättet', 'Geschrieben', 'Mit Bildern', 'Komplett'],
+  betreuung: ['Betreuung', 'Übergabe', 'Sicher', 'Mit Bericht', 'Mit Änderungen', 'Vorrang'],
 };
 export function konfigAuswahl(form) {
   const aus = {};
   for (const [feld, erlaubt] of Object.entries(KONFIG)) {
     const werte = form.getAll(feld === 'bausteine' ? 'bausteine[]' : feld).map(String).filter((w) => erlaubt.includes(w));
     if (werte.length) aus[feld] = [...new Set(werte)].join(', ');
+  }
+  for (const [id, [titel, ...namen]] of Object.entries(STUFEN)) {
+    const n = String(form.get(`stufe_${id}`) ?? '');
+    if (/^[1-5]$/.test(n)) aus[titel] = `Stufe ${n} von 5 (${namen[n - 1]})`;
   }
   return aus;
 }

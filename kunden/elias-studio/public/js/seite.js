@@ -6,11 +6,12 @@
     const leiste = document.querySelector('.seite-start .schnell');
     const ziel = document.querySelector('.held-aktionen');
     if (!leiste || !ziel || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(([e]) => {
-      const weg = e.isIntersecting || e.boundingClientRect.top > 0;
-      leiste.classList.toggle('schnell--weg', weg);
-      leiste.inert = weg;
-    }).observe(ziel);
+    // Auch im Generator weg, sonst deckt sie auf dem Handy Zurück/Weiter ab
+    const gen = document.querySelector('.generator');
+    let imHeld = true, imGen = false;
+    const setze = () => { const weg = imHeld || imGen; leiste.classList.toggle('schnell--weg', weg); leiste.inert = weg; };
+    new IntersectionObserver(([e]) => { imHeld = e.isIntersecting || e.boundingClientRect.top > 0; setze(); }).observe(ziel);
+    if (gen) new IntersectionObserver(([e]) => { imGen = e.isIntersecting; setze(); }).observe(gen);
   }
 
   // Tag/Nacht: Schema „nacht“ aus marke.css, gemerkt im Browser (Kopf-Skript setzt es vor dem ersten Bild)
@@ -70,42 +71,116 @@
     addEventListener('hashchange', ausAnker);
   }
 
-  // Konfigurator: Vorschläge je Betrieb, Zahlung verlangt Sicherheit „Hoch“, Zusammenfassung oben und im Formular
+  // Konfigurator: Vorschläge je Business, Regler 1–5 mit Stufentext, Zahlung verlangt Sicherheit ≥ 4, Zusammenfassung oben und im Formular
   function konfigurator() {
     const k = document.querySelector('.konfig');
     const form = document.getElementById('kontaktformular');
     if (!k || !form) return;
     const felder = [...document.querySelectorAll('input[form="kontaktformular"]')];
+    const regler = felder.filter((f) => f.type === 'range');
     const titel = (input) => input.closest('label').querySelector('.wahl-titel').textContent;
+    const stufen = (r) => [...r.closest('fieldset').querySelectorAll('.stufen-liste li')];
+    const bereich = (r) => r.closest('fieldset').querySelector('legend').lastChild.textContent.trim();
     const regel = k.querySelector('.konfig-regel');
+    const sicherheit = document.getElementById('k-stufe-sicherheit');
     const zusammen = [k.querySelector('.konfig-zusammen'), form.querySelector('.kontakt-auswahl')];
+    const summe = k.querySelector('.einstufung-summe');
+    const modell = k.querySelector('.vorschau-seite');
 
+    function zeigeRegler(r) {
+      const n = Number(r.value);
+      const li = stufen(r);
+      li.forEach((l, i) => l.classList.toggle('ist', i === n - 1));
+      const name = li[n - 1].querySelector('strong').textContent;
+      r.setAttribute('aria-valuetext', `Stufe ${n} von 5: ${name}`);
+      r.style.setProperty('--anteil', `${(n - 1) * 25}%`);
+      const reihe = k.querySelector(`.einstufung-reihe[data-stufe="${r.id.replace('k-stufe-', '')}"]`);
+      if (reihe) reihe.dataset.wert = n;
+      const id = r.id.replace('k-stufe-', '');
+      modell.dataset[id] = n;
+      const siegel = k.querySelector(`.siegel--${id === 'sicherheit' ? 'schutz' : id} b`);
+      if (siegel) siegel.textContent = n;
+      return `${bereich(r)} <strong>${n}</strong> (${name})`;
+    }
     function pruefeSicherheit() {
-      const braucht = felder.some((f) => f.checked && f.dataset.sicher === 'hoch');
-      const hoch = document.getElementById('k-sicherheit-hoch');
-      for (const f of felder.filter((f) => f.name === 'sicherheit' && f !== hoch)) f.disabled = braucht;
-      if (braucht && !hoch.checked) { hoch.checked = true; regel.hidden = false; }
-      if (!braucht) regel.hidden = true;
+      const mindestens = Math.max(1, ...felder.filter((f) => f.checked && f.dataset.sicher).map((f) => Number(f.dataset.sicher)));
+      if (Number(sicherheit.value) < mindestens) sicherheit.value = mindestens;
+      regel.hidden = mindestens === 1;
     }
     function schreibe() {
       const gewaehlt = (name) => felder.filter((f) => f.name === name && f.checked).map(titel);
       const bausteine = gewaehlt('bausteine[]');
-      const text = `Ihre Auswahl: <strong>${gewaehlt('stil')}</strong> in <strong>${gewaehlt('farbe')}</strong> für <strong>${gewaehlt('branche')}</strong>`
-        + `, Sicherheit <strong>${gewaehlt('sicherheit')}</strong>`
-        + (bausteine.length ? `, mit ${bausteine.map((b) => `<strong>${b}</strong>`).join(', ')}.` : '.');
-      for (const z of zusammen) if (z) z.innerHTML = text;   // nur Titel aus dem eigenen HTML, keine Eingaben des Besuchers
+      const einstufung = regler.map(zeigeRegler);
+      if (summe) summe.textContent = `${regler.reduce((a, r) => a + Number(r.value), 0)} von ${regler.length * 5}`;
+      const text = `Ihre Auswahl: <strong>${gewaehlt('branche')}</strong>, Farbe <strong>${gewaehlt('farbe')}</strong>, Schrift <strong>${gewaehlt('stil')}</strong>. `
+        + `Ihre Einstufung: ${einstufung.join(', ')}.`
+        + (bausteine.length ? ` Funktionen: ${bausteine.map((b) => `<strong>${b}</strong>`).join(', ')}.` : '');
+      for (const z of zusammen) if (z) z.innerHTML = text;   // nur Texte aus dem eigenen HTML, keine Eingaben des Besuchers
     }
-    k.addEventListener('change', (e) => {
+    const neu = (e) => {
       const f = e.target;
-      if (f.name === 'branche') {
+      if (e.type === 'change' && f.name === 'branche') {
         const vorschlag = f.dataset.vorschlag.split(' ');
         for (const b of felder.filter((x) => x.name === 'bausteine[]' && !x.dataset.sicher)) b.checked = vorschlag.includes(b.id.replace('k-bausteine-', ''));
       }
       pruefeSicherheit();
       schreibe();
-    });
+    };
+    k.addEventListener('change', neu);
+    k.addEventListener('input', neu);
     pruefeSicherheit();
     schreibe();
+  }
+
+  // Generator: ein Schritt nach dem anderen an festem Ort (Reiter nach dem WAI-Muster „Tabs“, dazu Zurück/Weiter)
+  function generator() {
+    const g = document.querySelector('.generator');
+    const reiter = g ? [...g.querySelectorAll('[role="tab"]')] : [];
+    if (!reiter.length) return;
+    const tafeln = reiter.map((r) => document.getElementById(r.getAttribute('aria-controls')));
+    const bereich = g.querySelector('.gen-bereich');
+    const zurueck = g.querySelector('.gen-zurueck');
+    const weiter = g.querySelector('.gen-weiter');
+    const stand = g.querySelector('.gen-stand-text');
+    const n = reiter.length;
+    let jetzt = 0;
+    g.classList.add('generator--gefuehrt');
+    tafeln.forEach((t, i) => { t.setAttribute('role', 'tabpanel'); t.setAttribute('aria-labelledby', reiter[i].id); });
+    const waehle = (i, { fokus = false, rollen = true } = {}) => {
+      reiter[jetzt].classList.add('gen-tab--fertig');
+      jetzt = i;
+      reiter.forEach((r, j) => { r.setAttribute('aria-selected', String(i === j)); r.tabIndex = i === j ? 0 : -1; });
+      tafeln.forEach((t, j) => { t.hidden = i !== j; });
+      zurueck.disabled = i === 0;
+      weiter.firstChild.textContent = i === n - 1 ? 'Zur Anfrage ' : 'Weiter ';
+      stand.textContent = `${i + 1} von ${n}`;
+      g.style.setProperty('--gen-anteil', ((i + 1) / n).toFixed(3));
+      if (fokus) reiter[i].focus();
+      // Reiterleiste seitlich nachführen; die Seite nur zurückholen, wenn der Schritt oben unter Reiter/Modell verschwunden ist
+      const l = reiter[i].parentElement;
+      l.scrollLeft = Math.max(0, reiter[i].offsetLeft - l.offsetLeft - 48);
+      if (rollen) {
+        const oben = parseFloat(getComputedStyle(bereich).scrollMarginTop) || 0;
+        if (bereich.getBoundingClientRect().top < oben - 1) bereich.scrollIntoView({ block: 'start' });
+      }
+    };
+    reiter.forEach((r, i) => {
+      r.addEventListener('click', () => waehle(i));
+      r.addEventListener('keydown', (e) => {
+        const ziel = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
+        if (ziel === undefined) return;
+        e.preventDefault();
+        waehle(ziel, { fokus: true });
+      });
+    });
+    zurueck.addEventListener('click', () => waehle(Math.max(0, jetzt - 1)));
+    weiter.addEventListener('click', () => {
+      if (jetzt < n - 1) { waehle(jetzt + 1); return; }
+      reiter[jetzt].classList.add('gen-tab--fertig');
+      document.getElementById('kontakt').scrollIntoView();
+      document.getElementById('k-name').focus({ preventScroll: true });
+    });
+    waehle(0, { rollen: false });
   }
 
   function start() {
@@ -115,6 +190,7 @@
     leiste();
     schema();
     buehne();
+    generator();
     konfigurator();
     // Doppelte Formular-Klicks verhindern
     for (const form of document.querySelectorAll('.formular')) {

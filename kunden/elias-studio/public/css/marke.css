@@ -87,6 +87,11 @@
   --muster-laut-text: #111111;
   --muster-edel-grund: #121212;
   --muster-edel-text: #efe9dc;
+  /* nur für „ganze Seite anwenden“ im Generator: Messing als Text braucht mehr Tiefe; dunkles „Edel“-Schema */
+  --muster-messing-tief: #7a5a22;
+  --muster-edel-flaeche: #1b1b1a;
+  --muster-edel-leise: #aea79a;
+  --muster-edel-linie: #3a3935;
 
   /* Schriften */
   --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
