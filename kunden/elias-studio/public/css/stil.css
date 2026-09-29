@@ -139,20 +139,35 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 }
 .rahmen-adresse { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
-/* ---------- Arbeiten: Werk mit Werkschild, abwechselnd links/rechts ---------- */
+/* ---------- Arbeiten: bildschirmfüllend, im Gerät läuft die echte Seite durch ---------- */
 .werke { display: grid; gap: clamp(6rem, 3rem + 8vw, 11rem); }
-.werk { display: grid; gap: 4.5rem 4rem; align-items: center; }
-.werk-bild { position: relative; min-width: 0; margin-inline-end: 1.25rem; }
-.werk-bild .rahmen--handy { position: absolute; inline-size: 27%; inset: auto -1.25rem -3rem auto; }
+.werk { display: grid; gap: 3rem 4rem; align-items: center; }
+.werk-bild { position: relative; min-width: 0; }
+/* Fenster: feste Höhe, die lange Aufnahme rollt darin (Containerhöhe in cqh für die Endposition) */
+.fenster { position: relative; overflow: hidden; container-type: size; }
+.fenster picture, .fenster img { display: block; inline-size: 100%; block-size: auto; }
+.rahmen--desktop .fenster { block-size: clamp(20rem, 100svh - 17rem, 46rem); border-radius: 0 0 var(--radius-klein) var(--radius-klein); }
+.rahmen--handy .fenster { aspect-ratio: 390 / 844; border-radius: calc(var(--_r) - 1px); }
+.rahmen .fenster img { border-radius: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .fenster img { animation: seite-rollen 46s cubic-bezier(.45, 0, .55, 1) 1.2s infinite alternate; will-change: transform; }
+  .rahmen--handy .fenster img { animation-duration: 38s; animation-delay: 2.4s; }
+  .werk-bild:hover .fenster img, .werk-bild:focus-within .fenster img { animation-play-state: paused; }
+}
+@keyframes seite-rollen { 0%, 6% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
+.werk-bild .rahmen--desktop { display: none; }
+.werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--kino-grund); }
+@media (min-width: 48rem) {
+  .werk-bild { margin-inline-end: 2rem; }
+  .werk-bild .rahmen--desktop { display: block; }
+  .werk-bild .rahmen--handy { position: absolute; inline-size: 25%; min-inline-size: 9rem; inset: auto -2rem -2.5rem auto; margin: 0; --_r: clamp(1rem, 1.6vw, 1.5rem); padding: .3rem; }
+}
 .werk-schild { display: grid; gap: 1rem; align-content: start; min-width: 0; }
 .werk-nr { display: flex; gap: .75rem; align-items: baseline; flex-wrap: wrap; font-size: .9375rem; color: var(--farbe-leise); }
 .werk-nr > span:first-child { font: 400 1.35rem/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: tabular-nums; }
 .werk-schild h3 { font-size: clamp(2.3rem, 1.5rem + 2.6vw, 3.6rem); }
 .werk-branche { font-size: .9375rem; color: var(--farbe-leise); }
 .werk-satz { font-size: 1.125rem; line-height: 1.55; }
-.werk-punkte { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: 1rem; color: var(--farbe-leise); }
-.werk-punkte li { display: flex; gap: .7rem; }
-.werk-punkte li::before { content: ""; flex: none; inline-size: .75rem; block-size: 1px; margin-block-start: .8em; background: currentColor; }
 .werk-werte {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: .9rem 1.25rem; margin: .75rem 0 0;
   padding-block: 1.1rem; border-block: 1px solid var(--farbe-linie);
@@ -165,9 +180,8 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .werk-link { font-size: .9375rem; color: var(--farbe-leise); }
 .messhinweis { margin-block-start: clamp(4rem, 3rem + 3vw, 6rem); font-size: .875rem; color: var(--farbe-leise); max-width: 70ch; }
 @media (min-width: 64rem) {
-  .werk { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
-  .werk-bild .rahmen--handy { inline-size: 23%; inset: auto -2.5rem -3.5rem auto; }
-  .werk-bild { margin-inline: 0 2.5rem; }
+  .werk { grid-template-columns: minmax(0, 9fr) minmax(0, 3.6fr); }
+  .werk-bild { margin-inline-end: 3rem; }
 }
 
 /* ---------- Leistungen: Maßstäbe statt Kartenreihe ---------- */
@@ -473,7 +487,6 @@ html:not(.js) .nur-js { display: none !important; }
 @keyframes werk-bild-auf { from { opacity: 0; transform: translateY(1.25rem); } }
 @keyframes werk-text-auf { from { opacity: 0; transform: translateY(.6rem); } }
 .werk-link { display: grid; gap: .6rem; justify-items: start; margin-block-start: .5rem; }
-.werk-link-hinweis { font-size: .875rem; color: var(--farbe-leise); }
 .werk-link--offen { font-size: .9375rem; color: var(--farbe-leise); }
 
 /* ---------- Konfigurator ---------- */
@@ -637,7 +650,7 @@ html:not(.js) .nur-js { display: none !important; }
 }
 .vorschau-seite {
   --v-grund: var(--muster-hell-grund); --v-text: var(--muster-hell-text); --v-akzent: var(--muster-terrakotta);
-  --v-titel: var(--schrift-display); --v-gewicht: 400; --v-spur: -.01em; --v-gross: 2.15rem; --v-form: none; --v-radius: 999px;
+  --v-titel: var(--schrift-display); --v-gewicht: 400; --v-spur: -.01em; --v-gross: 1.75rem; --v-form: none; --v-radius: 999px;
   display: flex; flex-direction: column; gap: .9rem; aspect-ratio: 9 / 16; max-inline-size: 100%; overflow: hidden;
   padding: 1.2rem 1.15rem 1.4rem; border-radius: 1.5rem; background: var(--v-grund); color: var(--v-text);
   transition: background-color var(--tempo-mittel) var(--kurve-standard), color var(--tempo-mittel) var(--kurve-standard);
@@ -646,12 +659,44 @@ html:not(.js) .nur-js { display: none !important; }
 .vorschau-kopf { display: flex; justify-content: space-between; align-items: center; padding-block-end: .7rem; border-bottom: 1px solid color-mix(in srgb, var(--v-text) 18%, transparent); font-size: .8rem; font-weight: 600; }
 .vorschau-logo { display: inline-flex; align-items: center; gap: .4rem; }
 .vorschau-zeichen { display: none; inline-size: .8rem; block-size: .8rem; border-radius: 2px; background: var(--v-akzent); }
-.vorschau-nav { display: flex; gap: .25rem; }
-.vorschau-nav i { inline-size: .9rem; block-size: .2rem; border-radius: 1px; background: currentColor; opacity: .55; }
+.vorschau-nav { display: flex; gap: .5rem; min-width: 0; overflow: hidden; font-size: .56rem; font-weight: 500; white-space: nowrap; }
+.vorschau-nav i { font-style: normal; opacity: .72; }
+.vorschau-nav i:first-child { opacity: 1; text-decoration: underline 1px var(--v-akzent); text-underline-offset: .25em; }
 .vorschau-bild {
-  display: none; position: relative; block-size: 4.5rem; border-radius: calc(var(--v-radius) / 4 + 4px); overflow: hidden;
-  background: linear-gradient(120deg, color-mix(in srgb, var(--v-akzent) 70%, var(--v-grund)), color-mix(in srgb, var(--v-akzent) 25%, var(--v-grund)));
+  position: relative; display: grid; place-items: center; flex: none; block-size: 5.25rem; margin: .2rem 0 0 !important;
+  border: 1px dashed color-mix(in srgb, var(--v-text) 28%, transparent); border-radius: min(var(--v-radius), .9rem); overflow: hidden;
+  background: color-mix(in srgb, var(--v-akzent) 7%, var(--v-grund));
 }
+.vorschau-bild-text { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; opacity: .55; }
+.vorschau-seite:is([data-inhalte="4"], [data-inhalte="5"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-bild {
+  border-style: solid; border-color: transparent;
+  background: radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--v-grund) 55%, transparent) 0 14%, transparent 15%),
+    linear-gradient(120deg, color-mix(in srgb, var(--v-akzent) 75%, var(--v-grund)), color-mix(in srgb, var(--v-akzent) 22%, var(--v-grund)));
+}
+.vorschau-seite:is([data-inhalte="4"], [data-inhalte="5"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-bild-text { display: none; }
+.vorschau-lead { font-size: .7rem; line-height: 1.45; opacity: .8; }
+.vorschau-knoepfe { display: flex; gap: .4rem; flex-wrap: wrap; }
+.vorschau-play { position: absolute; inset: auto auto .45rem .5rem; padding: .15rem .45rem; border-radius: 999px; background: var(--v-grund); color: var(--v-text); font-size: .56rem; font-weight: 600; }
+.vorschau-wuerfel { position: absolute; inset: 0; margin: auto; inline-size: 1.8rem; block-size: 1.8rem; transform: rotateX(-24deg) rotateY(38deg); transform-style: preserve-3d; }
+.vorschau-wuerfel i { position: absolute; inset: 0; border: 1.5px solid var(--v-grund); background: color-mix(in srgb, var(--v-grund) 25%, transparent); }
+.vorschau-wuerfel i:nth-child(1) { transform: translateZ(.9rem); }
+.vorschau-wuerfel i:nth-child(2) { transform: rotateY(90deg) translateZ(.9rem); }
+.vorschau-wuerfel i:nth-child(3) { transform: rotateX(90deg) translateZ(.9rem); }
+/* Funktionen als echte kleine Bausteine */
+.mini-karte { flex-direction: column; gap: .3rem; padding: .5rem .6rem; border: 1px solid color-mix(in srgb, var(--v-text) 16%, transparent); border-radius: min(var(--v-radius), .6rem); font-size: .6rem; }
+.mini-karte--zeile { flex-direction: row; justify-content: space-between; align-items: center; }
+.mini-titel { font-weight: 650; font-size: .62rem; }
+.mini-chips { display: flex; gap: .3rem; }
+.mini-chips i { font-style: normal; padding: .12rem .4rem; border-radius: 999px; border: 1px solid var(--v-akzent); color: var(--v-akzent); font-weight: 600; }
+.mini-chips i:first-child { background: var(--v-akzent); color: var(--muster-auf-akzent); }
+.mini-zeile { display: flex; justify-content: space-between; border-block-end: 1px dotted color-mix(in srgb, var(--v-text) 30%, transparent); }
+.mini-zeile b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.mini-feld { padding: .2rem .35rem; border: 1px solid color-mix(in srgb, var(--v-text) 22%, transparent); border-radius: 3px; opacity: .6; }
+.mini-schloss { color: var(--v-akzent); font-weight: 600; }
+.mini-schloss::before { content: "\1F512\FE0E  "; }
+.mini-galerie { gap: .3rem; }
+.mini-galerie i { flex: 1; aspect-ratio: 1; border-radius: min(var(--v-radius), .4rem); background: linear-gradient(150deg, color-mix(in srgb, var(--v-akzent) 55%, var(--v-grund)), color-mix(in srgb, var(--v-text) 18%, var(--v-grund))); }
+.mini-galerie i:nth-child(2) { background: linear-gradient(20deg, color-mix(in srgb, var(--v-akzent) 25%, var(--v-grund)), color-mix(in srgb, var(--v-akzent) 70%, var(--v-grund))); }
 .vorschau-ring { display: none; position: absolute; inset: 0; margin: auto; inline-size: 2.4rem; block-size: 2.4rem; border: 2px solid var(--v-grund); border-radius: 50%; border-block-start-color: transparent; }
 .vorschau-siegel { display: flex; gap: .35rem; flex-wrap: wrap; }
 .siegel { padding: .15rem .5rem; border-radius: 3px; background: color-mix(in srgb, var(--v-text) 8%, transparent); font-size: .62rem; }
@@ -663,7 +708,6 @@ html:not(.js) .nur-js { display: none !important; }
 .vorschau-seite[data-umfang="4"] .vorschau-nav i:nth-child(n+5) { display: none; }
 .vorschau-seite:is([data-design="4"], [data-design="5"]) .vorschau-titel { border-inline-start: 3px solid var(--v-akzent); padding-inline-start: .6rem; }
 .vorschau-seite[data-design="5"] .vorschau-zeichen { display: inline-block; }
-.vorschau-seite:is([data-inhalte="4"], [data-inhalte="5"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-bild { display: block; }
 .vorschau-seite[data-bewegung="5"] .vorschau-ring { display: block; }
 .vorschau-seite[data-design="1"] { --v-radius: 4px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -680,17 +724,17 @@ html:not(.js) .nur-js { display: none !important; }
 .vorschau-titel {
   font: var(--v-gewicht) var(--v-gross)/1.02 var(--v-titel); letter-spacing: var(--v-spur); text-transform: var(--v-form); text-wrap: balance;
 }
-.vorschau-zeilen { display: grid; gap: .4rem; }
-.vorschau-zeilen span { block-size: .45rem; border-radius: 1px; background: color-mix(in srgb, var(--v-text) 16%, transparent); }
-.vorschau-zeilen span:nth-child(2) { inline-size: 88%; }
-.vorschau-zeilen span:nth-child(3) { inline-size: 62%; }
-.vorschau-knopf { align-self: start; padding: .55rem 1.1rem; border-radius: var(--v-radius); background: var(--v-akzent); color: var(--muster-auf-akzent); font-size: .78rem; font-weight: 600; letter-spacing: .02em; transition: background-color var(--tempo-mittel) var(--kurve-standard); }
-.vorschau-bausteine { display: flex; flex-wrap: wrap; gap: .35rem; margin-block-start: auto !important; }
-.vb { display: none; padding: .2rem .55rem; border: 1px solid color-mix(in srgb, var(--v-text) 30%, transparent); border-radius: 999px; font-size: .66rem; }
+.vorschau-knopf { align-self: start; padding: .45rem .85rem; border-radius: var(--v-radius); background: var(--v-akzent); color: var(--muster-auf-akzent); font-size: .78rem; font-weight: 600; letter-spacing: .02em; transition: background-color var(--tempo-mittel) var(--kurve-standard); }
+.vorschau-bausteine { display: grid; gap: .4rem; }
+.vorschau-bausteine p { margin: 0; }
+.vorschau-seite { position: relative; }
+.vorschau-siegel { position: absolute; inset: auto .6rem .6rem; justify-content: center; padding: .35rem; border-radius: min(var(--v-radius), .7rem); background: color-mix(in srgb, var(--v-grund) 88%, transparent); box-shadow: 0 .4rem 1.2rem -.6rem color-mix(in srgb, var(--v-text) 45%, transparent); backdrop-filter: blur(6px); }
+.vb { display: none; }
+.vorschau-knopf--zweit { background: transparent; color: var(--v-text); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--v-text) 35%, transparent); }
 .nach-branche { display: none; }
 
-.konfig:has(#k-stil-laut:checked) .vorschau-seite { --v-grund: var(--muster-laut-grund); --v-text: var(--muster-laut-text); --v-titel: var(--schrift-text); --v-gewicht: 800; --v-spur: -.045em; --v-gross: 2.2rem; --v-radius: 4px; }
-.konfig:has(#k-stil-edel:checked) .vorschau-seite { --v-grund: var(--muster-edel-grund); --v-text: var(--muster-edel-text); --v-gross: 1.55rem; --v-spur: .06em; --v-form: uppercase; --v-radius: 0; }
+.konfig:has(#k-stil-laut:checked) .vorschau-seite { --v-grund: var(--muster-laut-grund); --v-text: var(--muster-laut-text); --v-titel: var(--schrift-text); --v-gewicht: 800; --v-spur: -.045em; --v-gross: 1.85rem; --v-radius: 4px; }
+.konfig:has(#k-stil-edel:checked) .vorschau-seite { --v-grund: var(--muster-edel-grund); --v-text: var(--muster-edel-text); --v-gross: 1.3rem; --v-spur: .06em; --v-form: uppercase; --v-radius: 0; }
 .konfig:has(#k-farbe-kobalt:checked) .vorschau-seite { --v-akzent: var(--muster-kobalt); }
 .konfig:has(#k-farbe-salbei:checked) .vorschau-seite { --v-akzent: var(--muster-salbei); }
 .konfig:has(#k-farbe-messing:checked) .vorschau-seite { --v-akzent: var(--muster-messing); }
@@ -704,7 +748,7 @@ html:not(.js) .nur-js { display: none !important; }
 .konfig:has(#k-bausteine-formular:checked) .vb--formular,
 .konfig:has(#k-bausteine-zahlung:checked) .vb--zahlung,
 .konfig:has(#k-bausteine-film:checked) .vb--film,
-.konfig:has(#k-bausteine-dreid:checked) .vb--dreid { display: inline-block; }
+.konfig:has(#k-bausteine-dreid:checked) .vb--dreid { display: flex; }
 
 .konfig-fuss {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem;

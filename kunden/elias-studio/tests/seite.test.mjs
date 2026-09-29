@@ -57,7 +57,7 @@ test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Verme
     assert.match(start, new RegExp(`id="arbeit-${a.id}"`), `${a.id}: fehlt`);
     for (const art of ['desktop', 'handy']) {
       for (const typ of ['avif', 'webp']) {
-        const f = join(PUB, 'medien', `arbeit-${a.id}-${art}-${art === 'desktop' ? 1016 : 320}.${typ}`);
+        const f = join(PUB, 'medien', `arbeit-${a.id}-${art}-lang-${art === 'desktop' ? 800 : 320}.${typ}`);
         assert.ok(existsSync(f), `${f} fehlt`);
         assert.ok(statSync(f).size < 120 * 1024, `${f} zu groß`);
       }
