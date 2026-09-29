@@ -1,6 +1,6 @@
 # Business-Plan OQ
 
-> Stand 2026-09-29, Auftrag A-043. Von Grund auf neu geschrieben; ersetzt die „Lagekarte“ vom 2026-09-28.
+> Stand 2026-09-29, Auftrag A-043, Statistik ergänzt in A-044. Von Grund auf neu geschrieben; ersetzt die „Lagekarte“ vom 2026-09-28.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
 > Trainingsplan, Generalprobe, Portfolio-Seite (PR #26, #29), `wartung/PAKETE.md`, `recht/LEITFADEN.md`.
 > **Alle Euro-Beträge sind Platzhalter**, bis Elias sie festlegt. Was von mir (Stahl) vorgeschlagen und nicht von
@@ -15,12 +15,15 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 
 | Kennzahl | Stand |
 |---|---|
-| Fähigkeit | Trainingsplan Stufe 1–6 abgeschlossen |
-| Vorzeigeseiten | 4 Musterseiten + eigene Portfolio-Seite |
-| Bauzeit gemessen | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio) |
-| Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien |
+| Aufbauzeit gesamt | rund 4 Tage (25.09. abends bis 29.09.), 11 Arbeitssitzungen, über 200 Commits in 5 Repos |
+| Gebaute Seiten | 10: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio |
+| Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
+| Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
+| Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; im Brüder-Wettbewerb schon 99/100/100/100 |
 | Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf (in main); Euro-Werte offen |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
+
+Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
 
 ## 2. Angebot
 
@@ -58,8 +61,9 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
 1. **Offener Preis:** Punkte je Baustein, Gewichte je Kriterium; der Kunde sieht jede Zeile und ihren Grund.
 2. **Konfigurator:** Stil → Farbe → Branche → Sicherheit → Bausteine → Preisrahmen. Aus denselben Angaben entsteht
    das Briefing für den Bau (`/kundenseite-bauen`).
-3. **Tempo:** Eine vollständige Seite in unter einer Stunde reiner Bauzeit; Wartezeit entsteht nur durch Inhalte
-   des Kunden.
+3. **Tempo:** Eine vollständige Seite in unter einer Stunde reiner Bauzeit. Das gilt für Seiten, die der Baukasten
+   abdeckt; er ist das Ergebnis von rund 4 Tagen Vorarbeit. Neue Bausteine (z. B. das Friseur-Erlebnis) kosten
+   beim ersten Mal deutlich mehr. Wartezeit entsteht sonst nur durch Inhalte des Kunden.
 4. **Messbare Qualität:** Meisterstandard mit festen Grenzwerten, jede Seite wird vor der Abgabe geprüft und von
    einem eigenen Späher-Team „von außen“ aufgeklärt.
 5. **Datenschutz als Verkaufsargument:** keine Cookies, kein Tracking, keine eingebetteten Karten, Schriften lokal.
@@ -110,6 +114,28 @@ Zusammensetzung. Beides bleibt nachträglich änderbar.
 7. **Betreuung:** wöchentlicher Check, monatlicher Bericht, Tiefenprüfung laut Paket, Saison- und Relaunch-Angebote.
 
 ## 8. Was schon steht
+
+### Der Weg bis hierher (Gesamtbilanz)
+
+Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
+(Stand 29.09.2026, 15 Uhr).
+
+| Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
+|---|---|---|---|---|
+| URFA SOFRASI (Repo `urfa`) | 25.–27.09. | 2 | 30 | erste echte Seite: Variante dunkel und hell, Speisekarte mit 90 Gerichten als HTML, Schnellleiste, Regeln und Stolperfallen; Lighthouse bis Performance 96, Barrierefreiheit 100 |
+| Claude-Setup | 27.09. | 1 | 2 | Setup-Skript für jede Cloud-Sitzung, 5 Agents, Hooks (Secret-Schutz, Audit, Diff vor Push), MCPs |
+| Brüder-Wettbewerb (Hairstyle by Ümit) | 26.–28.09. | 3 | 54 | drei Websites parallel im Wettbewerb, 7 Skills, Prüfwerkzeuge (Lighthouse, Kopf-Check, Vorschau-Test), `FEHLER.md` und `DESIGN-WISSEN.md`; Lighthouse 99/100/100/100 |
+| Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
+| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 110 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
+| **Summe** | **rund 4 Tage** | **11** | **201** | **10 Seiten, 5 Repos, 3 Agenten-Teams** |
+
+Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
+Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
+
+Was daraus folgt: Der Baukasten ist eine Investition von mehreren Tagen, die sich über jede Kundenseite verteilt.
+Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konzept A/B nach Wert, nicht nach Minuten).
+
+### Bestand
 
 | Bereich | Ergebnis |
 |---|---|
