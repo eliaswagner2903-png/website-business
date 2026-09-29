@@ -10,6 +10,7 @@ export const studio = {
   telefonAnzeige: '01234 567 890',
   telefonLink: 'tel:+491234567890',
   email: 'hallo@zwischenbild.example',
+  domain: 'https://zwischenbild.example', // Platzhalter-Domain (.example = reserviert, gehört niemandem)
   adresse: ['Musterstraße 12, Hinterhaus', '12345 Beispielstadt'],
   zeiten: 'Mo–Fr 9–17 Uhr',
   demoHinweis: 'Demo-Seite – ausgedachtes Studio',

@@ -81,6 +81,24 @@ const telLink = (klasse = '', mitIcon = false) => `<a class="${klasse}" href="${
 const mailLink = (klasse = '') => `<a class="${klasse}" href="mailto:${studio.email}" ${pruefMail}>${studio.email.replace('@', '<wbr>@')}</a>`;
 const navPunkte = [['/#arbeiten', 'Arbeiten'], ['/#handwerk', 'Handwerk'], ['/#leistungen', 'Leistungen'], ['/#ablauf', 'Ablauf'], ['/#kontakt', 'Kontakt']];
 
+// Strukturierte Daten (JSON-LD) nur für die Startseite, nur aus sichtbaren Angaben; die Beschreibung nennt die Demo.
+// JSON-LD wird nicht ausgeführt (kein CSP-Hash nötig); "<" wird maskiert, damit nichts das Skript-Element schließt.
+const ldJson = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
+const [plz, ...ortTeile] = studio.adresse[1].split(' ');
+const LD = ldJson({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: studio.name,
+  description: studio.demoLang,
+  url: `${studio.domain}/`,
+  email: studio.email,
+  telephone: studio.telefonAnzeige,
+  address: { '@type': 'PostalAddress', streetAddress: studio.adresse[0], postalCode: plz, addressLocality: ortTeile.join(' ') },
+});
+
+// Kanonische Adresse: pfad 'start' ist die Startseite, sonst <pfad>.html
+const url = (pfad) => `${studio.domain}/${pfad === 'start' ? '' : `${pfad}.html`}`;
+
 function kopf({ titel, beschreibung, pfad, robots = 'index, follow' }) {
   return `<!DOCTYPE html>
 <html lang="de">
@@ -94,13 +112,16 @@ function kopf({ titel, beschreibung, pfad, robots = 'index, follow' }) {
 <meta property="og:title" content="${esc(titel)}">
 <meta property="og:description" content="${esc(beschreibung)}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="${url(pfad)}">
+<link rel="canonical" href="${url(pfad)}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/archivo-latin-wdth.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jetbrains-mono-basis.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <script>document.documentElement.classList.add('js')</script>
-<script src="/js/seite.js" defer></script>
+<script src="/js/seite.js" defer></script>${pfad === 'start' ? `
+<script type="application/ld+json">${LD}</script>` : ''}
 </head>
 <body data-seite="${pfad}">
 <div id="pruefen"></div>
@@ -112,6 +133,7 @@ function kopf({ titel, beschreibung, pfad, robots = 'index, follow' }) {
     <ul>${navPunkte.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('')}</ul>
   </nav>
   ${telLink('kopf-tel', true)}
+  <button class="kopf-menue menue-knopf" type="button" aria-expanded="false" aria-controls="menue">${icon.menue}<span class="nur-lesbar">Menü</span></button>
 </header>
 `;
 }
@@ -389,8 +411,19 @@ export function seiten() {
   return s;
 }
 
+// Sitemap: alle indexierbaren Seiten (ohne 404)
+export function sitemap() {
+  const pfade = ['start', ...projekte.map((p) => `projekt-${p.slug}`), 'impressum', 'datenschutz'];
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pfade.map((p) => `  <url><loc>${url(p)}</loc></url>`).join('\n')}
+</urlset>
+`;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const ziel = new URL('./public/', import.meta.url);
   for (const [datei, html] of Object.entries(seiten())) writeFileSync(new URL(datei, ziel), html);
+  writeFileSync(new URL('sitemap.xml', ziel), sitemap());
   console.log(`gebaut: ${Object.keys(seiten()).join(', ')}`);
 }

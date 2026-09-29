@@ -37,7 +37,7 @@ test('Keine fremden Skripte, keine Inline-Stile, keine iframes, keine fremden Sc
     assert.doesNotMatch(t, /<iframe/, `${f}: iframe (Datenschutz, CSP)`);
     assert.doesNotMatch(t, /fonts\.googleapis|fonts\.gstatic/, `${f}: Google-Fonts-CDN (DSGVO)`);
     assert.doesNotMatch(t, /\son[a-z]+="/, `${f}: Inline-Event-Handler`);
-    assert.doesNotMatch(t, /<link[^>]+href="https?:/, `${f}: fremde Quelle im Kopf`);
+    assert.doesNotMatch(t, /<link(?![^>]*rel="canonical")[^>]+href="https?:/, `${f}: fremde Quelle im Kopf (nur canonical darf absolut sein)`);
   }
   assert.doesNotMatch(css, /url\(\s*["']?https?:/, 'CSS lädt fremde Dateien');
 });

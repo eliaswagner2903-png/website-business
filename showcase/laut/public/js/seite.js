@@ -6,16 +6,18 @@ function start() {
   const feinerZeiger = matchMedia('(hover: hover) and (pointer: fine)');
 
   // ---------- Menü-Blatt (Handy) ----------
-  const knopf = document.querySelector('.menue-knopf');
+  // Zwei Knöpfe öffnen dasselbe Blatt: im Kopf (sofort sichtbar) und in der Schnellleiste (nach dem Scrollen).
+  const knoepfe = [...document.querySelectorAll('.menue-knopf')];
   const blatt = document.getElementById('menue');
-  if (knopf && blatt) {
-    let offen = false;
+  if (knoepfe.length && blatt) {
+    let offen = false, knopf = knoepfe[0];
     const andere = () => [...document.body.children].filter((e) => e !== blatt && e.tagName !== 'SCRIPT');
-    const oeffnen = () => {
+    const oeffnen = (e) => {
       if (offen) return; offen = true;
+      knopf = e?.currentTarget || knoepfe[0];
       blatt.hidden = false;
       andere().forEach((e) => { e.inert = true; });
-      knopf.setAttribute('aria-expanded', 'true');
+      knoepfe.forEach((k) => k.setAttribute('aria-expanded', 'true'));
       requestAnimationFrame(() => requestAnimationFrame(() => blatt.classList.add('blatt--offen')));
       blatt.querySelector('.blatt-liste a')?.focus({ preventScroll: true });
     };
@@ -23,12 +25,12 @@ function start() {
       if (!offen) return; offen = false;
       blatt.classList.remove('blatt--offen');
       andere().forEach((e) => { e.inert = false; });
-      knopf.setAttribute('aria-expanded', 'false');
+      knoepfe.forEach((k) => k.setAttribute('aria-expanded', 'false'));
       const weg = () => { if (!offen) blatt.hidden = true; };
       ruhig.matches ? weg() : setTimeout(weg, 450);
       if (zurueck) knopf.focus({ preventScroll: true });
     };
-    knopf.addEventListener('click', oeffnen);
+    knoepfe.forEach((k) => k.addEventListener('click', oeffnen));
     blatt.addEventListener('click', (e) => {
       if (e.target.closest('[data-zu]')) schliessen();
       else if (e.target.closest('a')) schliessen(false);
