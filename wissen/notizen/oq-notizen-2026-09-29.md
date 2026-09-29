@@ -84,3 +84,9 @@ Theorie Prüfung auf Richtigkeit Anwendbarkeit und Sinn *Sp=Am*
 ## Nachtrag von Elias (2026-09-29, 11:31 Uhr, wortgetreu)
 
 Also das mit fotoshooting ist für dich nicht wirklich relevant das war nur eine Idee die ich mal hatte und das mit der profit chain ist ein Konstrukt welches ich mir einfallen lassen hab wovon der Kunde als auch ich profitieren in dieser chain ist ein mal das mit dem Rabatt für Bewertung und die weiterempfehlung gehört ebenso zur Profit chain auf den ersten Blick mache ich damit weniger Geld weil ich Rabatte anbiete aber die neu Kunden Anwerbung ist viel wichtiger
+
+## Nachtrag von Elias (2026-09-29, 11:35 Uhr, wortgetreu)
+
+Antwort auf die Rückfrage, ob BK die Bekanntheit bzw. den Einfluss des Kunden meint:
+
+Ja das ist richtig aber ich will ja dass alle Preise eine Grund haben deswegen habe ich mir überlegt dass man für die Preis errechnung Formeln benutz in dem jeder Punkt eine andere Wertigkeit hat

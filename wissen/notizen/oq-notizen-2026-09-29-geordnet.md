@@ -3,7 +3,7 @@
 > Stand: 2026-09-29. Geordnete Fassung von Elias' Notizen; Original wortgetreu in `oq-notizen-2026-09-29.md`.
 > Hier wurde nur sortiert und sprachlich geglättet, nichts hinzugefügt. Was Elias in *Sternchen* gesetzt hat,
 > steht als **[offen]** und muss nach vorher festgelegten Kriterien geprüft werden. Deutungen der Ordnung sind
-> als *(Deutung)* gekennzeichnet. Ergänzt um Elias' Antworten vom 2026-09-29, 11:31 Uhr.
+> als *(Deutung)* gekennzeichnet. Ergänzt um Elias' Antworten vom 2026-09-29, 11:31 und 11:35 Uhr.
 
 ## 1. Firma OQ
 
@@ -67,6 +67,16 @@ als der kurzfristige Gewinn.
 
 **Grundsatz:** Preise entstehen aus **mathematischen Gleichungen**; alles soll (so gut wie möglich) nachvollziehbar sein.
 
+**Jeder Preis hat einen Grund** (Elias, 11:35): Die Formeln bestehen aus einzelnen Punkten (Kriterien), und
+**jeder Punkt hat eine eigene Wertigkeit** (Gewichtung).
+
+**Bedeutung der Kürzel** (von Elias bestätigt, 11:35):
+
+- **Sp** ist der einmalige Preis für die Seite, **AM** der monatliche Abo-Beitrag (Hosting, Pflege, Updates, Sicherheit).
+- **K** bzw. **Nk** davor zeigt, für wen der Preis gilt: bestehende Kunden (KSp, KAM) oder Neukunden (NkSp, NkAM),
+  die z. B. über die Profit-Chain andere Konditionen bekommen.
+- **BK** („Bekanntheit Kunde“) misst, wie bekannt bzw. einflussreich ein Kunde ist; das fließt in den Preis ein.
+
 - **Agenten** kategorisieren vor Verkauf bzw. Vertragsabschluss die Website, um **Sp und AM** anhand der Gleichung zu
   errechnen. Verschiedene Kriterien werden als Ziel vorausgesetzt → **grober Kostenanschlag**.
 - Während der Erstellung sind Änderungen möglich; dadurch **variiert der Preis**.
@@ -129,4 +139,3 @@ Aus den übrigen Notizen abgeleitet:
 ## Rückfragen an Elias (nur zur Klärung, nicht dringend)
 
 - Bezieht sich die Haarschnitt-Idee auf Hairstyle by Ümit oder allgemein auf Friseur-Kunden?
-- Wo werden BK, KSp/KAM und NkSp/NkAM eingesetzt (z. B. Rabatt für Bestandskunden)? Steht noch nicht in den Notizen.
