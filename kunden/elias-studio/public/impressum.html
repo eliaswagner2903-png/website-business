@@ -20,19 +20,23 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<script>document.documentElement.classList.add('js')</script>
+
+<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
+
 </head>
 <body>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
+    <button class="schema-knopf nur-js" type="button" aria-pressed="false"><span class="schema-zeichen" aria-hidden="true"></span><span class="unsichtbar">Dunkle Ansicht</span></button>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
         <li><a href="/#arbeiten">Arbeiten</a></li>
+        <li><a href="/#konfigurator">Konfigurator</a></li>
         <li><a href="/#leistungen">Leistungen</a></li>
         <li><a href="/#betreuung">Betreuung</a></li>
         <li><a href="/#ablauf">Ablauf</a></li>

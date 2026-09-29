@@ -18,9 +18,10 @@
     "preis_website": "Preis für die Website festlegen (PAKETE.md nennt keinen Preis)",
     "preis_abo": "Monatspreis festlegen (PAKETE.md: Preise offen)",
     "urfa": "Freigabe des Restaurants für Referenz einholen",
-    "link": "Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist",
+    "link": "Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist",
     "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
-    "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)"
+    "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
+    "konfigurator": "Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)"
   },
   "messung": "Gemessen am 29.09.2026: Lighthouse mobil (Durchschnitt aus 3 Läufen, lokal mit Kompression) und Übertragung der Startseite bis „geladen“ auf dem Handy-Profil.",
   "arbeiten": [
@@ -46,7 +47,8 @@
         "bp": 100,
         "seo": 100,
         "kb": 122
-      }
+      },
+      "link": "https://claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X"
     },
     {
       "id": "laut",
@@ -70,7 +72,8 @@
         "bp": 100,
         "seo": 100,
         "kb": 112
-      }
+      },
+      "link": "https://claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu"
     },
     {
       "id": "edel",
@@ -94,7 +97,8 @@
         "bp": 100,
         "seo": 100,
         "kb": 117
-      }
+      },
+      "link": "https://claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP"
     },
     {
       "id": "urfa",
@@ -118,7 +122,8 @@
         "bp": 100,
         "seo": 100,
         "kb": 364
-      }
+      },
+      "link": ""
     }
   ],
   "leistungen": [
@@ -239,5 +244,166 @@
       "titel": "Betreuung",
       "text": "Danach kümmere ich mich im Monats-Abo um Technik, Updates und Änderungen. Jede Woche läuft eine Prüfung, jeden Monat bekommen Sie einen kurzen Bericht."
     }
-  ]
+  ],
+  "kino": [
+    {
+      "id": "gebaut",
+      "wort": "Gebaut.",
+      "text": "Jede Seite entsteht aus eigenem Code und bekommt ein Leitmotiv aus der Welt des Betriebs: ein Lot für die Physiopraxis, eine Zeitleiste für das Motion-Studio, ein Zifferblatt für die Uhrmacherei."
+    },
+    {
+      "id": "gemessen",
+      "wort": "Gemessen.",
+      "text": "Vor der Übergabe wird nachgemessen, nicht geschätzt: Lighthouse auf dem Handy, Breiten von 320 bis 1920 Pixel, Gewicht bis zur ersten Ansicht, Sicherheits-Header.",
+      "werte": [
+        [
+          "≥ 95",
+          "Lighthouse mobil"
+        ],
+        [
+          "0",
+          "Tracker und Cookies"
+        ],
+        [
+          "≤ 500",
+          "KB bis zur ersten Ansicht"
+        ]
+      ]
+    },
+    {
+      "id": "betreut",
+      "wort": "Betreut.",
+      "text": "Nach dem Start prüfe ich die Seite jede Woche automatisch, halte Technik und Sicherheit aktuell und ändere Inhalte, wenn sich bei Ihnen etwas ändert."
+    }
+  ],
+  "konfigurator": {
+    "stile": [
+      {
+        "id": "hell",
+        "name": "Hell & ruhig",
+        "beispiel": "wie Lotlinie",
+        "text": "Viel Luft, Serifenschrift, ruhige Bewegung"
+      },
+      {
+        "id": "laut",
+        "name": "Laut & modern",
+        "beispiel": "wie Zwischenbild",
+        "text": "Große Grotesk, kräftiger Akzent, sichtbare Bewegung"
+      },
+      {
+        "id": "edel",
+        "name": "Dunkel & edel",
+        "beispiel": "wie Lindgrund",
+        "text": "Dunkler Grund, feine Linien, Licht auf dem Produkt"
+      }
+    ],
+    "farben": [
+      {
+        "id": "terrakotta",
+        "name": "Terrakotta"
+      },
+      {
+        "id": "kobalt",
+        "name": "Kobalt"
+      },
+      {
+        "id": "salbei",
+        "name": "Salbei"
+      },
+      {
+        "id": "messing",
+        "name": "Messing"
+      }
+    ],
+    "branchen": [
+      {
+        "id": "praxis",
+        "name": "Praxis",
+        "muster": "Praxis am Markt",
+        "satz": "Termine, die zu Ihrem Alltag passen.",
+        "vorschlag": [
+          "termin",
+          "formular"
+        ]
+      },
+      {
+        "id": "handwerk",
+        "name": "Handwerk & Werkstatt",
+        "muster": "Werkstatt Berger",
+        "satz": "Handarbeit, die man sehen kann.",
+        "vorschlag": [
+          "galerie",
+          "formular"
+        ]
+      },
+      {
+        "id": "gastro",
+        "name": "Restaurant & Café",
+        "muster": "Café Lindenhof",
+        "satz": "Heute frisch auf der Karte.",
+        "vorschlag": [
+          "speisekarte",
+          "galerie"
+        ]
+      },
+      {
+        "id": "studio",
+        "name": "Studio & Dienstleistung",
+        "muster": "Studio Nord",
+        "satz": "Ideen, die sich bewegen.",
+        "vorschlag": [
+          "galerie",
+          "film"
+        ]
+      }
+    ],
+    "sicherheit": [
+      {
+        "id": "standard",
+        "name": "Standard",
+        "text": "HTTPS, strenge Sicherheits-Header, keine fremden Skripte, kein Tracking, wöchentliche Prüfung. Immer dabei."
+      },
+      {
+        "id": "erhoeht",
+        "name": "Erhöht",
+        "text": "Dazu Spam-Schutz an Formularen, Überwachung der Erreichbarkeit und Sicherungen."
+      },
+      {
+        "id": "hoch",
+        "name": "Hoch",
+        "text": "Dazu abgesicherte Zahlungen und Logins, geprüfte Webhooks und eine monatliche Tiefenprüfung."
+      }
+    ],
+    "bausteine": [
+      {
+        "id": "termin",
+        "name": "Online-Termine"
+      },
+      {
+        "id": "speisekarte",
+        "name": "Speisekarte mit Suche"
+      },
+      {
+        "id": "galerie",
+        "name": "Galerie"
+      },
+      {
+        "id": "formular",
+        "name": "Anfrageformular"
+      },
+      {
+        "id": "zahlung",
+        "name": "Zahlung über Stripe",
+        "sicher": "hoch"
+      },
+      {
+        "id": "film",
+        "name": "Film im ersten Bildschirm"
+      },
+      {
+        "id": "dreid",
+        "name": "3D-Objekt"
+      }
+    ]
+  }
 }

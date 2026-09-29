@@ -19,19 +19,24 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="/medien/werkbank-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">
+<link rel="preload" href="/medien/werkbank-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">
+<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
+<script src="/js/kino.js" defer></script>
 </head>
 <body class="seite-start">
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
+    <button class="schema-knopf nur-js" type="button" aria-pressed="false"><span class="schema-zeichen" aria-hidden="true"></span><span class="unsichtbar">Dunkle Ansicht</span></button>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
         <li><a href="#arbeiten">Arbeiten</a></li>
+        <li><a href="#konfigurator">Konfigurator</a></li>
         <li><a href="#leistungen">Leistungen</a></li>
         <li><a href="#betreuung">Betreuung</a></li>
         <li><a href="#ablauf">Ablauf</a></li>
@@ -42,36 +47,53 @@
 </header>
 
 <main id="inhalt">
-<section class="held" aria-labelledby="titel">
-  <div class="huelle held-raster">
-    <div class="held-text">
-      <p class="ueberzeile">Websites mit Betreuung im Monats-Abo</p>
-      <h1 id="titel">Websites für Praxen, Werkstätten und Restaurants. Gebaut, gemessen und <em>betreut</em>.</h1>
-      <p class="held-lead">Ich baue schnelle Websites ohne Tracking, die auf dem Handy funktionieren, und kümmere mich danach im Monats-Abo um Technik, Sicherheit und Änderungen. Vier Arbeiten zeigen, wie das aussieht.</p>
-      <div class="aktionen held-aktionen">
-        <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
-        <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+<section class="kino" aria-labelledby="titel" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
+  <div class="kino-buehne" aria-hidden="true">
+    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" fetchpriority="high" decoding="async"></picture>
+    <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/werkbank-ende-640.avif 640w, /medien/werkbank-ende-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-ende-1280.webp" srcset="/medien/werkbank-ende-640.webp 640w, /medien/werkbank-ende-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
+    <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
+    <span class="kino-schleier"></span>
+    <span class="kino-skala"><span class="kino-marke"></span></span>
+  </div>
+  <div class="kino-kapitel">
+    <div class="kapitel kapitel--start">
+      <div class="huelle kapitel-in">
+        <p class="ueberzeile ueberzeile--kino">Websites mit Betreuung im Monats-Abo</p>
+        <h1 id="titel">Websites für Praxen, Werkstätten und Restaurants. Gebaut, gemessen und <em>betreut</em>.</h1>
+        <p class="held-lead">Ich baue schnelle Websites ohne Tracking, die auf dem Handy funktionieren, und kümmere mich danach im Monats-Abo um Technik, Sicherheit und Änderungen.</p>
+        <div class="aktionen held-aktionen">
+          <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
+          <a class="knopf zweit" href="#konfigurator">Seite zusammenstellen</a>
+        </div>
+        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen spielt den Film ab</p>
       </div>
-      <p class="held-kontakt"><span>Oder direkt:</span> <a href="mailto:hallo@beispiel.de" data-pruefen="E-Mail-Adresse von Elias eintragen">hallo@beispiel.de</a> <a href="tel:+490000000000" data-pruefen="Telefonnummer von Elias eintragen (auch im tel:-Link)">0000&nbsp;000&nbsp;000</a></p>
     </div>
-    <ol class="bogen" aria-label="Die vier Arbeiten">
-      <li class="bogen-bild bogen-bild--hell"><a href="#arbeit-hell">
-        <span class="rahmen rahmen--handy marken"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-320.avif 320w, /medien/arbeit-hell-handy-640.avif 640w" sizes="(min-width: 64rem) 220px, 32vw"><img src="/medien/arbeit-hell-handy-320.webp" srcset="/medien/arbeit-hell-handy-320.webp 320w, /medien/arbeit-hell-handy-640.webp 640w" sizes="(min-width: 64rem) 220px, 32vw" width="320" height="693" alt="" decoding="async"></picture></span>
-        <span class="bogen-text"><span class="bogen-nr">01</span> <span class="bogen-name">Lotlinie</span></span>
-      </a></li>
-      <li class="bogen-bild bogen-bild--laut"><a href="#arbeit-laut">
-        <span class="rahmen rahmen--handy marken"><picture><source type="image/avif" srcset="/medien/arbeit-laut-handy-320.avif 320w, /medien/arbeit-laut-handy-640.avif 640w" sizes="(min-width: 64rem) 220px, 32vw"><img src="/medien/arbeit-laut-handy-320.webp" srcset="/medien/arbeit-laut-handy-320.webp 320w, /medien/arbeit-laut-handy-640.webp 640w" sizes="(min-width: 64rem) 220px, 32vw" width="320" height="693" alt="" decoding="async"></picture></span>
-        <span class="bogen-text"><span class="bogen-nr">02</span> <span class="bogen-name">Zwischenbild</span></span>
-      </a></li>
-      <li class="bogen-bild bogen-bild--edel"><a href="#arbeit-edel">
-        <span class="rahmen rahmen--handy marken"><picture><source type="image/avif" srcset="/medien/arbeit-edel-handy-320.avif 320w, /medien/arbeit-edel-handy-640.avif 640w" sizes="(min-width: 64rem) 220px, 32vw"><img src="/medien/arbeit-edel-handy-320.webp" srcset="/medien/arbeit-edel-handy-320.webp 320w, /medien/arbeit-edel-handy-640.webp 640w" sizes="(min-width: 64rem) 220px, 32vw" width="320" height="693" alt="" decoding="async"></picture></span>
-        <span class="bogen-text"><span class="bogen-nr">03</span> <span class="bogen-name">Lindgrund</span></span>
-      </a></li>
-      <li class="bogen-bild bogen-bild--urfa"><a href="#arbeit-urfa">
-        <span class="rahmen rahmen--handy marken"><picture><source type="image/avif" srcset="/medien/arbeit-urfa-handy-320.avif 320w, /medien/arbeit-urfa-handy-640.avif 640w" sizes="(min-width: 64rem) 220px, 32vw"><img src="/medien/arbeit-urfa-handy-320.webp" srcset="/medien/arbeit-urfa-handy-320.webp 320w, /medien/arbeit-urfa-handy-640.webp 640w" sizes="(min-width: 64rem) 220px, 32vw" width="320" height="693" alt="" decoding="async"></picture></span>
-        <span class="bogen-text"><span class="bogen-nr">04</span> <span class="bogen-name">URFA SOFRASI</span></span>
-      </a></li>
-    </ol>
+    <div class="kapitel" id="kino-gebaut">
+      <div class="huelle kapitel-in">
+        <p class="kapitel-nr"><span>01</span> / 03</p>
+        <h2 class="kapitel-wort">Gebaut.</h2>
+        <p class="kapitel-text">Jede Seite entsteht aus eigenem Code und bekommt ein Leitmotiv aus der Welt des Betriebs: ein Lot für die Physiopraxis, eine Zeitleiste für das Motion-Studio, ein Zifferblatt für die Uhrmacherei.</p>
+      </div>
+    </div>
+    <div class="kapitel" id="kino-gemessen">
+      <div class="huelle kapitel-in">
+        <p class="kapitel-nr"><span>02</span> / 03</p>
+        <h2 class="kapitel-wort">Gemessen.</h2>
+        <p class="kapitel-text">Vor der Übergabe wird nachgemessen, nicht geschätzt: Lighthouse auf dem Handy, Breiten von 320 bis 1920 Pixel, Gewicht bis zur ersten Ansicht, Sicherheits-Header.</p>
+        <dl class="kapitel-werte">
+          <div><dt>Lighthouse mobil</dt><dd>≥ 95</dd></div>
+          <div><dt>Tracker und Cookies</dt><dd>0</dd></div>
+          <div><dt>KB bis zur ersten Ansicht</dt><dd>≤ 500</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="kapitel" id="kino-betreut">
+      <div class="huelle kapitel-in">
+        <p class="kapitel-nr"><span>03</span> / 03</p>
+        <h2 class="kapitel-wort">Betreut.</h2>
+        <p class="kapitel-text">Nach dem Start prüfe ich die Seite jede Woche automatisch, halte Technik und Sicherheit aktuell und ändere Inhalte, wenn sich bei Ihnen etwas ändert.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -80,14 +102,21 @@
     <div class="kopfzeile">
       <p class="ueberzeile">Arbeiten</p>
       <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
-      <p class="einblenden">Drei Musterseiten mit ausgedachten Marken und ein Entwurf für ein echtes Restaurant. Jede Seite hat ein Leitmotiv aus der Welt des Betriebs – keine Vorlage, die nur umgefärbt wurde.</p>
+      <p class="einblenden">Drei Musterseiten mit ausgedachten Marken und ein Entwurf für ein echtes Restaurant. Jede Seite hat ein Leitmotiv aus der Welt des Betriebs, keine Vorlage, die nur umgefärbt wurde. Die Musterseiten lassen sich komplett öffnen.</p>
     </div>
-    <div class="werke">
-  <article class="werk werk--links" id="arbeit-hell" aria-labelledby="w-hell">
+    <div class="buehne">
+      <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
+        <button class="reiter reiter--hell" type="button" role="tab" id="reiter-hell" aria-controls="arbeit-hell" aria-selected="true"><span class="reiter-nr">01</span><span class="reiter-name">Lotlinie</span><span class="reiter-branche">Physiotherapie</span></button>
+        <button class="reiter reiter--laut" type="button" role="tab" id="reiter-laut" aria-controls="arbeit-laut" aria-selected="false" tabindex="-1"><span class="reiter-nr">02</span><span class="reiter-name">Zwischenbild</span><span class="reiter-branche">Studio für Motion-Design</span></button>
+        <button class="reiter reiter--edel" type="button" role="tab" id="reiter-edel" aria-controls="arbeit-edel" aria-selected="false" tabindex="-1"><span class="reiter-nr">03</span><span class="reiter-name">Lindgrund</span><span class="reiter-branche">Uhrmacherei</span></button>
+        <button class="reiter reiter--urfa" type="button" role="tab" id="reiter-urfa" aria-controls="arbeit-urfa" aria-selected="false" tabindex="-1"><span class="reiter-nr">04</span><span class="reiter-name">URFA SOFRASI</span><span class="reiter-branche">Restaurant in Eislingen/Fils</span></button>
+      </div>
+      <div class="werke">
+  <article class="werk werk--hell" id="arbeit-hell" aria-labelledby="w-hell" data-reiter="hell">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">lotlinie · musterseite</span></span>
-        <picture><source type="image/avif" srcset="/medien/arbeit-hell-desktop-640.avif 640w, /medien/arbeit-hell-desktop-1016.avif 1016w, /medien/arbeit-hell-desktop-1600.avif 1600w" sizes="(min-width: 76rem) 760px, (min-width: 64rem) 62vw, calc(100vw - 2.5rem)"><img src="/medien/arbeit-hell-desktop-1016.webp" srcset="/medien/arbeit-hell-desktop-640.webp 640w, /medien/arbeit-hell-desktop-1016.webp 1016w, /medien/arbeit-hell-desktop-1600.webp 1600w" sizes="(min-width: 76rem) 760px, (min-width: 64rem) 62vw, calc(100vw - 2.5rem)" width="1016" height="635" alt="Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel." loading="lazy" decoding="async"></picture>
+        <picture><source type="image/avif" srcset="/medien/arbeit-hell-desktop-640.avif 640w, /medien/arbeit-hell-desktop-1016.avif 1016w, /medien/arbeit-hell-desktop-1600.avif 1600w" sizes="(min-width: 76rem) 760px, (min-width: 64rem) 62vw, calc(100vw - 2.5rem)"><img src="/medien/arbeit-hell-desktop-1016.webp" srcset="/medien/arbeit-hell-desktop-640.webp 640w, /medien/arbeit-hell-desktop-1016.webp 1016w, /medien/arbeit-hell-desktop-1600.webp 1600w" sizes="(min-width: 76rem) 760px, (min-width: 64rem) 62vw, calc(100vw - 2.5rem)" width="1016" height="635" alt="Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel." decoding="async"></picture>
       </div>
       <div class="rahmen rahmen--handy"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-320.avif 320w, /medien/arbeit-hell-handy-640.avif 640w" sizes="(min-width: 64rem) 220px, 32vw"><img src="/medien/arbeit-hell-handy-320.webp" srcset="/medien/arbeit-hell-handy-320.webp 320w, /medien/arbeit-hell-handy-640.webp 640w" sizes="(min-width: 64rem) 220px, 32vw" width="320" height="693" alt="Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten." loading="lazy" decoding="async"></picture></div>
     </div>
@@ -109,10 +138,10 @@
         <div><dt>SEO</dt><dd>100</dd></div>
         <div><dt>Gewicht</dt><dd>122&nbsp;KB</dd></div>
       </dl>
-      <p class="werk-link" data-pruefen="Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist">Live-Adresse folgt</p>
+      <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Lotlinie öffnen <span class="pfeil" aria-hidden="true">↗</span></a><span class="werk-link-hinweis">Die ganze Seite mit allen Unterseiten, in einem neuen Tab</span></p>
     </div>
   </article>
-  <article class="werk werk--rechts" id="arbeit-laut" aria-labelledby="w-laut">
+  <article class="werk werk--laut" id="arbeit-laut" aria-labelledby="w-laut" data-reiter="laut">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">zwischenbild · musterseite</span></span>
@@ -138,10 +167,10 @@
         <div><dt>SEO</dt><dd>100</dd></div>
         <div><dt>Gewicht</dt><dd>112&nbsp;KB</dd></div>
       </dl>
-      <p class="werk-link" data-pruefen="Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist">Live-Adresse folgt</p>
+      <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Zwischenbild öffnen <span class="pfeil" aria-hidden="true">↗</span></a><span class="werk-link-hinweis">Die ganze Seite mit allen Unterseiten, in einem neuen Tab</span></p>
     </div>
   </article>
-  <article class="werk werk--links" id="arbeit-edel" aria-labelledby="w-edel">
+  <article class="werk werk--edel" id="arbeit-edel" aria-labelledby="w-edel" data-reiter="edel">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">lindgrund · musterseite</span></span>
@@ -167,10 +196,10 @@
         <div><dt>SEO</dt><dd>100</dd></div>
         <div><dt>Gewicht</dt><dd>117&nbsp;KB</dd></div>
       </dl>
-      <p class="werk-link" data-pruefen="Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist">Live-Adresse folgt</p>
+      <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Lindgrund öffnen <span class="pfeil" aria-hidden="true">↗</span></a><span class="werk-link-hinweis">Die ganze Seite mit allen Unterseiten, in einem neuen Tab</span></p>
     </div>
   </article>
-  <article class="werk werk--rechts" id="arbeit-urfa" aria-labelledby="w-urfa">
+  <article class="werk werk--urfa" id="arbeit-urfa" aria-labelledby="w-urfa" data-reiter="urfa">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">urfa sofrasi · entwurf für ein echtes restaurant</span></span>
@@ -196,11 +225,91 @@
         <div><dt>SEO</dt><dd>100</dd></div>
         <div><dt>Gewicht</dt><dd>364&nbsp;KB</dd></div>
       </dl>
-      <p class="werk-link" data-pruefen="Adresse der veröffentlichten Musterseite eintragen, sobald sie online ist">Live-Adresse folgt</p>
+      <p class="werk-link werk-link--offen" data-pruefen="Freigabe des Restaurants für Referenz einholen">Öffentlicher Link folgt, sobald das Restaurant die Seite freigibt</p>
     </div>
   </article>
+      </div>
     </div>
     <p class="messhinweis">Gemessen am 29.09.2026: Lighthouse mobil (Durchschnitt aus 3 Läufen, lokal mit Kompression) und Übertragung der Startseite bis „geladen“ auf dem Handy-Profil.</p>
+  </div>
+</section>
+
+<section class="abschnitt konfig" id="konfigurator" aria-labelledby="t-konfig">
+  <div class="huelle">
+    <div class="kopfzeile">
+      <p class="ueberzeile">Konfigurator</p>
+      <h2 id="t-konfig" class="einblenden">Stellen Sie Ihre Seite in fünf <em>Schritten</em> zusammen.</h2>
+      <p class="einblenden">Die Vorschau zeigt sofort, wie Stil und Farbe zusammen wirken. Ihre Auswahl geht mit Ihrer Anfrage mit, dann reden wir über genau diese Seite.</p>
+    </div>
+    <div class="konfig-raster">
+      <div class="konfig-schritte">
+        <fieldset class="schritt-feld">
+          <legend><span class="feld-nr">1</span> Stil</legend>
+          <div class="wahl-reihe wahl-reihe--stil">
+            <label class="wahl wahl--stil"><input type="radio" id="k-stil-hell" name="stil" value="hell" form="kontaktformular" checked><span class="wahl-muster wahl-muster--hell" aria-hidden="true"></span><span class="wahl-titel">Hell &amp; ruhig</span><span class="wahl-text">Viel Luft, Serifenschrift, ruhige Bewegung, wie Lotlinie</span></label>
+            <label class="wahl wahl--stil"><input type="radio" id="k-stil-laut" name="stil" value="laut" form="kontaktformular"><span class="wahl-muster wahl-muster--laut" aria-hidden="true"></span><span class="wahl-titel">Laut &amp; modern</span><span class="wahl-text">Große Grotesk, kräftiger Akzent, sichtbare Bewegung, wie Zwischenbild</span></label>
+            <label class="wahl wahl--stil"><input type="radio" id="k-stil-edel" name="stil" value="edel" form="kontaktformular"><span class="wahl-muster wahl-muster--edel" aria-hidden="true"></span><span class="wahl-titel">Dunkel &amp; edel</span><span class="wahl-text">Dunkler Grund, feine Linien, Licht auf dem Produkt, wie Lindgrund</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="schritt-feld">
+          <legend><span class="feld-nr">2</span> Farbe</legend>
+          <div class="wahl-reihe wahl-reihe--farbe">
+            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-terrakotta" name="farbe" value="terrakotta" form="kontaktformular" checked><span class="farbfleck farbfleck--terrakotta" aria-hidden="true"></span><span class="wahl-titel">Terrakotta</span></label>
+            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-kobalt" name="farbe" value="kobalt" form="kontaktformular"><span class="farbfleck farbfleck--kobalt" aria-hidden="true"></span><span class="wahl-titel">Kobalt</span></label>
+            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-salbei" name="farbe" value="salbei" form="kontaktformular"><span class="farbfleck farbfleck--salbei" aria-hidden="true"></span><span class="wahl-titel">Salbei</span></label>
+            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-messing" name="farbe" value="messing" form="kontaktformular"><span class="farbfleck farbfleck--messing" aria-hidden="true"></span><span class="wahl-titel">Messing</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="schritt-feld">
+          <legend><span class="feld-nr">3</span> Betrieb</legend>
+          <div class="wahl-reihe wahl-reihe--branche">
+            <label class="wahl wahl--branche"><input type="radio" id="k-branche-praxis" name="branche" value="praxis" form="kontaktformular" checked data-vorschlag="termin formular"><span class="wahl-titel">Praxis</span></label>
+            <label class="wahl wahl--branche"><input type="radio" id="k-branche-handwerk" name="branche" value="handwerk" form="kontaktformular" data-vorschlag="galerie formular"><span class="wahl-titel">Handwerk &amp; Werkstatt</span></label>
+            <label class="wahl wahl--branche"><input type="radio" id="k-branche-gastro" name="branche" value="gastro" form="kontaktformular" data-vorschlag="speisekarte galerie"><span class="wahl-titel">Restaurant &amp; Café</span></label>
+            <label class="wahl wahl--branche"><input type="radio" id="k-branche-studio" name="branche" value="studio" form="kontaktformular" data-vorschlag="galerie film"><span class="wahl-titel">Studio &amp; Dienstleistung</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="schritt-feld">
+          <legend><span class="feld-nr">4</span> Bausteine</legend>
+          <div class="wahl-reihe wahl-reihe--bausteine">
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-termin" name="bausteine[]" value="termin" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Online-Termine</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-speisekarte" name="bausteine[]" value="speisekarte" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Speisekarte mit Suche</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-galerie" name="bausteine[]" value="galerie" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Galerie</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-formular" name="bausteine[]" value="formular" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Anfrageformular</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-zahlung" name="bausteine[]" value="zahlung" form="kontaktformular" data-sicher="hoch"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Zahlung über Stripe</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-film" name="bausteine[]" value="film" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Film im ersten Bildschirm</span></label>
+            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-dreid" name="bausteine[]" value="dreid" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">3D-Objekt</span></label>
+          </div>
+          <p class="feld-hinweis nur-js">Zum Betrieb passende Bausteine sind vorgeschlagen und lassen sich abwählen.</p>
+        </fieldset>
+        <fieldset class="schritt-feld">
+          <legend><span class="feld-nr">5</span> Sicherheit</legend>
+          <div class="wahl-reihe wahl-reihe--sicher">
+            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-standard" name="sicherheit" value="standard" form="kontaktformular" checked><span class="wahl-titel">Standard</span><span class="wahl-text">HTTPS, strenge Sicherheits-Header, keine fremden Skripte, kein Tracking, wöchentliche Prüfung. Immer dabei.</span></label>
+            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-erhoeht" name="sicherheit" value="erhoeht" form="kontaktformular"><span class="wahl-titel">Erhöht</span><span class="wahl-text">Dazu Spam-Schutz an Formularen, Überwachung der Erreichbarkeit und Sicherungen.</span></label>
+            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-hoch" name="sicherheit" value="hoch" form="kontaktformular"><span class="wahl-titel">Hoch</span><span class="wahl-text">Dazu abgesicherte Zahlungen und Logins, geprüfte Webhooks und eine monatliche Tiefenprüfung.</span></label>
+          </div>
+          <p class="feld-hinweis konfig-regel" hidden>Mit Zahlung ist mindestens Stufe „Hoch“ nötig. Ich habe sie für Sie gewählt.</p>
+        </fieldset>
+      </div>
+      <div class="konfig-vorschau" aria-hidden="true">
+        <div class="vorschau-geraet">
+          <div class="vorschau-seite">
+            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="nach-branche nach-branche--praxis">Praxis am Markt</span><span class="nach-branche nach-branche--handwerk">Werkstatt Berger</span><span class="nach-branche nach-branche--gastro">Café Lindenhof</span><span class="nach-branche nach-branche--studio">Studio Nord</span></span><span class="vorschau-menue"></span></p>
+            <p class="vorschau-ueber">Muster · <span class="nach-branche nach-branche--praxis">Praxis</span><span class="nach-branche nach-branche--handwerk">Handwerk &amp; Werkstatt</span><span class="nach-branche nach-branche--gastro">Restaurant &amp; Café</span><span class="nach-branche nach-branche--studio">Studio &amp; Dienstleistung</span></p>
+            <p class="vorschau-titel"><span class="nach-branche nach-branche--praxis">Termine, die zu Ihrem Alltag passen.</span><span class="nach-branche nach-branche--handwerk">Handarbeit, die man sehen kann.</span><span class="nach-branche nach-branche--gastro">Heute frisch auf der Karte.</span><span class="nach-branche nach-branche--studio">Ideen, die sich bewegen.</span></p>
+            <p class="vorschau-zeilen"><span></span><span></span><span></span></p>
+            <p class="vorschau-knopf">Anfragen</p>
+            <p class="vorschau-bausteine"><span class="vb vb--termin">Online-Termine</span><span class="vb vb--speisekarte">Speisekarte mit Suche</span><span class="vb vb--galerie">Galerie</span><span class="vb vb--formular">Anfrageformular</span><span class="vb vb--zahlung">Zahlung über Stripe</span><span class="vb vb--film">Film im ersten Bildschirm</span><span class="vb vb--dreid">3D-Objekt</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="konfig-fuss">
+      <p class="konfig-zusammen nur-js" aria-live="polite"></p>
+      <p class="konfig-preis" data-pruefen="Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)">Preis: nach dem ersten Gespräch, mit jeder Position und ihrem Grund</p>
+      <a class="knopf" href="#kontakt">Mit dieser Auswahl anfragen <span class="pfeil" aria-hidden="true">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -383,11 +492,12 @@
       </ul>
     </div>
     <div class="kontakt-form" data-pruefen="Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv">
-      <form class="formular" method="post" action="/api/kontakt">
+      <form class="formular" id="kontaktformular" method="post" action="/api/kontakt">
         <label>Name <input id="k-name" name="name" type="text" autocomplete="name" required maxlength="100"></label>
         <label>E-Mail <input id="k-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
         <label>Worum geht es? <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
         <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <p class="kontakt-auswahl nur-js" aria-live="polite"></p>
         <p class="hinweis">Ich verwende Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
         <p><button class="knopf" type="submit">Nachricht senden <span class="pfeil" aria-hidden="true">→</span></button></p>
       </form>
