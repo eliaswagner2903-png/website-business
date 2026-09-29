@@ -1,6 +1,6 @@
 # Business-Plan OQ
 
-> Stand 2026-09-29, Auftrag A-042. Von Grund auf neu geschrieben; ersetzt die „Lagekarte“ vom 2026-09-28.
+> Stand 2026-09-29, Auftrag A-043. Von Grund auf neu geschrieben; ersetzt die „Lagekarte“ vom 2026-09-28.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
 > Trainingsplan, Generalprobe, Portfolio-Seite (PR #26, #29), `wartung/PAKETE.md`, `recht/LEITFADEN.md`.
 > **Alle Euro-Beträge sind Platzhalter**, bis Elias sie festlegt. Was von mir (Stahl) vorgeschlagen und nicht von
@@ -19,7 +19,7 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Vorzeigeseiten | 4 Musterseiten + eigene Portfolio-Seite |
 | Bauzeit gemessen | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio) |
 | Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien |
-| Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf; Euro-Werte offen |
+| Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf (in main); Euro-Werte offen |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
 
 ## 2. Angebot
@@ -119,7 +119,7 @@ Zusammensetzung. Beides bleibt nachträglich änderbar.
 | Qualität | Meisterstandard, Skills `/meisterpruefung`, `/pruefen`, `/sicherheit`; Fernspäherkommando für Außenprüfung |
 | Visuals | Higgsfield angebunden, Pipeline für AVIF/WebP und WebM/MP4, nahtlose Schleifen, Preisliste der Modelle |
 | Betreuung | `wartung/check.mjs` wöchentlich per GitHub Action, Paketentwurf, Wartungsoffizier |
-| Preis | Formeln, Konfigurator-Ablauf, Rechner-Prototyp (PR #28, noch nicht gemergt) |
+| Preis | Formeln, Konfigurator-Ablauf, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
 | Recht | Leitfaden zu Gewerbe, Umsatzsteuer, Buchhaltung, Verträgen und Pflichten der Kundenseiten |
 
 ## 9. Kosten und Tragfähigkeit
