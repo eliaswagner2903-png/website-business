@@ -33,6 +33,7 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `recht/LEITFADEN.md` | Gewerbe, Umsatzsteuer, Buchhaltung, Verträge, Pflichten der Kundenseiten |
 | `wissen/` | Gelernte Fehler und Design-Wissen aus früheren Projekten – **vor dem Bauen lesen** |
 | `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
+| `BUSINESSPLAN.md` | Business-Plan OQ: Angebot, Kunden, Preis, Fahrplan, offene Entscheidungen |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
 
 ## Pflicht für jede Kundenseite
