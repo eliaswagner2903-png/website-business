@@ -13,6 +13,23 @@ const zeige = (text, status) => fehlerSeite(text, status, FORMULAR);
 const EMAIL = /^[^\s@<>]{1,64}@[^\s@<>]{1,190}\.[a-z]{2,}$/i;
 const ohneSteuerzeichen = (s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim();
 
+// Auswahl aus dem Konfigurator (optional): nur bekannte Werte, alles andere fällt still weg.
+const KONFIG = {
+  stil: ['hell', 'laut', 'edel'],
+  farbe: ['terrakotta', 'kobalt', 'salbei', 'messing'],
+  branche: ['praxis', 'handwerk', 'gastro', 'studio'],
+  sicherheit: ['standard', 'erhoeht', 'hoch'],
+  bausteine: ['termin', 'speisekarte', 'galerie', 'formular', 'zahlung', 'film', 'dreid'],
+};
+export function konfigAuswahl(form) {
+  const aus = {};
+  for (const [feld, erlaubt] of Object.entries(KONFIG)) {
+    const werte = form.getAll(feld === 'bausteine' ? 'bausteine[]' : feld).map(String).filter((w) => erlaubt.includes(w));
+    if (werte.length) aus[feld] = [...new Set(werte)].join(', ');
+  }
+  return aus;
+}
+
 export function pruefeFelder(form) {
   const f = (n) => ohneSteuerzeichen(String(form.get(n) ?? ''));
   const daten = { name: f('name'), email: f('email'), nachricht: f('nachricht') };
@@ -50,13 +67,14 @@ export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY || !env.KONTAKT_AN || !env.KONTAKT_VON) return zeige('Der Versand ist noch nicht eingerichtet.', 503);
 
   const { name, email, nachricht } = erg.daten;
+  const konfig = Object.entries(konfigAuswahl(form)).map(([k, v]) => `${k}: ${v}`).join('\n');
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: env.KONTAKT_VON, to: [env.KONTAKT_AN], reply_to: email,
       subject: `Anfrage über die Website von ${name}`,
-      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}`,
+      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}${konfig ? `\n\nAuswahl im Konfigurator:\n${konfig}` : ''}`,
     }),
   });
   if (!r.ok) { console.error('kontakt', r.status); return zeige('Senden fehlgeschlagen. Bitte später erneut versuchen.', 502); }

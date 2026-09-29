@@ -61,6 +61,33 @@
   --farbe-akzent: #2a3cc2;      /* Kobalt: Hauptknopf, Links, ein Wort */
   --farbe-auf-akzent: #ffffff;
 
+  /* Kino (Scroll-Film im ersten Bildschirm): immer dunkel, in beiden Schemata gleich.
+     Kontrast gegen kino-grund: text 17,0 · leise 10,1 · akzent 10,1 · Knopf (grund auf akzent) 10,1.
+     Über dem Film hält der Schleier (stil.css .kino-schleier) den Grund hinter dem Text dunkel. */
+  --kino-grund: #0b0c0f;
+  --kino-text: #f1efe9;
+  --kino-leise: #bdbab1;
+  --kino-akzent: #a9b6ff;
+
+  /* Farben der vier Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
+  --werk-hell: #a4462a;
+  --werk-laut: #ff4a1c;
+  --werk-edel: #d4b37c;
+  --werk-urfa: #8cbf5f;
+
+  /* Konfigurator: Farbwelten und Stile der Vorschau */
+  --muster-auf-akzent: #ffffff;
+  --muster-terrakotta: #a4462a;
+  --muster-kobalt: #2a3cc2;
+  --muster-salbei: #4f6e55;
+  --muster-messing: #9a7433;
+  --muster-hell-grund: #f6f1e8;
+  --muster-hell-text: #2a2521;
+  --muster-laut-grund: #f2efe8;
+  --muster-laut-text: #111111;
+  --muster-edel-grund: #121212;
+  --muster-edel-text: #efe9dc;
+
   /* Schriften */
   --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
   --schrift-text: "Geist", "Geist Ersatz", Arial, sans-serif;
