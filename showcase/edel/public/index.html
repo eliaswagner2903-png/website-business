@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/css/stil.css">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/js/seite.js" defer></script>
+<script src="/js/film.js" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Store","@id":"https://www.beispiel.de/#werkstatt","name":"Lindgrund","description":"Demo-Seite. Lindgrund ist eine ausgedachte Uhrmacherei. Uhr, Texte, Adresse, Telefon und Preise sind erfunden; die Uhr ist ein 3D-Modell, kein Foto.","url":"https://www.beispiel.de/","telephone":"01234 567 890","address":{"@type":"PostalAddress","streetAddress":"Uhrmachergasse 4","postalCode":"00000","addressLocality":"Musterstadt"},"openingHours":["Tu-Fr 10:00-18:00"]},{"@type":"Product","name":"L-40","description":"Die L-40: Handaufzug, 40 mm Edelstahl, Zifferblatt mit Sonnenschliff. Fertig etwa 14 Wochen nach dem ersten Gespräch. Demo-Seite. Lindgrund ist eine ausgedachte Uhrmacherei.","image":"https://www.beispiel.de/medien/uhr-held-1400.webp","brand":{"@type":"Brand","name":"Lindgrund"},"offers":[{"@type":"Offer","name":"Tanne","price":"3400","priceCurrency":"EUR","seller":{"@id":"https://www.beispiel.de/#werkstatt"}},{"@type":"Offer","name":"Schiefer","price":"3400","priceCurrency":"EUR","seller":{"@id":"https://www.beispiel.de/#werkstatt"}},{"@type":"Offer","name":"Elfenbein","price":"3600","priceCurrency":"EUR","seller":{"@id":"https://www.beispiel.de/#werkstatt"}}]}]}</script>
 </head>
 <body>
@@ -218,6 +219,18 @@
   </section>
 
   <section class="abschnitt besuch" id="besuch" aria-labelledby="t-besuch">
+    <div class="huelle">
+      <figure class="werkstatt-film" data-ein data-pruefen="KI-Bild und KI-Video (Higgsfield), keine echte Werkstatt: vor Launch durch eigene Aufnahmen ersetzen">
+        <div class="held-video held-video--16x9" data-webm="/medien/werkstatt.webm" data-mp4="/medien/werkstatt.mp4">
+          <picture>
+            <source type="image/avif" srcset="/medien/werkstatt-640.avif 640w, /medien/werkstatt-1024.avif 1024w, /medien/werkstatt-1344.avif 1344w" sizes="(min-width: 75rem) 1120px, calc(100vw - 2.5rem)">
+            <img class="held-video-poster" src="/medien/werkstatt-1024.webp" srcset="/medien/werkstatt-640.webp 640w, /medien/werkstatt-1024.webp 1024w, /medien/werkstatt-1344.webp 1344w" sizes="(min-width: 75rem) 1120px, calc(100vw - 2.5rem)" width="1344" height="752" loading="lazy" decoding="async" alt="Werktisch einer Uhrmacherei am Abend: Eine Tischlampe beleuchtet Lupe, Pinzette und Sortierkästen mit Kleinteilen, draußen dämmert es.">
+          </picture>
+          <button class="held-video-knopf" type="button" aria-pressed="false" aria-label="Film anhalten" hidden></button>
+        </div>
+        <figcaption>KI-Bild und KI-Video für die Demo, keine echte Werkstatt</figcaption>
+      </figure>
+    </div>
     <div class="huelle besuch__raster">
       <div class="besuch__ort">
         <p class="ueberzeile" data-ein>Besuch</p>

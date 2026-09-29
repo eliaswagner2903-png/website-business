@@ -364,3 +364,39 @@ html:has(#pruefen:target) [data-pruefen]::after {
 .unterseite main h1 { font-size: clamp(2rem, 1.2rem + 3vw, 3.4rem); line-height: 1.1; margin-bottom: 24px; max-width: 20ch; }
 .unterseite main p { color: var(--farbe-leise); }
 .unterseite main .knopf { color: var(--farbe-auf-akzent); margin-top: 16px; }
+
+/* ---------- Baustein: hero-video ----------
+   Bildrahmen im ersten Bildschirm: das Poster (<img fetchpriority="high">) ist das LCP-Element.
+   Das Video lädt hero-video.js erst nach dem Laden der Seite – nicht bei „Bewegung reduzieren“ oder „Daten sparen“ –
+   und blendet es 1,2 s sanft über das Poster. Außerhalb des Bildes oder bei verstecktem Tab pausiert es.
+   Ohne Poster und Video (class="held-video--platzhalter") zeigt der Rahmen eine Fläche aus den Markenfarben. */
+.held-video {
+  position: relative; overflow: hidden; isolation: isolate; min-width: 0; aspect-ratio: 4 / 3;
+  border-radius: var(--radius-gross); background: var(--farbe-flaeche);
+}
+@media (min-width: 64rem) { .held-video { aspect-ratio: 4 / 5; } }
+/* Breites Format für einen Film weiter unten auf der Seite (Poster dort mit loading="lazy") */
+.held-video--16x9 { aspect-ratio: 16 / 9; }   /* steht nach der 64rem-Regel und gewinnt deshalb */
+.held-video-poster, .held-video-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.held-video-film { opacity: 0; transition: opacity 1.2s var(--kurve-sanft); }
+.held-video--laeuft .held-video-film { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .held-video-film { display: none; } }
+
+.held-video-hinweis {
+  position: absolute; z-index: 1; inset: auto auto .75rem .75rem; max-inline-size: calc(100% - 5rem);
+  padding: .45rem .75rem; font-size: .875rem; line-height: 1.35; color: var(--farbe-text);
+  background: var(--farbe-flaeche); border-radius: var(--radius-klein);
+}
+.held-video-knopf {
+  position: absolute; z-index: 1; inset: auto .75rem .75rem auto; display: inline-grid; place-items: center;
+  inline-size: 48px; block-size: 48px; padding: 0; color: var(--farbe-text); background: var(--farbe-flaeche);
+  border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--tempo-kurz) var(--kurve-standard);
+}
+.held-video-knopf::before {            /* Pause-Zeichen, im angehaltenen Zustand ein Dreieck */
+  content: ""; inline-size: 12px; block-size: 14px;
+  background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px, currentColor 8px);
+}
+.held-video-knopf[aria-pressed="true"]::before { inline-size: 12px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.held-video-knopf:active { transform: scale(.94); }
+.werkstatt-film { margin: 0 0 clamp(2.5rem, 5vw, 4.5rem); }
+.werkstatt-film figcaption { margin-top: .7rem; font-size: .875rem; color: var(--farbe-leise); }

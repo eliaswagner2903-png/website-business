@@ -26,16 +26,34 @@ description: Ein Visual (Foto, 3D-Szene, später Higgsfield-Bild oder -Video) le
 - Übergang: `node werkzeuge/bildfolge.mjs http://localhost:<port>/<seite> "warte:.szene-3d--bereit"` – kein Sprung.
 - „Bewegung reduzieren“ und ohne JS: nur das Standbild, nichts fehlt.
 
-## 4. Video (WebM + MP4) – braucht ffmpeg (hier nicht installierbar)
-Schleife 6–8 s, ohne Ton, ≤ 1,5 MB, `muted playsinline loop preload="none"`, `poster` = Bild aus Schritt 1 (LCP),
-bei reduzierter Bewegung und „Daten sparen“ nur das Poster. Befehle stehen im README der 3D-Szene.
+## 4. Video (WebM + MP4) – Baustein `vorlage/bausteine/hero-video`
+ffmpeg gibt es per npm: `npm i ffmpeg-static` im Scratchpad → `node_modules/ffmpeg-static/ffmpeg`.
+```
+ffmpeg -i roh.mp4 -an -vf scale=1280:-2 -c:v libvpx-vp9 -b:v 0 -crf 31 -row-mt 1 -cpu-used 1 -pix_fmt yuv420p film.webm
+ffmpeg -i roh.mp4 -an -vf scale=1280:-2 -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -movflags +faststart film.mp4
+```
+Schleife 5–10 s, ohne Ton, ≤ 1,5 MB. Poster = Startbild des Videos (Schritt 1). Markup/JS/CSS aus `hero-video`
+(`held-video--16x9` für Filme weiter unten, dort Poster mit `loading="lazy"`). Bei „Bewegung reduzieren“ und
+„Daten sparen“ bleibt nur das Poster, Halt-Knopf 48 px (WCAG 2.2.2). Naht prüfen: SSIM erstes/letztes Bild ≥ 0,99.
 
-## 5. Higgsfield (später, sobald Konto + MCP verbunden)
+## 5. Higgsfield
 
-**Feste Regel von Elias:** Keine Higgsfield-Werkzeuge aufrufen, die Credits kosten (`generate_*`, `execute_preset`,
-Upscale, 3D, Video, Audio …). **Vor jeder Higgsfield-Generierung Elias fragen: was, ungefähre Credits, wozu.**
-Bis zu seiner ausdrücklichen Erlaubnis gilt das Verbot; nur lesende Aufrufe (Kataloge ansehen) sind frei.
-Visuals kommen bis dahin aus echten Kundenfotos und dem Baustein `szene-3d` (three.js, prozedural).
+**Feste Regel von Elias:** Credits nur mit seiner ausdrücklichen Freigabe (Motiv, Modell, Credits vorher nennen).
+Kosten vorher mit `get_cost: true` abfragen (kostet nichts). Stand 2026-09-29:
+
+| Modell | Einstellung | Credits |
+|---|---|---|
+| `gpt_image_2_5` | 1k, Qualität „low“ (Standard) | 0,25 |
+| `recraft_v4_1` | 1k | 1,25 |
+| `kling3_0` | 5 s, `mode: std`, `sound: off` | 6,25 |
+| `seedance_2_5` | 5 s | 35 |
+
+- **Nahtlose Schleife:** bei `kling3_0` dasselbe Bild als `start_image` und `end_image` (Job-ID als `value`),
+  Prompt „Locked-off static camera … nothing else moves“ → ruhige Bewegung, Naht praktisch unsichtbar.
+- **Download:** Ergebnisse liegen auf `d8j0ntlcm91z4.cloudfront.net`. Die Domain muss in der Netzwerkfreigabe der
+  Umgebung stehen; eine Änderung wirkt erst in neuen Sitzungen.
+- Batch-Aufträge können am Ratenlimit (429) scheitern; gescheiterte Einträge kosten nichts, einzeln neu senden.
+- KI-Bilder sichtbar kennzeichnen (Bildunterschrift) und mit `data-pruefen` markieren: nie als echtes Foto des Kunden ausgeben.
 
 Higgsfield liefert **Rohmaterial**; ab dann ist der Weg derselbe: Bild → Schritt 1, Video → Schritt 4,
 Produkt-/Objektansicht als Video statt Echtzeit-3D, wenn keine Interaktion nötig ist. Agent `visual-higgsfield`
