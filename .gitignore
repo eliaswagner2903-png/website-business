@@ -5,3 +5,5 @@ werkzeuge/ausgabe/
 .wrangler/
 *.log
 .DS_Store
+showcase/edel/werkzeug/roh/
+showcase/*/package-lock.json
