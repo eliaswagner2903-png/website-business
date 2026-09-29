@@ -11,7 +11,7 @@ const { chromium } = await playwright(); const b = await chromium.launch();
 const p = await (await b.newContext({ viewport: { width: w, height: h }, isMobile: w < 700, hasTouch: w < 700 })).newPage();
 await p.goto(url, { waitUntil: 'networkidle' }); await p.waitForTimeout(300);
 if (ausloeser.startsWith('warte:')) await p.waitForSelector(ausloeser.slice(6), { state: 'attached', timeout: 20000 });
-else if (ausloeser !== 'laden') { await p.evaluate(y => scrollTo(0, y), +scrollY); await p.waitForTimeout(3000); w < 700 ? await p.tap(ausloeser) : await p.click(ausloeser); }
+else if (ausloeser !== 'laden') { await p.evaluate(y => scrollTo({ top: y, behavior: 'instant' }), +scrollY); await p.waitForTimeout(3000); w < 700 ? await p.tap(ausloeser) : await p.click(ausloeser); }
 await p.evaluate(() => { window.__a = document.getAnimations().filter(a => !a.timeline || a.timeline instanceof DocumentTimeline); /* Scroll-Timelines lassen sich nicht in ms setzen */ window.__a.forEach(a => a.pause()); });
 fs.mkdirSync('werkzeuge/ausgabe', { recursive: true }); const bilder = [];
 for (const t of ts) { await p.evaluate(t => window.__a.forEach(a => { a.currentTime = t; }), t); await p.waitForTimeout(60); bilder.push((await p.screenshot()).toString('base64')); }

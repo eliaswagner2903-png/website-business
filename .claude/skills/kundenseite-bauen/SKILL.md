@@ -79,6 +79,14 @@ Server am Ende mit `kill $(cat …/server.pid)` beenden, **nie `pkill -f`**.
 sonst verstecken Scroll-Timeline-Einblendungen Abschnitte. Bildfolgen nur für DocumentTimeline-Animationen.
 Screenshots als PNG ≤ 300 KB (DPR 1 für 1440, Ausschnitte statt Ganzseite).
 
+## Sonderfall: Einseiter / Portfolio (A-038, ≈ 33 min)
+- Eine Startseite mit Ankern + Impressum/Datenschutz/404/Danke reicht; `bauen.mjs` trotzdem nutzen (Test „HTML ist aktuell“).
+- Kopf-Links auf Unterseiten als `/#anker`, auf der Startseite als `#anker`; Formular-Rückweg `zurueck: '/#kontakt'`.
+- Persönliches (Name, Ort, Telefon, E-Mail, Foto, Preise) als sichtbarer Platzhalter mit `data-pruefen`; ein Test prüft,
+  dass jeder `tel:`/`mailto:`-Link markiert ist und kein Euro-Betrag auf der Seite steht.
+- Messwerte fremder Arbeiten (Lighthouse, Budget) im Hintergrund messen, während der Generator entsteht.
+- Pillen-Radius nicht als `--radius-gross` für Flächen (Menü-Blatt wird rund), kein globales `scroll-behavior: smooth`.
+
 ## 9 Doku
 Zeitprotokoll abschließen (Dauer, Gesamt, Zeitfresser), Lehren ans Ende von `wissen/FEHLER.md`,
 `python3 ops/log.py fertig A-xxx "…"`, `python3 ops/log_vereinen.py --pruefen`, Commit mit Trailer, `git push -u origin kunde/<slug>`.
