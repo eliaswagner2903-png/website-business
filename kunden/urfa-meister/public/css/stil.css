@@ -9,6 +9,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 html {
   --_kopf: 4.25rem;
+  /* Kupfer als Schrift: mit der Textfarbe gemischt, damit Kontrast AA in jedem Schema hält (reines Kupfer 4,2) */
+  --_kupfer: color-mix(in srgb, var(--farbe-linie) 72%, var(--farbe-text));
   scroll-padding-top: calc(var(--_kopf) + .75rem);
   -webkit-text-size-adjust: 100%; text-size-adjust: 100%; font-synthesis: none;
 }
@@ -62,10 +64,10 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 @media (max-width: 47.99rem) {
   .zier { letter-spacing: .16em; gap: .55rem; }
   .zier:not(.zier--mitte)::after { content: none; }
-  .zier::before, .zier::after { flex-basis: 1.4rem; }
-  .zier > span { white-space: nowrap; gap: .55rem; }
+  .zier::before, .zier::after { flex: 0 1 1.4rem; min-inline-size: .6rem; }
+  .zier > span { white-space: nowrap; gap: .55rem; min-width: 0; }
 }
-@media (max-width: 22.49rem) { .zier > span { white-space: normal; } }
+@media (max-width: 25.99rem) { .zier { letter-spacing: .12em; } .zier > span { white-space: normal; } }
 .zier span[lang] { text-transform: none; letter-spacing: .12em; }
 
 /* Skyline des Logos als Maske: färbt sich mit der Marke um */
@@ -102,6 +104,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
   .nav a:not(.knopf):hover::after { transform: scaleX(1); transform-origin: left; }
 }
 .nav-tel { margin-inline-start: .6rem; }
+@media (min-width: 48rem) and (max-width: 63.99rem) { .kopf .nav-tel { display: none; } .nav a:not(.knopf) { padding-inline: .7rem; } }
 .nav-tel .knopf { min-height: 44px; padding: .5rem 1.1rem; font-size: .95rem; }
 .menue-knopf { display: none; }
 @media (max-width: 47.99rem) {
@@ -217,7 +220,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
   border-top: 1px solid color-mix(in srgb, var(--farbe-linie) 60%, transparent);
 }
 .held-fakten div { min-width: 0; }
-.held-fakten dt { font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-linie); }
+.held-fakten dt { font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--_kupfer); }
 .held-fakten dd { margin: .2rem 0 0; font-size: 1rem; }
 .held-fakten a { color: var(--farbe-text); text-decoration-color: var(--farbe-linie); display: inline-block; padding-block: .55rem; margin-block: -.55rem; }
 @media (hover: hover) and (pointer: fine) { .held-fakten a:hover { color: var(--farbe-akzent); } }
@@ -262,7 +265,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
    ===================================================================== */
 .willkommen-raster { display: grid; gap: 1.5rem; }
 .zier-titel {
-  font: 600 .8rem/1.3 var(--schrift-text); letter-spacing: .2em; text-transform: uppercase; color: var(--farbe-linie);
+  font: 600 .8rem/1.3 var(--schrift-text); letter-spacing: .2em; text-transform: uppercase; color: var(--_kupfer);
   display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem;
 }
 .zier-titel::before { content: ""; inline-size: 2.5rem; block-size: 1px; background: currentColor; }
@@ -388,7 +391,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
   background: var(--farbe-flaeche); border-radius: var(--radius-gross);
   border: 1px solid color-mix(in srgb, var(--farbe-linie) 55%, transparent);
 }
-.tel-titel { font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-linie); }
+.tel-titel { font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--_kupfer); }
 .riesen-tel {
   justify-self: start; position: relative; font: 400 clamp(2.15rem, .9rem + 6.4vw, 6.2rem)/1.05 var(--schrift-display); letter-spacing: .01em;
   color: var(--farbe-text); text-decoration: none; white-space: nowrap; padding-block: .2rem;
@@ -467,13 +470,13 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .kat h2 { display: grid; gap: .3rem; font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem); padding-block-end: .9rem; border-bottom: 1px solid var(--farbe-linie); }
 .kat-tr { font: 600 .82rem/1.3 var(--schrift-text); letter-spacing: .06em; color: var(--farbe-akzent); }
 .kat-notiz { color: var(--farbe-leise); margin-block-start: .9rem; font-size: 1rem; }
-.zwischen { font: 700 .8rem/1.3 var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-linie); margin-block-start: 1.75rem; }
+.zwischen { font: 700 .8rem/1.3 var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; color: var(--_kupfer); margin-block-start: 1.75rem; }
 .gerichte { list-style: none; margin: .5rem 0 0; padding: 0; }
 .gericht {
   display: grid; grid-template-columns: 2.1rem minmax(0, auto) minmax(1rem, 1fr) auto; align-items: baseline; column-gap: .5rem;
   padding-block: .8rem; border-bottom: 1px solid color-mix(in srgb, var(--farbe-linie) 30%, transparent);
 }
-.gericht .nr { font-size: .8125rem; font-weight: 700; color: var(--farbe-linie); font-variant-numeric: tabular-nums; }
+.gericht .nr { font-size: .8125rem; font-weight: 700; color: var(--_kupfer); font-variant-numeric: tabular-nums; }
 .gericht .name { font: 400 1.18rem/1.3 var(--schrift-display); min-width: 0; }
 .gericht sup { font: 500 .66rem/1 var(--schrift-text); color: var(--farbe-leise); margin-inline-start: .3rem; letter-spacing: .02em; }
 .gericht .punkte { transform: translateY(-.25em); }
@@ -532,7 +535,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .skyline--fuss { inline-size: min(22rem, 80%); color: var(--farbe-leise); }
 .fuss-name { font: 400 clamp(1.9rem, 1.4rem + 2vw, 2.8rem)/1 var(--schrift-display); letter-spacing: .2em; margin-inline-end: -.2em; color: var(--farbe-text); max-width: none; }
 .fuss-raster { display: grid; gap: 2rem; }
-.fuss h2 { font: 700 .75rem/1.3 var(--schrift-text); letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-linie); margin-block-end: .6rem; }
+.fuss h2 { font: 700 .75rem/1.3 var(--schrift-text); letter-spacing: .18em; text-transform: uppercase; color: var(--_kupfer); margin-block-end: .6rem; }
 .fuss address { font-style: normal; }
 .fuss a { color: var(--farbe-text); text-decoration-color: var(--farbe-linie); display: inline-block; padding-block: .6rem; margin-block: -.6rem; }
 .fuss p + p { margin-block-start: .8rem; }
@@ -586,3 +589,6 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; scroll-behavior: auto !important; }
 }
+
+/* Menü-Blatt (Baustein): auf dunklem Grund dunkelt der Schleier ab statt grau aufzuhellen */
+html .blatt-schleier { background: color-mix(in srgb, var(--farbe-grund) 74%, transparent); }
