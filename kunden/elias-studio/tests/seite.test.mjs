@@ -101,10 +101,10 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
 });
 
 test('Konfigurator: alle Felder am Formular, Werte wie in der Function erlaubt, Vorschau-Regeln für jede Wahl', async () => {
-  const { konfigAuswahl } = await import('../functions/api/kontakt.js');
+  const { konfigAuswahl, STUFEN } = await import('../functions/api/kontakt.js');
   const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8');
   const K = S.konfigurator;
-  const gruppen = { stil: K.stile, farbe: K.farben, branche: K.branchen, sicherheit: K.sicherheit, bausteine: K.bausteine };
+  const gruppen = { branche: K.branchen, farbe: K.farben, stil: K.stile, bausteine: K.bausteine };
   for (const [name, liste] of Object.entries(gruppen)) {
     for (const w of liste) {
       assert.match(start, new RegExp(`<input type="(radio|checkbox)" id="k-${name}-${w.id}" name="${name}${name === 'bausteine' ? '\\[\\]' : ''}" value="${w.id}" form="kontaktformular"`), `${name}/${w.id} fehlt`);
@@ -112,13 +112,28 @@ test('Konfigurator: alle Felder am Formular, Werte wie in der Function erlaubt, 
       assert.equal(konfigAuswahl(fd)[name], w.id, `${name}/${w.id} wird von der Function verworfen`);
     }
   }
+  // Reihenfolge nach Elias: Business, Farbe, Schrift, dann die Regler (Sicherheit zuerst)
+  const legenden = [...start.matchAll(/<legend><span class="feld-nr">(\d+)<\/span> ([^<]+)<\/legend>/g)].map((m) => m[2]);
+  assert.deepEqual(legenden.slice(0, 4), ['Ihr Business', 'Farbe', 'Schrift und Stil', 'Sicherheit']);
+  // Generator: je Schritt ein Reiter, der auf sein Feld zeigt
+  legenden.forEach((_, i) => assert.match(start, new RegExp(`role="tab" id="gt-${i + 1}" aria-controls="gs-${i + 1}"[\\s\\S]*<fieldset class="schritt-feld[^"]*" id="gs-${i + 1}">`), `Reiter/Feld ${i + 1} fehlt`));
+  // Jeder Bereich: Regler 1–5 am Formular, fünf Stufen, gleiche Namen wie in der Function
+  assert.deepEqual(K.stufen.map((s) => s.id), Object.keys(STUFEN));
+  for (const st of K.stufen) {
+    assert.match(start, new RegExp(`<input class="regler-feld" type="range" id="k-stufe-${st.id}" name="stufe_${st.id}" min="1" max="5" step="1" value="${st.start}" form="kontaktformular">`), `Regler ${st.id} fehlt`);
+    assert.equal(st.stufen.length, 5, `${st.id}: nicht fünf Stufen`);
+    assert.deepEqual([st.name, ...st.stufen.map(([n]) => n)], STUFEN[st.id], `${st.id}: Namen weichen von der Function ab`);
+    const fd = new FormData(); fd.append(`stufe_${st.id}`, '3');
+    assert.equal(konfigAuswahl(fd)[st.name], `Stufe 3 von 5 (${st.stufen[2][0]})`);
+  }
   // Vorschau: jede Wahl außer der Grundeinstellung hat eine :has()-Regel
   for (const s of K.stile.slice(1)) assert.match(css, new RegExp(`#k-stil-${s.id}:checked`), `Stil ${s.id} ohne Vorschau`);
   for (const f of K.farben.slice(1)) assert.match(css, new RegExp(`#k-farbe-${f.id}:checked`), `Farbe ${f.id} ohne Vorschau`);
   for (const b of K.branchen) assert.match(css, new RegExp(`#k-branche-${b.id}:checked\\) \\.nach-branche--${b.id}`), `Branche ${b.id} ohne Vorschau`);
   for (const b of K.bausteine) assert.match(css, new RegExp(`#k-bausteine-${b.id}:checked\\) \\.vb--${b.id}`), `Baustein ${b.id} ohne Vorschau`);
   // Fremde Werte fallen still weg
-  const boese = new FormData(); boese.append('stil', '<script>'); boese.append('bausteine[]', 'galerie'); boese.append('bausteine[]', 'x');
+  const boese = new FormData();
+  for (const [k, v] of [['stil', '<script>'], ['bausteine[]', 'galerie'], ['bausteine[]', 'x'], ['stufe_sicherheit', '9'], ['stufe_design', '2<b>'], ['stufe_umfang', '0']]) boese.append(k, v);
   assert.deepEqual(konfigAuswahl(boese), { bausteine: 'galerie' });
 });
 

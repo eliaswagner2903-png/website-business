@@ -222,71 +222,89 @@ ${A.map(werk).join('\n')}
   </div>
 </section>`;
 
-// ---------- Konfigurator (wissen/preismodell/KONFIGURATOR.md): Auswahl reist mit dem Kontaktformular ----------
+// ---------- Konfigurator (wissen/preismodell/KONFIGURATOR.md): Auswahl und Einstufung reisen mit dem Kontaktformular ----------
+// Ablauf nach Elias: Business, Farbe, Schrift, dann jeder Bereich als Regler 1–5, den der Kunde selbst einstuft.
 // Alle Felder hängen per form="kontaktformular" am Formular unten; die Vorschau färbt sich allein per CSS (:has),
-// js/seite.js ergänzt nur Vorschläge je Branche, die Sicherheitsregel bei Zahlung und die Zusammenfassung.
+// js/seite.js ergänzt Vorschläge je Branche, die Sicherheitsregel bei Zahlung, die Stufentexte und die Zusammenfassung.
 const K = S.konfigurator;
 const wahl = (name, id, inhalt, { typ = 'radio', an = false, extra = '' } = {}) =>
   `<label class="wahl wahl--${name}"><input type="${typ}" id="k-${name}-${id}" name="${typ === 'checkbox' ? `${name}[]` : name}" value="${id}" form="kontaktformular"${an ? ' checked' : ''}${extra}>${inhalt}</label>`;
+const feld = (nr, titel, inhalt, klasse = '') => `          <fieldset class="schritt-feld${klasse}" id="gs-${nr}">
+            <legend><span class="feld-nr">${nr}</span> ${titel}</legend>
+${inhalt}
+          </fieldset>`;
+const regler = (st) => `            <p class="stufe-frage">${esc(st.frage)}</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-${st.id}">${esc(st.name)}, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-${st.id}" name="stufe_${st.id}" min="1" max="5" step="1" value="${st.start}" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true">${[1, 2, 3, 4, 5].map((n) => `<span>${n}</span>`).join('')}</span>
+            </div>
+            <ol class="stufen-liste">
+${st.stufen.map(([name, text], i) => `              <li${i + 1 === st.start ? ' class="ist"' : ''}><span class="stufe-nr">Stufe ${i + 1}</span> <strong>${esc(name)}</strong> ${esc(text)}</li>`).join('\n')}
+            </ol>`;
+// [Titel, Reiter-Kurzname, Inhalt, Zusatzklasse]
+const SCHRITTE = [
+  ['Ihr Business', 'Business', `            <div class="wahl-reihe wahl-reihe--branche">
+${K.branchen.map((b, i) => `              ${wahl('branche', b.id, `<span class="wahl-titel">${esc(b.name)}</span>`, { an: i === 0, extra: ` data-vorschlag="${b.vorschlag.join(' ')}"` })}`).join('\n')}
+            </div>`],
+  ['Farbe', 'Farbe', `            <div class="wahl-reihe wahl-reihe--farbe">
+${K.farben.map((f, i) => `              ${wahl('farbe', f.id, `<span class="farbfleck farbfleck--${f.id}" aria-hidden="true"></span><span class="wahl-titel">${esc(f.name)}</span>`, { an: i === 0 })}`).join('\n')}
+            </div>`],
+  ['Schrift und Stil', 'Schrift', `            <div class="wahl-reihe wahl-reihe--stil">
+${K.stile.map((s, i) => `              ${wahl('stil', s.id, `<span class="schriftprobe schriftprobe--${s.id}" aria-hidden="true">${esc(s.probe)}</span><span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}, ${esc(s.beispiel)}</span>`, { an: i === 0 })}`).join('\n')}
+            </div>`],
+  ...K.stufen.map((st) => [esc(st.name), esc(st.kurz || st.name), regler(st), ' schritt-feld--stufe']),
+  ['Funktionen', 'Funktionen', `            <div class="wahl-reihe wahl-reihe--bausteine">
+${K.bausteine.map((b) => `              ${wahl('bausteine', b.id, `<span class="haken" aria-hidden="true"></span><span class="wahl-titel">${esc(b.name)}</span>`, { typ: 'checkbox', an: K.branchen[0].vorschlag.includes(b.id), extra: b.sicher ? ` data-sicher="${b.sicher}"` : '' })}`).join('\n')}
+            </div>
+            <p class="feld-hinweis nur-js">Zu Ihrem Business passende Funktionen sind vorgeschlagen und lassen sich abwählen.</p>
+            <p class="feld-hinweis konfig-regel" hidden>Zahlungen brauchen mindestens Sicherheitsstufe 4, der Regler geht deshalb nicht darunter.</p>`],
+];
 const konfig = `<section class="abschnitt konfig" id="konfigurator" aria-labelledby="t-konfig">
   <div class="huelle">
     <div class="kopfzeile">
       ${ueber('Konfigurator')}
-      <h2 id="t-konfig" class="einblenden">Stellen Sie Ihre Seite in fünf <em>Schritten</em> zusammen.</h2>
-      <p class="einblenden">Die Vorschau zeigt sofort, wie Stil und Farbe zusammen wirken. Ihre Auswahl geht mit Ihrer Anfrage mit, dann reden wir über genau diese Seite.</p>
+      <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
+      <p class="einblenden">Arbeiten Sie die Reiter der Reihe nach ab: Business, Farbe und Schrift wählen, dann jeden Bereich selbst von 1 bis 5 einstufen. Das Modell zeigt jede Änderung sofort, auf Wunsch auch diese ganze Seite. Ihre Einstufung geht mit der Anfrage mit und wird zur Grundlage des Angebots: gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
     </div>
-    <div class="konfig-raster">
-      <div class="konfig-schritte">
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">1</span> Stil</legend>
-          <div class="wahl-reihe wahl-reihe--stil">
-${K.stile.map((s, i) => `            ${wahl('stil', s.id, `<span class="wahl-muster wahl-muster--${s.id}" aria-hidden="true"></span><span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}, ${esc(s.beispiel)}</span>`, { an: i === 0 })}`).join('\n')}
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">2</span> Farbe</legend>
-          <div class="wahl-reihe wahl-reihe--farbe">
-${K.farben.map((f, i) => `            ${wahl('farbe', f.id, `<span class="farbfleck farbfleck--${f.id}" aria-hidden="true"></span><span class="wahl-titel">${esc(f.name)}</span>`, { an: i === 0 })}`).join('\n')}
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">3</span> Betrieb</legend>
-          <div class="wahl-reihe wahl-reihe--branche">
-${K.branchen.map((b, i) => `            ${wahl('branche', b.id, `<span class="wahl-titel">${esc(b.name)}</span>`, { an: i === 0, extra: ` data-vorschlag="${b.vorschlag.join(' ')}"` })}`).join('\n')}
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">4</span> Bausteine</legend>
-          <div class="wahl-reihe wahl-reihe--bausteine">
-${K.bausteine.map((b) => `            ${wahl('bausteine', b.id, `<span class="haken" aria-hidden="true"></span><span class="wahl-titel">${esc(b.name)}</span>`, { typ: 'checkbox', an: K.branchen[0].vorschlag.includes(b.id), extra: b.sicher ? ` data-sicher="${b.sicher}"` : '' })}`).join('\n')}
-          </div>
-          <p class="feld-hinweis nur-js">Zum Betrieb passende Bausteine sind vorgeschlagen und lassen sich abwählen.</p>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">5</span> Sicherheit</legend>
-          <div class="wahl-reihe wahl-reihe--sicher">
-${K.sicherheit.map((s, i) => `            ${wahl('sicherheit', s.id, `<span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}</span>`, { an: i === 0 })}`).join('\n')}
-          </div>
-          <p class="feld-hinweis konfig-regel" hidden>Mit Zahlung ist mindestens Stufe „Hoch“ nötig. Ich habe sie für Sie gewählt.</p>
-        </fieldset>
+    <div class="generator">
+      <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
+${SCHRITTE.map(([, kurz], i) => `        <button class="gen-tab" type="button" role="tab" id="gt-${i + 1}" aria-controls="gs-${i + 1}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><span class="gen-tab-nr">${i + 1}</span><span class="gen-tab-name">${kurz}</span></button>`).join('\n')}
       </div>
       <div class="konfig-vorschau" aria-hidden="true">
         <div class="vorschau-geraet">
           <div class="vorschau-seite">
-            <p class="vorschau-kopf"><span class="vorschau-logo">${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.muster)}</span>`).join('')}</span><span class="vorschau-menue"></span></p>
+            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="vorschau-zeichen"></span>${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.muster)}</span>`).join('')}</span><span class="vorschau-nav">${'<i></i>'.repeat(5)}</span></p>
             <p class="vorschau-ueber">Muster · ${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.name)}</span>`).join('')}</p>
             <p class="vorschau-titel">${K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b.satz)}</span>`).join('')}</p>
+            <p class="vorschau-bild"><span class="vorschau-ring"></span></p>
             <p class="vorschau-zeilen"><span></span><span></span><span></span></p>
             <p class="vorschau-knopf">Anfragen</p>
             <p class="vorschau-bausteine">${K.bausteine.map((b) => `<span class="vb vb--${b.id}">${esc(b.name)}</span>`).join('')}</p>
+            <p class="vorschau-siegel"><span class="siegel siegel--schutz">Schutz <b>2</b>/5</span><span class="siegel siegel--betreuung">Betreuung <b>2</b>/5</span></p>
           </div>
         </div>
+        <div class="einstufung nur-js">
+          <p class="einstufung-kopf"><span>Ihre Einstufung</span><span class="einstufung-summe"></span></p>
+${K.stufen.map((st) => `          <p class="einstufung-reihe" data-stufe="${st.id}" data-wert="${st.start}"><span>${esc(st.name)}</span><span class="punkte">${'<i></i>'.repeat(5)}</span></p>`).join('\n')}
+        </div>
+      </div>
+      <div class="gen-bereich"${pr(P.stufen)}>
+        <div class="gen-schritte">
+${SCHRITTE.map(([titel, , inhalt, klasse], i) => feld(i + 1, titel, inhalt, klasse)).join('\n')}
+        </div>
+        <div class="gen-steuer nur-js">
+          <button class="knopf zweit gen-zurueck" type="button">Zurück</button>
+          <p class="gen-stand"><span class="gen-stand-text">1 von ${SCHRITTE.length}</span><span class="gen-balken"><span></span></span></p>
+          <button class="knopf gen-weiter" type="button">Weiter ${pfeil}</button>
+        </div>
+        <label class="ganz-schalter nur-js"><input type="checkbox" id="k-ganz"><span class="ganz-knopf" aria-hidden="true"></span><span>Farbe und Schrift auf diese ganze Seite anwenden</span></label>
       </div>
     </div>
     <div class="konfig-fuss">
       <p class="konfig-zusammen nur-js" aria-live="polite"></p>
-      <p class="konfig-preis"${pr(P.konfigurator)}>Preis: nach dem ersten Gespräch, mit jeder Position und ihrem Grund</p>
-      <a class="knopf" href="#kontakt">Mit dieser Auswahl anfragen ${pfeil}</a>
+      <p class="konfig-preis"${pr(P.konfigurator)}>Preis: nach dem ersten Gespräch, jede Position mit ihrer Stufe und ihrem Grund</p>
+      <a class="knopf" href="#kontakt">Mit dieser Einstufung anfragen ${pfeil}</a>
     </div>
   </div>
 </section>`;

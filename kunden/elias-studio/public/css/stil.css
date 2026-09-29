@@ -219,6 +219,26 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 @media (max-width: 55.99rem) { .pakete-tabelle { display: none; } }
 @media (min-width: 56rem) { .pakete-karten { display: none; } }
 
+/* „Auf die ganze Seite anwenden“: Farbe und Schrift aus dem Generator färben die Portfolio-Seite selbst um.
+   Nur im hellen Schema; Kontrast gegen farbe-grund (AA): terrakotta 5,4 · kobalt 7,4 · salbei 5,1 · messing-tief 5,7.
+   „Edel“ schaltet auf dunklen Grund, der Akzent wird dort aufgehellt. */
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-terrakotta:checked) { --farbe-akzent: var(--muster-terrakotta); }
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-salbei:checked) { --farbe-akzent: var(--muster-salbei); }
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-messing:checked) { --farbe-akzent: var(--muster-messing-tief); }
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) { --schrift-display: var(--schrift-text); }
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) :is(h1, h2, h3) { font-weight: 750; letter-spacing: -.04em; }
+:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-edel:checked) {
+  --farbe-grund: var(--muster-edel-grund); --farbe-flaeche: var(--muster-edel-flaeche); --farbe-text: var(--muster-edel-text);
+  --farbe-leise: var(--muster-edel-leise); --farbe-linie: var(--muster-edel-linie);
+  --farbe-akzent: color-mix(in srgb, var(--farbe-muster) 45%, var(--muster-edel-text)); --farbe-auf-akzent: var(--muster-edel-grund);
+  color-scheme: dark;
+}
+:root:has(#k-farbe-terrakotta:checked) { --farbe-muster: var(--muster-terrakotta); }
+:root:has(#k-farbe-kobalt:checked) { --farbe-muster: var(--muster-kobalt); }
+:root:has(#k-farbe-salbei:checked) { --farbe-muster: var(--muster-salbei); }
+:root:has(#k-farbe-messing:checked) { --farbe-muster: var(--muster-messing); }
+:root:has(#k-ganz:checked) body { transition: background-color var(--tempo-mittel) var(--kurve-standard), color var(--tempo-mittel) var(--kurve-standard); }
+
 /* ---------- Ablauf: vier Schritte mit Registermarke ---------- */
 .schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: schritt; }
 .schritt { position: relative; display: grid; gap: .7rem; align-content: start; padding: 0 0 2.75rem 2.75rem; border-left: 1px solid var(--farbe-linie); min-width: 0; }
@@ -457,8 +477,52 @@ html:not(.js) .nur-js { display: none !important; }
 .werk-link--offen { font-size: .9375rem; color: var(--farbe-leise); }
 
 /* ---------- Konfigurator ---------- */
-.konfig-raster { display: grid; gap: 3rem; }
-.konfig-schritte { min-width: 0; }
+/* Generator: Reiter oben, Modell und Schritt bleiben an einem festen Ort.
+   Handy: Reiter und ein kleines Modell kleben unter dem Kopf, der Schritt läuft darunter. */
+.generator {
+  display: grid; gap: 1.5rem; padding: 1rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-klein);
+}
+.gen-bereich { min-width: 0; scroll-margin-top: 25rem; }
+.gen-reiter {
+  display: flex; gap: .25rem; overflow-x: auto; scrollbar-width: none; margin: -1rem -1rem 0; padding: .5rem .75rem;
+  background: var(--farbe-flaeche); border-bottom: 1px solid var(--farbe-linie);
+  position: sticky; top: calc(4.25rem + 1px); z-index: 3;
+}
+.gen-reiter::-webkit-scrollbar { display: none; }
+.gen-tab {
+  flex: none; display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .4rem .8rem; border: 0; border-radius: var(--radius-gross);
+  background: none; color: var(--farbe-leise); font: 500 .875rem/1.2 var(--schrift-text); cursor: pointer;
+}
+.gen-tab-nr {
+  display: inline-grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border: 1px solid currentColor; border-radius: 50%;
+  font-size: .75rem; font-variant-numeric: tabular-nums;
+}
+.gen-tab[aria-selected="true"] { background: var(--farbe-text); color: var(--farbe-grund); }
+.gen-tab.gen-tab--fertig:not([aria-selected="true"]) { color: var(--farbe-text); }
+.gen-tab.gen-tab--fertig:not([aria-selected="true"]) .gen-tab-nr { background: var(--farbe-akzent); border-color: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+.gen-tab:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .gen-tab:not([aria-selected="true"]):hover { color: var(--farbe-text); } }
+.gen-schritte { min-width: 0; }
+.generator--gefuehrt .schritt-feld { border-top: 0; padding-block-start: .25rem; }
+.generator--gefuehrt .schritt-feld legend { margin-block-end: .75rem; }
+.gen-steuer {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-block-start: .5rem; padding-block-start: 1.25rem;
+  border-top: 1px solid var(--farbe-linie);
+}
+.gen-stand { display: grid; gap: .4rem; flex: 1; margin: 0; font-size: .8125rem; color: var(--farbe-leise); text-align: center; font-variant-numeric: tabular-nums; }
+.gen-balken { display: block; block-size: 3px; border-radius: 3px; background: var(--farbe-linie); overflow: hidden; }
+.gen-balken span { display: block; block-size: 100%; inline-size: calc(var(--gen-anteil, .1) * 100%); background: var(--farbe-akzent); transition: inline-size var(--tempo-mittel) var(--kurve-standard); }
+.gen-zurueck:disabled { visibility: hidden; }
+.ganz-schalter { display: flex; align-items: center; gap: .75rem; min-height: 44px; margin-block-start: 1rem; font-size: .9375rem; cursor: pointer; position: relative; }
+.ganz-schalter input { position: absolute; inset: 0; margin: 0; appearance: none; background: none; border: 0; cursor: pointer; }
+.ganz-knopf { flex: none; position: relative; inline-size: 2.6rem; block-size: 1.5rem; border-radius: 999px; background: var(--farbe-linie); transition: background-color var(--tempo-kurz) var(--kurve-standard); }
+.ganz-knopf::after {
+  content: ""; position: absolute; inset-block-start: .1875rem; inset-inline-start: .1875rem; inline-size: 1.125rem; block-size: 1.125rem; border-radius: 50%;
+  background: var(--farbe-flaeche); transition: transform var(--tempo-kurz) var(--kurve-standard);
+}
+.ganz-schalter:has(input:checked) .ganz-knopf { background: var(--farbe-akzent); }
+.ganz-schalter:has(input:checked) .ganz-knopf::after { transform: translateX(1.1rem); }
+.ganz-schalter:has(input:focus-visible) .ganz-knopf { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; }
 .schritt-feld { min-width: 0; margin: 0; padding: 1.4rem 0 1.8rem; border: 0; border-top: 1px solid var(--farbe-linie); }
 .schritt-feld legend {
   display: flex; align-items: center; gap: .7rem; padding: 0; margin-block-end: 1rem;
@@ -484,10 +548,9 @@ html:not(.js) .nur-js { display: none !important; }
 .wahl-text { font-size: .875rem; line-height: 1.45; color: var(--farbe-leise); }
 .wahl--farbe, .wahl--bausteine { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: .75rem; }
 .wahl--branche { align-content: center; }
-.wahl-muster { block-size: 3rem; margin-block-end: .35rem; border-radius: 3px; border: 1px solid var(--farbe-linie); }
-.wahl-muster--hell { background: linear-gradient(90deg, var(--muster-terrakotta) 0 2px, transparent 2px) 18% 0 / 100% 100% no-repeat, var(--muster-hell-grund); }
-.wahl-muster--laut { background: linear-gradient(var(--muster-laut-text), var(--muster-laut-text)) 12% 38% / 60% 22% no-repeat, linear-gradient(var(--werk-laut), var(--werk-laut)) 12% 78% / 26% 16% no-repeat, var(--muster-laut-grund); }
-.wahl-muster--edel { background: radial-gradient(circle at 72% 50%, var(--muster-messing) 0 .55rem, transparent .6rem), linear-gradient(var(--muster-edel-text), var(--muster-edel-text)) 12% 50% / 28% 1px no-repeat, var(--muster-edel-grund); }
+.schriftprobe { font: 400 2.4rem/1 var(--schrift-display); letter-spacing: -.01em; margin-block-end: .3rem; }
+.schriftprobe--laut { font: 800 2.4rem/1 var(--schrift-text); letter-spacing: -.045em; }
+.schriftprobe--edel { font-size: 1.9rem; letter-spacing: .08em; }
 .farbfleck { inline-size: 1.6rem; block-size: 1.6rem; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-text) 20%, transparent); }
 .farbfleck--terrakotta { background: var(--muster-terrakotta); }
 .farbfleck--kobalt { background: var(--muster-kobalt); }
@@ -498,10 +561,76 @@ html:not(.js) .nur-js { display: none !important; }
 .wahl:has(input:checked) .haken::after {
   content: ""; position: absolute; inset: .12rem .34rem .3rem; border: solid var(--farbe-auf-akzent); border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
+/* Regler 1–5: der Kunde stuft jeden Bereich selbst ein */
+.stufe-frage { margin: 0 0 .6rem; font-size: 1.0625rem; }
+.regler { display: grid; gap: .15rem; }
+.regler-feld {
+  inline-size: 100%; block-size: 2.75rem; margin: 0; background: none; cursor: pointer; appearance: none; -webkit-appearance: none;
+}
+.regler-feld::-webkit-slider-runnable-track {
+  block-size: .375rem; border-radius: 999px;
+  background: linear-gradient(90deg, var(--farbe-akzent) var(--anteil, 25%), var(--farbe-linie) var(--anteil, 25%));
+}
+.regler-feld::-moz-range-track { block-size: .375rem; border-radius: 999px; background: var(--farbe-linie); }
+.regler-feld::-moz-range-progress { block-size: .375rem; border-radius: 999px; background: var(--farbe-akzent); }
+.regler-feld::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; inline-size: 1.75rem; block-size: 1.75rem; margin-block-start: -.6875rem;
+  border-radius: 50%; background: var(--farbe-grund); border: 2px solid var(--farbe-text); box-shadow: 0 .25rem .75rem -.25rem color-mix(in srgb, var(--farbe-text) 60%, transparent);
+}
+.regler-feld::-moz-range-thumb {
+  inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; background: var(--farbe-grund); border: 2px solid var(--farbe-text);
+}
+.regler-feld:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 4px; border-radius: 4px; }
+.regler-skala {
+  display: flex; justify-content: space-between; padding-inline: .45rem; font-size: .8125rem; color: var(--farbe-leise);
+  font-variant-numeric: tabular-nums;
+}
+.stufen-liste { display: grid; gap: .5rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+.stufen-liste li { padding: .7rem .9rem; border-left: 2px solid var(--farbe-linie); line-height: 1.5; }
+.stufen-liste li.ist { border-left-color: var(--farbe-akzent); background: color-mix(in srgb, var(--farbe-akzent) 7%, transparent); }
+.stufe-nr { display: block; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise); font-variant-numeric: tabular-nums; }
+.stufen-liste strong { font-weight: 550; }
+.js .stufen-liste li:not(.ist) { display: none; }
+
+/* Einstufung neben der Vorschau: fünf Punkte je Bereich */
+.einstufung { display: grid; gap: .45rem; max-inline-size: 21rem; margin: 1.5rem auto 0; font-size: .875rem; }
+.einstufung p { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin: 0; }
+.einstufung-kopf { padding-block-end: .4rem; border-bottom: 1px solid var(--farbe-linie); font-weight: 550; }
+.einstufung-summe { font-variant-numeric: tabular-nums; color: var(--farbe-leise); font-weight: 400; }
+.punkte { display: flex; gap: .3rem; }
+.punkte i { inline-size: .6rem; block-size: .6rem; border-radius: 50%; border: 1px solid var(--farbe-leise); transition: background-color var(--tempo-kurz) var(--kurve-standard); }
+.einstufung-reihe[data-wert="1"] i:nth-child(-n+1),
+.einstufung-reihe[data-wert="2"] i:nth-child(-n+2),
+.einstufung-reihe[data-wert="3"] i:nth-child(-n+3),
+.einstufung-reihe[data-wert="4"] i:nth-child(-n+4),
+.einstufung-reihe[data-wert="5"] i { background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+
 .feld-hinweis { margin-block-start: .9rem; font-size: .9375rem; color: var(--farbe-leise); }
 
 /* Vorschau: färbt sich per :has() ohne Skript um */
 .konfig-vorschau { min-width: 0; }
+@media (max-width: 63.99rem) {
+  .js .konfig-vorschau {
+    position: sticky; top: calc(4.25rem + 1px + 3.75rem); z-index: 2; display: flex; align-items: center; gap: 1.25rem;
+    margin-inline: -1rem; padding: .75rem 1rem; background: var(--farbe-flaeche); border-bottom: 1px solid var(--farbe-linie);
+  }
+  .js .vorschau-geraet { flex: none; inline-size: 20rem; zoom: .45; margin: 0; }
+  .js .vorschau-seite { aspect-ratio: 4 / 5; }
+  .js .einstufung { flex: 1; min-width: 0; margin: 0; font-size: .75rem; gap: .3rem; }
+  .js .einstufung { grid-template-columns: minmax(0, 1fr); }
+  .js .einstufung p { gap: .5rem; min-width: 0; }
+  .js .einstufung p > span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .js .punkte { gap: .2rem; }
+  .js .punkte i { inline-size: .5rem; block-size: .5rem; }
+  .gen-stand-text { white-space: nowrap; }
+}
+@media (max-width: 22.49rem) {
+  .js .vorschau-geraet { zoom: .36; }
+  .js .konfig-vorschau { gap: .9rem; }
+  .gen-steuer { flex-wrap: wrap; row-gap: .75rem; }
+  .gen-stand { flex: 1 1 100%; order: -1; }
+  .js .gen-bereich { scroll-margin-top: 21rem; }
+}
 .vorschau-geraet {
   max-inline-size: 21rem; margin-inline: auto; padding: .55rem; background: var(--kino-grund); border: 1px solid var(--farbe-linie);
   border-radius: 2rem; box-shadow: 0 2.5rem 4rem -2.5rem color-mix(in srgb, var(--farbe-text) 70%, transparent);
@@ -515,7 +644,38 @@ html:not(.js) .nur-js { display: none !important; }
 }
 .vorschau-seite p { margin: 0; }
 .vorschau-kopf { display: flex; justify-content: space-between; align-items: center; padding-block-end: .7rem; border-bottom: 1px solid color-mix(in srgb, var(--v-text) 18%, transparent); font-size: .8rem; font-weight: 600; }
-.vorschau-menue { inline-size: 1.1rem; block-size: .55rem; border-block: 1.5px solid currentColor; }
+.vorschau-logo { display: inline-flex; align-items: center; gap: .4rem; }
+.vorschau-zeichen { display: none; inline-size: .8rem; block-size: .8rem; border-radius: 2px; background: var(--v-akzent); }
+.vorschau-nav { display: flex; gap: .25rem; }
+.vorschau-nav i { inline-size: .9rem; block-size: .2rem; border-radius: 1px; background: currentColor; opacity: .55; }
+.vorschau-bild {
+  display: none; position: relative; block-size: 4.5rem; border-radius: calc(var(--v-radius) / 4 + 4px); overflow: hidden;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--v-akzent) 70%, var(--v-grund)), color-mix(in srgb, var(--v-akzent) 25%, var(--v-grund)));
+}
+.vorschau-ring { display: none; position: absolute; inset: 0; margin: auto; inline-size: 2.4rem; block-size: 2.4rem; border: 2px solid var(--v-grund); border-radius: 50%; border-block-start-color: transparent; }
+.vorschau-siegel { display: flex; gap: .35rem; flex-wrap: wrap; }
+.siegel { padding: .15rem .5rem; border-radius: 3px; background: color-mix(in srgb, var(--v-text) 8%, transparent); font-size: .62rem; }
+.siegel b { font-weight: 700; color: var(--v-akzent); }
+/* Einstufung im Modell (js/seite.js setzt data-… an .vorschau-seite) */
+.vorschau-seite[data-umfang="1"] .vorschau-nav i:nth-child(n+2),
+.vorschau-seite[data-umfang="2"] .vorschau-nav i:nth-child(n+3),
+.vorschau-seite[data-umfang="3"] .vorschau-nav i:nth-child(n+4),
+.vorschau-seite[data-umfang="4"] .vorschau-nav i:nth-child(n+5) { display: none; }
+.vorschau-seite:is([data-design="4"], [data-design="5"]) .vorschau-titel { border-inline-start: 3px solid var(--v-akzent); padding-inline-start: .6rem; }
+.vorschau-seite[data-design="5"] .vorschau-zeichen { display: inline-block; }
+.vorschau-seite:is([data-inhalte="4"], [data-inhalte="5"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-bild { display: block; }
+.vorschau-seite[data-bewegung="5"] .vorschau-ring { display: block; }
+.vorschau-seite[data-design="1"] { --v-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .vorschau-seite:is([data-bewegung="2"], [data-bewegung="3"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-titel { animation: v-ein var(--tempo-lang) var(--kurve-standard) both; }
+  .vorschau-seite:is([data-bewegung="3"], [data-bewegung="4"], [data-bewegung="5"]) .vorschau-knopf { animation: v-puls 2.4s var(--kurve-sanft) infinite; }
+  .vorschau-seite:is([data-bewegung="4"], [data-bewegung="5"]) .vorschau-bild { background-size: 220% 100%; animation: v-film 4s linear infinite alternate; }
+  .vorschau-seite[data-bewegung="5"] .vorschau-ring { animation: v-dreh 2.8s linear infinite; }
+}
+@keyframes v-ein { from { opacity: .2; transform: translateY(.5rem); } }
+@keyframes v-puls { 50% { transform: scale(1.06); } }
+@keyframes v-film { to { background-position: 100% 0; } }
+@keyframes v-dreh { to { transform: rotate(1turn); } }
 .vorschau-ueber { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--v-akzent); font-weight: 600; margin-block-start: 1.2rem !important; }
 .vorschau-titel {
   font: var(--v-gewicht) var(--v-gross)/1.02 var(--v-titel); letter-spacing: var(--v-spur); text-transform: var(--v-form); text-wrap: balance;
@@ -556,8 +716,11 @@ html:not(.js) .nur-js { display: none !important; }
 .kontakt-auswahl { padding: .9rem 1rem; border-left: 2px solid var(--farbe-akzent); background: var(--farbe-grund); font-size: .9375rem; }
 .kontakt-auswahl:empty { display: none; }
 @media (min-width: 64rem) {
-  .konfig-raster { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 5rem; align-items: start; }
-  .konfig-vorschau { position: sticky; top: 6.5rem; }
+  .generator { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); grid-template-areas: "reiter reiter" "bereich vorschau"; gap: 2rem 4rem; padding: 1.5rem 2.5rem 2.5rem; }
+  .gen-reiter { grid-area: reiter; margin: -1.5rem -2.5rem 0; padding-inline: 2rem; }
+  .gen-bereich { grid-area: bereich; align-self: start; min-block-size: 26rem; display: flex; flex-direction: column; scroll-margin-top: 10rem; }
+  .gen-schritte { flex: 1; }
+  .konfig-vorschau { grid-area: vorschau; position: sticky; top: 10rem; align-self: start; }
 }
 
 /* ---------- Ablauf: Linie zeichnet sich beim Hineinscrollen (nur mit Scroll-Timeline, sonst steht sie) ---------- */

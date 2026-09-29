@@ -14,6 +14,28 @@
 5. **Die Kriterien** (Funktionen, Umfang, Visuals …)
 6. Anhand der Angaben wird **die Seite gebaut** (und der Preis errechnet)
 
+## Umsetzung auf der Portfolio-Seite (A-049, Elias 2026-09-29)
+
+Elias präzisiert: **erst Business, dann Farbe, dann Schrift, dann Sicherheit und jeder weitere Bereich**, und der Kunde
+**stuft jeden Bereich selbst ein** (Regler 1–5). Zweck: Der Umfang ist schriftlich vom Kunden festgelegt, niemand kann
+später sagen, es sei mehr oder weniger gemacht worden als verlangt.
+
+| Nr. | Schritt | Art |
+|---|---|---|
+| 1 | Ihr Business | Auswahl (schlägt Funktionen vor) |
+| 2 | Farbe | Auswahl |
+| 3 | Schrift und Stil | Auswahl (Klassisch, Modern, Edel = die drei Musterseiten) |
+| 4–9 | Sicherheit, Gestaltung, Umfang, Bewegung, Texte und Bilder, Betreuung | Regler 1–5, jede Stufe mit festem Inhalt |
+| 10 | Funktionen | Häkchen; Zahlung hebt Sicherheit auf mindestens 4 |
+
+**Bedienung (Elias, 19:47):** ein fester Generator mit Reitern (1–10), die der Reihe nach abgearbeitet werden
+(Zurück/Weiter), daneben ein Modell, das jede Wahl sofort zeigt. Ein Schalter färbt auf Wunsch die ganze Portfolio-Seite
+in Farbe und Schrift des Kunden um (Edel = dunkler Grund). Ohne JavaScript stehen alle Schritte untereinander.
+
+Die Inhalte der Stufen stehen in `kunden/elias-studio/inhalt/seite.json` (`konfigurator.stufen`) und sind ein
+**Entwurf**, Elias legt fest, was jede Stufe enthält. Die Einstufung geht als „Bereich: Stufe n von 5 (Name)“ mit der
+Anfrage mit. Jede Stufe ist später eine Zeile im Angebot (Punkte je Stufe noch offen, siehe `PREISFORMELN.md`).
+
 ## Was jeder Schritt für Bau und Preis bedeutet
 
 | Schritt | Kunde wählt | Wirkung auf den Bau | Wirkung auf den Preis (Formel) |

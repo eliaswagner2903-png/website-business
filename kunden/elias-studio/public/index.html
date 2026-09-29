@@ -238,77 +238,196 @@
   <div class="huelle">
     <div class="kopfzeile">
       <p class="ueberzeile">Konfigurator</p>
-      <h2 id="t-konfig" class="einblenden">Stellen Sie Ihre Seite in fünf <em>Schritten</em> zusammen.</h2>
-      <p class="einblenden">Die Vorschau zeigt sofort, wie Stil und Farbe zusammen wirken. Ihre Auswahl geht mit Ihrer Anfrage mit, dann reden wir über genau diese Seite.</p>
+      <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
+      <p class="einblenden">Arbeiten Sie die Reiter der Reihe nach ab: Business, Farbe und Schrift wählen, dann jeden Bereich selbst von 1 bis 5 einstufen. Das Modell zeigt jede Änderung sofort, auf Wunsch auch diese ganze Seite. Ihre Einstufung geht mit der Anfrage mit und wird zur Grundlage des Angebots: gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
     </div>
-    <div class="konfig-raster">
-      <div class="konfig-schritte">
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">1</span> Stil</legend>
-          <div class="wahl-reihe wahl-reihe--stil">
-            <label class="wahl wahl--stil"><input type="radio" id="k-stil-hell" name="stil" value="hell" form="kontaktformular" checked><span class="wahl-muster wahl-muster--hell" aria-hidden="true"></span><span class="wahl-titel">Hell &amp; ruhig</span><span class="wahl-text">Viel Luft, Serifenschrift, ruhige Bewegung, wie Lotlinie</span></label>
-            <label class="wahl wahl--stil"><input type="radio" id="k-stil-laut" name="stil" value="laut" form="kontaktformular"><span class="wahl-muster wahl-muster--laut" aria-hidden="true"></span><span class="wahl-titel">Laut &amp; modern</span><span class="wahl-text">Große Grotesk, kräftiger Akzent, sichtbare Bewegung, wie Zwischenbild</span></label>
-            <label class="wahl wahl--stil"><input type="radio" id="k-stil-edel" name="stil" value="edel" form="kontaktformular"><span class="wahl-muster wahl-muster--edel" aria-hidden="true"></span><span class="wahl-titel">Dunkel &amp; edel</span><span class="wahl-text">Dunkler Grund, feine Linien, Licht auf dem Produkt, wie Lindgrund</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">2</span> Farbe</legend>
-          <div class="wahl-reihe wahl-reihe--farbe">
-            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-terrakotta" name="farbe" value="terrakotta" form="kontaktformular" checked><span class="farbfleck farbfleck--terrakotta" aria-hidden="true"></span><span class="wahl-titel">Terrakotta</span></label>
-            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-kobalt" name="farbe" value="kobalt" form="kontaktformular"><span class="farbfleck farbfleck--kobalt" aria-hidden="true"></span><span class="wahl-titel">Kobalt</span></label>
-            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-salbei" name="farbe" value="salbei" form="kontaktformular"><span class="farbfleck farbfleck--salbei" aria-hidden="true"></span><span class="wahl-titel">Salbei</span></label>
-            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-messing" name="farbe" value="messing" form="kontaktformular"><span class="farbfleck farbfleck--messing" aria-hidden="true"></span><span class="wahl-titel">Messing</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">3</span> Betrieb</legend>
-          <div class="wahl-reihe wahl-reihe--branche">
-            <label class="wahl wahl--branche"><input type="radio" id="k-branche-praxis" name="branche" value="praxis" form="kontaktformular" checked data-vorschlag="termin formular"><span class="wahl-titel">Praxis</span></label>
-            <label class="wahl wahl--branche"><input type="radio" id="k-branche-handwerk" name="branche" value="handwerk" form="kontaktformular" data-vorschlag="galerie formular"><span class="wahl-titel">Handwerk &amp; Werkstatt</span></label>
-            <label class="wahl wahl--branche"><input type="radio" id="k-branche-gastro" name="branche" value="gastro" form="kontaktformular" data-vorschlag="speisekarte galerie"><span class="wahl-titel">Restaurant &amp; Café</span></label>
-            <label class="wahl wahl--branche"><input type="radio" id="k-branche-studio" name="branche" value="studio" form="kontaktformular" data-vorschlag="galerie film"><span class="wahl-titel">Studio &amp; Dienstleistung</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">4</span> Bausteine</legend>
-          <div class="wahl-reihe wahl-reihe--bausteine">
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-termin" name="bausteine[]" value="termin" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Online-Termine</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-speisekarte" name="bausteine[]" value="speisekarte" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Speisekarte mit Suche</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-galerie" name="bausteine[]" value="galerie" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Galerie</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-formular" name="bausteine[]" value="formular" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Anfrageformular</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-zahlung" name="bausteine[]" value="zahlung" form="kontaktformular" data-sicher="hoch"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Zahlung über Stripe</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-film" name="bausteine[]" value="film" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Film im ersten Bildschirm</span></label>
-            <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-dreid" name="bausteine[]" value="dreid" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">3D-Objekt</span></label>
-          </div>
-          <p class="feld-hinweis nur-js">Zum Betrieb passende Bausteine sind vorgeschlagen und lassen sich abwählen.</p>
-        </fieldset>
-        <fieldset class="schritt-feld">
-          <legend><span class="feld-nr">5</span> Sicherheit</legend>
-          <div class="wahl-reihe wahl-reihe--sicher">
-            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-standard" name="sicherheit" value="standard" form="kontaktformular" checked><span class="wahl-titel">Standard</span><span class="wahl-text">HTTPS, strenge Sicherheits-Header, keine fremden Skripte, kein Tracking, wöchentliche Prüfung. Immer dabei.</span></label>
-            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-erhoeht" name="sicherheit" value="erhoeht" form="kontaktformular"><span class="wahl-titel">Erhöht</span><span class="wahl-text">Dazu Spam-Schutz an Formularen, Überwachung der Erreichbarkeit und Sicherungen.</span></label>
-            <label class="wahl wahl--sicherheit"><input type="radio" id="k-sicherheit-hoch" name="sicherheit" value="hoch" form="kontaktformular"><span class="wahl-titel">Hoch</span><span class="wahl-text">Dazu abgesicherte Zahlungen und Logins, geprüfte Webhooks und eine monatliche Tiefenprüfung.</span></label>
-          </div>
-          <p class="feld-hinweis konfig-regel" hidden>Mit Zahlung ist mindestens Stufe „Hoch“ nötig. Ich habe sie für Sie gewählt.</p>
-        </fieldset>
+    <div class="generator">
+      <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
+        <button class="gen-tab" type="button" role="tab" id="gt-1" aria-controls="gs-1" aria-selected="true"><span class="gen-tab-nr">1</span><span class="gen-tab-name">Business</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-2" aria-controls="gs-2" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">2</span><span class="gen-tab-name">Farbe</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-3" aria-controls="gs-3" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">3</span><span class="gen-tab-name">Schrift</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-4" aria-controls="gs-4" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">4</span><span class="gen-tab-name">Sicherheit</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-5" aria-controls="gs-5" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">5</span><span class="gen-tab-name">Gestaltung</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-6" aria-controls="gs-6" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">6</span><span class="gen-tab-name">Umfang</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-7" aria-controls="gs-7" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">7</span><span class="gen-tab-name">Bewegung</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-8" aria-controls="gs-8" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">8</span><span class="gen-tab-name">Inhalte</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-9" aria-controls="gs-9" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">9</span><span class="gen-tab-name">Betreuung</span></button>
+        <button class="gen-tab" type="button" role="tab" id="gt-10" aria-controls="gs-10" aria-selected="false" tabindex="-1"><span class="gen-tab-nr">10</span><span class="gen-tab-name">Funktionen</span></button>
       </div>
       <div class="konfig-vorschau" aria-hidden="true">
         <div class="vorschau-geraet">
           <div class="vorschau-seite">
-            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="nach-branche nach-branche--praxis">Praxis am Markt</span><span class="nach-branche nach-branche--handwerk">Werkstatt Berger</span><span class="nach-branche nach-branche--gastro">Café Lindenhof</span><span class="nach-branche nach-branche--studio">Studio Nord</span></span><span class="vorschau-menue"></span></p>
+            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="vorschau-zeichen"></span><span class="nach-branche nach-branche--praxis">Praxis am Markt</span><span class="nach-branche nach-branche--handwerk">Werkstatt Berger</span><span class="nach-branche nach-branche--gastro">Café Lindenhof</span><span class="nach-branche nach-branche--studio">Studio Nord</span></span><span class="vorschau-nav"><i></i><i></i><i></i><i></i><i></i></span></p>
             <p class="vorschau-ueber">Muster · <span class="nach-branche nach-branche--praxis">Praxis</span><span class="nach-branche nach-branche--handwerk">Handwerk &amp; Werkstatt</span><span class="nach-branche nach-branche--gastro">Restaurant &amp; Café</span><span class="nach-branche nach-branche--studio">Studio &amp; Dienstleistung</span></p>
             <p class="vorschau-titel"><span class="nach-branche nach-branche--praxis">Termine, die zu Ihrem Alltag passen.</span><span class="nach-branche nach-branche--handwerk">Handarbeit, die man sehen kann.</span><span class="nach-branche nach-branche--gastro">Heute frisch auf der Karte.</span><span class="nach-branche nach-branche--studio">Ideen, die sich bewegen.</span></p>
+            <p class="vorschau-bild"><span class="vorschau-ring"></span></p>
             <p class="vorschau-zeilen"><span></span><span></span><span></span></p>
             <p class="vorschau-knopf">Anfragen</p>
             <p class="vorschau-bausteine"><span class="vb vb--termin">Online-Termine</span><span class="vb vb--speisekarte">Speisekarte mit Suche</span><span class="vb vb--galerie">Galerie</span><span class="vb vb--formular">Anfrageformular</span><span class="vb vb--zahlung">Zahlung über Stripe</span><span class="vb vb--film">Film im ersten Bildschirm</span><span class="vb vb--dreid">3D-Objekt</span></p>
+            <p class="vorschau-siegel"><span class="siegel siegel--schutz">Schutz <b>2</b>/5</span><span class="siegel siegel--betreuung">Betreuung <b>2</b>/5</span></p>
           </div>
         </div>
+        <div class="einstufung nur-js">
+          <p class="einstufung-kopf"><span>Ihre Einstufung</span><span class="einstufung-summe"></span></p>
+          <p class="einstufung-reihe" data-stufe="sicherheit" data-wert="2"><span>Sicherheit</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+          <p class="einstufung-reihe" data-stufe="design" data-wert="3"><span>Gestaltung</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+          <p class="einstufung-reihe" data-stufe="umfang" data-wert="2"><span>Umfang</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+          <p class="einstufung-reihe" data-stufe="bewegung" data-wert="2"><span>Bewegung</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+          <p class="einstufung-reihe" data-stufe="inhalte" data-wert="2"><span>Texte und Bilder</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+          <p class="einstufung-reihe" data-stufe="betreuung" data-wert="2"><span>Betreuung</span><span class="punkte"><i></i><i></i><i></i><i></i><i></i></span></p>
+        </div>
+      </div>
+      <div class="gen-bereich" data-pruefen="Inhalt der Stufen 1–5 je Bereich ist ein Entwurf – Elias legt fest, was jede Stufe enthält (wissen/preismodell/KONFIGURATOR.md)">
+        <div class="gen-schritte">
+          <fieldset class="schritt-feld" id="gs-1">
+            <legend><span class="feld-nr">1</span> Ihr Business</legend>
+            <div class="wahl-reihe wahl-reihe--branche">
+              <label class="wahl wahl--branche"><input type="radio" id="k-branche-praxis" name="branche" value="praxis" form="kontaktformular" checked data-vorschlag="termin formular"><span class="wahl-titel">Praxis</span></label>
+              <label class="wahl wahl--branche"><input type="radio" id="k-branche-handwerk" name="branche" value="handwerk" form="kontaktformular" data-vorschlag="galerie formular"><span class="wahl-titel">Handwerk &amp; Werkstatt</span></label>
+              <label class="wahl wahl--branche"><input type="radio" id="k-branche-gastro" name="branche" value="gastro" form="kontaktformular" data-vorschlag="speisekarte galerie"><span class="wahl-titel">Restaurant &amp; Café</span></label>
+              <label class="wahl wahl--branche"><input type="radio" id="k-branche-studio" name="branche" value="studio" form="kontaktformular" data-vorschlag="galerie film"><span class="wahl-titel">Studio &amp; Dienstleistung</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="schritt-feld" id="gs-2">
+            <legend><span class="feld-nr">2</span> Farbe</legend>
+            <div class="wahl-reihe wahl-reihe--farbe">
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-terrakotta" name="farbe" value="terrakotta" form="kontaktformular" checked><span class="farbfleck farbfleck--terrakotta" aria-hidden="true"></span><span class="wahl-titel">Terrakotta</span></label>
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-kobalt" name="farbe" value="kobalt" form="kontaktformular"><span class="farbfleck farbfleck--kobalt" aria-hidden="true"></span><span class="wahl-titel">Kobalt</span></label>
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-salbei" name="farbe" value="salbei" form="kontaktformular"><span class="farbfleck farbfleck--salbei" aria-hidden="true"></span><span class="wahl-titel">Salbei</span></label>
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-messing" name="farbe" value="messing" form="kontaktformular"><span class="farbfleck farbfleck--messing" aria-hidden="true"></span><span class="wahl-titel">Messing</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="schritt-feld" id="gs-3">
+            <legend><span class="feld-nr">3</span> Schrift und Stil</legend>
+            <div class="wahl-reihe wahl-reihe--stil">
+              <label class="wahl wahl--stil"><input type="radio" id="k-stil-hell" name="stil" value="hell" form="kontaktformular" checked><span class="schriftprobe schriftprobe--hell" aria-hidden="true">Aa</span><span class="wahl-titel">Klassisch</span><span class="wahl-text">Serifenschrift, viel Luft, ruhig, wie Lotlinie</span></label>
+              <label class="wahl wahl--stil"><input type="radio" id="k-stil-laut" name="stil" value="laut" form="kontaktformular"><span class="schriftprobe schriftprobe--laut" aria-hidden="true">Aa</span><span class="wahl-titel">Modern</span><span class="wahl-text">Kräftige Grotesk, großer Auftritt, wie Zwischenbild</span></label>
+              <label class="wahl wahl--stil"><input type="radio" id="k-stil-edel" name="stil" value="edel" form="kontaktformular"><span class="schriftprobe schriftprobe--edel" aria-hidden="true">AA</span><span class="wahl-titel">Edel</span><span class="wahl-text">Feine Versalien, dunkler Grund, wie Lindgrund</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-4">
+            <legend><span class="feld-nr">4</span> Sicherheit</legend>
+            <p class="stufe-frage">Wie gut soll Ihre Seite geschützt sein?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-sicherheit">Sicherheit, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-sicherheit" name="stufe_sicherheit" min="1" max="5" step="1" value="2" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Grundschutz</strong> HTTPS, strenge Sicherheits-Header, keine fremden Skripte, kein Tracking.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Geprüft</strong> Dazu wöchentliche automatische Prüfung und Spam-Schutz an Formularen.</li>
+              <li><span class="stufe-nr">Stufe 3</span> <strong>Überwacht</strong> Dazu Überwachung der Erreichbarkeit und regelmäßige Sicherungen.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Abgesichert</strong> Dazu abgesicherte Zahlungen und Logins mit geprüften Webhooks.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Höchste Stufe</strong> Dazu eine monatliche Tiefenprüfung mit Sicherheitsbericht.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-5">
+            <legend><span class="feld-nr">5</span> Gestaltung</legend>
+            <p class="stufe-frage">Wie eigen soll Ihre Seite aussehen?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-design">Gestaltung, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-design" name="stufe_design" min="1" max="5" step="1" value="3" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Vorlage</strong> Eine bewährte Vorlage in Ihren Farben.</li>
+              <li><span class="stufe-nr">Stufe 2</span> <strong>Angepasst</strong> Die Vorlage mit Ihrer Schrift, Ihren Bildern und einer eigenen Startseite.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 3</span> <strong>Eigenes Design</strong> Jede Seite eigens für Ihren Betrieb entworfen.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Eigenes Design plus</strong> Dazu eigene Grafiken, Symbole und liebevolle Details.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Markenauftritt</strong> Alles aus einem Guss, mit festen Gestaltungsregeln für Ihre Marke.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-6">
+            <legend><span class="feld-nr">6</span> Umfang</legend>
+            <p class="stufe-frage">Wie viele Seiten braucht Ihr Auftritt?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-umfang">Umfang, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-umfang" name="stufe_umfang" min="1" max="5" step="1" value="2" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Eine Seite</strong> Alles auf einer Seite: Angebot, Über uns, Kontakt.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Bis 3 Seiten</strong> Startseite und zwei Unterseiten, etwa Leistungen und Kontakt.</li>
+              <li><span class="stufe-nr">Stufe 3</span> <strong>Bis 5 Seiten</strong> Eigene Seiten für Leistungen, Team, Galerie oder Karte.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Bis 8 Seiten</strong> Ein ausführlicher Auftritt mit mehreren Bereichen.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Mehr als 8 Seiten</strong> Ein großer Auftritt, der Umfang wird im Gespräch festgelegt.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-7">
+            <legend><span class="feld-nr">7</span> Bewegung</legend>
+            <p class="stufe-frage">Wie viel Bewegung darf sein?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-bewegung">Bewegung, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-bewegung" name="stufe_bewegung" min="1" max="5" step="1" value="2" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Ruhig</strong> Keine Animationen, nur klare Seiten.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Dezent</strong> Inhalte blenden sanft ein.</li>
+              <li><span class="stufe-nr">Stufe 3</span> <strong>Lebendig</strong> Dazu Übergänge und Reaktionen beim Zeigen und Tippen.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Film</strong> Dazu ein kurzer Film im ersten Bildschirm.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Kino</strong> Ein Film, der beim Scrollen läuft, oder ein 3D-Objekt.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-8">
+            <legend><span class="feld-nr">8</span> Texte und Bilder</legend>
+            <p class="stufe-frage">Wer liefert Texte und Bilder?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-inhalte">Texte und Bilder, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-inhalte" name="stufe_inhalte" min="1" max="5" step="1" value="2" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Alles von Ihnen</strong> Sie liefern Texte und Fotos fertig.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Geglättet</strong> Ihre Texte werden überarbeitet, Ihre Fotos bearbeitet.</li>
+              <li><span class="stufe-nr">Stufe 3</span> <strong>Geschrieben</strong> Die Texte werden nach einem Gespräch für Sie geschrieben.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Mit Bildern</strong> Dazu passende Bilder und Grafiken, KI-Bilder sichtbar gekennzeichnet.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Komplett</strong> Dazu ein Film oder Bilder eigens für Ihre Seite.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld schritt-feld--stufe" id="gs-9">
+            <legend><span class="feld-nr">9</span> Betreuung</legend>
+            <p class="stufe-frage">Wie viel Betreuung nach dem Start?</p>
+            <div class="regler">
+              <label class="unsichtbar" for="k-stufe-betreuung">Betreuung, Stufe 1 bis 5</label>
+              <input class="regler-feld" type="range" id="k-stufe-betreuung" name="stufe_betreuung" min="1" max="5" step="1" value="2" form="kontaktformular">
+              <span class="regler-skala" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span>
+            </div>
+            <ol class="stufen-liste">
+              <li><span class="stufe-nr">Stufe 1</span> <strong>Übergabe</strong> Die fertige Seite gehört Ihnen, danach pflegen Sie sie selbst.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Sicher</strong> Updates und eine wöchentliche Prüfung.</li>
+              <li><span class="stufe-nr">Stufe 3</span> <strong>Mit Bericht</strong> Dazu jeden Monat ein Bericht über Tempo und Sicherheit.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Mit Änderungen</strong> Dazu kleine Änderungen jeden Monat inklusive.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Vorrang</strong> Dazu schnelle Antwort und laufende Weiterentwicklung.</li>
+            </ol>
+          </fieldset>
+          <fieldset class="schritt-feld" id="gs-10">
+            <legend><span class="feld-nr">10</span> Funktionen</legend>
+            <div class="wahl-reihe wahl-reihe--bausteine">
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-termin" name="bausteine[]" value="termin" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Online-Termine</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-speisekarte" name="bausteine[]" value="speisekarte" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Speisekarte mit Suche</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-galerie" name="bausteine[]" value="galerie" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Galerie</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-formular" name="bausteine[]" value="formular" form="kontaktformular" checked><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Anfrageformular</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-zahlung" name="bausteine[]" value="zahlung" form="kontaktformular" data-sicher="4"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Zahlung über Stripe</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-film" name="bausteine[]" value="film" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">Film im ersten Bildschirm</span></label>
+              <label class="wahl wahl--bausteine"><input type="checkbox" id="k-bausteine-dreid" name="bausteine[]" value="dreid" form="kontaktformular"><span class="haken" aria-hidden="true"></span><span class="wahl-titel">3D-Objekt</span></label>
+            </div>
+            <p class="feld-hinweis nur-js">Zu Ihrem Business passende Funktionen sind vorgeschlagen und lassen sich abwählen.</p>
+            <p class="feld-hinweis konfig-regel" hidden>Zahlungen brauchen mindestens Sicherheitsstufe 4, der Regler geht deshalb nicht darunter.</p>
+          </fieldset>
+        </div>
+        <div class="gen-steuer nur-js">
+          <button class="knopf zweit gen-zurueck" type="button">Zurück</button>
+          <p class="gen-stand"><span class="gen-stand-text">1 von 10</span><span class="gen-balken"><span></span></span></p>
+          <button class="knopf gen-weiter" type="button">Weiter <span class="pfeil" aria-hidden="true">→</span></button>
+        </div>
+        <label class="ganz-schalter nur-js"><input type="checkbox" id="k-ganz"><span class="ganz-knopf" aria-hidden="true"></span><span>Farbe und Schrift auf diese ganze Seite anwenden</span></label>
       </div>
     </div>
     <div class="konfig-fuss">
       <p class="konfig-zusammen nur-js" aria-live="polite"></p>
-      <p class="konfig-preis" data-pruefen="Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)">Preis: nach dem ersten Gespräch, mit jeder Position und ihrem Grund</p>
-      <a class="knopf" href="#kontakt">Mit dieser Auswahl anfragen <span class="pfeil" aria-hidden="true">→</span></a>
+      <p class="konfig-preis" data-pruefen="Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)">Preis: nach dem ersten Gespräch, jede Position mit ihrer Stufe und ihrem Grund</p>
+      <a class="knopf" href="#kontakt">Mit dieser Einstufung anfragen <span class="pfeil" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>

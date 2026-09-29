@@ -15,7 +15,8 @@ for (const w of [320, 360, 390, 768, 1440, 1920]) {
   const c = await b.newContext({ viewport: { width: w, height: 900 }, isMobile: w < 700, hasTouch: w < 700 });
   const p = await c.newPage(); const fehler = []; p.on('pageerror', e => fehler.push(e.message)); p.on('console', m => m.type() === 'error' && fehler.push(m.text()));
   for (const s of seiten) {
-    await p.goto(basis + s, { waitUntil: 'networkidle' });
+    // networkidle kann bei Seiten mit Scroll-Film (Blob-Video lädt fortlaufend) nie eintreten: dann nach 5 s weiter
+    await p.goto(basis + s, { waitUntil: 'load' }); await p.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {});
     const sw = await p.evaluate(() => document.documentElement.scrollWidth);
     if (sw > w) melde(`${s} @${w}px: Seite ${sw}px breit (Überlauf)`);
     if (w === 390) {
