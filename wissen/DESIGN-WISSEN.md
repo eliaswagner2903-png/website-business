@@ -158,3 +158,27 @@ blinkende Dinge.
   Notizzettel mit Klebestreifen), jede Spalte einer Zeitleiste mit Bild. Hat der Nutzer sofort als „unkonstant“ bemerkt.
 - [C] **Hervorhebung durch Licht:** `radial-gradient(ellipse 60% 55% at 50% 62%, licht .75, licht .28 55%, transparent 78%)`
   hinter dem Wort, `box-decoration-break: clone` für Umbrüche – passt zu Leuchten-Motiven, ersetzt Fett/Kursiv.
+
+## 9. Aus Referenz: Video Metics Media „$10K Websites“ (A-045, 2026-09-29)
+
+Auswertung: `wissen/referenzen/ausgewertet/2026-09-29-video-metics-media-10k-websites.md`, Technik:
+`wissen/lehren/scroll-film.md`.
+
+- **Ein Signatur-Effekt pro Seite**, dazu nur begründete Einblendungen. Vor jeder Animation fragen: Was teilt sie
+  mit (Rangfolge, Geschichte, Rückmeldung, Zustand)? „Sah cool aus“ fliegt raus.
+- **Hero-Disziplin:** höchstens 4 Textelemente im ersten Bildschirm (Überzeile *oder* Marke, Überschrift ≤ 2 Zeilen,
+  Unterzeile ≤ 20 Wörter, Knopfreihe mit 1 Haupt- + höchstens 1 Nebenknopf). Kein Siegelstreifen, keine
+  Stichpunkte, keine Preise im Hero. Der Hero braucht ein **echtes** Bild oder einen Film, kein Verlaufsfleck.
+- **Scroll-Film (Kino-Hero):** ein Produktfilm ohne Schnitt, den die Scrollposition abspielt. Ausnahme zur Ablehnung
+  oben (Parallax/Scrollgeschwindigkeit): hängt an der Position, eine Ebene, dunkle ruhige Bühne. Bis Elias
+  entscheidet nur in Showcases. Drehbuch-Regeln (ohne Schnitt, Held mittig, dunkler Grund, Anfang ≠ Ende, keine
+  Schrift im Film) stehen in der Lehre.
+- **Storyboard vor Video:** erst ein Bild mit 6 Feldern derselben Bewegung, dann erst Video-Credits.
+- **KI-Erkennungsmerkmale vermeiden** (daran erkennen Kunden „KI-Seiten“, gesammelt vom Higgsfield-Skill):
+  gleichförmige Dreierreihen gleicher Karten; jede Abschnittsform mehrfach; auf jedem Abschnitt eine Überzeile
+  (höchstens 1 je 3 Abschnitte); nachgebaute „Produkt-Oberflächen“ aus Divs; Füllwörter („nahtlos“, „auf das
+  nächste Level“); erfundene Erfolgszahlen („92 % schneller“); „Jetzt scrollen“-Hinweise; Nummerierte Abschnitte
+  („001 · Leistungen“); Standardpaletten Fast-Schwarz + Orange/Neon-Cyan/Lila-Glühen. Ein Auftrag, drei
+  verschiedene Knopftexte für dieselbe Absicht („Kontakt“, „Schreib uns“, „Los geht's“) → einen wählen.
+- **Nicht übernommen:** Deren Regel „Serifenschrift nur im Ausnahmefall“ widerspricht unserer erprobten edlen
+  Richtung (Abschnitt 1.4) – bei uns bleibt Serif für edle Marken erlaubt, aber mit Begründung im Brief.
