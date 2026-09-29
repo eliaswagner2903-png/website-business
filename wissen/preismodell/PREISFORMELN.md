@@ -4,6 +4,7 @@
 > Nichts aus den Notizen wurde verworfen; alles hier ist ein **Vorschlag zum Prüfen**.
 > **Alle Euro-Beträge sind Platzhalter ohne Marktbasis.** Sie zeigen nur, wie die Formeln rechnen. Die Beziehungen
 > (Gewichte, Punkte, Faktoren) sind der eigentliche Inhalt.
+> Stand der Werte laut Elias (14:45): **vorerst Platzhalter**, werden noch angepasst. Ablauf des Konfigurators: `KONFIGURATOR.md`.
 > Rechnen: `node wissen/preismodell/tabellen.mjs` (alle Tabellen unten), `rechner.html` im Browser (Gewichte schieben).
 
 ## 0. Grundsatz: Jeder Preis hat einen Grund
@@ -67,6 +68,8 @@ wert?“. Sieger bekommt 1 Punkt, Gleichstand je ½. Punkte je Kriterium ÷ Gesa
 | | Bildmaterial beschaffen/aufbereiten | 4 | 0 |
 | Technik/Recht | weitere Sprache | 8 | 1 |
 | | Einwilligung (Cookies, Karten, Tracking) | 4 | 1 |
+| | Sicherheitsstufe erhöht (Spam-Schutz, Überwachung, Sicherungen) | 4 | 2 |
+| | Sicherheitsstufe hoch (Zahlung/Login, monatliche Tiefenprüfung) | 10 | 5 |
 
 ## 2. BK – Bekanntheit Kunde
 

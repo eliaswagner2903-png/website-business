@@ -52,6 +52,8 @@ export const BAUSTEINE = {
   texte: { gruppe: 'inhalte', name: 'Texte schreiben je Seite', punkte: 2, pflege: 0, h: 0.2 },
   fotos: { gruppe: 'inhalte', name: 'Bildmaterial beschaffen/aufbereiten', punkte: 4, pflege: 0, h: 0.5 },
   sprache: { gruppe: 'technik', name: 'weitere Sprache', punkte: 8, pflege: 1, h: 1 },
+  sicherheitErhoeht: { gruppe: 'technik', name: 'Sicherheitsstufe erhöht (Spam-Schutz, Überwachung, Sicherungen)', punkte: 4, pflege: 2, h: 0.5 },
+  sicherheitHoch: { gruppe: 'technik', name: 'Sicherheitsstufe hoch (Zahlung/Login, monatliche Tiefenprüfung)', punkte: 10, pflege: 5, h: 1.5 },
   cookies: { gruppe: 'technik', name: 'Einwilligung (Cookies, Karten, Tracking)', punkte: 4, pflege: 1, h: 0.5 },
 };
 
