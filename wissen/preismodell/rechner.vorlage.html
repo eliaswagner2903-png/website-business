@@ -1,0 +1,166 @@
+<title>OQ Preisformel-Rechner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;750&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: Kalkulationsblatt – links die Stellschrauben (Gewichte), rechts die Wirkung auf fünf Musterseiten. */
+:root {
+  --papier: #f6f7f9; --blatt: #ffffff; --tinte: #1b2433; --leise: #5b6576; --linie: #dde1e8; --akzent: #2f5bd3;
+  --g1: #2f5bd3; --g2: #b0487a; --g3: #d08a1c; --g4: #2a9d8f; --g5: #7a64c8; --g6: #8a94a6;
+  --warn: #b3261e;
+  --f-text: "Libre Franklin", system-ui, sans-serif; --f-zahl: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --papier: #11151c; --blatt: #181e28; --tinte: #e6e9ef; --leise: #9aa3b2; --linie: #2a3240; --akzent: #7d9bff;
+  --g1: #7d9bff; --g2: #e07aa8; --g3: #e8a948; --g4: #4cc2b3; --g5: #a592f0; --g6: #9aa3b2; --warn: #ff8a80; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --papier: #11151c; --blatt: #181e28; --tinte: #e6e9ef; --leise: #9aa3b2; --linie: #2a3240; --akzent: #7d9bff;
+  --g1: #7d9bff; --g2: #e07aa8; --g3: #e8a948; --g4: #4cc2b3; --g5: #a592f0; --g6: #9aa3b2; --warn: #ff8a80; color-scheme: dark }
+body { background: var(--papier); color: var(--tinte); font: 15px/1.5 var(--f-text); }
+.rahmen { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 20px; }
+h1 { font-size: 1.6rem; font-weight: 750; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--leise); margin: 0 0 10px; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.hinweis { color: var(--leise); font-size: .88rem; }
+.hinweis b { color: var(--warn); font-weight: 600; }
+.raster { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .raster { grid-template-columns: minmax(0, 1fr); } }
+.blatt { background: var(--blatt); border: 1px solid var(--linie); border-radius: 10px; padding: 18px; min-width: 0; }
+.regler { display: grid; gap: 12px; }
+.regler label { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; font-size: .92rem; }
+.regler input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--akzent); }
+.punkt { width: 12px; height: 12px; border-radius: 3px; }
+.zahl { font-family: var(--f-zahl); font-variant-numeric: tabular-nums; }
+.summe { display: flex; justify-content: space-between; border-top: 1px solid var(--linie); padding-top: 10px; font-size: .9rem; }
+.anteilsbalken { display: flex; height: 14px; border-radius: 4px; overflow: hidden; margin-top: 4px; }
+.trenn { height: 1px; background: var(--linie); margin: 6px 0; }
+button { font: inherit; font-size: .88rem; border: 1px solid var(--linie); background: var(--papier); color: var(--tinte); border-radius: 6px; padding: 8px 12px; cursor: pointer; min-height: 40px; }
+button:hover { border-color: var(--akzent); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--akzent); outline-offset: 2px; }
+.tabelle { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--linie); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; white-space: normal; }
+th { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--leise); font-weight: 600; }
+td.haupt { font-weight: 600; color: var(--akzent); }
+.zusammensetzung { display: grid; gap: 14px; }
+.zeile { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr) 84px; gap: 12px; align-items: center; }
+@media (max-width: 560px) { .zeile { grid-template-columns: minmax(0, 1fr) 84px; } .zeile .spur { grid-column: 1 / -1; grid-row: 2; } }
+.spur { display: flex; height: 22px; background: var(--papier); border-radius: 4px; overflow: hidden; }
+.spur span { display: block; height: 100%; transition: width .25s ease; }
+@media (prefers-reduced-motion: reduce) { .spur span { transition: none; } }
+.legende { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .82rem; color: var(--leise); }
+.legende i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+</style>
+
+<div class="rahmen">
+  <header style="display:grid;gap:6px">
+    <h1>OQ Preisformel-Rechner</h1>
+    <p class="hinweis">Schieben Sie die Gewichte und sehen Sie, wie sich der Seitenpreis Sp der fünf Musterseiten verschiebt.
+      Konzept A = Punkte-Stückliste, B = gewichtete Bewertung, C = Aufwand × Wert (Untergrenze).
+      <b>Alle Euro-Beträge sind Platzhalter ohne Marktbasis.</b> Formeln: <span class="zahl">wissen/preismodell/PREISFORMELN.md</span>.</p>
+  </header>
+
+  <div class="raster">
+    <section class="blatt" aria-labelledby="h-gewichte">
+      <h2 id="h-gewichte">Wertigkeit der Kriterien</h2>
+      <div class="regler" id="regler"></div>
+      <div class="summe"><span>Summe (wird auf 100 % umgerechnet)</span><span class="zahl" id="summe"></span></div>
+      <div class="anteilsbalken" id="anteil" aria-hidden="true"></div>
+      <div class="trenn"></div>
+      <h2 style="margin-top:8px">Stellschrauben</h2>
+      <div class="regler" id="schrauben"></div>
+      <div style="margin-top:14px"><button type="button" id="zurueck">Vorschlag 30/20/20/15/10/5 wiederherstellen</button></div>
+    </section>
+
+    <div style="display:grid;gap:20px;min-width:0">
+      <section class="blatt" aria-labelledby="h-preise">
+        <h2 id="h-preise">Sp und AM je Musterseite</h2>
+        <div class="tabelle"><table>
+          <thead><tr><th>Musterseite</th><th>BK</th><th>A: Sp</th><th>B: Sp</th><th>C: Untergrenze</th><th>AM</th><th>Sp ÷ AM</th></tr></thead>
+          <tbody id="preise"></tbody>
+        </table></div>
+      </section>
+      <section class="blatt" aria-labelledby="h-zus">
+        <h2 id="h-zus">Woraus sich Sp (Konzept A) zusammensetzt</h2>
+        <div class="zusammensetzung" id="zus"></div>
+        <div class="legende" id="legende" style="margin-top:14px"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+/*MODELL*/
+
+const FARBEN = ['--g1', '--g2', '--g3', '--g4', '--g5', '--g6'];
+const gk = Object.keys(GRUPPEN);
+const gewichte = Object.fromEntries(gk.map((k) => [k, GRUPPEN[k].gewicht]));
+const e = { ...EINSTELLUNGEN };
+const eur = (x) => Math.round(x).toLocaleString('de-DE') + ' €';
+const z1 = (x) => x.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+function normiert() {
+  const s = gk.reduce((a, k) => a + gewichte[k], 0) || 1;
+  return Object.fromEntries(gk.map((k) => [k, { ...GRUPPEN[k], gewicht: (gewichte[k] / s) * 100 }]));
+}
+
+function reglerBauen() {
+  const box = document.getElementById('regler');
+  box.innerHTML = gk.map((k, i) => `
+    <label for="w-${k}"><span class="punkt" style="background:var(${FARBEN[i]})"></span>${GRUPPEN[k].name}
+      <span class="zahl" id="wv-${k}"></span>
+      <input type="range" id="w-${k}" min="0" max="50" step="1" value="${gewichte[k]}"></label>`).join('');
+  gk.forEach((k) => document.getElementById('w-' + k).addEventListener('input', (ev) => { gewichte[k] = +ev.target.value; zeichnen(); }));
+  const schrauben = [
+    ['punktwert', 'Punktwert (A)', 10, 80, 1, (v) => v + ' €'],
+    ['bkHebel', 'BK-Hebel (±)', 0, 0.4, 0.01, (v) => Math.round(v * 100) + ' %'],
+    ['stundensatz', 'Stundensatz (C, AM)', 30, 150, 5, (v) => v + ' €'],
+  ];
+  document.getElementById('schrauben').innerHTML = schrauben.map(([k, n, min, max, st]) => `
+    <label for="s-${k}"><span></span>${n}<span class="zahl" id="sv-${k}"></span>
+      <input type="range" id="s-${k}" min="${min}" max="${max}" step="${st}" value="${e[k]}"></label>`).join('');
+  schrauben.forEach(([k, , , , , f]) => {
+    const el = document.getElementById('s-' + k);
+    const zeige = () => { document.getElementById('sv-' + k).textContent = f(e[k]); };
+    el.addEventListener('input', () => { e[k] = +el.value; zeige(); zeichnen(); });
+    zeige();
+  });
+  document.getElementById('legende').innerHTML = gk.map((k, i) => `<span><i style="background:var(${FARBEN[i]})"></i>${GRUPPEN[k].name}</span>`).join('') +
+    '<span><i style="background:var(--linie)"></i>Grundpaket</span>';
+}
+
+function zeichnen() {
+  const g = normiert();
+  gk.forEach((k) => { document.getElementById('wv-' + k).textContent = Math.round(g[k].gewicht) + ' %'; });
+  document.getElementById('summe').textContent = gk.reduce((a, k) => a + gewichte[k], 0) + ' Punkte';
+  document.getElementById('anteil').innerHTML = gk.map((k, i) => `<span style="width:${g[k].gewicht}%;background:var(${FARBEN[i]})"></span>`).join('');
+
+  const zeilen = BEISPIELE.map((b) => {
+    const a = konzeptA(b, e, g), B = konzeptB(b, e, g), c = konzeptC(b, e), ab = abo(b, a.sp, e);
+    return { b, a, B, c, ab };
+  });
+  document.getElementById('preise').innerHTML = zeilen.map(({ b, a, B, c, ab }) => `
+    <tr><td>${b.name}</td><td class="zahl">${z1(bk(b.bk))}</td><td class="zahl haupt">${eur(a.sp)}</td><td class="zahl">${eur(B.sp)}</td>
+    <td class="zahl">${eur(c.sp)}</td><td class="zahl">${eur(ab.am)}</td><td class="zahl">${z1(ab.monateBisSp)}</td></tr>`).join('');
+
+  const max = Math.max(...zeilen.map((r) => r.a.sp));
+  document.getElementById('zus').innerHTML = zeilen.map(({ b, a }) => {
+    const pg = punkteJeGruppe(b.bausteine);
+    const f = a.sp / a.punkte; // € je gewichtetem Punkt inkl. BK
+    const grund = summe(b.bausteine, 'punkte') - Object.values(pg).reduce((x, y) => x + y, 0);
+    const teile = gk.map((k, i) => {
+      const euro = pg[k] * (g[k].gewicht / GRUPPEN[k].gewicht) * f;
+      return `<span title="${GRUPPEN[k].name}: ${eur(euro)}" style="width:${(euro / max) * 100}%;background:var(${FARBEN[i]})"></span>`;
+    }).join('');
+    return `<div class="zeile"><span>${b.name}</span>
+      <div class="spur" role="img" aria-label="Zusammensetzung ${b.name}"><span style="width:${(grund * f / max) * 100}%;background:var(--linie)"></span>${teile}</div>
+      <span class="zahl" style="text-align:right">${eur(a.sp)}</span></div>`;
+  }).join('');
+}
+
+document.getElementById('zurueck').addEventListener('click', () => {
+  gk.forEach((k) => { gewichte[k] = GRUPPEN[k].gewicht; document.getElementById('w-' + k).value = gewichte[k]; });
+  zeichnen();
+});
+reglerBauen();
+zeichnen();
+</script>
