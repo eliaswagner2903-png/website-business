@@ -94,3 +94,22 @@ Wichtigste Mängel (zusammengeführt, nach Wirkung):
 6. Unterseiten-Rhythmus: Downloads 5 + 1, 404 leer, sechsmal gleiches Zickzack.
 7. Handy: „Werkzeug finden“ von der Schnellleiste angeschnitten, Shop-Suche nur im Menü.
 8. Vertrauensbelege nur auf /ueber-uns; „Registrieren“ fehlt.
+
+## Runde 5 (2026-09-30) – 75,75 / 100 → bestanden, Schleife beendet
+
+| Block | Punkte | Höchstwert |
+|---|---|---|
+| A Gestaltung und Wirkung | 25 | 35 |
+| B Inhalt und Nutzerführung | 17 | 25 |
+| C Technik, Barrierefreiheit, Auffindbarkeit | 21 | 25 |
+| D Fortschritt (Mittel aus 13 und 12,5) | 12,75 | 15 |
+| **Summe** | **75,75** | **100** |
+
+Einzelnoten: A1 4 · A2 3,5 · A3 3,5 · A4 3 · A5 3,5 · A6 3,5 · A7 4 · B1 3,5 · B2 3 · B3 4 · B4 3 · B5 3,5 · C1 4,5 · C2 4,5 · C3 4 · C4 3,5 · C5 4,5 · D1 4,5/4,5 · D2 4/4 · D3 4,5/4.
+
+Offene Mängel (für eine spätere Runde):
+1. Startseite auf dem Handy lang, Serienkarten mit vier Links gleichförmig; leere Flächen, ungleiche Abstände.
+2. Bildsprache einheitlich blau und KI-generisch; kein Bild vom Standort Göppingen.
+3. Finder kennt nur 6 Serien, keine ISO-Werkstoffgruppen; Finder-Auswahl und Branche gehen nicht ans Formular.
+4. Dünne Texte (WSP, Reibahlen, Gewindelehren), Kürzel ohne Erklärung, Händler ohne Ort, Kennzahlen nicht datiert.
+5. Technik: Rate-Limit vor Launch (Cloudflare-Regel), Routing Pages/Shop dokumentieren und `_redirects` ohne Schrägstrich ergänzen, CSS-Quellen und Jury-Kommentare aus der Auslieferung, Kacheln auf Industrielösungen ohne `fetchpriority`.
