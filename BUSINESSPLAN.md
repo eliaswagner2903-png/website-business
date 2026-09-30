@@ -1,6 +1,8 @@
 # Business-Plan OQ
 
-> Stand 2026-09-29, Auftrag A-043, Statistik ergänzt in A-044. Von Grund auf neu geschrieben; ersetzt die „Lagekarte“ vom 2026-09-28.
+> Stand **2026-09-30**, Auftrag A-055 (fortgeschrieben aus A-043/A-044 vom 2026-09-29). Neu seit gestern: Qualitätssystem (A-051),
+> Belastungsprobe OSG-Neubau mit Jury (A-053/A-054), überarbeitete OQ-Seite (A-047–A-050). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
+> `ops/dokumentation/STAND-2026-09-30.pdf`.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
 > Trainingsplan, Generalprobe, Portfolio-Seite (PR #26, #29), `wartung/PAKETE.md`, `recht/LEITFADEN.md`.
 > **Alle Euro-Beträge sind Platzhalter**, bis Elias sie festlegt. Was von mir (Stahl) vorgeschlagen und nicht von
@@ -15,13 +17,16 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 
 | Kennzahl | Stand |
 |---|---|
-| Aufbauzeit gesamt | rund 4 Tage (25.09. abends bis 29.09.), 11 Arbeitssitzungen, über 200 Commits in 5 Repos |
-| Gebaute Seiten | 10: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio |
+| Aufbauzeit gesamt | rund 5 Tage (25.09. abends bis 30.09.), 16 Arbeitssitzungen, 224 Commits in 5 Repos, 39 PRs im Business-Repo |
+| Gebaute Seiten | 11: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio, OSG-Neubau (8 Seiten, als fiktive Fassung NORVAK vorzeigbar) |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
 | Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
-| Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; im Brüder-Wettbewerb schon 99/100/100/100 |
-| Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf (in main); Euro-Werte offen |
+| Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; OSG-Neubau: SEO 83–85 → 100, Performance 40–44 → 98–100, Barrierefreiheit 64–73 → 100 |
+| Qualitätssystem | 125 Regeln in 11 Fachgebieten plus globalem Mindeststandard, 90 Primärquellen mit Prüfdatum; jeder Auftrag läuft Auftrag → Pflichtenheft → Bau → Abnahme |
+| Größte Probe | OSG-Neubau (Industrie, 8 Seiten) in rund 10 Stunden, fremde Jury in 5 Runden: 63,75 → 75,75 von 100 (Ziel 75) |
+| Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf; Spanne mit Platzhaltern von rund 2.000 € (Musterseite) bis rund 4.800 € (OSG) |
+| Higgsfield | 40,25 Credits verbraucht (Visualtest 7,50, Portfolio-Film 7,75, OSG 25,00), 29,5 übrig |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
 
 Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
@@ -68,6 +73,7 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
    |---|---|---|---|
    | Baukasten-Seite | Seite aus vorhandenen Bausteinen, eine Prüfrunde | unter 1 Stunde Bauzeit | URFA-Meistervariante 38 min, Portfolio 33 min |
    | Meisterseite | eigenes Design, neue Bausteine, Feinschliff bis „fast makellos“ | rund 1 Tag, etwa 9 Prüfrunden | Hairstyle by Ümit, Bruder C: 27.09. 02:33 bis 18:17 Uhr, 8 Jury-Runden, 54 → 56 von 60 Punkten |
+   | Firmen-Neubau | mehrseitige Firmenseite (Shop-Anbindung, Finder, Karriere), fremde Jury bis zur Schwelle | rund 10 Stunden, 5 Jury-Runden | OSG-Neubau 30.09. etwa 00:15 bis 10:00 Uhr, 63,75 → 75,75 von 100 |
 
    Beide Werte gelten erst dank der rund 4 Tage Vorarbeit. Neue Bausteine (z. B. das Friseur-Erlebnis) liegen bei
    der Meisterseite. Wartezeit entsteht sonst nur durch Inhalte des Kunden. Die Stufe fließt über Design-Punkte und
@@ -83,8 +89,8 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
 
 | Weg | Inhalt | Stand |
 |---|---|---|
-| **Eigene OQ-Seite** | fesselnder erster Bildschirm, Portfolio mit Stilbeispielen, Kontakt in drei Wegen: kostenloses Gespräch, Nachricht, Seite selbst zusammenstellen | Portfolio-Seite gebaut (`kunden/elias-studio`), Name/Kontakt/Preise als Platzhalter |
-| **Konfigurator mit Preisrechner** | Kunde baut seine Wunschseite und sieht den Preisrahmen | Ablauf und Formeln als Entwurf, Rechner als Prototyp |
+| **Eigene OQ-Seite** | fesselnder erster Bildschirm, Portfolio mit Stilbeispielen, Kontakt in drei Wegen: kostenloses Gespräch, Nachricht, Seite selbst zusammenstellen | überarbeitet (A-047–A-050): Kino-Einstieg mit KI-Film, Arbeiten im Gerät mit Links, Website-Generator mit Reglern 1–5; Name/Kontakt/Preise weiter Platzhalter, dunkle Welt auf Abruf |
+| **Konfigurator mit Preisrechner** | Kunde baut seine Wunschseite und sieht den Preisrahmen | als Website-Generator in der OQ-Seite (10 Reiter, Einstufung reist mit der Anfrage); Preisrahmen noch nicht angezeigt |
 | **Profit-Chain** | Empfehlung mit Abschluss → Gratismonate für den Empfehler (gedeckt aus dem Gewinn des Neukunden, höchstens 6) | Formel steht |
 | **Rabatt für Bewertung** | 5 % für eine Google-Bewertung | ⚠ vermutlich gegen Googles Richtlinien und das Wettbewerbsrecht; *(Vorschlag)* umwandeln in 5 % für eine **Referenzfreigabe** (Logo, Zitat, Vorschau auf der OQ-Seite) |
 | **Saisonpakete** | Aktionsseiten zu Halloween, Weihnachten usw. an Bestandskunden | Formel steht |
@@ -99,7 +105,7 @@ darf, sagt das Akquisebudget: höchstens 10 % des Kundenwerts (Sp-Marge + 36 Mon
 
 | Größe | Formel | Platzhalter |
 |---|---|---|
-| **Sp** Seitenpreis | Konzept A: Punkte je Baustein × Gewicht × Punktwert × f_BK; B als Gegenprobe; C (Aufwand) als Untergrenze | Punktwert 35 €; Musterseiten 1.960–2.420 € |
+| **Sp** Seitenpreis | Konzept A: Punkte je Baustein × Gewicht × Punktwert × f_BK; B als Gegenprobe; C (Aufwand) als Untergrenze | Punktwert 35 €; Musterseiten 1.960–2.420 €, Friseur-Idee 3.660 €, OSG-Neubau rund 4.800 € (A 5.740 / B 3.890 / C 2.010) |
 | Gewichte | Funktionen 30 · Design 20 · Visuals 20 · Umfang 15 · Inhalte 10 · Technik 5 | per Paarvergleich änderbar |
 | **BK** Bekanntheit | 0,35 Reichweite + 0,25 Google + 0,25 Netzwerk + 0,15 Presse; Wirkung höchstens ±15 % | – |
 | **AM** Abo | Fixkosten + Paketstunden × Stundensatz + Pflegepunkte × 3 € | Basis 45 €, Plus 95 €, Premium 225 € (Beispiele) |
@@ -117,16 +123,17 @@ Zusammensetzung. Beides bleibt nachträglich änderbar.
 2. **Angebot** aus der Formel, jede Zeile mit Grund; Elias bestätigt.
 3. **Vertrag und Anzahlung** (Werkvertrag für die Seite, eigener Betreuungsvertrag fürs Abo, AV-Vertrag).
 4. **Inhalte einsammeln:** Fakten, Fotos, Logo, Rechtstexte vom Kunden. Nichts wird erfunden.
-5. **Bau** mit `/kundenseite-bauen`, Prüfung mit `/pruefen` und `/sicherheit`, Vorschau für den Kunden.
-6. **Abnahme**, Restzahlung, Live-Schaltung auf Cloudflare Pages.
-7. **Betreuung:** wöchentlicher Check, monatlicher Bericht, Tiefenprüfung laut Paket, Saison- und Relaunch-Angebote.
+5. **Pflichtenheft** mit `/bestellung`: Aus den bestellten Leistungen werden die passenden Regeln des Qualitätssystems.
+6. **Bau** mit `/kundenseite-bauen`, Prüfung mit `/pruefen`, `/sicherheit` und bei großen Seiten einer Jury-Schleife, Vorschau für den Kunden.
+7. **Abnahme** mit `/abnahme` (Quality Gate, jede Regel mit Beleg), dann Kundenabnahme, Restzahlung, Live-Schaltung auf Cloudflare Pages.
+8. **Betreuung:** wöchentlicher Check, monatlicher Bericht, Tiefenprüfung laut Paket, Saison- und Relaunch-Angebote.
 
 ## 8. Was schon steht
 
 ### Der Weg bis hierher (Gesamtbilanz)
 
 Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
-(Stand 29.09.2026, 15 Uhr).
+(Stand 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
 
 | Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
 |---|---|---|---|---|
@@ -134,8 +141,9 @@ Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten u
 | Claude-Setup | 27.09. | 1 | 2 | Setup-Skript für jede Cloud-Sitzung, 5 Agents, Hooks (Secret-Schutz, Audit, Diff vor Push), MCPs |
 | Brüder-Wettbewerb (Hairstyle by Ümit) | 26.–28.09. | 3 | 54 | drei Websites parallel im Wettbewerb, 7 Skills, Prüfwerkzeuge (Lighthouse, Kopf-Check, Vorschau-Test), `FEHLER.md` und `DESIGN-WISSEN.md`; Lighthouse 99/100/100/100 |
 | Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
-| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 110 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
-| **Summe** | **rund 4 Tage** | **11** | **201** | **10 Seiten, 5 Repos, 3 Agenten-Teams** |
+| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
+| Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
+| **Summe** | **rund 5 Tage** | **16** | **224** | **11 Seiten, 5 Repos, 3 Agenten-Teams, 39 PRs im Business-Repo** |
 
 Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
 Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
@@ -155,6 +163,8 @@ Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konz
 | Betreuung | `wartung/check.mjs` wöchentlich per GitHub Action, Paketentwurf, Wartungsoffizier |
 | Preis | Formeln, Konfigurator-Ablauf, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
 | Recht | Leitfaden zu Gewerbe, Umsatzsteuer, Buchhaltung, Verträgen und Pflichten der Kundenseiten |
+| Qualitätssystem | `wissen/fachgebiete/` (SEO, Technical SEO, Local SEO, GEO, strukturierte Daten, CRO, Barrierefreiheit, Performance, Analytics, Sicherheit + GLOBAL), `wissen/quellen/`, Skills `/bestellung` und `/abnahme`, Werkzeuge mit 17 Tests (PR #37) |
+| Belastungsprobe | OSG-Neubau `kunden/osg-germany/` mit Jury-Protokoll, Preis-Einstufung, SEO/GEO-Vergleich; vorzeigbar nur als fiktive Marke NORVAK, weil OSG eine echte Firma ist (PR #38, #39) |
 
 ## 9. Kosten und Tragfähigkeit
 
@@ -196,14 +206,16 @@ Folgerungen:
 | Kunde liefert keine Inhalte | Anzahlung, klare Liste im Angebot, Platzhalter sichtbar markiert |
 | Abhängigkeit von Claude und Higgsfield | alles Gebaute ist statisches HTML ohne Laufzeit-Abhängigkeit; Visuals als Dateien im Repo |
 | Zu wenig Zeit bei vielen Kunden | Routine an Agenten, wöchentliche Wartung automatisch, Abo-Pakete mit festen Stunden |
+| Studien echter Firmen ohne deren Auftrag (z. B. OSG) | nie öffentlich zeigen; im Portfolio nur als fiktive Marke (NORVAK), echte Fassung erst mit Freigabe der Firma |
+| KI-Bilder wirken austauschbar (Jury-Befund OSG) | echte Fotos des Kunden bevorzugen, KI-Bilder als Ergänzung; im Angebot als eigener Posten |
 
 ## 12. Fahrplan
 
 | Phase | Inhalt | Stand |
 |---|---|---|
-| **1 Können** | Maßstab, Baukasten, Showcases, Visuals, Fremdprüfung, Generalprobe, Portfolio | ✅ erledigt |
-| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt |
-| **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | nach Phase 2 |
+| **1 Können** | Maßstab, Baukasten, Showcases, Visuals, Fremdprüfung, Generalprobe, Portfolio; am 30.09. ergänzt um Qualitätssystem und Belastungsprobe OSG | ✅ erledigt |
+| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; 0 von 10 Entscheidungen gefallen) |
+| **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | teilweise vorgezogen: Gestaltung und Generator stehen, echte Angaben fehlen |
 | **4 Konten und Amt** | Steuerberater, Gewerbe, ELSTER, Konto, Versicherung, Verträge; Cloudflare, Stripe, Domain (`ops/HAENDE.md`) | vor dem ersten zahlenden Kunden |
 | **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | – |
 | **6 Wachsen** | Profit-Chain aktiv, Saisonpakete, Abo-Stamm aufbauen; dann Claude-Schablonen als zweites Standbein | – |
@@ -218,3 +230,5 @@ Folgerungen:
 6. **Konfigurator:** Branchenfrage fest einbauen? Preisrahmen statt genauem Preis? Vorschauseite sofort oder nach dem Gespräch?
 7. **Framer:** statt Higgsfield, zusätzlich oder gar nicht?
 8. **Pilotkunde:** URFA SOFRASI ansprechen, sobald Phase 4 steht?
+9. **Qualitätssystem im Alltag:** `qualitaet.mjs` in die automatische Prüfung (CI) aufnehmen und den Baustein „zaehler“ (Besucherzählung ohne Cookies) bauen (A-052)?
+10. **OSG:** Studie ruht nach Runde 5. Weiterführen (Runde 6 mit den offenen Mängeln), als Verkaufsargument an OSG herantreten oder ruhen lassen?
