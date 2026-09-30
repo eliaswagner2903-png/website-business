@@ -1,6 +1,6 @@
 # Quality Gate – OSG GmbH (OSG Germany)
 
-**Urteil: NICHT BESTANDEN** · 2026-09-30 05:36 UTC · schnelle Prüfung · 11 Seiten · Auftrag: kunden/osg-germany/auftrag.md
+**Urteil: NICHT BESTANDEN** · 2026-09-30 05:56 UTC · schnelle Prüfung · 11 Seiten · Auftrag: kunden/osg-germany/auftrag.md
 
 Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 · Legende: ✓ bestanden · ✗ Fehler · ◐ Werkzeug ok oder ohne Befund, Bestätigung fehlt · ○ manuell offen · … nur mit --voll · ↻ nach Launch (Wartung) · · nicht anwendbar
 
@@ -29,7 +29,7 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 | ✓ | GLB-19 | 404-Seite und Favicon vorhanden | Muss | 404.html vorhanden; 404.html: Favicon verlinkt |
 | ✗ | GLB-20 | Kein Blindtext, keine offenen `data-pruefen`-Angaben bei Abnahme | Muss | 19 offene Angaben mit data-pruefen (vor Launch vom Kunden bestätigen lassen) |
 | ○ | GLB-21 | Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben | Muss | in abnahme.md bestätigen |
-| ✓ | GLB-22 | Hauptinhalt steht im HTML und ist ohne JavaScript vorhanden | Muss | index.html: ohne JS 7460 von 7460 Zeichen Hauptinhalt; industrieloesungen.html: ohne JS 4638 von 4638 Zeichen Hauptinhalt |
+| ✓ | GLB-22 | Hauptinhalt steht im HTML und ist ohne JavaScript vorhanden | Muss | index.html: ohne JS 7845 von 7845 Zeichen Hauptinhalt; industrieloesungen.html: ohne JS 4638 von 4638 Zeichen Hauptinhalt |
 | ✓ | GLB-23 | robots.txt und sitemap.xml vorhanden, Startseite indexierbar | Muss | robots.txt ok; 7 URLs |
 | ○ | GLB-24 | Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 | Muss | in abnahme.md bestätigen |
 
@@ -147,7 +147,7 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 | ✓ | GEO-01 | Such-Crawler (Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot, Applebot) nicht sperren – weder in robots.txt noch in Cloudflare-Bot-Einstellungen | Muss | Beleg: geprüft 2026-09-30 – public/robots.txt: alle erlaubt (qualitaet.mjs ki-crawler ✓); Cloudflare-Bot-Einstellungen beim Launch prüfen |
 | ○ | GEO-02 | Trainings-Crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended): Entscheidung des Kunden dokumentieren (Standard: zulassen) | Soll | in abnahme.md bestätigen |
 | ✓ | GEO-03 | Snippets erlaubt: kein nosnippet, max-snippet:0 oder data-nosnippet auf dem Hauptinhalt | Muss | index.html: Snippets erlaubt; industrieloesungen.html: Snippets erlaubt |
-| ✓ | GEO-04 | Kernfakten (Name, Leistung, Ort, Kontakt, Zeiten) als Text im HTML, nicht nur in Bildern, PDFs, Tabs oder per JS | Muss | Startseite nennt OSG GmbH, Göppingen als Text; index.html: ohne JS 7460 von 7460 Zeichen Hauptinhalt |
+| ✓ | GEO-04 | Kernfakten (Name, Leistung, Ort, Kontakt, Zeiten) als Text im HTML, nicht nur in Bildern, PDFs, Tabs oder per JS | Muss | Startseite nennt OSG GmbH, Göppingen als Text; index.html: ohne JS 7845 von 7845 Zeichen Hauptinhalt |
 | ✓ | GEO-05 | Eindeutige Entität: gleicher Name, Adresse, Telefon auf allen Seiten und im JSON-LD; `sameAs` nur auf echte Profile | Soll | Beleg: geprüft 2026-09-30 – Name, Adresse, Telefon aus einer Quelle (seite.json) auf allen Seiten und im JSON-LD (Test „Fakten gleich auf allen Seiten“); sameAs = Profile, die de.osgeurope.com selbst verlinkt |
 | ✓ | GEO-06 | Eigene, überprüfbare Angaben (Zahlen, Erfahrung, Zertifikate, Quellen) statt Allgemeinplätzen – nur Belegtes | Soll | Beleg: geprüft 2026-09-30 – Zahlen mit Quelle: 1938, 33 Länder, 7.173 Mitarbeitende, Anwenderbericht 150→600 min mit Quellenlink, ISO 9001/14001 |
 | ✓ | GEO-07 | Häufige Kundenfragen sichtbar und direkt beantworten, ohne eine Seite je Formulierung | Soll | Beleg: geprüft 2026-09-30 – siehe SEO-12; keine Seite je Formulierung |

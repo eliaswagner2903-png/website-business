@@ -274,7 +274,7 @@ table { border-collapse: collapse; }
 @media (max-width: 63.99rem) {
   .held { display: flex; flex-direction: column; }
   /* Handy: Werkzeug zuerst (Jury R1: im ersten Bildschirm war kein Produkt zu sehen), Text darunter */
-  .held .held-medien { order: 1; aspect-ratio: 3 / 2; }
+  .held .held-medien { order: 1; aspect-ratio: 2 / 1;   /* Jury R4: „Werkzeug finden“ muss über der Schnellleiste liegen */ }
   .held .held-medien img { object-position: 72% 50%; }
   .held-in { order: 2; padding-block-start: 1.5rem; }
   .held > .huelle:last-child { order: 3; }
@@ -787,10 +787,41 @@ table { border-collapse: collapse; }
 .abschnitt--eng { padding-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
 @media (max-width: 63.99rem) { .kontakt-raster .formular { order: -1; } }   /* Handy: Formular zuerst, Telefon steht in der Leiste */
 .serie-link, .serie-shop, .finder-sprung, .marke-link { column-gap: .3em; }   /* Flex-Links verschlucken das Leerzeichen vor dem gebundenen Pfeil-Wort */
-@media (max-width: 47.99rem) {   /* Handy: Trefferzahl bleibt über der Schnellleiste sichtbar, solange man wählt (Jury R3) */
-  .finder-stand { position: sticky; z-index: 5; bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); margin-block: 1rem; padding: .35rem 1rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-klein); box-shadow: 0 8px 24px -16px var(--farbe-text); }
-  .finder-quelle { display: none; }
+@media (max-width: 47.99rem) and (min-height: 30.01rem) {   /* Handy: Trefferzahl klebt erst nach der ersten Wahl über der Schnellleiste (Jury R3/R4) */
+  .finder:has(.finder-wahl input:not([value="alle"]):checked) .finder-stand { position: sticky; z-index: 5; bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); margin-block: 1rem; padding: .35rem 1rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-klein); box-shadow: 0 8px 24px -16px var(--farbe-text); }
 }
+@media (max-width: 47.99rem) {
+  .finder-quelle { display: none; }
+  .finder-stand { margin-block: 1rem; padding: .35rem 1rem; }
+  /* Fokus nie unter Trefferleiste + Schnellleiste (WCAG 2.4.11, Jury R4) */
+  html:has(.finder :focus-visible) { scroll-padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px)); }
+}
+/* Knopf mit gebundenem Pfeil-Wort: Flex-Lücke nicht zusätzlich zum Wortabstand (Jury R4: doppelte Abstände) */
+.knopf:has(> .nw) { gap: 0; }
+.knopf > .nw { margin-inline-start: .28em; }
+.code { display: inline-block; min-block-size: 24px; padding-block: .15rem; }   /* Tippfläche ≥ 24 px (WCAG 2.5.8, Jury R4) */
+/* Handy: Shop-Suche direkt aus dem Kopf erreichbar (Jury R4) */
+.kopf-suche { display: none; }
+@media (max-width: 47.99rem) {
+  .kopf-suche { display: inline-grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; margin-inline-start: auto; color: var(--farbe-text); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); background: var(--farbe-flaeche); }
+  .kopf-suche .ic { inline-size: 1.2rem; block-size: 1.2rem; fill: none; stroke: currentColor; stroke-width: 2; }
+}
+/* Downloads als 3 × 2 statt 5 + 1 (Jury R4) */
+@media (min-width: 64rem) { .downloads { grid-template-columns: repeat(3, 1fr); } }
+/* 404: Shop-Suche und alle Seiten (Jury R4: leer) */
+.fehler-raster { display: grid; gap: 2.5rem 4rem; }
+@media (min-width: 64rem) { .fehler-raster { grid-template-columns: 1.4fr 1fr; } }
+.fehler-titel { font-size: clamp(1.3rem, 1.1rem + .7vw, 1.65rem); margin-bottom: .6em; }
+.fehler-raster .wege-liste { margin-top: 1.5rem; }
+.fehler-seiten { display: grid; gap: .25rem; padding: 0; list-style: none; }
+.fehler-seiten a { display: inline-flex; align-items: center; min-height: 44px; }
+/* Vertrauensleiste unter den Kennzahlen (Jury R4: Belege nur auf /ueber-uns) */
+.vertrauen { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; max-width: none; margin: 1.5rem 0 0; font-size: .9375rem; color: var(--farbe-leise); }
+.vertrauen-titel { font-weight: 600; color: var(--farbe-text); }
+.vertrauen-punkt { padding: .2rem .65rem; border: 1px solid var(--farbe-linie); border-radius: 999px; }
+.tabelle .code { display: inline-flex; align-items: center; min-block-size: 44px; }   /* alleinstehend in der Zelle: volle Tippfläche */
+.branchen-kacheln a { grid-template-columns: minmax(0, 1fr); }
+.branchen-kacheln span { hyphens: auto; overflow-wrap: break-word; }   /* 320 px: „Schwerindustrie“ sprengt sonst die Kachel */
 
 /* ===== bausteine.css ===== */
 /* Erzeugt von bausteine/einbauen.mjs – nicht von Hand ändern. Bausteine: einblenden, menue-blatt, hero-video */
@@ -976,9 +1007,11 @@ table { border-collapse: collapse; }
 .finder:has(#fv-gewinden:checked):has(#fw-edelstahl:checked) .zahl--gewinden-edelstahl { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .zahl--gewinden-gehaertet { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-sprung { display: none; }
 .finder:has(#fv-gewinden:checked):has(#fw-guss:checked) .zahl--gewinden-guss { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-alu:checked) .zahl--gewinden-alu { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-titan:checked) .zahl--gewinden-titan { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .zahl--gewinden-hitze { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-sprung { display: none; }
 .finder:has(.finder-wahl input:not([value="alle"]):checked) .zahl--alle-alle { display: none; }

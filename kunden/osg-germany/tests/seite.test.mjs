@@ -22,7 +22,7 @@ test('HTML und finder.css sind aus inhalt/ gebaut und aktuell (node bauen.mjs)',
   cpSync(PUB, join(tmp, 'public'), { recursive: true });
   execFileSync(process.execPath, [join(tmp, 'bauen.mjs')], { env: { ...process.env, SCHEMA: '' } });
   for (const [f, t] of seiten) assert.equal(readFileSync(join(tmp, 'public', f), 'utf8'), t, `${f} ist veraltet: node bauen.mjs`);
-  for (const f of ['css/finder.css', 'sitemap.xml']) assert.equal(readFileSync(join(tmp, 'public', f), 'utf8'), readFileSync(join(PUB, f), 'utf8'), `${f} veraltet`);
+  for (const f of ['css/finder.css', 'sitemap-seiten.xml', 'robots.txt']) assert.equal(readFileSync(join(tmp, 'public', f), 'utf8'), readFileSync(join(PUB, f), 'utf8'), `${f} veraltet`);
   rmSync(tmp, { recursive: true });
 });
 
@@ -147,7 +147,7 @@ test('Schriften lokal: eine Vorlade-Datei, höchstens drei Schriftdateien, zweit
 });
 
 test('Navigation: aktuelle Seite markiert, alle Seiten in der Sitemap, noindex nur für Rechtliches/Fehler/Danke', () => {
-  const sitemap = readFileSync(join(PUB, 'sitemap.xml'), 'utf8');
+  const sitemap = readFileSync(join(PUB, 'sitemap-seiten.xml'), 'utf8');
   for (const [f, t] of seiten) {
     const noindex = /<meta name="robots" content="noindex">/.test(t);
     assert.equal(noindex, ['impressum.html', 'datenschutz.html', '404.html', 'nachricht-gesendet.html'].includes(f), `${f}: noindex falsch`);
@@ -168,4 +168,12 @@ test('Formular-Muster sind im v-Modus gültig; Shop-Links führen nicht auf die 
   assert.notEqual(S.shop.replace(/\/$/, ''), S.basis.replace(/\/$/, ''), 'shop zeigt auf die eigene Startseite');
   const tel = new RegExp(`^(?:${alle['kontakt.html'].match(/name="telefon"[^>]*pattern="([^"]+)"/)[1]})$`, 'v');
   assert.ok(tel.test('+49 7161 6064-0') && !tel.test('abc'), 'Telefon-Muster prüft nicht');
+});
+
+test('robots.txt gilt auch für den Shop: dessen Sperren bleiben, eigene Sitemap unter eigenem Namen (Jury R4)', () => {
+  const r = readFileSync(join(PUB, 'robots.txt'), 'utf8');
+  for (const p of ['/catalogsearch/', '/checkout/', '/customer/', '/api/']) assert.match(r, new RegExp(`^Disallow: ${p}$`, 'm'), `Sperre ${p} fehlt`);
+  assert.doesNotMatch(r, /^Disallow: \/$/m);
+  assert.match(r, new RegExp(`^Sitemap: ${S.basis}/sitemap-seiten\\.xml$`, 'm'));
+  assert.ok(!existsSync(join(PUB, 'sitemap.xml')), 'public/sitemap.xml würde die Shop-Sitemap überschreiben');
 });

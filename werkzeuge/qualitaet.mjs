@@ -101,7 +101,8 @@ const ROBOTS = (() => {
   return { text: t, gruppen, sitemaps: [...t.matchAll(/^\s*sitemap:\s*(\S+)/gim)].map(m => m[1]) };
 })();
 const gesperrt = (agent) => { if (!ROBOTS) return false; const g = ROBOTS.gruppen.find(g => g.agents.includes(agent.toLowerCase())) || ROBOTS.gruppen.find(g => g.agents.includes('*')); return !!g?.regeln.some(([k, w]) => k === 'disallow' && w === '/') && !g.regeln.some(([k, w]) => k === 'allow' && w === '/'); };
-const SITEMAP = (() => { const t = lies('sitemap.xml'); return t === null ? null : { text: t, locs: [...t.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(m => entities(m[1])) }; })();
+// Sitemap: die in robots.txt genannte lokale Datei (z. B. sitemap-seiten.xml neben einem fremden Shop), sonst sitemap.xml
+const SITEMAP = (() => { const lokal = (ROBOTS?.sitemaps || []).map(u => { try { return new URL(u).pathname.slice(1); } catch { return ''; } }).find(n => n && lies(n) !== null); const t = lies(lokal || 'sitemap.xml'); return t === null ? null : { text: t, locs: [...t.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(m => entities(m[1])) }; })();
 const HEADERS = (() => {
   const t = lies('_headers'); if (!t) return null; const h = {}; let aktiv = false;
   for (const z of t.split('\n')) { if (/^\S/.test(z)) aktiv = z.trim() === '/*'; else if (aktiv && z.includes(':')) { const [k, ...v] = z.trim().split(':'); h[k.toLowerCase()] = v.join(':').trim(); } }

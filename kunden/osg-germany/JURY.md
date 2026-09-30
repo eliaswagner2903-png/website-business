@@ -72,3 +72,25 @@ Wichtigste Mängel (zusammengeführt, nach Wirkung):
 5. Chip-Bänder am Computer angeschnitten, Pfeile und Codes brechen allein um.
 6. Downloads und Händler ohne Wegweiser in Kopf und Menü; Schwerindustrie-Text doppelt; Fehlerseite ohne Telefon und E-Mail.
 7. Technik: vier render-blockierende Stylesheets, dünnes JSON-LD und ein og:image für alle Seiten, Kopf und Leiste nehmen bei Zoom 35–59 % der Höhe, Größengrenze nur per Content-Length, Resend ohne Timeout, kleine Reste.
+
+## Runde 4 (2026-09-30) – 73,5 / 100 → nicht bestanden, nachbessern
+
+| Block | Punkte | Höchstwert |
+|---|---|---|
+| A Gestaltung und Wirkung | 23,5 | 35 |
+| B Inhalt und Nutzerführung | 18,5 | 25 |
+| C Technik, Barrierefreiheit, Auffindbarkeit | 19 | 25 |
+| D Fortschritt (Mittel aus 12,5 und 12,5) | 12,5 | 15 |
+| **Summe** | **73,5** | **100** |
+
+Einzelnoten: A1 4 · A2 3,5 · A3 3 · A4 3 · A5 3 · A6 3,5 · A7 3,5 · B1 4 · B2 3,5 · B3 4 · B4 3,5 · B5 3,5 · C1 4,5 · C2 3,5 · C3 3 · C4 4 · C5 4 · D1 4,5/4,5 · D2 4/4 · D3 4/4.
+
+Wichtigste Mängel (zusammengeführt, nach Wirkung):
+1. Beim Launch würden `sitemap.xml` und `robots.txt` die des Shops überschreiben (34.983 Shop-URLs, Sperren fehlen).
+2. Fokus im Werkzeugfinder unter der klebenden Trefferleiste verdeckt (WCAG 2.4.11); Trefferleiste erscheint vor der ersten Wahl und zusammen mit der Schnellleiste; „Treffer ansehen“ auch im Leerzustand.
+3. Doppelte Wortabstände in Knöpfen mit Pfeil.
+4. Finder-Treffer ohne Weg zum Artikel im Shop, „Bei OSG“ unklar; Serien-Sprunglink öffnet die Details zugeklappt; Typen auf /produkte nicht verlinkt.
+5. Industrielösungen über dem eigenen Budget (553 KB); Kürzel-Links nur 18 px hoch.
+6. Unterseiten-Rhythmus: Downloads 5 + 1, 404 leer, sechsmal gleiches Zickzack.
+7. Handy: „Werkzeug finden“ von der Schnellleiste angeschnitten, Shop-Suche nur im Menü.
+8. Vertrauensbelege nur auf /ueber-uns; „Registrieren“ fehlt.

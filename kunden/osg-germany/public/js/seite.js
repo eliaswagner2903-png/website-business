@@ -5,6 +5,11 @@ function start() {
   const wurzel = document.documentElement; // Klasse js setzt schon das Inline-Skript im Kopf
   if (location.hash === '#pruefen') wurzel.classList.add('pruefmodus');
 
+  // Sprung auf eine Serie (/produkte#serie-…): deren Details gleich aufgeklappt zeigen (Jury R4)
+  const aufklappen = () => { const d = /^#serie-[a-z0-9-]+$/.test(location.hash) && document.querySelector(`${location.hash} details`); if (d) d.open = true; };
+  aufklappen();
+  addEventListener('hashchange', aufklappen);
+
   // Werkzeugfinder: sichtbare Trefferzahl in die Live-Region spiegeln (CSS zeigt sie, Screenreader hören sie)
   const finder = document.querySelector('.finder');
   const ansage = document.getElementById('finder-ansage');

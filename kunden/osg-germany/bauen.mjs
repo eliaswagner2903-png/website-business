@@ -1,7 +1,7 @@
 // Baut alle Seiten der OSG-Neugestaltung:   node bauen.mjs      (Test-Schema: SCHEMA=nacht node bauen.mjs)
 // Inhalte stehen NUR in inhalt/seite.json (Fakten von de.osgeurope.com, Stand 2026-09-30). HTML in public/ nie von Hand ändern.
 // Schreibt außerdem public/css/finder.css (Filterregeln des Werkzeugfinders, reines CSS – funktioniert ohne JavaScript)
-// und public/sitemap.xml.
+// und public/sitemap-seiten.xml + robots.txt (eigener Name: /sitemap.xml gehört dem Shop mit Zehntausenden Artikeln).
 import { readFileSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
@@ -30,12 +30,12 @@ const ICON = {
 
 // ---------- Bilder (AVIF + WebP aus werkzeuge/bilder.mjs) ----------
 const BILD_B = { klein: [480, 800, 1200], hero: [640, 1016, 1600, 2400] };
-function bild(name, alt, sizes, { art = 'klein', w = 1200, h = 896, lazy = true, prio = !lazy, klasse = '' } = {}) {
-  const b = BILD_B[art];
+function bild(name, alt, sizes, { art = 'klein', w = 1200, h = 896, lazy = true, prio = !lazy, klasse = '', breiten = null } = {}) {
+  const b = breiten || BILD_B[art];   // breiten: kleine Kacheln nur mit kleinen Dateien (Jury R4: Budget)
   const set = (t) => b.map((x) => `/medien/${name}-${x}.${t} ${x}w`).join(', ');
   // prio: nur das LCP-Bild einer Seite; weitere Bilder im ersten Bildschirm laden normal (nicht lazy)
   const laden = lazy ? ' loading="lazy" decoding="async"' : prio ? ' fetchpriority="high" decoding="async"' : ' decoding="async" data-sofort';
-  return `<picture${klasse ? ` class="${klasse}"` : ''}><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/${name}-${b[1]}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}"${laden}></picture>`;
+  return `<picture${klasse ? ` class="${klasse}"` : ''}><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/${name}-${b[1] ?? b[0]}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}"${laden}></picture>`;
 }
 const kiHinweis = (text = 'KI-Visualisierung') => `<figcaption class="ki-hinweis" data-pruefen="${esc(KI)}">${text}</figcaption>`;
 
@@ -119,6 +119,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>\n` : ''}</head
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><img src="/medien/osg-logo.svg" width="171" height="60" alt="OSG – shaping your dreams"><span class="unsichtbar"> – zur Startseite</span></a>
+    <a class="kopf-suche" href="/produkte.html#suche-produkte">${ICON.suche}<span class="unsichtbar">Im Shop suchen</span></a>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -126,6 +127,7 @@ ${nav}
         <li class="nur-blatt menue-suche">${shopSuche('suche-menue', 'Im Shop suchen: Artikel, EDP-Nummer, Serie')}</li>
         <li class="nur-blatt">${extern(S.shop, 'Online-Shop')}</li>
         <li class="nur-blatt">${extern(`${S.basis}/customer/account/login/`, 'Anmelden im Shop')}</li>
+        <li class="nur-blatt">${extern(`${S.basis}/customer/account/create/`, 'Registrieren')}</li>
         <li class="nur-blatt">${extern(`${S.basis}/checkout/cart/`, 'Warenkorb')}</li>
         <li class="nur-blatt nav-klein"><a href="/service.html#downloads">Kataloge und Downloads</a></li>
         <li class="nur-blatt nav-klein"><a href="/service.html#haendler">Händlernetz</a></li>
@@ -167,6 +169,7 @@ ${S.bereiche.map((b) => `          <li><a href="/produkte.html#${b.id}">${esc(b.
           <li>${extern(S.beitraege_alle, 'Beiträge und News', 'fuss-extern')}</li>
           <li><a class="fuss-extern" href="${esc(S.newsletter)}" rel="noopener">Newsletter abonnieren${raus}<span class="unsichtbar"> (externe Seite)</span></a></li>
           <li>${extern(`${S.basis}/customer/account/login/`, 'Anmelden im Shop', 'fuss-extern')}</li>
+          <li>${extern(`${S.basis}/customer/account/create/`, 'Registrieren im Shop', 'fuss-extern')}</li>
         </ul>
       </div>
       <div>
@@ -265,7 +268,7 @@ function finderCss() {
     for (const w of ['alle', ...W.map((x) => x.id)]) {
       const sel = `.finder:has(#fv-${v}:checked):has(#fw-${w}:checked)`;
       if (!(v === 'alle' && w === 'alle')) r.push(`${sel} .zahl--${v}-${w} { display: inline; }`);
-      if (!treffer(v, w).length) r.push(`${sel} .finder-leer { display: block; }`);
+      if (!treffer(v, w).length) r.push(`${sel} .finder-leer { display: block; }`, `${sel} .finder-sprung { display: none; }`);
     }
   }
   r.push('.finder:has(.finder-wahl input:not([value="alle"]):checked) .zahl--alle-alle { display: none; }');
@@ -306,7 +309,8 @@ function serieKarte(s) {
           <p class="serie-spanne">${esc(s.spanne)}</p>
           <ul class="wchips" aria-label="Geeignete Werkstoffe">${s.werkstoffe.map((w) => `<li class="wchip wchip--${w}">${esc(wName[w])}</li>`).join('')}</ul>
           <p class="serie-links"><a class="serie-link" href="/produkte.html#serie-${s.id}">Serie ${esc(s.name.replace(/ Serie$/, ''))} ansehen ${pfeil}</a>
-          <a class="textlink serie-shop" href="${esc(s.link)}" rel="noopener">Bei OSG${raus}<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a>
+          <a class="textlink serie-shop" href="${S.basis}/catalogsearch/result/?q=${encodeURIComponent(s.name.replace(/ Serie$/, ''))}" rel="noopener">Artikel im Shop${raus}<span class="unsichtbar"> (öffnet die Shop-Suche)</span></a>
+          <a class="textlink serie-shop" href="${esc(s.link)}" rel="noopener">Serienseite${raus}<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a>
           <a class="textlink serie-shop" href="/kontakt?serie=${encodeURIComponent(s.name)}#formular">Beratung</a></p>
         </li>`;
 }
@@ -373,6 +377,7 @@ function startseite() {
     <dl class="kennzahlen">
 ${S.kennzahlen.map((k) => `      <div><dt>${esc(k.text)}</dt><dd>${esc(k.wert)}</dd></div>`).join('\n')}
     </dl>
+    <p class="vertrauen"><span class="vertrauen-titel">OSG GmbH:</span> ${[...S.gmbh.zertifikate, ...S.gmbh.auszeichnungen].map((z) => `<span class="vertrauen-punkt">${esc(z)}</span>`).join(' ')} <a class="textlink" href="/ueber-uns.html">Mehr über OSG ${pfeil}</a></p>
   </div>
 </section>`;
 
@@ -548,7 +553,7 @@ ${s.aufstellung.length ? `      <h4>Aufstellung</h4>
       <table class="tabelle">
         <thead><tr><th scope="col">Typ</th><th scope="col">Ausführung und Abmessungen</th></tr></thead>
         <tbody>
-${s.aufstellung.map(([a, b]) => `          <tr><th scope="row">${esc(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
+${s.aufstellung.map(([a, b]) => `          <tr><th scope="row">${codes(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
         </tbody>
       </table>` : ''}
       </details>
@@ -633,7 +638,7 @@ const codes = (text) => text.split(' · ').map((t) => (/^[A-Z0-9][A-Z0-9-]*[A-Z0
   : esc(t))).join(' · ');
 
 function industrie() {
-  const kacheln = `<nav class="branchen-kacheln" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b, i) => `<li><a href="#${b.id}">${bild(`branche-${b.id}`, '', '(min-width: 64rem) 15vw, 45vw', { h: 800, lazy: false, prio: i === 0 })}<span>${esc(b.name)}</span></a></li>`).join('')}</ul></nav>`;
+  const kacheln = `<nav class="branchen-kacheln" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b, i) => `<li><a href="#${b.id}">${bild(`branche-${b.id}`, '', '(min-width: 64rem) 15vw, 45vw', { h: 800, lazy: false, prio: i === 0, breiten: [480] })}<span>${esc(b.name)}</span></a></li>`).join('')}</ul></nav>`;
   const inhalt = `${seitenKopf('I', 'Industrielösungen', 'Industrielösungen', 'Sechs Branchen, typische Bauteile und die Werkzeuge, die OSG dafür einsetzt – bis hin zu Sonderwerkzeugen über den Außendienst.', kacheln)}
 
 <div class="huelle branchen-seite">
@@ -766,7 +771,7 @@ ${K.name.map(([b, t]) => `        <div><dt>${b}</dt><dd>${esc(t)}</dd></div>`).j
       <h2>Kennzahlen des Konzerns</h2>
       <table class="tabelle">
         <tbody>
-${K.zahlen.map(([a, b]) => `          <tr><th scope="row">${esc(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
+${K.zahlen.map(([a, b]) => `          <tr><th scope="row">${codes(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
         </tbody>
       </table>
       <p>${esc(K.kern)}</p>
@@ -919,18 +924,29 @@ function rechtliches() {
     titel: 'Datenschutz – OSG GmbH', beschreibung: 'Datenschutzerklärung der OSG GmbH.', robots: 'noindex',
     inhalt: `${seitenKopf('§', 'Rechtliches', 'Datenschutz', 'Diese Neugestaltung setzt keine Cookies, lädt keine fremden Schriften oder Skripte und zählt keine Besuche.')}
 <section class="abschnitt"><div class="huelle text-spalte">
-  <p class="platzhalter" data-pruefen="Rechtstext nicht erfinden: Datenschutzerklärung von OSG (bzw. Generator) einsetzen, inkl. Kontaktformular">Die geltende Datenschutzerklärung stellt OSG als PDF bereit: ${extern(`${S.basis}/media/pdf/Privacy%20Notice_DE_DE.pdf`, 'Datenschutzhinweise (PDF)')}</p>
+  <p class="platzhalter" data-pruefen="Rechtstext nicht erfinden: Datenschutzerklärung von OSG (bzw. Generator) einsetzen, inkl. Kontaktformular und E-Mail-Versand über Resend (Auftragsverarbeiter, USA)">Die geltende Datenschutzerklärung stellt OSG als PDF bereit: ${extern(`${S.basis}/media/pdf/Privacy%20Notice_DE_DE.pdf`, 'Datenschutzhinweise (PDF)')}</p>
 </div></section>`,
   });
   seite('404.html', {
     titel: 'Seite nicht gefunden – OSG Germany', beschreibung: 'Diese Seite gibt es nicht (mehr).', robots: 'noindex',
     inhalt: `${seitenKopf('404', 'Fehler', 'Diese Seite gibt es nicht.', 'Vielleicht hilft einer dieser Wege weiter.')}
-<section class="abschnitt"><div class="huelle">
-  <ul class="wege-liste">
-    <li><a class="knopf" href="/#finder">Werkzeugfinder</a></li>
-    <li><a class="knopf zweit" href="/produkte.html">Produkte</a></li>
-    <li><a class="knopf zweit" href="/kontakt.html">Kontakt</a></li>
-  </ul>
+<section class="abschnitt abschnitt--eng"><div class="huelle fehler-raster">
+  <div>
+    <h2 class="fehler-titel">Sie suchen einen Artikel?</h2>
+    <p>Artikel und EDP-Nummern stehen im Online-Shop. Die Suche führt direkt dorthin.</p>
+    ${shopSuche('suche-404')}
+    <ul class="wege-liste">
+      <li><a class="knopf" href="/#finder">Werkzeugfinder</a></li>
+      <li><a class="knopf zweit" href="/kontakt.html">Kontakt</a></li>
+    </ul>
+  </div>
+  <nav aria-labelledby="fehler-seiten">
+    <h2 class="fehler-titel" id="fehler-seiten">Alle Seiten</h2>
+    <ul class="fehler-seiten">
+${NAV.map(([f, n]) => `      <li><a class="textlink" href="/${f}">${n}</a></li>`).join('\n')}
+      <li><a class="textlink" href="/service.html#downloads">Kataloge und Downloads</a></li>
+    </ul>
+  </nav>
 </div></section>`,
   });
   seite('nachricht-gesendet.html', {
@@ -956,8 +972,36 @@ ueberUns();
 karriere();
 kontakt();
 rechtliches();
-writeFileSync(new URL('sitemap.xml', OUT), `<?xml version="1.0" encoding="UTF-8"?>
+writeFileSync(new URL('sitemap-seiten.xml', OUT), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${SEITEN.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}
 </urlset>
+`);
+// robots.txt gilt für die ganze Domain, also auch für den Shop: dessen Sperren (Stand de.osgeurope.com/robots.txt, 2026-09-30) bleiben erhalten.
+writeFileSync(new URL('robots.txt', OUT), `# Gilt für die ganze Domain: Unternehmensseiten (dieses Projekt) und Shop (Magento).
+User-agent: *
+Disallow: /api/
+Disallow: /index.php/
+Disallow: /catalog/product_compare/
+Disallow: /catalog/category/view/
+Disallow: /catalog/product/view/
+Disallow: /catalogsearch/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /wishlist/
+Disallow: /newsletter/
+Disallow: /admin/
+Disallow: /app/
+Disallow: /bin/
+Disallow: /dev/
+Disallow: /lib/
+Disallow: /pub/
+Disallow: /setup/
+Disallow: /update/
+Disallow: /var/
+Disallow: /vendor/
+Disallow: /cgi-bin/
+
+Sitemap: ${S.basis}/sitemap-seiten.xml
+Sitemap: ${S.basis}/sitemap.xml
 `);

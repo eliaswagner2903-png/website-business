@@ -44,9 +44,11 @@
 .finder:has(#fv-gewinden:checked):has(#fw-edelstahl:checked) .zahl--gewinden-edelstahl { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .zahl--gewinden-gehaertet { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-sprung { display: none; }
 .finder:has(#fv-gewinden:checked):has(#fw-guss:checked) .zahl--gewinden-guss { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-alu:checked) .zahl--gewinden-alu { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-titan:checked) .zahl--gewinden-titan { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .zahl--gewinden-hitze { display: inline; }
 .finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-sprung { display: none; }
 .finder:has(.finder-wahl input:not([value="alle"]):checked) .zahl--alle-alle { display: none; }

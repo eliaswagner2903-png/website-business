@@ -1,5 +1,26 @@
+# Gilt für die ganze Domain: Unternehmensseiten (dieses Projekt) und Shop (Magento).
 User-agent: *
-Allow: /
 Disallow: /api/
+Disallow: /index.php/
+Disallow: /catalog/product_compare/
+Disallow: /catalog/category/view/
+Disallow: /catalog/product/view/
+Disallow: /catalogsearch/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /wishlist/
+Disallow: /newsletter/
+Disallow: /admin/
+Disallow: /app/
+Disallow: /bin/
+Disallow: /dev/
+Disallow: /lib/
+Disallow: /pub/
+Disallow: /setup/
+Disallow: /update/
+Disallow: /var/
+Disallow: /vendor/
+Disallow: /cgi-bin/
 
+Sitemap: https://de.osgeurope.com/sitemap-seiten.xml
 Sitemap: https://de.osgeurope.com/sitemap.xml
