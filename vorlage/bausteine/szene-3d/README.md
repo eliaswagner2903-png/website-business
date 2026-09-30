@@ -81,7 +81,7 @@ devicePixelRatio 3 etwas schärfer als das herunterskalierte Poster; die Bildfol
 keinen Sprung).
 
 Objekt- oder Szenencode geändert? `node vorlage/bausteine/szene-3d/bauen.mjs` bündelt three.js neu (esbuild,
-Tree-Shaking) und bricht ab, wenn 180 KB gzip überschritten werden.
+Tree-Shaking) und bricht ab, wenn 180 KB gzip überschritten werden (mit `--grenze=600` bzw. `--grenze=1500` für die Klassen `erlebnis` und `kino`, z. B. für Addons, Modelle, Nachbearbeitung).
 
 ## Budget und Messwerte (gemessen 2026-09-28, gzip-Server, Handy-Profil 390×844)
 

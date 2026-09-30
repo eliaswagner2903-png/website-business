@@ -47,8 +47,9 @@ Regeln wirken ab der Planung), vor „fertig“ `/abnahme`. Der globale Mindests
 Nie Rankings oder KI-Empfehlungen versprechen.
 
 - Mobil zuerst: 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, Text ≥ 16 px, feste Kontaktleiste auf dem Handy.
-- Lighthouse mobil (mit Kompression): Performance ≥ 95, Barrierefreiheit, Best Practices, SEO = 100, CLS ≈ 0.
-- WCAG AA, genau eine H1, Skip-Link, sichtbarer Fokus. Ohne JavaScript alles bedienbar, „Bewegung reduzieren“ respektiert.
+- Lighthouse mobil (mit Kompression): Performance ≥ 95 (Klasse `erlebnis` 90, `kino` 85), Barrierefreiheit, Best Practices, SEO = 100, CLS ≈ 0.
+- Gewicht nach Zweck statt fester Zahl: Klasse `schlank` / `erlebnis` / `kino` in `kunde.json` (`budgetklasse`), Grenzen in `wissen/MEISTERSTANDARD.md` P2. Gemessen wird, was Nutzer spüren (LCP, CLS, fps).
+- WCAG AA, genau eine H1, Skip-Link, sichtbarer Fokus. JavaScript ist erlaubt, wenn es Nutzen bringt; ohne JavaScript bleiben Inhalt, Navigation, Kontakt und Formulare nutzbar (interaktive Erlebnisse zeigen ein Standbild), „Bewegung reduzieren“ respektiert.
 - Datenschutz: Schriften lokal (`@fontsource`), kein Tracking, keine Cookies, keine iframes, keine fremden Skripte.
 - Sicherheit: `public/_headers` mit strenger CSP (kein `unsafe-inline`; Inline-Skripte nur per Hash), Zahlungen nur über
   Stripe Checkout (Preis serverseitig), Webhook mit Signaturprüfung, Formulare mit Origin-Prüfung und Honigtopf.
@@ -56,6 +57,7 @@ Nie Rankings oder KI-Empfehlungen versprechen.
 - Visuals (Higgsfield): Poster zuerst, AVIF/WebP, kurze Videos, bei reduzierter Bewegung statisch.
 - Kopf-Regeln (`werkzeuge/kopf-pruefen.py`): `meta charset` zuerst, dann viewport, title, description; im `<head>` nur
   meta/title/link/style/script/noscript; eigene Skripte mit `defer` und dem readyState-Start.
+- Nicht gelockert: CSP, keine fremden Skripte/Tracker/Cookies, WCAG AA, Tastaturbedienung, Text im HTML (Suchmaschinen, KI-Crawler).
 
 ## Der Stab (Agents in `.claude/agents/`)
 
