@@ -16,7 +16,7 @@ CLS: Maße/`aspect-ratio`, Platz reservieren, `font-display` + Ersatzschrift mit
 INP: lange Tasks (> 50 ms) aufteilen, kleines DOM, kein Layout-Thrashing (Q-W04).
 
 ## 4 Beim Programmieren
-Statisches HTML, Bilder AVIF/WebP mit `srcset`, Schriften als WOFF2-Subset lokal (≤ 3 Dateien), JS mit `defer` und ≤ 60 KB, 3D/Video erst nach dem Poster
+Statisches HTML, Bilder AVIF/WebP mit `srcset`, Schriften als WOFF2-Subset lokal (Dateizahl nach Klasse), JS mit `defer` und im Budget der Klasse (schlank ≤ 60 KB, erlebnis ≤ 200 KB, kino ≤ 350 KB), 3D/Video erst nach dem Poster
 und nach „geladen“ (Meisterstandard P2), lange Cache-Zeiten für `/css/*`, `/js/*`, `/fonts/*`, `/medien/*` in `_headers`.
 
 ## 5 Inhalte und Strukturen
@@ -45,9 +45,9 @@ Feldwerte (CrUX / Search Console) erst nach Launch und nur bei genug Besuchern; 
 | PERF-02 | Kein Layoutsprung: Maße für Bilder/Videos, Schriften mit `font-display` und abgestimmter Ersatzschrift | K | B | AUTO | bilder-masse, schriften-lokal | O Q-W03, O Q-W05 | stabil |
 | PERF-03 | Keine render-blockierenden Skripte im Kopf | K | B | AUTO | skripte-blockierend | O Q-W02 | stabil |
 | PERF-04 | Laborwerte Lighthouse mobil: LCP ≤ 2,5 s, CLS ≤ 0,02 (Meisterstandard; Googles Grenze „gut“ ist 0,1) | K | A | AUTO | ext-cwv-labor | O Q-W01, P Q-P01 | zeitabh. |
-| PERF-05 | Wenig und spätes JavaScript (Budget ≤ 60 KB), lange Tasks aufgeteilt | K | B | SEMI-AUTO | ext-budget | O Q-W04, P Q-P01 | stabil |
+| PERF-05 | Wenig und spätes JavaScript (Budget der Klasse, nur was Nutzen bringt), lange Tasks aufgeteilt | K | B | SEMI-AUTO | ext-budget | O Q-W04, P Q-P01 | stabil |
 | PERF-06 | Bilder unterhalb des ersten Bildschirms `loading="lazy"` | E | B | AUTO | bilder-lazy | O Q-W06 | stabil |
-| PERF-07 | Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien | E | B | SEMI-AUTO | schriften-lokal, ext-budget | O Q-W05, P Q-P01 | stabil |
+| PERF-07 | Schriften: WOFF2-Subset, lokal, Dateizahl nach Klasse (schlank 3, erlebnis 5, kino 6) | E | B | SEMI-AUTO | schriften-lokal, ext-budget | O Q-W05, P Q-P01 | stabil |
 | PERF-08 | Lange Cache-Zeiten für CSS, JS, Schriften, Medien in `_headers` | E | B | AUTO | cache-header | P Q-P03 | stabil |
 | PERF-09 | Video/3D erst nach Poster und „geladen“, pausiert außerhalb des Bildschirms, nicht bei „Daten sparen“ | E | B | SEMI-AUTO | ext-budget | P Q-P01 | stabil |
 | PERF-10 | Nach Launch: Feldwerte (Search Console/CrUX) im Wartungslauf prüfen, sobald Daten vorliegen | Z | L | MANUAL | | O Q-W01, O Q-G18 | zeitabh. |

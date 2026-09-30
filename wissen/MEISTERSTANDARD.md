@@ -6,22 +6,30 @@ Bildfolgen beurteilt, nicht am Code.
 
 ## P1 Technik (automatisch, `werkzeuge/pruefen.mjs`, `lighthouse.sh`, `npm test`)
 
-- Lighthouse mobil mit Kompression: Performance ≥ 95, Barrierefreiheit, Best Practices und SEO = 100, CLS ≤ 0,02.
+- Lighthouse mobil mit Kompression: Performance ≥ Wert der Gewichts-Klasse (P2: schlank 95, Erlebnis 90, Kino 85), Barrierefreiheit, Best Practices und SEO = 100, CLS ≤ 0,02.
 - 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, genau eine H1, keine Konsolenfehler.
-- Ohne JavaScript alles sichtbar, bei „Bewegung reduzieren“ nichts unsichtbar und nichts in Bewegung.
+- JavaScript ist erlaubt, wenn es Nutzen bringt (Bedienung, Konfigurator, 3D, Bewegung). Ohne JavaScript bleiben **Inhalt, Navigation, Kontakt und Formulare** nutzbar; ein rein interaktives Erlebnis (3D, Film, Konfigurator) zeigt dann ein Standbild oder den Text dazu. Bei „Bewegung reduzieren“ nichts unsichtbar und nichts in Bewegung.
 - Strenge CSP ohne `unsafe-inline`, keine fremden Herkünfte (Schriften, Skripte, Bilder alle vom eigenen Server).
 
 ## P2 Gewicht (automatisch, `werkzeuge/budget.mjs`, gemessen komprimiert, erster Aufruf der Startseite)
 
+Die Grenze hängt am **Zweck der Seite**, nicht an einer festen Zahl (Elias 2026-09-30). Die Klasse steht in `kunde.json`
+(`"budgetklasse"`) und wird im Pflichtenheft begründet; ohne Angabe gilt `schlank`. Gemessen wird das, was Nutzer spüren
+(LCP ≤ 2,5 s, CLS ≤ 0,02, ≥ 55 fps beim Scrollen, Lighthouse); die KB-Grenzen sind die Leitplanken dafür. Schwere Medien
+(Film, große 3D-Szene) kommen erst nach Poster und „geladen“, nie bei „Daten sparen“ oder „Bewegung reduzieren“.
+
+| Klasse | Wann | Gesamt | JS (1. Aufruf / nachgeladen) | CSS | Schriften | Anfragen | fps | Lighthouse Perf |
+|---|---|---|---|---|---|---|---|---|
+| `schlank` | Info-Seite: Zeiten, Telefon, Karte (Handwerk, Gastro, Praxis) | 500 KB | 60 / 180 KB | 30 KB | 3 Dateien, 120 KB | 25 | 55 | 95 |
+| `erlebnis` | Markenauftritt mit Bewegung, 3D, Konfigurator | 1,2 MB | 200 / 600 KB | 60 KB | 5 Dateien, 250 KB | 40 | 55 | 90 |
+| `kino` | Scroll-Film, große 3D-Szene, Produkt-Showcase | 2,5 MB | 350 / 1500 KB | 100 KB | 6 Dateien, 400 KB | 60 | 50 | 85 |
+
+Werte stehen in `werkzeuge/budgetklasse.mjs` (eine Quelle). Wer eine höhere Klasse wählt, nennt den Nutzen (Wirkung, Zweck) im
+Pflichtenheft. Für Medien gilt zusätzlich:
+
 | Posten | Grenze | Grund |
 |---|---|---|
-| Übertragung bis „geladen“ | ≤ 500 KB | auf 4G in unter 2 s sichtbar |
-| JavaScript | ≤ 60 KB | Seite bleibt sofort bedienbar |
-| JavaScript mit 3D-Szene (nachgeladen, nicht im ersten Aufruf) | ≤ 180 KB | three.js-Kern + Szene |
-| CSS | ≤ 30 KB | |
-| Schriften | ≤ 3 Dateien, ≤ 120 KB | nur Schnitte des ersten Bildschirms vorladen |
-| Anfragen bis „geladen“ | ≤ 25 | |
-| Video im Hero | nur nach dem Poster, ≤ 1,5 MB, nicht auf „Daten sparen“ | Poster ist das LCP-Element |
+| Video im Hero | nur nach dem Poster, ≤ 1,5 MB (`schlank`) bzw. ≤ 3 MB (`erlebnis`, `kino`), nicht auf „Daten sparen“ | Poster ist das LCP-Element |
 | Scroll-Film (Kino-Hero, `wissen/lehren/scroll-film.md`) | Computer ≤ 12 MB, Handy ≤ 5 MB, erst nach dem Poster und nach „geladen“, nie bei „Daten sparen“ oder „Bewegung reduzieren“ | Elias 2026-09-29 (A-045); zählt nicht zum ersten Aufruf |
 
 ## P3 Bewegung (Bildfolge, `werkzeuge/bildfolge.mjs`)

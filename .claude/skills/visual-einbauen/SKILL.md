@@ -21,10 +21,10 @@ description: Ein Visual (Foto, 3D-Szene, später Higgsfield-Bild oder -Video) le
 4. Objekt geändert? `node vorlage/bausteine/szene-3d/bauen.mjs` (bündelt three.js neu, meldet die Größe).
 
 ## 3. Prüfen (Pflicht)
-- `node werkzeuge/budget.mjs $S/public <port> <seite>` – `js` ≤ 60 KB (erster Aufruf), `jsNachgeladen` ≤ 180 KB, fps ≥ 55.
+- `node werkzeuge/budget.mjs $S/public <port> <seite>` – Grenzen der Klasse aus `kunde.json` (`schlank` 60/180 KB JS, `erlebnis` 200/600, `kino` 350/1500), fps ≥ 55.
 - `SEITEN=<seite> bash werkzeuge/lighthouse.sh $S/public <port>` – LCP-Element muss das Poster/Bild sein.
 - Übergang: `node werkzeuge/bildfolge.mjs http://localhost:<port>/<seite> "warte:.szene-3d--bereit"` – kein Sprung.
-- „Bewegung reduzieren“ und ohne JS: nur das Standbild, nichts fehlt.
+- „Bewegung reduzieren“ und ohne JS: nur das Standbild, nichts Wichtiges fehlt.
 
 ## 4. Video (WebM + MP4) – Baustein `vorlage/bausteine/hero-video`
 ffmpeg gibt es per npm: `npm i ffmpeg-static` im Scratchpad → `node_modules/ffmpeg-static/ffmpeg`.

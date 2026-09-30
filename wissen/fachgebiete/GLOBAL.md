@@ -38,18 +38,18 @@ Zoom-Sperre im Viewport · Blindtext · erfundene Fakten · fremde Skripte/Schri
 
 | ID | Regel | Stufe | Phase | Art | Prüfung | Beleg | Stand |
 |---|---|---|---|---|---|---|---|
-| GLB-01 | 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, keine Konsolenfehler, ohne JS und bei „Bewegung reduzieren“ alles sichtbar | G | BA | AUTO | ext-pruefen | O Q-W07, P Q-P01 | stabil |
+| GLB-01 | 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, keine Konsolenfehler, Inhalt, Navigation, Kontakt und Formulare auch ohne JS nutzbar (Erlebnisse mit Standbild), bei „Bewegung reduzieren“ alles sichtbar | G | BA | AUTO | ext-pruefen | O Q-W07, P Q-P01 | stabil |
 | GLB-02 | Viewport `width=device-width`, keine Zoom-Sperre (`user-scalable=no`, `maximum-scale` < 2) | G | B | AUTO | viewport | O Q-W08 | stabil |
 | GLB-03 | `<html lang>` gesetzt | G | B | AUTO | html-lang | O Q-W07 | stabil |
 | GLB-04 | Genau eine H1 je Seite, Überschriftenebenen ohne Sprung | G | PB | AUTO | h1, ueberschriften | F Q-W11, P Q-P03 | stabil |
 | GLB-05 | Jede Seite hat einen `<title>` und eine meta description (indexierte Seiten) | G | PB | AUTO | titel, description | O Q-G02, O Q-G03 | stabil |
 | GLB-06 | Keine toten internen Links, Anker existieren, kein `href="#"`/leer/`javascript:` | G | BA | AUTO | links-intern, links-leer | O Q-G04 | stabil |
 | GLB-07 | Skip-Link als erster Link, jede Seite hat einen Kontaktweg (tel:, mailto:, Kontaktseite) | G | B | AUTO | skip-link, kontakt-jede-seite | O Q-W07, P Q-P03 | stabil |
-| GLB-08 | Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS; aktuelle Seite markiert | G | BA | SEMI-AUTO | ext-pruefen, link-namen | O Q-W07 | stabil |
+| GLB-08 | Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS (Rückfall: Zeile/Link); aktuelle Seite markiert | G | BA | SEMI-AUTO | ext-pruefen, link-namen | O Q-W07 | stabil |
 | GLB-09 | Jedes `<img>` hat `alt` (dekorativ: `alt=""`) sowie `width` und `height` | G | B | AUTO | bilder-alt, bilder-masse | O Q-G05, O Q-W03 | stabil |
-| GLB-10 | Bilder als WebP/AVIF, ≤ 300 KB, erstes Bild nicht lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
+| GLB-10 | Bilder als WebP/AVIF, ≤ 500 KB, erstes Bild nicht lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
 | GLB-11 | Lighthouse mobil (Startseite): Performance ≥ 95, Barrierefreiheit, Best Practices, SEO = 100 | G | A | AUTO | ext-lighthouse | P Q-P01 | stabil |
-| GLB-12 | Gewichts-Budget des Meisterstandards eingehalten | G | A | AUTO | ext-budget | P Q-P01 | stabil |
+| GLB-12 | Gewichts-Budget der gewählten Klasse (schlank/erlebnis/kino, `kunde.json`) eingehalten | G | A | AUTO | ext-budget | P Q-P01 | stabil |
 | GLB-13 | Tests der Seite grün, html-validate ohne Fehler, Kopf-Regeln eingehalten | G | BA | AUTO | ext-tests, ext-html-validate, ext-kopf | P Q-P03 | stabil |
 | GLB-14 | Sicherheits-Header: CSP ohne `unsafe-inline`/`unsafe-eval`, HSTS, nosniff, Referrer-, Permissions-Policy, frame-ancestors | G | B | AUTO | sicherheits-header | F Q-M01, P Q-P03 | stabil |
 | GLB-15 | Keine fremden Herkünfte (Skripte, Schriften, Bilder, iframes) und kein einwilligungspflichtiges Tracking | G | PB | AUTO | fremde-quellen, tracking-skripte | G Q-R04, O Q-R05, P Q-P03 | stabil |

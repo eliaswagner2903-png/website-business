@@ -4,7 +4,7 @@
 // Mit --voll zusätzlich pruefen.mjs (Breiten, Konsole, Tippflächen), Lighthouse (Startseite) und budget.mjs.
 // Schreibt <ordner>/QUALITAET.md und hält <ordner>/abnahme.md (manuelle Bestätigungen) aktuell. Exit 1 = nicht bestanden.
 import fs from 'node:fs'; import path from 'node:path'; import net from 'node:net'; import { spawn, spawnSync } from 'node:child_process';
-import { REPO, ladeWissen, leseAuftrag, erstellePlan } from './regeln.mjs';
+import { KLASSEN, leseKlasse } from './budgetklasse.mjs'; import { REPO, ladeWissen, leseAuftrag, erstellePlan } from './regeln.mjs';
 
 const argv = process.argv.slice(2);
 const opt = (n, d) => (argv.includes(n) ? argv[argv.indexOf(n) + 1] : d);
@@ -124,7 +124,7 @@ const CHECKS = {
   'bilder-alt': () => jedeSeite(seiten, s => { const o = s.bilder.filter(b => !('alt' in b.a)); return s.bilder.length ? [F(!o.length, o.length ? `${o.length} <img> ohne alt: ${o.slice(0, 3).map(b => b.a.src).join(', ')}` : `${s.bilder.length} Bilder mit alt`)] : []; }),
   'bilder-masse': () => jedeSeite(seiten, s => { const o = s.bilder.filter(b => !(b.a.width && b.a.height)); return s.bilder.length ? [F(!o.length, o.length ? `${o.length} <img> ohne width/height: ${o.slice(0, 3).map(b => b.a.src).join(', ')}` : 'alle Bilder mit Maßen')] : []; }),
   'bilder-format': () => jedeSeite(seiten, s => { const o = s.bilder.filter(b => /\.(jpe?g|png|bmp|gif)(\?|$)/i.test(b.a.src || '') && !/<source[^>]+type="image\/(avif|webp)"/i.test(s.html.slice(Math.max(0, b.i - 600), b.i))); return s.bilder.length ? [F(!o.length, o.length ? `Rasterbilder ohne WebP/AVIF: ${o.slice(0, 3).map(b => b.a.src).join(', ')}` : 'moderne Formate')] : []; }),
-  'bilder-gewicht': () => { const o = DATEIEN.filter(f => /\.(avif|webp|jpe?g|png)$/i.test(f)).map(f => [f, fs.statSync(path.join(PUB, f)).size]).filter(([f, g]) => g > 300 * 1024 && !/^og-|\/og-/.test(f)); return [F(!o.length, o.length ? `Bilder > 300 KB: ${o.map(([f, g]) => `${f} (${Math.round(g / 1024)} KB)`).join(', ')}` : 'alle Bilder ≤ 300 KB')]; },
+  'bilder-gewicht': () => { const o = DATEIEN.filter(f => /\.(avif|webp|jpe?g|png)$/i.test(f)).map(f => [f, fs.statSync(path.join(PUB, f)).size]).filter(([f, g]) => g > 500 * 1024 && !/^og-|\/og-/.test(f)); return [F(!o.length, o.length ? `Bilder > 500 KB: ${o.map(([f, g]) => `${f} (${Math.round(g / 1024)} KB)`).join(', ')}` : 'alle Bilder ≤ 500 KB')]; },
   dateinamen: () => { const o = DATEIEN.filter(f => /\.(avif|webp|jpe?g|png|gif)$/i.test(f) && /(^|\/)(img|dsc|image|bild|foto|photo|screenshot|whatsapp)[-_ ]?\d+/i.test(f)); return [F(!o.length, o.length ? `nichtssagende Bildnamen: ${o.slice(0, 5).join(', ')}` : 'Bildnamen beschreibend')]; },
   'links-intern': () => jedeSeite(seiten, s => { const kaputt = []; for (const l of s.links) { if (!l.href) continue; if (l.href.startsWith('#')) { if (l.href.length > 1 && !s.ids.has(l.href.slice(1))) kaputt.push(l.href); continue; } const z = ziel(l.href, s); if (z === false) kaputt.push(l.href); else if (z?.anker) { const t = seiten.find(x => x.datei === z.datei); if (t && !t.ids.has(z.anker)) kaputt.push(l.href); } } return [F(!kaputt.length, kaputt.length ? `tote Links: ${[...new Set(kaputt)].join(', ')}` : 'interne Links ok')]; }),
   'links-leer': () => jedeSeite(seiten, s => { const o = s.links.filter(l => 'href' in l && (l.href === '' || l.href === '#' || /^javascript:/i.test(l.href))); return [F(!o.length, o.length ? `${o.length} Links ohne Ziel (href="", "#", javascript:)` : 'alle Links mit Ziel')]; }),
@@ -287,7 +287,7 @@ async function externe() {
       if (zeilen.length) {
         const med = k => zeilen.map(x => x[k]).sort((a, b) => a - b)[Math.floor(zeilen.length / 2)];
         const w = { perf: med('perf'), a11y: med('a11y'), bp: med('bp'), seo: med('seo'), cls: med('cls') };
-        erg['ext-lighthouse'] = [F(w.perf >= 95 && w.a11y === 100 && w.bp === 100 && w.seo === 100, `Lighthouse mobil (Median ${zeilen.length} Läufe): Perf ${w.perf} · A11y ${w.a11y} · BP ${w.bp} · SEO ${w.seo}`)];
+        erg['ext-lighthouse'] = [F(w.perf >= KLASSEN[leseKlasse(PUB)].perf && w.a11y === 100 && w.bp === 100 && w.seo === 100, `Lighthouse mobil (Median ${zeilen.length} Läufe, Klasse ${leseKlasse(PUB)}, Perf ≥ ${KLASSEN[leseKlasse(PUB)].perf}): Perf ${w.perf} · A11y ${w.a11y} · BP ${w.bp} · SEO ${w.seo}`)];
         erg['ext-cwv-labor'] = [F(w.cls <= 0.02 && zeilen.every(z => parseFloat(String(z.lcp).replace(',', '.')) <= 2.5), `Labor: LCP ${zeilen.map(z => z.lcp).join(' / ')}, CLS ${w.cls} (Feldwerte erst nach Launch)`)];
       } else erg['ext-lighthouse'] = [F(false, `Lighthouse lieferte kein Ergebnis: ${lh.out.slice(-200)}`)];
     } finally { srv.kill(); }

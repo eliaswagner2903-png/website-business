@@ -1,12 +1,16 @@
 // Gewichts-Budget und Scroll-Flüssigkeit einer Seite (Meisterstandard P2/P3).
-// node werkzeuge/budget.mjs <ordner> [port=8080] [seite=index.html]   (vorher: node werkzeuge/gzserver.mjs <port> <ordner>)
+// node werkzeuge/budget.mjs <ordner> [port=8080] [seite=index.html] [--klasse=schlank|erlebnis|kino]   (vorher: node werkzeuge/gzserver.mjs <port> <ordner>)
+// Die Grenzen hängen an der Klasse (werkzeuge/budgetklasse.mjs; Standard aus kunde.json „budgetklasse“, sonst schlank).
 // Misst komprimiert, erster Aufruf auf dem Handy-Profil: Übertragung, JS, CSS, Schriften, Anfragen, fremde Herkünfte,
 // danach Bilder pro Sekunde beim Scrollen mit 4× CPU-Drosselung.
 import { playwright } from './_playwright.mjs';
-const [ordner, port = '8080', seite = 'index.html'] = process.argv.slice(2);
+import { KLASSEN, leseKlasse } from './budgetklasse.mjs';
+const flags = process.argv.slice(2).filter(a => a.startsWith('--')); const [ordner, port = '8080', seite = 'index.html'] = process.argv.slice(2).filter(a => !a.startsWith('--'));
+const klasse = leseKlasse(ordner || '.', flags.find(f => f.startsWith('--klasse='))?.slice(9));
+if (!KLASSEN[klasse]) { console.log(`Unbekannte Klasse „${klasse}“ (schlank, erlebnis, kino)`); process.exit(1); }
 if (!ordner) { console.log('Aufruf: node werkzeuge/budget.mjs <ordner> [port] [seite]'); process.exit(1); }
 const url = `http://localhost:${port}/${seite}`;
-const GRENZEN = { gesamt: 500, js: 60, jsNachgeladen: 180, css: 30, schrift: 120, schriftDateien: 3, anfragen: 25, fps: 55 };
+const { perf: _perf, ...GRENZEN } = KLASSEN[klasse];
 // jsNachgeladen: JavaScript, das erst NACH dem load-Ereignis angefragt wird (z. B. 3D-Szene), plus das JS davor.
 
 const { chromium } = await playwright(); const b = await chromium.launch();
@@ -38,7 +42,7 @@ werte.fps = await p.evaluate(() => new Promise(fertig => {
 }));
 await b.close();
 
-let fehler = 0; console.log(`Budget ${url} (komprimiert, Handy)`);
+let fehler = 0; console.log(`Budget ${url} (komprimiert, Handy, Klasse ${klasse})`);
 for (const [k, grenze] of Object.entries(GRENZEN)) {
   const ok = k === 'fps' ? werte[k] >= grenze : werte[k] <= grenze; if (!ok) fehler++;
   const einheit = ['schriftDateien', 'anfragen', 'fps'].includes(k) ? '' : ' KB';

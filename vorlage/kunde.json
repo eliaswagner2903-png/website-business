@@ -3,6 +3,7 @@
   "slug": "kundenseite",
   "domain": "www.beispiel.de",
   "paket": "basis",
+  "budgetklasse": "schlank",
   "ansprechpartner": "",
   "start": "",
   "stripe_produkte": ["beratung"],
