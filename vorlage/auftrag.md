@@ -9,6 +9,8 @@ Kunde:
 Branche:
 Ort:
 Domain:
+<!-- Fremde Pfade: nur wenn ein anderes System (z. B. ein bestehender Shop) auf derselben Domain Pfade ausliefert, z. B. /shop/, /konto/ -->
+Fremde Pfade:
 
 Website: Ja
 

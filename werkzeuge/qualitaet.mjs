@@ -67,13 +67,19 @@ const betrieb = alleLd.find(o => o.address && (o.telephone || o.name) && typen(o
 const basis = (() => { const c = start?.canonical[0] || ''; try { return new URL(c).origin; } catch { return A.domain ? `https://${A.domain.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}` : ''; } })();
 const redirects = (lies('_redirects') || '').split('\n').map(z => z.trim().split(/\s+/)).filter(z => z[0] && !z[0].startsWith('#'));
 
+// „Fremde Pfade“ im Auftrag: Pfade derselben Domain, die ein anderes System ausliefert (z. B. ein bestehender Shop).
+// Endet ein Eintrag auf „/“, gilt er als Präfix, sonst genau (mit oder ohne Schrägstrich am Ende).
+const fremd = A.fremdePfade.split(/[,\s]+/).filter(x => x.startsWith('/'));
+const istFremd = p => fremd.some(f => (f.endsWith('/') ? p.startsWith(f) : p.replace(/\/$/, '') === f.replace(/\/$/, '')));
+
 function ziel(href, von) {
-  // interne Adresse → Datei im public-Ordner (null = extern/ignoriert, false = fehlt)
+  // interne Adresse → Datei im public-Ordner (null = extern/ignoriert oder fremdes System, false = fehlt)
   if (/^(mailto:|tel:|sms:|data:|javascript:)/i.test(href)) return null;
   let u; try { u = new URL(href, `https://intern.test${von.pfad}`); } catch { return false; }
   const intern = u.host === 'intern.test' || (basis && u.origin === basis);
   if (!intern) return null;
   let p = decodeURIComponent(u.pathname);
+  if (istFremd(p) && !redirects.some(([v]) => v === p)) return null;
   for (const [von_, nach] of redirects) if (von_ === p) p = nach.startsWith('/') ? nach : p;
   const kand = [p, p.replace(/\/$/, '') + '/index.html', p + '.html', p + '.htm', p.replace(/\.html$/, '')].map(x => x.replace(/^\//, ''));
   const datei = kand.find(k => k && DATEIEN.includes(k)) ?? (p === '/' && DATEIEN.includes('index.html') ? 'index.html' : undefined);
@@ -95,7 +101,8 @@ const ROBOTS = (() => {
   return { text: t, gruppen, sitemaps: [...t.matchAll(/^\s*sitemap:\s*(\S+)/gim)].map(m => m[1]) };
 })();
 const gesperrt = (agent) => { if (!ROBOTS) return false; const g = ROBOTS.gruppen.find(g => g.agents.includes(agent.toLowerCase())) || ROBOTS.gruppen.find(g => g.agents.includes('*')); return !!g?.regeln.some(([k, w]) => k === 'disallow' && w === '/') && !g.regeln.some(([k, w]) => k === 'allow' && w === '/'); };
-const SITEMAP = (() => { const t = lies('sitemap.xml'); return t === null ? null : { text: t, locs: [...t.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(m => entities(m[1])) }; })();
+// Sitemap: die in robots.txt genannte lokale Datei (z. B. sitemap-seiten.xml neben einem fremden Shop), sonst sitemap.xml
+const SITEMAP = (() => { const lokal = (ROBOTS?.sitemaps || []).map(u => { try { return new URL(u).pathname.slice(1); } catch { return ''; } }).find(n => n && lies(n) !== null); const t = lies(lokal || 'sitemap.xml'); return t === null ? null : { text: t, locs: [...t.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map(m => entities(m[1])) }; })();
 const HEADERS = (() => {
   const t = lies('_headers'); if (!t) return null; const h = {}; let aktiv = false;
   for (const z of t.split('\n')) { if (/^\S/.test(z)) aktiv = z.trim() === '/*'; else if (aktiv && z.includes(':')) { const [k, ...v] = z.trim().split(':'); h[k.toLowerCase()] = v.join(':').trim(); } }
@@ -150,7 +157,7 @@ const CHECKS = {
   'ki-crawler': () => { if (!ROBOTS) return [F(false, 'robots.txt fehlt')]; const such = ['Googlebot', 'Bingbot', 'OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot', 'Applebot']; const g = such.filter(gesperrt); return [F(!g.length, g.length ? `Such-Crawler gesperrt: ${g.join(', ')}` : 'alle Such-Crawler (Google, Bing, OpenAI-, Anthropic-, Perplexity-, Apple-Suche) zugelassen')]; },
   sitemap: () => { if (!SITEMAP) return [F(false, 'sitemap.xml fehlt')]; const f = []; if (!/<urlset\b/.test(SITEMAP.text)) f.push('kein <urlset>'); if (SITEMAP.locs.some(u => !/^https:\/\//.test(u))) f.push('nicht absolute/https-URLs'); if (/<priority>|<changefreq>/.test(SITEMAP.text)) f.push('priority/changefreq werden von Google ignoriert (weglassen)'); return [F(!f.length, f.join(', ') || `${SITEMAP.locs.length} URLs`)]; },
   'sitemap-abdeckung': () => { if (!SITEMAP) return [F(false, 'sitemap.xml fehlt')]; const locs = new Set(SITEMAP.locs.map(u => u.replace(/\/$/, ''))); const f = []; for (const s of indexiert) { const c = (s.canonical[0] || basis + s.pfad).replace(/\/$/, ''); if (!locs.has(c)) f.push(`${s.datei} fehlt in der Sitemap`); } for (const s of seiten.filter(x => !x.indexiert)) { const c = (s.canonical[0] || basis + s.pfad).replace(/\/$/, ''); if (locs.has(c)) f.push(`${s.datei} ist noindex, steht aber in der Sitemap`); } for (const u of SITEMAP.locs) { if (ziel(u, start) === false) f.push(`Sitemap-URL ohne Datei: ${u}`); } return [F(!f.length, f.join('; ') || 'Sitemap deckt alle indexierten Seiten ab')]; },
-  canonical: () => jedeSeite(indexiert, s => { const c = s.canonical; if (c.length !== 1) return [F(false, `${c.length} Canonicals`)]; const f = []; let u; try { u = new URL(c[0]); } catch { return [F(false, `Canonical nicht absolut: ${c[0]}`)]; } if (u.protocol !== 'https:') f.push('nicht https'); if (basis && u.origin !== basis) f.push(`andere Herkunft ${u.origin}`); const z = ziel(c[0], s); if (!z || z.datei !== s.datei) f.push(`zeigt nicht auf sich selbst (${c[0]})`); return [F(!f.length, f.join(', ') || `→ ${c[0]}`)]; }),
+  canonical: () => jedeSeite(indexiert, s => { const c = s.canonical; if (c.length !== 1) return [F(false, `${c.length} Canonicals`)]; const f = []; let u; try { u = new URL(c[0]); } catch { return [F(false, `Canonical nicht absolut: ${c[0]}`)]; } if (u.protocol !== 'https:') f.push('nicht https'); if (/\.html?$/.test(u.pathname)) f.push('endet auf .html – Cloudflare Pages leitet auf die Adresse ohne Endung um, Canonical/Sitemap/Links ohne .html'); if (basis && u.origin !== basis) f.push(`andere Herkunft ${u.origin}`); const z = ziel(c[0], s); if (!z || z.datei !== s.datei) f.push(`zeigt nicht auf sich selbst (${c[0]})`); return [F(!f.length, f.join(', ') || `→ ${c[0]}`)]; }),
   'noindex-bewusst': () => { const ok = /^(404|impressum|datenschutz|danke|nachricht-gesendet|abbruch|agb|widerruf)\./; return seiten.filter(s => !s.indexiert && !/^404\./.test(s.datei)).map(s => F(ok.test(s.datei), `${s.datei} ist noindex${ok.test(s.datei) ? ' (gewollt)' : ' – Absicht?'}`)).concat([F(start?.indexiert, start?.indexiert ? 'Startseite indexierbar' : 'Startseite ist noindex!')]); },
   'interne-verlinkung': () => indexiert.filter(s => s !== start).map(s => { const von = seiten.filter(x => x !== s && x.links.some(l => { const z = l.href && !l.href.startsWith('#') && ziel(l.href, x); return z && z.datei === s.datei; })); return F(von.length > 0, von.length ? `${s.datei} von ${von.length} Seite(n) verlinkt` : `${s.datei} ist verwaist (kein interner Link)`); }),
   'og-tags': () => { const m = start.metas; const f = ['og:title', 'og:description', 'og:image', 'og:url', 'og:type'].filter(k => !m[k]); if (m['og:image'] && !/^https:\/\//.test(m['og:image'])) f.push('og:image nicht absolut'); return [F(!f.length, f.length ? `fehlt: ${f.join(', ')}` : 'Open Graph vollständig')]; },
@@ -169,7 +176,9 @@ const CHECKS = {
     const f = []; const a = b.address || {};
     for (const k of ['name', 'telephone', 'url']) if (!b[k]) f.push(`${k} fehlt`);
     for (const k of ['streetAddress', 'postalCode', 'addressLocality']) if (!a[k]) f.push(`address.${k} fehlt`);
-    if (!b.openingHoursSpecification && !b.openingHours) f.push('Öffnungszeiten fehlen');
+    // Öffnungszeiten gibt es nur bei LocalBusiness; eine reine Organization (Hersteller ohne Kundenverkehr) hat keine
+    const nurOrganisation = typen(b).every(t => /^(Organization|Corporation|NGO)$/.test(t));
+    if (!nurOrganisation && !b.openingHoursSpecification && !b.openingHours) f.push('Öffnungszeiten fehlen');
     if (erwartet.length && !erwartet.some(t => typen(b).includes(t))) f.push(`Typ ${typen(b).join('/')} statt ${erwartet.join('/')} (Branchentabelle)`);
     return [F(!f.length, f.join(', ') || `${typen(b).join('/')} vollständig`)];
   },

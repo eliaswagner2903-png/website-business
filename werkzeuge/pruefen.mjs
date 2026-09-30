@@ -21,7 +21,9 @@ for (const w of [320, 360, 390, 768, 1440, 1920]) {
     if (sw > w) melde(`${s} @${w}px: Seite ${sw}px breit (Überlauf)`);
     if (w === 390) {
       const h1 = await p.$$eval('h1', a => a.length); if (h1 !== 1) melde(`${s}: ${h1} H1-Überschriften (genau 1 nötig)`);
-      const klein = await p.$$eval('a, button, [role=button], input, select', els => els.filter(e => { const r = e.getBoundingClientRect(); const st = getComputedStyle(e);
+      const klein = await p.$$eval('a, button, [role=button], input, select', els => els.filter(e => { const st = getComputedStyle(e);
+        // unsichtbar gemachtes Radio/Checkbox (1 px, z. B. CSS-Filter mit :has()): Tippfläche ist das sichtbare Label
+        let r = e.getBoundingClientRect(); if (e.labels?.length && r.width <= 1 && r.height <= 1) r = e.labels[0].getBoundingClientRect();
         return r.width > 0 && r.height > 0 && st.visibility !== 'hidden' && (r.height < 44 && r.width < 44) && !e.closest('p, li p, address, td'); }).map(e => (e.textContent || e.getAttribute('aria-label') || e.tagName).trim().slice(0, 30)));
       if (klein.length) melde(`${s}: kleine Tippflächen (< 44 px): ${[...new Set(klein)].slice(0, 6).join(' | ')}`);
       await p.screenshot({ path: path.join(aus, `${s}-390.png`) });
@@ -40,6 +42,18 @@ for (const [name, opt] of [['ohne JavaScript', { javaScriptEnabled: false }], ['
     await p.waitForTimeout(400);
     const unsichtbar = await p.$$eval('main *', a => a.filter(e => getComputedStyle(e).opacity === '0' && e.getBoundingClientRect().height > 0).length);
     if (unsichtbar) melde(`${s} (${name}): ${unsichtbar} Elemente bleiben unsichtbar`);
+  }
+  await c.close();
+}
+{ // Handy-Menü wirklich antippbar? (Jury OSG R1: ein Schleier über dem Blatt fing jeden Tipp ab; Tastatur ging). Lange Blätter scrollen: Link erst ins Bild holen.
+  const c = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }); const p = await c.newPage();
+  await p.goto(basis + (seiten.includes('index.html') ? 'index.html' : seiten[0]), { waitUntil: 'networkidle' });
+  const knopf = await p.$('header button[aria-controls][aria-expanded]');
+  if (knopf && await knopf.isVisible()) {
+    await knopf.tap(); await p.waitForTimeout(900);
+    const r = await p.evaluate(id => { const links = [...document.getElementById(id)?.querySelectorAll('a') || []].filter(a => a.getBoundingClientRect().height > 0);
+      return links.map(a => { a.scrollIntoView({ block: 'nearest', behavior: 'instant' }); const q = a.getBoundingClientRect(); const e = document.elementFromPoint(q.x + Math.min(20, q.width / 2), q.y + q.height / 2); return e && (e === a || a.contains(e)) ? null : `${a.textContent.trim().slice(0, 20)} verdeckt von ${e ? e.tagName.toLowerCase() + '.' + e.className : 'nichts'}`; }).filter(Boolean); }, await knopf.getAttribute('aria-controls'));
+    if (r.length) melde(`Handy-Menü: Links nicht antippbar – ${r.slice(0, 3).join(' | ')}`);
   }
   await c.close();
 }

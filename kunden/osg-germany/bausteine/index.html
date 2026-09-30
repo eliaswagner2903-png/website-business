@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baukasten – Übersicht der Bausteine</title>
+<meta name="description" content="Übersicht aller geprüften Bausteine der Vorlage mit Demo-Seiten.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../public/css/marke.css">
+<link rel="stylesheet" href="../public/css/stil.css">
+<link rel="stylesheet" href="einblenden/einblenden.css">
+<link rel="stylesheet" href="seitenwechsel/seitenwechsel.css">
+<link rel="stylesheet" href="bento/bento.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="einblenden/einblenden.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf"><div class="huelle"><a class="marke" href="index.html">Bausteine</a></div></header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Vorlage</span>
+        <h1 id="titel">Baukasten</h1>
+        <p>Geprüfte Bausteine für jede Kundenseite. Einbau: <code>node bausteine/einbauen.mjs &lt;namen&gt;</code>, Anleitung in bausteine/README.md.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" aria-label="Alle Bausteine">
+    <div class="huelle">
+      <div class="bento">
+        <article class="bento-kachel bento-kachel--gross einblenden">
+          <span class="bento-nummer" aria-hidden="true">01</span>
+          <div><h2 class="h3"><a href="einblenden/demo.html">Einblenden</a></h2><p>Scroll-Timeline in CSS, Rückfall per IntersectionObserver</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">02</span>
+          <div><h2 class="h3"><a href="seitenwechsel/demo.html">Seitenwechsel</a></h2><p>View Transitions zwischen Seiten, benannte Übergänge</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">03</span>
+          <div><h2 class="h3"><a href="menue-blatt/demo.html">Menü-Blatt</a></h2><p>Handy-Menü von unten, inert, Wischen zum Schließen</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">04</span>
+          <div><h2 class="h3"><a href="bento/demo.html">Bento-Raster</a></h2><p>Größenspannung statt Kartenreihe</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">05</span>
+          <div><h2 class="h3"><a href="galerie/demo.html">Galerie</a></h2><p>Wisch-Streifen und Großansicht im dialog</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">06</span>
+          <div><h2 class="h3"><a href="hero-video/demo.html">Hero-Video</a></h2><p>Poster zuerst, Video danach, Pause-Knopf</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="index.html">Bausteine</a><ul><li><a href="../public/index.html">Startseite der Vorlage</a></li></ul></div></footer>
+</body>
+</html>

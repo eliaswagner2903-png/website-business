@@ -1,0 +1,54 @@
+/* Erzeugt von bauen.mjs – nicht von Hand ändern. Werkzeugfinder: Filter, Trefferzahl und Leerzustand. */
+.finder:has(#fv-fraesen:checked) .serie:not(.v-fraesen) { display: none; }
+.finder:has(#fv-bohren:checked) .serie:not(.v-bohren) { display: none; }
+.finder:has(#fv-gewinden:checked) .serie:not(.v-gewinden) { display: none; }
+.finder:has(#fw-stahl:checked) .serie:not(.w-stahl) { display: none; }
+.finder:has(#fw-stahl:checked) .wchip--stahl { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-edelstahl:checked) .serie:not(.w-edelstahl) { display: none; }
+.finder:has(#fw-edelstahl:checked) .wchip--edelstahl { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-gehaertet:checked) .serie:not(.w-gehaertet) { display: none; }
+.finder:has(#fw-gehaertet:checked) .wchip--gehaertet { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-guss:checked) .serie:not(.w-guss) { display: none; }
+.finder:has(#fw-guss:checked) .wchip--guss { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-alu:checked) .serie:not(.w-alu) { display: none; }
+.finder:has(#fw-alu:checked) .wchip--alu { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-titan:checked) .serie:not(.w-titan) { display: none; }
+.finder:has(#fw-titan:checked) .wchip--titan { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-hitze:checked) .serie:not(.w-hitze) { display: none; }
+.finder:has(#fw-hitze:checked) .wchip--hitze { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fv-alle:checked):has(#fw-stahl:checked) .zahl--alle-stahl { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-edelstahl:checked) .zahl--alle-edelstahl { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-gehaertet:checked) .zahl--alle-gehaertet { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-guss:checked) .zahl--alle-guss { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-alu:checked) .zahl--alle-alu { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-titan:checked) .zahl--alle-titan { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-hitze:checked) .zahl--alle-hitze { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-alle:checked) .zahl--fraesen-alle { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-stahl:checked) .zahl--fraesen-stahl { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-edelstahl:checked) .zahl--fraesen-edelstahl { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-gehaertet:checked) .zahl--fraesen-gehaertet { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-guss:checked) .zahl--fraesen-guss { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-alu:checked) .zahl--fraesen-alu { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-titan:checked) .zahl--fraesen-titan { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-hitze:checked) .zahl--fraesen-hitze { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-alle:checked) .zahl--bohren-alle { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-stahl:checked) .zahl--bohren-stahl { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-edelstahl:checked) .zahl--bohren-edelstahl { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-gehaertet:checked) .zahl--bohren-gehaertet { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-guss:checked) .zahl--bohren-guss { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-alu:checked) .zahl--bohren-alu { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-titan:checked) .zahl--bohren-titan { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-hitze:checked) .zahl--bohren-hitze { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-alle:checked) .zahl--gewinden-alle { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-stahl:checked) .zahl--gewinden-stahl { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-edelstahl:checked) .zahl--gewinden-edelstahl { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .zahl--gewinden-gehaertet { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-sprung { display: none; }
+.finder:has(#fv-gewinden:checked):has(#fw-guss:checked) .zahl--gewinden-guss { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-alu:checked) .zahl--gewinden-alu { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-titan:checked) .zahl--gewinden-titan { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .zahl--gewinden-hitze { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-sprung { display: none; }
+.finder:has(.finder-wahl input:not([value="alle"]):checked) .zahl--alle-alle { display: none; }

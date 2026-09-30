@@ -107,12 +107,12 @@ const META = [
   ['kunde', /^(kunde|firma|name|unternehmen|betrieb)$/i], ['branche', /^(branche|business|ihr business|gewerbe)$/i],
   ['ort', /^(ort|standort|stadt|region)$/i], ['domain', /^(domain|adresse der seite|url|webadresse)$/i],
   ['website', /^(website|webseite|seite)$/i], ['wuensche', /^(besondere w(ü|ue)nsche|w(ü|ue)nsche|hinweise|stil|notizen)$/i],
-  ['funktionen', /^(funktionen|bausteine)$/i], ['sprachen', /^(sprachen?)$/i],
+  ['funktionen', /^(funktionen|bausteine)$/i], ['fremdePfade', /^(fremde pfade|pfade anderer systeme)$/i], ['sprachen', /^(sprachen?)$/i],
   ['block', /^(priorit(ä|ae)ten|leistungen|optimierung|services)$/i],
 ];
 
 export function leseAuftrag(text, wissen) {
-  const A = { kunde: '', branche: '', ort: '', domain: '', website: true, wuensche: [], funktionen: '', sprachen: '', bereiche: {}, aus: [], konfigurator: {}, angaben: {}, notizen: [], unklar: [] };
+  const A = { kunde: '', branche: '', ort: '', domain: '', fremdePfade: '', website: true, wuensche: [], funktionen: '', sprachen: '', bereiche: {}, aus: [], konfigurator: {}, angaben: {}, notizen: [], unklar: [] };
   const aliase = aliasListe(wissen.gebiete);
   const gebietVon = (s) => { const n = s.trim().toLowerCase(); return aliase.find(x => x.a.toLowerCase() === n)?.key; };
   const setze = (key, prio, quelle) => {

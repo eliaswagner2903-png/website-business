@@ -1,0 +1,87 @@
+/* =====================================================================
+   MARKE OSG – die ganze Marke der Seite steht nur hier.
+   stil.css, finder.css und bausteine.css lesen nur diese Variablen.
+   Farben aus dem Logo gemessen: Blau #00559D (Zeichen), Grau #898989 (Schriftzug).
+   Kontrast (WCAG AA), nachgemessen 2026-09-30 (relative Leuchtdichte, WCAG 2.2):
+     text/grund 16,8 · text/flaeche 18,5 · leise/grund 6,9 · leise/flaeche 7,6
+     akzent/grund 6,8 · akzent/flaeche 7,5 · auf-akzent/akzent 7,5
+     nacht: nacht-text/nacht 16,4 · nacht-leise/nacht 8,2 · nacht-akzent/nacht 7,0 · nacht-text/nacht-flaeche 14,6 · nacht-akzent/nacht-flaeche 6,3
+     Schema „nacht“: text/grund 15,9 · leise/grund 8,3 · akzent/flaeche 6,1 · auf-akzent/akzent 7,0
+   Dunkle Abschnitte (.nacht) setzen nur die Rollen um – kein Bauteil braucht eigene Dunkel-Regeln.
+   ===================================================================== */
+
+/* ---------- Schriften (lokal, OFL; je Familie EINE Datei, Latin + Satzzeichen, per pyftsubset) ----------
+   Archivo variabel (wght 300–800, wdth 75–100) für Überschriften und Text; IBM Plex Mono 500 für Maße und Zahlen. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal; font-weight: 300 800; font-stretch: 75% 100%; font-display: swap;
+  src: url("../fonts/archivo.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/plex-mono.woff2") format("woff2");
+}
+/* Ersatzschrift mit gemessenen Maßen (fontTools, „Hamburgefonstiv“ Archivo 400/100 gegen Liberation Sans = Arial) */
+@font-face {
+  font-family: "Archivo Ersatz";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 101.2%; ascent-override: 86.7%; descent-override: 20.7%; line-gap-override: 0%;
+}
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent */
+  --farbe-grund: #f2f4f7;       /* kühles Werkstattgrau-Weiß */
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #0c141d;        /* Graphit */
+  --farbe-leise: #4a5563;
+  --farbe-linie: #cdd4dd;
+  --farbe-akzent: #00559d;      /* OSG-Blau aus dem Logo */
+  --farbe-auf-akzent: #ffffff;
+  --farbe-fehler: #b3261e;       /* Fehler im Formular: 6,1:1 auf #f2f4f7, 6,6:1 auf Weiß */
+
+  /* Dunkle Welt (Hero, Bericht, Fuß): Stahl bei Nacht */
+  --farbe-nacht: #0b1016;
+  --farbe-nacht-flaeche: #151d27;
+  --farbe-nacht-text: #e9eef4;
+  --farbe-nacht-leise: #9fabb9;
+  --farbe-nacht-linie: #2b3644;
+  --farbe-nacht-akzent: #5aa2e6; /* OSG-Blau, aufgehellt für dunklen Grund */
+
+  /* Schriften */
+  --schrift-display: "Archivo", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-text: "Archivo", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Formen: technisch, fast eckig */
+  --radius-klein: 4px;
+  --radius-gross: 10px;
+
+  /* Bewegung (wissen/DESIGN-WISSEN.md) */
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .85s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Rhythmus */
+  --abstand-abschnitt: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
+
+  color-scheme: light;
+}
+
+/* Zweites Schema (Meisterstandard P4): ganze Seite dunkel. Test: SCHEMA=nacht node bauen.mjs */
+:root[data-schema="nacht"] {
+  --farbe-grund: #0e141b;
+  --farbe-flaeche: #161f29;
+  --farbe-text: #e9eef4;
+  --farbe-leise: #a3afbd;
+  --farbe-linie: #2e3a48;
+  --farbe-akzent: #5aa2e6;
+  --farbe-auf-akzent: #06121f;
+  --farbe-fehler: #ff8a80;
+  --farbe-nacht: #070b10;
+  --farbe-nacht-flaeche: #111821;
+  color-scheme: dark;
+}

@@ -78,6 +78,7 @@ test('Branchen: kurze Stichwörter nur als ganzes Wort, Mehrfachtypen', () => {
   assert.equal(b('Cocktailbar'), 'BarOrPub');
   assert.equal(b('Sanitär und Heizung'), 'Plumber, HVACBusiness');
   assert.equal(b('Friseursalon'), 'HairSalon');
+  assert.equal(b('Hersteller von Präzisions-Zerspanungswerkzeugen (B2B, Industrie)'), 'Organization');
 });
 
 test('Vorlage des Auftrags ist leer gültig und liefert nur den globalen Standard', () => {
@@ -141,6 +142,8 @@ test('Quality Gate auf einer absichtlich fehlerhaften Mini-Seite', { timeout: 12
     assert.match(q, /Platzhalter „www\.beispiel\.de“/);
     assert.match(q, /fremde Herkünfte: https:\/\/cdn\.fremd\.invalid/);
     assert.match(q, /index\.html: 1 Bilder außerhalb des ersten Bildschirms ohne loading="lazy"/);
+    assert.match(q, /tote Links: https:\/\/www\.beispiel\.de\/fehlt\.html/, 'toter Link auf eigener Domain');
+    assert.doesNotMatch(zeile('GLB-06'), /shop\/konto/, '„Fremde Pfade“ aus dem Auftrag gelten nicht als tot');
     assert.doesNotMatch(zeile('SEC-01'), /^\| ✓/, '„ok“ ist kein Beleg');
     assert.match(zeile('TEC-10'), /^\| ↻/, 'nach Launch blockiert nicht');
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
