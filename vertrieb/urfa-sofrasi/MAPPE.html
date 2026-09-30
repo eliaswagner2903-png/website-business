@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>URFA SOFRASI – Ihre neue Website</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Helvetica Neue", Arial, sans-serif; color: #1c1a17; background: #fff; }
+  .seite { width: 210mm; height: 297mm; padding: 16mm 16mm 12mm; position: relative; page-break-after: always; overflow: hidden; }
+  .seite:last-child { page-break-after: auto; }
+  .kopf { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #7fb35a; padding-bottom: 4mm; }
+  .kopf b { letter-spacing: .18em; font-size: 11pt; }
+  .kopf span { font-size: 9pt; color: #6b655c; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 30pt; line-height: 1.05; margin: 9mm 0 3mm; }
+  h1 em { color: #5d8f3c; font-style: normal; }
+  .unter { font-size: 12pt; color: #4a453e; margin: 0 0 7mm; max-width: 150mm; line-height: 1.45; }
+  .vergleich { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+  .vergleich figure { margin: 0; }
+  .vergleich img { width: 100%; height: 118mm; object-fit: cover; object-position: top; border-radius: 4mm; border: 1px solid #d9d4cb; display: block; }
+  figcaption { font-size: 9.5pt; margin-top: 2mm; color: #4a453e; }
+  figcaption b { color: #1c1a17; }
+  .zahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin-top: 8mm; }
+  .zahl { border: 1px solid #d9d4cb; border-radius: 3mm; padding: 4mm; }
+  .zahl .wert { font-size: 18pt; font-weight: 700; color: #3f6f22; }
+  .zahl .vorher { font-size: 9pt; color: #8a8378; text-decoration: line-through; }
+  .zahl .was { font-size: 9pt; color: #4a453e; margin-top: 1mm; line-height: 1.35; }
+  .fuss { position: absolute; left: 16mm; right: 16mm; bottom: 10mm; font-size: 7.5pt; color: #8a8378; line-height: 1.4; border-top: 1px solid #e6e1d8; padding-top: 2mm; }
+  h2 { font-family: Georgia, serif; font-weight: 400; font-size: 17pt; margin: 5mm 0 2.5mm; }
+  ul.neu { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm 8mm; font-size: 10.5pt; line-height: 1.4; }
+  ul.neu li { padding-left: 6mm; position: relative; }
+  ul.neu li::before { content: ""; position: absolute; left: 0; top: 1.6mm; width: 3mm; height: 3mm; border-radius: 50%; background: #7fb35a; }
+  .angebot { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 3mm; }
+  .karte { border: 1.5px solid #1c1a17; border-radius: 4mm; padding: 5mm 6mm; }
+  .karte.leise { border-color: #d9d4cb; }
+  .karte h3 { margin: 0 0 2mm; font-size: 11pt; letter-spacing: .08em; text-transform: uppercase; }
+  .preis { font-family: Georgia, serif; font-size: 24pt; }
+  .preis small { font-size: 11pt; font-family: inherit; color: #4a453e; }
+  .karte p { font-size: 10pt; line-height: 1.45; margin: 2mm 0 0; color: #4a453e; }
+  .band { background: #1c1a17; color: #fff; border-radius: 4mm; padding: 5mm 7mm; margin-top: 5mm; font-size: 13pt; line-height: 1.4; }
+  .band b { color: #a9d785; }
+  ol.ablauf { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; padding: 0; margin: 3mm 0 0; list-style: none; counter-reset: s; }
+  ol.ablauf li { counter-increment: s; font-size: 9.5pt; line-height: 1.4; border-top: 2px solid #7fb35a; padding-top: 2mm; }
+  ol.ablauf li::before { content: counter(s); display: block; font-family: Georgia, serif; font-size: 16pt; color: #5d8f3c; }
+  .kontakt { margin-top: 8mm; font-size: 11pt; line-height: 1.5; }
+  .platzhalter { background: #fff3c4; padding: 0 1mm; }
+  .desk { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 3mm; }
+  .desk img { width: 100%; height: 36mm; object-fit: cover; object-position: top; border-radius: 3mm; border: 1px solid #d9d4cb; display: block; }
+</style>
+</head>
+<body>
+
+<section class="seite">
+  <div class="kopf"><b>URFA SOFRASI</b><span>Vorschlag für Ihre Website · Eislingen/Fils</span></div>
+  <h1>Ihre Website,<br><em>schneller und klarer</em> auf dem Handy.</h1>
+  <p class="unter">Gleiche Identität, gleiche Speisekarte, gleiche Adressen. Aber Telefon, Öffnungszeiten und Speisekarte
+    stehen jetzt im ersten Bildschirm, und die Seite ist in gut zwei statt rund fünf Sekunden fertig.</p>
+
+  <div class="vergleich">
+    <figure><img src="bilder/urfa-alt-390.jpg" alt="Bisherige Startseite auf dem Handy">
+      <figcaption><b>Heute</b> · erster Bildschirm auf dem Handy</figcaption></figure>
+    <figure><img src="bilder/urfa-neu-390.jpg" alt="Neue Startseite auf dem Handy">
+      <figcaption><b>Neu</b> · Anrufen, „Jetzt geöffnet“, Speisekarte sofort sichtbar</figcaption></figure>
+  </div>
+
+  <div class="zahlen">
+    <div class="zahl"><div class="vorher">4,5–5,5 s</div><div class="wert">2,3 s</div><div class="was">bis das Hauptbild auf dem Handy steht</div></div>
+    <div class="zahl"><div class="vorher">1,24 MB</div><div class="wert">0,27 MB</div><div class="was">Datenmenge der Startseite, schont das Handy-Datenvolumen</div></div>
+    <div class="zahl"><div class="vorher">70–76</div><div class="wert">98</div><div class="was">Google-Prüfwert Leistung (von 100)</div></div>
+    <div class="zahl"><div class="vorher">91</div><div class="wert">100</div><div class="was">Google-Prüfwert Suchmaschinen-Grundlagen</div></div>
+  </div>
+
+  <div class="fuss">Gemessen am 30.09.2026 mit Google Lighthouse (Handy-Profil): bisherige Seite www.urfasofrasi-eislingen.de live,
+    neue Seite als fertige Vorschau. Werte schwanken je Messung leicht. Aussagen zu Google-Platzierungen oder mehr Gästen sind damit nicht verbunden.</div>
+</section>
+
+<section class="seite">
+  <div class="kopf"><b>URFA SOFRASI</b><span>Was neu ist · Angebot</span></div>
+
+  <h2>Was Ihre Gäste bekommen</h2>
+  <ul class="neu">
+    <li>Großer Anrufen-Knopf ganz oben und fest am Handy-Rand</li>
+    <li>„Jetzt geöffnet“ oder „Geschlossen“ automatisch aus Ihren Öffnungszeiten</li>
+    <li>Speisekarte mit allen Gerichten als Text, mit Suche und Sprung zu jeder Kategorie</li>
+    <li>Route, Adresse und Öffnungszeiten auf der Startseite</li>
+    <li>Kein Cookie-Banner nötig: keine Cookies, keine fremden Dienste</li>
+    <li>Angaben für Google (Restaurant, Adresse, Öffnungszeiten) sauber hinterlegt</li>
+    <li>Ihre bisherigen Seitenadressen bleiben gültig</li>
+    <li>Wöchentliche Prüfung und Pflege, wenn Sie die Betreuung wählen</li>
+  </ul>
+
+
+  <h2>Angebot für Gründungskunden</h2>
+  <div class="angebot">
+    <div class="karte"><h3>Kaufen</h3>
+      <div class="preis">1.490 € <small>einmalig</small></div>
+      <div class="preis" style="font-size:16pt">+ 49 € <small>im Monat Betreuung</small></div>
+      <p>Hosting, Sicherheit, wöchentliche Prüfung, Updates und kleine Änderungen. Mindestlaufzeit 12 Monate.</p></div>
+    <div class="karte leise"><h3>Mieten</h3>
+      <div class="preis">109 € <small>im Monat</small></div>
+      <p>Seite und Betreuung zusammen, kein Einmalbetrag. Mindestlaufzeit 24 Monate.</p></div>
+  </div>
+
+  <div class="band">Sie zahlen erst, <b>wenn die Seite online ist und Ihnen gefällt.</b><br>
+    Einzige Bitte: Wir dürfen Ihre Seite als Referenz zeigen.</div>
+
+  <h2>So geht es weiter</h2>
+  <ol class="ablauf">
+    <li>Sie sehen sich die Vorschau in Ruhe an und sagen, was geändert werden soll.</li>
+    <li>Sie bestätigen Öffnungszeiten, E-Mail, Allergen-Hinweise und Ihre Rechtstexte.</li>
+    <li>Wir schalten die Seite unter Ihrer bisherigen Adresse live.</li>
+    <li>Erst dann kommt die Rechnung.</li>
+  </ol>
+
+  <div class="kontakt"><b>Elias Wagner</b> · Websites für Betriebe in der Region<br>
+    <span class="platzhalter">[Telefon]</span> · <span class="platzhalter">[E-Mail]</span></div>
+
+  <div class="fuss">Entwurf vom 30.09.2026. <span class="platzhalter">Preise und Bedingungen vorbehaltlich; Preise ohne Umsatzsteuer
+    (Kleinunternehmer nach § 19 UStG), falls zutreffend.</span> Vertragliche Einzelheiten regelt der Vertrag.</div>
+</section>
+
+</body>
+</html>
