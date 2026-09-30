@@ -1,9 +1,8 @@
 // POST /api/kontakt – Kontaktformular ohne JavaScript.
-// Schutz: gleiche Herkunft, verstecktes Honigtopf-Feld, Längenprüfung, optional Cloudflare Turnstile.
+// Schutz: gleiche Herkunft, Größengrenze, verstecktes Honigtopf-Feld, Längenprüfung. Rate-Limit per Cloudflare-Regel (abnahme.md SEC-03).
 // Versand über Resend (EU-Region wählbar). Ohne RESEND_API_KEY wird nichts versendet (503).
 //
 //   RESEND_API_KEY (Secret), KONTAKT_AN (Empfänger), KONTAKT_VON (verifizierte Absenderadresse)
-//   TURNSTILE_SECRET (Secret, optional – wenn gesetzt, ist Turnstile Pflicht)
 import { weiter, fehler, fehlerSeite, seitenUrl, gleicheHerkunft } from '../_lib/antwort.js';
 
 // Wohin „Zurück zum Formular“ führt und welche Klassen die Fehlerseite bekommt (Anker des Formulars auf der Seite).
@@ -29,29 +28,21 @@ export function pruefeFelder(form) {
   return { daten };
 }
 
-async function turnstileOk(env, token, ip) {
-  if (!env.TURNSTILE_SECRET) return true;
-  if (!token) return false;
-  const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token });
-  if (ip) body.set('remoteip', ip);
-  const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
-  return (await r.json().catch(() => ({}))).success === true;
-}
+// Größer ist keine echte Anfrage (5000 Zeichen Nachricht + Felder): vor dem Einlesen abweisen
+const MAX_BYTES = 32 * 1024;
 
 export async function onRequestPost({ request, env }) {
   let basis;
   try { basis = seitenUrl(env); } catch (e) { return fehler(e.message, 500); }
   if (!gleicheHerkunft(request, env)) return zeige('Die Anfrage kam nicht von dieser Website und wurde abgelehnt. Bitte das Formular direkt auf der Seite verwenden.', 403);
 
+  if (Number(request.headers.get('Content-Length') || 0) > MAX_BYTES) return zeige('Die Anfrage ist zu groß. Bitte kürzen Sie die Nachricht.', 413);
   const form = await request.formData().catch(() => null);
   if (!form) return zeige('Das Formular kam unvollständig an. Bitte erneut versuchen.', 400);
   const erg = pruefeFelder(form);
   if (erg.spam) return weiter(`${basis}/nachricht-gesendet`); // Bots bekommen keinen Hinweis
   if (erg.fehler) return zeige(erg.fehler, 400);
 
-  if (!(await turnstileOk(env, form.get('cf-turnstile-response'), request.headers.get('CF-Connecting-IP')))) {
-    return zeige('Die Sicherheitsprüfung ist fehlgeschlagen. Bitte die Seite neu laden.', 400);
-  }
   if (!env.RESEND_API_KEY || !env.KONTAKT_AN || !env.KONTAKT_VON) return zeige('Der Versand ist noch nicht eingerichtet.', 503);
 
   const { name, firma, email, telefon, anliegen, nachricht } = erg.daten;

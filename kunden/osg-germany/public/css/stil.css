@@ -57,6 +57,8 @@ table { border-collapse: collapse; }
   --farbe-auf-akzent: var(--farbe-nacht);
   color: var(--farbe-text); background: var(--farbe-grund); color-scheme: dark;
 }
+/* Fokus auf dunklem Grund: heller Ring statt Blau (Jury R2) */
+.nacht :focus-visible, .leiste :focus-visible { outline-color: var(--farbe-nacht-text); }
 
 /* ---------- Leitmotiv: Messskala ---------- */
 .skala {
@@ -117,7 +119,6 @@ table { border-collapse: collapse; }
 .leiste-links a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; color: var(--farbe-nacht-text); text-decoration: none; }
 .leiste-links .ic { inline-size: 1rem; block-size: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; }
 .leiste .pfeil { color: var(--farbe-nacht-akzent); }
-.leiste :focus-visible { outline-color: var(--farbe-nacht-akzent); }
 @media (max-width: 47.99rem) { .leiste { display: none; } }
 
 /* z-index 20: über dem Menü-Schleier (15) aus menue-blatt – das Blatt liegt im Kopf (Jury R1: Menü war nicht antippbar) */
@@ -183,7 +184,7 @@ table { border-collapse: collapse; }
 @media (max-width: 63.99rem) {
   .held { display: flex; flex-direction: column; }
   /* Handy: Werkzeug zuerst (Jury R1: im ersten Bildschirm war kein Produkt zu sehen), Text darunter */
-  .held .held-medien { order: 1; aspect-ratio: 16 / 10; }
+  .held .held-medien { order: 1; aspect-ratio: 4 / 3; }
   .held .held-medien img { object-position: 72% 50%; }
   .held-in { order: 2; padding-block-start: 1.5rem; }
   .held > .huelle:last-child { order: 3; }
@@ -200,6 +201,8 @@ table { border-collapse: collapse; }
   .held-in { padding-block: clamp(4rem, 8vh, 7rem) 2rem; }
   .held-text { max-width: 40rem; }
   .held .held-video-knopf { inset-block-end: 9.5rem; }
+  .held-in, .held > .huelle { pointer-events: none; }   /* liegen über dem Film; nur ihre Inhalte nehmen Klicks an (Jury R2) */
+  .held-text, .kennzahlen { pointer-events: auto; }
   .held .ki-hinweis { inset: auto 5rem 10.4rem auto; }
 }
 .kennzahlen {
@@ -221,9 +224,9 @@ table { border-collapse: collapse; }
 .finder-wahl { min-width: 0; margin: 0; padding: 0; border: 0; }
 .finder-wahl legend { padding: 0; margin-bottom: .85rem; font: 500 .8125rem/1 var(--schrift-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--farbe-leise); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-@media (max-width: 47.99rem) {  /* Handy: eine wischbare Zeile statt vier Zeilen Chips (FEHLER 10) */
-  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -1.25rem; padding: .25rem 1.25rem; mask: linear-gradient(90deg, transparent, black 1.25rem, black calc(100% - 2rem), transparent); }
-  .chips label { flex: none; white-space: nowrap; }
+@media (max-width: 47.99rem) {  /* Handy: kompakte Chips, die umbrechen – alles sichtbar ohne Wischen (Jury R2) */
+  .chips { gap: .4rem; }
+  .chips label { padding-inline: .8rem; white-space: nowrap; }
 }
 .chips input { position: absolute; width: 1px; height: 1px; margin: 0; clip-path: inset(50%); appearance: none; }
 .chips label {
@@ -242,6 +245,15 @@ table { border-collapse: collapse; }
 .zahl--alle-alle { display: inline; }
 .finder-quelle { font: 500 .75rem/1.3 var(--schrift-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--farbe-leise); }
 .serien { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+@media (min-width: 64rem) { .serien { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 47.99rem) {  /* Handy: Karten kompakt, Name und Spanne in einer Zeile */
+  .serie { padding: 1.1rem 1.1rem .75rem; }
+  .serie-verfahren { margin-bottom: .4rem; }
+  .serie-name { font-size: 1.375rem; }
+  .serie-art { margin-bottom: .5rem; font-size: .9375rem; }
+  .serie-spanne { margin-bottom: .6rem; }
+  .wchips { margin-bottom: .5rem; }
+}
 .serie {
   position: relative; display: flex; flex-direction: column; min-width: 0; padding: 1.5rem 1.5rem 1.25rem;
   background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross);
@@ -363,7 +375,8 @@ table { border-collapse: collapse; }
 
 /* ---------- Service (Startseite) ---------- */
 .service-raster { display: grid; gap: 1rem; }
-@media (min-width: 64rem) { .service-raster { grid-template-columns: 1.35fr 1fr; } }
+@media (min-width: 64rem) { .service-raster { grid-template-columns: 1.5fr 1fr; } }
+.kreis-text { hyphens: auto; }
 .kreislauf, .termine { min-width: 0; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
 .kreislauf > p { color: var(--farbe-leise); }
 .kreis { position: relative; display: grid; gap: 0; margin: 2rem 0 1.5rem; counter-reset: k; }
@@ -478,7 +491,17 @@ table { border-collapse: collapse; }
 .branchen-seite { padding-block: var(--abstand-abschnitt); }
 .branche-block { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem 4rem; padding-block: 3rem; border-top: 1px solid var(--farbe-linie); scroll-margin-top: 6rem; }
 .branche-block:first-child { border-top: 0; padding-top: 0; }
-@media (min-width: 64rem) { .branche-block { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 64rem) { .branche-block { grid-template-columns: 1fr 1fr; align-items: start; } }
+/* Branchen mit Motiv: Bild über zwei Zeilen, im Wechsel links und rechts (Jury R2: sechs gleiche Blöcke) */
+.branche-bild { position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius-gross); background: var(--farbe-flaeche); }
+.branche-bild img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+@media (min-width: 64rem) {
+  .branche-block--bild { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .branche-block--bild .branche-bild { grid-column: 1; grid-row: 1 / span 2; position: sticky; top: 7rem; }
+  .branche-block--bild > :not(.branche-bild) { grid-column: 2; }
+  .branche-block--rechts .branche-bild { grid-column: 2; }
+  .branche-block--rechts > :not(.branche-bild) { grid-column: 1; }
+}
 .branche-bericht { grid-column: 1 / -1; display: grid; gap: .5rem; padding: 1.75rem; border-left: 4px solid var(--farbe-akzent); background: var(--farbe-flaeche); border-radius: 0 var(--radius-gross) var(--radius-gross) 0; }
 .branche-bericht p { margin: 0; max-width: 65ch; }
 .branche-bericht-kopf { font: 500 .75rem/1.3 var(--schrift-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--farbe-akzent); }
@@ -519,10 +542,10 @@ table { border-collapse: collapse; }
 .fakten > div { padding: 1.25rem 1.25rem 1.25rem 0; border-bottom: 1px solid var(--farbe-linie); }
 .fakten dt { margin-bottom: .4rem; font: 500 .75rem/1.2 var(--schrift-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--farbe-leise); }
 .fakten dd { margin: 0; font-size: 1.125rem; font-weight: 600; }
-.gruppe { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); column-gap: 2rem; margin-top: 2rem; border-top: 2px solid var(--farbe-text); }
+.gruppe { counter-reset: gruppe; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); column-gap: 2rem; margin-top: 2rem; border-top: 2px solid var(--farbe-text); }
 /* reine Namensliste (keine Links vorhanden) – bewusst keine Karten, die klickbar wirken (Jury R1) */
-.gruppe li { display: flex; align-items: baseline; gap: .75rem; padding-block: 1rem; font-weight: 650; font-size: 1.125rem; border-bottom: 1px solid var(--farbe-linie); }
-.gruppe li::before { content: counter(list-item, decimal-leading-zero); font: 500 .75rem/1 var(--schrift-mono); color: var(--farbe-akzent); }
+.gruppe li { counter-increment: gruppe; display: flex; align-items: baseline; gap: .75rem; padding-block: 1rem; font-weight: 650; font-size: 1.125rem; border-bottom: 1px solid var(--farbe-linie); }
+.gruppe li::before { content: counter(gruppe, decimal-leading-zero); font: 500 .75rem/1 var(--schrift-mono); color: var(--farbe-akzent); }
 
 /* ---------- Karriere ---------- */
 .benefits { display: grid; gap: 0; margin-top: 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); border-top: 1px solid var(--farbe-linie); }
@@ -550,12 +573,14 @@ table { border-collapse: collapse; }
 }
 .feld textarea { resize: vertical; min-height: 9rem; }
 .feld input:focus-visible, .feld select:focus-visible, .feld textarea:focus-visible { outline: 3px solid var(--farbe-akzent); outline-offset: 1px; border-color: var(--farbe-akzent); }
-.feld input:user-invalid, .feld textarea:user-invalid { border-color: var(--farbe-text); border-width: 2px; }
+.feld input:user-invalid, .feld textarea:user-invalid { border-color: var(--farbe-fehler); border-width: 2px; }
 .feld-hilfe { margin: 0; font-size: .875rem; color: var(--farbe-leise); }
-.feld-fehler { margin: 0; font-size: .9375rem; font-weight: 600; color: var(--farbe-text); }
+.feld-fehler { margin: 0; font-size: .9375rem; font-weight: 600; color: var(--farbe-fehler); }
 .feld-optional { font-weight: 400; color: var(--farbe-leise); }
-.feld [aria-invalid="true"] { border-color: var(--farbe-text); border-width: 2px; }
-.feld-fehler::before { content: "! "; color: var(--farbe-akzent); }
+.feld [aria-invalid="true"] { border-color: var(--farbe-fehler); border-width: 2px; }
+.feld-fehler::before { content: "! "; }
+.formular-kontext { margin: 0; padding: .75rem 1rem; font-weight: 600; background: var(--farbe-grund); border-left: 4px solid var(--farbe-akzent); border-radius: 0 var(--radius-klein) var(--radius-klein) 0; }
+.formular-kontext[hidden] { display: none; }
 .formular .knopf { justify-self: start; min-width: 12rem; }
 .formular--sendet .knopf { opacity: .7; cursor: progress; }
 .honigtopf { position: absolute; left: -9999px; inline-size: 1px; block-size: 1px; overflow: hidden; }
@@ -608,3 +633,16 @@ table { border-collapse: collapse; }
 }
 .shopsuche input::placeholder { color: var(--farbe-leise); }
 .shopsuche input:focus-visible { outline: 3px solid var(--farbe-akzent); outline-offset: 1px; border-color: var(--farbe-akzent); }
+
+/* ---------- Shop-Suche im Handy-Menü ---------- */
+.menue-suche .shopsuche { margin: 0; padding-block: 1rem; }
+.js .blatt li.menue-suche { border-bottom: 0; }
+
+/* ---------- Aktuelles (Startseite) ---------- */
+.beitraege { display: grid; border-top: 2px solid var(--farbe-text); }
+@media (min-width: 48rem) { .beitraege { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 2rem; } }
+.beitrag { display: grid; gap: .5rem; align-content: start; padding-block: 1.25rem 1.5rem; border-bottom: 1px solid var(--farbe-linie); }
+.beitrag time { font: 500 .8125rem/1 var(--schrift-mono); letter-spacing: .06em; color: var(--farbe-akzent); }
+.beitrag a { font: 650 1.25rem/1.25 var(--schrift-display); font-stretch: 85%; color: var(--farbe-text); text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .beitrag a:hover { text-decoration: underline; text-underline-offset: .2em; } }
+.aktuell-newsletter { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; margin: 2rem 0 0; max-width: none; color: var(--farbe-leise); }

@@ -45,14 +45,14 @@ for (const [name, opt] of [['ohne JavaScript', { javaScriptEnabled: false }], ['
   }
   await c.close();
 }
-{ // Handy-Menü wirklich antippbar? (Jury OSG R1: ein Schleier über dem Blatt fing jeden Tipp ab; Tastatur ging)
+{ // Handy-Menü wirklich antippbar? (Jury OSG R1: ein Schleier über dem Blatt fing jeden Tipp ab; Tastatur ging). Lange Blätter scrollen: Link erst ins Bild holen.
   const c = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }); const p = await c.newPage();
   await p.goto(basis + (seiten.includes('index.html') ? 'index.html' : seiten[0]), { waitUntil: 'networkidle' });
   const knopf = await p.$('header button[aria-controls][aria-expanded]');
   if (knopf && await knopf.isVisible()) {
     await knopf.tap(); await p.waitForTimeout(900);
     const r = await p.evaluate(id => { const links = [...document.getElementById(id)?.querySelectorAll('a') || []].filter(a => a.getBoundingClientRect().height > 0);
-      return links.map(a => { const q = a.getBoundingClientRect(); const e = document.elementFromPoint(q.x + Math.min(20, q.width / 2), q.y + q.height / 2); return e && (e === a || a.contains(e)) ? null : `${a.textContent.trim().slice(0, 20)} verdeckt von ${e ? e.tagName.toLowerCase() + '.' + e.className : 'nichts'}`; }).filter(Boolean); }, await knopf.getAttribute('aria-controls'));
+      return links.map(a => { a.scrollIntoView({ block: 'nearest', behavior: 'instant' }); const q = a.getBoundingClientRect(); const e = document.elementFromPoint(q.x + Math.min(20, q.width / 2), q.y + q.height / 2); return e && (e === a || a.contains(e)) ? null : `${a.textContent.trim().slice(0, 20)} verdeckt von ${e ? e.tagName.toLowerCase() + '.' + e.className : 'nichts'}`; }).filter(Boolean); }, await knopf.getAttribute('aria-controls'));
     if (r.length) melde(`Handy-Menü: Links nicht antippbar – ${r.slice(0, 3).join(' | ')}`);
   }
   await c.close();

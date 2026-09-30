@@ -12,5 +12,4 @@ KONTAKT_VON = "website@osg-germany.de"
 
 # Geheimnisse NIE hier eintragen, sondern:
 #   npx wrangler pages secret put RESEND_API_KEY
-#   npx wrangler pages secret put TURNSTILE_SECRET   (optional)
 # Keine Zahlungen auf dieser Seite: der Shop bleibt auf de.osgeurope.com.

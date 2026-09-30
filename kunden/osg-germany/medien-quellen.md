@@ -12,8 +12,10 @@ Logo und Zeichen (`osg-logo.svg`, `osg-zeichen.svg`, `profil.svg`) stammen von d
 | `produkte-*` | Kopf Produkte | GPT Image 2.5 (Flare), 3:2, medium, 2K – vier VHM-Werkzeuge auf gebürstetem Stahl | 1,00 |
 | `branchen-*` | Kopf Industrielösungen | GPT Image 2.5 (Flare), 3:2, medium, 2K – Kugelkopffräser an einem Titan-Laufrad im 5-Achs-Zentrum | 1,00 |
 | `karriere-*` | Kopf Karriere | GPT Image 2.5 (Flare), 3:2, medium, 2K – Hände setzen einen Fräser ins Einstellgerät (kein Gesicht) | 1,00 |
+| `branche-{automotive,energie,schwerindustrie,formenbau,medizin}-*` | Industrielösungen, Bild je Branche | GPT Image 2.5 (Flare), 3:2, medium, 2K, Stapel à 5 – je ein Bauteil in Bearbeitung (Getriebegehäuse, Drehkranz, Ventilblock, Spritzgussform, Hüftprothese) | 5,00 |
+| `ueber-uns-*`, `academy-*`, `kontakt-*` | Kopf Über OSG, Service, Kontakt | GPT Image 2.5 (Flare), 3:2, medium, 2K – Werkzeuglager, Schulung an der Maschine (Personen von hinten), Hände mit Messschieber | 3,00 |
 
-**Summe A-053: 16,00 Credits** (13,00 im ersten Bau, 3,00 nach Jury Runde 1). Kontostand vorher 54,5, danach 38,5.
+**Summe A-053: 24,00 Credits** (13,00 im ersten Bau, 3,00 nach Jury Runde 1, 8,00 nach Jury Runde 2). Kontostand vorher 54,5, danach 30,5 (per Abfrage bestätigt).
 
 Bildpipeline: `node werkzeuge/bilder.mjs <png> public/medien --name=<name> --breiten=480,800,1200` (AVIF + WebP);
 Hero mit `--hero` (640/1016/1600/2400). Originale liegen nicht im Repo.

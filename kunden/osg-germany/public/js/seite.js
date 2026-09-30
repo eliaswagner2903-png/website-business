@@ -10,7 +10,16 @@ function start() {
   const finder = document.querySelector('.finder');
   const ansage = document.getElementById('finder-ansage');
   if (finder && ansage) {
+    // Auswahl steht in der Adresse (?verfahren=…&werkstoff=…#finder): teilbar, bleibt beim Zurück erhalten (Jury R2)
+    const q = new URLSearchParams(location.search);
+    for (const [name, kurz] of [['verfahren', 'fv'], ['werkstoff', 'fw']]) {
+      const r = document.getElementById(`${kurz}-${(q.get(name) || '').replace(/[^a-z-]/g, '')}`);
+      if (r) r.checked = true;
+    }
     finder.addEventListener('change', () => {
+      const p = new URLSearchParams();
+      for (const r of finder.querySelectorAll('input:checked')) if (r.value !== 'alle') p.set(r.name, r.value);
+      history.replaceState(null, '', `${location.pathname}${p.size ? `?${p}` : ''}${location.hash}`);
       requestAnimationFrame(() => {
         const zahl = [...finder.querySelectorAll('.zahl')].find((z) => z.offsetParent !== null);
         const leer = finder.querySelector('.finder-leer');
@@ -46,6 +55,12 @@ function start() {
     if (text && !text.value && (serie || finder)) {
       text.value = serie ? `Anfrage zur ${serie}:\n` : `Werkzeugfinder – ${finder}:\n`;
       if (form.elements.anliegen) form.elements.anliegen.value = 'Anwendungsberatung';
+      // Sichtbar oben im Formular, nicht nur im Nachrichtenfeld (Jury R2)
+      const kontext = document.getElementById('formular-kontext');
+      if (kontext) {
+        kontext.textContent = serie ? `Ihre Anfrage zur ${serie}` : `Ihre Auswahl im Werkzeugfinder: ${finder}`;
+        kontext.hidden = false;
+      }
     }
 
     const MELDUNG = {

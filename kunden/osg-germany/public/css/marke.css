@@ -38,6 +38,7 @@
   --farbe-linie: #cdd4dd;
   --farbe-akzent: #00559d;      /* OSG-Blau aus dem Logo */
   --farbe-auf-akzent: #ffffff;
+  --farbe-fehler: #b3261e;       /* Fehler im Formular: 6,1:1 auf #f2f4f7, 6,6:1 auf Weiß */
 
   /* Dunkle Welt (Hero, Bericht, Fuß): Stahl bei Nacht */
   --farbe-nacht: #0b1016;
@@ -79,6 +80,7 @@
   --farbe-linie: #2e3a48;
   --farbe-akzent: #5aa2e6;
   --farbe-auf-akzent: #06121f;
+  --farbe-fehler: #ff8a80;
   --farbe-nacht: #070b10;
   --farbe-nacht-flaeche: #111821;
   color-scheme: dark;

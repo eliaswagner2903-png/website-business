@@ -12,6 +12,10 @@
 <meta property="og:description" content="OSG-Präzisionswerkzeuge aus Göppingen: Gewindebohrer, Bohrer, Fräser, WSP und Reibahlen – mit Werkzeugfinder, Anwendungsberatung und Toolmanagement.">
 <meta property="og:url" content="https://de.osgeurope.com/">
 <meta property="og:image" content="https://de.osgeurope.com/medien/schaftfraeser-hero-1600.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="905">
+<meta property="og:image:alt" content="Beschichteter Vollhartmetall-Schaftfräser in Nahaufnahme (KI-Visualisierung)">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1016">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
@@ -27,7 +31,7 @@
 </head>
 <body class="seite-start">
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
-<div class="leiste">
+<aside class="leiste" aria-label="Shop-Suche, Telefon und Anmeldung">
   <div class="huelle leiste-in">
     <form class="leiste-suche" action="https://de.osgeurope.com/catalogsearch/result/" method="get" role="search" aria-label="Shop durchsuchen">
       <label class="unsichtbar" for="suche-kopf">Artikel, EDP-Nummer oder Serie im Shop suchen</label>
@@ -36,11 +40,11 @@
     </form>
     <ul class="leiste-links">
       <li><a href="tel:+4971616064-0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+49&nbsp;7161&nbsp;6064&#8209;0</span></a></li>
-      <li><a class="leiste-link" href="https://de.osgeurope.com" rel="noopener">Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+      <li><a class="leiste-link" href="https://de.osgeurope.com/osg-products.html" rel="noopener">Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
       <li><a class="leiste-link" href="https://de.osgeurope.com/customer/account/login/" rel="noopener">Anmelden<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
     </ul>
   </div>
-</div>
+</aside>
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><img src="/medien/osg-logo.svg" width="171" height="60" alt="OSG – shaping your dreams"><span class="unsichtbar"> – zur Startseite</span></a>
@@ -53,7 +57,11 @@
         <li><a href="/ueber-uns">Über OSG</a></li>
         <li><a href="/karriere">Karriere</a></li>
         <li><a href="/kontakt">Kontakt</a></li>
-        <li class="nur-blatt"><a class="textlink" href="https://de.osgeurope.com" rel="noopener">Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+        <li class="nur-blatt menue-suche"><form class="shopsuche" action="https://de.osgeurope.com/catalogsearch/result/" method="get" role="search">
+      <label for="suche-menue">Im Shop suchen: Artikel, EDP-Nummer, Serie</label>
+      <div class="shopsuche-zeile"><input id="suche-menue" name="q" type="search" maxlength="128" required placeholder="z. B. A-TAP" enterkeyhint="search"><button class="knopf" type="submit">Suchen<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></button></div>
+    </form></li>
+        <li class="nur-blatt"><a class="textlink" href="https://de.osgeurope.com/osg-products.html" rel="noopener">Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
         <li class="nur-blatt"><a class="textlink" href="https://de.osgeurope.com/customer/account/login/" rel="noopener">Anmelden im Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
         <li><a class="knopf" href="/kontakt#formular">Beratung anfragen</a></li>
       </ul>
@@ -71,13 +79,13 @@
   <div class="huelle held-in">
     <div class="held-text">
       <p class="ueberzeile"><span class="ueberzeile-nr">OSG</span>Präzisionswerkzeuge aus Göppingen</p>
-      <h1 id="titel">Präzision beginnt an der Schneide.</h1>
+      <h1 id="titel">Werkzeuge für Gewinde, Bohrung und Kontur.</h1>
       <p class="lead">Gewindebohrer, Bohrer, Fräser und Wendeschneidplatten vom weltweit größten Hersteller von Schaftwerkzeugen – mit Anwendungstechnik, Academy und Werkzeugmanagement in Göppingen.</p>
       <div class="knopf-reihe">
         <a class="knopf" href="#finder">Werkzeug finden</a>
         <a class="knopf zweit" href="/kontakt#formular">Anwendungsberatung anfragen</a>
       </div>
-      <p class="held-shop">Sie kennen Ihre EDP-Nummer? <a class="textlink" href="https://de.osgeurope.com" rel="noopener">Direkt zum Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
+      <p class="held-shop">Sie kennen Ihre EDP-Nummer? <a class="textlink" href="https://de.osgeurope.com/osg-products.html" rel="noopener">Direkt zum Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
     </div>
   </div>
   <div class="huelle">
@@ -121,7 +129,7 @@
         </div>
       </fieldset>
     </div>
-    <p class="finder-stand"><span class="finder-zahl"><span class="zahl zahl--alle-alle">Alle 6 Serien</span><span class="zahl zahl--alle-stahl">5 Serien passen</span><span class="zahl zahl--alle-edelstahl">4 Serien passen</span><span class="zahl zahl--alle-gehaertet">4 Serien passen</span><span class="zahl zahl--alle-guss">5 Serien passen</span><span class="zahl zahl--alle-alu">5 Serien passen</span><span class="zahl zahl--alle-titan">5 Serien passen</span><span class="zahl zahl--alle-hitze">2 Serien passen</span><span class="zahl zahl--fraesen-alle">2 Serien passen</span><span class="zahl zahl--fraesen-stahl">1 Serie passt</span><span class="zahl zahl--fraesen-edelstahl">1 Serie passt</span><span class="zahl zahl--fraesen-gehaertet">2 Serien passen</span><span class="zahl zahl--fraesen-guss">1 Serie passt</span><span class="zahl zahl--fraesen-alu">1 Serie passt</span><span class="zahl zahl--fraesen-titan">2 Serien passen</span><span class="zahl zahl--fraesen-hitze">1 Serie passt</span><span class="zahl zahl--bohren-alle">3 Serien passen</span><span class="zahl zahl--bohren-stahl">3 Serien passen</span><span class="zahl zahl--bohren-edelstahl">2 Serien passen</span><span class="zahl zahl--bohren-gehaertet">2 Serien passen</span><span class="zahl zahl--bohren-guss">3 Serien passen</span><span class="zahl zahl--bohren-alu">3 Serien passen</span><span class="zahl zahl--bohren-titan">2 Serien passen</span><span class="zahl zahl--bohren-hitze">1 Serie passt</span><span class="zahl zahl--gewinden-alle">1 Serie passt</span><span class="zahl zahl--gewinden-stahl">1 Serie passt</span><span class="zahl zahl--gewinden-edelstahl">1 Serie passt</span><span class="zahl zahl--gewinden-gehaertet">0 Serien passen</span><span class="zahl zahl--gewinden-guss">1 Serie passt</span><span class="zahl zahl--gewinden-alu">1 Serie passt</span><span class="zahl zahl--gewinden-titan">1 Serie passt</span><span class="zahl zahl--gewinden-hitze">0 Serien passen</span></span><span class="finder-quelle">6 Leitserien · Auswahl nach den Werkstoffangaben von OSG</span></p>
+    <p class="finder-stand"><span class="finder-zahl"><span class="zahl zahl--alle-alle">Alle 6 Serien</span><span class="zahl zahl--alle-stahl">5 Serien passen</span><span class="zahl zahl--alle-edelstahl">4 Serien passen</span><span class="zahl zahl--alle-gehaertet">4 Serien passen</span><span class="zahl zahl--alle-guss">5 Serien passen</span><span class="zahl zahl--alle-alu">5 Serien passen</span><span class="zahl zahl--alle-titan">5 Serien passen</span><span class="zahl zahl--alle-hitze">2 Serien passen</span><span class="zahl zahl--fraesen-alle">2 Serien passen</span><span class="zahl zahl--fraesen-stahl">1 Serie passt</span><span class="zahl zahl--fraesen-edelstahl">1 Serie passt</span><span class="zahl zahl--fraesen-gehaertet">2 Serien passen</span><span class="zahl zahl--fraesen-guss">1 Serie passt</span><span class="zahl zahl--fraesen-alu">1 Serie passt</span><span class="zahl zahl--fraesen-titan">2 Serien passen</span><span class="zahl zahl--fraesen-hitze">1 Serie passt</span><span class="zahl zahl--bohren-alle">3 Serien passen</span><span class="zahl zahl--bohren-stahl">3 Serien passen</span><span class="zahl zahl--bohren-edelstahl">2 Serien passen</span><span class="zahl zahl--bohren-gehaertet">2 Serien passen</span><span class="zahl zahl--bohren-guss">3 Serien passen</span><span class="zahl zahl--bohren-alu">3 Serien passen</span><span class="zahl zahl--bohren-titan">2 Serien passen</span><span class="zahl zahl--bohren-hitze">1 Serie passt</span><span class="zahl zahl--gewinden-alle">1 Serie passt</span><span class="zahl zahl--gewinden-stahl">1 Serie passt</span><span class="zahl zahl--gewinden-edelstahl">1 Serie passt</span><span class="zahl zahl--gewinden-gehaertet">Keine Serie passt</span><span class="zahl zahl--gewinden-guss">1 Serie passt</span><span class="zahl zahl--gewinden-alu">1 Serie passt</span><span class="zahl zahl--gewinden-titan">1 Serie passt</span><span class="zahl zahl--gewinden-hitze">Keine Serie passt</span></span><span class="finder-quelle">6 Leitserien · Auswahl nach den Werkstoffangaben von OSG</span></p>
     <p class="unsichtbar" id="finder-ansage" aria-live="polite"></p>
     <ul class="serien">
         <li class="serie v-fraesen w-stahl w-edelstahl w-gehaertet w-guss w-alu w-titan w-hitze">
@@ -155,7 +163,7 @@
           <p class="serie-verfahren">Bohren</p>
           <h3 class="serie-name">AD / ADO Serie</h3>
           <p class="serie-art">Bohrer aus Vollhartmetall, ADO mit Innenkühlung</p>
-          <p class="serie-spanne">2 × D – 30 × D</p>
+          <p class="serie-spanne">2&#8239;×&#8239;D – 30&#8239;×&#8239;D</p>
           <ul class="wchips" aria-label="Geeignete Werkstoffe"><li class="wchip wchip--stahl">Stahl</li><li class="wchip wchip--edelstahl">Edelstahl</li><li class="wchip wchip--gehaertet">Gehärteter Stahl</li><li class="wchip wchip--guss">Gusseisen</li><li class="wchip wchip--alu">Aluminium</li><li class="wchip wchip--titan">Titan</li><li class="wchip wchip--hitze">Hitzebeständig</li></ul>
           <p class="serie-links"><a class="serie-link" href="/produkte#serie-ad-ado">Serie AD / ADO ansehen <span class="pfeil" aria-hidden="true">→</span></a>
           <a class="textlink serie-shop" href="https://de.osgeurope.com/catalogsearch/result/?q=AD%20%2F%20ADO" rel="noopener">Artikel im Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
@@ -164,7 +172,7 @@
           <p class="serie-verfahren">Bohren</p>
           <h3 class="serie-name">ADO-SUS Serie</h3>
           <p class="serie-art">VHM-Bohrer mit Innenkühlung für rostfreie Stähle</p>
-          <p class="serie-spanne">3 × D – 8 × D</p>
+          <p class="serie-spanne">3&#8239;×&#8239;D – 8&#8239;×&#8239;D</p>
           <ul class="wchips" aria-label="Geeignete Werkstoffe"><li class="wchip wchip--stahl">Stahl</li><li class="wchip wchip--edelstahl">Edelstahl</li><li class="wchip wchip--guss">Gusseisen</li><li class="wchip wchip--alu">Aluminium</li><li class="wchip wchip--titan">Titan</li></ul>
           <p class="serie-links"><a class="serie-link" href="/produkte#serie-ado-sus">Serie ADO-SUS ansehen <span class="pfeil" aria-hidden="true">→</span></a>
           <a class="textlink serie-shop" href="https://de.osgeurope.com/catalogsearch/result/?q=ADO-SUS" rel="noopener">Artikel im Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
@@ -184,7 +192,7 @@
       <p>Das heißt nicht, dass es kein Werkzeug gibt: Die Anwendungstechnik findet die passende Lösung – bis hin zum Sonderwerkzeug.</p>
       <a class="knopf finder-anfrage" href="/kontakt#formular">Anwendung schildern</a>
     </div>
-    <p class="finder-fuss">Schnittwerte und Sonderlösungen: <a class="textlink" href="/kontakt#formular">Anwendungsberatung anfragen</a> · alle Artikel mit EDP-Nummer und Verfügbarkeit <a class="textlink" href="https://de.osgeurope.com" rel="noopener">im Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
+    <p class="finder-fuss">Schnittwerte und Sonderlösungen: <a class="textlink finder-anfrage" href="/kontakt#formular">Anwendungsberatung anfragen</a> · alle Artikel mit EDP-Nummer und Verfügbarkeit <a class="textlink" href="https://de.osgeurope.com/osg-products.html" rel="noopener">im Online-Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
     <form class="shopsuche" action="https://de.osgeurope.com/catalogsearch/result/" method="get" role="search">
       <label for="suche-finder">Artikel schon bekannt? Direkt im Shop suchen</label>
       <div class="shopsuche-zeile"><input id="suche-finder" name="q" type="search" maxlength="128" required placeholder="z. B. A-TAP" enterkeyhint="search"><button class="knopf" type="submit">Suchen<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></button></div>
@@ -197,7 +205,7 @@
     <div class="abschnitt-kopf abschnitt-kopf--zeile">
       <div>
         <p class="ueberzeile"><span class="ueberzeile-nr">02</span>Produkte</p>
-        <h2 id="produkte-titel" class="einblenden">Sechs Bereiche. Ein Anspruch an die Schneide.</h2>
+        <h2 id="produkte-titel" class="einblenden">Sechs Produktbereiche, vom Gewindebohrer bis zur Wendeschneidplatte.</h2>
       </div>
       <a class="textlink" href="/produkte">Alle Produkte und Serien <span class="pfeil" aria-hidden="true">→</span></a>
     </div>
@@ -215,7 +223,7 @@
         <div class="bento-text">
           <p class="bento-nr">02</p>
           <h3><a href="/produkte#bohren">Bohrer</a></h3>
-          <p>Vollhartmetall-Bohrer von 2 × D bis 30 × D, Flachbohrer und Bohrer mit Innenkühlung für Edelstahl und Titan.</p>
+          <p>Vollhartmetall-Bohrer von 2&#8239;×&#8239;D bis 30&#8239;×&#8239;D, Flachbohrer und Bohrer mit Innenkühlung für Edelstahl und Titan.</p>
         </div>
       </li>
       <li class="bento-kachel bento-kachel--bild bento-kachel--3 einblenden">
@@ -266,7 +274,7 @@
 <section class="abschnitt bericht nacht" aria-labelledby="bericht-titel">
   <div class="huelle bericht-in">
     <figure class="bericht-bild einblenden">
-      <picture><source type="image/avif" srcset="/medien/fraesen-480.avif 480w, /medien/fraesen-800.avif 800w, /medien/fraesen-1200.avif 1200w" sizes="(min-width: 64rem) 45vw, 100vw"><img src="/medien/fraesen-800.webp" srcset="/medien/fraesen-480.webp 480w, /medien/fraesen-800.webp 800w, /medien/fraesen-1200.webp 1200w" sizes="(min-width: 64rem) 45vw, 100vw" width="1200" height="896" alt="Beschichteter Schaftfräser bearbeitet ein Titanbauteil in einer CNC-Maschine, Späne und Kühlmitteltropfen fliegen" loading="lazy" decoding="async"></picture>
+      <picture><source type="image/avif" srcset="/medien/branchen-480.avif 480w, /medien/branchen-800.avif 800w, /medien/branchen-1200.avif 1200w" sizes="(min-width: 64rem) 45vw, 100vw"><img src="/medien/branchen-800.webp" srcset="/medien/branchen-480.webp 480w, /medien/branchen-800.webp 800w, /medien/branchen-1200.webp 1200w" sizes="(min-width: 64rem) 45vw, 100vw" width="1200" height="797" alt="Kugelkopffräser bearbeitet die Schaufeln eines Titan-Laufrads in einem 5-Achs-Bearbeitungszentrum, Kühlschmierstoff spritzt" loading="lazy" decoding="async"></picture>
       <figcaption class="ki-hinweis" data-pruefen="KI-Visualisierung – vor Veröffentlichung durch OSG-Fotografie ersetzen oder freigeben lassen">KI-Visualisierung, nicht das Bauteil aus dem Bericht</figcaption>
     </figure>
     <div class="bericht-text">
@@ -329,7 +337,7 @@
         <a href="/industrieloesungen#schwerindustrie">
           <span class="branche-nr">04</span>
           <span class="branche-name">Schwerindustrie</span>
-          <span class="branche-satz">Starke Werkzeuge für robuste Materialien und große Produktion.</span>
+          <span class="branche-satz">Werkzeuge mit großem Durchmesser für große Bauteile und zähe Werkstoffe.</span>
           <span class="branche-teile">Großwälzlager · Hydraulik-Steuerventil · Motor</span>
           <span class="pfeil" aria-hidden="true">→</span>
         </a>
@@ -398,6 +406,24 @@
   </div>
 </section>
 
+<section class="abschnitt abschnitt--flaeche aktuell" aria-labelledby="aktuell-titel">
+  <div class="huelle">
+    <div class="abschnitt-kopf abschnitt-kopf--zeile">
+      <div>
+        <p class="ueberzeile"><span class="ueberzeile-nr">06</span>Aktuelles</p>
+        <h2 id="aktuell-titel" class="einblenden">Neu aus Anwendung und Academy.</h2>
+      </div>
+      <a class="textlink" href="https://de.osgeurope.com/media-list" rel="noopener">Alle Beiträge<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a>
+    </div>
+    <ol class="beitraege">
+      <li class="beitrag einblenden"><time datetime="2026-09-21">21.09.2026</time><a href="https://de.osgeurope.com/blog/workshop-evo" rel="noopener">Digitale Werkzeugorganisation mit nachgeschliffenen Werkzeugen<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+      <li class="beitrag einblenden"><time datetime="2026-09-18">18.09.2026</time><a href="https://de.osgeurope.com/blog/exeron-workshop" rel="noopener">Mikropräzision im Fokus – Grenzen verschieben<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+      <li class="beitrag einblenden"><time datetime="2026-09-03">03.09.2026</time><a href="https://de.osgeurope.com/blog/micro-toolmanagement" rel="noopener">Werkzeugversorgung im geschlossenen Kreislauf<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+    </ol>
+    <p class="aktuell-newsletter"><span>Werkzeugwissen, Produktneuheiten und Termine per E-Mail:</span> <a class="knopf zweit" href="https://osgeurope.us11.list-manage.com/subscribe?u=caff0a836082d0cdf51aa0f82&amp;id=8f0a4d05ba" rel="noopener">Newsletter abonnieren<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (externe Seite)</span></a></p>
+  </div>
+</section>
+
 <section class="cta nacht" aria-labelledby="cta-titel">
   <div class="huelle cta-in">
     <div>
@@ -445,7 +471,9 @@
           <li><a href="/service#haendler">Händlernetz</a></li>
           <li><a href="/service#academy">Academy und Termine</a></li>
           <li><a href="/service#toolmanagement">Micro Toolmanagement</a></li>
-          <li><a class="" href="https://de.osgeurope.com/customer/account/login/" rel="noopener">Anmelden im Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+          <li><a class="fuss-extern" href="https://de.osgeurope.com/media-list" rel="noopener">Beiträge und News<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+          <li><a class="fuss-extern" href="https://osgeurope.us11.list-manage.com/subscribe?u=caff0a836082d0cdf51aa0f82&amp;id=8f0a4d05ba" rel="noopener">Newsletter abonnieren<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (externe Seite)</span></a></li>
+          <li><a class="fuss-extern" href="https://de.osgeurope.com/customer/account/login/" rel="noopener">Anmelden im Shop<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
         </ul>
       </div>
       <div>
@@ -468,8 +496,8 @@
         <ul class="fuss-liste">
           <li><a href="/impressum">Impressum</a></li>
           <li><a href="/datenschutz">Datenschutz</a></li>
-          <li><a class="" href="https://de.osgeurope.com/allgemeine-geschaftsbedingungen" rel="noopener">AGB<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
-          <li><a class="" href="https://de.osgeurope.com/rucknahmebedingungen" rel="noopener">Rücknahme&shy;bedingungen<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+          <li><a class="fuss-extern" href="https://de.osgeurope.com/allgemeine-geschaftsbedingungen" rel="noopener">AGB<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
+          <li><a class="fuss-extern" href="https://de.osgeurope.com/rucknahmebedingungen" rel="noopener">Rücknahme&shy;bedingungen<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></li>
           <li><a href="https://osg-gmbh.personiowhistleblowing.com/" rel="noopener">Hinweisgeber&shy;system<span class="pfeil" aria-hidden="true">↗</span><span class="unsichtbar"> (externe Seite)</span></a></li>
         </ul>
       </div>

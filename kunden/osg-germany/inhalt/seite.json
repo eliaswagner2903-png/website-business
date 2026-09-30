@@ -1,7 +1,7 @@
 {
   "_quelle": "Alle Fakten von de.osgeurope.com, gelesen am 2026-09-30 (Startseite, uber-uns, de-about-osg-germany, ae-vms-series, adf, a-tap, blog/ad-ado-/ado-sus-serie, blog/abrand, automotive, luft-raumfahrt, energie, schwerindustrie, werkzeug-formenbau, medizintechnik, blog/micro-toolmanagement, events, blog/workshop-evo, blog/exeron-workshop, blog/anwenderreportage-…-hsp-schermer, karriere, nc-code-generator-software, dealernetwork, impressum). Nichts ergänzt.",
   "basis": "https://de.osgeurope.com",
-  "shop": "https://de.osgeurope.com",
+  "shop": "https://de.osgeurope.com/osg-products.html",
   "firma": "OSG GmbH",
   "strasse": "Karl-Ehmann-Str. 25",
   "plz": "73037",
@@ -463,7 +463,7 @@
       "id": "luftfahrt",
       "name": "Luft- und Raumfahrt",
       "satz": "Werkzeuginnovationen für schwer zu bearbeitende Werkstoffe in der Luft- und Raumfahrt.",
-      "text": "Mit mehr als 75 Jahren Erfahrung sind OSG-Schneidwerkzeuge der Industriestandard für robuste Materialien wie CFK.",
+      "text": "Seit 1938 entwickelt OSG Schneidwerkzeuge; für robuste Materialien wie CFK gelten sie als Industriestandard. Spezialwerkzeuge für den Flugzeugbau kommen auch von NEXAM Aircraft Cutting Tools aus der OSG-Gruppe.",
       "bauteile": [
         [
           "Tragflächenrippe",
@@ -502,7 +502,7 @@
     {
       "id": "schwerindustrie",
       "name": "Schwerindustrie",
-      "satz": "Starke Werkzeuge für robuste Materialien und große Produktion.",
+      "satz": "Werkzeuge mit großem Durchmesser für große Bauteile und zähe Werkstoffe.",
       "text": "Werkzeuge mit großem Durchmesser für große Bauteile, etwa im Schiffbau und bei Baumaschinen – für verschiedene Werkstoffe und Größen.",
       "bauteile": [
         [
@@ -528,11 +528,11 @@
       "text": "Die Qualität eines Formteils bestimmt die Leistung des Gesamtprodukts. OSG-Schaftfräser liefern Geschwindigkeit und Qualität auch für komplizierte Formen.",
       "bauteile": [
         [
-          "Beispiel 1",
+          "Anwendung 1",
           "PHX-LN-DFR · PHX-PC-DFR"
         ],
         [
-          "Beispiel 2",
+          "Anwendung 2",
           "PHX-PC-DFR · WXS-LN-EBD"
         ]
       ],
@@ -636,6 +636,11 @@
       "name": "ThreadPro",
       "text": "NC-Codegenerator für Gewindefräser – in 12 Sprachen, für 8 NC-Programmsprachen.",
       "link": "https://de.osgeurope.com/nc-code-generator-software/"
+    },
+    {
+      "name": "OSG Shape IT",
+      "text": "Das Global Tooling Magazine von OSG, zuletzt die Sommerausgabe 2026.",
+      "link": "https://de.osgeurope.com/shape-it"
     },
     {
       "name": "Zertifikate",
@@ -768,5 +773,27 @@
       "name": "Facebook",
       "link": "https://www.facebook.com/osggmbh/"
     }
-  ]
+  ],
+  "beitraege": [
+    {
+      "datum": "2026-09-21",
+      "anzeige": "21.09.2026",
+      "titel": "Digitale Werkzeugorganisation mit nachgeschliffenen Werkzeugen",
+      "link": "https://de.osgeurope.com/blog/workshop-evo"
+    },
+    {
+      "datum": "2026-09-18",
+      "anzeige": "18.09.2026",
+      "titel": "Mikropräzision im Fokus – Grenzen verschieben",
+      "link": "https://de.osgeurope.com/blog/exeron-workshop"
+    },
+    {
+      "datum": "2026-09-03",
+      "anzeige": "03.09.2026",
+      "titel": "Werkzeugversorgung im geschlossenen Kreislauf",
+      "link": "https://de.osgeurope.com/blog/micro-toolmanagement"
+    }
+  ],
+  "beitraege_alle": "https://de.osgeurope.com/media-list",
+  "newsletter": "https://osgeurope.us11.list-manage.com/subscribe?u=caff0a836082d0cdf51aa0f82&id=8f0a4d05ba"
 }

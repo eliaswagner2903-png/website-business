@@ -7,7 +7,7 @@ Kunde: OSG GmbH (OSG Germany)
 Branche: Hersteller von Präzisions-Zerspanungswerkzeugen (B2B, Industrie)
 Ort: Göppingen
 Domain: de.osgeurope.com
-Fremde Pfade: /customer/, /catalogsearch/, /osg-products/, /other-brands/, /blog/, /media/, /main-catalogue/, /brochures/, /certificates/, /videos/, /vacancies/, /nc-code-generator-software/, /dealernetwork/, /events, /a-tap, /adf, /ae-vms-series, /automotive, /luft-raumfahrt, /energie, /schwerindustrie, /werkzeug-formenbau, /medizintechnik, /allgemeine-geschaftsbedingungen, /rucknahmebedingungen
+Fremde Pfade: /customer/, /catalogsearch/, /osg-products/, /osg-products.html, /shape-it, /media-list, /other-brands/, /blog/, /media/, /main-catalogue/, /brochures/, /certificates/, /videos/, /vacancies/, /nc-code-generator-software/, /dealernetwork/, /events, /a-tap, /adf, /ae-vms-series, /automotive, /luft-raumfahrt, /energie, /schwerindustrie, /werkzeug-formenbau, /medizintechnik, /allgemeine-geschaftsbedingungen, /rucknahmebedingungen
 
 Website: Ja
 

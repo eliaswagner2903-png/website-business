@@ -44,7 +44,7 @@ test('Werkzeugfinder: Trefferzahl je Kombination stimmt mit den Daten, Leerzusta
       const leer = css.includes(`.finder:has(#fv-${v}:checked):has(#fw-${w}:checked) .finder-leer`);
       assert.equal(leer, n === 0, `${v}/${w}: Leerzustand falsch`);
       if (v === 'alle' && w === 'alle') continue;
-      const soll = n === 1 ? '1 Serie passt' : `${n} Serien passen`;
+      const soll = n === 0 ? 'Keine Serie passt' : n === 1 ? '1 Serie passt' : `${n} Serien passen`;
       assert.ok(start.includes(`<span class="zahl zahl--${v}-${w}">${soll}</span>`), `${v}/${w}: Zahl falsch`);
       assert.ok(css.includes(`.zahl--${v}-${w} { display: inline; }`), `${v}/${w}: Zahl nie sichtbar`);
     }
@@ -103,8 +103,9 @@ test('Bilder: alle Quellen vorhanden, ≤ 300 KB, mit alt/width/height; unter de
     }
     for (const [img] of t.matchAll(/<img [^>]+>/g)) assert.match(img, /alt="[^"]*"[\s\S]*width="\d+"[\s\S]*height="\d+"|width="\d+"[\s\S]*height="\d+"[\s\S]*alt="/, `${f}: ${img.slice(0, 60)}`);
     const nachHeld = f === 'index.html' ? t.split('<section class="abschnitt finder"')[1] : t.split('</section>').slice(1).join('');
-    // Ausnahme: das eine LCP-Bild einer Unterseite, das auf breiten Bildschirmen im ersten Bildschirm steht (fetchpriority="high")
-    for (const [img] of nachHeld.matchAll(/<img [^>]*\/medien\/(?!osg-)[^>]+>/g)) assert.match(img, /loading="lazy"|fetchpriority="high"/, `${f}: Bild unter dem Hero nicht lazy`);
+    // Ausnahmen: das eine LCP-Bild einer Unterseite (fetchpriority="high") und Bilder, die das Qualitätswerkzeug
+    // bei 390 oder 1440 px im ersten Bildschirm misst (data-sofort, ohne Priorität)
+    for (const [img] of nachHeld.matchAll(/<img [^>]*\/medien\/(?!osg-)[^>]+>/g)) assert.match(img, /loading="lazy"|fetchpriority="high"|data-sofort/, `${f}: Bild unter dem Hero nicht lazy`);
     assert.ok((t.match(/fetchpriority="high"/g) || []).length <= 1, `${f}: mehr als ein Bild mit fetchpriority="high"`);
   }
 });
@@ -151,4 +152,13 @@ test('Navigation: aktuelle Seite markiert, alle Seiten in der Sitemap, noindex n
     for (const [, h] of t.matchAll(/href="\/([a-z-]+)(?:#([a-z0-9-]+))?"/g)) assert.ok(alle[`${h}.html`], `${f}: toter Link /${h}`);
     for (const [, h, a] of t.matchAll(/href="\/([a-z-]*)#([a-z0-9-]+)"/g)) assert.ok(alle[`${h || 'index'}.html`].includes(`id="${a}"`), `${f}: Anker /${h}#${a} fehlt`);
   }
+});
+
+test('Formular-Muster sind im v-Modus gültig; Shop-Links führen nicht auf die eigene Startseite (Jury R2)', () => {
+  for (const [f, t] of seiten) {
+    for (const [, p] of t.matchAll(/pattern="([^"]+)"/g)) assert.doesNotThrow(() => new RegExp(p.replace(/&amp;/g, '&'), 'v'), `${f}: pattern ${p} ungültig`);
+  }
+  assert.notEqual(S.shop.replace(/\/$/, ''), S.basis.replace(/\/$/, ''), 'shop zeigt auf die eigene Startseite');
+  const tel = new RegExp(`^(?:${alle['kontakt.html'].match(/name="telefon"[^>]*pattern="([^"]+)"/)[1]})$`, 'v');
+  assert.ok(tel.test('+49 7161 6064-0') && !tel.test('abc'), 'Telefon-Muster prüft nicht');
 });
