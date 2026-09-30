@@ -217,10 +217,14 @@ Folgerungen:
 | **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; 0 von 10 Entscheidungen gefallen) |
 | **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | teilweise vorgezogen: Gestaltung und Generator stehen, echte Angaben fehlen |
 | **4 Konten und Amt** | Steuerberater, Gewerbe, ELSTER, Konto, Versicherung, Verträge; Cloudflare, Stripe, Domain (`ops/HAENDE.md`) | vor dem ersten zahlenden Kunden |
-| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | – |
+| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
 | **6 Wachsen** | Profit-Chain aktiv, Saisonpakete, Abo-Stamm aufbauen; dann Claude-Schablonen als zweites Standbein | – |
 
 ## 13. Entscheidungen, die bei Elias liegen
+
+> **Neu 30.09. (A-056, `vertrieb/ERSTKUNDE.md`):** Für den ersten zahlenden Kunden zählen nur vier davon, gebündelt als
+> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € + 49 €/Monat oder 109 €/Monat Miete), E3 URFA persönlich ansprechen (= Nr. 8),
+> E4 Kontakt und Name auf der Mappe (= Nr. 5). Die übrigen können bis nach dem ersten Kunden warten.
 
 1. **Preisformel:** A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?
 2. **Euro-Werte** (Punktwert, Stundensatz, Paketpreise): als eigener Auftrag mit Marktvergleich festlegen?
