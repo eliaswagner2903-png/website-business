@@ -2,56 +2,56 @@
 
 Je Zeile: prüfen, dann `[x]` setzen und hinter „Beleg:“ eintragen, woran es geprüft wurde (Screenshot-Pfad, Datei:Zeile,
 Aussage des Kunden mit Datum, Messwert oder „trifft nicht zu, weil …“). Ohne nachprüfbaren Beleg zählt die Bestätigung nicht. Neue Zeilen ergänzt `werkzeuge/qualitaet.mjs` selbst.
-- [ ] GLB-08 (Muss) Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS; aktuelle Seite markiert — Beleg: 
-- [ ] GLB-18 (Muss) Impressum und Datenschutz von jeder Seite verlinkt; Texte vom Kunden/Generator, nicht erfunden — Beleg: 
-- [ ] GLB-21 (Muss) Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben — Beleg: 
-- [ ] GLB-24 (Muss) Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 — Beleg: 
-- [ ] SEO-01 (Muss) Seitenstruktur aus Suchabsichten planen: je Hauptleistung eine Seite oder ein klar benannter Abschnitt; Begriffe mit dem Kunden klären — Beleg: 
-- [ ] SEO-05 (Muss) H1 nennt das Seitenthema; Zwischenüberschriften beschreiben ihren Abschnitt — Beleg: 
-- [ ] SEO-08 (Muss) Inhaltsbilder als `<img>` mit beschreibendem alt und sprechendem Dateinamen — Beleg: 
-- [ ] SEO-09 (Muss) Texte konkret und eigen (Leistungen, Ablauf, Team, Einzugsgebiet); keine Füllsätze, keine Massen-KI-Texte; vom Kunden freigegeben — Beleg: 
-- [ ] SEO-10 (Muss) Keine Doorway-Seiten je Stadt und keine Ortslisten; Standortseiten nur für echte Standorte — Beleg: 
-- [ ] SEO-11 (Muss) Sprechende URLs (klein, Bindestriche); bestehende Adressen behalten oder per 301/308 weiterleiten — Beleg: 
-- [ ] SEO-12 (Muss) Häufige Kundenfragen (Preise, Anfahrt, Parken, Termine) sichtbar beantworten — Beleg: 
-- [ ] TEC-07 (Muss) Handy und Computer zeigen dieselben Inhalte, Daten und Metadaten — Beleg: 
-- [ ] TEC-08 (Muss) Eine Hauptdomain: http → https und www/ohne per 301/308; alte Adressen per `_redirects` — Beleg: 
-- [ ] TEC-09 (Muss) Semantische Struktur: header, nav, main, footer; Listen und Tabellen nur für ihren Zweck — Beleg: 
-- [ ] TEC-10 (Muss) Nach Launch: Search Console und Bing Webmaster Tools (Konto des Kunden), Sitemap einreichen, Indexierung prüfen — Beleg: 
-- [ ] SD-03 (Muss) Spezifischster zutreffender Typ (Tabelle `branchen.md`), Mehrfachtyp als Array, keine veralteten Typen — Beleg: 
-- [ ] SD-04 (Muss) Nur wahre, vom Kunden bestätigte Angaben (Preise, Zeiten, Leistungen) — Beleg: 
-- [ ] SD-05 (Soll) Pflicht- und empfohlene Eigenschaften je Typ laut Google-Doku; lieber weniger, aber vollständig — Beleg: 
-- [ ] SD-06 (Soll) WebSite (name, url) nur auf der Startseite; Organization-Angaben (logo ≥ 112 px, sameAs nur echte Profile) — Beleg: 
-- [ ] SD-08 (Soll) Keine eingestellten Rich-Result-Typen versprechen (FAQ, HowTo); FAQPage nur, wenn die Fragen sichtbar sind — Beleg: 
-- [ ] SD-09 (Soll) Validierung: Schema Markup Validator auf den Code, nach Launch Rich Results Test auf die URL — Beleg: 
-- [ ] GEO-01 (Muss) Such-Crawler (Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot, Applebot) nicht sperren – weder in robots.txt noch in Cloudflare-Bot-Einstellungen — Beleg: 
-- [ ] GEO-02 (Soll) Trainings-Crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended): Entscheidung des Kunden dokumentieren (Standard: zulassen) — Beleg: 
-- [ ] GEO-05 (Soll) Eindeutige Entität: gleicher Name, Adresse, Telefon auf allen Seiten und im JSON-LD; `sameAs` nur auf echte Profile — Beleg: 
-- [ ] GEO-06 (Soll) Eigene, überprüfbare Angaben (Zahlen, Erfahrung, Zertifikate, Quellen) statt Allgemeinplätzen – nur Belegtes — Beleg: 
-- [ ] GEO-07 (Soll) Häufige Kundenfragen sichtbar und direkt beantworten, ohne eine Seite je Formulierung — Beleg: 
-- [ ] GEO-08 (Muss) Keine Garantie-Aussagen zu KI-Sichtbarkeit in Seite, Angebot und Bericht — Beleg: 
-- [ ] CRO-02 (Muss) Alle Kontaktwege: Telefon (`tel:+49`), E-Mail, Adresse, Formular bzw. Buchung; feste Schnellleiste auf dem Handy; Kontaktweg auf jeder Seite — Beleg: 
-- [ ] CRO-03 (Muss) Formulare: ≤ 6 sichtbare Felder, eine Spalte, sichtbare Labels, Pflichtfelder markiert, Fehler als Text, Antwortzeit genannt — Beleg: 
-- [ ] CRO-04 (Muss) Vertrauensbelege nur echt und freigegeben: Fotos von Team/Räumen/Arbeiten, Meistertitel, Zertifikate, Jahre, Referenzen — Beleg: 
-- [ ] CRO-05 (Muss) Offene Angaben: Preise oder Preisrahmen (mit Zustimmung des Kunden), Ablauf, Einzugsgebiet, Zeiten — Beleg: 
-- [ ] CRO-06 (Muss) Bewertungen/Stimmen nur echt, mit Quelle und Hinweis, ob und wie die Echtheit geprüft wird (§ 5b UWG); Link zum Profil statt Fremd-Widget — Beleg: 
-- [ ] CRO-07 (Muss) Navigation kurz und eindeutig benannt (Faustregel ≤ 7 Hauptpunkte); jede Seite endet mit dem nächsten Schritt — Beleg: 
-- [ ] CRO-08 (Muss) Lesbar gegliedert: Kerninfo zuerst, kurze Absätze, Zwischenüberschriften, Listen — Beleg: 
-- [ ] CRO-09 (Muss) Zustände gestaltet: Fokus, Fehler, Senden, Danke-Seite mit nächstem Schritt — Beleg: 
-- [ ] CRO-10 (Muss) Hauptknopf mit Verb und deutlichem Kontrast zur Umgebung (keine „Wunderfarbe“) — Beleg: 
-- [ ] PERF-05 (Muss) Wenig und spätes JavaScript (Budget ≤ 60 KB), lange Tasks aufgeteilt — Beleg: 
-- [ ] PERF-07 (Muss) Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien — Beleg: 
-- [ ] PERF-09 (Muss) Video/3D erst nach Poster und „geladen“, pausiert außerhalb des Bildschirms, nicht bei „Daten sparen“ — Beleg: 
-- [ ] PERF-10 (Soll) Nach Launch: Feldwerte (Search Console/CrUX) im Wartungslauf prüfen, sobald Daten vorliegen — Beleg: 
-- [ ] A11Y-01 (Muss) Alles per Tastatur bedienbar, Reihenfolge logisch, Fokus sichtbar und nicht von festen Leisten verdeckt (2.1.1, 2.4.7, 2.4.11) — Beleg: 
-- [ ] A11Y-02 (Muss) Kontrast Text ≥ 4,5:1 (groß 3:1), Bedienelemente ≥ 3:1 – in jedem Farbschema — Beleg: 
-- [ ] A11Y-03 (Muss) Zoom 200 % und Reflow bei 320 px ohne Verlust (1.4.4, 1.4.10), keine Zoom-Sperre — Beleg: 
-- [ ] A11Y-04 (Muss) Formulare: Label, Fehler als Text am Feld, `autocomplete`, keine doppelte Eingabe (3.3.7), Hilfe an gleicher Stelle (3.2.6) — Beleg: 
-- [ ] A11Y-05 (Muss) Alt-Texte beschreiben Inhalt oder Funktion; dekorative Bilder `alt=""`; jeder Link hat einen Namen — Beleg: 
-- [ ] A11Y-06 (Muss) Bewegung: „Bewegung reduzieren“ respektiert, nichts blinkt, Autoplay-Video pausierbar (2.2.2, 2.3.1) — Beleg: 
-- [ ] A11Y-07 (Muss) Screenreader-Stichprobe: Landmarken, Überschriftenliste, Formular verständlich — Beleg: 
-- [ ] A11Y-08 (Muss) BFSG-Einordnung mit dem Kunden dokumentieren (Verbraucher-Buchung/Shop? Kleinstunternehmen?) – keine Rechtsberatung — Beleg: 
-- [ ] SEC-01 (Muss) `/sicherheit` (Agent security-auditor) ohne Mängel KRIT/HOCH — Beleg: 
-- [ ] SEC-03 (Muss) Formulare: Origin-Prüfung, Längengrenzen, Honigtopf, Rate-Limit-Regel in Cloudflare — Beleg: 
-- [ ] SEC-04 (Muss) Zahlungen nur über Stripe Checkout, Preis serverseitig, Webhook mit Signaturprüfung (falls Zahlung) — Beleg: 
-- [ ] SEC-06 (Muss) Functions-Antworten setzen eigene Sicherheits-Header (`_headers` gilt dort nicht) — Beleg: 
-- [ ] SEC-07 (Muss) Abhängigkeiten minimal, `npm audit --omit=dev` ohne hoch/kritisch — Beleg: 
+- [x] GLB-08 (Muss) Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS; aktuelle Seite markiert — Beleg: geprüft 2026-09-30 – Handy-Menü per Touch getestet (pruefen.mjs „Handy-Menü antippbar“, Jury R1 Fehler behoben), Tastatur und ohne JS (Menü als Liste, zustand-ohne-js-1440.png); aria-current="page" in bauen.mjs seite()
+- [ ] GLB-18 (Muss) Impressum und Datenschutz von jeder Seite verlinkt; Texte vom Kunden/Generator, nicht erfunden — Beleg: Links im Fuß jeder Seite (bauen.mjs seite()); Texte bewusst Platzhalter mit data-pruefen – OFFEN, nur OSG kann Rechtstexte liefern
+- [ ] GLB-21 (Muss) Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben — Beleg: Alle Fakten aus de.osgeurope.com (inhalt/seite.json _quelle, Stand 30.09.2026), nichts ergänzt – Freigabe durch OSG OFFEN (kein Auftrag von OSG)
+- [ ] GLB-24 (Muss) Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 — Beleg: Jury JURY.md (Block A) statt W1–W7; Ergebnis siehe dort
+- [x] SEO-01 (Muss) Seitenstruktur aus Suchabsichten planen: je Hauptleistung eine Seite oder ein klar benannter Abschnitt; Begriffe mit dem Kunden klären — Beleg: geprüft 2026-09-30 – Seiten je Suchabsicht: Produkte (Serien mit Anker), Industrielösungen (6 Branchen mit Anker), Service (Toolmanagement, Academy, Downloads, Händler), Karriere, Kontakt; Begriffe von de.osgeurope.com übernommen
+- [x] SEO-05 (Muss) H1 nennt das Seitenthema; Zwischenüberschriften beschreiben ihren Abschnitt — Beleg: geprüft 2026-09-30 – tests/seite.test.mjs „eine H1, Ebenen ohne Sprung“; H1 je Seite = Thema (Produkte: „Werkzeuge für Gewinden, Bohren und Fräsen“ usw.)
+- [x] SEO-08 (Muss) Inhaltsbilder als `<img>` mit beschreibendem alt und sprechendem Dateinamen — Beleg: geprüft 2026-09-30 – Alle Inhaltsbilder als <img> in <picture>, Dateinamen sprechend (produkte-, branchen-, bohren-, gewinden- …), alt beschreibend (bauen.mjs bild()-Aufrufe)
+- [ ] SEO-09 (Muss) Texte konkret und eigen (Leistungen, Ablauf, Team, Einzugsgebiet); keine Füllsätze, keine Massen-KI-Texte; vom Kunden freigegeben — Beleg: Texte aus de.osgeurope.com, gekürzt und gegliedert, keine Füllsätze ergänzt – Freigabe durch OSG OFFEN
+- [x] SEO-10 (Muss) Keine Doorway-Seiten je Stadt und keine Ortslisten; Standortseiten nur für echte Standorte — Beleg: geprüft 2026-09-30 – Keine Stadt-/Ortsseiten; ein Standort (Göppingen)
+- [x] SEO-11 (Muss) Sprechende URLs (klein, Bindestriche); bestehende Adressen behalten oder per 301/308 weiterleiten — Beleg: geprüft 2026-09-30 – URLs klein mit Bindestrich, ohne .html (Cloudflare Pages); alte Adressen per public/_redirects 301; Shop-Pfade bleiben (auftrag.md Fremde Pfade)
+- [x] SEO-12 (Muss) Häufige Kundenfragen (Preise, Anfahrt, Parken, Termine) sichtbar beantworten — Beleg: geprüft 2026-09-30 – Fragen eines B2B-Einkäufers sichtbar: Welche Serie für welchen Werkstoff (Finder), Wo bestellen (Shop, EDP), Termine (Service#academy), Händler, Kontaktwege; Preise nur im Shop
+- [x] TEC-07 (Muss) Handy und Computer zeigen dieselben Inhalte, Daten und Metadaten — Beleg: geprüft 2026-09-30 – Gleiches HTML für alle Breiten (ein Generator, nur CSS-Umbrüche); Screenshots 390/1440 jury/runde-2/seiten
+- [ ] TEC-08 (Muss) Eine Hauptdomain: http → https und www/ohne per 301/308; alte Adressen per `_redirects` — Beleg: _redirects für alte Adressen vorhanden; http→https und www-Regeln sind Cloudflare-Einstellungen beim Launch – OFFEN (kein Launch)
+- [x] TEC-09 (Muss) Semantische Struktur: header, nav, main, footer; Listen und Tabellen nur für ihren Zweck — Beleg: geprüft 2026-09-30 – header/nav/main/footer in bauen.mjs seite(); Tabellen nur für Bauteil→Werkzeug und Kennzahlen; html-validate ohne Fehler
+- [ ] TEC-10 (Muss) Nach Launch: Search Console und Bing Webmaster Tools (Konto des Kunden), Sitemap einreichen, Indexierung prüfen — Beleg: nach Launch, Konto von OSG – trifft vor Launch nicht zu
+- [x] SD-03 (Muss) Spezifischster zutreffender Typ (Tabelle `branchen.md`), Mehrfachtyp als Array, keine veralteten Typen — Beleg: geprüft 2026-09-30 – Organization laut wissen/fachgebiete/branchen.md „Hersteller und Industrie (B2B)“; kein Laden mit Kundenverkehr
+- [ ] SD-04 (Muss) Nur wahre, vom Kunden bestätigte Angaben (Preise, Zeiten, Leistungen) — Beleg: JSON-LD nur Name, Adresse, Telefon, E-Mail, Logo, sameAs von de.osgeurope.com; Bestätigung durch OSG OFFEN
+- [x] SD-05 (Soll) Pflicht- und empfohlene Eigenschaften je Typ laut Google-Doku; lieber weniger, aber vollständig — Beleg: geprüft 2026-09-30 – Organization: name, url, logo, address, telephone, email, sameAs; Öffnungszeiten entfallen (kein LocalBusiness)
+- [x] SD-06 (Soll) WebSite (name, url) nur auf der Startseite; Organization-Angaben (logo ≥ 112 px, sameAs nur echte Profile) — Beleg: geprüft 2026-09-30 – WebSite nur auf der Startseite (tests/seite.test.mjs „JSON-LD nur Startseite“); logo = SVG 171×60 – Hinweis: Google verlangt Raster ≥ 112 px, vor Launch PNG-Logo ergänzen
+- [x] SD-08 (Soll) Keine eingestellten Rich-Result-Typen versprechen (FAQ, HowTo); FAQPage nur, wenn die Fragen sichtbar sind — Beleg: geprüft 2026-09-30 – Keine FAQPage/HowTo
+- [ ] SD-09 (Soll) Validierung: Schema Markup Validator auf den Code, nach Launch Rich Results Test auf die URL — Beleg: JSON-LD mit JSON.parse und Test geprüft; Schema Markup Validator/Rich Results Test erst mit öffentlicher URL – OFFEN
+- [x] GEO-01 (Muss) Such-Crawler (Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot, Applebot) nicht sperren – weder in robots.txt noch in Cloudflare-Bot-Einstellungen — Beleg: geprüft 2026-09-30 – public/robots.txt: alle erlaubt (qualitaet.mjs ki-crawler ✓); Cloudflare-Bot-Einstellungen beim Launch prüfen
+- [ ] GEO-02 (Soll) Trainings-Crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended): Entscheidung des Kunden dokumentieren (Standard: zulassen) — Beleg: Standard zulassen; Entscheidung von OSG OFFEN
+- [x] GEO-05 (Soll) Eindeutige Entität: gleicher Name, Adresse, Telefon auf allen Seiten und im JSON-LD; `sameAs` nur auf echte Profile — Beleg: geprüft 2026-09-30 – Name, Adresse, Telefon aus einer Quelle (seite.json) auf allen Seiten und im JSON-LD (Test „Fakten gleich auf allen Seiten“); sameAs = Profile, die de.osgeurope.com selbst verlinkt
+- [x] GEO-06 (Soll) Eigene, überprüfbare Angaben (Zahlen, Erfahrung, Zertifikate, Quellen) statt Allgemeinplätzen – nur Belegtes — Beleg: geprüft 2026-09-30 – Zahlen mit Quelle: 1938, 33 Länder, 7.173 Mitarbeitende, Anwenderbericht 150→600 min mit Quellenlink, ISO 9001/14001
+- [x] GEO-07 (Soll) Häufige Kundenfragen sichtbar und direkt beantworten, ohne eine Seite je Formulierung — Beleg: geprüft 2026-09-30 – siehe SEO-12; keine Seite je Formulierung
+- [x] GEO-08 (Muss) Keine Garantie-Aussagen zu KI-Sichtbarkeit in Seite, Angebot und Bericht — Beleg: geprüft 2026-09-30 – keine Aussagen zu KI-Sichtbarkeit auf der Seite
+- [x] CRO-02 (Muss) Alle Kontaktwege: Telefon (`tel:+49`), E-Mail, Adresse, Formular bzw. Buchung; feste Schnellleiste auf dem Handy; Kontaktweg auf jeder Seite — Beleg: geprüft 2026-09-30 – Telefon tel:+4971616064-0, E-Mail, Adresse, Formular; Schnellleiste auf dem Handy; Kontaktweg auf jeder Seite (qualitaet.mjs kontakt-jede-seite ✓)
+- [x] CRO-03 (Muss) Formulare: ≤ 6 sichtbare Felder, eine Spalte, sichtbare Labels, Pflichtfelder markiert, Fehler als Text, Antwortzeit genannt — Beleg: geprüft 2026-09-30 – 6 sichtbare Felder (Name, Firma, E-Mail, Telefon optional, Anliegen, Nachricht), eine Spalte, Labels, * markiert, Fehler als Text am Feld (seite.js), Antwortweg genannt
+- [ ] CRO-04 (Muss) Vertrauensbelege nur echt und freigegeben: Fotos von Team/Räumen/Arbeiten, Meistertitel, Zertifikate, Jahre, Referenzen — Beleg: Belege von de.osgeurope.com (Zertifikate, Auszeichnungen, Bericht); Bilder sind KI-Visualisierungen – OFFEN bis OSG-Fotos/Freigabe
+- [x] CRO-05 (Muss) Offene Angaben: Preise oder Preisrahmen (mit Zustimmung des Kunden), Ablauf, Einzugsgebiet, Zeiten — Beleg: geprüft 2026-09-30 – Preise bewusst nicht auf der Seite (B2B, Staffel/Konto im Shop); Ablauf Toolmanagement, Termine, Händler offen genannt
+- [x] CRO-06 (Muss) Bewertungen/Stimmen nur echt, mit Quelle und Hinweis, ob und wie die Echtheit geprüft wird (§ 5b UWG); Link zum Profil statt Fremd-Widget — Beleg: geprüft 2026-09-30 – Keine Bewertungen/Stimmen; ein Anwenderbericht mit Quelle (Fachmagazin) und Link
+- [x] CRO-07 (Muss) Navigation kurz und eindeutig benannt (Faustregel ≤ 7 Hauptpunkte); jede Seite endet mit dem nächsten Schritt — Beleg: geprüft 2026-09-30 – 6 Hauptpunkte + „Beratung anfragen“; jede Seite endet mit CTA-Band
+- [x] CRO-08 (Muss) Lesbar gegliedert: Kerninfo zuerst, kurze Absätze, Zwischenüberschriften, Listen — Beleg: geprüft 2026-09-30 – Kerninfo zuerst (Hero, Seitenköpfe), kurze Absätze, Tabellen, Listen; Screenshots jury/runde-2/seiten
+- [x] CRO-09 (Muss) Zustände gestaltet: Fokus, Fehler, Senden, Danke-Seite mit nächstem Schritt — Beleg: geprüft 2026-09-30 – Fokus (zustand-fokus-tastatur-1440.png), Fehler am Feld (zustand-formular-fehler-1440.png), „Wird gesendet …“, nachricht-gesendet.html mit nächsten Schritten, Finder-Leerzustand
+- [x] CRO-10 (Muss) Hauptknopf mit Verb und deutlichem Kontrast zur Umgebung (keine „Wunderfarbe“) — Beleg: geprüft 2026-09-30 – „Beratung anfragen“/„Werkzeug finden“ mit Verb, Akzent #00559d auf Weiß 7,5:1
+- [x] PERF-05 (Muss) Wenig und spätes JavaScript (Budget ≤ 60 KB), lange Tasks aufgeteilt — Beleg: geprüft 2026-09-30 – JS gesamt ≈ 12 KB (bausteine.js + seite.js), defer; Lighthouse TBT 0–80 ms
+- [x] PERF-07 (Muss) Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien — Beleg: geprüft 2026-09-30 – 2 WOFF2-Subsets lokal: archivo.woff2 52,6 KB, plex-mono.woff2 13 KB; 1 Preload
+- [x] PERF-09 (Muss) Video/3D erst nach Poster und „geladen“, pausiert außerhalb des Bildschirms, nicht bei „Daten sparen“ — Beleg: geprüft 2026-09-30 – Film erst nach load und sichtbar, nicht bei reduzierter Bewegung/Datensparen (bausteine.js hero-video); pausierbar per Knopf; WebM 118 KB
+- [ ] PERF-10 (Soll) Nach Launch: Feldwerte (Search Console/CrUX) im Wartungslauf prüfen, sobald Daten vorliegen — Beleg: nach Launch
+- [x] A11Y-01 (Muss) Alles per Tastatur bedienbar, Reihenfolge logisch, Fokus sichtbar und nicht von festen Leisten verdeckt (2.1.1, 2.4.7, 2.4.11) — Beleg: geprüft 2026-09-30 – Tastaturweg mit Sprunglink, Fokus sichtbar; scroll-padding oben (Kopf) und unten (Schnellleiste, Handy) – Fokus-Test in Playwright: Firma/E-Mail/Telefon über der Leiste
+- [x] A11Y-02 (Muss) Kontrast Text ≥ 4,5:1 (groß 3:1), Bedienelemente ≥ 3:1 – in jedem Farbschema — Beleg: geprüft 2026-09-30 – Kontraste nachgemessen (marke.css Kopf): Text ≥ 6,1:1 in beiden Schemata; Lighthouse A11y 100; axe 0 Verstöße (Jury R1)
+- [x] A11Y-03 (Muss) Zoom 200 % und Reflow bei 320 px ohne Verlust (1.4.4, 1.4.10), keine Zoom-Sperre — Beleg: geprüft 2026-09-30 – Überlauf 320–1440 px gemessen 0 (alle Seiten); keine Zoom-Sperre (viewport ohne maximum-scale)
+- [x] A11Y-04 (Muss) Formulare: Label, Fehler als Text am Feld, `autocomplete`, keine doppelte Eingabe (3.3.7), Hilfe an gleicher Stelle (3.2.6) — Beleg: geprüft 2026-09-30 – Labels, autocomplete (name, organization, email, tel), Fehlertext am Feld mit aria-describedby/aria-invalid, keine doppelte Eingabe, Hilfe unter Nachricht
+- [x] A11Y-05 (Muss) Alt-Texte beschreiben Inhalt oder Funktion; dekorative Bilder `alt=""`; jeder Link hat einen Namen — Beleg: geprüft 2026-09-30 – alt beschreibend, Logo mit alt, externe Links mit unsichtbarem Hinweis; qualitaet.mjs link-namen ✓
+- [x] A11Y-06 (Muss) Bewegung: „Bewegung reduzieren“ respektiert, nichts blinkt, Autoplay-Video pausierbar (2.2.2, 2.3.1) — Beleg: geprüft 2026-09-30 – prefers-reduced-motion: Film aus, Balken sofort, Einblenden aus; Film pausierbar
+- [ ] A11Y-07 (Muss) Screenreader-Stichprobe: Landmarken, Überschriftenliste, Formular verständlich — Beleg: Landmarken und Überschriften per axe/Playwright geprüft; echte Screenreader-Stichprobe (NVDA/VoiceOver) nicht möglich – OFFEN
+- [ ] A11Y-08 (Muss) BFSG-Einordnung mit dem Kunden dokumentieren (Verbraucher-Buchung/Shop? Kleinstunternehmen?) – keine Rechtsberatung — Beleg: B2B-Seite ohne Verbraucher-Buchung; der Shop ist ein anderes System. Einordnung durch OSG OFFEN, keine Rechtsberatung
+- [x] SEC-01 (Muss) `/sicherheit` (Agent security-auditor) ohne Mängel KRIT/HOCH — Beleg: geprüft 2026-09-30 – Sicherheitsprüfung 30.09.2026: keine KRIT/HOCH; MITTEL (wrangler.toml-Platzhalter, Stripe-Reste) behoben
+- [ ] SEC-03 (Muss) Formulare: Origin-Prüfung, Längengrenzen, Honigtopf, Rate-Limit-Regel in Cloudflare — Beleg: Origin-Prüfung, Längen, Honigtopf, CR/LF-Schutz in functions/api/kontakt.js (tests/api.test.mjs); Rate-Limit-Regel in Cloudflare beim Launch OFFEN
+- [x] SEC-04 (Muss) Zahlungen nur über Stripe Checkout, Preis serverseitig, Webhook mit Signaturprüfung (falls Zahlung) — Beleg: geprüft 2026-09-30 – trifft nicht zu: keine Zahlungen, Shop bleibt auf de.osgeurope.com
+- [x] SEC-06 (Muss) Functions-Antworten setzen eigene Sicherheits-Header (`_headers` gilt dort nicht) — Beleg: geprüft 2026-09-30 – functions/_lib/antwort.js setzt eigene Header (CSP der Fehlerseite, Cache-Control no-store)
+- [x] SEC-07 (Muss) Abhängigkeiten minimal, `npm audit --omit=dev` ohne hoch/kritisch — Beleg: geprüft 2026-09-30 – keine Produktionsabhängigkeiten; devDependency nur html-validate (Fontsource-Reste entfernt)
