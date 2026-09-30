@@ -837,10 +837,10 @@ html:not(.js) .nur-js { display: none !important; }
 .kino .held-lead { max-inline-size: 30ch; }
 .kino .knopf:not(.zweit) { color: var(--farbe-auf-akzent); }
 .kino-bild img, .kino-film { object-position: 30% 50%; }
-.kino-bild, .kino-film { inset: 0 0 auto; block-size: 56%; }
+.kino-bild, .kino-film { inset: 0 0 auto; block-size: 52%; }
 .kino-schleier {
   background:
-    linear-gradient(0deg, var(--kino-grund) 0, var(--kino-grund) 44%, color-mix(in srgb, var(--kino-grund) 80%, transparent) 50%, transparent 62%),
+    linear-gradient(0deg, var(--kino-grund) 0, var(--kino-grund) 48%, color-mix(in srgb, var(--kino-grund) 80%, transparent) 52%, transparent 64%),
     linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 40%, transparent) 0, transparent 14%);
 }
 .kapitel-werte { border-top-color: var(--farbe-linie); }
@@ -864,6 +864,19 @@ html:not(.js) .nur-js { display: none !important; }
 @keyframes hero-auf { from { transform: translateY(1.2rem); } }
 
 /* ---------- Feinschliff nach Prüfung 2026-09-30 ---------- */
+/* Handy: Kapitel laufen über das Foto – sie stehen auf einer Tafel in der Grundfarbe, damit der Text immer lesbar bleibt */
+@media (max-width: 47.99rem) {
+  .kino .kapitel:not(.kapitel--start) .kapitel-in {
+    padding: 1.25rem 1.25rem 1.5rem; border-radius: calc(var(--radius-klein) * 2);
+    background: color-mix(in srgb, var(--kino-grund) 90%, transparent); backdrop-filter: blur(8px);
+  }
+  .kino .kapitel:not(.kapitel--start) { padding-block: 4rem 2rem; min-block-size: 70svh; }
+}
+/* Konfigurator am Computer: Modell etwas kleiner, damit unter den Optionen keine Lücke klafft */
+@media (min-width: 64rem) {
+  .gen-bereich { min-block-size: 22rem; }
+  .konfig-vorschau .vorschau-geraet { max-inline-size: 17.5rem; }
+}
 /* Reiterleisten auf dem Handy: Kante blendet aus, damit man sieht, dass es weitergeht */
 @media (max-width: 63.99rem) {
   .buehne-reiter, .gen-reiter { mask-image: linear-gradient(90deg, black 0, black calc(100% - 2.5rem), transparent); }
