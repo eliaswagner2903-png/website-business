@@ -1,21 +1,21 @@
 // Seitenskript der Portfolio-Seite. Die Seite funktioniert vollständig ohne JavaScript.
 // Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), der Film aus js/kino.js.
 (() => {
-  // Tag/Nacht: Schema „nacht“ aus marke.css, gemerkt im Browser (Kopf-Skript setzt es vor dem ersten Bild)
+  // Nacht (Standard) / Licht: Schema „licht“ aus marke.css, gemerkt im Browser (Kopf-Skript setzt es vor dem ersten Bild)
   function schema() {
     const knopf = document.querySelector('.schema-knopf');
     if (!knopf) return;
     const wurzel = document.documentElement;
     const farbe = document.querySelector('meta[name="theme-color"]');
     const zeigen = () => {
-      const nacht = wurzel.getAttribute('data-schema') === 'nacht';
+      const nacht = wurzel.getAttribute('data-schema') !== 'licht';
       knopf.setAttribute('aria-pressed', String(nacht));
       if (farbe) farbe.content = getComputedStyle(wurzel).getPropertyValue('--farbe-grund').trim();
     };
     knopf.addEventListener('click', () => {
-      const nacht = wurzel.getAttribute('data-schema') !== 'nacht';
-      if (nacht) wurzel.setAttribute('data-schema', 'nacht'); else wurzel.removeAttribute('data-schema');
-      try { localStorage.setItem('oq-schema', nacht ? 'nacht' : 'licht'); } catch {}
+      const licht = wurzel.getAttribute('data-schema') !== 'licht';
+      if (licht) wurzel.setAttribute('data-schema', 'licht'); else wurzel.removeAttribute('data-schema');
+      try { localStorage.setItem('oq-schema', licht ? 'licht' : 'nacht'); } catch {}
       zeigen();
     });
     zeigen();

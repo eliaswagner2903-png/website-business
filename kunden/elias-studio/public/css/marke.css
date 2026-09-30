@@ -3,7 +3,7 @@
    stil.css und bausteine.css lesen nur diese Variablen.
    Farbwelt „Waldgrün auf Papier“ (2026-09-30, nach Lotlinie): warmes Papier, grünschwarze Tinte, EIN Akzent Waldgrün für Vertrauen
    (Links, Hauptknopf, ein Wort). Der Hero ist ein heller Film vom Werktisch (Eiche, Waldgrün), er übernimmt die Seitenfarben.
-   Zweites Schema zum Test (Meisterstandard P4): <html data-schema="nacht"> – SCHEMA=nacht node bauen.mjs
+   Standard ist das dunkle Waldgrün (Elias 2026-09-30: „durchgehend Nacht“); zweites Schema zum Test (Meisterstandard P4): <html data-schema="licht">
    Kontrast (WCAG AA), gemessen:
      licht: text/grund 16,5 · text/flaeche 17,7 · leise/grund 6,3 · leise/flaeche 6,7
             akzent/grund 7,4 · akzent/flaeche 8,0 · auf-akzent/akzent 8,3
@@ -53,14 +53,14 @@
 
 :root {
   /* Farben: 6 Rollen + Schrift auf dem Akzent */
-  --farbe-grund: #f6f1e8;       /* warmes Papier */
-  --farbe-flaeche: #fbf8f2;     /* Rahmen, Felder, Blatt */
-  --farbe-text: #17241d;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
-  --farbe-leise: #56625a;       /* Nebentext */
-  --farbe-linie: #d9d2c3;       /* Haarlinien, Schnittmarken */
-  --farbe-akzent: #1f5a43;      /* Waldgrün: Hauptknopf, Links, ein Wort */
-  --farbe-auf-akzent: #fbf8f2;
-  --farbe-fehler: #a3321f;      /* Fehlermeldungen im Formular (6,4 auf grund) */
+  --farbe-grund: #0f1f18;       /* warmes Papier */
+  --farbe-flaeche: #152a20;     /* Rahmen, Felder, Blatt */
+  --farbe-text: #f1ece0;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
+  --farbe-leise: #b3bdb3;       /* Nebentext */
+  --farbe-linie: #2c4136;       /* Haarlinien, Schnittmarken */
+  --farbe-akzent: #9fd9b8;      /* Waldgrün: Hauptknopf, Links, ein Wort */
+  --farbe-auf-akzent: #0f1f18;
+  --farbe-fehler: #f4a58f;      /* Fehlermeldungen im Formular (6,4 auf grund) */
   --gruen-tief: #10261d;        /* dunkle Bühne der Arbeiten */
   --gruen-hell: #9fd9b8;        /* Akzent auf Dunkelgrün und im Kino */
   --gruen-blass: #dfe9dc;       /* Salbei-Fläche, Schimmer im Hero */
@@ -116,18 +116,18 @@
   /* Rhythmus */
   --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 10rem);
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
-/* Nacht: dieselbe Marke im Dunkeln – tiefes Waldgrün statt Schwarz, Papier-Creme als Text. */
-:root[data-schema="nacht"] {
-  --farbe-grund: #0f1f18;
-  --farbe-flaeche: #152a20;
-  --farbe-text: #f1ece0;
-  --farbe-leise: #b3bdb3;
-  --farbe-linie: #2c4136;
-  --farbe-akzent: #9fd9b8;
-  --farbe-auf-akzent: #0f1f18;
-  --farbe-fehler: #f4a58f;
-  color-scheme: dark;
+/* Hell (Wahl per Schalter im Kopf): Papier-Creme mit Waldgrün. Standard der Seite ist das dunkle Waldgrün oben. */
+:root[data-schema="licht"] {
+  --farbe-grund: #f6f1e8;
+  --farbe-flaeche: #fbf8f2;
+  --farbe-text: #17241d;
+  --farbe-leise: #56625a;
+  --farbe-linie: #d9d2c3;
+  --farbe-akzent: #1f5a43;
+  --farbe-auf-akzent: #fbf8f2;
+  --farbe-fehler: #a3321f;
+  color-scheme: light;
 }

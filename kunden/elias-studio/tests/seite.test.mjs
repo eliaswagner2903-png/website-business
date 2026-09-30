@@ -97,7 +97,7 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  assert.match(marke, /\[data-schema="nacht"\]/, 'zweites Schema fehlt (P4)');
+  assert.match(marke, /\[data-schema="licht"\]/, 'zweites Schema fehlt (P4)');
 });
 
 test('Konfigurator: alle Felder am Formular, Werte wie in der Function erlaubt, Vorschau-Regeln für jede Wahl', async () => {

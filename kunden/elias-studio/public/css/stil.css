@@ -236,12 +236,12 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 /* „Auf die ganze Seite anwenden“: Farbe und Schrift aus dem Generator färben die Portfolio-Seite selbst um.
    Nur im hellen Schema; Kontrast gegen farbe-grund (AA): terrakotta 5,4 · kobalt 7,4 · salbei 5,1 · messing-tief 5,7.
    „Edel“ schaltet auf dunklen Grund, der Akzent wird dort aufgehellt. */
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-terrakotta:checked) { --farbe-akzent: var(--muster-terrakotta); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-salbei:checked) { --farbe-akzent: var(--muster-salbei); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-messing:checked) { --farbe-akzent: var(--muster-messing-tief); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) { --schrift-display: var(--schrift-text); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) :is(h1, h2, h3) { font-weight: 750; letter-spacing: -.04em; }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-edel:checked) {
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-terrakotta:checked) { --farbe-akzent: var(--muster-terrakotta); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-salbei:checked) { --farbe-akzent: var(--muster-salbei); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-messing:checked) { --farbe-akzent: var(--muster-messing-tief); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-laut:checked) { --schrift-display: var(--schrift-text); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-laut:checked) :is(h1, h2, h3) { font-weight: 750; letter-spacing: -.04em; }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-edel:checked) {
   --farbe-grund: var(--muster-edel-grund); --farbe-flaeche: var(--muster-edel-flaeche); --farbe-text: var(--muster-edel-text);
   --farbe-leise: var(--muster-edel-leise); --farbe-linie: var(--muster-edel-linie);
   --farbe-akzent: color-mix(in srgb, var(--farbe-muster) 45%, var(--muster-edel-text)); --farbe-auf-akzent: var(--muster-edel-grund);
@@ -879,3 +879,5 @@ html:not(.js) .nur-js { display: none !important; }
 .bet-liste { display: grid; gap: .6rem; margin: .25rem 0 0; padding: 0; list-style: none; }
 .bet-liste li { display: flex; gap: .7rem; align-items: baseline; }
 .bet-liste li::before { content: ""; flex: none; inline-size: .8rem; block-size: .45rem; border: solid var(--farbe-akzent); border-width: 0 0 2px 2px; transform: translateY(-.2rem) rotate(-45deg); }
+/* „Auf die ganze Seite anwenden“ färbt nur das helle Schema um; im dunklen Standard bleibt die Marke, der Schalter entfällt */
+:root:not([data-schema="licht"]) .ganz-schalter { display: none; }

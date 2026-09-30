@@ -1,4 +1,4 @@
-// Baut alle Seiten der Portfolio-Seite:   node bauen.mjs      (Test-Schema: SCHEMA=nacht node bauen.mjs)
+// Baut alle Seiten der Portfolio-Seite:   node bauen.mjs      
 // Inhalte stehen NUR in inhalt/seite.json. HTML in public/ nicht von Hand ändern.
 // Alles Persönliche (Studioname, Nachname, Ort, Telefon, E-Mail, Foto, Preise, Rechtstexte) ist Platzhalter mit data-pruefen.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -16,7 +16,7 @@ const STUDIO = `<span class="platzhalter-wort"${pr(P.studio)}>${esc(S.studio)}</
 const pfeil = '<span class="pfeil" aria-hidden="true">→</span>';
 const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
 // Einziges Inline-Skript (CSP-Hash in public/_headers, Test prüft ihn): Klasse js setzen, gespeichertes Schema vor dem ersten Bild.
-const KOPF_SKRIPT = "(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)";
+const KOPF_SKRIPT = "(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)";
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
   post: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>',
