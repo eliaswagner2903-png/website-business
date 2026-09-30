@@ -1,0 +1,4 @@
+# YouTube-Lernsystem (werkzeuge/youtube.py): python3 -m pip install -r werkzeuge/youtube-requirements.txt
+# Kein Konto, kein API-Schlüssel. ffmpeg (für Frames) wird vom Playwright-Setup mitgebracht oder systemweit gefunden.
+yt-dlp
+youtube-transcript-api
