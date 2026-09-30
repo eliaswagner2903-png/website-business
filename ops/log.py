@@ -7,7 +7,7 @@
     python3 ops/log.py liste [--offen] [--n 15]
     python3 ops/log.py suche stripe
     python3 ops/log.py zeige A-007
-    python3 ops/log.py kurz            (für den SessionStart-Hook: offene + letzte 5)
+    python3 ops/log.py kurz            (für den SessionStart-Hook: offene + letzte 3, gekürzt)
 
 Felder: id, datum, von, bereich, auftrag, ausfuehrung, ergebnis, status (offen|laeuft|erledigt|blockiert), ref.
 """
@@ -93,12 +93,14 @@ def main():
     elif a.befehl == "zeige":
         print(json.dumps(finde(eintraege, a.id), ensure_ascii=False, indent=2))
     elif a.befehl == "kurz":
+        # knapp halten: wird in jede Sitzung geladen; Details mit `zeige A-…`
         offen = [e for e in eintraege if e["status"] != "erledigt"]
-        letzte = [e for e in eintraege if e["status"] == "erledigt"][-5:]
+        letzte = [e for e in eintraege if e["status"] == "erledigt"][-3:]
+        kurzzeile = lambda e, n: (z := zeile(e if e["status"] == "blockiert" else {**e, "ergebnis": ""}))[:n] + ("…" if len(z) > n else "")
         print("Auftragslog (ops/auftraege.jsonl) – offen:")
-        print("\n".join(zeile(e) for e in offen) or "  keine")
+        print("\n".join(kurzzeile(e, 120) for e in offen) or "  keine")
         print("zuletzt erledigt:")
-        print("\n".join(zeile(e) for e in letzte) or "  keine")
+        print("\n".join(kurzzeile(e, 90) for e in letzte) or "  keine")
         print("Regel: jeden neuen Auftrag mit `python3 ops/log.py neu …` anlegen und mit `fertig` abschließen.")
 
 
