@@ -55,7 +55,10 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <meta property="og:title" content="${esc(titel)}">
 <meta property="og:description" content="${esc(beschreibung)}">
 <meta property="og:url" content="${kanon}">
-<meta name="theme-color" content="#f3f2ee">
+<meta property="og:image" content="${S.basis}/medien/tisch-anfang-1280.webp">
+<meta property="og:image:alt" content="Werktisch mit Handy, Messschieber und Seitenentwurf in Waldgrün">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1f18">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
