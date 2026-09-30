@@ -34,6 +34,7 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `wissen/` | Gelernte Fehler und Design-Wissen aus früheren Projekten – **vor dem Bauen lesen** |
 | `wissen/fachgebiete/` | Qualitätssystem: Regeln je Fachgebiet (SEO, Local SEO, GEO, Schema, CRO, A11y, Performance, Analytics, Sicherheit) mit Prioritäten und Quellen (`wissen/quellen/`) |
 | `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
+| `vertrieb/` | Weg zum ersten Kunden: Pilotangebot, Marktpreise, Startklar-Liste, Verkaufsmappen je Kandidat |
 | `BUSINESSPLAN.md` | Business-Plan OQ: Angebot, Kunden, Preis, Fahrplan, offene Entscheidungen |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
 
