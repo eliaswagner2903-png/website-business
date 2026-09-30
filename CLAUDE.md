@@ -81,6 +81,7 @@ Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext
 | `/referenz` | Aufklärungsbericht auswerten, Muster ins System, Referenzliste |
 | `/wartung` | Betreuungslauf aller Kundenseiten |
 | `/sichern` | Log, Prüfen, Commit, Push, PR, Merge-Vorschlag |
+| `/nachtrag` | Neues als datierten Nachtrag in den Papier-Lagebericht (Register A–H) einheften, nie Bestehendes ersetzen |
 
 ## Arbeitsweise mit dem Nutzer
 
