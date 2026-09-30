@@ -13,7 +13,7 @@ Eine Quelle (Stand 1 Video). Der Creator empfiehlt viele Fremdressourcen; unsere
 ## Positionen
 | Position | Quelle | Art | Bedingung/Einschränkung |
 |---|---|---|---|
-| Zuerst Designsystem, eigene Schrift, eigene Branchen-Texte; fertige Komponenten statt Neuerfinden; SVG; GSAP für Bewegung | [Jay E, 25 Tricks](../webdesign/claude-design-25-tricks-_SVU3oC4JX8.md) [00:31] ff. | **EMPFEHLUNG** des Creators | ohne Messdaten; Affiliate-Bezug bei Bezahldiensten; Fremdbibliotheken kollidieren mit Gewichts-/Skriptregeln |
+| Zuerst Designsystem, eigene Schrift, eigene Branchen-Texte; fertige Komponenten statt Neuerfinden; SVG; GSAP für Bewegung | [Jay E, 25 Tricks](../webdesign/claude-design-25-tricks-_SVU3oC4JX8.md) [00:32] ff. | **EMPFEHLUNG** des Creators | ohne Messdaten; Affiliate-Bezug bei Bezahldiensten; Fremdbibliotheken kollidieren mit Gewichts-/Skriptregeln |
 | Keine fremden Skripte, Schriften lokal, Gewichts-Budget, Performance ≥ 95 | unsere Regeln (CLAUDE.md, Meisterstandard) | Regel | gilt für alle Kundenseiten |
 
 ## Beziehung
