@@ -19,8 +19,6 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<link rel="preload" href="/medien/werkbank-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">
-<link rel="preload" href="/medien/werkbank-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">
 <script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
@@ -46,27 +44,33 @@
 </header>
 
 <main id="inhalt">
-<section class="kino" aria-labelledby="titel" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
+<section class="hero" aria-labelledby="titel">
+  <div class="huelle hero-text">
+    <p class="ueberzeile">Websites für Betriebe</p>
+    <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
+    <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
+    <div class="aktionen held-aktionen">
+      <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
+      <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+    </div>
+  </div>
+  <div class="huelle hero-geraete">
+    <div class="rahmen rahmen--desktop marken">
+      <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">lotlinie · musterseite</span></span>
+      <div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-desktop-lang-800.avif 800w, /medien/arbeit-hell-desktop-lang-1440.avif 1440w" sizes="(min-width: 64rem) 960px, 1px"><img src="/medien/arbeit-hell-desktop-lang-800.webp" srcset="/medien/arbeit-hell-desktop-lang-800.webp 800w, /medien/arbeit-hell-desktop-lang-1440.webp 1440w" sizes="(min-width: 64rem) 960px, 1px" width="800" height="2000" alt="Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel." decoding="async"></picture></div>
+    </div>
+    <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-lang-320.avif 320w, /medien/arbeit-hell-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-hell-handy-lang-320.webp" srcset="/medien/arbeit-hell-handy-lang-320.webp 320w, /medien/arbeit-hell-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten." decoding="async"></picture></div></div>
+  </div>
+</section>
+<section class="kino" aria-label="Gebaut, gemessen, betreut" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
   <div class="kino-buehne" aria-hidden="true">
-    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" fetchpriority="high" decoding="async"></picture>
+    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
     <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/werkbank-ende-640.avif 640w, /medien/werkbank-ende-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-ende-1280.webp" srcset="/medien/werkbank-ende-640.webp 640w, /medien/werkbank-ende-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
     <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
     <span class="kino-schleier"></span>
     <span class="kino-skala"><span class="kino-marke"></span></span>
   </div>
   <div class="kino-kapitel">
-    <div class="kapitel kapitel--start">
-      <div class="huelle kapitel-in">
-        <p class="ueberzeile ueberzeile--kino">Websites für Betriebe</p>
-        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-        <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
-        <div class="aktionen held-aktionen">
-          <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
-          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-        </div>
-        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen spielt den Film ab</p>
-      </div>
-    </div>
     <div class="kapitel" id="kino-gebaut">
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>01</span> / 03</p>

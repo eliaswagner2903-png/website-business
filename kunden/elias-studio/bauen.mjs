@@ -26,12 +26,12 @@ const ICON = {
 // Desktop 1440 px breit, oberste 3600 px → 800/1440; Handy 390 px (DPR 2), oberste 3400 px → 320/600.
 // Im Gerät läuft die Aufnahme langsam durch (CSS), bei „Bewegung reduzieren“ steht der Anfang.
 const LANG = { desktop: { b: [800, 1440], h: (b) => Math.round(b * 3600 / 1440) }, handy: { b: [320, 600], h: (b) => Math.round(b * 6800 / 780) } };
-function aufnahme(a, art, sizes, { lazy = true } = {}) {
+function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
   const m = LANG[art];
   const set = (typ) => m.b.map((b) => `/medien/arbeit-${a.id}-${art}-lang-${b}.${typ} ${b}w`).join(', ');
   const b0 = m.b[0];
   const text = esc(art === 'desktop' ? a.alt_desktop : a.alt_handy);
-  const laden = lazy ? ' loading="lazy" decoding="async"' : ' decoding="async"';
+  const laden = lazy ? ' loading="lazy" decoding="async"' : prio ? ' decoding="async" fetchpriority="high"' : ' decoding="async"';
   return `<picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-${art}-lang-${b0}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${b0}" height="${m.h(b0)}" alt="${text}"${laden}></picture>`;
 }
 
@@ -63,7 +63,6 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-${start ? '<link rel="preload" href="/medien/werkbank-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">\n<link rel="preload" href="/medien/werkbank-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">' : ''}
 <script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
@@ -132,27 +131,15 @@ const ueber = (text, k = '') => `<p class="ueberzeile${k ? ` ${k}` : ''}">${text
 // „Daten sparen“ bleibt das Standbild stehen (js/kino.js lädt dann keinen Film).
 const filmBild = (art, lcp) => `<picture class="kino-bild kino-bild--${art}"><source type="image/avif" srcset="/medien/werkbank-${art}-640.avif 640w, /medien/werkbank-${art}-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-${art}-1280.webp" srcset="/medien/werkbank-${art}-640.webp 640w, /medien/werkbank-${art}-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt=""${lcp ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></picture>`;
 const KAP = S.kino;
-const held = `<section class="kino" aria-labelledby="titel" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
+const kino = `<section class="kino" aria-label="Gebaut, gemessen, betreut" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
   <div class="kino-buehne" aria-hidden="true">
-    ${filmBild('anfang', true)}
+    ${filmBild('anfang', false)}
     ${filmBild('ende', false)}
     <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
     <span class="kino-schleier"></span>
     <span class="kino-skala"><span class="kino-marke"></span></span>
   </div>
   <div class="kino-kapitel">
-    <div class="kapitel kapitel--start">
-      <div class="huelle kapitel-in">
-        ${ueber('Websites für Betriebe', 'ueberzeile--kino')}
-        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-        <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
-        <div class="aktionen held-aktionen">
-          <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
-          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-        </div>
-        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen spielt den Film ab</p>
-      </div>
-    </div>
 ${KAP.map((k, i) => `    <div class="kapitel" id="kino-${k.id}">
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>${String(i + 1).padStart(2, '0')}</span> / ${String(KAP.length).padStart(2, '0')}</p>
@@ -165,6 +152,28 @@ ${k.werte.map(([w, t]) => `          <div><dt>${esc(t)}</dt><dd>${esc(w)}</dd></
     </div>`).join('\n')}
   </div>
 </section>`;
+
+// ---------- Hero: hell, warm, Lotlinie als Gerätepaar (Handy vor dem Computerfenster) ----------
+const H0 = A[0];
+const held = `<section class="hero" aria-labelledby="titel">
+  <div class="huelle hero-text">
+    ${ueber('Websites für Betriebe')}
+    <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
+    <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
+    <div class="aktionen held-aktionen">
+      <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
+      <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+    </div>
+  </div>
+  <div class="huelle hero-geraete">
+    <div class="rahmen rahmen--desktop marken">
+      <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(H0.name.toLowerCase())} · musterseite</span></span>
+      <div class="fenster">${aufnahme(H0, 'desktop', '(min-width: 64rem) 960px, 1px', { lazy: false })}</div>
+    </div>
+    <div class="rahmen rahmen--handy"><div class="fenster">${aufnahme(H0, 'handy', '(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw', { lazy: false })}</div></div>
+  </div>
+</section>
+${kino}`;
 
 // ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle vier untereinander) ----------
 const WERTE = [['perf', 'Performance'], ['a11y', 'Barrierefreiheit'], ['bp', 'Best Practices'], ['seo', 'SEO']];

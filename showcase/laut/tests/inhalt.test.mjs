@@ -1,4 +1,4 @@
-// Inhalt und Kennzeichnung: gebaute Seiten aktuell, überall als Demo erkennbar, ausgedachte Daten markiert.
+// Inhalt und Kennzeichnung: gebaute Seiten aktuell, ausgedachte Daten markiert.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -13,10 +13,9 @@ test('public/*.html entspricht bauen.mjs + inhalt.mjs (npm run bauen vergessen?)
   for (const [f, html] of Object.entries(gebaut)) assert.equal(readFileSync(new URL(f, PUB), 'utf8'), html, `${f} ist veraltet`);
 });
 
-test('Jede Seite ist als Demo gekennzeichnet (Band oben und Fuß)', () => {
+test('Kein sichtbares Demo-Band und kein Demo-Hinweis im Fuß', () => {
   for (const [f, html] of Object.entries(gebaut)) {
-    assert.match(html, /class="demo-band"[^]*Demo-Seite – ausgedachtes Studio/, `${f}: Demo-Band fehlt`);
-    assert.match(html, /class="fuss-demo"/, `${f}: Demo-Hinweis im Fuß fehlt`);
+    assert.doesNotMatch(html, /class="(demo-band|fuss-demo|demo-band-marke)"/, `${f}: Demo-Kennzeichnung sichtbar`);
   }
 });
 
@@ -52,7 +51,6 @@ function ldPruefen(html, datei, typ) {
     for (const satz of String(o).split(/(?<=\.)\s+/)) assert.ok(text.includes(satz), `${datei}: JSON-LD „${satz}“ steht nicht sichtbar auf der Seite`);
   })(bloecke[0]);
   for (const t of [].concat(typ)) assert.ok(typen.includes(t), `${datei}: JSON-LD ohne @type ${t}`);
-  assert.match(JSON.stringify(bloecke[0]), /Demo|ausgedacht/, `${datei}: JSON-LD nennt die Demo nicht`);
 }
 
 test('JSON-LD (Organization) auf der Startseite, nur aus sichtbaren Angaben', () => {

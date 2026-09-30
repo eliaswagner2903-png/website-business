@@ -68,10 +68,12 @@ test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Verme
   assert.match(start, new RegExp(`<span class="werk-art" ${re(markiert(S.pruefen.urfa))}>Entwurf für ein echtes Restaurant`));
   assert.doesNotMatch(start, /URFA[^<]{0,80}(Kunde|live|online seit)/i, 'URFA darf nicht als Live-Kunde erscheinen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
-  // Hero-Bilder nie lazy (LCP/erster Bildschirm)
-  const kino = start.match(/<section class="kino"[\s\S]*?<\/section>/)[0];
-  assert.match(kino, /werkbank-anfang-1280\.webp"[^>]*fetchpriority="high"/, 'Poster im ersten Bildschirm nicht bevorzugt');
-  assert.doesNotMatch(kino.match(/<picture class="kino-bild kino-bild--anfang">[\s\S]*?<\/picture>/)[0], /loading="lazy"/, 'Poster lazy');
+  // Erster Bildschirm ist der helle Hero mit dem Lotlinie-Gerätepaar: dessen Bilder nie lazy (LCP ist die Überschrift, die Bilder dürfen ihr keine Bandbreite nehmen).
+  // Das Kino (Scroll-Film) liegt darunter: sein Standbild wird erst bei Bedarf geladen.
+  const hero = start.match(/<section class="hero"[\s\S]*?<\/section>/)[0];
+  assert.match(hero, /arbeit-hell-desktop-lang-800\.webp"/, 'Hero-Gerätepaar fehlt');
+  assert.doesNotMatch(hero, /loading="lazy"/, 'Hero-Bild lazy');
+  assert.match(start, /<section class="kino"[\s\S]*?<picture class="kino-bild kino-bild--anfang">[\s\S]*?loading="lazy"/, 'Kino-Standbild sollte lazy sein');
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, URFA ohne Link (Freigabe fehlt)
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];

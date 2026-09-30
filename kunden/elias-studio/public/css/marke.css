@@ -1,8 +1,8 @@
 /* =====================================================================
    MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
    stil.css und bausteine.css lesen nur diese Variablen.
-   Farbwelt „Galeriewand“: kühles Papierweiß, Tinte, EIN Akzent Kobaltblau (Links, Hauptknopf, ein Wort).
-   Keine der vier Arbeiten nutzt Blau – die Seite tritt zurück, die Arbeiten stehen im Mittelpunkt.
+   Farbwelt „Waldgrün auf Papier“ (2026-09-30, nach Lotlinie): warmes Papier, grünschwarze Tinte, EIN Akzent Waldgrün für Vertrauen
+   (Links, Hauptknopf, ein Wort). Die dunkle Bühne der Arbeiten ist Tiefgrün, der Kino-Film bleibt schwarz-blau.
    Zweites Schema zum Test (Meisterstandard P4): <html data-schema="nacht"> – SCHEMA=nacht node bauen.mjs
    Kontrast (WCAG AA), gemessen:
      licht: text/grund 16,5 · text/flaeche 17,7 · leise/grund 6,3 · leise/flaeche 6,7
@@ -53,13 +53,16 @@
 
 :root {
   /* Farben: 6 Rollen + Schrift auf dem Akzent */
-  --farbe-grund: #f3f2ee;       /* Galeriewand */
-  --farbe-flaeche: #fbfaf7;     /* Rahmen, Felder, Blatt */
-  --farbe-text: #141414;        /* Tinte; auch Grund der dunklen Tafel */
-  --farbe-leise: #595955;       /* Nebentext, Werkangaben */
-  --farbe-linie: #d3d1c9;       /* Haarlinien, Schnittmarken */
-  --farbe-akzent: #2a3cc2;      /* Kobalt: Hauptknopf, Links, ein Wort */
-  --farbe-auf-akzent: #ffffff;
+  --farbe-grund: #f6f1e8;       /* warmes Papier */
+  --farbe-flaeche: #fbf8f2;     /* Rahmen, Felder, Blatt */
+  --farbe-text: #17241d;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
+  --farbe-leise: #56625a;       /* Nebentext */
+  --farbe-linie: #d9d2c3;       /* Haarlinien, Schnittmarken */
+  --farbe-akzent: #1f5a43;      /* Waldgrün: Hauptknopf, Links, ein Wort */
+  --farbe-auf-akzent: #fbf8f2;
+  --gruen-tief: #10261d;        /* dunkle Bühne der Arbeiten */
+  --gruen-hell: #9fd9b8;        /* Akzent auf Dunkelgrün und im Kino */
+  --gruen-blass: #dfe9dc;       /* Salbei-Fläche, Schimmer im Hero */
 
   /* Kino (Scroll-Film im ersten Bildschirm): immer dunkel, in beiden Schemata gleich.
      Kontrast gegen kino-grund: text 17,0 · leise 10,1 · akzent 10,1 · Knopf (grund auf akzent) 10,1.
@@ -67,7 +70,7 @@
   --kino-grund: #0b0c0f;
   --kino-text: #f1efe9;
   --kino-leise: #bdbab1;
-  --kino-akzent: #a9b6ff;
+  --kino-akzent: #9fd9b8;
 
   /* Farben der vier Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
   --werk-hell: #a4462a;
@@ -122,7 +125,7 @@
   --farbe-text: #efeee9;
   --farbe-leise: #a9a8a2;
   --farbe-linie: #3a3b40;
-  --farbe-akzent: #a3b2ff;
+  --farbe-akzent: #9fd9b8;
   --farbe-auf-akzent: #111214;
   color-scheme: dark;
 }

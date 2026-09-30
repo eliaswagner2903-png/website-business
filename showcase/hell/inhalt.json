@@ -18,14 +18,13 @@
       ["Samstag", "nach Vereinbarung"]
     ],
     "zeiten_kurz": "Mo–Do 7–20 Uhr, Fr 7–15 Uhr",
-    "anfahrt": "Bus 4 bis „Musterplatz“, dann zwei Minuten zu Fuß. Zwei Parkplätze direkt am Haus, einer davon breit.",
-    "demo": "Demo-Seite: ausgedachte Praxis. Namen, Adresse, Telefonnummer und Preise sind erfunden."
+    "anfahrt": "Bus 4 bis „Musterplatz“, dann zwei Minuten zu Fuß. Zwei Parkplätze direkt am Haus, einer davon breit."
   },
   "seiten": {
-    "index": { "titel": "Lotlinie – Physiotherapie in Musterstadt (Demo)", "beschreibung": "Ausgedachte Physiotherapie-Praxis als Demo: 45 Minuten für den ersten Termin, Befund am Lot, Übungen für zu Hause. Termine online oder per Telefon." },
-    "leistungen": { "titel": "Leistungen – Lotlinie Physiotherapie (Demo)", "beschreibung": "Krankengymnastik, Manuelle Therapie, Lymphdrainage, Training am Gerät und Angebote ohne Rezept – mit Dauer und Preisen. Demo-Seite einer ausgedachten Praxis." },
-    "praxis": { "titel": "Praxis & Team – Lotlinie Physiotherapie (Demo)", "beschreibung": "Vier Behandlungsräume und ein Trainingsraum, ebenerdig. Wer bei uns behandelt und wie Sie die Praxis finden. Demo-Seite einer ausgedachten Praxis." },
-    "termin": { "titel": "Termin & Kontakt – Lotlinie Physiotherapie (Demo)", "beschreibung": "Termin online buchen oder anrufen: Öffnungszeiten, Adresse, Anfahrt und was Sie zum ersten Termin mitbringen. Demo-Seite einer ausgedachten Praxis." }
+    "index": { "titel": "Lotlinie – Physiotherapie in Musterstadt", "beschreibung": "Physiotherapie-Praxis Lotlinie: 45 Minuten für den ersten Termin, Befund am Lot, Übungen für zu Hause. Termine online oder per Telefon." },
+    "leistungen": { "titel": "Leistungen – Lotlinie Physiotherapie", "beschreibung": "Krankengymnastik, Manuelle Therapie, Lymphdrainage, Training am Gerät und Angebote ohne Rezept – mit Dauer und Preisen." },
+    "praxis": { "titel": "Praxis & Team – Lotlinie Physiotherapie", "beschreibung": "Vier Behandlungsräume und ein Trainingsraum, ebenerdig. Wer bei uns behandelt und wie Sie die Praxis finden." },
+    "termin": { "titel": "Termin & Kontakt – Lotlinie Physiotherapie", "beschreibung": "Termin online buchen oder anrufen: Öffnungszeiten, Adresse, Anfahrt und was Sie zum ersten Termin mitbringen." }
   },
   "held": {
     "ueberzeile": "Physiotherapie in Musterstadt",

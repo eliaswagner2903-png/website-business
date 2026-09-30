@@ -1,4 +1,4 @@
-// Showcase-Regeln: Seiten sind aktuell gebaut, jede Seite ist als Demo gekennzeichnet, Erfundenes ist markiert,
+// Showcase-Regeln: Seiten sind aktuell gebaut, Erfundenes ist markiert,
 // Schriften sind lokal und die Marke steckt in einer Datei.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -21,10 +21,9 @@ test('HTML ist aus inhalt.json gebaut und aktuell', () => {
   rmSync(tmp, { recursive: true });
 });
 
-test('Jede Seite ist als Demo gekennzeichnet (Band oben und Fuß)', () => {
+test('Kein sichtbares Demo-Band und kein Demo-Hinweis im Fuß', () => {
   for (const [f, t] of seiten) {
-    assert.match(t, /class="demo-band"/, `${f}: Demo-Band fehlt`);
-    assert.match(t, /class="fuss-demo"/, `${f}: Demo-Hinweis im Fuß fehlt`);
+    assert.doesNotMatch(t, /class="(demo-band|fuss-demo|demo-marke)"/, `${f}: Demo-Kennzeichnung sichtbar`);
   }
 });
 
@@ -77,7 +76,6 @@ function ldPruefen(html, datei, typ) {
     for (const satz of String(o).split(/(?<=\.)\s+/)) assert.ok(text.includes(satz), `${datei}: JSON-LD „${satz}“ steht nicht sichtbar auf der Seite`);
   })(bloecke[0]);
   for (const t of [].concat(typ)) assert.ok(typen.includes(t), `${datei}: JSON-LD ohne @type ${t}`);
-  assert.match(JSON.stringify(bloecke[0]), /Demo|ausgedacht/, `${datei}: JSON-LD nennt die Demo nicht`);
 }
 
 test('JSON-LD (Physiotherapy) auf der Startseite, nur aus sichtbaren Angaben', () => {

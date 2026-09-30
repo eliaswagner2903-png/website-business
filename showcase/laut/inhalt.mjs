@@ -13,13 +13,11 @@ export const studio = {
   domain: 'https://zwischenbild.example', // Platzhalter-Domain (.example = reserviert, gehört niemandem)
   adresse: ['Musterstraße 12, Hinterhaus', '12345 Beispielstadt'],
   zeiten: 'Mo–Fr 9–17 Uhr',
-  demoHinweis: 'Demo-Seite – ausgedachtes Studio',
-  demoLang: 'Zwischenbild gibt es nicht. Studio, Kunden, Preise und Kontaktdaten sind für diese Demo ausgedacht.',
 };
 
 export const start = {
-  titel: 'Zwischenbild – Studio für Motion-Design (Demo)',
-  beschreibung: 'Demo-Seite eines ausgedachten Studios für Motion-Design: Logo-Animationen, Kampagnen in Bewegung, Erklärfilme und Bewegung für Websites.',
+  titel: 'Zwischenbild – Studio für Motion-Design',
+  beschreibung: 'Zwischenbild, Studio für Motion-Design: Logo-Animationen, Kampagnen in Bewegung, Erklärfilme und Bewegung für Websites.',
   ueberzeile: 'Motion-Design für Marken, Kommunen und Kultur',
   // H1 in Stücken: umbruch 'h' = Zeilenende auf dem Handy, 'c' = am Computer, 'hc' = beides.
   // Das Stück mit clip: true sitzt auf der orangefarbenen Spur (wie ein Clip in der Zeitleiste).
@@ -89,7 +87,7 @@ export const handwerk = {
 
 export const leistungen = {
   titel: 'Was wir machen',
-  hinweis: 'Richtpreise netto. Für diese Demo ausgedacht.',
+  hinweis: 'Richtpreise netto.',
   liste: [
     { name: 'Logo-Animation', text: 'Das Logo bekommt einen Auftritt: 2 bis 5 Sekunden, als Video und als Lottie-Datei für Website und App.', dauer: 'ab 3 Wochen', preis: 'ab 3.900 €' },
     { name: 'Kampagnen in Bewegung', text: 'Social-Clips, Bildschirme an Haltestellen, Messewände. Ein Motiv, viele Formate, alle aus einer Vorlage.', dauer: 'ab 4 Wochen', preis: 'ab 8.500 €' },

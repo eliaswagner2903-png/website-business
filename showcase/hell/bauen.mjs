@@ -21,7 +21,7 @@ const NAV = [
 ];
 
 // ---------- Strukturierte Daten (JSON-LD) ----------
-// Nur Angaben, die sichtbar auf der Seite stehen; die Beschreibung sagt, dass es eine Demo ist.
+// Nur Angaben, die sichtbar auf der Seite stehen; 
 // JSON-LD wird nicht ausgeführt, braucht also keinen CSP-Hash; "<" wird maskiert, damit nichts das Skript-Element schließt.
 const ldJson = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 const TAG = { Montag: 'Mo', Dienstag: 'Tu', Mittwoch: 'We', Donnerstag: 'Th', Freitag: 'Fr', Samstag: 'Sa', Sonntag: 'Su' };
@@ -37,7 +37,6 @@ const LD = ldJson({
   '@context': 'https://schema.org',
   '@type': 'Physiotherapy',
   name: `${P.name} ${P.zusatz}`,
-  description: P.demo,
   url: `${P.domain}/`,
   telephone: P.telefon,
   email: P.mail,
@@ -79,8 +78,7 @@ const SPRITE = `<svg class="sprite" aria-hidden="true" focusable="false">
   <symbol id="i-lot" viewBox="0 0 24 32"><path d="M12 1v22"/><path class="voll" d="M12 22l-4.2 5 4.2 4.5 4.2-4.5z"/></symbol>
 </svg>`;
 
-const kopfzeile = (id) => `<p class="demo-band" role="note"><span class="demo-marke">Demo</span> <span>Ausgedachte Praxis<span class="lang"> – Namen, Adresse, Telefonnummer und Preise sind erfunden</span>.</span></p>
-<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+const kopfzeile = (id) => `<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-innen">
     <a class="marke" href="/"${id === 'index' ? ' aria-current="page"' : ''}>${icon('lot', 'marke-lot')}<span class="marke-name">${esc(P.name)}</span><span class="marke-zusatz">${esc(P.zusatz)}</span></a>
@@ -128,7 +126,6 @@ ${P.zeiten.map(([t, z]) => `      <p><span>${esc(t)}</span> ${esc(z)}</p>`).join
       <li><a href="/impressum.html">Impressum</a></li>
       <li><a href="/datenschutz.html">Datenschutz</a></li>
     </ul>
-    <p class="fuss-demo"><span class="demo-marke">Demo</span> ${esc(P.demo)} Diese Seite zeigt, wie eine Praxis-Website aussehen kann. Es gibt die Praxis nicht.</p>
   </div>
 </footer>`;
 
@@ -270,7 +267,6 @@ ${G.liste.map((g, i) => `      <li class="auftauchen${[' gross', '', ' gross', '
           <source type="image/avif" srcset="/medien/raum-lot-480.avif 480w, /medien/raum-lot-768.avif 768w, /medien/raum-lot-1024.avif 1024w" sizes="(min-width: 60rem) 36vw, calc(100vw - 2.5rem)">
           <img src="/medien/raum-lot-768.webp" srcset="/medien/raum-lot-480.webp 480w, /medien/raum-lot-768.webp 768w, /medien/raum-lot-1024.webp 1024w" sizes="(min-width: 60rem) 36vw, calc(100vw - 2.5rem)" width="1024" height="688" loading="lazy" decoding="async" alt="Ecke einer Behandlungsliege mit terrakottafarbenem Handtuch, dahinter hängt ein Messinglot vor einer hellen Wand; Sonnenlicht fällt auf den Holzboden.">
         </picture>
-        <figcaption>KI-Bild für die Demo, kein Foto einer echten Praxis</figcaption>
       </figure>
       ${ueber('Die Praxis')}
       <h2 id="t-raum">${esc(R.titel)}</h2>
@@ -395,7 +391,6 @@ ${T.personen.map((p) => `      <li class="person auftauchen"${pr('Ausgedachte Pe
         </div>
       </li>`).join('\n')}
     </ul>
-    <p class="hinweis-klein">Keine Fotos: Die Praxis und ihr Team sind für diese Demo ausgedacht. Bei einer echten Praxis stehen hier Porträts, am besten bei der Arbeit.</p>
   </div>
 </section>
 
@@ -476,7 +471,7 @@ ${K.mitbringen.map((m) => `        <li>${esc(m)}</li>`).join('\n')}
 `);
 
 // ---------- Rechtliches, 404 ----------
-const platzhalter = (id, titel, h1) => `${kopf(id, { titel: `${titel} – Lotlinie (Demo)`, beschreibung: `${titel} der Demo-Seite Lotlinie – Platzhalter, wird aus einem Rechtstext-Generator übernommen.` })}
+const platzhalter = (id, titel, h1) => `${kopf(id, { titel: `${titel} – Lotlinie`, beschreibung: `${titel} der Physiotherapie-Praxis Lotlinie.` })}
 <body class="seite-recht">
 ${SPRITE}
 ${kopfzeile(id)}
@@ -499,7 +494,7 @@ ${menue(id)}
 </html>
 `;
 
-const nichtGefunden = `${kopf('404', { titel: 'Seite nicht gefunden – Lotlinie (Demo)', beschreibung: 'Diese Seite gibt es nicht. Von hier geht es zurück zur Startseite, zu den Leistungen oder zum Termin.' })}
+const nichtGefunden = `${kopf('404', { titel: 'Seite nicht gefunden – Lotlinie', beschreibung: 'Diese Seite gibt es nicht. Von hier geht es zurück zur Startseite, zu den Leistungen oder zum Termin.' })}
 <body class="seite-recht">
 ${SPRITE}
 ${kopfzeile('404')}
