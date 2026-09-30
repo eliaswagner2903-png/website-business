@@ -124,7 +124,14 @@ test('JSON-LD: Organisation nur auf der Startseite, jeder Textwert sichtbar', ()
   };
   assert.equal(daten['@context'], 'https://schema.org');
   daten['@graph'].forEach(pruefe);
-  for (const [f, t] of seiten) if (f !== 'index.html') assert.doesNotMatch(t, /application\/ld\+json/, `${f}: JSON-LD doppelt`);
+  // Unterseiten: nur Brotkrumen (und auf Produkte die Serienliste), keine zweite Organisation; Namen sichtbar
+  for (const [f, t] of seiten) {
+    if (f === 'index.html') continue;
+    const j = t.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    if (!j) continue;
+    assert.doesNotMatch(j[1], /Organization/, `${f}: JSON-LD-Organisation doppelt`);
+    for (const e of JSON.parse(j[1])['@graph']) for (const x of e.itemListElement) assert.ok(text(t).includes(x.name), `${f}: ${x.name} nicht sichtbar`);
+  }
 });
 
 test('Schriften lokal: eine Vorlade-Datei, höchstens drei Schriftdateien, zweites Schema (P4), nichts Fremdes', () => {

@@ -502,7 +502,7 @@
     {
       "id": "schwerindustrie",
       "name": "Schwerindustrie",
-      "satz": "Werkzeuge mit großem Durchmesser für große Bauteile und zähe Werkstoffe.",
+      "satz": "Tiefe Bohrungen, große Gewinde, zähe Stähle – für Großwälzlager, Hydraulik und Motoren.",
       "text": "Werkzeuge mit großem Durchmesser für große Bauteile, etwa im Schiffbau und bei Baumaschinen – für verschiedene Werkstoffe und Größen.",
       "bauteile": [
         [
@@ -528,12 +528,8 @@
       "text": "Die Qualität eines Formteils bestimmt die Leistung des Gesamtprodukts. OSG-Schaftfräser liefern Geschwindigkeit und Qualität auch für komplizierte Formen.",
       "bauteile": [
         [
-          "Anwendung 1",
-          "PHX-LN-DFR · PHX-PC-DFR"
-        ],
-        [
-          "Anwendung 2",
-          "PHX-PC-DFR · WXS-LN-EBD"
+          "Schaftfräser",
+          "PHX-LN-DFR · PHX-PC-DFR · WXS-LN-EBD"
         ]
       ],
       "link": "https://de.osgeurope.com/werkzeug-formenbau",

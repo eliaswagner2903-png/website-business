@@ -2,8 +2,7 @@
 // Der Werkzeugfinder filtert per CSS (:has), das Formular ist ein normales POST-Formular.
 // Hier nur Verbesserungen: Trefferzahl für Screenreader, Standzeit-Balken, Formular (Vorbelegung, Fehler am Feld, Sende-Zustand).
 function start() {
-  const wurzel = document.documentElement;
-  wurzel.classList.add('js');
+  const wurzel = document.documentElement; // Klasse js setzt schon das Inline-Skript im Kopf
   if (location.hash === '#pruefen') wurzel.classList.add('pruefmodus');
 
   // Werkzeugfinder: sichtbare Trefferzahl in die Live-Region spiegeln (CSS zeigt sie, Screenreader hören sie)

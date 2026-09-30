@@ -6,7 +6,11 @@
 import { weiter, fehler, fehlerSeite, seitenUrl, gleicheHerkunft } from '../_lib/antwort.js';
 
 // Wohin „Zurück zum Formular“ führt und welche Klassen die Fehlerseite bekommt (Anker des Formulars auf der Seite).
-const FORMULAR = { zurueck: '/kontakt#formular', haupt: 'huelle einfach' };
+const FORMULAR = {
+  zurueck: '/kontakt#formular', haupt: 'huelle einfach',
+  // Ausweg auf der Fehlerseite (Jury R3): Telefon und E-Mail, und der Hinweis, dass „Zurück“ im Browser die Eingaben behält
+  ausweg: 'Ihre Eingaben bleiben erhalten, wenn Sie im Browser zurückgehen. Oder direkt: <a href="tel:+49716160640">+49 7161 6064-0</a> · <a href="mailto:info@osg-germany.de">info@osg-germany.de</a>',
+};
 // Anliegen im Formular (gleiche Liste wie ANLIEGEN in bauen.mjs; ein Test vergleicht beide). Fremde Werte → „Sonstiges“.
 export const ANLIEGEN = ['Anwendungsberatung', 'Angebot und Preise', 'Micro Toolmanagement', 'OSG Academy und Workshops', 'Sonstiges'];
 const zeige = (text, status) => fehlerSeite(text, status, FORMULAR);
@@ -28,16 +32,30 @@ export function pruefeFelder(form) {
   return { daten };
 }
 
-// Größer ist keine echte Anfrage (5000 Zeichen Nachricht + Felder): vor dem Einlesen abweisen
+// Größer ist keine echte Anfrage (5000 Zeichen Nachricht + Felder): beim Einlesen abbrechen, auch ohne Content-Length
 const MAX_BYTES = 32 * 1024;
+async function leseFormular(request) {
+  if (Number(request.headers.get('Content-Length') || 0) > MAX_BYTES) return 'zu gross';
+  const leser = request.body?.getReader();
+  if (!leser) return null;
+  const teile = []; let n = 0;
+  for (;;) {
+    const { done, value } = await leser.read();
+    if (done) break;
+    n += value.byteLength;
+    if (n > MAX_BYTES) { await leser.cancel(); return 'zu gross'; }
+    teile.push(value);
+  }
+  return new Response(new Blob(teile), { headers: { 'Content-Type': request.headers.get('Content-Type') || '' } }).formData().catch(() => null);
+}
 
 export async function onRequestPost({ request, env }) {
   let basis;
   try { basis = seitenUrl(env); } catch (e) { return fehler(e.message, 500); }
   if (!gleicheHerkunft(request, env)) return zeige('Die Anfrage kam nicht von dieser Website und wurde abgelehnt. Bitte das Formular direkt auf der Seite verwenden.', 403);
 
-  if (Number(request.headers.get('Content-Length') || 0) > MAX_BYTES) return zeige('Die Anfrage ist zu groß. Bitte kürzen Sie die Nachricht.', 413);
-  const form = await request.formData().catch(() => null);
+  const form = await leseFormular(request);
+  if (form === 'zu gross') return zeige('Die Anfrage ist zu groß. Bitte kürzen Sie die Nachricht.', 413);
   if (!form) return zeige('Das Formular kam unvollständig an. Bitte erneut versuchen.', 400);
   const erg = pruefeFelder(form);
   if (erg.spam) return weiter(`${basis}/nachricht-gesendet`); // Bots bekommen keinen Hinweis
@@ -47,14 +65,14 @@ export async function onRequestPost({ request, env }) {
 
   const { name, firma, email, telefon, anliegen, nachricht } = erg.daten;
   const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
+    method: 'POST', signal: AbortSignal.timeout(8000),
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: env.KONTAKT_VON, to: [env.KONTAKT_AN], reply_to: email,
       subject: `${anliegen}: Anfrage von ${name}${firma ? ` (${firma})` : ''}`,
       text: `Anliegen: ${anliegen}\nName: ${name}\nFirma: ${firma || '–'}\nE-Mail: ${email}\nTelefon: ${telefon || '–'}\n\n${nachricht}`,
     }),
-  });
+  }).catch((e) => ({ ok: false, status: e.name })); // Zeitüberschreitung oder Netzfehler → 502
   if (!r.ok) { console.error('kontakt', r.status); return zeige('Senden fehlgeschlagen. Bitte später erneut versuchen.', 502); }
   return weiter(`${basis}/nachricht-gesendet`);
 }

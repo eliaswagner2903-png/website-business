@@ -2,7 +2,8 @@
 // Inhalte stehen NUR in inhalt/seite.json (Fakten von de.osgeurope.com, Stand 2026-09-30). HTML in public/ nie von Hand ändern.
 // Schreibt außerdem public/css/finder.css (Filterregeln des Werkzeugfinders, reines CSS – funktioniert ohne JavaScript)
 // und public/sitemap.xml.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 const S = JSON.parse(readFileSync(new URL('./inhalt/seite.json', import.meta.url), 'utf8'));
 const OUT = new URL('./public/', import.meta.url);
@@ -40,15 +41,36 @@ const kiHinweis = (text = 'KI-Visualisierung') => `<figcaption class="ki-hinweis
 
 // Interne Links ohne .html (/produkte.html#x → /produkte#x, /index.html → /)
 const ohneEndung = (html) => html.replace(/href="\/index\.html/g, 'href="/').replace(/href="\/([a-z0-9-]+)\.html/g, 'href="/$1');
+// Pfeil nie allein in einer Zeile: letztes Wort und Pfeil ungetrennt (Jury R3)
+const pfeilBinden = (html) => html.replace(/([^\s<>;]+) ?(<span class="pfeil" aria-hidden="true">[→↗↓]<\/span>)/g, '<span class="nw">$1&nbsp;$2</span>');
 
 // ---------- Rahmen jeder Seite ----------
+// Ein Stylesheet statt vier (Jury R3: render-blockierend). Quellen bleiben getrennt, der Name trägt den Inhalts-Hash.
+const CSS_QUELLEN = ['marke.css', 'stil.css', 'bausteine.css', 'finder.css'];
+let CSS_DATEI = '';
+function cssBuendeln() {
+  for (const f of readdirSync(new URL('css/', OUT))) if (/^osg\.[0-9a-f]{10}\.css$/.test(f)) unlinkSync(new URL(`css/${f}`, OUT));
+  const inhalt = CSS_QUELLEN.map((f) => `/* ===== ${f} ===== */\n${readFileSync(new URL(`css/${f}`, OUT), 'utf8')}`).join('\n');
+  CSS_DATEI = `osg.${createHash('sha256').update(inhalt).digest('hex').slice(0, 10)}.css`;
+  writeFileSync(new URL(`css/${CSS_DATEI}`, OUT), inhalt);
+}
+
 const NAV = [['produkte.html', 'Produkte'], ['industrieloesungen.html', 'Industrielösungen'], ['service.html', 'Service'], ['ueber-uns.html', 'Über OSG'], ['karriere.html', 'Karriere'], ['kontakt.html', 'Kontakt']];
 const SEITEN = [];
 
-function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false, extraCss = [], jsonld = '' }) {
+function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false, jsonld = '', ogBild = 'schaftfraeser-hero-1600', ogAlt = 'Beschichteter Vollhartmetall-Schaftfräser in Nahaufnahme (KI-Visualisierung)', schnell = '' }) {
   // Cloudflare Pages liefert /seite.html per 308 unter /seite aus: Canonical, Sitemap und Links ohne .html (Jury R1)
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei.replace(/\.html$/, '')}`;
   if (!robots) SEITEN.push(kanon);
+  const navName = NAV.find(([h]) => h === datei)?.[1];
+  if (navName && !jsonld) {
+    const graph = [{ '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: S.firma, item: `${S.basis}/` },
+      { '@type': 'ListItem', position: 2, name: navName, item: kanon },
+    ] }];
+    if (datei === 'produkte.html') graph.push({ '@type': 'ItemList', name: 'Serien im Detail', itemListElement: SER.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name, url: `${kanon}#serie-${x.id}` })) });
+    jsonld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
+  }
   const nav = NAV.map(([h, t]) => `        <li><a href="/${h}"${h === datei ? ' aria-current="page"' : ''}>${t}</a></li>`).join('\n');
   const html = `<!DOCTYPE html>
 <html lang="de"${SCHEMA}>
@@ -63,18 +85,16 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}${datei === '404.ht
 <meta property="og:title" content="${esc(titel)}">
 <meta property="og:description" content="${esc(beschreibung)}">
 <meta property="og:url" content="${kanon}">
-<meta property="og:image" content="${S.basis}/medien/schaftfraeser-hero-1600.webp">
-<meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="905">
-<meta property="og:image:alt" content="Beschichteter Vollhartmetall-Schaftfräser in Nahaufnahme (KI-Visualisierung)">
+<meta property="og:image" content="${S.basis}/medien/${ogBild}.webp">
+<meta property="og:image:width" content="${ogBild.endsWith('1600') ? 1600 : 1200}">
+<meta property="og:image:height" content="${ogBild.endsWith('1600') ? 905 : /^(karriere|produkte)-/.test(ogBild) ? 797 : 800}">
+<meta property="og:image:alt" content="${esc(ogAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1016">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/marke.css">
-<link rel="stylesheet" href="/css/stil.css">
-<link rel="stylesheet" href="/css/bausteine.css">
-${extraCss.map((c) => `<link rel="stylesheet" href="/css/${c}">\n`).join('')}${start ? '<link rel="preload" href="/medien/schaftfraeser-hero-1600.avif" as="image" type="image/avif" media="(min-width: 64rem)">\n' : ''}<script>${KOPF_SKRIPT}</script>
+<link rel="stylesheet" href="/css/${CSS_DATEI}">
+${start ? '<link rel="preload" href="/medien/schaftfraeser-hero-1600.avif" as="image" type="image/avif" media="(min-width: 64rem)">\n' : ''}<script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
 ${jsonld ? `<script type="application/ld+json">${jsonld}</script>\n` : ''}</head>
@@ -90,7 +110,9 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>\n` : ''}</head
     <ul class="leiste-links">
       <li><a href="${TEL_A}">${ICON.tel}<span>${TEL}</span></a></li>
       <li>${extern(S.shop, 'Online-Shop', 'leiste-link')}</li>
+      <li><a href="/service.html#downloads">Downloads</a></li>
       <li>${extern(`${S.basis}/customer/account/login/`, 'Anmelden', 'leiste-link')}</li>
+      <li>${extern(`${S.basis}/checkout/cart/`, 'Warenkorb', 'leiste-link')}</li>
     </ul>
   </div>
 </aside>
@@ -104,6 +126,9 @@ ${nav}
         <li class="nur-blatt menue-suche">${shopSuche('suche-menue', 'Im Shop suchen: Artikel, EDP-Nummer, Serie')}</li>
         <li class="nur-blatt">${extern(S.shop, 'Online-Shop')}</li>
         <li class="nur-blatt">${extern(`${S.basis}/customer/account/login/`, 'Anmelden im Shop')}</li>
+        <li class="nur-blatt">${extern(`${S.basis}/checkout/cart/`, 'Warenkorb')}</li>
+        <li class="nur-blatt nav-klein"><a href="/service.html#downloads">Kataloge und Downloads</a></li>
+        <li class="nur-blatt nav-klein"><a href="/service.html#haendler">Händlernetz</a></li>
         <li><a class="knopf" href="/kontakt.html#formular">Beratung anfragen</a></li>
       </ul>
     </nav>
@@ -111,7 +136,7 @@ ${nav}
 </header>
 
 <main id="inhalt">
-${inhalt}
+${pfeilBinden(inhalt)}
 </main>
 
 <footer class="fuss nacht">
@@ -172,8 +197,8 @@ ${S.profile.map((x) => `          <li><a href="${x.link}" rel="noopener">${x.nam
 </footer>
 
 <nav class="schnell" aria-label="Schnellzugriff">
-  <a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>
-  <a class="knopf" href="/kontakt.html#formular">Beratung anfragen</a>
+${schnell || `  <a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>
+  <a class="knopf" href="/kontakt.html#formular">Beratung anfragen</a>`}
 </nav>
 </body>
 </html>
@@ -183,7 +208,7 @@ ${S.profile.map((x) => `          <li><a href="${x.link}" rel="noopener">${x.nam
 
 // Kopf einer Unterseite (dunkles Band mit H1)
 // Kopf der Unterseiten; mit bild (HTML aus bild()) steht rechts ein Motiv, damit jede Unterseite ein eigenes Gesicht hat (Jury R1)
-const seitenKopf = (nr, ueberText, h1, lead, extra = '', bildHtml = '') => `<section class="seitenkopf nacht${bildHtml ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
+const seitenKopf = (nr, ueberText, h1, lead, extra = '', bildHtml = '', form = '') => `<section class="seitenkopf nacht${bildHtml && !form ? ' seitenkopf--bild' : ''}${form ? ` seitenkopf--${form}` : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
     <div class="seitenkopf-text">
       ${ueber(nr, ueberText)}
@@ -255,15 +280,34 @@ ${liste.map((x) => `          <input type="radio" id="${id}-${x.id}" name="${nam
         </div>
       </fieldset>`;
 
+// Werkzeugkontur je Serie: technische Seitenansicht (Schaft rechts, Schneidteil links) mit Maßlinie – das Leitmotiv
+// „Messblatt“ wird zur Produktzeichnung (Jury R3: Serien ohne Bild). Rein dekorativ, Maße stehen als Text daneben.
+function kontur(s) {
+  const schaft = '<path d="M150 15h82a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4h-82"/><path class="kontur-leise" d="M150 24h86"/>';
+  let koerper;
+  if (s.verfahren === 'gewinden') {
+    const zahn = Array.from({ length: 13 }, (_, i) => `l4-4l4 4`).join('');
+    koerper = `<path d="M34 16l8-4${zahn}v0"/><path d="M34 32l8 4${Array.from({ length: 13 }, () => 'l4 4l4-4').join('')}"/><path d="M34 16v16"/><path d="M146 12v24M146 12h4v24h-4"/><path class="kontur-leise" d="M60 12l-14 24M84 12l-14 24M108 12l-14 24M132 12l-14 24"/>`;
+  } else if (s.verfahren === 'bohren') {
+    koerper = `<path d="M18 24l16-11h116v22H34z"/><path class="kontur-leise" d="M44 13c14 7 22 15 30 22M74 13c14 7 22 15 30 22M104 13c14 7 22 15 30 22"/><path class="kontur-leise" d="M34 13l-8 11 8 11"/>`;
+  } else {
+    const kopf = s.id === 'ae-h' ? '<path d="M44 13a11 11 0 0 0 0 22"/>' : '<path d="M34 13v22"/>';
+    koerper = `${kopf}<path d="M${s.id === 'ae-h' ? 44 : 34} 13H150M${s.id === 'ae-h' ? 44 : 34} 35H150"/><path class="kontur-leise" d="M50 13c10 6 16 14 20 22M72 13c10 6 16 14 20 22M94 13c10 6 16 14 20 22M116 13c10 6 16 14 20 22"/>`;
+  }
+  return `<svg class="kontur" viewBox="0 0 240 56" aria-hidden="true" focusable="false">${koerper}${schaft}<path class="kontur-mass" d="M34 48h116M34 44v8M150 44v8"/></svg>`;
+}
+
 function serieKarte(s) {
   return `<li class="serie v-${s.verfahren} ${s.werkstoffe.map((w) => `w-${w}`).join(' ')}">
+          ${kontur(s)}
           <p class="serie-verfahren">${vName[s.verfahren]}</p>
           <h3 class="serie-name">${esc(s.name)}</h3>
           <p class="serie-art">${esc(s.art)}</p>
           <p class="serie-spanne">${esc(s.spanne)}</p>
           <ul class="wchips" aria-label="Geeignete Werkstoffe">${s.werkstoffe.map((w) => `<li class="wchip wchip--${w}">${esc(wName[w])}</li>`).join('')}</ul>
           <p class="serie-links"><a class="serie-link" href="/produkte.html#serie-${s.id}">Serie ${esc(s.name.replace(/ Serie$/, ''))} ansehen ${pfeil}</a>
-          <a class="textlink serie-shop" href="${S.basis}/catalogsearch/result/?q=${encodeURIComponent(s.name.replace(/ Serie$/, ''))}" rel="noopener">Artikel im Shop${raus}<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
+          <a class="textlink serie-shop" href="${esc(s.link)}" rel="noopener">Bei OSG${raus}<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a>
+          <a class="textlink serie-shop" href="/kontakt?serie=${encodeURIComponent(s.name)}#formular">Beratung</a></p>
         </li>`;
 }
 
@@ -287,9 +331,9 @@ function finder() {
       ${chipGruppe('verfahren', 'fv', '1 · Bearbeitung', V)}
       ${chipGruppe('werkstoff', 'fw', '2 · Werkstoff', W)}
     </div>
-    <p class="finder-stand"><span class="finder-zahl">${zahlen.join('')}</span><span class="finder-quelle">${SER.length} Leitserien · Auswahl nach den Werkstoffangaben von OSG</span></p>
+    <p class="finder-stand"><span class="finder-zahl">${zahlen.join('')}</span><a class="textlink finder-sprung" href="#finder-treffer">Treffer ansehen <span class="pfeil" aria-hidden="true">↓</span></a><span class="finder-quelle">${SER.length} Leitserien · Auswahl nach den Werkstoffangaben von OSG</span></p>
     <p class="unsichtbar" id="finder-ansage" aria-live="polite"></p>
-    <ul class="serien">
+    <ul class="serien" id="finder-treffer">
         ${SER.map(serieKarte).join('\n        ')}
     </ul>
     <div class="finder-leer">
@@ -309,7 +353,7 @@ function finder() {
 function startseite() {
   const held = `<section class="held nacht" aria-labelledby="titel">
   <figure class="held-video held-medien" data-webm="/medien/schaftfraeser-film.webm" data-mp4="/medien/schaftfraeser-film.mp4">
-    ${bild('schaftfraeser-hero', 'Beschichteter Vollhartmetall-Schaftfräser mit vier gewendelten Schneiden in Nahaufnahme, blaues Streiflicht auf den Spannuten', '(min-width: 64rem) 100vw, 100vw', { art: 'hero', w: 2400, h: 1357, lazy: false, klasse: 'held-bild' }).replace('<img ', '<img class="held-video-poster" ')}
+    ${bild('schaftfraeser-hero', 'Beschichteter Vollhartmetall-Schaftfräser mit vier gewendelten Schneiden in Nahaufnahme, blaues Streiflicht auf den Spannuten', '100vw', { art: 'hero', w: 2400, h: 1357, lazy: false, klasse: 'held-bild' }).replace('<img ', '<img class="held-video-poster" ')}
     <button class="held-video-knopf" type="button" aria-pressed="false" hidden><span class="unsichtbar">Video anhalten</span></button>
     ${kiHinweis()}
   </figure>
@@ -466,15 +510,15 @@ ${S.beitraege.map((b) => `      <li class="beitrag einblenden"><time datetime="$
 </section>`;
 
   const org = {
-    '@type': 'Organization', name: S.firma, url: `${S.basis}/`,
+    '@type': 'Organization', '@id': `${S.basis}/#organisation`, name: S.firma, url: `${S.basis}/`,
     logo: `${S.basis}/medien/osg-logo.svg`, sameAs: S.profile.map((x) => x.link), email: S.email, telephone: S.telefon_anzeige,
     address: { '@type': 'PostalAddress', streetAddress: S.strasse, postalCode: S.plz, addressLocality: S.ort, addressCountry: 'DE' },
   };
-  const web = { '@type': 'WebSite', name: 'OSG Germany', url: `${S.basis}/` };
+  const web = { '@type': 'WebSite', name: 'OSG Germany', url: `${S.basis}/`, publisher: { '@id': `${S.basis}/#organisation` } };
   seite('index.html', {
     titel: 'OSG Germany – Gewindebohrer, Bohrer und Fräser aus Göppingen',
     beschreibung: 'OSG-Präzisionswerkzeuge aus Göppingen: Gewindebohrer, Bohrer, Fräser, WSP und Reibahlen – mit Werkzeugfinder, Anwendungsberatung und Toolmanagement.',
-    start: true, extraCss: ['finder.css'],
+    start: true,
     jsonld: JSON.stringify({ '@context': 'https://schema.org', '@graph': [org, web] }).replace(/</g, '\\u003c'),
     inhalt: [held, finder(), bereiche, bericht, branchen, service, aktuell, ctaBand('Sprechen Sie mit der Anwendungstechnik.', 'Werkstoff, Bauteil, Maschine – schildern Sie Ihre Bearbeitung. Wir empfehlen Serie, Schnittwerte oder ein Sonderwerkzeug.')].join('\n\n'),
   });
@@ -486,11 +530,14 @@ ${S.beitraege.map((b) => `      <li class="beitrag einblenden"><time datetime="$
 function produkte() {
   const serie = (s) => `<article class="serie-detail" id="serie-${s.id}" aria-labelledby="h-${s.id}">
       <header class="serie-detail-kopf">
+        ${kontur(s)}
         <p class="serie-verfahren">${vName[s.verfahren]} · ${esc(s.spanne)}</p>
         <h3 id="h-${s.id}">${esc(s.name)}</h3>
         <p class="serie-art">${esc(s.art)}</p>
       </header>
       <p class="serie-kurz">${esc(s.kurz)}</p>
+      <details class="serie-mehr">
+        <summary>Merkmale, Werkstoffe und Abmessungen</summary>
 ${s.merkmale.length ? `      <h4>Merkmale</h4>
       <ol class="merkmale">
 ${s.merkmale.map((m) => `        <li>${esc(m)}</li>`).join('\n')}
@@ -504,10 +551,11 @@ ${s.aufstellung.length ? `      <h4>Aufstellung</h4>
 ${s.aufstellung.map(([a, b]) => `          <tr><th scope="row">${esc(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
         </tbody>
       </table>` : ''}
+      </details>
       <p class="serie-wege">${extern(s.link, `${esc(s.name)} im Shop: Flyer, Film, Artikel`)} <a class="textlink" href="/kontakt?serie=${encodeURIComponent(s.name)}#formular">Beratung zur ${esc(s.name)} ${pfeil}</a></p>
     </article>`;
   const inhalt = `${seitenKopf('P', 'Produkte', 'Werkzeuge für Gewinden, Bohren und Fräsen', 'Sechs Produktbereiche, dazu die A Brand und die Marken der OSG-Gruppe. Jeder Artikel mit EDP-Nummer und Verfügbarkeit im Online-Shop.', `<p class="seitenkopf-wege"><a class="knopf" href="/#finder">Werkzeugfinder öffnen</a> ${extern(S.shop, 'Zum Online-Shop', 'knopf zweit')}</p>
-    ${shopSuche('suche-produkte')}`, bild('produkte', 'Vier Vollhartmetall-Werkzeuge nebeneinander auf gebürstetem Stahl: Gewindebohrer, Bohrer mit Kühlkanälen, beschichteter Schaftfräser und Reibahle', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }))}
+    ${shopSuche('suche-produkte')}`, bild('produkte', 'Vier Vollhartmetall-Werkzeuge nebeneinander auf gebürstetem Stahl: Gewindebohrer, Bohrer mit Kühlkanälen, beschichteter Schaftfräser und Reibahle', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }), 'band')}
 
 <section class="abschnitt" aria-labelledby="bereiche-titel">
   <div class="huelle">
@@ -560,7 +608,7 @@ ${S.marken.map((m) => `      <li>${extern(m.link, esc(m.name), 'marke-link')}</l
 
 ${ctaBand('Welche Serie für Ihr Bauteil?', 'Schildern Sie Werkstoff, Bearbeitung und Maschine – die Anwendungstechnik antwortet mit einer konkreten Empfehlung.')}`;
   seite('produkte.html', {
-    titel: 'Produkte – Gewindebohrer, Bohrer, Fräser | OSG Germany',
+    titel: 'Produkte – Gewindebohrer, Bohrer, Fräser | OSG Germany', ogBild: 'produkte-1200', ogAlt: 'Vier Vollhartmetall-Werkzeuge auf gebürstetem Stahl (KI-Visualisierung)',
     beschreibung: 'OSG-Produktbereiche und Serien im Detail: AE-VM, AE-H, ADF, AD/ADO, ADO-SUS und A-TAP mit Merkmalen, Werkstoffen und Abmessungen.',
     inhalt,
   });
@@ -569,8 +617,9 @@ ${ctaBand('Welche Serie für Ihr Bauteil?', 'Schildern Sie Werkstoff, Bearbeitun
 // =====================================================================
 // Industrielösungen
 // =====================================================================
-// Motiv je Branche (KI-Visualisierungen, siehe medien-quellen.md); Luftfahrt zeigt stattdessen den Anwenderbericht
+// Motiv je Branche (KI-Visualisierungen, siehe medien-quellen.md)
 const BRANCHE_BILD = {
+  luftfahrt: 'Schaftfräser bearbeitet die Taschen einer langen Tragflächenrippe aus Aluminium in einer Portalfräsmaschine',
   automotive: 'Gewindebohrer schneidet ein Gewinde in ein Getriebegehäuse aus Aluminiumguss, Späne und Kühlmitteltropfen',
   energie: 'Messerkopf fräst den Lochkreis eines großen Drehkranzes für eine Windkraftanlage, bläulich angelaufene Späne',
   schwerindustrie: 'Langer Bohrer mit Innenkühlung bohrt tief in einen massiven Hydraulik-Ventilblock aus Stahl',
@@ -578,12 +627,18 @@ const BRANCHE_BILD = {
   medizin: 'Mikro-Kugelfräser bearbeitet den Schaft einer Hüftgelenkprothese aus Titan in einer Präzisionsspannung',
 };
 
+// Werkzeugkürzel (z. B. ADO-5D) führen in die Shop-Suche; Bindestriche geschützt, damit Codes nicht umbrechen (Jury R3)
+const codes = (text) => text.split(' · ').map((t) => (/^[A-Z0-9][A-Z0-9-]*[A-Z0-9]$/.test(t)
+  ? `<a class="code" href="${S.basis}/catalogsearch/result/?q=${encodeURIComponent(t)}" rel="noopener">${t.replace(/-/g, '&#8209;')}<span class="unsichtbar"> im Shop suchen</span></a>`
+  : esc(t))).join(' · ');
+
 function industrie() {
-  const inhalt = `${seitenKopf('I', 'Industrielösungen', 'Industrielösungen', 'Sechs Branchen, typische Bauteile und die Werkzeuge, die OSG dafür einsetzt – bis hin zu Sonderwerkzeugen über den Außendienst.', `<nav class="sprungleiste" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b) => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('')}</ul></nav>`, bild('branchen', 'Kugelkopffräser bearbeitet die Schaufeln eines Titan-Laufrads in einem 5-Achs-Bearbeitungszentrum, Kühlschmierstoff spritzt', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }))}
+  const kacheln = `<nav class="branchen-kacheln" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b, i) => `<li><a href="#${b.id}">${bild(`branche-${b.id}`, '', '(min-width: 64rem) 15vw, 45vw', { h: 800, lazy: false, prio: i === 0 })}<span>${esc(b.name)}</span></a></li>`).join('')}</ul></nav>`;
+  const inhalt = `${seitenKopf('I', 'Industrielösungen', 'Industrielösungen', 'Sechs Branchen, typische Bauteile und die Werkzeuge, die OSG dafür einsetzt – bis hin zu Sonderwerkzeugen über den Außendienst.', kacheln)}
 
 <div class="huelle branchen-seite">
 ${S.branchen.map((b, i) => `  <section class="branche-block${BRANCHE_BILD[b.id] ? ` branche-block--bild${i % 2 ? ' branche-block--rechts' : ''}` : ''}" id="${b.id}" aria-labelledby="h-${b.id}">
-${BRANCHE_BILD[b.id] ? `    <figure class="branche-bild">${bild(`branche-${b.id}`, BRANCHE_BILD[b.id], '(min-width: 64rem) 40vw, 100vw', { h: 800, lazy: i > 0, prio: false })}${kiHinweis()}</figure>\n` : ''}    <div class="branche-block-kopf">
+${BRANCHE_BILD[b.id] ? `    <figure class="branche-bild">${bild(`branche-${b.id}`, BRANCHE_BILD[b.id], '(min-width: 64rem) 40vw, 100vw', { h: 800 })}${kiHinweis()}</figure>\n` : ''}    <div class="branche-block-kopf">
       <p class="branche-nr">${String(i + 1).padStart(2, '0')}</p>
       <h2 id="h-${b.id}">${esc(b.name)}</h2>
       <p class="branche-satz">${esc(b.satz)}</p>
@@ -591,9 +646,9 @@ ${BRANCHE_BILD[b.id] ? `    <figure class="branche-bild">${bild(`branche-${b.id}
       ${extern(b.link, `Produkte für ${esc(b.name)} im Shop`)}
     </div>
     <table class="tabelle branche-tabelle">
-      <thead><tr><th scope="col">${b.id === 'formenbau' ? 'Anwendung' : 'Bauteil'}</th><th scope="col">Werkzeuge</th></tr></thead>
+      <thead><tr><th scope="col">${b.id === 'formenbau' ? 'Werkzeugart' : 'Bauteil'}</th><th scope="col">Werkzeuge</th></tr></thead>
       <tbody>
-${b.bauteile.map(([t, w]) => `        <tr><th scope="row">${esc(t)}</th><td>${esc(w)}</td></tr>`).join('\n')}
+${b.bauteile.map(([t, w]) => `        <tr><th scope="row">${esc(t)}</th><td>${codes(w)}</td></tr>`).join('\n')}
       </tbody>
     </table>${b.id === 'luftfahrt' ? `
     <aside class="branche-bericht" aria-label="Anwenderbericht">
@@ -608,7 +663,7 @@ ${b.bauteile.map(([t, w]) => `        <tr><th scope="row">${esc(t)}</th><td>${es
 
 ${ctaBand('Ihr Bauteil steht nicht dabei?', 'Für Sonderwerkzeuge wenden Sie sich an Ihren OSG-Außendienst oder direkt an die Anwendungstechnik in Göppingen.')}`;
   seite('industrieloesungen.html', {
-    titel: 'Industrielösungen – Automotive bis Medizintechnik | OSG',
+    titel: 'Industrielösungen – Automotive bis Medizintechnik | OSG', ogBild: 'branche-luftfahrt-1200', ogAlt: 'Schaftfräser bearbeitet eine Tragflächenrippe aus Aluminium (KI-Visualisierung)',
     beschreibung: 'OSG-Werkzeuge für Automotive, Luft- und Raumfahrt, Energie, Schwerindustrie, Werkzeug- und Formenbau und Medizintechnik – nach Bauteil geordnet.',
     inhalt,
   });
@@ -683,7 +738,7 @@ ${S.haendler.map((h) => `      <li>${esc(h)}</li>`).join('\n')}
 
 ${ctaBand('Werkzeugkreislauf für Ihre Fertigung?', 'Wir besprechen, wie Micro Toolmanagement mit Cost-per-Part in Ihre Werkzeugversorgung passt.')}`;
   seite('service.html', {
-    titel: 'Service – Toolmanagement, Academy, Downloads | OSG',
+    titel: 'Service – Toolmanagement, Academy, Downloads | OSG', ogBild: 'academy-1200', ogAlt: 'Schulung an einem Bearbeitungszentrum (KI-Visualisierung)',
     beschreibung: 'Micro Toolmanagement mit Cost-per-Part-Abrechnung, Workshops der OSG Academy, Hauptkatalog, ThreadPro-Software, Zertifikate und Händlernetz.',
     inhalt,
   });
@@ -746,7 +801,7 @@ ${G.gruppe.map((g) => `      <li>${esc(g)}</li>`).join('\n')}
 
 ${ctaBand('Mit OSG arbeiten', 'Als Kunde mit der Anwendungstechnik – oder im Team in Göppingen.')}`;
   seite('ueber-uns.html', {
-    titel: 'Über OSG – weltweit größter Hersteller von Schaftwerkzeugen',
+    titel: 'Über OSG – weltweit größter Hersteller von Schaftwerkzeugen', ogBild: 'ueber-uns-1200', ogAlt: 'Werkzeuglager mit Regalreihen voller Präzisionswerkzeuge (KI-Visualisierung)',
     beschreibung: 'OSG Corporation seit 1938, Netzwerk in 33 Ländern; OSG GmbH in Göppingen und Bad Homburg seit 2002, ISO 9001 und ISO 14001, Teil der OSG Germany Holding.',
     inhalt,
   });
@@ -785,7 +840,9 @@ ${K.benefits.map((b, i) => `      <li><span class="benefit-nr">${String(i + 1).p
   </div>
 </section>`;
   seite('karriere.html', {
-    titel: 'Karriere bei OSG in Göppingen – Jobs und Benefits',
+    titel: 'Karriere bei OSG in Göppingen – Jobs und Benefits', ogBild: 'karriere-1200', ogAlt: 'Techniker setzt einen Schaftfräser in ein Einstellgerät (KI-Visualisierung)',
+    schnell: `  <a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>
+  ${extern(K.jobs, 'Offene Stellen', 'knopf')}`,
     beschreibung: 'Arbeiten bei OSG in Göppingen: 30 Tage Urlaub, Sonderzahlung, Altersvorsorge, JobRad, Weiterbildung in der OSG Academy. Offene Stellen in der Jobbörse.',
     inhalt,
   });
@@ -795,9 +852,9 @@ ${K.benefits.map((b, i) => `      <li><span class="benefit-nr">${String(i + 1).p
 // Kontakt
 // =====================================================================
 function kontakt() {
-  const inhalt = `${seitenKopf('K', 'Kontakt', 'Kontakt zu OSG', 'Anwendungsberatung, Angebot, Toolmanagement oder Academy: Schreiben Sie uns oder rufen Sie an.', `<p class="seitenkopf-wege"><a class="knopf" href="#formular">Zum Formular</a> <a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>${TEL}</span></a></p>`, bild('kontakt', 'Hände eines Anwendungstechnikers messen ein gefrästes Stahlteil mit dem Messschieber, daneben Bohrer, Gewindebohrer und eine Zeichnung', '(min-width: 64rem) 40vw, 100vw', { h: 800, lazy: false }))}
+  const inhalt = `${seitenKopf('K', 'Kontakt', 'Kontakt zu OSG', 'Anwendungsberatung, Angebot, Toolmanagement oder Academy: Schreiben Sie uns oder rufen Sie an.', '', '', 'kurz')}
 
-<section class="abschnitt" aria-labelledby="wege-titel">
+<section class="abschnitt abschnitt--eng" aria-labelledby="wege-titel">
   <div class="huelle kontakt-raster">
     <div class="kontakt-wege">
       <h2 id="wege-titel">So erreichen Sie uns</h2>
@@ -809,6 +866,7 @@ function kontakt() {
       </ul>
       <p><a class="textlink" href="${esc(S.route)}" rel="noopener">Route auf OpenStreetMap${raus}<span class="unsichtbar"> (externe Karte)</span></a></p>
       <p class="kontakt-klein">Bestellungen, Verfügbarkeiten und Konto: ${extern(S.shop, 'Online-Shop')}</p>
+      <figure class="kontakt-bild">${bild('kontakt', 'Hände eines Anwendungstechnikers messen ein gefrästes Stahlteil mit dem Messschieber, daneben Bohrer, Gewindebohrer und eine Zeichnung', '(min-width: 64rem) 40vw, 100vw', { h: 800 })}${kiHinweis()}</figure>
     </div>
     <form class="formular" id="formular" method="post" action="/api/kontakt" aria-labelledby="formular-titel">
       <h2 id="formular-titel">Anfrage senden</h2>
@@ -831,7 +889,9 @@ ${ANLIEGEN.map((a) => `          <option>${esc(a)}</option>`).join('\n')}
   </div>
 </section>`;
   seite('kontakt.html', {
-    titel: 'Kontakt – OSG GmbH in Göppingen',
+    titel: 'Kontakt – OSG GmbH in Göppingen', ogBild: 'kontakt-1200', ogAlt: 'Anwendungstechniker misst ein Bauteil mit dem Messschieber (KI-Visualisierung)',
+    schnell: `  <a class="knopf zweit" href="mailto:${S.email}">${ICON.post}<span>E-Mail</span></a>
+  <a class="knopf" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>`,
     beschreibung: 'OSG GmbH, Karl-Ehmann-Str. 25, 73037 Göppingen: Telefon +49 7161 6064-0, info@osg-germany.de – Anwendungsberatung, Angebot, Toolmanagement und Academy.',
     inhalt,
   });
@@ -886,6 +946,8 @@ function rechtliches() {
   });
 }
 
+finderCss();
+cssBuendeln();
 startseite();
 produkte();
 industrie();

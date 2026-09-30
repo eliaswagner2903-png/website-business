@@ -15,7 +15,8 @@ export const escHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&l
 const FEHLER_CSP = "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; "
   + "form-action 'none'; frame-ancestors 'none'";
 
-export function fehlerSeite(text, status = 400, { zurueck = '/#kontakt', koerper = '', haupt = 'huelle einfach' } = {}) {
+// ausweg: festes HTML vom Aufrufer (nie Nutzereingaben), z. B. Telefon und E-Mail
+export function fehlerSeite(text, status = 400, { zurueck = '/#kontakt', koerper = '', haupt = 'huelle einfach', ausweg = '' } = {}) {
   const html = `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -34,6 +35,7 @@ export function fehlerSeite(text, status = 400, { zurueck = '/#kontakt', koerper
     <h1>Nachricht nicht gesendet</h1>
     <p>${escHtml(text)}</p>
     <p><a class="knopf" href="${escHtml(zurueck)}">Zurück zum Formular</a></p>
+${ausweg ? `    <p>${ausweg}</p>\n` : ''}
   </div>
 </main>
 </body>

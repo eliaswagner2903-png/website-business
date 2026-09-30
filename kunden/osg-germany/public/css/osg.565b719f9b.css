@@ -1,3 +1,93 @@
+/* ===== marke.css ===== */
+/* =====================================================================
+   MARKE OSG – die ganze Marke der Seite steht nur hier.
+   stil.css, finder.css und bausteine.css lesen nur diese Variablen.
+   Farben aus dem Logo gemessen: Blau #00559D (Zeichen), Grau #898989 (Schriftzug).
+   Kontrast (WCAG AA), nachgemessen 2026-09-30 (relative Leuchtdichte, WCAG 2.2):
+     text/grund 16,8 · text/flaeche 18,5 · leise/grund 6,9 · leise/flaeche 7,6
+     akzent/grund 6,8 · akzent/flaeche 7,5 · auf-akzent/akzent 7,5
+     nacht: nacht-text/nacht 16,4 · nacht-leise/nacht 8,2 · nacht-akzent/nacht 7,0 · nacht-text/nacht-flaeche 14,6 · nacht-akzent/nacht-flaeche 6,3
+     Schema „nacht“: text/grund 15,9 · leise/grund 8,3 · akzent/flaeche 6,1 · auf-akzent/akzent 7,0
+   Dunkle Abschnitte (.nacht) setzen nur die Rollen um – kein Bauteil braucht eigene Dunkel-Regeln.
+   ===================================================================== */
+
+/* ---------- Schriften (lokal, OFL; je Familie EINE Datei, Latin + Satzzeichen, per pyftsubset) ----------
+   Archivo variabel (wght 300–800, wdth 75–100) für Überschriften und Text; IBM Plex Mono 500 für Maße und Zahlen. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal; font-weight: 300 800; font-stretch: 75% 100%; font-display: swap;
+  src: url("../fonts/archivo.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/plex-mono.woff2") format("woff2");
+}
+/* Ersatzschrift mit gemessenen Maßen (fontTools, „Hamburgefonstiv“ Archivo 400/100 gegen Liberation Sans = Arial) */
+@font-face {
+  font-family: "Archivo Ersatz";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 101.2%; ascent-override: 86.7%; descent-override: 20.7%; line-gap-override: 0%;
+}
+
+:root {
+  /* Farben: 6 Rollen + Schrift auf dem Akzent */
+  --farbe-grund: #f2f4f7;       /* kühles Werkstattgrau-Weiß */
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #0c141d;        /* Graphit */
+  --farbe-leise: #4a5563;
+  --farbe-linie: #cdd4dd;
+  --farbe-akzent: #00559d;      /* OSG-Blau aus dem Logo */
+  --farbe-auf-akzent: #ffffff;
+  --farbe-fehler: #b3261e;       /* Fehler im Formular: 6,1:1 auf #f2f4f7, 6,6:1 auf Weiß */
+
+  /* Dunkle Welt (Hero, Bericht, Fuß): Stahl bei Nacht */
+  --farbe-nacht: #0b1016;
+  --farbe-nacht-flaeche: #151d27;
+  --farbe-nacht-text: #e9eef4;
+  --farbe-nacht-leise: #9fabb9;
+  --farbe-nacht-linie: #2b3644;
+  --farbe-nacht-akzent: #5aa2e6; /* OSG-Blau, aufgehellt für dunklen Grund */
+
+  /* Schriften */
+  --schrift-display: "Archivo", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-text: "Archivo", "Archivo Ersatz", Arial, sans-serif;
+  --schrift-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Formen: technisch, fast eckig */
+  --radius-klein: 4px;
+  --radius-gross: 10px;
+
+  /* Bewegung (wissen/DESIGN-WISSEN.md) */
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .85s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  /* Rhythmus */
+  --abstand-abschnitt: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
+
+  color-scheme: light;
+}
+
+/* Zweites Schema (Meisterstandard P4): ganze Seite dunkel. Test: SCHEMA=nacht node bauen.mjs */
+:root[data-schema="nacht"] {
+  --farbe-grund: #0e141b;
+  --farbe-flaeche: #161f29;
+  --farbe-text: #e9eef4;
+  --farbe-leise: #a3afbd;
+  --farbe-linie: #2e3a48;
+  --farbe-akzent: #5aa2e6;
+  --farbe-auf-akzent: #06121f;
+  --farbe-fehler: #ff8a80;
+  --farbe-nacht: #070b10;
+  --farbe-nacht-flaeche: #111821;
+  color-scheme: dark;
+}
+
+/* ===== stil.css ===== */
 /* =====================================================================
    STIL – Aufbau und Bauteile der OSG-Neugestaltung. Nur Variablen aus marke.css, keine festen Farben.
    Leitmotiv: die Messskala (Teilstriche wie auf Messschieber und Zeichnung) und das Profil des
@@ -701,3 +791,194 @@ table { border-collapse: collapse; }
   .finder-stand { position: sticky; z-index: 5; bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); margin-block: 1rem; padding: .35rem 1rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-klein); box-shadow: 0 8px 24px -16px var(--farbe-text); }
   .finder-quelle { display: none; }
 }
+
+/* ===== bausteine.css ===== */
+/* Erzeugt von bausteine/einbauen.mjs – nicht von Hand ändern. Bausteine: einblenden, menue-blatt, hero-video */
+
+/* ===== einblenden/einblenden.css ===== */
+/* ---------- Baustein: einblenden ----------
+   Elemente mit class="einblenden" gleiten beim Hereinscrollen 24 px hoch und werden sichtbar.
+   1. Wahl: CSS-Scroll-Timeline (ohne JS). 2. Wahl: einblenden.js mit IntersectionObserver.
+   Bewegt wird die Eigenschaft `translate` (nicht `transform`): Hover-Transforms bleiben frei.
+   Was beim Laden schon ganz im Bild ist, bleibt unverändert sichtbar (Bereich endet bei „entry 100 %“). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not(.einblenden-rueckfall) .einblenden {
+      animation: einblenden-auf var(--kurve-standard) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 100%;
+    }
+  }
+  .js .einblenden--wartet { opacity: 0; translate: 0 24px; }
+  .js .einblenden--los {
+    transition: opacity var(--tempo-lang) var(--kurve-standard), translate var(--tempo-lang) var(--kurve-standard);
+  }
+}
+@keyframes einblenden-auf {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* ===== menue-blatt/menue-blatt.css ===== */
+/* ---------- Baustein: menue-blatt ----------
+   Handy-Menü als Blatt von unten (Daumenbereich). Nur mit JS und unter 48rem; ohne JS bleibt die
+   Navigation eine sichtbare Zeile im Kopf. Öffnen 0,85 s sanft, Schließen 0,42 s, Einträge ab 0,22 s
+   um 60 ms versetzt. Geschlossen: visibility hidden + inert. Schleier dunkelt die Seite ab.
+   Wichtig: Kopf (Eltern des Blatts) ohne backdrop-filter/transform, sonst ist position: fixed falsch. */
+@media (max-width: 47.99rem) {
+  .js .menue-knopf {
+    display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; min-width: 44px; padding-inline: 1rem;
+    font: 600 1rem/1 var(--schrift-text); color: var(--farbe-text); background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); cursor: pointer;
+  }
+  .js .menue-knopf::before {           /* zwei Striche, die beim Öffnen zum X werden */
+    content: ""; inline-size: 1rem; block-size: .5rem;
+    background: linear-gradient(currentColor, currentColor) top / 100% 1.5px no-repeat,
+                linear-gradient(currentColor, currentColor) bottom / 100% 1.5px no-repeat;
+    transition: transform var(--tempo-mittel) var(--kurve-standard);
+  }
+  .js .menue-knopf[aria-expanded="true"]::before { transform: scaleY(.2); }
+  .js .menue-knopf:active { transform: scale(.97); }
+
+  .js .blatt {
+    position: fixed; z-index: 2; inset: auto 0 0 0; display: grid; gap: 1rem;
+    max-block-size: min(88dvh, 44rem); overflow-y: auto; overscroll-behavior: contain;
+    padding: .75rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    background: var(--farbe-flaeche); border-radius: var(--radius-gross) var(--radius-gross) 0 0;
+    box-shadow: 0 -12px 40px -18px color-mix(in srgb, var(--farbe-text) 45%, transparent);
+    transform: translateY(100%); visibility: hidden;
+    transition: transform var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .js .blatt--offen { transform: none; visibility: visible; transition: transform var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .js .blatt--zieht { transition: none; }
+  .js .blatt::before {                 /* Griff: zeigt, dass man das Blatt nach unten wischen kann */
+    content: ""; justify-self: center; inline-size: 2.75rem; block-size: 4px; border-radius: 2px; background: var(--farbe-linie);
+  }
+  .js .blatt ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .js .blatt li { border-bottom: 1px solid var(--farbe-linie); }
+  .js .blatt li:has(.knopf) { border: 0; padding-block-start: 1.25rem; }
+  .js .blatt a:not(.knopf) {
+    display: flex; min-height: 3.75rem; padding-inline: .25rem;
+    font: 480 1.9rem/1.1 var(--schrift-display); letter-spacing: -.02em;
+  }
+  .js .blatt a:not(.knopf)::after { content: none; }
+  .js .blatt .knopf { inline-size: 100%; }
+  .js .blatt--offen li { animation: blatt-eintrag .6s var(--kurve-standard) backwards; }
+  .js .blatt--offen li:nth-child(1) { animation-delay: .22s; }
+  .js .blatt--offen li:nth-child(2) { animation-delay: .28s; }
+  .js .blatt--offen li:nth-child(3) { animation-delay: .34s; }
+  .js .blatt--offen li:nth-child(4) { animation-delay: .40s; }
+  .js .blatt--offen li:nth-child(5) { animation-delay: .46s; }
+  .js .blatt--offen li:nth-child(n+6) { animation-delay: .52s; }
+
+  .blatt-schleier {
+    position: fixed; z-index: 15; inset: 0; background: color-mix(in srgb, var(--farbe-text) 42%, transparent);
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .blatt-schleier--an { opacity: 1; visibility: visible; transition: opacity var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .menue-offen { overflow: hidden; }
+}
+@media (min-width: 48rem) { .blatt-schleier { display: none; } }
+@keyframes blatt-eintrag { from { opacity: 0; transform: translateY(14px); } }
+
+/* ===== hero-video/hero-video.css ===== */
+/* ---------- Baustein: hero-video ----------
+   Bildrahmen im ersten Bildschirm: das Poster (<img fetchpriority="high">) ist das LCP-Element.
+   Das Video lädt hero-video.js erst nach dem Laden der Seite – nicht bei „Bewegung reduzieren“ oder „Daten sparen“ –
+   und blendet es 1,2 s sanft über das Poster. Außerhalb des Bildes oder bei verstecktem Tab pausiert es.
+   Ohne Poster und Video (class="held-video--platzhalter") zeigt der Rahmen eine Fläche aus den Markenfarben. */
+.held-video {
+  position: relative; overflow: hidden; isolation: isolate; min-width: 0; aspect-ratio: 4 / 3;
+  border-radius: var(--radius-gross); background: var(--farbe-flaeche);
+}
+@media (min-width: 64rem) { .held-video { aspect-ratio: 4 / 5; } }
+/* Breites Format für einen Film weiter unten auf der Seite (Poster dort mit loading="lazy") */
+.held-video--16x9 { aspect-ratio: 16 / 9; }   /* steht nach der 64rem-Regel und gewinnt deshalb */
+.held-video-poster, .held-video-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.held-video-film { opacity: 0; transition: opacity 1.2s var(--kurve-sanft); }
+.held-video--laeuft .held-video-film { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .held-video-film { display: none; } }
+
+.held-video-hinweis {
+  position: absolute; z-index: 1; inset: auto auto .75rem .75rem; max-inline-size: calc(100% - 5rem);
+  padding: .45rem .75rem; font-size: .875rem; line-height: 1.35; color: var(--farbe-text);
+  background: var(--farbe-flaeche); border-radius: var(--radius-klein);
+}
+.held-video-knopf {
+  position: absolute; z-index: 1; inset: auto .75rem .75rem auto; display: inline-grid; place-items: center;
+  inline-size: 48px; block-size: 48px; padding: 0; color: var(--farbe-text); background: var(--farbe-flaeche);
+  border: 0; border-radius: 50%; cursor: pointer; transition: transform var(--tempo-kurz) var(--kurve-standard);
+}
+.held-video-knopf::before {            /* Pause-Zeichen, im angehaltenen Zustand ein Dreieck */
+  content: ""; inline-size: 12px; block-size: 14px;
+  background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px, currentColor 8px);
+}
+.held-video-knopf[aria-pressed="true"]::before { inline-size: 12px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.held-video-knopf:active { transform: scale(.94); }
+
+/* Platzhalter aus den Markenfarben: Licht, das von oben links in den Rahmen fällt */
+.held-video--platzhalter {
+  background:
+    radial-gradient(120% 80% at 18% 8%, color-mix(in srgb, var(--farbe-auf-akzent) 30%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 90% 100%, color-mix(in srgb, var(--farbe-grund) 22%, transparent), transparent 70%),
+    linear-gradient(160deg, color-mix(in srgb, var(--farbe-akzent) 78%, var(--farbe-grund)), var(--farbe-akzent) 55%, color-mix(in srgb, var(--farbe-akzent) 70%, var(--farbe-text)));
+}
+.held-video--platzhalter::before {    /* feine Linien als Raster: zeigt, dass hier ein Bildformat sitzt */
+  content: ""; position: absolute; inset: 1.25rem; border: 1px solid color-mix(in srgb, var(--farbe-auf-akzent) 35%, transparent);
+  border-radius: calc(var(--radius-gross) - .75rem);
+}
+
+/* ===== finder.css ===== */
+/* Erzeugt von bauen.mjs – nicht von Hand ändern. Werkzeugfinder: Filter, Trefferzahl und Leerzustand. */
+.finder:has(#fv-fraesen:checked) .serie:not(.v-fraesen) { display: none; }
+.finder:has(#fv-bohren:checked) .serie:not(.v-bohren) { display: none; }
+.finder:has(#fv-gewinden:checked) .serie:not(.v-gewinden) { display: none; }
+.finder:has(#fw-stahl:checked) .serie:not(.w-stahl) { display: none; }
+.finder:has(#fw-stahl:checked) .wchip--stahl { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-edelstahl:checked) .serie:not(.w-edelstahl) { display: none; }
+.finder:has(#fw-edelstahl:checked) .wchip--edelstahl { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-gehaertet:checked) .serie:not(.w-gehaertet) { display: none; }
+.finder:has(#fw-gehaertet:checked) .wchip--gehaertet { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-guss:checked) .serie:not(.w-guss) { display: none; }
+.finder:has(#fw-guss:checked) .wchip--guss { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-alu:checked) .serie:not(.w-alu) { display: none; }
+.finder:has(#fw-alu:checked) .wchip--alu { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-titan:checked) .serie:not(.w-titan) { display: none; }
+.finder:has(#fw-titan:checked) .wchip--titan { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fw-hitze:checked) .serie:not(.w-hitze) { display: none; }
+.finder:has(#fw-hitze:checked) .wchip--hitze { color: var(--farbe-auf-akzent); background: var(--farbe-akzent); border-color: var(--farbe-akzent); }
+.finder:has(#fv-alle:checked):has(#fw-stahl:checked) .zahl--alle-stahl { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-edelstahl:checked) .zahl--alle-edelstahl { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-gehaertet:checked) .zahl--alle-gehaertet { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-guss:checked) .zahl--alle-guss { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-alu:checked) .zahl--alle-alu { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-titan:checked) .zahl--alle-titan { display: inline; }
+.finder:has(#fv-alle:checked):has(#fw-hitze:checked) .zahl--alle-hitze { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-alle:checked) .zahl--fraesen-alle { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-stahl:checked) .zahl--fraesen-stahl { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-edelstahl:checked) .zahl--fraesen-edelstahl { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-gehaertet:checked) .zahl--fraesen-gehaertet { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-guss:checked) .zahl--fraesen-guss { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-alu:checked) .zahl--fraesen-alu { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-titan:checked) .zahl--fraesen-titan { display: inline; }
+.finder:has(#fv-fraesen:checked):has(#fw-hitze:checked) .zahl--fraesen-hitze { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-alle:checked) .zahl--bohren-alle { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-stahl:checked) .zahl--bohren-stahl { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-edelstahl:checked) .zahl--bohren-edelstahl { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-gehaertet:checked) .zahl--bohren-gehaertet { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-guss:checked) .zahl--bohren-guss { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-alu:checked) .zahl--bohren-alu { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-titan:checked) .zahl--bohren-titan { display: inline; }
+.finder:has(#fv-bohren:checked):has(#fw-hitze:checked) .zahl--bohren-hitze { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-alle:checked) .zahl--gewinden-alle { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-stahl:checked) .zahl--gewinden-stahl { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-edelstahl:checked) .zahl--gewinden-edelstahl { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .zahl--gewinden-gehaertet { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-gehaertet:checked) .finder-leer { display: block; }
+.finder:has(#fv-gewinden:checked):has(#fw-guss:checked) .zahl--gewinden-guss { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-alu:checked) .zahl--gewinden-alu { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-titan:checked) .zahl--gewinden-titan { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .zahl--gewinden-hitze { display: inline; }
+.finder:has(#fv-gewinden:checked):has(#fw-hitze:checked) .finder-leer { display: block; }
+.finder:has(.finder-wahl input:not([value="alle"]):checked) .zahl--alle-alle { display: none; }

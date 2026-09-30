@@ -1,6 +1,6 @@
 # Quality Gate – OSG GmbH (OSG Germany)
 
-**Urteil: NICHT BESTANDEN** · 2026-09-30 05:13 UTC · schnelle Prüfung · 11 Seiten · Auftrag: kunden/osg-germany/auftrag.md
+**Urteil: NICHT BESTANDEN** · 2026-09-30 05:36 UTC · schnelle Prüfung · 11 Seiten · Auftrag: kunden/osg-germany/auftrag.md
 
 Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 · Legende: ✓ bestanden · ✗ Fehler · ◐ Werkzeug ok oder ohne Befund, Bestätigung fehlt · ○ manuell offen · … nur mit --voll · ↻ nach Launch (Wartung) · · nicht anwendbar
 
@@ -29,7 +29,7 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 | ✓ | GLB-19 | 404-Seite und Favicon vorhanden | Muss | 404.html vorhanden; 404.html: Favicon verlinkt |
 | ✗ | GLB-20 | Kein Blindtext, keine offenen `data-pruefen`-Angaben bei Abnahme | Muss | 19 offene Angaben mit data-pruefen (vor Launch vom Kunden bestätigen lassen) |
 | ○ | GLB-21 | Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben | Muss | in abnahme.md bestätigen |
-| ✓ | GLB-22 | Hauptinhalt steht im HTML und ist ohne JavaScript vorhanden | Muss | index.html: ohne JS 7429 von 7429 Zeichen Hauptinhalt; industrieloesungen.html: ohne JS 3920 von 3920 Zeichen Hauptinhalt |
+| ✓ | GLB-22 | Hauptinhalt steht im HTML und ist ohne JavaScript vorhanden | Muss | index.html: ohne JS 7460 von 7460 Zeichen Hauptinhalt; industrieloesungen.html: ohne JS 4638 von 4638 Zeichen Hauptinhalt |
 | ✓ | GLB-23 | robots.txt und sitemap.xml vorhanden, Startseite indexierbar | Muss | robots.txt ok; 7 URLs |
 | ○ | GLB-24 | Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 | Muss | in abnahme.md bestätigen |
 
@@ -43,7 +43,7 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 | … | PERF-04 | Laborwerte Lighthouse mobil: LCP ≤ 2,5 s, CLS ≤ 0,02 (Meisterstandard; Googles Grenze „gut“ ist 0,1) | Muss | ext-cwv-labor: nur mit --voll |
 | … | PERF-05 | Wenig und spätes JavaScript (Budget ≤ 60 KB), lange Tasks aufgeteilt | Muss | ext-budget: nur mit --voll |
 | ✓ | PERF-06 | Bilder unterhalb des ersten Bildschirms `loading="lazy"` | Muss | index.html: Bilder unterhalb lazy; industrieloesungen.html: Bilder unterhalb lazy |
-| … | PERF-07 | Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien | Muss | 2 Schriften lokal mit font-display; ext-budget: nur mit --voll |
+| … | PERF-07 | Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien | Muss | 4 Schriften lokal mit font-display; ext-budget: nur mit --voll |
 | ✓ | PERF-08 | Lange Cache-Zeiten für CSS, JS, Schriften, Medien in `_headers` | Muss | lange Cache-Zeiten für Assets gesetzt |
 | … | PERF-09 | Video/3D erst nach Poster und „geladen“, pausiert außerhalb des Bildschirms, nicht bei „Daten sparen“ | Muss | ext-budget: nur mit --voll |
 | ↻ | PERF-10 | Nach Launch: Feldwerte (Search Console/CrUX) im Wartungslauf prüfen, sobald Daten vorliegen | Soll | im ersten Wartungslauf prüfen und in abnahme.md belegen |
@@ -131,8 +131,8 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 
 | | ID | Regel | Verb. | Befund |
 |---|---|---|---|---|
-| ✓ | SD-01 | Strukturierte Daten nur als JSON-LD, syntaktisch gültig, `@context` schema.org, Startseite mit Typ, keine Eigenbewertungen des eigenen Betriebs (wie LOC-09) | Muss | index.html: JSON-LD gültig; Startseite: Organization, PostalAddress, WebSite |
-| ✓ | SD-02 | Jeder Textwert im Markup (auch in Arrays) steht sichtbar auf derselben Seite | Muss | index.html: alle JSON-LD-Werte sichtbar |
+| ✓ | SD-01 | Strukturierte Daten nur als JSON-LD, syntaktisch gültig, `@context` schema.org, Startseite mit Typ, keine Eigenbewertungen des eigenen Betriebs (wie LOC-09) | Muss | index.html: JSON-LD gültig; industrieloesungen.html: JSON-LD gültig |
+| ✓ | SD-02 | Jeder Textwert im Markup (auch in Arrays) steht sichtbar auf derselben Seite | Muss | index.html: alle JSON-LD-Werte sichtbar; industrieloesungen.html: alle JSON-LD-Werte sichtbar |
 | ✓ | SD-03 | Spezifischster zutreffender Typ (Tabelle `branchen.md`), Mehrfachtyp als Array, keine veralteten Typen | Muss | Beleg: geprüft 2026-09-30 – Organization laut wissen/fachgebiete/branchen.md „Hersteller und Industrie (B2B)“; kein Laden mit Kundenverkehr |
 | ○ | SD-04 | Nur wahre, vom Kunden bestätigte Angaben (Preise, Zeiten, Leistungen) | Muss | in abnahme.md bestätigen |
 | ✓ | SD-05 | Pflicht- und empfohlene Eigenschaften je Typ laut Google-Doku; lieber weniger, aber vollständig | Soll | Beleg: geprüft 2026-09-30 – Organization: name, url, logo, address, telephone, email, sameAs; Öffnungszeiten entfallen (kein LocalBusiness) |
@@ -147,7 +147,7 @@ Muss offen: **11** (11 verschiedene Befunde) · Soll offen: 2 · nach Launch: 2 
 | ✓ | GEO-01 | Such-Crawler (Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot, Applebot) nicht sperren – weder in robots.txt noch in Cloudflare-Bot-Einstellungen | Muss | Beleg: geprüft 2026-09-30 – public/robots.txt: alle erlaubt (qualitaet.mjs ki-crawler ✓); Cloudflare-Bot-Einstellungen beim Launch prüfen |
 | ○ | GEO-02 | Trainings-Crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended): Entscheidung des Kunden dokumentieren (Standard: zulassen) | Soll | in abnahme.md bestätigen |
 | ✓ | GEO-03 | Snippets erlaubt: kein nosnippet, max-snippet:0 oder data-nosnippet auf dem Hauptinhalt | Muss | index.html: Snippets erlaubt; industrieloesungen.html: Snippets erlaubt |
-| ✓ | GEO-04 | Kernfakten (Name, Leistung, Ort, Kontakt, Zeiten) als Text im HTML, nicht nur in Bildern, PDFs, Tabs oder per JS | Muss | Startseite nennt OSG GmbH, Göppingen als Text; index.html: ohne JS 7429 von 7429 Zeichen Hauptinhalt |
+| ✓ | GEO-04 | Kernfakten (Name, Leistung, Ort, Kontakt, Zeiten) als Text im HTML, nicht nur in Bildern, PDFs, Tabs oder per JS | Muss | Startseite nennt OSG GmbH, Göppingen als Text; index.html: ohne JS 7460 von 7460 Zeichen Hauptinhalt |
 | ✓ | GEO-05 | Eindeutige Entität: gleicher Name, Adresse, Telefon auf allen Seiten und im JSON-LD; `sameAs` nur auf echte Profile | Soll | Beleg: geprüft 2026-09-30 – Name, Adresse, Telefon aus einer Quelle (seite.json) auf allen Seiten und im JSON-LD (Test „Fakten gleich auf allen Seiten“); sameAs = Profile, die de.osgeurope.com selbst verlinkt |
 | ✓ | GEO-06 | Eigene, überprüfbare Angaben (Zahlen, Erfahrung, Zertifikate, Quellen) statt Allgemeinplätzen – nur Belegtes | Soll | Beleg: geprüft 2026-09-30 – Zahlen mit Quelle: 1938, 33 Länder, 7.173 Mitarbeitende, Anwenderbericht 150→600 min mit Quellenlink, ISO 9001/14001 |
 | ✓ | GEO-07 | Häufige Kundenfragen sichtbar und direkt beantworten, ohne eine Seite je Formulierung | Soll | Beleg: geprüft 2026-09-30 – siehe SEO-12; keine Seite je Formulierung |

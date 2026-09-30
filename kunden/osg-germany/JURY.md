@@ -51,3 +51,24 @@ Wichtigste Mängel (zusammengeführt, nach Wirkung):
 8. Downloads und Händler auf /service ohne Sprungleiste; Newsletter, Beiträge und OSG Shape IT fehlen.
 9. Texte: Floskeln („Präzision beginnt an der Schneide“), „Beispiel 1/2“, „mehr als 75 Jahre“ neben 1938, NEXAM bei Luftfahrt fehlt.
 10. Technik: vier render-blockierende CSS-Dateien, `npm run pruefen` mit falschem Pfad, Turnstile-Zweig ohne Widget, keine Größengrenze vor `formData()`, `.leiste` ohne Landmarke, `class=""`-Reste, og-Angaben dünn.
+
+## Runde 3 (2026-09-30) – 71 / 100 → nicht bestanden, nachbessern
+
+| Block | Punkte | Höchstwert |
+|---|---|---|
+| A Gestaltung und Wirkung | 23,5 | 35 |
+| B Inhalt und Nutzerführung | 16,5 | 25 |
+| C Technik, Barrierefreiheit, Auffindbarkeit | 19,5 | 25 |
+| D Fortschritt (Mittel aus 11,5 und 11,5) | 11,5 | 15 |
+| **Summe** | **71** | **100** |
+
+Einzelnoten: A1 4 · A2 3 · A3 3,5 · A4 3 · A5 3 · A6 3,5 · A7 3,5 · B1 3,5 · B2 3 · B3 3,5 · B4 3 · B5 3,5 · C1 4,5 · C2 4 · C3 3,5 · C4 3,5 · C5 4 · D1 4/4 · D2 3,5/4 · D3 4/3,5.
+
+Wichtigste Mängel (zusammengeführt, nach Wirkung):
+1. Serien ohne Bild in gleichförmigen Textkarten; /produkte auf dem Handy 14.600 px lang.
+2. Unterseiten nach derselben Hero-Schablone; Kontaktformular erst unter dem ersten Bildschirm; Turbinenrad doppelt.
+3. Conversion-Wege passen sich der Seite nicht an (Handy-Leiste auf Karriere und Kontakt), Finder-Treffer ohne Beratungsweg, Shop-Links der Serien als Freitextsuche, Werkzeugkürzel nicht klickbar, Warenkorb fehlt.
+4. Finder auf dem Handy: Ergebnis nach der Auswahl nicht sichtbar.
+5. Chip-Bänder am Computer angeschnitten, Pfeile und Codes brechen allein um.
+6. Downloads und Händler ohne Wegweiser in Kopf und Menü; Schwerindustrie-Text doppelt; Fehlerseite ohne Telefon und E-Mail.
+7. Technik: vier render-blockierende Stylesheets, dünnes JSON-LD und ein og:image für alle Seiten, Kopf und Leiste nehmen bei Zoom 35–59 % der Höhe, Größengrenze nur per Content-Length, Resend ohne Timeout, kleine Reste.

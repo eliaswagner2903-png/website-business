@@ -87,3 +87,20 @@ test('Kontakt: Firma und Anliegen reisen mit, fremdes Anliegen wird „Sonstiges
   await kontakt({ request: formAnfrage('https://x/api/kontakt', { name: 'Anna', firma: 'Muster GmbH', email: 'anna@beispiel.de', anliegen: 'Angebot und Preise', nachricht: 'Hallo, bitte Angebot.' }), env });
   assert.equal(mail.subject, 'Angebot und Preise: Anfrage von Anna (Muster GmbH)');
 });
+
+test('Kontakt: zu große Anfrage bricht beim Lesen ab (auch ohne Content-Length), Versand mit Zeitlimit, Ausweg auf der Fehlerseite', async () => {
+  const gross = new ReadableStream({ start(c) { for (let i = 0; i < 40; i++) c.enqueue(new TextEncoder().encode('x'.repeat(1024))); c.close(); } });
+  const req = new Request('https://x/api/kontakt', { method: 'POST', headers: { Origin: ENV.SEITE_URL, 'Content-Type': 'application/x-www-form-urlencoded' }, body: gross, duplex: 'half' });
+  const r = await kontakt({ request: req, env: ENV });
+  assert.equal(r.status, 413);
+  const html = await r.text();
+  assert.match(html, /tel:\+49716160640/);
+  assert.match(html, /mailto:info@osg-germany\.de/);
+
+  const env = { ...ENV, RESEND_API_KEY: 're_x', KONTAKT_AN: 'info@beispiel.de', KONTAKT_VON: 'web@beispiel.de' };
+  let signal;
+  globalThis.fetch = async (url, opt) => { signal = opt.signal; throw new DOMException('Zeit abgelaufen', 'TimeoutError'); };
+  const r2 = await kontakt({ request: formAnfrage('https://x/api/kontakt', { name: 'Anna', email: 'anna@beispiel.de', nachricht: 'Hallo, bitte Rückruf.' }), env });
+  assert.ok(signal, 'Resend-Aufruf ohne Zeitlimit');
+  assert.equal(r2.status, 502);
+});
