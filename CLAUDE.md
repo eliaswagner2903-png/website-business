@@ -32,11 +32,16 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `hosting/CLOUDFLARE.md` | Einrichtung Hosting, Domain, Schutz, Variablen |
 | `recht/LEITFADEN.md` | Gewerbe, Umsatzsteuer, Buchhaltung, Verträge, Pflichten der Kundenseiten |
 | `wissen/` | Gelernte Fehler und Design-Wissen aus früheren Projekten – **vor dem Bauen lesen** |
+| `wissen/fachgebiete/` | Qualitätssystem: Regeln je Fachgebiet (SEO, Local SEO, GEO, Schema, CRO, A11y, Performance, Analytics, Sicherheit) mit Prioritäten und Quellen (`wissen/quellen/`) |
 | `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
 | `BUSINESSPLAN.md` | Business-Plan OQ: Angebot, Kunden, Preis, Fahrplan, offene Entscheidungen |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
 
 ## Pflicht für jede Kundenseite
+
+**Kundenauftrag zuerst:** Jede Kundenseite hat `auftrag.md` (Leistungen + Prioritäten). Vor dem Bauen `/bestellung` (Pflichtenheft,
+Regeln wirken ab der Planung), vor „fertig“ `/abnahme`. Der globale Mindeststandard (`wissen/fachgebiete/GLOBAL.md`) gilt immer.
+Nie Rankings oder KI-Empfehlungen versprechen.
 
 - Mobil zuerst: 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, Text ≥ 16 px, feste Kontaktleiste auf dem Handy.
 - Lighthouse mobil (mit Kompression): Performance ≥ 95, Barrierefreiheit, Best Practices, SEO = 100, CLS ≈ 0.
@@ -67,8 +72,10 @@ Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext
 |---|---|
 | `/auftrag` | Auftrag loggen, Status, Abschluss, Suche |
 | `/neuer-kunde` | Kundenseite aus der Vorlage anlegen |
+| `/bestellung` | Kundenauftrag (Leistungen + Prioritäten) → Pflichtenheft mit den passenden Regeln, **vor** dem Bauen |
 | `/kundenseite-bauen` | Kundenseite in einem Zug vom Briefing bis zur Abnahme (Ablauf, Richtzeiten, Stolperfallen) |
 | `/pruefen` | komplette Qualitätsprüfung einer Seite |
+| `/abnahme` | Quality Gate gegen den Auftrag: global + bestellte Leistungen, Fehler beheben, erneut prüfen, erst dann „fertig“ |
 | `/sicherheit` | Sicherheitsprüfung vor Launch |
 | `/aufklaerung <url>` | Fernspäherkommando auf eine Seite ansetzen |
 | `/referenz` | Aufklärungsbericht auswerten, Muster ins System, Referenzliste |

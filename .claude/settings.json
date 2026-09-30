@@ -1,7 +1,8 @@
 {
   "hooks": {
     "SessionStart": [
-      { "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/ops/log.py\" kurz", "timeout": 10 } ] }
+      { "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/ops/log.py\" kurz", "timeout": 10 },
+                  { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/werkzeuge/wissen-alter.mjs\" --kurz", "timeout": 10 } ] }
     ],
     "PostToolUse": [
       {

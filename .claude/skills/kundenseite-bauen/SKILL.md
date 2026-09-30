@@ -21,7 +21,8 @@ Richtzeiten gelten für eine Restaurant-/Handwerkerseite mit 6–8 Seiten (Gener
 | 9 Doku | 10 min | Zeitprotokoll, FEHLER.md, Log, Commit, Push |
 
 ## 1 Lesen
-`wissen/FEHLER.md`, `wissen/MEISTERSTANDARD.md`, `wissen/DESIGN-WISSEN.md`, beim Kunden vorhandene `CLAUDE.md`/Analyse.
+**Zuerst `/bestellung`:** `auftrag.md` → `PFLICHTENHEFT.md`; dessen Regeln aus „Planen“ und „Bauen“ gelten ab hier in jeder Phase.
+Dazu `wissen/FEHLER.md`, `wissen/MEISTERSTANDARD.md`, `wissen/DESIGN-WISSEN.md`, beim Kunden vorhandene `CLAUDE.md`/Analyse.
 Eine Liste anlegen: **feste Fakten** (Telefon, Adresse, Route) und **offene Punkte** (werden `data-pruefen`).
 
 ## 2 Anlegen
@@ -72,6 +73,9 @@ Server am Ende mit `kill $(cat …/server.pid)` beenden, **nie `pkill -f`**.
 - Kopfzeile zweizeilig bei 768 → Nebenelemente (Telefon im Kopf) zwischen 48–64rem ausblenden.
 - Menü-Schleier grau auf dunklem Thema → Schleier mit `--farbe-grund` überschreiben.
 - JSON-LD: jeder Textwert (auch Einträge in Arrays) muss sichtbar auf der Seite stehen, sonst weglassen.
+
+## 7a Quality Gate
+`/abnahme` (`node werkzeuge/qualitaet.mjs $S --voll`) – prüft Pflichten aus dem Auftrag und den globalen Standard; manuelle Punkte mit Beleg in `abnahme.md`.
 
 ## 8 Meisterprüfung
 `/meisterpruefung`. Zustände selbst aufnehmen (Fokus, Hover, Fehler, leere Suche, offenes Menü, Schnellleiste,
