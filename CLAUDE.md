@@ -34,6 +34,7 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `wissen/` | Gelernte Fehler und Design-Wissen aus früheren Projekten – **vor dem Bauen lesen** |
 | `wissen/fachgebiete/` | Qualitätssystem: Regeln je Fachgebiet (SEO, Local SEO, GEO, Schema, CRO, A11y, Performance, Analytics, Sicherheit) mit Prioritäten und Quellen (`wissen/quellen/`) |
 | `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
+| `wissen/agenten-bibliothek/` | Katalog agency-agents (MIT, 279 Rollen, Englisch) – nur bei Bedarf nachschlagen, nicht vor dem Bauen lesen |
 | `BUSINESSPLAN.md` | Business-Plan OQ: Angebot, Kunden, Preis, Fahrplan, offene Entscheidungen |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
 
@@ -62,6 +63,7 @@ Nie Rankings oder KI-Empfehlungen versprechen.
 | `security-auditor` | sonnet | eigenen Code defensiv prüfen |
 | `wartungsoffizier` | haiku | wöchentliche Betreuung, Berichte |
 | Fernspäherkommando (`uffz-schnoerkel`, `osg-snats`, `gefr-gummihals`, `osg-fritte`, `hptgefr-duden`, `fw-gezi-golem`) | sonnet | Außenaufklärung einer URL |
+| agency-agents (`agency-ux-architect`, `agency-ui-designer`, `agency-brand-guardian`, `agency-seo-specialist`, `agency-ai-citation-strategist`, `agency-proposal-strategist`, `agency-accessibility-auditor`, `agency-reality-checker`) | sonnet | Fachrollen aus dem MIT-Katalog `wissen/agenten-bibliothek/` (279 Rollen, nicht aktiv); weitere mit `werkzeuge/agent-aktivieren.py` |
 
 Global (aus `claude-setup`): `researcher`, `frontend`, `backend`, `tester`, `reviewer`.
 Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext spart deinen). Einfaches selbst erledigen.
