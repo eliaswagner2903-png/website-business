@@ -47,7 +47,7 @@ Zoom-Sperre im Viewport · Blindtext · erfundene Fakten · fremde Skripte/Schri
 | GLB-07 | Skip-Link als erster Link, jede Seite hat einen Kontaktweg (tel:, mailto:, Kontaktseite) | G | B | AUTO | skip-link, kontakt-jede-seite | O Q-W07, P Q-P03 | stabil |
 | GLB-08 | Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS (Rückfall: Zeile/Link); aktuelle Seite markiert | G | BA | SEMI-AUTO | ext-pruefen, link-namen | O Q-W07 | stabil |
 | GLB-09 | Jedes `<img>` hat `alt` (dekorativ: `alt=""`) sowie `width` und `height` | G | B | AUTO | bilder-alt, bilder-masse | O Q-G05, O Q-W03 | stabil |
-| GLB-10 | Bilder als WebP/AVIF, ≤ 500 KB, erstes Bild nicht lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
+| GLB-10 | Bilder als WebP/AVIF, ≤ 300 KB (Klasse schlank) bzw. ≤ 500 KB (erlebnis, kino), erstes Bild nicht lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
 | GLB-11 | Lighthouse mobil (Startseite): Performance ≥ 95, Barrierefreiheit, Best Practices, SEO = 100 | G | A | AUTO | ext-lighthouse | P Q-P01 | stabil |
 | GLB-12 | Gewichts-Budget der gewählten Klasse (schlank/erlebnis/kino, `kunde.json`) eingehalten | G | A | AUTO | ext-budget | P Q-P01 | stabil |
 | GLB-13 | Tests der Seite grün, html-validate ohne Fehler, Kopf-Regeln eingehalten | G | BA | AUTO | ext-tests, ext-html-validate, ext-kopf | P Q-P03 | stabil |

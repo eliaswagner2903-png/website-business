@@ -14,6 +14,6 @@ aus `_headers`, CSP-Verstöße erscheinen deshalb als Konsolenfehler.
 3. `python3 werkzeuge/kopf-pruefen.py $S/public` → 0 Fehler.
 4. `node werkzeuge/pruefen.mjs $S/public 8080` → Überlauf, Konsole, H1, Tippflächen, ohne JS, reduzierte Bewegung.
    Screenshots in `werkzeuge/ausgabe/` einmal ansehen (390 und 1440).
-5. `bash werkzeuge/lighthouse.sh $S/public 8080` (einzelne Seite: `SEITEN=index.html`) → Perf ≥ 95, A11y/BP/SEO 100, CLS ≈ 0.
+5. `bash werkzeuge/lighthouse.sh $S/public 8080` (einzelne Seite: `SEITEN=index.html`) → Perf ≥ Schwelle der Klasse (kunde.json: 95 / 90 / 85), A11y/BP/SEO 100, CLS ≈ 0.
 5a. `node werkzeuge/qualitaet.mjs $S` → Regeln aus Auftrag und globalem Standard (SEO, Schema, NAP, Links, Sitemap …); Vollabnahme: `/abnahme`.
 6. Ergebnis als Tabelle melden, neue Fehler in `wissen/FEHLER.md` anhängen.

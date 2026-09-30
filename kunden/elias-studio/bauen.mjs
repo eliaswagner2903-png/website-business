@@ -111,7 +111,7 @@ ${inhalt}
         <li><a href="/datenschutz.html">Datenschutz</a></li>
       </ul>
     </div>
-    <p class="fuss-hinweis">Lotlinie, Zwischenbild und Lindgrund sind ausgedachte Marken für Musterseiten. URFA SOFRASI ist ein Entwurf für ein echtes Restaurant in Eislingen/Fils.</p>
+    <p class="fuss-hinweis">URFA SOFRASI ist ein Entwurf für ein echtes Restaurant in Eislingen/Fils.</p>
   </div>
 </footer>
 

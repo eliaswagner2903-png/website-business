@@ -25,7 +25,7 @@ zurückmelden und stoppen. Nur lesende Aufrufe (Guthaben, Modelle, Presets anseh
    - **Scroll-Film (Kino-Hero)**, nur wenn im Auftrag gewünscht: Ablauf, Drehbuch-Regeln und ffmpeg-Werte in
      `wissen/lehren/scroll-film.md`. Erst **ein** Storyboard-Bild (6 Felder derselben Bewegung) zur Freigabe, dann
      **ein** Film ohne Schnitt; Storyboard als Stil-Referenz, nicht als Startbild. Credits vorher schätzen und melden.
-4. Kompression lokal mit `ffmpeg`/`sharp` (per npx). Danach `/pruefen`: Performance muss ≥ 95 bleiben.
+4. Kompression lokal mit `ffmpeg`/`sharp` (per npx). Danach `/pruefen`: Performance muss mindestens die Schwelle der Klasse (kunde.json) halten.
 5. Nutzungsrechte: Notiere in `kunden/<slug>/medien-quellen.md` Modell, Datum, Prompt und den Hinweis, dass die
    Higgsfield-Nutzungsbedingungen für kommerzielle Nutzung gelten.
 

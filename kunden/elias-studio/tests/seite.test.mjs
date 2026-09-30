@@ -64,7 +64,7 @@ test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Verme
     }
     assert.ok(a.werte.perf >= 95 && a.werte.kb > 0, `${a.id}: Messwerte fehlen`);
   }
-  for (const n of ['hell', 'laut', 'edel']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite – `), `${n}: nicht als Musterseite gekennzeichnet`);
+  for (const n of ['hell', 'laut', 'edel']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite<`), `${n}: nicht als Musterseite benannt`);
   assert.match(start, new RegExp(`<span class="werk-art" ${re(markiert(S.pruefen.urfa))}>Entwurf für ein echtes Restaurant`));
   assert.doesNotMatch(start, /URFA[^<]{0,80}(Kunde|live|online seit)/i, 'URFA darf nicht als Live-Kunde erscheinen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);

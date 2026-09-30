@@ -32,7 +32,7 @@
       "name": "Lotlinie",
       "branche": "Physiotherapie",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Praxis, Namen und Preise sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
       "punkte": [
         "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
@@ -57,7 +57,7 @@
       "name": "Zwischenbild",
       "branche": "Studio für Motion-Design",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Studio und Projekte sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.",
       "punkte": [
         "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
@@ -82,7 +82,7 @@
       "name": "Lindgrund",
       "branche": "Uhrmacherei",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Manufaktur, Modell und Preise sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Die Uhr steht als 3D-Modell im ersten Bildschirm und dreht sich mit.",
       "punkte": [
         "3D-Uhr im Browser, erst Standbild, dann Szene – pausiert außerhalb des Bildschirms",
@@ -414,7 +414,7 @@
           ],
           [
             "Mit Bildern",
-            "Dazu passende Bilder und Grafiken, KI-Bilder sichtbar gekennzeichnet."
+            "Dazu passende Bilder und Grafiken."
           ],
           [
             "Komplett",
