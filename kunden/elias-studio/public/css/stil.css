@@ -67,7 +67,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .kopf { position: sticky; top: 0; z-index: 20; background: var(--farbe-grund); border-bottom: 1px solid var(--farbe-linie); }
 .kopf-in { display: flex; align-items: center; justify-content: space-between; gap: .25rem 1rem; min-height: 4.25rem; flex-wrap: wrap; }
 .marke {
-  display: inline-flex; align-items: baseline; min-height: 44px; padding-block: .55rem;
+  display: inline-flex; align-items: center; min-height: 44px; min-inline-size: 44px; padding-block: .55rem;
   font: 400 1.6rem/1 var(--schrift-display); letter-spacing: -.01em; color: var(--farbe-text); text-decoration: none;
 }
 .marke-klammer { color: var(--farbe-akzent); }
@@ -175,7 +175,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .werk-werte-titel { margin-block-start: .75rem; font-size: .8125rem; color: var(--farbe-leise); }
 .werk-werte-titel + .werk-werte { margin-block-start: 0; }
 .werk-werte div { min-width: 0; }
-.werk-werte dt { font-size: .75rem; line-height: 1.3; color: var(--farbe-leise); white-space: nowrap; }
+.werk-werte dt { font-size: .875rem; line-height: 1.3; color: var(--farbe-leise); white-space: nowrap; }
 .werk-werte dd { margin: .2rem 0 0; font: 400 1.75rem/1 var(--schrift-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .werk-link { font-size: .9375rem; color: var(--farbe-leise); }
 .messhinweis { margin-block-start: clamp(4rem, 3rem + 3vw, 6rem); font-size: .875rem; color: var(--farbe-leise); max-width: 70ch; }
@@ -236,12 +236,12 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 /* „Auf die ganze Seite anwenden“: Farbe und Schrift aus dem Generator färben die Portfolio-Seite selbst um.
    Nur im hellen Schema; Kontrast gegen farbe-grund (AA): terrakotta 5,4 · kobalt 7,4 · salbei 5,1 · messing-tief 5,7.
    „Edel“ schaltet auf dunklen Grund, der Akzent wird dort aufgehellt. */
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-terrakotta:checked) { --farbe-akzent: var(--muster-terrakotta); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-salbei:checked) { --farbe-akzent: var(--muster-salbei); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-farbe-messing:checked) { --farbe-akzent: var(--muster-messing-tief); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) { --schrift-display: var(--schrift-text); }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-laut:checked) :is(h1, h2, h3) { font-weight: 750; letter-spacing: -.04em; }
-:root:not([data-schema="nacht"]):has(#k-ganz:checked):has(#k-stil-edel:checked) {
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-terrakotta:checked) { --farbe-akzent: var(--muster-terrakotta); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-salbei:checked) { --farbe-akzent: var(--muster-salbei); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-farbe-messing:checked) { --farbe-akzent: var(--muster-messing-tief); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-laut:checked) { --schrift-display: var(--schrift-text); }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-laut:checked) :is(h1, h2, h3) { font-weight: 750; letter-spacing: -.04em; }
+:root[data-schema="licht"]:has(#k-ganz:checked):has(#k-stil-edel:checked) {
   --farbe-grund: var(--muster-edel-grund); --farbe-flaeche: var(--muster-edel-flaeche); --farbe-text: var(--muster-edel-text);
   --farbe-leise: var(--muster-edel-leise); --farbe-linie: var(--muster-edel-linie);
   --farbe-akzent: color-mix(in srgb, var(--farbe-muster) 45%, var(--muster-edel-text)); --farbe-auf-akzent: var(--muster-edel-grund);
@@ -308,7 +308,10 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 @media (hover: hover) and (pointer: fine) { .formular input:hover, .formular textarea:hover { border-color: var(--farbe-text); } }
 /* Fehlerzustand erst nach der ersten Eingabe (:user-invalid), mit Text statt nur Farbe */
 .formular label:has(:user-invalid) input, .formular label:has(:user-invalid) textarea { border-color: var(--farbe-text); border-width: 2px; }
-.formular label:has(:user-invalid)::after { content: "Bitte prüfen"; font-weight: 450; font-size: .9375rem; }
+html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfen"; font-weight: 450; font-size: .9375rem; }
+.formular label:has([aria-invalid]) :is(input, textarea) { border-color: var(--farbe-fehler); border-width: 2px; }
+.feld-fehler { font-weight: 500; font-size: .9375rem; color: var(--farbe-fehler); }
+.feld-fehler:empty { display: none; }
 .formular .knopf { inline-size: 100%; }
 .honig { position: absolute; left: -9999px; inline-size: 1px; block-size: 1px; overflow: hidden; }
 .hinweis { font-size: 1rem; color: var(--farbe-leise); }
@@ -405,7 +408,7 @@ html:not(.js) .nur-js { display: none !important; }
 .kapitel-text { font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); line-height: 1.6; color: var(--kino-leise); }
 .kapitel-werte { display: flex; flex-wrap: wrap; gap: 1rem 2.25rem; margin: .5rem 0 0; padding-block-start: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--kino-text) 28%, transparent); }
 .kapitel-werte div { display: flex; flex-direction: column-reverse; gap: .25rem; }
-.kapitel-werte dt { font-size: .8125rem; color: var(--kino-leise); }
+.kapitel-werte dt { font-size: .9375rem; color: var(--kino-leise); }
 .kapitel-werte dd { margin: 0; font: 400 clamp(2rem, 1.6rem + 1.4vw, 2.8rem)/1 var(--schrift-display); font-variant-numeric: tabular-nums; }
 @media (min-width: 48rem) {
   .kino-bild, .kino-film { inset: 0 0 0 auto; inline-size: min(100%, 74vw); }
@@ -419,7 +422,7 @@ html:not(.js) .nur-js { display: none !important; }
   .kapitel--start { padding-block: 5rem; }
   .kapitel-in > * { max-inline-size: 34rem; }
 
-  /* Messskala am rechten Rand: der blaue Strich zeigt, wie weit der Film ist */
+  /* Messskala am Rand: der Strich zeigt, wie weit der Film ist */
   .kino-skala {
     display: block; position: absolute; inset: 22% clamp(1rem, 2.5vw, 2.5rem) 22% auto; inline-size: 1.1rem;
     background:
@@ -454,13 +457,14 @@ html:not(.js) .nur-js { display: none !important; }
   transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-standard);
 }
 .reiter-nr { display: inline-flex; align-items: center; gap: .5rem; font-size: .8125rem; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
-.reiter-nr::before { content: ""; inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--_werk, var(--farbe-akzent)); }
+.reiter-nr::before { content: ""; inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--farbe-linie); transition: background-color var(--tempo-kurz) var(--kurve-standard); }
+.reiter[aria-selected="true"] .reiter-nr::before { background: var(--farbe-akzent); }
 .reiter--hell { --_werk: var(--werk-hell); }
 .reiter--laut { --_werk: var(--werk-laut); }
 .reiter--edel { --_werk: var(--werk-edel); }
 .reiter--urfa { --_werk: var(--werk-urfa); }
 .reiter-name { font: 400 clamp(1.5rem, 1.2rem + .9vw, 2rem)/1.05 var(--schrift-display); color: var(--farbe-text); }
-.reiter-branche { font-size: .875rem; }
+.reiter-branche { font-size: .9375rem; }
 .reiter[aria-selected="true"] { color: var(--farbe-text); }
 .reiter[aria-selected="true"]::after { transform: scaleX(1); }
 @media (hover: hover) and (pointer: fine) { .reiter:hover { color: var(--farbe-text); } }
@@ -510,7 +514,7 @@ html:not(.js) .nur-js { display: none !important; }
   display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-block-start: .5rem; padding-block-start: 1.25rem;
   border-top: 1px solid var(--farbe-linie);
 }
-.gen-stand { display: grid; gap: .4rem; flex: 1; margin: 0; font-size: .8125rem; color: var(--farbe-leise); text-align: center; font-variant-numeric: tabular-nums; }
+.gen-stand { display: grid; gap: .4rem; flex: 1; margin: 0; font-size: .9375rem; color: var(--farbe-leise); text-align: center; font-variant-numeric: tabular-nums; }
 .gen-balken { display: block; block-size: 3px; border-radius: 3px; background: var(--farbe-linie); overflow: hidden; }
 .gen-balken span { display: block; block-size: 100%; inline-size: calc(var(--gen-anteil, .1) * 100%); background: var(--farbe-akzent); transition: inline-size var(--tempo-mittel) var(--kurve-standard); }
 .gen-zurueck:disabled { visibility: hidden; }
@@ -637,7 +641,7 @@ html:not(.js) .nur-js { display: none !important; }
   border-radius: 2rem; box-shadow: 0 2.5rem 4rem -2.5rem color-mix(in srgb, var(--farbe-text) 70%, transparent);
 }
 .vorschau-seite {
-  --v-grund: var(--muster-hell-grund); --v-text: var(--muster-hell-text); --v-akzent: var(--muster-terrakotta);
+  --v-grund: var(--muster-hell-grund); --v-text: var(--muster-hell-text); --v-akzent: var(--muster-salbei);
   --v-titel: var(--schrift-display); --v-gewicht: 400; --v-spur: -.01em; --v-gross: 1.75rem; --v-form: none; --v-radius: 999px;
   display: flex; flex-direction: column; gap: .9rem; aspect-ratio: 9 / 16; max-inline-size: 100%; overflow: hidden;
   padding: 1.2rem 1.15rem 1.4rem; border-radius: 1.5rem; background: var(--v-grund); color: var(--v-text);
@@ -724,7 +728,7 @@ html:not(.js) .nur-js { display: none !important; }
 .konfig:has(#k-stil-laut:checked) .vorschau-seite { --v-grund: var(--muster-laut-grund); --v-text: var(--muster-laut-text); --v-titel: var(--schrift-text); --v-gewicht: 800; --v-spur: -.045em; --v-gross: 1.85rem; --v-radius: 4px; }
 .konfig:has(#k-stil-edel:checked) .vorschau-seite { --v-grund: var(--muster-edel-grund); --v-text: var(--muster-edel-text); --v-gross: 1.3rem; --v-spur: .06em; --v-form: uppercase; --v-radius: 0; }
 .konfig:has(#k-farbe-kobalt:checked) .vorschau-seite { --v-akzent: var(--muster-kobalt); }
-.konfig:has(#k-farbe-salbei:checked) .vorschau-seite { --v-akzent: var(--muster-salbei); }
+.konfig:has(#k-farbe-terrakotta:checked) .vorschau-seite { --v-akzent: var(--muster-terrakotta); }
 .konfig:has(#k-farbe-messing:checked) .vorschau-seite { --v-akzent: var(--muster-messing); }
 .konfig:has(#k-branche-praxis:checked) .nach-branche--praxis,
 .konfig:has(#k-branche-handwerk:checked) .nach-branche--handwerk,
@@ -813,50 +817,67 @@ html:not(.js) .nur-js { display: none !important; }
 
 .bet-paar { display: grid; gap: 1.25rem; }
 @media (min-width: 52rem) { .bet-paar { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 2rem; } }
-.bet-karte { display: grid; gap: 1rem; align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border: 1px solid var(--farbe-linie); border-radius: calc(var(--radius-klein) * 2); background: var(--farbe-flaeche); }
+.bet-karte { display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border: 1px solid var(--farbe-linie); border-radius: calc(var(--radius-klein) * 2); background: var(--farbe-flaeche); }
 .bet-karte h3 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
 .bet-karte--abo { background: var(--farbe-text); color: var(--farbe-grund); --_leise: color-mix(in srgb, var(--farbe-grund) 75%, var(--farbe-text)); }
 .bet-karte--abo .bet-hinweis { color: var(--_leise); }
 .bet-wahl { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
 .bet-wahl li { padding: .45rem .95rem; border: 1px solid color-mix(in srgb, var(--farbe-grund) 40%, transparent); border-radius: var(--radius-gross); font-size: .9375rem; }
 .bet-hinweis { font-size: .9375rem; }
-.bet-karte .preis { margin-block-start: .5rem; }
+.bet-karte .preis { margin-block-start: auto; padding-block-start: .5rem; }
 .kopfzeile + .bet-paar { margin-block-start: 0; }
 
-/* ---------- Hero: warmes Papier, Lotlinie als Gerätepaar, Waldgrün ---------- */
-.hero {
-  position: relative; overflow-x: clip; text-align: center; isolation: isolate;
-  padding-block: clamp(2.5rem, 1.5rem + 3vw, 5rem) clamp(4rem, 3rem + 4vw, 7rem);
-  background:
-    radial-gradient(60rem 28rem at 50% 62%, var(--gruen-blass), transparent 70%),
-    radial-gradient(40rem 24rem at 12% 8%, color-mix(in srgb, var(--gruen-blass) 55%, transparent), transparent 70%);
+/* ---------- Hero = helles Kino: Werktisch in Eiche und Waldgrün, Text rechts im ruhigen Teil des Bildes ----------
+   Das Kino übernimmt die Seitenfarben (auch im Nacht-Schema). Der Schleier hält den Grund hinter dem Text hell. */
+.kino {
+  --kino-grund: var(--farbe-grund); --kino-text: var(--farbe-text); --kino-leise: var(--farbe-leise); --kino-akzent: var(--farbe-akzent);
 }
-.hero-text { display: grid; justify-items: center; gap: 1.25rem; }
-.hero h1 { max-inline-size: 14ch; font-size: clamp(3rem, 1.4rem + 5vw, 6.2rem); line-height: .96; letter-spacing: -.02em; }
-.hero h1 em { color: var(--farbe-akzent); }
-.hero .held-lead { max-inline-size: 34ch; font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); line-height: 1.5; color: var(--farbe-leise); }
-.hero .aktionen { justify-content: center; }
-.hero-geraete { position: relative; margin-block-start: clamp(2rem, 1.5rem + 2.5vw, 4rem); max-inline-size: 66rem; }
-.hero-geraete .rahmen--desktop { display: none; }
-.hero-geraete .rahmen--handy { inline-size: min(15.5rem, 66vw); margin-inline: auto; --_r: 1.7rem; padding: .4rem; background: var(--gruen-tief); box-shadow: 0 3rem 5rem -2rem color-mix(in srgb, var(--gruen-tief) 75%, transparent); }
+.kino h1 { font-size: clamp(3.1rem, 1.5rem + 5.2vw, 6.6rem); line-height: .94; letter-spacing: -.025em; max-inline-size: 11ch; }
+.kino h1 em { color: var(--farbe-akzent); }
+.kino .held-lead { max-inline-size: 30ch; }
+.kino .knopf:not(.zweit) { color: var(--farbe-auf-akzent); }
+.kino-bild img, .kino-film { object-position: 30% 50%; }
+.kino-bild, .kino-film { inset: 0 0 auto; block-size: 56%; }
+.kino-schleier {
+  background:
+    linear-gradient(0deg, var(--kino-grund) 0, var(--kino-grund) 44%, color-mix(in srgb, var(--kino-grund) 80%, transparent) 50%, transparent 62%),
+    linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 40%, transparent) 0, transparent 14%);
+}
+.kapitel-werte { border-top-color: var(--farbe-linie); }
 @media (min-width: 48rem) {
-  .hero-geraete { padding-block-end: 4rem; }
-  .hero-geraete .rahmen--desktop { display: block; inline-size: 88%; margin-inline: auto; box-shadow: 0 3rem 6rem -3rem color-mix(in srgb, var(--gruen-tief) 70%, transparent); }
-  .hero-geraete .rahmen--desktop .fenster { block-size: clamp(22rem, 52vw, 38rem); }
-  .hero-geraete .rahmen--handy { position: absolute; inset: auto 0 0; inline-size: clamp(9.5rem, 19vw, 14.5rem); margin-inline: auto; --_r: clamp(1.1rem, 1.8vw, 1.7rem); padding: .32rem; }
+  .kino-bild, .kino-film { inset: 0 auto 0 0; inline-size: min(100%, 72vw); block-size: 100%; }
+  .kino-bild img, .kino-film { object-position: 0% 50%; }
+  .kino-schleier {
+    background:
+      linear-gradient(270deg, var(--kino-grund) 0, var(--kino-grund) 30%, color-mix(in srgb, var(--kino-grund) 75%, transparent) 40%, transparent 54%),
+      linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 35%, transparent) 0, transparent 16%);
+  }
+  .kino .kapitel-in { grid-template-columns: minmax(0, 34rem); justify-content: end; }
+  .kino-skala { inset-inline: clamp(1rem, 2.5vw, 2.5rem) auto; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-text > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
-  .hero-text > :nth-child(2) { animation-delay: .08s; } .hero-text > :nth-child(3) { animation-delay: .16s; } .hero-text > :nth-child(4) { animation-delay: .24s; }
-  .hero-geraete .rahmen--desktop { animation: hero-geraet 1.1s var(--kurve-sanft) .2s backwards; }
-  .hero-geraete .rahmen--handy { animation: hero-handy 1.1s var(--kurve-sanft) .45s backwards; }
-}
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 48rem) {
-    .hero-geraete .rahmen--handy { animation: hero-handy 1.1s var(--kurve-sanft) .45s backwards, hero-parallax linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 70vh; }
-  }
+  .kapitel--start .kapitel-in > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
+  .kapitel--start .kapitel-in > :nth-child(2) { animation-delay: .08s; }
+  .kapitel--start .kapitel-in > :nth-child(3) { animation-delay: .16s; }
+  .kapitel--start .kapitel-in > :nth-child(4) { animation-delay: .24s; }
 }
 @keyframes hero-auf { from { transform: translateY(1.2rem); } }
-@keyframes hero-geraet { from { opacity: 0; transform: perspective(1400px) rotateX(9deg) translateY(3rem) scale(.95); } }
-@keyframes hero-handy { from { opacity: 0; transform: translateY(3.5rem); } }
-@keyframes hero-parallax { to { transform: translateY(-3rem); } }
+
+/* ---------- Feinschliff nach Prüfung 2026-09-30 ---------- */
+/* Reiterleisten auf dem Handy: Kante blendet aus, damit man sieht, dass es weitergeht */
+@media (max-width: 63.99rem) {
+  .buehne-reiter, .gen-reiter { mask-image: linear-gradient(90deg, black 0, black calc(100% - 2.5rem), transparent); }
+}
+/* Fortschritt: Knopf „Weiter“ behält seine Breite, der Balken springt nicht */
+@media (min-width: 48rem) { .gen-weiter { min-inline-size: 11.5rem; } }
+/* Sehr schmale Handys: Einstufung als Zahl statt fünf Punkte, damit die Bereichsnamen ganz lesbar bleiben */
+@media (max-width: 22.49rem) {
+  .js .einstufung .punkte { display: none; }
+  .js .einstufung-reihe::after { content: attr(data-wert) "/5"; flex: none; font-variant-numeric: tabular-nums; color: var(--farbe-akzent); font-weight: 600; }
+  .js .einstufung p > span:first-child { white-space: normal; }
+}
+.bet-liste { display: grid; gap: .6rem; margin: .25rem 0 0; padding: 0; list-style: none; }
+.bet-liste li { display: flex; gap: .7rem; align-items: baseline; }
+.bet-liste li::before { content: ""; flex: none; inline-size: .8rem; block-size: .45rem; border: solid var(--farbe-akzent); border-width: 0 0 2px 2px; transform: translateY(-.2rem) rotate(-45deg); }
+/* „Auf die ganze Seite anwenden“ färbt nur das helle Schema um; im dunklen Standard bleibt die Marke, der Schalter entfällt */
+:root:not([data-schema="licht"]) .ganz-schalter { display: none; }

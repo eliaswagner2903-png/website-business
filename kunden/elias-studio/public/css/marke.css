@@ -2,12 +2,12 @@
    MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
    stil.css und bausteine.css lesen nur diese Variablen.
    Farbwelt „Waldgrün auf Papier“ (2026-09-30, nach Lotlinie): warmes Papier, grünschwarze Tinte, EIN Akzent Waldgrün für Vertrauen
-   (Links, Hauptknopf, ein Wort). Die dunkle Bühne der Arbeiten ist Tiefgrün, der Kino-Film bleibt schwarz-blau.
-   Zweites Schema zum Test (Meisterstandard P4): <html data-schema="nacht"> – SCHEMA=nacht node bauen.mjs
+   (Links, Hauptknopf, ein Wort). Der Hero ist ein heller Film vom Werktisch (Eiche, Waldgrün), er übernimmt die Seitenfarben.
+   Standard ist das dunkle Waldgrün (Elias 2026-09-30: „durchgehend Nacht“); zweites Schema zum Test (Meisterstandard P4): <html data-schema="licht">
    Kontrast (WCAG AA), gemessen:
      licht: text/grund 16,5 · text/flaeche 17,7 · leise/grund 6,3 · leise/flaeche 6,7
             akzent/grund 7,4 · akzent/flaeche 8,0 · auf-akzent/akzent 8,3
-     nacht: text/grund 16,1 · leise/grund 7,9 · akzent/grund 9,3 · auf-akzent/akzent 9,3
+     nacht (Waldgrün): text/grund 14,5 · leise/grund 8,8 · leise/flaeche 7,8 · akzent/grund 10,6 · fehler/flaeche 7,7
    Die dunkle Tafel (Betreuung) kehrt text und grund um: 16,5 bzw. 16,1.
    ===================================================================== */
 
@@ -53,13 +53,14 @@
 
 :root {
   /* Farben: 6 Rollen + Schrift auf dem Akzent */
-  --farbe-grund: #f6f1e8;       /* warmes Papier */
-  --farbe-flaeche: #fbf8f2;     /* Rahmen, Felder, Blatt */
-  --farbe-text: #17241d;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
-  --farbe-leise: #56625a;       /* Nebentext */
-  --farbe-linie: #d9d2c3;       /* Haarlinien, Schnittmarken */
-  --farbe-akzent: #1f5a43;      /* Waldgrün: Hauptknopf, Links, ein Wort */
-  --farbe-auf-akzent: #fbf8f2;
+  --farbe-grund: #0f1f18;       /* warmes Papier */
+  --farbe-flaeche: #152a20;     /* Rahmen, Felder, Blatt */
+  --farbe-text: #f1ece0;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
+  --farbe-leise: #b3bdb3;       /* Nebentext */
+  --farbe-linie: #2c4136;       /* Haarlinien, Schnittmarken */
+  --farbe-akzent: #9fd9b8;      /* Waldgrün: Hauptknopf, Links, ein Wort */
+  --farbe-auf-akzent: #0f1f18;
+  --farbe-fehler: #f4a58f;      /* Fehlermeldungen im Formular (6,4 auf grund) */
   --gruen-tief: #10261d;        /* dunkle Bühne der Arbeiten */
   --gruen-hell: #9fd9b8;        /* Akzent auf Dunkelgrün und im Kino */
   --gruen-blass: #dfe9dc;       /* Salbei-Fläche, Schimmer im Hero */
@@ -115,17 +116,18 @@
   /* Rhythmus */
   --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 10rem);
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
-/* Zweites Schema „Nacht“ – nur zum Test der Anpassbarkeit (P4). */
-:root[data-schema="nacht"] {
-  --farbe-grund: #111214;
-  --farbe-flaeche: #1a1b1f;
-  --farbe-text: #efeee9;
-  --farbe-leise: #a9a8a2;
-  --farbe-linie: #3a3b40;
-  --farbe-akzent: #9fd9b8;
-  --farbe-auf-akzent: #111214;
-  color-scheme: dark;
+/* Hell (Wahl per Schalter im Kopf): Papier-Creme mit Waldgrün. Standard der Seite ist das dunkle Waldgrün oben. */
+:root[data-schema="licht"] {
+  --farbe-grund: #f6f1e8;
+  --farbe-flaeche: #fbf8f2;
+  --farbe-text: #17241d;
+  --farbe-leise: #56625a;
+  --farbe-linie: #d9d2c3;
+  --farbe-akzent: #1f5a43;
+  --farbe-auf-akzent: #fbf8f2;
+  --farbe-fehler: #a3321f;
+  color-scheme: light;
 }

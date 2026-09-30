@@ -17,9 +17,11 @@
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
+<link rel="preload" href="/medien/tisch-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">
+<link rel="preload" href="/medien/tisch-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)</script>
+<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
 <script src="/js/kino.js" defer></script>
@@ -44,33 +46,27 @@
 </header>
 
 <main id="inhalt">
-<section class="hero" aria-labelledby="titel">
-  <div class="huelle hero-text">
-    <p class="ueberzeile">Websites für Betriebe</p>
-    <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-    <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
-    <div class="aktionen held-aktionen">
-      <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
-      <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-    </div>
-  </div>
-  <div class="huelle hero-geraete">
-    <div class="rahmen rahmen--desktop marken">
-      <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">lotlinie · musterseite</span></span>
-      <div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-desktop-lang-800.avif 800w, /medien/arbeit-hell-desktop-lang-1440.avif 1440w" sizes="(min-width: 64rem) 960px, 1px"><img src="/medien/arbeit-hell-desktop-lang-800.webp" srcset="/medien/arbeit-hell-desktop-lang-800.webp 800w, /medien/arbeit-hell-desktop-lang-1440.webp 1440w" sizes="(min-width: 64rem) 960px, 1px" width="800" height="2000" alt="Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel." decoding="async"></picture></div>
-    </div>
-    <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-lang-320.avif 320w, /medien/arbeit-hell-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-hell-handy-lang-320.webp" srcset="/medien/arbeit-hell-handy-lang-320.webp 320w, /medien/arbeit-hell-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten." decoding="async"></picture></div></div>
-  </div>
-</section>
-<section class="kino" aria-label="Gebaut, gemessen, betreut" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
+<section class="kino" aria-labelledby="titel" data-film-computer="/medien/tisch-film-1280" data-film-handy="/medien/tisch-film-960">
   <div class="kino-buehne" aria-hidden="true">
-    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
-    <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/werkbank-ende-640.avif 640w, /medien/werkbank-ende-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-ende-1280.webp" srcset="/medien/werkbank-ende-640.webp 640w, /medien/werkbank-ende-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
+    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/tisch-anfang-640.avif 640w, /medien/tisch-anfang-1280.avif 1280w" sizes="(min-width: 64rem) 74vw, 100vw"><img src="/medien/tisch-anfang-1280.webp" srcset="/medien/tisch-anfang-640.webp 640w, /medien/tisch-anfang-1280.webp 1280w" sizes="(min-width: 64rem) 74vw, 100vw" width="1280" height="716" alt="" fetchpriority="high" decoding="async"></picture>
+    <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/tisch-ende-640.avif 640w, /medien/tisch-ende-1280.avif 1280w" sizes="(min-width: 64rem) 74vw, 100vw"><img src="/medien/tisch-ende-1280.webp" srcset="/medien/tisch-ende-640.webp 640w, /medien/tisch-ende-1280.webp 1280w" sizes="(min-width: 64rem) 74vw, 100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
     <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
     <span class="kino-schleier"></span>
     <span class="kino-skala"><span class="kino-marke"></span></span>
   </div>
   <div class="kino-kapitel">
+    <div class="kapitel kapitel--start">
+      <div class="huelle kapitel-in">
+        <p class="ueberzeile ueberzeile--kino">Websites für Betriebe</p>
+        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
+        <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
+        <div class="aktionen held-aktionen">
+          <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
+          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+        </div>
+        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen</p>
+      </div>
+    </div>
     <div class="kapitel" id="kino-gebaut">
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>01</span> / 03</p>
@@ -100,7 +96,7 @@
   </div>
 </section>
 
-<section class="abschnitt arbeiten abschnitt--dunkel" id="arbeiten" aria-labelledby="t-arbeiten">
+<section class="abschnitt arbeiten" id="arbeiten" aria-labelledby="t-arbeiten">
   <div class="huelle">
     <div class="kopfzeile">
       <p class="ueberzeile">Arbeiten</p>
@@ -242,9 +238,9 @@
           <fieldset class="schritt-feld" id="gs-2">
             <legend><span class="feld-nr">2</span> Farbe</legend>
             <div class="wahl-reihe wahl-reihe--farbe">
-              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-terrakotta" name="farbe" value="terrakotta" form="kontaktformular" checked><span class="farbfleck farbfleck--terrakotta" aria-hidden="true"></span><span class="wahl-titel">Terrakotta</span></label>
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-salbei" name="farbe" value="salbei" form="kontaktformular" checked><span class="farbfleck farbfleck--salbei" aria-hidden="true"></span><span class="wahl-titel">Salbei</span></label>
+              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-terrakotta" name="farbe" value="terrakotta" form="kontaktformular"><span class="farbfleck farbfleck--terrakotta" aria-hidden="true"></span><span class="wahl-titel">Terrakotta</span></label>
               <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-kobalt" name="farbe" value="kobalt" form="kontaktformular"><span class="farbfleck farbfleck--kobalt" aria-hidden="true"></span><span class="wahl-titel">Kobalt</span></label>
-              <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-salbei" name="farbe" value="salbei" form="kontaktformular"><span class="farbfleck farbfleck--salbei" aria-hidden="true"></span><span class="wahl-titel">Salbei</span></label>
               <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-messing" name="farbe" value="messing" form="kontaktformular"><span class="farbfleck farbfleck--messing" aria-hidden="true"></span><span class="wahl-titel">Messing</span></label>
             </div>
           </fieldset>
@@ -393,6 +389,12 @@
       <section class="bet-karte einblenden" aria-labelledby="b-seite">
         <h3 id="b-seite">Die Seite</h3>
         <p>Einmalig. Sie bekommen die fertige Seite samt Bildern.</p>
+        <ul class="bet-liste">
+          <li>Gestaltung für Ihren Betrieb</li>
+          <li>Für das Handy gebaut</li>
+          <li>Ohne Tracking und Cookies</li>
+          <li>Vor der Übergabe nachgemessen</li>
+        </ul>
         <p class="preis"><span class="preis-wert" data-pruefen="Preis für die Website festlegen (PAKETE.md nennt keinen Preis)">Preis auf Anfrage</span></p>
       </section>
       <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
@@ -458,6 +460,9 @@
       <h2 class="fuss-titel">Seiten</h2>
       <ul class="fuss-liste">
         <li><a href="#arbeiten">Arbeiten</a></li>
+        <li><a href="#konfigurator">Konfigurator</a></li>
+        <li><a href="#betreuung">Betreuung</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
         <li><a href="/impressum.html">Impressum</a></li>
         <li><a href="/datenschutz.html">Datenschutz</a></li>
       </ul>
