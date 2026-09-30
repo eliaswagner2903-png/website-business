@@ -9,6 +9,7 @@ description: Eine neue Kundenseite aus der Vorlage anlegen - Ordner kunden/<slug
 2. Branch: `git switch -c kunde/<slug>`.
 3. Kopieren: `cp -r vorlage kunden/<slug>` (ohne `node_modules`), dann `kunden/<slug>/kunde.json`,
    `wrangler.toml` (`name`, `SEITE_URL`, `PRODUKTE`) und Titel/Texte ausfüllen. Nur bestätigte Fakten, Rest `data-pruefen`.
+3b. **Auftrag:** `kunden/<slug>/auftrag.md` (kommt aus der Vorlage) mit Leistungen und Prioritäten ausfüllen, dann `/bestellung`.
 3a. **Klärungsfragen vor dem Design** (auch wenn der Auftrag klar scheint): Wer ist die Zielgruppe? Welche Stimmung
    (3 Adjektive)? Was ist der eine nächste Schritt für Besucher (anrufen, reservieren, anfragen)? Gibt es ein
    Produkt oder einen Moment, der sich als Hero-Bild/-Film eignet? Welche Seiten gefallen dem Kunden? Antworten in
