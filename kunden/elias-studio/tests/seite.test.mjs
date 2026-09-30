@@ -69,11 +69,9 @@ test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Verme
   assert.doesNotMatch(start, /URFA[^<]{0,80}(Kunde|live|online seit)/i, 'URFA darf nicht als Live-Kunde erscheinen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
   // Erster Bildschirm ist der helle Hero mit dem Lotlinie-Gerätepaar: dessen Bilder nie lazy (LCP ist die Überschrift, die Bilder dürfen ihr keine Bandbreite nehmen).
-  // Das Kino (Scroll-Film) liegt darunter: sein Standbild wird erst bei Bedarf geladen.
-  const hero = start.match(/<section class="hero"[\s\S]*?<\/section>/)[0];
-  assert.match(hero, /arbeit-hell-desktop-lang-800\.webp"/, 'Hero-Gerätepaar fehlt');
-  assert.doesNotMatch(hero, /loading="lazy"/, 'Hero-Bild lazy');
-  assert.match(start, /<section class="kino"[\s\S]*?<picture class="kino-bild kino-bild--anfang">[\s\S]*?loading="lazy"/, 'Kino-Standbild sollte lazy sein');
+  // Erster Bildschirm ist das helle Kino (Werktisch in Waldgrün): sein Startbild ist das LCP-Bild, nie lazy.
+  assert.match(start, /<section class="kino"[\s\S]*?<picture class="kino-bild kino-bild--anfang">[\s\S]*?fetchpriority="high"/, 'Kino-Startbild nicht bevorzugt');
+  assert.match(start, /<section class="kino"[\s\S]*?<h1 id="titel">/, 'H1 nicht im Kino');
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, URFA ohne Link (Freigabe fehlt)
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
@@ -140,7 +138,7 @@ test('Konfigurator: alle Felder am Formular, Werte wie in der Function erlaubt, 
 });
 
 test('Kino: Film nur für Computer ≤ 12 MB und Handy ≤ 5 MB (P2), beide Formate, CSP erlaubt blob:', () => {
-  for (const [datei, grenze] of [['werkbank-film-1280', 12], ['werkbank-film-960', 5]]) {
+  for (const [datei, grenze] of [['tisch-film-1280', 12], ['tisch-film-960', 5]]) {
     for (const typ of ['mp4', 'webm']) {
       const f = join(PUB, 'medien', `${datei}.${typ}`);
       assert.ok(existsSync(f), `${f} fehlt`);

@@ -178,9 +178,38 @@
     buehne();
     generator();
     konfigurator();
-    // Doppelte Formular-Klicks verhindern
+    // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
+    const meldung = (f) => {
+      const v = f.validity;
+      if (v.valid) return '';
+      if (f.type === 'email' && !v.valueMissing) return 'Diese E-Mail-Adresse scheint nicht zu stimmen.';
+      if (f.name === 'name') return 'Bitte geben Sie Ihren Namen an.';
+      if (f.type === 'email') return 'Bitte geben Sie Ihre E-Mail-Adresse an.';
+      if (v.tooShort) return 'Bitte schreiben Sie ein paar Worte mehr.';
+      return 'Bitte schreiben Sie kurz, worum es geht.';
+    };
+    const zeige = (f) => {
+      const text = meldung(f);
+      let el = document.getElementById(`${f.id}-fehler`);
+      if (!el) {
+        el = document.createElement('span');
+        el.id = `${f.id}-fehler`; el.className = 'feld-fehler';
+        f.insertAdjacentElement('afterend', el);
+        f.setAttribute('aria-describedby', el.id);
+      }
+      el.textContent = text;
+      if (text) f.setAttribute('aria-invalid', 'true'); else f.removeAttribute('aria-invalid');
+      return !text;
+    };
     for (const form of document.querySelectorAll('.formular')) {
-      form.addEventListener('submit', () => { const b = form.querySelector('button'); if (b) { b.disabled = true; b.textContent = 'Einen Moment …'; } });
+      form.noValidate = true;
+      const felder = [...form.querySelectorAll('input[required], textarea[required]')];
+      for (const f of felder) f.addEventListener('input', () => { if (f.hasAttribute('aria-invalid')) zeige(f); });
+      form.addEventListener('submit', (e) => {
+        const falsch = felder.filter((f) => !zeige(f));
+        if (falsch.length) { e.preventDefault(); falsch[0].focus(); return; }
+        const b = form.querySelector('button'); if (b) { b.disabled = true; b.textContent = 'Einen Moment …'; }
+      });
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
