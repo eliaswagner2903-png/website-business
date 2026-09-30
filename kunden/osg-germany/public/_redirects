@@ -1,0 +1,13 @@
+# Alte Adressen von de.osgeurope.com, deren Inhalt die neuen Seiten ganz ersetzen (301).
+# Serien-, Branchen-, Termin- und Händlerseiten, Blog und Shop bleiben im Shop-System (auftrag.md „Fremde Pfade“);
+# die neuen Seiten verlinken dorthin – eine Umleitung zurück wäre ein Kreis.
+/index.htm              /                               301
+/uber-uns               /ueber-uns.html                 301
+/de-about-osg-germany   /ueber-uns.html                 301
+/group-members/         /ueber-uns.html                 301
+/produkte               /produkte.html                  301
+/industrielosungen      /industrieloesungen.html        301
+/industry_solutions/    /industrieloesungen.html        301
+/downloads/             /service.html#downloads         301
+/karriere               /karriere.html                  301
+/impressum              /impressum.html                 301

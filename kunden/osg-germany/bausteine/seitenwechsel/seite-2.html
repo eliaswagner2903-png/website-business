@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zweite Seite – Baustein-Demo</title>
+<meta name="description" content="Weicher Seitenwechsel mit View Transitions, benannte Übergänge.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="seitenwechsel.css">
+<link rel="stylesheet" href="../bento/bento.css">
+<script>document.documentElement.classList.add('js')</script>
+
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <nav class="nav" aria-label="Bausteine">
+      <ul>
+        <li><a href="../index.html">Übersicht</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel" class="uebergang-titel">Zur zweiten Seite</h1>
+        <p>Zurück zur ersten Seite: derselbe Übergang rückwärts. Ohne Unterstützung (oder bei „Bewegung reduzieren“) lädt die Seite ganz normal.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" aria-labelledby="t-zurueck">
+    <div class="huelle"><h2 id="t-zurueck">Weiter</h2><p><a class="knopf" href="demo.html">Zurück zur ersten Seite</a></p></div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>

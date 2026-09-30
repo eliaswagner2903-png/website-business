@@ -1,0 +1,16 @@
+# Cloudflare Pages – Neubau-Studie OSG Germany (kein Auftrag von OSG; vor jedem Launch Freigabe durch OSG).
+name = "osg-germany"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+[vars]
+SEITE_URL = "https://de.osgeurope.com"
+# Empfänger laut Impressum/Kontakt auf de.osgeurope.com. Absender muss eine in Resend bestätigte Domain sein –
+# vor dem Launch mit OSG klären (die Domain osg-germany.de ist dort noch nicht bestätigt).
+KONTAKT_AN = "info@osg-germany.de"
+KONTAKT_VON = "website@osg-germany.de"
+
+# Geheimnisse NIE hier eintragen, sondern:
+#   npx wrangler pages secret put RESEND_API_KEY
+#   npx wrangler pages secret put TURNSTILE_SECRET   (optional)
+# Keine Zahlungen auf dieser Seite: der Shop bleibt auf de.osgeurope.com.

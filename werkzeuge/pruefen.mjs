@@ -21,7 +21,9 @@ for (const w of [320, 360, 390, 768, 1440, 1920]) {
     if (sw > w) melde(`${s} @${w}px: Seite ${sw}px breit (Überlauf)`);
     if (w === 390) {
       const h1 = await p.$$eval('h1', a => a.length); if (h1 !== 1) melde(`${s}: ${h1} H1-Überschriften (genau 1 nötig)`);
-      const klein = await p.$$eval('a, button, [role=button], input, select', els => els.filter(e => { const r = e.getBoundingClientRect(); const st = getComputedStyle(e);
+      const klein = await p.$$eval('a, button, [role=button], input, select', els => els.filter(e => { const st = getComputedStyle(e);
+        // unsichtbar gemachtes Radio/Checkbox (1 px, z. B. CSS-Filter mit :has()): Tippfläche ist das sichtbare Label
+        let r = e.getBoundingClientRect(); if (e.labels?.length && r.width <= 1 && r.height <= 1) r = e.labels[0].getBoundingClientRect();
         return r.width > 0 && r.height > 0 && st.visibility !== 'hidden' && (r.height < 44 && r.width < 44) && !e.closest('p, li p, address, td'); }).map(e => (e.textContent || e.getAttribute('aria-label') || e.tagName).trim().slice(0, 30)));
       if (klein.length) melde(`${s}: kleine Tippflächen (< 44 px): ${[...new Set(klein)].slice(0, 6).join(' | ')}`);
       await p.screenshot({ path: path.join(aus, `${s}-390.png`) });

@@ -27,3 +27,4 @@
 | Physiotherapie | physio, physiotherapie, krankengymnastik, physiotherapeut | Physiotherapy | ja | Leistungen, Termin, Kassen/Privat, Team | Online-Terminbuchung → BFSG prüfen |
 | Fotograf | fotograf, fotografin, fotostudio | LocalBusiness | ja | Portfolio, Pakete, Anfrage | kein eigener Typ |
 | Agentur und Beratung | agentur, beratung, berater, consulting, dienstleister, dienstleistung, coaching | LocalBusiness | ja | Leistungen, Referenzen/Fälle, Team, Anfrage | ohne Kundenverkehr am Ort: Organization statt LocalBusiness erwägen |
+| Hersteller und Industrie (B2B) | hersteller, herstellung, fertigung, maschinenbau, zulieferer, industrie, b2b | Organization | nein | Produkte/Serien mit technischen Daten, Anwendungen/Branchen, Ansprechpartner oder Vertrieb, Downloads (Katalog, Zertifikate), Händler | ohne Laden mit Kundenverkehr: `Organization` statt LocalBusiness, keine Öffnungszeiten im JSON-LD (Organization hat keine); Shop/Portal nur verlinken |

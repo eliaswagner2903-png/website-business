@@ -1,0 +1,57 @@
+# Abnahme – manuelle Bestätigungen (OSG GmbH (OSG Germany))
+
+Je Zeile: prüfen, dann `[x]` setzen und hinter „Beleg:“ eintragen, woran es geprüft wurde (Screenshot-Pfad, Datei:Zeile,
+Aussage des Kunden mit Datum, Messwert oder „trifft nicht zu, weil …“). Ohne nachprüfbaren Beleg zählt die Bestätigung nicht. Neue Zeilen ergänzt `werkzeuge/qualitaet.mjs` selbst.
+- [ ] GLB-08 (Muss) Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS; aktuelle Seite markiert — Beleg: 
+- [ ] GLB-18 (Muss) Impressum und Datenschutz von jeder Seite verlinkt; Texte vom Kunden/Generator, nicht erfunden — Beleg: 
+- [ ] GLB-21 (Muss) Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben — Beleg: 
+- [ ] GLB-24 (Muss) Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 — Beleg: 
+- [ ] SEO-01 (Muss) Seitenstruktur aus Suchabsichten planen: je Hauptleistung eine Seite oder ein klar benannter Abschnitt; Begriffe mit dem Kunden klären — Beleg: 
+- [ ] SEO-05 (Muss) H1 nennt das Seitenthema; Zwischenüberschriften beschreiben ihren Abschnitt — Beleg: 
+- [ ] SEO-08 (Muss) Inhaltsbilder als `<img>` mit beschreibendem alt und sprechendem Dateinamen — Beleg: 
+- [ ] SEO-09 (Muss) Texte konkret und eigen (Leistungen, Ablauf, Team, Einzugsgebiet); keine Füllsätze, keine Massen-KI-Texte; vom Kunden freigegeben — Beleg: 
+- [ ] SEO-10 (Muss) Keine Doorway-Seiten je Stadt und keine Ortslisten; Standortseiten nur für echte Standorte — Beleg: 
+- [ ] SEO-11 (Muss) Sprechende URLs (klein, Bindestriche); bestehende Adressen behalten oder per 301/308 weiterleiten — Beleg: 
+- [ ] SEO-12 (Muss) Häufige Kundenfragen (Preise, Anfahrt, Parken, Termine) sichtbar beantworten — Beleg: 
+- [ ] TEC-07 (Muss) Handy und Computer zeigen dieselben Inhalte, Daten und Metadaten — Beleg: 
+- [ ] TEC-08 (Muss) Eine Hauptdomain: http → https und www/ohne per 301/308; alte Adressen per `_redirects` — Beleg: 
+- [ ] TEC-09 (Muss) Semantische Struktur: header, nav, main, footer; Listen und Tabellen nur für ihren Zweck — Beleg: 
+- [ ] TEC-10 (Muss) Nach Launch: Search Console und Bing Webmaster Tools (Konto des Kunden), Sitemap einreichen, Indexierung prüfen — Beleg: 
+- [ ] SD-03 (Muss) Spezifischster zutreffender Typ (Tabelle `branchen.md`), Mehrfachtyp als Array, keine veralteten Typen — Beleg: 
+- [ ] SD-04 (Muss) Nur wahre, vom Kunden bestätigte Angaben (Preise, Zeiten, Leistungen) — Beleg: 
+- [ ] SD-05 (Soll) Pflicht- und empfohlene Eigenschaften je Typ laut Google-Doku; lieber weniger, aber vollständig — Beleg: 
+- [ ] SD-06 (Soll) WebSite (name, url) nur auf der Startseite; Organization-Angaben (logo ≥ 112 px, sameAs nur echte Profile) — Beleg: 
+- [ ] SD-08 (Soll) Keine eingestellten Rich-Result-Typen versprechen (FAQ, HowTo); FAQPage nur, wenn die Fragen sichtbar sind — Beleg: 
+- [ ] SD-09 (Soll) Validierung: Schema Markup Validator auf den Code, nach Launch Rich Results Test auf die URL — Beleg: 
+- [ ] GEO-01 (Muss) Such-Crawler (Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot, Applebot) nicht sperren – weder in robots.txt noch in Cloudflare-Bot-Einstellungen — Beleg: 
+- [ ] GEO-02 (Soll) Trainings-Crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended): Entscheidung des Kunden dokumentieren (Standard: zulassen) — Beleg: 
+- [ ] GEO-05 (Soll) Eindeutige Entität: gleicher Name, Adresse, Telefon auf allen Seiten und im JSON-LD; `sameAs` nur auf echte Profile — Beleg: 
+- [ ] GEO-06 (Soll) Eigene, überprüfbare Angaben (Zahlen, Erfahrung, Zertifikate, Quellen) statt Allgemeinplätzen – nur Belegtes — Beleg: 
+- [ ] GEO-07 (Soll) Häufige Kundenfragen sichtbar und direkt beantworten, ohne eine Seite je Formulierung — Beleg: 
+- [ ] GEO-08 (Muss) Keine Garantie-Aussagen zu KI-Sichtbarkeit in Seite, Angebot und Bericht — Beleg: 
+- [ ] CRO-02 (Muss) Alle Kontaktwege: Telefon (`tel:+49`), E-Mail, Adresse, Formular bzw. Buchung; feste Schnellleiste auf dem Handy; Kontaktweg auf jeder Seite — Beleg: 
+- [ ] CRO-03 (Muss) Formulare: ≤ 6 sichtbare Felder, eine Spalte, sichtbare Labels, Pflichtfelder markiert, Fehler als Text, Antwortzeit genannt — Beleg: 
+- [ ] CRO-04 (Muss) Vertrauensbelege nur echt und freigegeben: Fotos von Team/Räumen/Arbeiten, Meistertitel, Zertifikate, Jahre, Referenzen — Beleg: 
+- [ ] CRO-05 (Muss) Offene Angaben: Preise oder Preisrahmen (mit Zustimmung des Kunden), Ablauf, Einzugsgebiet, Zeiten — Beleg: 
+- [ ] CRO-06 (Muss) Bewertungen/Stimmen nur echt, mit Quelle und Hinweis, ob und wie die Echtheit geprüft wird (§ 5b UWG); Link zum Profil statt Fremd-Widget — Beleg: 
+- [ ] CRO-07 (Muss) Navigation kurz und eindeutig benannt (Faustregel ≤ 7 Hauptpunkte); jede Seite endet mit dem nächsten Schritt — Beleg: 
+- [ ] CRO-08 (Muss) Lesbar gegliedert: Kerninfo zuerst, kurze Absätze, Zwischenüberschriften, Listen — Beleg: 
+- [ ] CRO-09 (Muss) Zustände gestaltet: Fokus, Fehler, Senden, Danke-Seite mit nächstem Schritt — Beleg: 
+- [ ] CRO-10 (Muss) Hauptknopf mit Verb und deutlichem Kontrast zur Umgebung (keine „Wunderfarbe“) — Beleg: 
+- [ ] PERF-05 (Muss) Wenig und spätes JavaScript (Budget ≤ 60 KB), lange Tasks aufgeteilt — Beleg: 
+- [ ] PERF-07 (Muss) Schriften: WOFF2-Subset, lokal, ≤ 3 Dateien — Beleg: 
+- [ ] PERF-09 (Muss) Video/3D erst nach Poster und „geladen“, pausiert außerhalb des Bildschirms, nicht bei „Daten sparen“ — Beleg: 
+- [ ] PERF-10 (Soll) Nach Launch: Feldwerte (Search Console/CrUX) im Wartungslauf prüfen, sobald Daten vorliegen — Beleg: 
+- [ ] A11Y-01 (Muss) Alles per Tastatur bedienbar, Reihenfolge logisch, Fokus sichtbar und nicht von festen Leisten verdeckt (2.1.1, 2.4.7, 2.4.11) — Beleg: 
+- [ ] A11Y-02 (Muss) Kontrast Text ≥ 4,5:1 (groß 3:1), Bedienelemente ≥ 3:1 – in jedem Farbschema — Beleg: 
+- [ ] A11Y-03 (Muss) Zoom 200 % und Reflow bei 320 px ohne Verlust (1.4.4, 1.4.10), keine Zoom-Sperre — Beleg: 
+- [ ] A11Y-04 (Muss) Formulare: Label, Fehler als Text am Feld, `autocomplete`, keine doppelte Eingabe (3.3.7), Hilfe an gleicher Stelle (3.2.6) — Beleg: 
+- [ ] A11Y-05 (Muss) Alt-Texte beschreiben Inhalt oder Funktion; dekorative Bilder `alt=""`; jeder Link hat einen Namen — Beleg: 
+- [ ] A11Y-06 (Muss) Bewegung: „Bewegung reduzieren“ respektiert, nichts blinkt, Autoplay-Video pausierbar (2.2.2, 2.3.1) — Beleg: 
+- [ ] A11Y-07 (Muss) Screenreader-Stichprobe: Landmarken, Überschriftenliste, Formular verständlich — Beleg: 
+- [ ] A11Y-08 (Muss) BFSG-Einordnung mit dem Kunden dokumentieren (Verbraucher-Buchung/Shop? Kleinstunternehmen?) – keine Rechtsberatung — Beleg: 
+- [ ] SEC-01 (Muss) `/sicherheit` (Agent security-auditor) ohne Mängel KRIT/HOCH — Beleg: 
+- [ ] SEC-03 (Muss) Formulare: Origin-Prüfung, Längengrenzen, Honigtopf, Rate-Limit-Regel in Cloudflare — Beleg: 
+- [ ] SEC-04 (Muss) Zahlungen nur über Stripe Checkout, Preis serverseitig, Webhook mit Signaturprüfung (falls Zahlung) — Beleg: 
+- [ ] SEC-06 (Muss) Functions-Antworten setzen eigene Sicherheits-Header (`_headers` gilt dort nicht) — Beleg: 
+- [ ] SEC-07 (Muss) Abhängigkeiten minimal, `npm audit --omit=dev` ohne hoch/kritisch — Beleg: 

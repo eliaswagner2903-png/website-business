@@ -1,0 +1,754 @@
+{
+  "_quelle": "Alle Fakten von de.osgeurope.com, gelesen am 2026-09-30 (Startseite, uber-uns, de-about-osg-germany, ae-vms-series, adf, a-tap, blog/ad-ado-/ado-sus-serie, blog/abrand, automotive, luft-raumfahrt, energie, schwerindustrie, werkzeug-formenbau, medizintechnik, blog/micro-toolmanagement, events, blog/workshop-evo, blog/exeron-workshop, blog/anwenderreportage-…-hsp-schermer, karriere, nc-code-generator-software, dealernetwork, impressum). Nichts ergänzt.",
+  "basis": "https://de.osgeurope.com",
+  "shop": "https://de.osgeurope.com",
+  "firma": "OSG GmbH",
+  "strasse": "Karl-Ehmann-Str. 25",
+  "plz": "73037",
+  "ort": "Göppingen",
+  "land": "Deutschland",
+  "telefon_anzeige": "+49 7161 6064-0",
+  "telefon_link": "+4971616064-0",
+  "fax_anzeige": "+49 7161 6064-444",
+  "email": "info@osg-germany.de",
+  "route": "https://www.openstreetmap.org/search?query=Karl-Ehmann-Str.%2025%2C%2073037%20G%C3%B6ppingen",
+  "kennzahlen": [
+    {
+      "wert": "1938",
+      "text": "gegründet in Japan"
+    },
+    {
+      "wert": "33",
+      "text": "Länder mit Produktion, Vertrieb und Technik"
+    },
+    {
+      "wert": "7.173",
+      "text": "Mitarbeitende weltweit (konsolidiert)"
+    },
+    {
+      "wert": "Nr. 1",
+      "text": "im japanischen Schneidwerkzeugmarkt"
+    }
+  ],
+  "verfahren": [
+    {
+      "id": "fraesen",
+      "name": "Fräsen"
+    },
+    {
+      "id": "bohren",
+      "name": "Bohren"
+    },
+    {
+      "id": "gewinden",
+      "name": "Gewinden"
+    }
+  ],
+  "werkstoffe": [
+    {
+      "id": "stahl",
+      "name": "Stahl",
+      "lang": "Bau-, Kohlenstoff- und legierter Stahl"
+    },
+    {
+      "id": "edelstahl",
+      "name": "Edelstahl",
+      "lang": "Edelstahl"
+    },
+    {
+      "id": "gehaertet",
+      "name": "Gehärteter Stahl",
+      "lang": "Gehärteter Stahl"
+    },
+    {
+      "id": "guss",
+      "name": "Gusseisen",
+      "lang": "Gusseisen"
+    },
+    {
+      "id": "alu",
+      "name": "Aluminium",
+      "lang": "Aluminium"
+    },
+    {
+      "id": "titan",
+      "name": "Titan",
+      "lang": "Titanlegierung"
+    },
+    {
+      "id": "hitze",
+      "name": "Hitzebeständig",
+      "lang": "Hitzebeständige Legierung, Inconel"
+    }
+  ],
+  "serien": [
+    {
+      "id": "ae-vm",
+      "name": "AE-VM Serie",
+      "verfahren": "fraesen",
+      "art": "Anti-Vibration Vollhartmetallfräser",
+      "kurz": "Neue Nutform mit ausgezeichneter Spanabfuhr – prozesssicheres Fräsen mit geringer Gratbildung.",
+      "werkstoffe": [
+        "stahl",
+        "edelstahl",
+        "gehaertet",
+        "guss",
+        "alu",
+        "titan",
+        "hitze"
+      ],
+      "werkstoffe_text": "Baustahl · Kohlenstoffstahl · Legierter Stahl · Werkzeugstahl · Vorgehärteter Stahl · Gehärteter Stahl · Edelstahl · Gusseisen · Kupferlegierung · Aluminiumlegierung · Titanlegierung · Hitzebeständige Legierung",
+      "merkmale": [
+        "DUARISE-Beschichtung: exzellente Gleitfähigkeit, niedriger Reibungswiderstand, hohe Oxidationstemperatur.",
+        "Scharfe, positive Schneidengeometrie reduziert die Zerspankräfte.",
+        "Großer, stabiler Kerndurchmesser: auch Hochgeschwindigkeitsfräsen ist möglich.",
+        "Kernanstieg von der Stirnschneide zum Schaft erhöht die Steifigkeit und verringert die Durchbiegung."
+      ],
+      "aufstellung": [
+        [
+          "AE-VMS",
+          "Ø3–Ø25 · Eckenradius Ø3×R0,2–Ø25×R5"
+        ],
+        [
+          "AE-VMSS",
+          "kurz · Ø3–Ø12 · Long Neck Ø6×18–Ø12×60"
+        ],
+        [
+          "AE-VMSX",
+          "verstärkte Schneide · Ø3–Ø12 mit Mikrohinterschliff"
+        ],
+        [
+          "AE-VML",
+          "lang, mit und ohne Spanbrecher · Ø6–Ø20"
+        ],
+        [
+          "AE-VMFE",
+          "lang, für tiefes Umsäumen · Ø6–Ø22"
+        ],
+        [
+          "AE-VTSS",
+          "kurz, 3 Schneiden · Ø3–Ø5: 1,5 × D · Ø6–Ø12: 1 × D"
+        ]
+      ],
+      "spanne": "Ø3–Ø25",
+      "link": "https://de.osgeurope.com/ae-vms-series"
+    },
+    {
+      "id": "ae-h",
+      "name": "AE-H Serie",
+      "verfahren": "fraesen",
+      "art": "Kugelfräser für gehärtete Stähle",
+      "kurz": "Fräserserie für gehärtete Stähle – 3D-Bearbeitung, Schruppen und Schlichten in Titan.",
+      "werkstoffe": [
+        "gehaertet",
+        "titan"
+      ],
+      "werkstoffe_text": "Gehärtete Stähle · Titan",
+      "merkmale": [],
+      "aufstellung": [],
+      "spanne": "Kugelfräser",
+      "link": "https://de.osgeurope.com/blog/ae-h-serie"
+    },
+    {
+      "id": "adf",
+      "name": "ADF Serie",
+      "verfahren": "bohren",
+      "art": "Hartmetall-Flachbohrer mit und ohne Innenkühlung",
+      "kurz": "Einstufiges Bohren statt Schaftfräser plus Bohrer – auf geneigten und gekrümmten Flächen, für Senkungen, exzentrische Bohrungen und dünne Platten.",
+      "werkstoffe": [
+        "stahl",
+        "gehaertet",
+        "guss",
+        "alu"
+      ],
+      "werkstoffe_text": "Schmiedeeisen · Stahl mit mittlerem und hohem Kohlenstoffgehalt · Legierter Stahl · Gehärteter Stahl · Gusseisen · Duktiles Gusseisen · Aluminium · Leichtmetallguss",
+      "merkmale": [
+        "Ein Bohrer für eine Vielzahl von Anwendungen.",
+        "EgiAs-Beschichtung für außerordentliche Verschleißfestigkeit und Robustheit.",
+        "Großer Spanraum für eine reibungslose Spanabfuhr.",
+        "Schneidengeometrie mit ausgewogener Schärfe und Stabilität."
+      ],
+      "aufstellung": [
+        [
+          "ADF-2D",
+          "Ø0,2–Ø20"
+        ],
+        [
+          "ADFLS-2D",
+          "Ø3–Ø20"
+        ],
+        [
+          "ADFO-3D",
+          "Ø3–Ø20 · mit Innenkühlung"
+        ]
+      ],
+      "spanne": "Ø0,2–Ø20",
+      "link": "https://de.osgeurope.com/adf"
+    },
+    {
+      "id": "ad-ado",
+      "name": "AD / ADO Serie",
+      "verfahren": "bohren",
+      "art": "Bohrer aus Vollhartmetall, ADO mit Innenkühlung",
+      "kurz": "Optimale Spezifikation für jede Bohrtiefe von 2 × D bis 30 × D, mit EgiAs-Beschichtung für hohe Standzeiten.",
+      "werkstoffe": [
+        "stahl",
+        "edelstahl",
+        "gehaertet",
+        "guss",
+        "alu",
+        "titan",
+        "hitze"
+      ],
+      "werkstoffe_text": "Niedriglegierter Stahl · Stahl mit mittlerem und hohem Kohlenstoffgehalt · Legierter Stahl · Gehärteter Stahl · Vergütungsstahl (45–50 HRC) · Edelstahl · Werkzeugstahl · Gusseisen · Duktiles Gusseisen · Kupferlegierung · Leichtmetallguss · Titanlegierung · Inconel · Magnesiumlegierung",
+      "merkmale": [
+        "EgiAs-Beschichtung: Schutz gegen Reibung, hohe Verschleiß- und Hitzebeständigkeit.",
+        "Große Spanräume für gleichmäßige Spanabfuhr.",
+        "Wellenförmige Schneide: niedriger Widerstand und stabiles Drehmoment.",
+        "Optimierte Ausspitzung: geringe Schnittkräfte auch bei Tieflochbohrern mit großer Auskraglänge."
+      ],
+      "aufstellung": [
+        [
+          "AD-2D",
+          "Ø2–Ø12"
+        ],
+        [
+          "AD-4D",
+          "Ø2–Ø20"
+        ],
+        [
+          "ADO-3D · ADO-5D",
+          "Ø2–Ø20 · mit Innenkühlung"
+        ],
+        [
+          "ADO-8D",
+          "Ø3–Ø13"
+        ],
+        [
+          "ADO-10D",
+          "Ø2–Ø12"
+        ],
+        [
+          "ADO-15D · ADO-20D",
+          "Ø3–Ø12"
+        ],
+        [
+          "ADO-30D",
+          "Ø3–Ø10"
+        ],
+        [
+          "ADO-PLT",
+          "Pilotbohrer für extralange Bohrer · Ø3,03–Ø12,03"
+        ]
+      ],
+      "spanne": "2 × D – 30 × D",
+      "link": "https://de.osgeurope.com/blog/ad-ado-/ado-sus-serie"
+    },
+    {
+      "id": "ado-sus",
+      "name": "ADO-SUS Serie",
+      "verfahren": "bohren",
+      "art": "VHM-Bohrer mit Innenkühlung für rostfreie Stähle",
+      "kurz": "Gegen Kaltverfestigung, Aufschweißen und schlechten Spanbruch: kurze, kompakte Späne in Edelstahl und Titan.",
+      "werkstoffe": [
+        "stahl",
+        "edelstahl",
+        "guss",
+        "alu",
+        "titan"
+      ],
+      "werkstoffe_text": "Schmiedeeisen · Stahl mit mittlerem und hohem Kohlenstoffgehalt · Legierter Stahl · Edelstahl · Gusseisen · Duktiles Gusseisen · Kupferlegierung · Leichtmetallguss · Titanlegierung · Magnesiumlegierung",
+      "merkmale": [
+        "Scharfe Schneide reduziert Materialverhärtungen und erleichtert die Folgebearbeitung.",
+        "Neue Nutengeometrie für kurze, kompakte Späne.",
+        "Angepasste Schutzfase senkt Reibung und Hitzeentwicklung.",
+        "Neues Kühlkanal-Design erhöht die Durchflussmenge.",
+        "WXL-Beschichtung mit hoher Haftung verringert Abplatzungen."
+      ],
+      "aufstellung": [
+        [
+          "ADO-SUS-3D",
+          "3 × D"
+        ],
+        [
+          "ADO-SUS-5D",
+          "5 × D"
+        ],
+        [
+          "ADO-SUS-8D",
+          "8 × D"
+        ]
+      ],
+      "spanne": "3 × D – 8 × D",
+      "link": "https://de.osgeurope.com/blog/ad-ado-/ado-sus-serie"
+    },
+    {
+      "id": "a-tap",
+      "name": "A-TAP Serie",
+      "verfahren": "gewinden",
+      "art": "Hocheffizienter Universal-Gewindebohrer",
+      "kurz": "Eine Baureihe für viele Werkstoffe und Maschinen – von der manuellen Bohrmaschine bis zum Bearbeitungszentrum. Vereinfacht die Werkzeugverwaltung.",
+      "werkstoffe": [
+        "stahl",
+        "edelstahl",
+        "guss",
+        "alu",
+        "titan"
+      ],
+      "werkstoffe_text": "Schmiedeeisen · Stahl mit mittlerem und hohem Kohlenstoffanteil · Legierter Stahl · Edelstahl · Werkzeugstahl · Gussstahl · Duktiles Gusseisen · Kupfer · Messing · Bronze · Walzaluminium · Leichtmetallguss · Magnesium- und Zinklegierungsguss · Titanlegierung",
+      "merkmale": [
+        "Gleichbleibende Spanbildung durch eine scharfe Schneidkante.",
+        "Beschleunigte Spanabfuhr durch eine ungleich gedrallte Nut.",
+        "Stark bei einer großen Bandbreite von Werkstoffen und Schnittgeschwindigkeiten."
+      ],
+      "aufstellung": [
+        [
+          "A-SFT",
+          "Sackloch · M1,4–M24 · große Durchmesser M27–M56"
+        ],
+        [
+          "A-LT-SFT",
+          "Sackloch, extra lang · M2–M24"
+        ],
+        [
+          "A-SFT HL",
+          "für Helicoil / EG / STI · M2–M12"
+        ],
+        [
+          "A-TPT · A-S-TPT",
+          "kegeliges Rohrgewinde PT(Rc) · NPT · 1/16–1″"
+        ],
+        [
+          "A-SPT",
+          "Rohrgewinde Rp · G · NPS · 1/16–1″"
+        ],
+        [
+          "A-POT",
+          "Durchgangsloch · M1,4–M24"
+        ],
+        [
+          "A-LT-POT",
+          "Durchgangsloch, extra lang · M2–M24"
+        ]
+      ],
+      "spanne": "M1,4–M56",
+      "link": "https://de.osgeurope.com/a-tap"
+    }
+  ],
+  "bereiche": [
+    {
+      "id": "gewinden",
+      "name": "Gewindebohrer und Gewindefräser",
+      "kurz": "Gewinden",
+      "text": "Vom Universal-Gewindebohrer A-TAP bis zum Gewindefräser – Gewindebohrer sind eines der vier Kernprodukte, bei denen OSG weltweit einen hohen Marktanteil hat.",
+      "shop": "https://de.osgeurope.com/osg-products/tap.html",
+      "bild": "gewinden",
+      "alt": "Beschichteter Gewindebohrer über einem Stahlblock mit geschnittenem Innengewinde"
+    },
+    {
+      "id": "bohren",
+      "name": "Bohrer",
+      "kurz": "Bohren",
+      "text": "Vollhartmetall-Bohrer von 2 × D bis 30 × D, Flachbohrer und Bohrer mit Innenkühlung für Edelstahl und Titan.",
+      "shop": "https://de.osgeurope.com/osg-products/drill.html",
+      "bild": "bohren",
+      "alt": "Vollhartmetallbohrer mit Innenkühlung bohrt in einen Edelstahlblock, Späne und Kühlmittelstrahl"
+    },
+    {
+      "id": "fraesen",
+      "name": "Fräser",
+      "kurz": "Fräsen",
+      "text": "Schaftfräser für Stahl, Edelstahl, gehärtete Stähle und Titan – vom Anti-Vibration-Fräser AE-VM bis zum Kugelfräser AE-H.",
+      "shop": "https://de.osgeurope.com/osg-products/endmill.html",
+      "bild": "fraesen",
+      "alt": "Beschichteter Schaftfräser fräst ein Titanbauteil in einer CNC-Maschine, Späne fliegen"
+    },
+    {
+      "id": "wsp",
+      "name": "WSP-Werkzeuge",
+      "kurz": "Wendeschneidplatten",
+      "text": "Werkzeuge mit Wendeschneidplatten – das komplette Programm im Online-Shop.",
+      "shop": "https://de.osgeurope.com/osg-products/indexable.html"
+    },
+    {
+      "id": "reibahlen",
+      "name": "Reibahlen",
+      "kurz": "Reiben",
+      "text": "Reibahlen für die Fertigbearbeitung von Bohrungen.",
+      "shop": "https://de.osgeurope.com/osg-products/reamer.html"
+    },
+    {
+      "id": "lehren",
+      "name": "Gewindelehren",
+      "kurz": "Prüfen",
+      "text": "Gewindelehren zur Prüfung der gefertigten Gewinde.",
+      "shop": "https://de.osgeurope.com/osg-products/gauge.html"
+    }
+  ],
+  "a_brand": {
+    "text": "Mit der A Brand vereint OSG seine leistungsstärksten Werkzeuglösungen in einer Produktlinie – für Präzision, Prozesssicherheit und Performance in der modernen Fertigung.",
+    "linien": [
+      [
+        "A-DRILL",
+        "Bohrwerkzeuge für präzise und zuverlässige Bearbeitungen"
+      ],
+      [
+        "A-TAP",
+        "Gewindebohrer für Prozesssicherheit und exakte Ergebnisse"
+      ],
+      [
+        "A-END MILL",
+        "Schaftfräser für anspruchsvolle Fräsprozesse"
+      ],
+      [
+        "A-THREAD MILL",
+        "Gewindefräser für flexible, präzise und sichere Gewindeherstellung"
+      ]
+    ],
+    "link": "https://de.osgeurope.com/blog/abrand"
+  },
+  "marken": [
+    {
+      "name": "SOMTA",
+      "link": "https://de.osgeurope.com/other-brands/somta.html"
+    },
+    {
+      "name": "WEXO",
+      "link": "https://de.osgeurope.com/other-brands/wexo.html"
+    },
+    {
+      "name": "FIUDI",
+      "link": "https://de.osgeurope.com/other-brands/fiudi.html"
+    }
+  ],
+  "bericht": {
+    "titel": "Vierfache Standzeit beim Titanfräsen",
+    "kunde": "HSP Schermer GmbH",
+    "text": "Für ein sicherheitsrelevantes Titanbauteil in der Luftfahrt reichte die vorhandene Werkzeuglösung nicht für einen zuverlässigen mannlosen Betrieb. Gemeinsam mit OSG entstand ein individuell abgestimmter VHM-Sonderfräser.",
+    "vorher": "150",
+    "nachher": "600",
+    "einheit": "Minuten Standzeit",
+    "plus": [
+      "höhere Prozesssicherheit",
+      "bessere Oberflächenqualität",
+      "deutlich geringere Werkzeugkosten"
+    ],
+    "quelle": "Anwenderreportage im Fachmagazin Zerspanungstechnik",
+    "link": "https://de.osgeurope.com/blog/anwenderreportage-osg-sonderwerkzeug-uberzeugt-bei-hsp-schermer"
+  },
+  "branchen": [
+    {
+      "id": "automotive",
+      "name": "Automotive",
+      "satz": "Schneidwerkzeuglösungen für die sich ändernden Anforderungen der Automobilindustrie.",
+      "text": "Neue Materialien und Technologien verlangen weiterentwickelte Schneidwerkzeuge. OSG liefert dafür leistungsstarke Werkzeuge und maßgeschneiderte Anwendungslösungen für höhere Effizienz und längere Standzeit.",
+      "bauteile": [
+        [
+          "Kurbelwelle",
+          "ADO-30D · ADO-5D · ADF · PSE · VPO-SFT (Sonderwerkzeug)"
+        ],
+        [
+          "Radnabe",
+          "AD-4D · A-POT · PXD · PSE"
+        ],
+        [
+          "Common Rail",
+          "ADO-SUS · ADO-3D · WX-MS-GDS"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/automotive",
+      "teaser": "Kurbelwelle · Radnabe · Common Rail"
+    },
+    {
+      "id": "luftfahrt",
+      "name": "Luft- und Raumfahrt",
+      "satz": "Werkzeuginnovationen für schwer zu bearbeitende Werkstoffe in der Luft- und Raumfahrt.",
+      "text": "Mit mehr als 75 Jahren Erfahrung sind OSG-Schneidwerkzeuge der Industriestandard für robuste Materialien wie CFK.",
+      "bauteile": [
+        [
+          "Tragflächenrippe",
+          "DLC-AIR-EDS · AERO-ETS · AERO-ETL · AERO-EXTL"
+        ],
+        [
+          "CFK",
+          "D-STAD · DIA-BNC · DIA-HBC4 · DIA-REC"
+        ],
+        [
+          "Beschlag",
+          "ADO-SUS · PHX-DBT · UVXL-TI-5FL · PSEL"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/luft-raumfahrt",
+      "teaser": "Tragflächenrippe · CFK · Beschlag"
+    },
+    {
+      "id": "energie",
+      "name": "Energie",
+      "satz": "Präzisionswerkzeuge für die Großteilefertigung in der Energiebranche.",
+      "text": "Große Teile und schwer zu bearbeitende Werkstoffe, die ungünstigen Bedingungen standhalten müssen – OSG bietet dafür optimierte Lösungen, bis hin zu Sonderwerkzeugen.",
+      "bauteile": [
+        [
+          "Drehkranz",
+          "PRC · PFB · PXM"
+        ],
+        [
+          "Turbinenläufer",
+          "Tannenbaumfräser und Schwalbenschwanzfräser (Sonderwerkzeuge)"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/energie",
+      "teaser": "Drehkranz · Turbinenläufer"
+    },
+    {
+      "id": "schwerindustrie",
+      "name": "Schwerindustrie",
+      "satz": "Starke Werkzeuge für robuste Materialien und große Produktion.",
+      "text": "Werkzeuge mit großem Durchmesser für große Bauteile, etwa im Schiffbau und bei Baumaschinen – für verschiedene Werkstoffe und Größen.",
+      "bauteile": [
+        [
+          "Großwälzlager",
+          "ADO-5D · A-SFT · PXD · Gewindelehren · DCT"
+        ],
+        [
+          "Hydraulik-Steuerventil",
+          "ADO-5D · ADO-TRS · AT-1 · DCT · PAO"
+        ],
+        [
+          "Motor",
+          "ADO-10D · ADO-TRS · HS-O-OTT"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/schwerindustrie",
+      "teaser": "Großwälzlager · Hydraulik-Steuerventil · Motor"
+    },
+    {
+      "id": "formenbau",
+      "name": "Werkzeug- und Formenbau",
+      "satz": "Hochpräzise Schaftfräser für sämtliche Anforderungen des Werkzeug- und Formenbaus.",
+      "text": "Die Qualität eines Formteils bestimmt die Leistung des Gesamtprodukts. OSG-Schaftfräser liefern Geschwindigkeit und Qualität auch für komplizierte Formen.",
+      "bauteile": [
+        [
+          "Beispiel 1",
+          "PHX-LN-DFR · PHX-PC-DFR"
+        ],
+        [
+          "Beispiel 2",
+          "PHX-PC-DFR · WXS-LN-EBD"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/werkzeug-formenbau",
+      "teaser": "PHX-LN-DFR · PHX-PC-DFR · WXS-LN-EBD"
+    },
+    {
+      "id": "medizin",
+      "name": "Medizintechnik",
+      "satz": "Werkzeuge für Edelstahl, Titan und Kobalt-Chrom – mit höchster Prozesssicherheit.",
+      "text": "Implantate, Knochenplatten und chirurgische Instrumente verlangen komplexe Geometrien in anspruchsvollen Werkstoffen – von der 3D-Bearbeitung bis zur präzisen Gewindeherstellung.",
+      "bauteile": [
+        [
+          "Künstliche Gelenke",
+          "AE-H Kugelfräser · AE-VMS · WXL-Kugelfräser · ADO-SUS · ADF · EPL-HP"
+        ],
+        [
+          "Sonder- und Mikroanwendung",
+          "Micro-Stufenbohrer · kundenspezifische Werkzeuge"
+        ]
+      ],
+      "link": "https://de.osgeurope.com/medizintechnik",
+      "teaser": "Künstliche Gelenke · Sonder- und Mikroanwendung"
+    }
+  ],
+  "toolmanagement": {
+    "text": "Werkzeuge entnehmen, wiederaufbereiten, vermessen und erneut bereitstellen: Das Micro Toolmanagement von OSG verbindet alle Schritte zu einem geschlossenen Werkzeugkreislauf – für Versorgungssicherheit und volle Kostentransparenz.",
+    "schritte": [
+      [
+        "Sammeln",
+        "Verschlissene Werkzeuge werden direkt beim Kunden gesammelt und zu OSG zurückgeführt."
+      ],
+      [
+        "Nachschleifen",
+        "Prüfen, reinigen, professionell nachschleifen – die ursprüngliche Geometrie kehrt zurück."
+      ],
+      [
+        "Vermessen",
+        "Aufbauen, schrumpfen und präzise vermessen."
+      ],
+      [
+        "Einlagern",
+        "Einlagerung im Toolbase-System, fertig vorbereitet."
+      ],
+      [
+        "Einsetzen",
+        "Entnehmen, in die Maschine, der Kreislauf beginnt von Neuem."
+      ]
+    ],
+    "uebernimmt": [
+      "Werkzeugplanung und Disposition",
+      "Werkzeuglagerung und -verwaltung",
+      "Einmessen und Bereitstellen",
+      "Handling nachgeschliffener Werkzeuge",
+      "administrative Aufgaben"
+    ],
+    "abrechnung": "Abrechnung nach dem Cost-per-Part-Prinzip: Bezahlt wird nur pro gefertigtem Bauteil.",
+    "link": "https://de.osgeurope.com/blog/micro-toolmanagement"
+  },
+  "termine": [
+    {
+      "datum": "2026-10-08",
+      "tag": "08",
+      "monat": "Okt",
+      "titel": "Span im Griff. Prozesse im Fluss.",
+      "ort": "Workshop bei DMG MORI, Seebach",
+      "zeit": "",
+      "link": "https://de.osgeurope.com/blog/workshop-span-im-griff"
+    },
+    {
+      "datum": "2026-10-15",
+      "tag": "15",
+      "monat": "Okt",
+      "titel": "Digitale Werkzeugorganisation mit nachgeschliffenen Werkzeugen",
+      "ort": "OSG Academy, Göppingen · Workshop OSG × EVO",
+      "zeit": "9:00–14:00 Uhr",
+      "link": "https://de.osgeurope.com/blog/workshop-evo"
+    },
+    {
+      "datum": "2026-11-26",
+      "tag": "26",
+      "monat": "Nov",
+      "titel": "Mikropräzision im Fokus – Grenzen verschieben",
+      "ort": "exeron, Oberndorf am Neckar · Workshop OSG × exeron",
+      "zeit": "",
+      "link": "https://de.osgeurope.com/blog/exeron-workshop"
+    }
+  ],
+  "downloads": [
+    {
+      "name": "OSG-Katalog Vol. VIII",
+      "text": "Hauptkatalog mit dem gesamten Programm.",
+      "link": "https://de.osgeurope.com/main-catalogue/"
+    },
+    {
+      "name": "Broschüren",
+      "text": "Flyer und Broschüren zu den Serien.",
+      "link": "https://de.osgeurope.com/brochures/"
+    },
+    {
+      "name": "ThreadPro",
+      "text": "NC-Codegenerator für Gewindefräser – in 12 Sprachen, für 8 NC-Programmsprachen.",
+      "link": "https://de.osgeurope.com/nc-code-generator-software/"
+    },
+    {
+      "name": "Zertifikate",
+      "text": "ISO 9001:2015 und ISO 14001:2015.",
+      "link": "https://de.osgeurope.com/certificates/"
+    },
+    {
+      "name": "Videos",
+      "text": "Serienfilme und Aufzeichnungen der Web-Seminare.",
+      "link": "https://de.osgeurope.com/videos/"
+    }
+  ],
+  "haendler": [
+    "Henka Werkzeuge + Werkzeugmaschinen GmbH",
+    "Jansen Schneidwerkzeuge Vertriebs GmbH",
+    "KUCHEL Werkzeugtechnik GmbH",
+    "MZT Reining GmbH",
+    "SARTORIUS Werkzeuge GmbH & Co. KG",
+    "Franken Zerspanungstechnik GmbH",
+    "Erich Klingseisen KG",
+    "STEINMASSL Präzisionswerkzeuge GmbH & Co. KG",
+    "Karl Suck Zerspanungswerkzeuge GmbH & Co. KG",
+    "ATOS GmbH",
+    "Klöber Hartmetallwerkzeuge GmbH",
+    "TCM GmbH Tool Consulting Management"
+  ],
+  "konzern": {
+    "einleitung": "OSG Corporation ist der weltweit größte Hersteller von Schaftwerkzeugen. Gegründet 1938, hat OSG einen langjährigen Ruf als Anbieter von Gesamtlösungen für Schneidwerkzeuge in der gesamten Fertigungsindustrie.",
+    "name": [
+      [
+        "O",
+        "OSAWA, der Firmengründer"
+      ],
+      [
+        "S",
+        "Schraube (Screw)"
+      ],
+      [
+        "G",
+        "Schleifen (Grinding)"
+      ]
+    ],
+    "kern": "OSG hat weltweit einen hohen Marktanteil bei vier Kernprodukten: Gewindebohrer, Gewindewalzbacken, Bohrer und Schaftfräser.",
+    "qualitaet": "OSG-Produkte entstehen im eigenen Haus – vom Werkzeugmaterial über die Werkzeuggeometrie bis zu den eigenen Beschichtungen.",
+    "zahlen": [
+      [
+        "Kapital",
+        "12.233 Mio. Yen"
+      ],
+      [
+        "Umsatz Geschäftsjahr 2020",
+        "104.388 Mio. Yen (konsolidiert)"
+      ],
+      [
+        "Mitarbeitende",
+        "7.173 (konsolidiert)"
+      ],
+      [
+        "Börse",
+        "Tokyo & Nagoya Stock Exchange · Kürzel 6136"
+      ]
+    ]
+  },
+  "gmbh": {
+    "standorte": "Göppingen und Bad Homburg",
+    "gruendung": "17.09.2002",
+    "zertifikate": [
+      "ISO 9001:2015",
+      "ISO 14001:2015"
+    ],
+    "auszeichnungen": [
+      "BOSCH Preferred Supplier",
+      "DAIMLER Supplier Award 2018"
+    ],
+    "holding": "Im Dezember 2019 übernahm OSG in Deutschland den Werkzeughersteller BASS sowie EX-CELL-O für die Kaltwalztechnologie. Seit dem 1. Dezember 2020 sind OSG, BASS, OSG EX-CELL-O und WEXO Präzisionswerkzeuge unter dem Dach der OSG Germany Holding GmbH vereint.",
+    "gruppe": [
+      "BASS GmbH",
+      "Brunswick Tooling",
+      "NEXAM Aircraft Cutting Tools",
+      "FIUDI",
+      "OSG EX-CELL-O",
+      "SOMTA Tools",
+      "Vischer & Bolli AG",
+      "WEXO Präzisionswerkzeuge GmbH"
+    ]
+  },
+  "karriere": {
+    "benefits": [
+      "Leistungsbezogene Vergütung",
+      "Erfolgsabhängige, freiwillige Sonderzahlung",
+      "30 Tage Erholungsurlaub pro Jahr",
+      "Fuhrparkrichtlinie für alle Betriebsbereiche",
+      "Zuschuss zur betrieblichen Altersvorsorge",
+      "Regelmäßige Mitarbeitergespräche zur Entwicklung",
+      "Corporate Benefits und Fahrradleasing über JobRad",
+      "Mineralwasser und Obst",
+      "Zuschuss Fitnessstudio/Wellpass oder betriebliche Krankenzusatzversicherung",
+      "Austausch mit internationalen Kolleginnen und Kollegen"
+    ],
+    "weiterbildung": "Individuelle Trainingsmaßnahmen werden gefördert; in der hauseigenen OSG Academy finden regelmäßig OSG-spezifische Schulungen statt.",
+    "jobs": "https://de.osgeurope.com/vacancies/"
+  },
+  "impressum": {
+    "zeilen": [
+      "OSG GmbH",
+      "Karl-Ehmann-Str. 25",
+      "D-73037 Göppingen",
+      "Telefon: +49 7161 6064 0",
+      "Fax: +49 7161 6064 444",
+      "info@osg-germany.de"
+    ],
+    "gf": "Oliver Schunter, Michael Rupp",
+    "register": "Amtsgericht Ulm, HRB 680833",
+    "ust": "DE234679632"
+  }
+}

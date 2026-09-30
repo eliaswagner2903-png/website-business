@@ -67,13 +67,19 @@ const betrieb = alleLd.find(o => o.address && (o.telephone || o.name) && typen(o
 const basis = (() => { const c = start?.canonical[0] || ''; try { return new URL(c).origin; } catch { return A.domain ? `https://${A.domain.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}` : ''; } })();
 const redirects = (lies('_redirects') || '').split('\n').map(z => z.trim().split(/\s+/)).filter(z => z[0] && !z[0].startsWith('#'));
 
+// „Fremde Pfade“ im Auftrag: Pfade derselben Domain, die ein anderes System ausliefert (z. B. ein bestehender Shop).
+// Endet ein Eintrag auf „/“, gilt er als Präfix, sonst genau (mit oder ohne Schrägstrich am Ende).
+const fremd = A.fremdePfade.split(/[,\s]+/).filter(x => x.startsWith('/'));
+const istFremd = p => fremd.some(f => (f.endsWith('/') ? p.startsWith(f) : p.replace(/\/$/, '') === f.replace(/\/$/, '')));
+
 function ziel(href, von) {
-  // interne Adresse → Datei im public-Ordner (null = extern/ignoriert, false = fehlt)
+  // interne Adresse → Datei im public-Ordner (null = extern/ignoriert oder fremdes System, false = fehlt)
   if (/^(mailto:|tel:|sms:|data:|javascript:)/i.test(href)) return null;
   let u; try { u = new URL(href, `https://intern.test${von.pfad}`); } catch { return false; }
   const intern = u.host === 'intern.test' || (basis && u.origin === basis);
   if (!intern) return null;
   let p = decodeURIComponent(u.pathname);
+  if (istFremd(p) && !redirects.some(([v]) => v === p)) return null;
   for (const [von_, nach] of redirects) if (von_ === p) p = nach.startsWith('/') ? nach : p;
   const kand = [p, p.replace(/\/$/, '') + '/index.html', p + '.html', p + '.htm', p.replace(/\.html$/, '')].map(x => x.replace(/^\//, ''));
   const datei = kand.find(k => k && DATEIEN.includes(k)) ?? (p === '/' && DATEIEN.includes('index.html') ? 'index.html' : undefined);
@@ -169,7 +175,9 @@ const CHECKS = {
     const f = []; const a = b.address || {};
     for (const k of ['name', 'telephone', 'url']) if (!b[k]) f.push(`${k} fehlt`);
     for (const k of ['streetAddress', 'postalCode', 'addressLocality']) if (!a[k]) f.push(`address.${k} fehlt`);
-    if (!b.openingHoursSpecification && !b.openingHours) f.push('Öffnungszeiten fehlen');
+    // Öffnungszeiten gibt es nur bei LocalBusiness; eine reine Organization (Hersteller ohne Kundenverkehr) hat keine
+    const nurOrganisation = typen(b).every(t => /^(Organization|Corporation|NGO)$/.test(t));
+    if (!nurOrganisation && !b.openingHoursSpecification && !b.openingHours) f.push('Öffnungszeiten fehlen');
     if (erwartet.length && !erwartet.some(t => typen(b).includes(t))) f.push(`Typ ${typen(b).join('/')} statt ${erwartet.join('/')} (Branchentabelle)`);
     return [F(!f.length, f.join(', ') || `${typen(b).join('/')} vollständig`)];
   },
