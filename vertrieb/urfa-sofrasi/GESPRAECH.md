@@ -13,7 +13,7 @@
 3. **Beweis (1 min):** Mappe Seite 1: alte und neue Seite nebeneinander, die vier Zahlen. Satz dazu:
    „Auf dem Handy war Ihre Seite erst nach rund 5 Sekunden fertig, jetzt nach gut 2. Das merken Gäste, die unterwegs suchen.“
 4. **Angebot (2 min):** Mappe Seite 2. Kernsatz: **„Sie zahlen erst, wenn die Seite online ist und Ihnen gefällt.“**
-   Gründungskunden-Preis nennen, Kauf oder Miete wählen lassen.
+   Gründungskunden-Preis nennen; Abo ist freiwillig, Wahlleistungen (z. B. Kundenfragen) zeigen.
 5. **Frage stellen, dann schweigen:** „Wollen wir das so machen?“
 
 ## Einwände
@@ -21,7 +21,7 @@
 | Einwand | Antwort |
 |---|---|
 | „Die alte Seite reicht doch.“ | „Für Stammgäste ja. Neue Gäste suchen auf dem Handy, und da entscheidet der erste Bildschirm: Telefon, Öffnungszeiten, Speisekarte.“ |
-| „Zu teuer.“ | Mietmodell anbieten: kein Einmalpreis, monatlich. Nicht unter den Pilotpreis gehen. |
+| „Zu teuer.“ | Umfang anpassen (weniger Seiten/Bausteine), Abo weglassen. Nicht unter den Pilotpreis gehen, kein Mietmodell. |
 | „Mein Neffe macht das.“ | „Gern, dann behalten Sie die Mappe; die Zahlen zeigen, worauf es ankommt.“ Freundlich gehen. |
 | „Was, wenn Sie aufhören?“ | Die Seite ist einfaches HTML und gehört dem Kunden; sie läuft bei jedem Hoster weiter. |
 | „Brauche ich Cookies/Banner?“ | Nein. Die Seite setzt keine Cookies und lädt keine fremden Dienste. |
@@ -33,7 +33,7 @@
 - [ ] Allergen- und Zusatzstoff-Legende (fehlt in der alten Speisekarte)
 - [ ] Impressum und Datenschutz: Originaltexte oder Texte vom Fachmann des Betreibers
 - [ ] Wer hat die Zugangsdaten zur Domain `urfasofrasi-eislingen.de`? (für die Umstellung)
-- [ ] Kauf oder Miete; Referenzfreigabe (Name, Bilder, ein Satz)
+- [ ] Abo ja/nein und welche Wahlleistungen; Referenzfreigabe (Name, Bilder, ein Satz)
 - [ ] Rechnungsanschrift
 
 ## Nicht sagen

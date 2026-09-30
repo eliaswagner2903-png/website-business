@@ -34,7 +34,7 @@ test('Genau eine H1 pro Seite, lang="de"', () => {
 
 test('Persönliche Angaben sind Platzhalter mit data-pruefen – nichts erfunden', () => {
   const P = S.pruefen;
-  for (const k of ['studio', 'nachname', 'ort', 'telefon', 'email', 'foto', 'ueber', 'preis_website', 'preis_abo', 'formular']) {
+  for (const k of ['studio', 'ort', 'telefon', 'email', 'preis_website', 'preis_abo', 'formular']) {
     assert.ok(start.includes(markiert(P[k])), `Startseite: ${k} nicht markiert`);
   }
   // jeder sichtbare tel:/mailto:-Link trägt die Markierung
@@ -48,7 +48,7 @@ test('Persönliche Angaben sind Platzhalter mit data-pruefen – nichts erfunden
 test('Preise sind nicht erfunden: kein Euro-Betrag, nur „auf Anfrage“ mit Markierung', () => {
   for (const [f, t] of seiten) assert.doesNotMatch(t, /\d\s*(?:&nbsp;)?(?:€|EUR|Euro)/, `${f}: Preis mit Betrag`);
   const abo = [...start.matchAll(new RegExp(`${re(markiert(S.pruefen.preis_abo))}>[^<]*auf Anfrage`, 'g'))].length;
-  assert.equal(abo, 6, 'Abo-Preise: je Paket in Tabelle und Karte markiert');
+  assert.equal(abo, 1, 'Abo-Preis: eine markierte Angabe (Grundbetreuung plus Wahlleistungen)');
   assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>Preis auf Anfrage`));
 });
 

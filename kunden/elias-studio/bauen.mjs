@@ -36,7 +36,7 @@ function aufnahme(a, art, sizes, { lazy = true } = {}) {
 }
 
 // ---------- Navigation ----------
-const NAV = [['#arbeiten', 'Arbeiten'], ['#konfigurator', 'Konfigurator'], ['#leistungen', 'Leistungen'], ['#betreuung', 'Betreuung'], ['#ablauf', 'Ablauf']];
+const NAV = [['#arbeiten', 'Arbeiten'], ['#konfigurator', 'Konfigurator'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false }) {
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
@@ -115,10 +115,6 @@ ${inhalt}
   </div>
 </footer>
 
-<nav class="schnell" aria-label="Schnellzugriff">
-  <a class="knopf" href="${h('#kontakt')}">Projekt anfragen</a>
-  <a class="knopf zweit" href="${TEL_A}"${pr(P.telefon)}>${ICON.tel}<span>Anrufen</span></a>
-</nav>
 </body>
 </html>
 `;
@@ -147,12 +143,12 @@ const held = `<section class="kino" aria-labelledby="titel" data-film-computer="
   <div class="kino-kapitel">
     <div class="kapitel kapitel--start">
       <div class="huelle kapitel-in">
-        ${ueber('Websites mit Betreuung im Monats-Abo', 'ueberzeile--kino')}
-        <h1 id="titel">Websites, die man nicht wegklickt. Gebaut, gemessen, <em>betreut</em>.</h1>
-        <p class="held-lead">Für Praxen, Werkstätten und Restaurants. Schnell, ohne Tracking, im Monats-Abo betreut.</p>
+        ${ueber('Websites für Betriebe', 'ueberzeile--kino')}
+        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
+        <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
         <div class="aktionen held-aktionen">
           <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
-          <a class="knopf zweit" href="#konfigurator">Seite zusammenstellen</a>
+          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
         </div>
         <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen spielt den Film ab</p>
       </div>
@@ -188,24 +184,17 @@ const werk = (a) => {
     <div class="werk-schild">
       <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art"${urfa ? pr(P.urfa) : ''}>${esc(a.art_lang)}</span></p>
       <h3 id="w-${a.id}">${esc(a.name)}</h3>
-      <p class="werk-branche">${esc(a.branche)} · ${esc(a.leitmotiv)}</p>
       <p class="werk-satz">${esc(a.satz)}</p>
-      <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
-      <dl class="werk-werte">
-${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${a.werte[k]}</dd></div>`).join('\n')}
-        <div><dt>Gewicht</dt><dd>${a.werte.kb}&nbsp;KB</dd></div>
-      </dl>
       ${link}
     </div>
   </article>`;
 };
 
-const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelledby="t-arbeiten">
+const arbeiten = `<section class="abschnitt arbeiten abschnitt--dunkel" id="arbeiten" aria-labelledby="t-arbeiten">
   <div class="huelle">
     <div class="kopfzeile">
       ${ueber('Arbeiten')}
       <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
-      <p class="einblenden">Drei Musterseiten und ein Entwurf für ein echtes Restaurant. Jede hat ihr eigenes Leitmotiv, und im Gerät läuft die echte Seite.</p>
     </div>
     <div class="buehne">
       <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
@@ -215,7 +204,6 @@ ${A.map((a, i) => `        <button class="reiter reiter--${a.id}" type="button" 
 ${A.map(werk).join('\n')}
       </div>
     </div>
-    <p class="messhinweis">${esc(S.messung)}</p>
   </div>
 </section>`;
 
@@ -279,7 +267,7 @@ const konfig = `<section class="abschnitt konfig" id="konfigurator" aria-labelle
     <div class="kopfzeile">
       ${ueber('Konfigurator')}
       <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
-      <p class="einblenden">Wählen Sie Business, Farbe und Schrift und stufen Sie jeden Bereich von 1 bis 5 ein. Gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
+      <p class="einblenden">Business, Farbe, Schrift, dann jeden Bereich von 1 bis 5.</p>
     </div>
     <div class="generator">
       <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
@@ -316,96 +304,28 @@ ${SCHRITTE.map(([titel, , inhalt, klasse], i) => feld(i + 1, titel, inhalt, klas
   </div>
 </section>`;
 
-const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen">
-  <div class="huelle">
-    <div class="kopfzeile">
-      ${ueber('Leistungen')}
-      <h2 id="t-leistungen" class="einblenden">Was jede Seite <em>kann</em>, bevor sie online geht.</h2>
-      <p class="einblenden">Prüfpunkte statt Versprechen. Auch diese Seite wird daran gemessen.</p>
-    </div>
-    <ul class="mass-liste">
-${S.leistungen.map((l) => `      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">${esc(l.mass)}</span> <span class="mass-einheit">${esc(l.einheit)}</span></p>
-        <h3>${esc(l.titel)}</h3>
-        <p>${esc(l.text)}</p>
-      </li>`).join('\n')}
-    </ul>
-    <div class="preiszeile einblenden">
-      <p>Die Website wird einmalig berechnet, die Betreuung monatlich.</p>
-      <p class="preis"><span class="preis-titel">Website</span> <span class="preis-wert"${pr(P.preis_website)}>Preis auf Anfrage</span></p>
-    </div>
-  </div>
-</section>`;
-
-const PK = S.pakete;
-const GEMEINSAM = PK.zeilen.filter((z) => z.slice(1).every((v) => v === '✓'));
-const EIGEN = PK.zeilen.filter((z) => !GEMEINSAM.includes(z));
-const haken = (v) => (v === '✓' ? '<span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span>' : v === '–' ? '<span class="nein" aria-hidden="true">–</span><span class="unsichtbar">nicht enthalten</span>' : esc(v));
+const B = S.betreuung;
 const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
-    <div class="tafel">
-      <div class="kopfzeile">
-        ${ueber('Betreuung im Monats-Abo')}
-        <h2 id="t-betreuung" class="einblenden">Nach dem Start geht die Arbeit <em>weiter</em>.</h2>
-        <p class="einblenden">Jede Woche eine automatische Prüfung, jeden Monat ein kurzer Bericht.</p>
-      </div>
-      <div class="pakete-tabelle">
-        <table>
-          <caption class="unsichtbar">Die drei Pakete im Vergleich</caption>
-          <thead><tr><th scope="col"><span class="unsichtbar">Leistung</span></th>${PK.namen.map((n) => `<th scope="col">${n}</th>`).join('')}</tr></thead>
-          <tbody>
-${PK.zeilen.map(([t, ...w]) => `            <tr><th scope="row">${esc(t)}</th>${w.map((v) => `<td>${haken(v)}</td>`).join('')}</tr>`).join('\n')}
-            <tr class="preis-reihe"><th scope="row">Preis pro Monat</th>${PK.namen.map(() => `<td${pr(P.preis_abo)}>auf Anfrage</td>`).join('')}</tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pakete-karten">
-        <section class="paket paket--alle" aria-labelledby="p-alle">
-          <h3 id="p-alle">In jedem Paket</h3>
-          <ul>
-${GEMEINSAM.map((z) => `            <li>${esc(z[0])}</li>`).join('\n')}
-          </ul>
-        </section>
-${PK.namen.map((n, i) => `        <section class="paket" aria-labelledby="p-${i}">
-          <h3 id="p-${i}">${n}</h3>
-          <ul>
-${EIGEN.filter((z) => z[i + 1] !== '–').map((z) => `            <li>${esc(z[0])}${z[i + 1] === '✓' ? '' : `: <strong>${esc(z[i + 1])}</strong>`}</li>`).join('\n') || '            <li>nur die Leistungen aus jedem Paket</li>'}
-          </ul>
-          <p class="paket-preis"${pr(P.preis_abo)}>Preis pro Monat: auf Anfrage</p>
-        </section>`).join('\n')}
-      </div>
-    </div>
-  </div>
-</section>`;
-
-const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf">
-  <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Ablauf')}
-      <h2 id="t-ablauf" class="einblenden">Vom ersten Gespräch bis zur <em>Betreuung</em>.</h2>
+      ${ueber('Preis und Betreuung')}
+      <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
     </div>
-    <ol class="schritte">
-${S.ablauf.map((s, i) => `      <li class="schritt einblenden">
-        <span class="schritt-marke" aria-hidden="true"></span>
-        <p class="schritt-nr">Schritt ${i + 1}</p>
-        <h3>${esc(s.titel)}</h3>
-        <p>${esc(s.text)}</p>
-      </li>`).join('\n')}
-    </ol>
-  </div>
-</section>`;
-
-const ueberMich = `<section class="abschnitt ueber" id="ueber" aria-labelledby="t-ueber">
-  <div class="huelle ueber-raster">
-    <figure class="ueber-foto marken"${pr(P.foto)}>
-      <span class="ueber-foto-leer">Foto von Elias folgt</span>
-    </figure>
-    <div class="ueber-text">
-      ${ueber('Über mich')}
-      <h2 id="t-ueber" class="einblenden">Eine Person, ein <em>Maßstab</em>.</h2>
-      <p class="einblenden">Hinter ${STUDIO} stehe ich, <span${pr(P.nachname)}>${esc(S.inhaber)}</span>, in <span${pr(P.ort)}>${esc(S.ort)}</span>. Vom ersten Gespräch bis zur Betreuung eine Person.</p>
-      <p class="einblenden platzhalter-text"${pr(P.ueber)}>[Hier ein paar Sätze von Elias: Werdegang, warum Websites, was ihn antreibt.]</p>
-      <p class="einblenden">Jede Seite durchläuft dieselbe Prüfung wie die Arbeiten oben, und Sie bekommen die Messwerte.</p>
+    <div class="bet-paar">
+      <section class="bet-karte einblenden" aria-labelledby="b-seite">
+        <h3 id="b-seite">${esc(B.seite.titel)}</h3>
+        <p>${esc(B.seite.text)}</p>
+        <p class="preis"><span class="preis-wert"${pr(P.preis_website)}>Preis auf Anfrage</span></p>
+      </section>
+      <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
+        <h3 id="b-abo">${esc(B.abo.titel)}</h3>
+        <p>${esc(B.abo.text)}</p>
+        <ul class="bet-wahl">
+${B.abo.wahl.map((w) => `          <li>${esc(w)}</li>`).join('\n')}
+        </ul>
+        <p class="bet-hinweis">${esc(B.abo.hinweis)}</p>
+        <p class="preis"><span class="preis-wert"${pr(P.preis_abo)}>Preis auf Anfrage</span></p>
+      </section>
     </div>
   </div>
 </section>`;
@@ -415,7 +335,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
     <div class="kontakt-text">
       ${ueber('Kontakt')}
       <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
-      <p class="einblenden">Ein paar Sätze reichen: was Sie machen und für wen. Ich melde mich mit einem Vorschlag.</p>
+      <p class="einblenden">Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag.</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
         <li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
@@ -437,9 +357,9 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 </section>`;
 
 seite('index.html', {
-  titel: `${S.studio} – Websites mit Betreuung für Praxen und Betriebe`,
-  beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy und im Monats-Abo betreut. Vier Arbeiten mit Messwerten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.',
-  inhalt: [held, arbeiten, konfig, leistungen, betreuung, ablauf, ueberMich, kontakt].join('\n\n'),
+  titel: `${S.studio} – Websites für Praxen und Betriebe`,
+  beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Vier Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.',
+  inhalt: [held, arbeiten, konfig, betreuung, kontakt].join('\n\n'),
   start: true,
 });
 

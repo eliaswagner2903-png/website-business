@@ -15,8 +15,8 @@ Referenzen.
 | Posten | Regulär *(Platzhalter)* | Gründungskunde |
 |---|---|---|
 | Website (bis 6 Seiten, Speisekarte/Leistungen, mobil zuerst, ohne Cookie-Banner) | 2.400 € | **1.490 € einmalig** |
-| Betreuung Basis (Hosting, SSL, wöchentliche Prüfung, Updates, Sicherheit, 3 kleine Änderungen/Jahr) | 59 €/Monat | **49 €/Monat**, 12 Monate Mindestlaufzeit |
-| **oder** Mietmodell (Seite + Betreuung, kein Einmalpreis) | – | **109 €/Monat**, 24 Monate Mindestlaufzeit |
+| Abo Grundbetreuung, **optional** (Hosting, SSL, wöchentliche Prüfung, Updates, Sicherheit, 3 kleine Änderungen/Jahr) | 59 €/Monat | **49 €/Monat**, 12 Monate Mindestlaufzeit |
+| Wahlleistungen zum Abo (z. B. Kundenfragen beantworten) | siehe `wartung/PAKETE.md` | je Leistung ein Aufschlag im Monat |
 
 **Zahlung:** nichts vorab. Die Seite wird gezeigt, abgestimmt und erst **bei Livegang** berechnet
 (bei Neubau-Kunden später: 30 % Anzahlung laut Preismodell).
@@ -30,10 +30,9 @@ und ein kurzes Gespräch nach 3 Monaten.
 |---|---|---|
 | Einmalpreis 1–5 Seiten | Freelancer 800–2.500 €, kleine Agentur 2.500–5.000 € | 1.490 € (Mitte Freelancer) |
 | Betreuung Basis | 30–60 €/Monat | 49 € |
-| Website mieten | 49–150 €/Monat, 12–24 Monate, meist mit Setup-Gebühr | 109 €, ohne Setup |
 | Gründerrabatt | verbreitet rund 20 % | rund 38 % unter regulär, dafür Referenz |
 
-Erstes Jahr je Kunde: 1.490 + 12 × 49 = **2.078 €** (Kaufmodell) bzw. 12 × 109 = 1.308 € (Miete, 24 Monate = 2.616 €).
+Erstes Jahr je Kunde mit Grundbetreuung: 1.490 + 12 × 49 = **2.078 €**. Ohne Abo: 1.490 €, die Seite gehört dem Kunden und wird samt Bildern übergeben.
 
 ## Untergrenze
 

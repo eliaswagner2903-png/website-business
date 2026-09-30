@@ -56,7 +56,6 @@ console.log('\n### Eigene Vorschläge (Beispiel Lotlinie)\n');
   const f = m.anzahlung(3660, { empfohlen: false }); console.log(`Anzahlung Friseur 3.660 € ohne Empfehlung: ${Math.round(f.quote * 100)} % = ${eur(f.betrag)}`);
   const r = m.rabattGrenze(sp, [0.05, 0.05, 0.1], c); console.log(`Rabatte 5+5+10 %: gewünscht ${Math.round(r.gewuenscht * 100)} %, erlaubt ${Math.round(r.erlaubt * 100)} %, Endpreis ${eur(r.endpreis)}`);
   const k = m.kundenwert(sp, am); console.log(`Kundenwert ${eur(k.clv)}, Akquisebudget ${eur(k.akquise)}`);
-  console.log(`Miete (0 € einmalig, 24 Monate): ${eur(m.miete(sp, am))}/Monat`);
   console.log(`AM-Anpassung 95 → neu gerechnet 110: ${eur(m.amAnpassung(95, 110))}`);
   console.log(`Umbau Bestandskunde (8 neue, 10 umgebaute Punkte, 24 Abo-Monate): ${eur(m.umbau(8, 10, 24))}`);
 }
