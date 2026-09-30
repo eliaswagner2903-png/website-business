@@ -5,20 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lagebericht OQ – Stand 30.09.2026</title>
 <style>
-/* Druckfassung: A4, nur Schwarz, Weiß und Grautöne, Systemschriften (keine Downloads) */
-@page{size:A4;margin:18mm 17mm 20mm 17mm;
-  @bottom-center{content:"Lagebericht OQ · Stand 30.09.2026 · Seite " counter(page) " von " counter(pages);font:8.5pt Georgia,serif;color:#444}}
-@page:first{@bottom-center{content:none}}
-:root{--ink:#000;--grau:#555;--hell:#e6e6e6;--mittel:#bdbdbd;--linie:#000}
+/* Druckfassung A4, nur Schwarz, Weiß, Grau. Rechts breiter Rand: dort zeichnet baue-pdf.cjs die Daumenleiste der Register. */
+@page{size:A4;margin:16mm 22mm 18mm 17mm}
+:root{--hell:#e6e6e6}
 *{box-sizing:border-box}
-html{background:#fff}
-body{margin:0;color:var(--ink);background:#fff;font:10.5pt/1.5 Georgia,"Times New Roman",serif;hyphens:auto;overflow-wrap:break-word}
-.blatt{max-width:176mm;margin:0 auto;padding:0}
-@media screen{body{padding:24px 16px;background:#fff}.blatt{max-width:760px}}
-h1,h2,h3,.sans{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
-h1{font-size:30pt;line-height:1.05;margin:0 0 6mm;letter-spacing:-.01em}
-h2{font-size:16pt;margin:0 0 3mm;padding-top:2mm;border-top:2.5pt solid #000;break-after:avoid}
-h2 .nr{display:inline-block;min-width:9mm}
+html,body{background:#fff}
+body{margin:0;color:#000;font:10.5pt/1.5 Georgia,"Times New Roman",serif;hyphens:auto;overflow-wrap:break-word}
+@media screen{body{padding:24px 16px}.blatt{max-width:760px;margin:0 auto}}
+h1,h2,h3,.sans,th{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+h1{font-size:28pt;line-height:1.05;margin:0 0 6mm;letter-spacing:-.01em}
+h2{font-size:15pt;margin:0 0 3mm;padding-top:2mm;border-top:2.5pt solid #000;break-after:avoid}
+h2 .nr{display:inline-block;min-width:11mm}
 h3{font-size:11.5pt;margin:5mm 0 1.5mm;break-after:avoid}
 p{margin:0 0 2.6mm}
 ul,ol{margin:0 0 3mm;padding-left:6mm}
@@ -28,46 +25,71 @@ section{margin-bottom:7mm}
 .kasten{border:1pt solid #000;padding:3mm 4mm;margin:3mm 0 4mm;break-inside:avoid}
 .kasten.grau{background:var(--hell);border-color:var(--hell)}
 .kasten b.titel{display:block;font:bold 9pt "Helvetica Neue",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5mm}
-table{border-collapse:collapse;width:100%;margin:2mm 0 4mm;font-size:9.5pt;break-inside:auto}
-th,td{border-bottom:.6pt solid #000;padding:1.6mm 2mm;text-align:left;vertical-align:top}
-th{font:bold 8.5pt "Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1.4pt solid #000}
+table{border-collapse:collapse;width:100%;margin:2mm 0 4mm;font-size:9.5pt}
+th,td{border-bottom:.6pt solid #000;padding:1.5mm 2mm;text-align:left;vertical-align:top}
+th{font-weight:bold;font-size:8.5pt;text-transform:uppercase;letter-spacing:.05em;border-bottom:1.4pt solid #000}
 tr{break-inside:avoid}
 td.z,th.z{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.link{font:8.5pt "Helvetica Neue",Arial,sans-serif;word-break:break-all}
 figure{margin:3mm 0 5mm;break-inside:avoid}
 figure svg{display:block;width:100%;height:auto}
 figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
 .klein{font-size:9pt;color:#333}
-.kacheln{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1pt solid #000;margin:3mm 0 5mm;break-inside:avoid}
+.kacheln{display:grid;grid-template-columns:repeat(3,1fr);border:1pt solid #000;margin:3mm 0 5mm;break-inside:avoid}
 .kachel{padding:3mm;border-right:.6pt solid #000;border-bottom:.6pt solid #000}
 .kachel:nth-child(3n){border-right:0}
 .kachel:nth-last-child(-n+3){border-bottom:0}
-.kachel b{display:block;font:bold 20pt/1.1 "Helvetica Neue",Arial,sans-serif}
+.kachel b{display:block;font:bold 19pt/1.1 "Helvetica Neue",Arial,sans-serif}
 .kachel span{font-size:9pt}
-.deckblatt{min-height:245mm;display:flex;flex-direction:column;justify-content:space-between;break-after:page}
+.wort{columns:2;column-gap:9mm;margin:0;font-size:9.8pt}
+.wort div{break-inside:avoid}
+.wort dt{font-weight:bold}
+.wort dd{margin:0 0 2mm 5mm}
+.gruss{margin-top:6mm;font-style:italic}
+
+/* Deckblatt */
+.deckblatt{min-height:255mm;display:flex;flex-direction:column;justify-content:space-between;break-after:page}
 .deckblatt .oben{border-top:6pt solid #000;padding-top:5mm}
-.deckblatt .marke{font:bold 10pt "Helvetica Neue",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+.marke{font:bold 10pt "Helvetica Neue",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
 .deckblatt .unter{font-size:14pt;max-width:130mm}
 .deckblatt dl{display:grid;grid-template-columns:38mm 1fr;gap:1.5mm 4mm;font-size:10.5pt;margin:0;border-top:1pt solid #000;padding-top:4mm}
 .deckblatt dt{font:bold 9pt "Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.06em;padding-top:.6mm}
 .deckblatt dd{margin:0}
-.inhalt{columns:2;column-gap:10mm;font-size:10pt;list-style:none;padding:0;margin:0}
-.inhalt li{break-inside:avoid;border-bottom:.4pt dotted #000;padding:.8mm 0}
-.wort dt{font-weight:bold;break-after:avoid}
-.wort dd{margin:0 0 2mm 5mm}
-.wort{columns:2;column-gap:9mm;margin:0;font-size:9.8pt}
-.wort div{break-inside:avoid}
-.gruss{margin-top:6mm;font-style:italic}
+
+/* Registerverzeichnis */
+.regliste{width:100%;border-collapse:collapse;margin-top:4mm}
+.regliste td{padding:2.6mm 2mm;border-bottom:.8pt solid #000;vertical-align:top;font-size:10pt}
+.regliste td.bu{width:14mm;font:bold 20pt/1 "Helvetica Neue",Arial,sans-serif;text-align:center;background:#000;color:#fff}
+.regliste td.ti{width:52mm;font:bold 11pt "Helvetica Neue",Arial,sans-serif}
+
+/* Trennblatt je Register */
+.trenn{min-height:255mm;display:flex;flex-direction:column;justify-content:center;break-after:page;border-left:6pt solid #000;padding-left:10mm}
+.trenn .gross{font:bold 120pt/1 "Helvetica Neue",Arial,sans-serif}
+.trenn .titel{font:bold 26pt/1.1 "Helvetica Neue",Arial,sans-serif;margin:4mm 0 3mm}
+.trenn .worum{font-size:12pt;max-width:120mm;margin-bottom:8mm}
+.trenn ol{list-style:none;padding:0;font:11pt "Helvetica Neue",Arial,sans-serif;border-top:1pt solid #000;max-width:120mm}
+.trenn ol li{border-bottom:.5pt solid #000;padding:2mm 0;margin:0}
+
+
+/* Einleger zum Ausschneiden */
+.streifen{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:4mm 0 8mm}
+.streifen div{border:.8pt dashed #000;height:16mm;display:flex;align-items:center;gap:3mm;padding:0 3mm;font:bold 10pt "Helvetica Neue",Arial,sans-serif}
+.streifen div b{font-size:18pt}
+.ruecken{display:flex;gap:8mm}
+.ruecken div{border:.8pt dashed #000;width:52mm;height:190mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:8mm 0}
+.ruecken .senk{writing-mode:vertical-rl;transform:rotate(180deg);font:bold 20pt "Helvetica Neue",Arial,sans-serif;letter-spacing:.05em}
 </style>
 </head>
 <body>
 <div class="blatt">
 
-<!-- ================= DECKBLATT ================= -->
+<!-- ======================= 0 · DECKBLATT UND REGISTERVERZEICHNIS ======================= -->
+<div data-reg="0">
 <div class="deckblatt">
   <div class="oben">
     <div class="marke">OQ · Website-Business · Lagebericht</div>
     <h1 style="margin-top:14mm">Was bisher geschah, was ich gelernt habe und wo wir stehen</h1>
-    <p class="unter">Eine Zusammenfassung für alle, die nicht dabei waren. Ohne Fachwissen lesbar, zum Ausdrucken in Schwarz-Weiß.</p>
+    <p class="unter">Die ganze Arbeit seit dem 25. September 2026, über alle Projekte und Chats hinweg. Ohne Fachwissen lesbar, zum Ausdrucken in Schwarz-Weiß und zum Abheften in acht Registern.</p>
     <figure style="margin-top:14mm" aria-label="Gesamtplan in einer Zeile">
       <svg viewBox="0 0 600 90" role="img" aria-label="Sechs Phasen, Phase 1 erledigt, Phase 2 läuft">
         <g font-family="Helvetica, Arial, sans-serif" font-size="11">
@@ -88,55 +110,55 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
     <dt>Stand</dt><dd>Mittwoch, 30. September 2026, 11 Uhr</dd>
     <dt>Für</dt><dd>Elias Wagner (Chef)</dd>
     <dt>Verfasst von</dt><dd>Kommandeur Stahl (Claude, die KI, die baut und prüft)</dd>
-    <dt>Zeitraum</dt><dd>25. September 2026 abends bis heute, rund 5 Tage</dd>
+    <dt>Umfang</dt><dd>5 GitHub-Ablagen, 16 Arbeitssitzungen, 25. bis 30. September 2026</dd>
     <dt>Wichtig</dt><dd>Alle Euro-Beträge sind Platzhalter. Nichts wurde bisher verkauft, das ist Absicht.</dd>
   </dl>
 </div>
 
-<!-- ================= INHALT ================= -->
 <section>
-  <h2>Inhalt</h2>
-  <ol class="inhalt">
-    <li>1 · Das Wichtigste auf einer Seite</li>
-    <li>2 · Worum es geht</li>
-    <li>3 · Wer was macht</li>
-    <li>4 · Kleines Wörterbuch</li>
-    <li>5 · Was bisher passiert ist (Zeitleiste)</li>
-    <li>6 · Was gebaut wurde</li>
-    <li>7 · Wie eine Website bei uns entsteht</li>
-    <li>8 · Wie wir Qualität prüfen</li>
-    <li>9 · Die große Probe: OSG</li>
-    <li>10 · Was ich gelernt habe</li>
-    <li>11 · Geld: Preise und Kosten</li>
-    <li>12 · Der Gesamtplan und unsere Position</li>
-    <li>13 · Was offen ist</li>
-    <li>14 · Die nächsten Schritte</li>
-    <li>Anhang · Wo alles liegt</li>
-  </ol>
+  <h2>Registerverzeichnis</h2>
+  <p>Der Bericht ist in acht Register geteilt. Jedes Register beginnt mit einem Trennblatt und hat eigene Seitenzahlen (zum Beispiel C-3). Am rechten Rand zeigt eine schwarze Marke, in welchem Register man gerade ist. So lässt sich jedes Register einzeln austauschen, wenn es neu erscheint.</p>
+  <table class="regliste">
+    <tr><td class="bu">A</td><td class="ti">Überblick</td><td>Das Wichtigste auf einer Seite, worum es geht, wer was macht, Wörterbuch</td></tr>
+    <tr><td class="bu">B</td><td class="ti">Chronik</td><td>Zeitleiste 25.–30.09., alle 16 Arbeitssitzungen mit Ergebnis, Umfang in Zahlen</td></tr>
+    <tr><td class="bu">C</td><td class="ti">Projekte</td><td>Die fünf Vorhaben (URFA, Brüder-Wettbewerb, Grundausstattung, Fernspäher, Website-Business) und alle gebauten Seiten</td></tr>
+    <tr><td class="bu">D</td><td class="ti">Arbeitsweise und Qualität</td><td>Ablauf eines Auftrags, Bauzeiten, Qualitätssystem, die große Probe OSG</td></tr>
+    <tr><td class="bu">E</td><td class="ti">Wissen und Lehren</td><td>Was ich gelernt habe, wo das Wissen gesammelt wird</td></tr>
+    <tr><td class="bu">F</td><td class="ti">Geld</td><td>Preismodell, Preisbeispiele, bisherige Kosten und Verbrauch</td></tr>
+    <tr><td class="bu">G</td><td class="ti">Plan und Entscheidungen</td><td>Gesamtplan mit Position, offene Entscheidungen, nächste Schritte</td></tr>
+    <tr><td class="bu">H</td><td class="ti">Anhang</td><td>Ablageorte, Vorschau-Links, Quellen dieses Berichts</td></tr>
+  </table>
+  <p class="klein">Am Ende liegt ein Einleger: Beschriftungsstreifen für Registerblätter und ein Rückenschild für den Ordner.</p>
 </section>
+</div>
 
-<!-- ================= 1 ================= -->
+<!-- ======================= A · ÜBERBLICK ======================= -->
+<div data-reg="A">
+<div class="trenn"><div class="gross">A</div><div class="titel">Überblick</div>
+  <p class="worum">Für alle, die in fünf Minuten wissen wollen, worum es geht und wo wir stehen.</p>
+  <ol><li>A1 · Das Wichtigste auf einer Seite</li><li>A2 · Worum es geht</li><li>A3 · Wer was macht</li><li>A4 · Kleines Wörterbuch</li></ol></div>
+
 <section>
-  <h2><span class="nr">1</span>Das Wichtigste auf einer Seite</h2>
-  <div class="kacheln sans">
-    <div class="kachel"><b>≈ 5 Tage</b><span>Aufbau, 25.–30.09.2026</span></div>
-    <div class="kachel"><b>16</b><span>Arbeitssitzungen mit Claude</span></div>
+  <h2><span class="nr">A1</span>Das Wichtigste auf einer Seite</h2>
+  <div class="kacheln">
+    <div class="kachel"><b>≈ 5 Tage</b><span>Arbeit, 25.–30.09.2026</span></div>
+    <div class="kachel"><b>16</b><span>Arbeitssitzungen mit Claude in 5 Ablagen</span></div>
     <div class="kachel"><b>224</b><span>gespeicherte Arbeitsschritte (Commits)</span></div>
     <div class="kachel"><b>11</b><span>gebaute Websites und Varianten</span></div>
     <div class="kachel"><b>125</b><span>Qualitätsregeln aus 90 Quellen</span></div>
     <div class="kachel"><b>0 €</b><span>Umsatz: Verkauf kommt bewusst zuletzt</span></div>
   </div>
   <ul>
-    <li><b>Die Idee:</b> Unter dem Namen <b>OQ („Ohne Quote“)</b> baut Elias mit Hilfe einer KI hochwertige Websites für kleine Betriebe und betreut sie danach gegen eine Monatsgebühr.</li>
-    <li><b>Der Stand:</b> Das Können ist aufgebaut und bewiesen. Eine Website entsteht heute in unter einer Stunde (einfach) bis rund einem Tag (aufwendig). Die größte Probe, der Neubau der Seite eines echten Werkzeugherstellers, hat eine strenge Jury bestanden.</li>
-    <li><b>Wo wir im Plan stehen:</b> in <b>Phase 2 von 6, „Entscheiden“</b>. Jetzt muss Elias Preise, Zielgruppe und Namen festlegen. Zehn Fragen liegen bereit (Abschnitt 13).</li>
-    <li><b>Was noch nicht existiert:</b> Firma, Konten, Verträge, echte Preise und zahlende Kunden. Das kommt in den Phasen 4 und 5.</li>
+    <li><b>Die Idee:</b> Unter dem Namen <b>OQ („Ohne Quote“)</b> baut Elias mit Hilfe einer KI hochwertige Websites für Betriebe und betreut sie danach gegen eine Monatsgebühr.</li>
+    <li><b>Wie es anfing:</b> Am 25.09. abends mit der Website eines echten Restaurants (URFA SOFRASI). Danach folgten ein Wettbewerb dreier KI-„Brüder“ um die Seite eines Friseurs, eine eigene Grundausstattung für Claude und ein Späher-Trupp, der fremde Seiten prüft. Ab dem 28.09. lief alles in der Zentrale „website-business“ zusammen.</li>
+    <li><b>Der Stand:</b> Das Können ist aufgebaut und belegt. Eine Website entsteht heute in unter einer Stunde (einfach) bis rund einem Tag (aufwendig). Die größte Probe, der Neubau der Seite eines echten Werkzeugherstellers, hat eine strenge Jury bestanden.</li>
+    <li><b>Wo wir im Plan stehen:</b> in <b>Phase 2 von 6, „Entscheiden“</b>. Jetzt muss Elias Preise, Zielgruppe und Namen festlegen. Zehn Fragen liegen bereit (Register G).</li>
+    <li><b>Was noch fehlt:</b> Firma, Konten, Verträge, echte Preise und zahlende Kunden. Das kommt in den Phasen 4 und 5.</li>
   </ul>
 </section>
 
-<!-- ================= 2 ================= -->
 <section class="neu-seite">
-  <h2><span class="nr">2</span>Worum es geht</h2>
+  <h2><span class="nr">A2</span>Worum es geht</h2>
   <p>Viele kleine Betriebe (Restaurant, Friseur, Praxis, Handwerker) haben eine Website, die auf dem Handy langsam ist, schlecht aussieht oder wichtige Dinge versteckt: Telefonnummer, Weg, Öffnungszeiten. Eine gute Agentur ist teuer und langsam, und nach dem Start kümmert sich oft niemand mehr um die Seite.</p>
   <p>OQ setzt dort an. Die KI Claude baut die Seiten nach festen Regeln und prüft sie streng. Elias entscheidet, bestätigt Preise und hält den Kontakt zu den Kunden. Geld kommt auf zwei Wegen herein: einmal für den Bau der Seite, danach jeden Monat für die Betreuung (das „Abo“).</p>
   <figure>
@@ -166,9 +188,8 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
   <div class="kasten grau"><b class="titel">Der Grundsatz von Elias</b>Am 28.09. hat Elias entschieden: <i>Erst das Können aufbauen, dann verkaufen.</i> Deshalb gibt es bisher keine Firma, keine Preise und keine Kunden, aber elf gebaute Websites und ein geprüftes System.</div>
 </section>
 
-<!-- ================= 3 ================= -->
 <section>
-  <h2><span class="nr">3</span>Wer was macht</h2>
+  <h2><span class="nr">A3</span>Wer was macht</h2>
   <figure>
     <svg viewBox="0 0 640 250" role="img" aria-label="Aufbau der Beteiligten">
       <g font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle">
@@ -199,34 +220,39 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
   <p>Zwei feste Regeln gelten immer: <b>Kostenpflichtige Dinge</b> (zum Beispiel KI-Bilder bei Higgsfield) nur mit Elias' ausdrücklicher Erlaubnis. <b>Unumkehrbares</b> (Seite live schalten, E-Mails an Kunden, Löschen) nur auf seine Anweisung.</p>
 </section>
 
-<!-- ================= 4 ================= -->
 <section>
-  <h2><span class="nr">4</span>Kleines Wörterbuch</h2>
+  <h2><span class="nr">A4</span>Kleines Wörterbuch</h2>
   <dl class="wort">
-    <div><dt>Website / Seite</dt><dd>Der Internetauftritt eines Betriebs. Eine Website besteht oft aus mehreren Unterseiten (Start, Angebot, Kontakt).</dd></div>
+    <div><dt>Website / Seite</dt><dd>Der Internetauftritt eines Betriebs, oft mit mehreren Unterseiten (Start, Angebot, Kontakt).</dd></div>
     <div><dt>Claude</dt><dd>Die KI von Anthropic, die hier als „Kommandeur Stahl“ auftritt, Websites baut und prüft.</dd></div>
+    <div><dt>Sitzung / Chat</dt><dd>Ein Arbeitsgespräch mit Claude. Jede Sitzung hat ihr eigenes Gedächtnis; was bleiben soll, wird in Dateien festgehalten.</dd></div>
     <div><dt>Agent / Helfer</dt><dd>Eine weitere KI-Instanz mit einer Einzelaufgabe, etwa „prüfe die Sicherheit“ oder „bewerte die Gestaltung“.</dd></div>
-    <div><dt>GitHub, Repo</dt><dd>Ein Online-Aktenschrank für alle Dateien. Das „Repo“ ist ein Ordner darin, bei uns „website-business“.</dd></div>
+    <div><dt>GitHub, Repo, Ablage</dt><dd>Ein Online-Aktenschrank. Ein „Repo“ ist ein Ordner darin. Es gibt fünf: urfa, Brüder-Wettbewerb, claude-setup, Fernspäherkommando, website-business.</dd></div>
     <div><dt>Commit</dt><dd>Ein gespeicherter Arbeitsschritt mit Beschreibung, wie ein Eintrag im Bautagebuch.</dd></div>
-    <div><dt>Branch und PR</dt><dd>Neue Arbeit entsteht auf einer Kopie (Branch). Ein „Pull Request“ (PR) ist der Antrag, sie zu übernehmen. Elias genehmigt ihn („mergen“). So kann nichts ungeprüft das Original verändern.</dd></div>
+    <div><dt>Branch und PR</dt><dd>Neue Arbeit entsteht auf einer Kopie (Branch). Ein „Pull Request“ (PR) ist der Antrag, sie zu übernehmen. Elias genehmigt ihn („mergen“).</dd></div>
     <div><dt>Auftragslog</dt><dd>Die Liste aller Aufträge mit Nummer (A-001 bis heute A-055), Ergebnis und Stand.</dd></div>
     <div><dt>Hosting</dt><dd>Der Rechner im Internet, auf dem die fertige Seite liegt. Geplant: Cloudflare, für kleine Seiten meist kostenlos.</dd></div>
-    <div><dt>Lighthouse</dt><dd>Ein Prüfprogramm von Google. Es vergibt 0 bis 100 Punkte für Tempo, Barrierefreiheit, gute Technik und Auffindbarkeit.</dd></div>
-    <div><dt>SEO</dt><dd>„Suchmaschinen-Optimierung“: Die Seite so bauen, dass Google sie versteht und gut findet.</dd></div>
+    <div><dt>Lighthouse</dt><dd>Ein Prüfprogramm von Google: 0 bis 100 Punkte für Tempo, Barrierefreiheit, gute Technik und Auffindbarkeit.</dd></div>
+    <div><dt>SEO</dt><dd>„Suchmaschinen-Optimierung“: die Seite so bauen, dass Google sie versteht und gut findet.</dd></div>
     <div><dt>GEO</dt><dd>Dasselbe für KI-Suchen wie ChatGPT: Fakten klar und nachprüfbar auf die Seite schreiben.</dd></div>
     <div><dt>Barrierefreiheit</dt><dd>Die Seite ist auch mit Sehschwäche, nur mit Tastatur oder mit Vorlesehilfe benutzbar.</dd></div>
-    <div><dt>Musterseite / Showcase</dt><dd>Eine Übungs- und Vorzeigeseite für einen erfundenen Betrieb, später Teil des Portfolios.</dd></div>
-    <div><dt>Artifact-Link</dt><dd>Ein privater Vorschau-Link, unter dem Elias eine Seite im Browser ansehen kann, ohne dass sie öffentlich im Netz steht.</dd></div>
+    <div><dt>Musterseite</dt><dd>Eine Vorzeigeseite für einen erfundenen Betrieb, später Teil des Portfolios.</dd></div>
+    <div><dt>Vorschau-Link</dt><dd>Ein privater Link, unter dem Elias eine Seite im Browser ansehen kann, ohne dass sie öffentlich im Netz steht.</dd></div>
     <div><dt>Higgsfield, Credits</dt><dd>Ein Dienst für KI-Bilder und KI-Filme. Bezahlt wird mit Guthaben („Credits“).</dd></div>
     <div><dt>Jury-Schleife</dt><dd>Drei Bewerter vergeben Punkte, Claude verbessert, die Jury prüft erneut, bis eine Schwelle erreicht ist.</dd></div>
-    <div><dt>Quality Gate</dt><dd>Die Schlussprüfung. Erst wenn jede bestellte Regel mit Beleg erfüllt ist, gilt eine Seite als fertig.</dd></div>
-    <div><dt>Abo</dt><dd>Die monatliche Betreuung: Hosting, Prüfung, Updates, kleine Änderungen, Bericht.</dd></div>
+    <div><dt>Quality Gate</dt><dd>Die Schlussprüfung: Erst wenn jede bestellte Regel mit Beleg erfüllt ist, gilt eine Seite als fertig.</dd></div>
   </dl>
 </section>
+</div>
 
-<!-- ================= 5 ================= -->
+<!-- ======================= B · CHRONIK ======================= -->
+<div data-reg="B">
+<div class="trenn"><div class="gross">B</div><div class="titel">Chronik</div>
+  <p class="worum">Was wann passiert ist, über alle Projekte und Chats hinweg.</p>
+  <ol><li>B1 · Zeitleiste in einem Bild</li><li>B2 · Alle 16 Arbeitssitzungen</li><li>B3 · Umfang in Zahlen</li></ol></div>
+
 <section>
-  <h2><span class="nr">5</span>Was bisher passiert ist</h2>
+  <h2><span class="nr">B1</span>Zeitleiste in einem Bild</h2>
   <figure>
     <svg viewBox="0 0 640 300" role="img" aria-label="Zeitleiste 25. bis 30. September">
       <g font-family="Helvetica, Arial, sans-serif" font-size="10.5">
@@ -253,52 +279,173 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
     </svg>
     <figcaption>Bild 3 · Sechs Tage im Überblick. Jede Stufe baute auf der vorigen auf.</figcaption>
   </figure>
+</section>
+
+<section class="neu-seite">
+  <h2><span class="nr">B2</span>Alle 16 Arbeitssitzungen</h2>
+  <p>Die ersten sieben Sitzungen liefen als einzelne Chats außerhalb dieses Projekts, jede mit eigener Ablage. Ab dem 28.09. arbeitet alles im Projekt „Website Business“ zusammen, das die Ergebnisse der früheren Chats übernommen hat.</p>
   <table>
-    <thead><tr><th>Abschnitt</th><th>Zeitraum</th><th class="z">Sitzungen</th><th class="z">Commits</th></tr></thead>
+    <thead><tr><th>Beginn</th><th>Sitzung</th><th>Wo</th><th>Ergebnis</th></tr></thead>
     <tbody>
-      <tr><td>URFA SOFRASI (erste Seite)</td><td>25.–27.09.</td><td class="z">2</td><td class="z">30</td></tr>
+      <tr><td>25.09.</td><td>URFA SOFRASI Website</td><td>urfa</td><td>Analyse der alten Seite, Neubau Variante 1 dunkel mit Original-Logo, Speisekarte mit 90 Gerichten</td></tr>
+      <tr><td>26.09.</td><td>URFA Variante 2, hell</td><td>urfa</td><td>zweite Variante hell und grün, eigenes Vektor-Logo, 33 dokumentierte Gestaltungsfehler; Lighthouse Barrierefreiheit 94 → 100</td></tr>
+      <tr><td>26.09.</td><td>Brüder-Wettbewerb, Bruder A</td><td>Brüder</td><td>Regelwerk, Werkzeuge und Schnellbefehle für alle drei; eigene Seite „dunkel und edel“</td></tr>
+      <tr><td>26.09.</td><td>Bruder B</td><td>Brüder</td><td>Seite „farbig und verspielt“, Lighthouse 99/100/100/100</td></tr>
+      <tr><td>27.09.</td><td>Bruder C</td><td>Brüder</td><td>Seite „hell und ruhig, Licht und Marmor“, 9 Prüfrunden, Jury 54 → 56 von 60, Maßstab für „fast makellos“</td></tr>
+      <tr><td>27.09.</td><td>Grundausstattung prüfen</td><td>claude-setup</td><td>Setup-Skript für jede neue Sitzung: 5 Helfer, Schutzregeln, Browser-Werkzeuge. Ein erster Start scheiterte, der zweite lief</td></tr>
+      <tr><td>27.09.</td><td>Fernspäherkommando</td><td>Fernspäher</td><td>Hfw Fortenbacher und 6 Späher mit eigenem Browser; erster Einsatz: Agentur-Seite legencymedia.com</td></tr>
+      <tr><td>28.09.</td><td>Grobplan Website-Business</td><td>Projekt</td><td>Zentrale gegründet: Vorlage, Musterseiten, Generalprobe, Business-Plan, Portfolio (viele Aufträge in einer Sitzung)</td></tr>
+      <tr><td>29.09.</td><td>Higgsfield-Bilder herunterladen</td><td>Projekt</td><td>KI-Bilder für die Musterseiten gesichert</td></tr>
+      <tr><td>29.09.</td><td>Notizen OQ sichern</td><td>Projekt</td><td>Elias' Notizen zur Firma wortgetreu und geordnet abgelegt</td></tr>
+      <tr><td>29.09.</td><td>Preisformeln</td><td>Projekt</td><td>drei Rechenwege, Gewichte, Rechner, Konfigurator-Ablauf</td></tr>
+      <tr><td>29.09.</td><td>YouTube-Video auswerten</td><td>Projekt</td><td>„Scroll-Film“ als Gestaltungsmittel, 8 Muster ins Wissen</td></tr>
+      <tr><td>29.09.</td><td>Vorschau-Link Portfolio</td><td>Projekt</td><td>private Links für Portfolio und Musterseiten</td></tr>
+      <tr><td>29.09.</td><td>Überarbeitung eigene Seite</td><td>Projekt</td><td>Kino-Einstieg mit KI-Film, Website-Generator mit Reglern</td></tr>
+      <tr><td>29.09.</td><td>Knowledge und Quality System</td><td>Projekt</td><td>125 Regeln, 90 Quellen, Pflichtenheft und Quality Gate</td></tr>
+      <tr><td>30.09.</td><td>OSG Europe Neubau mit Jury</td><td>Projekt</td><td>8 Seiten in rund 10 Stunden, Jury 75,75 von 100, Preis-Einstufung, NORVAK</td></tr>
+    </tbody>
+  </table>
+  <div class="kasten"><b class="titel">Was ich nicht sehen kann</b>Ich sehe alle Claude-Code-Sitzungen und alle fünf Ablagen auf GitHub. Normale Chats in der Claude-App außerhalb von Claude Code (zum Beispiel reine Fragen ohne Ablage) sind für mich nicht einsehbar. Gibt es solche Chats mit wichtigen Ergebnissen, genügt es, mir den Inhalt zu schicken; ich ordne ihn dann in das passende Register ein.</div>
+</section>
+
+<section>
+  <h2><span class="nr">B3</span>Umfang in Zahlen</h2>
+  <table>
+    <thead><tr><th>Vorhaben</th><th>Zeitraum</th><th class="z">Sitzungen</th><th class="z">Commits</th></tr></thead>
+    <tbody>
+      <tr><td>URFA SOFRASI</td><td>25.–27.09.</td><td class="z">2</td><td class="z">30</td></tr>
       <tr><td>Claude-Grundausstattung</td><td>27.09.</td><td class="z">1</td><td class="z">2</td></tr>
-      <tr><td>Brüder-Wettbewerb (Friseur)</td><td>26.–28.09.</td><td class="z">3</td><td class="z">54</td></tr>
-      <tr><td>Fernspähertrupp</td><td>27.–28.09.</td><td class="z">1</td><td class="z">5</td></tr>
-      <tr><td>Website-Business, Teil 1</td><td>28.–29.09.</td><td class="z">4</td><td class="z">110</td></tr>
-      <tr><td>Website-Business, Teil 2</td><td>29.–30.09.</td><td class="z">5</td><td class="z">23</td></tr>
+      <tr><td>Brüder-Wettbewerb</td><td>26.–28.09.</td><td class="z">3</td><td class="z">54</td></tr>
+      <tr><td>Fernspäherkommando</td><td>27.–28.09.</td><td class="z">1</td><td class="z">5</td></tr>
+      <tr><td>Website-Business, Teil 1</td><td>28.–29.09.</td><td class="z">4</td><td class="z">97</td></tr>
+      <tr><td>Website-Business, Teil 2</td><td>29.–30.09.</td><td class="z">5</td><td class="z">36</td></tr>
       <tr><th>Summe</th><th>≈ 5 Tage</th><th class="z">16</th><th class="z">224</th></tr>
     </tbody>
   </table>
-  <p class="klein">Quelle: Sitzungsdaten und Git-Historie, Stand 30.09.2026, 11 Uhr. Teil 2 hat weniger, aber größere Arbeitsschritte.</p>
+  <p class="klein">Quelle: Sitzungsliste und Git-Historie, Stand 30.09.2026, 11 Uhr. Der gescheiterte erste Setup-Start und diese Berichtssitzung sind nicht mitgezählt.</p>
+</section>
+</div>
+
+<!-- ======================= C · PROJEKTE ======================= -->
+<div data-reg="C">
+<div class="trenn"><div class="gross">C</div><div class="titel">Projekte</div>
+  <p class="worum">Die fünf Vorhaben, wie sie zusammenhängen, und jede gebaute Seite.</p>
+  <ol><li>C1 · Wie die Vorhaben zusammenhängen</li><li>C2 · URFA SOFRASI</li><li>C3 · Brüder-Wettbewerb</li><li>C4 · Grundausstattung und Fernspäher</li><li>C5 · Website-Business (OQ)</li><li>C6 · Alle gebauten Seiten</li></ol></div>
+
+<section>
+  <h2><span class="nr">C1</span>Wie die Vorhaben zusammenhängen</h2>
+  <figure>
+    <svg viewBox="0 0 640 290" role="img" aria-label="Vier Vorhaben fließen in die Zentrale website-business">
+      <defs><marker id="pc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#000"/></marker></defs>
+      <g font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">
+        <g fill="#fff" stroke="#000" stroke-width="1.4">
+          <rect x="0" y="0" width="148" height="86"/><rect x="164" y="0" width="148" height="86"/><rect x="328" y="0" width="148" height="86"/><rect x="492" y="0" width="148" height="86"/>
+        </g>
+        <text x="74" y="22" font-weight="bold" font-size="12">URFA SOFRASI</text><text x="74" y="40">25.–27.09.</text><text x="74" y="56" font-size="10">erste echte Seite,</text><text x="74" y="70" font-size="10">erste Regeln</text>
+        <text x="238" y="22" font-weight="bold" font-size="12">Brüder-Wettbewerb</text><text x="238" y="40">26.–28.09.</text><text x="238" y="56" font-size="10">drei Seiten parallel,</text><text x="238" y="70" font-size="10">Prüfwerkzeuge, Fehlerliste</text>
+        <text x="402" y="22" font-weight="bold" font-size="12">Grundausstattung</text><text x="402" y="40">27.09.</text><text x="402" y="56" font-size="10">Helfer, Schutzregeln,</text><text x="402" y="70" font-size="10">Browser für Claude</text>
+        <text x="566" y="22" font-weight="bold" font-size="12">Fernspäher</text><text x="566" y="40">27.–28.09.</text><text x="566" y="56" font-size="10">7 Späher prüfen</text><text x="566" y="70" font-size="10">Seiten von außen</text>
+        <g stroke="#000" stroke-width="1.6" fill="none" marker-end="url(#pc)"><path d="M74 86 L250 150"/><path d="M238 86 L300 150"/><path d="M402 86 L340 150"/><path d="M566 86 L390 150"/></g>
+        <text x="80" y="182" font-size="9.5" font-style="italic">Regeln, Werkzeuge</text><text x="80" y="196" font-size="9.5" font-style="italic">und Wissen wandern</text><text x="80" y="210" font-size="9.5" font-style="italic">in die Zentrale</text>
+        <rect x="170" y="152" width="300" height="70" fill="#000"/>
+        <text x="320" y="178" fill="#fff" font-weight="bold" font-size="14">website-business (Zentrale OQ)</text>
+        <text x="320" y="198" fill="#fff" font-size="10.5">ab 28.09.: Vorlage, Musterseiten, Qualitätssystem,</text>
+        <text x="320" y="212" fill="#fff" font-size="10.5">Preise, Plan, OSG-Probe, alle Aufträge im Log</text>
+        <path d="M320 222 V250" stroke="#000" stroke-width="1.6" marker-end="url(#pc)"/>
+        <rect x="200" y="252" width="240" height="34" fill="#e6e6e6" stroke="#000"/>
+        <text x="320" y="274" font-weight="bold">künftig: Kundenseiten und Abo</text>
+      </g>
+    </svg>
+    <figcaption>Bild 4 · Vier Vorarbeiten in eigenen Ablagen, eine Zentrale. Die Originale bleiben unverändert erhalten; die Zentrale arbeitet mit Kopien.</figcaption>
+  </figure>
 </section>
 
-<!-- ================= 6 ================= -->
+<section>
+  <h2><span class="nr">C2</span>URFA SOFRASI (Restaurant)</h2>
+  <p><b>Was:</b> Die bestehende Website eines türkischen Restaurants modern, übersichtlich und schnell neu bauen, „gleiche Identität, moderner“. <b>Wann:</b> 25.–27.09., zwei Sitzungen, 30 Arbeitsschritte.</p>
+  <ul>
+    <li>Die alte Seite war aus der Cloud nicht abrufbar. Grundlage waren deshalb Handy-Screenshots, die Speisekarte als PDF und öffentliche Angaben. Alles Unsichere wurde markiert statt erfunden.</li>
+    <li><b>Variante 1 (dunkel):</b> Original-Logo mit Skyline, Bögen als Leitmotiv, Speisekarte mit Sprungmarken und Suche.</li>
+    <li><b>Variante 2 (hell und grün):</b> eigenes Vektor-Logo, sanftes Handy-Menü, Diashows. Barrierefreiheit 94 → 100, Tempo 94 → 96.</li>
+    <li>Die beiden Sitzungen führten ein gemeinsames Protokoll und lernten voneinander. Daraus entstand die Idee des Brüder-Wettbewerbs.</li>
+    <li>Später (29.09.) folgte in der Zentrale die <b>Meistervariante</b> als Generalprobe: komplett in 38 Minuten, 90 von 90 Preisen korrekt übernommen.</li>
+  </ul>
+  <p class="klein">Elias' Entscheidung: Das Original bleibt unverändert. Die Logo-Frage wurde entschieden (Original-Skyline). Veröffentlicht wird nichts ohne Freigabe des Restaurants.</p>
+</section>
+
 <section class="neu-seite">
-  <h2><span class="nr">6</span>Was gebaut wurde</h2>
+  <h2><span class="nr">C3</span>Brüder-Wettbewerb (Hairstyle by Ümit, Friseur)</h2>
+  <p><b>Was:</b> Drei Claude-Sitzungen, „Bruder A, B und C“, bauen parallel je eine eigene Website für denselben Friseur. Jeder will gewinnen, aber Fehler und Erfolge werden offen geteilt. <b>Wann:</b> 26.–28.09., drei Sitzungen, 54 Arbeitsschritte.</p>
+  <table>
+    <thead><tr><th>Bruder</th><th>Stil</th><th>Besonderheit</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>Dunkel und edel wie ein Mode-Magazin am Abend, Gold aus dem Logo</td><td>schrieb die Regeln und Werkzeuge für alle</td></tr>
+      <tr><td>B</td><td>Farbig und verspielt: Petrol, Creme, Apricot, runde Formen</td><td>Lighthouse 99/100/100/100</td></tr>
+      <tr><td>C</td><td>Hell und ruhig: „Licht und Marmor“ aus dem neuen Salon</td><td>9 Prüfrunden, Jury 54 → 56 von 60</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Fairness-Regeln: niemand ändert die Arbeit eines anderen, jeder reserviert seinen Stil vorher, Übernahmen werden genannt.</li>
+    <li>Bewertet wird nach erstem Eindruck, Eigenständigkeit, Bedienung auf dem Handy, Ruhe der Bewegung, Technik und Ehrlichkeit.</li>
+    <li>Ergebnis für heute: sieben Schnellbefehle, Prüfwerkzeuge und die gemeinsame Fehlerliste, die in die Zentrale übernommen wurden.</li>
+    <li>Am 28.09. war das Wochenkontingent an Rechenzeit aufgebraucht; die Sitzung von Bruder C endete deshalb. Seitdem arbeite ich sparsamer (Routine mit kleineren Modellen).</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="nr">C4</span>Grundausstattung und Fernspäher</h2>
+  <h3>Claude-Grundausstattung (claude-setup)</h3>
+  <p>Ein Einrichtungsskript, das jede neue Cloud-Sitzung gleich ausstattet: Arbeitsregeln, fünf Helfer (Recherche, Gestaltung, Technik, Test, Prüfung), Schutzregeln (keine Passwörter in Dateien, Rückfrage bei riskanten Befehlen, Änderungen vor dem Speichern anzeigen) und Browser-Werkzeuge zum Testen. Der erste Start am 27.09. scheiterte, danach lief es.</p>
+  <h3>Fernspäherkommando</h3>
+  <p>Ein Trupp aus einem Führer (Hfw Fortenbacher) und sechs Spähern, der eine fremde oder eigene Website von außen aufklärt: Optik, Technik, Sicherheit (nur beobachtend, nie angreifend), Funktion, Inhalte und SEO. Am Ende fasst ein Auswerter alles in einem Dossier zusammen.</p>
+  <p><b>Erster Einsatz, 28.09.:</b> die Seite der Webflow-Agentur Legency Media. Befund: technisch und inhaltlich weit über dem Durchschnitt (lädt in unter einer halben Sekunde), aber mit Schwächen wie einer schwebenden Kopfleiste und einem Abzeichen, das Inhalte verdeckt. Daraus wurde gelernt, was eine Agenturseite hochwertig wirken lässt. Seitdem geht jeder Einsatzbericht in die Zentrale.</p>
+</section>
+
+<section>
+  <h2><span class="nr">C5</span>Website-Business (OQ), die Zentrale</h2>
+  <p>Seit dem 28.09. läuft alles in der Ablage „website-business“ zusammen. Bis heute: 55 Aufträge im Log, 40 Anträge (PRs), 133 Arbeitsschritte. Die wichtigsten Stationen:</p>
+  <ul>
+    <li><b>28.09.:</b> Vorlage mit Bausteinen, Trainingsplan in 6 Stufen, drei Musterseiten, Außenprüfung durch die Späher.</li>
+    <li><b>29.09.:</b> KI-Bilder getestet, Generalprobe URFA in 38 Minuten, Portfolio in 33 Minuten, Notizen und Preisformeln, Business-Plan, Video-Auswertung, Portfolio überarbeitet.</li>
+    <li><b>30.09.:</b> Qualitätssystem, OSG-Neubau mit Jury, Preis-Einstufung, erfundene Fassung NORVAK, dieser Bericht.</li>
+  </ul>
+</section>
+
+<section class="neu-seite">
+  <h2><span class="nr">C6</span>Alle gebauten Seiten</h2>
   <table>
     <thead><tr><th>Website</th><th>Art</th><th>Wofür</th><th>Stand</th></tr></thead>
     <tbody>
-      <tr><td>URFA SOFRASI, 2 Varianten</td><td>echtes Restaurant</td><td>erste Übung, Speisekarte</td><td>fertig, Original bleibt unverändert</td></tr>
-      <tr><td>Hairstyle by Ümit, 3 Varianten</td><td>echter Friseur</td><td>Wettbewerb, Maßstab für „fast makellos“</td><td>fertig</td></tr>
+      <tr><td>URFA SOFRASI Variante 1 und 2</td><td>echtes Restaurant</td><td>erste Übung</td><td>fertig, Original unverändert</td></tr>
+      <tr><td>Hairstyle by Ümit, Bruder A, B, C</td><td>echter Friseur</td><td>Wettbewerb, Maßstab</td><td>fertig</td></tr>
       <tr><td>Lotlinie</td><td>erfundene Physiopraxis</td><td>Musterseite „hell und ruhig“</td><td>Vorschau-Link</td></tr>
       <tr><td>Zwischenbild</td><td>erfundenes Motion-Studio</td><td>Musterseite „laut und modern“</td><td>Vorschau-Link</td></tr>
       <tr><td>Lindgrund</td><td>erfundener Uhrmacher</td><td>Musterseite „dunkel und edel“ mit KI-Film</td><td>Vorschau-Link</td></tr>
-      <tr><td>URFA-Meistervariante</td><td>echtes Restaurant</td><td>Generalprobe: Bau in 38 Minuten</td><td>fertig, kein Link (Freigabe fehlt)</td></tr>
+      <tr><td>URFA-Meistervariante</td><td>echtes Restaurant</td><td>Generalprobe in 38 Minuten</td><td>fertig, kein Link</td></tr>
       <tr><td>OQ-Portfolio</td><td>Elias' eigene Seite</td><td>Schaufenster mit Website-Generator</td><td>Vorschau-Link, Angaben teils Platzhalter</td></tr>
-      <tr><td>OSG-Neubau (8 Seiten)</td><td>echter Werkzeughersteller</td><td>große Probe mit Jury</td><td>fertig; zeigbar nur als erfundene Marke NORVAK</td></tr>
+      <tr><td>OSG-Neubau (8 Seiten)</td><td>echter Werkzeughersteller</td><td>große Probe mit Jury</td><td>zeigbar nur als erfundene Marke NORVAK</td></tr>
     </tbody>
   </table>
-  <div class="kasten"><b class="titel">Warum manche Seiten keinen Link haben</b>Seiten echter Betriebe (URFA, OSG) werden nicht veröffentlicht, solange der Betrieb nicht zugestimmt hat. Für OSG gibt es deshalb eine Kopie unter dem erfundenen Namen „NORVAK“, die Elias zeigen darf.</div>
+  <div class="kasten"><b class="titel">Warum manche Seiten nicht gezeigt werden</b>Seiten echter Betriebe werden nicht veröffentlicht, solange der Betrieb nicht zugestimmt hat. Die Vorschau-Links aus den frühen Chats (URFA, Brüder) sind privat und nur für Elias. Für OSG gibt es eine Kopie unter dem erfundenen Namen „NORVAK“, die Elias zeigen darf. Alle Links stehen in Register H.</div>
   <h3>Was außerdem entstanden ist</h3>
   <ul>
-    <li><b>Baukasten:</b> fertige Bausteine (Kopfbereich mit Film, Menü, Bildergalerie, 3D-Effekt, Kontaktformular, Zahlung), aus denen jede neue Seite schnell entsteht.</li>
-    <li><b>Prüfprogramme:</b> Sie testen automatisch Tempo, Darstellung auf Handy und Computer, Sicherheit und Fehler.</li>
-    <li><b>Wissenssammlung:</b> 56 dokumentierte Fehler, die nie wieder passieren sollen, dazu Gestaltungswissen und Berichte über fremde Seiten.</li>
-    <li><b>Preismodell:</b> Formeln und ein Rechner, mit denen jeder Preis begründet wird (Abschnitt 11).</li>
+    <li><b>Baukasten:</b> fertige Bausteine (Kopfbereich mit Film, Menü, Galerie, 3D-Effekt, Kontaktformular, Zahlung).</li>
+    <li><b>Prüfprogramme:</b> Tempo, Darstellung auf Handy und Computer, Sicherheit, Fehler; automatisch nach jeder Änderung.</li>
+    <li><b>14 Schnellbefehle</b> im Business, darunter Bestellung, Bauen, Prüfen, Abnahme, Sicherheit, Aufklärung, Wartung.</li>
     <li><b>Betreuung:</b> ein wöchentlicher automatischer Check für künftige Kundenseiten.</li>
     <li><b>Rechtsleitfaden:</b> Überblick über Gewerbe, Steuer, Verträge. Er ersetzt keine Beratung.</li>
   </ul>
 </section>
+</div>
 
-<!-- ================= 7 ================= -->
+<!-- ======================= D · ARBEITSWEISE UND QUALITÄT ======================= -->
+<div data-reg="D">
+<div class="trenn"><div class="gross">D</div><div class="titel">Arbeitsweise und Qualität</div>
+  <p class="worum">Wie aus einer Anfrage eine geprüfte Website wird, und der Beweis, dass es funktioniert.</p>
+  <ol><li>D1 · Wie eine Website bei uns entsteht</li><li>D2 · Wie lange der Bau dauert</li><li>D3 · Wie wir Qualität prüfen</li><li>D4 · Die große Probe: OSG</li></ol></div>
+
 <section>
-  <h2><span class="nr">7</span>Wie eine Website bei uns entsteht</h2>
+  <h2><span class="nr">D1</span>Wie eine Website bei uns entsteht</h2>
   <figure>
     <svg viewBox="0 0 640 200" role="img" aria-label="Acht Schritte vom Auftrag zur Betreuung">
       <defs><marker id="p2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#000"/></marker></defs>
@@ -318,24 +465,25 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <g stroke="#000" stroke-width="1.5" fill="none" marker-end="url(#p2)"><path d="M145 45 H162"/><path d="M305 45 H322"/><path d="M465 45 H482"/><path d="M560 80 V117"/><path d="M485 155 H468"/><path d="M325 155 H308"/><path d="M165 155 H148"/></g>
       </g>
     </svg>
-    <figcaption>Bild 4 · Der Ablauf eines Auftrags. Schritt 6 (schwarz) ist der Teil, den Claude übernimmt; Schritte 2, 3 und 7 brauchen Elias.</figcaption>
+    <figcaption>Bild 5 · Der Ablauf eines Auftrags. Schritt 6 (schwarz) ist der Teil, den Claude übernimmt; Schritte 2, 3 und 7 brauchen Elias.</figcaption>
   </figure>
-  <h3>Wie lange der Bau dauert (gemessen)</h3>
+</section>
+<section>
+  <h2><span class="nr">D2</span>Wie lange der Bau dauert (gemessen)</h2>
   <table>
     <thead><tr><th>Art der Seite</th><th>Richtzeit</th><th>Beispiel</th></tr></thead>
     <tbody>
       <tr><td>Aus vorhandenen Bausteinen</td><td>unter 1 Stunde</td><td>Restaurant 38 min, Portfolio 33 min</td></tr>
-      <tr><td>Eigenes Design mit Feinschliff</td><td>rund 1 Tag</td><td>Friseur Ümit, 9 Prüfrunden</td></tr>
+      <tr><td>Eigenes Design mit Feinschliff</td><td>rund 1 Tag</td><td>Friseur, Bruder C: 9 Prüfrunden</td></tr>
       <tr><td>Firmenseite mit vielen Unterseiten</td><td>rund 10 Stunden</td><td>OSG, 8 Seiten, 5 Jury-Runden</td></tr>
     </tbody>
   </table>
-  <p class="klein">Diese Zeiten sind nur möglich, weil in den fünf Tagen davor Bausteine, Regeln und Prüfprogramme entstanden sind. Wartezeit entsteht sonst fast nur durch fehlende Inhalte des Kunden.</p>
+  <p class="klein">Diese Zeiten sind nur möglich, weil in den Tagen davor Bausteine, Regeln und Prüfprogramme entstanden sind. Wartezeit entsteht sonst fast nur durch fehlende Inhalte des Kunden.</p>
 </section>
 
-<!-- ================= 8 ================= -->
 <section class="neu-seite">
-  <h2><span class="nr">8</span>Wie wir Qualität prüfen</h2>
-  <p>Eine schöne Seite reicht nicht. Sie muss schnell laden, auf jedem Handy funktionieren, von Google gefunden werden, für alle benutzbar und sicher sein. Dafür gibt es seit heute ein <b>Qualitätssystem</b> mit drei Ebenen:</p>
+  <h2><span class="nr">D3</span>Wie wir Qualität prüfen</h2>
+  <p>Eine schöne Seite reicht nicht. Sie muss schnell laden, auf jedem Handy funktionieren, gefunden werden, für alle benutzbar und sicher sein. Dafür gibt es seit dem 30.09. ein <b>Qualitätssystem</b> mit drei Ebenen:</p>
   <figure>
     <svg viewBox="0 0 640 190" role="img" aria-label="Drei Ebenen der Qualitätsprüfung">
       <g font-family="Helvetica, Arial, sans-serif" font-size="11">
@@ -350,9 +498,8 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <text x="94" y="172" fill="#fff">Unabhängige Jury, Späher von außen, Quality Gate mit Beleg für jede bestellte Regel.</text>
       </g>
     </svg>
-    <figcaption>Bild 5 · Erst wenn alle drei Ebenen bestanden sind, gilt eine Seite als fertig.</figcaption>
+    <figcaption>Bild 6 · Erst wenn alle drei Ebenen bestanden sind, gilt eine Seite als fertig.</figcaption>
   </figure>
-  <h3>Die Fachgebiete in einfachen Worten</h3>
   <table>
     <thead><tr><th>Fachgebiet</th><th>Die Frage dahinter</th></tr></thead>
     <tbody>
@@ -370,9 +517,8 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
   <div class="kasten grau"><b class="titel">Ehrlichkeitsregel</b>Wir versprechen nie ein bestimmtes Google-Ranking oder eine Empfehlung durch KI. Versprochen wird nur, was messbar ist: Tempo, Technik, Barrierefreiheit, Sicherheit.</div>
 </section>
 
-<!-- ================= 9 ================= -->
 <section class="neu-seite">
-  <h2><span class="nr">9</span>Die große Probe: OSG</h2>
+  <h2><span class="nr">D4</span>Die große Probe: OSG</h2>
   <p>Als bisher härtester Test sollte Claude die Website eines echten Werkzeugherstellers (OSG, Göppingen) komplett selbstständig neu bauen. Danach bewertete eine Jury aus drei unabhängigen KI-Bewertern das Ergebnis. Ziel: mindestens 75 von 100 Punkten. Nach jeder Runde wurde verbessert.</p>
   <figure>
     <svg viewBox="0 0 640 230" role="img" aria-label="Jury-Punkte je Runde: 63,75; 70,25; 71; 73,5; 75,75">
@@ -396,7 +542,7 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <g text-anchor="middle" font-size="10.5"><text x="115" y="218">Runde 1</text><text x="225" y="218">Runde 2</text><text x="335" y="218">Runde 3</text><text x="445" y="218">Runde 4</text><text x="555" y="218">Runde 5 ✓</text></g>
       </g>
     </svg>
-    <figcaption>Bild 6 · Die Achse beginnt bei 50, damit die Unterschiede sichtbar sind. In Runde 5 war das Ziel erreicht; danach hat Elias die Schleife gestoppt.</figcaption>
+    <figcaption>Bild 7 · Die Achse beginnt bei 50, damit die Unterschiede sichtbar sind. In Runde 5 war das Ziel erreicht; danach hat Elias die Schleife gestoppt.</figcaption>
   </figure>
   <figure>
     <svg viewBox="0 0 640 170" role="img" aria-label="Alte gegen neue Seite: Tempo 42 zu 99, Barrierefreiheit 69 zu 100, SEO 84 zu 100">
@@ -409,38 +555,69 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <g font-size="10"><text x="324" y="40">alt 40–44</text><text x="552" y="54">neu 98–100</text><text x="432" y="88">alt 64–73</text><text x="556" y="102">neu 100</text><text x="492" y="136">alt 83–85</text><text x="556" y="150">neu 100</text></g>
       </g>
     </svg>
-    <figcaption>Bild 7 · Weißer Balken = alte Seite (gemessen am 30.09.), schwarzer Balken = Neubau. Die Seite lädt jetzt mehr als doppelt so schnell.</figcaption>
+    <figcaption>Bild 8 · Weißer Balken = alte Seite (gemessen am 30.09.), schwarzer Balken = Neubau. Die Seite lädt jetzt mehr als doppelt so schnell.</figcaption>
   </figure>
   <p><b>Ergebnis:</b> 8 Seiten plus Rechtsseiten in rund 10 Stunden, alle Aufgaben für Besucher in höchstens 3 Klicks lösbar, keine Fehler bei der Barrierefreiheit. Verbraucht wurden 25 Higgsfield-Credits für KI-Bilder und Film.</p>
   <p><b>Was die Jury noch bemängelt:</b> Die Startseite ist auf dem Handy lang, die KI-Bilder wirken austauschbar (echte Firmenfotos wären der größte Gewinn), einige Texte sind dünn. Diese Liste wäre der Plan für eine sechste Runde, falls Elias sie anordnet.</p>
 </section>
+</div>
 
-<!-- ================= 10 ================= -->
-<section class="neu-seite">
-  <h2><span class="nr">10</span>Was ich gelernt habe</h2>
-  <p>Die wichtigsten Lehren der fünf Tage, ohne Technik erklärt. Jede steht als Regel im System, damit sie bei jeder neuen Seite gilt.</p>
+<!-- ======================= E · WISSEN UND LEHREN ======================= -->
+<div data-reg="E">
+<div class="trenn"><div class="gross">E</div><div class="titel">Wissen und Lehren</div>
+  <p class="worum">Was ich in fünf Tagen und fünf Vorhaben gelernt habe, und wo es festgehalten ist.</p>
+  <ol><li>E1 · Die wichtigsten Lehren</li><li>E2 · Wo das Wissen liegt</li></ol></div>
+
+<section>
+  <h2><span class="nr">E1</span>Die wichtigsten Lehren</h2>
+  <p>Ohne Technik erklärt. Jede Lehre steht als Regel im System, damit sie bei jeder neuen Seite gilt. In Klammern: wo sie entstanden ist.</p>
   <ol>
-    <li><b>Das Handy zuerst.</b> Die meisten Besucher kommen über das Handy. Anrufen, Weg und Öffnungszeiten gehören in den ersten Bildschirm; ohne das verliert ein Betrieb Kunden.</li>
-    <li><b>Tempo ist Gestaltung.</b> Ein großes Bild, das zu spät lädt, kostet mehr Punkte als jedes Detail. Bilder werden verkleinert, Filme zeigen zuerst ein Standbild.</li>
-    <li><b>Ruhige Bewegung wirkt edel, schnelle erschreckt.</b> Ein Menü, das in 0,2 Sekunden aufspringt, wirkt unruhig; 0,8 Sekunden mit sanftem Start wirken hochwertig.</li>
-    <li><b>Niemals etwas erfinden.</b> Preise, Öffnungszeiten, Rechtstexte kommen nur vom Kunden. Unsicheres wird sichtbar markiert, bis es bestätigt ist.</li>
-    <li><b>Kein Tracking, keine Cookies.</b> Dann braucht die Seite kein lästiges Cookie-Banner. Das ist ein echtes Verkaufsargument.</li>
-    <li><b>Fehler nur einmal machen.</b> 56 Fehler sind dokumentiert, zum Beispiel lange deutsche Wörter, die über den Rand ragen. Vor jedem Bau werden sie gelesen.</li>
-    <li><b>Ein fremder Blick findet mehr.</b> Die Späher und die Jury haben Schwächen gefunden, die beim eigenen Prüfen unsichtbar blieben.</li>
-    <li><b>Echte Fotos schlagen KI-Bilder.</b> KI-Bilder sind schnell und günstig, wirken aber schnell beliebig. Sie ergänzen, ersetzen aber keine Fotos des Betriebs.</li>
-    <li><b>Mehrere Varianten sind besser als eine.</b> Im Brüder-Wettbewerb entstanden drei Entwürfe parallel; der Chef wählt lieber aus, als nur einen zu beurteilen.</li>
-    <li><b>Wissen veraltet.</b> Regeln von Google oder zu KI-Suchen ändern sich. Jede Quelle hat deshalb ein Prüfdatum; die erste Nachprüfung ist am 29.12.2026 fällig.</li>
-    <li><b>Der Preis muss begründet sein.</b> Weil eine Seite so schnell entsteht, darf der Preis nicht nach Minuten berechnet werden, sondern nach dem Wert für den Kunden.</li>
-    <li><b>Echte Firmen schützen.</b> Arbeiten für echte Betriebe werden nur mit deren Zustimmung gezeigt; sonst als erfundene Marke.</li>
+    <li><b>Das Handy zuerst.</b> Anrufen, Weg und Öffnungszeiten gehören in den ersten Bildschirm; ohne das verliert ein Betrieb Kunden. (URFA)</li>
+    <li><b>Nichts erfinden.</b> Preise, Öffnungszeiten, Rechtstexte kommen nur vom Kunden. Unsicheres wird sichtbar markiert, bis es bestätigt ist. (URFA)</li>
+    <li><b>Tempo ist Gestaltung.</b> Ein großes Bild, das zu spät lädt, kostet mehr als jedes Detail. Filme zeigen zuerst ein Standbild. (URFA, Brüder)</li>
+    <li><b>Ruhige Bewegung wirkt edel, schnelle erschreckt.</b> Ein Menü in 0,2 Sekunden wirkt unruhig, 0,8 Sekunden mit sanftem Start hochwertig. Bei „das erschreckt mich“ zuerst das Tempo prüfen, nicht die Farbe. (URFA Variante 2)</li>
+    <li><b>Mehrere Varianten schlagen eine.</b> Drei Brüder in verschiedenen Stilen zeigen mehr Möglichkeiten; der Chef wählt lieber aus. (Brüder)</li>
+    <li><b>Wettbewerb mit offenen Karten.</b> Wer Fehler teilt, hebt das Niveau aller. (Brüder)</li>
+    <li><b>Fehler nur einmal machen.</b> 56 Fehler sind dokumentiert, zum Beispiel lange deutsche Wörter, die über den Rand ragen. Vor jedem Bau werden sie gelesen. (alle)</li>
+    <li><b>Ein fremder Blick findet mehr.</b> Späher und Jury fanden Schwächen, die beim eigenen Prüfen unsichtbar blieben. (Fernspäher, OSG)</li>
+    <li><b>Von guten Agenturen lernen.</b> Die Aufklärung von Legency Media zeigte, was hochwertig wirkt: enge Farbwahl, eigene Bildsprache, blitzschnelles Laden. (Fernspäher)</li>
+    <li><b>Kein Tracking, keine Cookies.</b> Dann braucht die Seite kein Cookie-Banner. Das ist ein echtes Verkaufsargument. (Zentrale)</li>
+    <li><b>Echte Fotos schlagen KI-Bilder.</b> KI-Bilder sind schnell, wirken aber leicht beliebig. Sie ergänzen, ersetzen aber keine Fotos des Betriebs. (OSG)</li>
+    <li><b>Wissen veraltet.</b> Regeln von Google oder zu KI-Suchen ändern sich. Jede Quelle hat ein Prüfdatum; die erste Nachprüfung ist am 29.12.2026 fällig. (Qualitätssystem)</li>
+    <li><b>Rechenzeit ist begrenzt.</b> Am 28.09. war das Wochenkontingent erschöpft und zwei Sitzungen blieben stehen. Seitdem: große Modelle nur zum Denken, Routine an kleinere. (Brüder, Fernspäher)</li>
+    <li><b>Was bleiben soll, gehört in eine Datei.</b> Jede Sitzung vergisst am Ende. Deshalb gibt es Auftragslog, Fehlerliste, Gedächtnisnotizen und Berichte. (alle)</li>
+    <li><b>Der Preis muss begründet sein.</b> Weil eine Seite so schnell entsteht, zählt der Wert für den Kunden, nicht die Minuten. (Preisformeln)</li>
+    <li><b>Echte Firmen schützen.</b> Arbeiten für echte Betriebe nur mit deren Zustimmung zeigen, sonst als erfundene Marke. (OSG)</li>
   </ol>
 </section>
 
-<!-- ================= 11 ================= -->
 <section>
-  <h2><span class="nr">11</span>Geld: Preise und Kosten</h2>
-  <div class="kasten"><b class="titel">Achtung</b>Alle Euro-Beträge in diesem Abschnitt sind Platzhalter. Sie zeigen, wie gerechnet wird, nicht, was verlangt wird. Die echten Werte legt Elias fest.</div>
-  <h3>So entsteht ein Preis</h3>
-  <p>Jeder Baustein einer Seite hat Punkte (zum Beispiel Kontaktformular 4 Punkte, Film im Kopfbereich 14 Punkte). Die Punkte werden nach Bedeutung gewichtet (Funktionen zählen am meisten, Technik am wenigsten) und in Euro umgerechnet. Ein bekannter Betrieb zahlt etwas mehr, höchstens 15 Prozent. Zwei weitere Rechenwege dienen als Gegenprobe und als Untergrenze. So kann man dem Kunden jede Zeile seines Preises erklären.</p>
+  <h2><span class="nr">E2</span>Wo das Wissen liegt</h2>
+  <table>
+    <thead><tr><th>Sammlung</th><th>Inhalt</th></tr></thead>
+    <tbody>
+      <tr><td>Fehlerliste</td><td>56 Fehler mit Regel, damit sie nicht wieder passieren</td></tr>
+      <tr><td>Gestaltungswissen</td><td>Tempi, Bewegungskurven, bewährte Effekte, Scroll-Film</td></tr>
+      <tr><td>Meisterstandard</td><td>feste Grenzwerte für Technik, Gewicht, Bewegung, Wirkung</td></tr>
+      <tr><td>Qualitätsregeln</td><td>125 Regeln in 11 Fachgebieten mit 90 Quellen</td></tr>
+      <tr><td>Referenzen</td><td>Berichte über fremde Seiten und Videos, Muster-Katalog</td></tr>
+      <tr><td>Stolperfallen</td><td>was bei der Generalprobe URFA Zeit gekostet hat</td></tr>
+      <tr><td>Projekt-Gedächtnis</td><td>Notizen für künftige Sitzungen: Entscheidungen von Elias, Regeln, Links</td></tr>
+    </tbody>
+  </table>
+</section>
+</div>
+
+<!-- ======================= F · GELD ======================= -->
+<div data-reg="F">
+<div class="trenn"><div class="gross">F</div><div class="titel">Geld</div>
+  <p class="worum">Wie Preise entstehen und was bisher verbraucht wurde. Alle Euro-Beträge sind Platzhalter.</p>
+  <ol><li>F1 · So entsteht ein Preis</li><li>F2 · Ideen von Elias, durchgerechnet</li><li>F3 · Was bisher verbraucht wurde</li></ol></div>
+
+<section>
+  <h2><span class="nr">F1</span>So entsteht ein Preis</h2>
+  <div class="kasten"><b class="titel">Achtung</b>Alle Euro-Beträge in diesem Register sind Platzhalter. Sie zeigen, wie gerechnet wird, nicht, was verlangt wird. Die echten Werte legt Elias fest.</div>
+  <p>Jeder Baustein einer Seite hat Punkte (zum Beispiel Kontaktformular 4 Punkte, Film im Kopfbereich 14 Punkte). Die Punkte werden nach Bedeutung gewichtet (Funktionen zählen am meisten, Technik am wenigsten) und in Euro umgerechnet. Ein bekannter Betrieb zahlt etwas mehr, höchstens 15 Prozent. Zwei weitere Rechenwege dienen als Gegenprobe und als Untergrenze. So lässt sich dem Kunden jede Zeile seines Preises erklären.</p>
   <figure>
     <svg viewBox="0 0 640 200" role="img" aria-label="Preisbeispiele mit Platzhalterwerten">
       <g font-family="Helvetica, Arial, sans-serif" font-size="11">
@@ -454,31 +631,45 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <text x="0" y="188" font-size="10" fill="#333">Monats-Abo (Beispiele): Basis 45 €, Plus 95 €, Premium 225 €. Rechenweg OSG: 5.740 € (Punkte) und 3.890 € (Bewertung), Untergrenze 2.010 €.</text>
       </g>
     </svg>
-    <figcaption>Bild 8 · Je mehr Funktionen, Seiten und Bilder, desto höher der Preis. Die Spanne reicht mit Platzhaltern von rund 2.000 bis 4.800 Euro.</figcaption>
+    <figcaption>Bild 9 · Je mehr Funktionen, Seiten und Bilder, desto höher der Preis. Die Spanne reicht mit Platzhaltern von rund 2.000 bis 4.800 Euro.</figcaption>
   </figure>
-  <h3>Weitere Ideen von Elias, bereits durchgerechnet</h3>
+</section>
+
+<section>
+  <h2><span class="nr">F2</span>Ideen von Elias, durchgerechnet</h2>
   <ul>
     <li><b>Profit-Chain:</b> Wer einen neuen Kunden bringt, bekommt Gratismonate im Abo, höchstens 6.</li>
     <li><b>Treue:</b> Bestandskunden erhalten 1 Prozent Rabatt je 3 Monate, höchstens 10 Prozent. Alle Rabatte zusammen nie über 15 Prozent.</li>
-    <li><b>Mietmodell (Vorschlag):</b> Keine Einmalzahlung, dafür höhere Monatsrate über 24 Monate.</li>
+    <li><b>Mietmodell (Vorschlag):</b> keine Einmalzahlung, dafür höhere Monatsrate über 24 Monate.</li>
+    <li><b>Saison-Umgestaltung:</b> zum Beispiel eine Halloween-Aktion, danach Rückbau.</li>
     <li><b>Rabatt für Google-Bewertung:</b> vermutlich nicht erlaubt. Vorschlag: stattdessen Rabatt für die Erlaubnis, die Seite als Referenz zu zeigen.</li>
   </ul>
-  <h3>Was bisher Geld gekostet hat</h3>
+</section>
+
+<section class="neu-seite">
+  <h2><span class="nr">F3</span>Was bisher verbraucht wurde</h2>
   <table>
     <thead><tr><th>Posten</th><th class="z">Verbrauch</th></tr></thead>
     <tbody>
       <tr><td>Higgsfield: Test von KI-Bild und KI-Film</td><td class="z">7,50 Credits</td></tr>
       <tr><td>Higgsfield: Film für das Portfolio</td><td class="z">7,75 Credits</td></tr>
       <tr><td>Higgsfield: Bilder und Film für OSG</td><td class="z">25,00 Credits</td></tr>
-      <tr><th>Summe (übrig: 29,5 Credits)</th><th class="z">40,25 Credits</th></tr>
+      <tr><th>Summe Higgsfield (übrig: 29,5 Credits)</th><th class="z">40,25 Credits</th></tr>
     </tbody>
   </table>
-  <p class="klein">Dazu kommen die laufenden Abos von Claude und Higgsfield, die Elias selbst trägt. Hosting und Domain kosten noch nichts, weil noch nichts online ist.</p>
+  <p><b>Rechenzeit der sieben frühen Chats</b> (URFA, Brüder, Grundausstattung, Fernspäher): laut Sitzungsdaten ein rechnerischer Gegenwert von rund 277 US-Dollar. Das ist kein Rechnungsbetrag, denn die Arbeit lief über Elias' Claude-Abo. Die Zahl zeigt nur, wie viel Arbeit in der Vorarbeit steckt. Für die Sitzungen im Projekt liegt keine vergleichbare Summe vor.</p>
+  <p class="klein">Laufende Abos (Claude, Higgsfield) trägt Elias selbst. Hosting und Domain kosten noch nichts, weil noch nichts online ist.</p>
 </section>
+</div>
 
-<!-- ================= 12 ================= -->
-<section class="neu-seite">
-  <h2><span class="nr">12</span>Der Gesamtplan und unsere Position</h2>
+<!-- ======================= G · PLAN UND ENTSCHEIDUNGEN ======================= -->
+<div data-reg="G">
+<div class="trenn"><div class="gross">G</div><div class="titel">Plan und Entscheidungen</div>
+  <p class="worum">Der Gesamtplan in sechs Phasen, wo wir heute stehen, und was als Nächstes kommt.</p>
+  <ol><li>G1 · Der Gesamtplan und unsere Position</li><li>G2 · Was offen ist</li><li>G3 · Die nächsten Schritte</li></ol></div>
+
+<section>
+  <h2><span class="nr">G1</span>Der Gesamtplan und unsere Position</h2>
   <figure>
     <svg viewBox="0 0 640 400" role="img" aria-label="Sechs Phasen von oben nach unten, Position in Phase 2">
       <g font-family="Helvetica, Arial, sans-serif" font-size="11">
@@ -492,7 +683,7 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <circle cx="44" cy="104" r="15" fill="#fff" stroke="#000" stroke-width="3"/><text x="44" y="109" text-anchor="middle" font-weight="bold" font-size="13">2</text>
         <text x="72" y="100" font-weight="bold" font-size="13">Entscheiden · LÄUFT JETZT (seit 29.09.)</text>
         <text x="72" y="117">Preise in Euro, Zielgruppe, Name „OQ“, Abo-Pakete. 0 von 10 Entscheidungen gefallen.</text>
-        <text x="72" y="140" font-weight="bold">► WIR SIND HIER: Der Ball liegt bei Elias (Abschnitt 13).</text>
+        <text x="72" y="140" font-weight="bold">► WIR SIND HIER: Der Ball liegt bei Elias (Register G).</text>
         <!-- Phase 3 -->
         <circle cx="44" cy="186" r="15" fill="#e6e6e6" stroke="#000" stroke-dasharray="4 3"/><text x="44" y="191" text-anchor="middle" font-weight="bold" font-size="13">3</text>
         <text x="72" y="182" font-weight="bold" font-size="13">Eigene OQ-Seite fertig machen · TEILWEISE</text>
@@ -511,14 +702,13 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <text x="72" y="361">Empfehlungen, Saisonaktionen, fester Abo-Stamm; danach Vorlagen für andere als zweites Standbein</text>
       </g>
     </svg>
-    <figcaption>Bild 9 · Der Fahrplan von oben nach unten. Phase 1 ist abgeschlossen, Phase 2 wartet auf Entscheidungen von Elias.</figcaption>
+    <figcaption>Bild 10 · Der Fahrplan von oben nach unten. Phase 1 ist abgeschlossen, Phase 2 wartet auf Entscheidungen von Elias.</figcaption>
   </figure>
   <div class="kasten"><b class="titel">Warum wir in Phase 2 stehen, obwohl gebaut wird</b>Während Phase 2 wartet, habe ich das Können weiter geschärft (Qualitätssystem, OSG). Das zählt zu Phase 1 und hält nichts auf. Weiter nach vorn geht es aber erst, wenn Preise, Zielgruppe und Name entschieden sind, denn davon hängen die OQ-Seite, die Verträge und die Gewerbeanmeldung ab.</div>
 </section>
 
-<!-- ================= 13 ================= -->
-<section>
-  <h2><span class="nr">13</span>Was offen ist</h2>
+<section class="neu-seite">
+  <h2><span class="nr">G2</span>Was offen ist</h2>
   <h3>Zehn Entscheidungen, die bei Elias liegen</h3>
   <table>
     <thead><tr><th class="z">Nr.</th><th>Frage</th><th>Mein Vorschlag</th></tr></thead>
@@ -532,7 +722,7 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
       <tr><td class="z">7</td><td>Framer statt Higgsfield?</td><td>vorerst nicht, Higgsfield reicht</td></tr>
       <tr><td class="z">8</td><td>URFA als erster Pilotkunde?</td><td>ja, sobald Phase 4 steht</td></tr>
       <tr><td class="z">9</td><td>Qualitätsprüfung bei jeder Änderung automatisch, Besucherzählung ohne Cookies bauen?</td><td>ja, beides</td></tr>
-      <tr><td class="z">10</td><td>OSG weiterführen?</td><td>ruhen lassen; die NORVAK-Fassung dient als Portfolio</td></tr>
+      <tr><td class="z">10</td><td>OSG weiterführen?</td><td>ruhen lassen; NORVAK dient als Portfolio</td></tr>
     </tbody>
   </table>
   <h3>Offene Arbeiten auf meiner Seite</h3>
@@ -549,9 +739,8 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
   </ul>
 </section>
 
-<!-- ================= 14 ================= -->
 <section class="neu-seite">
-  <h2><span class="nr">14</span>Die nächsten Schritte</h2>
+  <h2><span class="nr">G3</span>Die nächsten Schritte</h2>
   <figure>
     <svg viewBox="0 0 640 110" role="img" aria-label="Drei nächste Schritte">
       <defs><marker id="p3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#000"/></marker></defs>
@@ -568,31 +757,90 @@ figcaption{font:italic 9pt Georgia,serif;color:#333;margin-top:1.5mm}
         <g stroke="#000" stroke-width="1.8" marker-end="url(#p3)"><path d="M190 55 H222"/><path d="M415 55 H447"/></g>
       </g>
     </svg>
-    <figcaption>Bild 10 · Der kürzeste Weg zum ersten zahlenden Kunden.</figcaption>
+    <figcaption>Bild 11 · Der kürzeste Weg zum ersten zahlenden Kunden.</figcaption>
   </figure>
-  <p>Solange die Entscheidungen offen sind, kann ich weiter an Bausteinen und am Portfolio arbeiten. Das macht OQ besser, bringt uns im Plan aber nicht voran. Der wichtigste Hebel liegt deshalb bei den zehn Fragen in Abschnitt 13. Am schnellsten geht es, wenn Elias Frage 1, 2 und 4 zuerst beantwortet, denn davon hängen die meisten anderen ab.</p>
+  <p>Solange die Entscheidungen offen sind, kann ich weiter an Bausteinen und am Portfolio arbeiten. Das macht OQ besser, bringt uns im Plan aber nicht voran. Der wichtigste Hebel liegt deshalb bei den zehn Fragen in G2. Am schnellsten geht es, wenn Elias Frage 1, 2 und 4 zuerst beantwortet, denn davon hängen die meisten anderen ab.</p>
   <p class="gruss">Melde gehorsamst: Lage aufgenommen, Können steht, der nächste Zug liegt beim Chef.<br>Kommandeur Stahl, 30.09.2026</p>
 </section>
+</div>
 
-<!-- ================= ANHANG ================= -->
+<!-- ======================= H · ANHANG ======================= -->
+<div data-reg="H">
+<div class="trenn"><div class="gross">H</div><div class="titel">Anhang</div>
+  <p class="worum">Zum Nachschlagen: wo alles liegt, alle Vorschau-Links, woher die Zahlen stammen.</p>
+  <ol><li>H1 · Ablageorte</li><li>H2 · Vorschau-Links</li><li>H3 · Quellen dieses Berichts</li></ol></div>
+
 <section>
-  <h2>Anhang · Wo alles liegt</h2>
+  <h2><span class="nr">H1</span>Ablageorte</h2>
   <table>
     <thead><tr><th>Was</th><th>Wo</th></tr></thead>
     <tbody>
-      <tr><td>Business-Plan (ausführlich)</td><td>Repo website-business, Datei BUSINESSPLAN.md, und als Seite „Business-Plan OQ“ (Link im Projekt)</td></tr>
-      <tr><td>Dieser Bericht</td><td>Repo: ops/dokumentation/ · Projektordner: berichte/</td></tr>
-      <tr><td>Auftragslog (alle Aufträge)</td><td>Repo: ops/auftraege.jsonl</td></tr>
-      <tr><td>Was nur Elias erledigen kann</td><td>Repo: ops/HAENDE.md</td></tr>
-      <tr><td>Qualitätsregeln und Quellen</td><td>Repo: wissen/fachgebiete/ und wissen/quellen/</td></tr>
-      <tr><td>Preisformeln und Rechner</td><td>Repo: wissen/preismodell/</td></tr>
-      <tr><td>Elias' Notizen zu OQ</td><td>Repo: wissen/notizen/ · Projektordner: notizen/</td></tr>
-      <tr><td>OSG-Neubau, Jury, Preis</td><td>Repo: kunden/osg-germany/ · Projektordner: osg-neubau/</td></tr>
-      <tr><td>Vorschau-Links</td><td>Portfolio OQ, Lotlinie, Zwischenbild, Lindgrund, NORVAK: im Projekt-Chat und im Business-Plan verlinkt</td></tr>
+      <tr><td>Zentrale OQ</td><td>GitHub: website-business</td></tr>
+      <tr><td>URFA-Original</td><td>GitHub: urfa (bleibt unverändert)</td></tr>
+      <tr><td>Brüder-Wettbewerb</td><td>GitHub: -mit-3-Br-der-Website (je Bruder ein Branch)</td></tr>
+      <tr><td>Grundausstattung</td><td>GitHub: claude-setup</td></tr>
+      <tr><td>Fernspäherkommando, Dossiers</td><td>GitHub: Fernsp-herkommando-Fortenbacher-</td></tr>
+      <tr><td>Business-Plan (ausführlich)</td><td>website-business, BUSINESSPLAN.md, und Seite „Business-Plan OQ“</td></tr>
+      <tr><td>Dieser Bericht, alle Register</td><td>website-business: ops/dokumentation/ · Projektordner: berichte/</td></tr>
+      <tr><td>Auftragslog</td><td>website-business: ops/auftraege.jsonl</td></tr>
+      <tr><td>Was nur Elias erledigen kann</td><td>website-business: ops/HAENDE.md</td></tr>
+      <tr><td>Qualitätsregeln und Quellen</td><td>website-business: wissen/fachgebiete/, wissen/quellen/</td></tr>
+      <tr><td>Preisformeln und Rechner</td><td>website-business: wissen/preismodell/</td></tr>
+      <tr><td>Elias' Notizen zu OQ</td><td>website-business: wissen/notizen/ · Projektordner: notizen/</td></tr>
+      <tr><td>OSG-Neubau, Jury, Preis</td><td>website-business: kunden/osg-germany/ · Projektordner: osg-neubau/</td></tr>
     </tbody>
   </table>
-  <p class="klein">Dieser Bericht ist eine Orientierung, keine Rechts- oder Steuerberatung. Zahlen stammen aus der Git-Historie, dem Auftragslog und den Prüfberichten, Stand 30.09.2026.</p>
 </section>
+
+<section>
+  <h2><span class="nr">H2</span>Vorschau-Links (privat, nur für Elias)</h2>
+  <table>
+    <thead><tr><th>Seite</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td>Business-Plan OQ</td><td class="link">claude.ai/artifact/T9c4jsG2eA5AhRxUzVG4MU</td></tr>
+      <tr><td>OQ-Portfolio</td><td class="link">claude.ai/artifact/8Yaq6z8EGEYNpf9SKEXjDE</td></tr>
+      <tr><td>Lotlinie (hell)</td><td class="link">claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X</td></tr>
+      <tr><td>Zwischenbild (laut)</td><td class="link">claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu</td></tr>
+      <tr><td>Lindgrund (edel)</td><td class="link">claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP</td></tr>
+      <tr><td>NORVAK (erfundene Fassung OSG)</td><td class="link">claude.ai/artifact/Fsqu6D63SxNHwWi1VcLbHC</td></tr>
+      <tr><td>URFA Variante 1 (dunkel)</td><td class="link">claude.ai/artifact/Qo99W1RFepBRnNZBE1FaxL</td></tr>
+      <tr><td>URFA Variante 2 (hell)</td><td class="link">claude.ai/artifact/Kdt4rLqAS4ZiU26FRyzyxF</td></tr>
+      <tr><td>Ümit, Bruder A</td><td class="link">claude.ai/artifact/7gA1tz1fqyU3PjuK58Emx6</td></tr>
+      <tr><td>Ümit, Bruder B</td><td class="link">claude.ai/artifact/56kKXLnVCFnECfSkFmHGC7</td></tr>
+      <tr><td>Ümit, Bruder C</td><td class="link">claude.ai/artifact/W8DkZAgmECBMZym76uJ1Pi</td></tr>
+      <tr><td>Preisformel-Rechner</td><td class="link">claude.ai/artifact/FatfhqZ6bJK97QCUXfRnEA</td></tr>
+    </tbody>
+  </table>
+  <p class="klein">Die Links zu URFA und Ümit zeigen echte Betriebe und bleiben privat, bis diese zustimmen.</p>
+</section>
+
+<section>
+  <h2><span class="nr">H3</span>Quellen dieses Berichts</h2>
+  <ul>
+    <li>Git-Historie aller fünf Ablagen (alle Branches), Stand 30.09.2026, 11 Uhr</li>
+    <li>Liste und Zusammenfassungen aller Claude-Code-Sitzungen</li>
+    <li>Auftragslog A-001 bis A-055, Projekt-Gedächtnis, alle Projekt-Threads</li>
+    <li>Prüfberichte: Jury OSG, SEO/GEO-Vergleich, Preis-Einstufung, Qualitätssystem, Dossier Legency Media</li>
+  </ul>
+  <p class="klein">Dieser Bericht ist eine Orientierung, keine Rechts- oder Steuerberatung.</p>
+</section>
+</div>
+
+<!-- ======================= EINLEGER ======================= -->
+<div data-reg="L">
+<section>
+  <h2>Einleger: Registerstreifen und Rückenschild</h2>
+  <p>Streifen an der gestrichelten Linie ausschneiden und in die Laschen der Registerblätter stecken oder aufkleben. Das Rückenschild passt in einen breiten Ordner (etwa 8 cm Rücken).</p>
+  <div class="streifen">
+    <div><b>A</b>Überblick</div><div><b>B</b>Chronik</div><div><b>C</b>Projekte</div><div><b>D</b>Arbeitsweise</div>
+    <div><b>E</b>Wissen</div><div><b>F</b>Geld</div><div><b>G</b>Plan</div><div><b>H</b>Anhang</div>
+  </div>
+  <div class="ruecken">
+    <div><span class="marke">OQ</span><span class="senk">Lagebericht · Website-Business</span><span class="sans" style="font-size:9pt">ab 30.09.2026</span></div>
+    <div style="width:30mm"><span class="marke">OQ</span><span class="senk" style="font-size:14pt">Lagebericht</span><span class="sans" style="font-size:8pt">2026</span></div>
+  </div>
+</section>
+</div>
 
 </div>
 </body>

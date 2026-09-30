@@ -1,7 +1,7 @@
 # Business-Plan OQ
 
 > Stand **2026-09-30**, Auftrag A-055 (fortgeschrieben aus A-043/A-044 vom 2026-09-29). Neu seit gestern: Qualitätssystem (A-051),
-> Belastungsprobe OSG-Neubau mit Jury (A-053/A-054), überarbeitete OQ-Seite (A-047–A-050). Laien-Fassung mit Gesamtplan:
+> Belastungsprobe OSG-Neubau mit Jury (A-053/A-054), überarbeitete OQ-Seite (A-047–A-050). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
 > `ops/dokumentation/STAND-2026-09-30.pdf`.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
 > Trainingsplan, Generalprobe, Portfolio-Seite (PR #26, #29), `wartung/PAKETE.md`, `recht/LEITFADEN.md`.
@@ -133,7 +133,7 @@ Zusammensetzung. Beides bleibt nachträglich änderbar.
 ### Der Weg bis hierher (Gesamtbilanz)
 
 Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
-(Stand 30.09.2026, 11 Uhr; Commits ohne Merge-Commits).
+(Stand 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
 
 | Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
 |---|---|---|---|---|
@@ -141,8 +141,8 @@ Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten u
 | Claude-Setup | 27.09. | 1 | 2 | Setup-Skript für jede Cloud-Sitzung, 5 Agents, Hooks (Secret-Schutz, Audit, Diff vor Push), MCPs |
 | Brüder-Wettbewerb (Hairstyle by Ümit) | 26.–28.09. | 3 | 54 | drei Websites parallel im Wettbewerb, 7 Skills, Prüfwerkzeuge (Lighthouse, Kopf-Check, Vorschau-Test), `FEHLER.md` und `DESIGN-WISSEN.md`; Lighthouse 99/100/100/100 |
 | Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
-| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 110 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
-| Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 23 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
+| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
+| Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
 | **Summe** | **rund 5 Tage** | **16** | **224** | **11 Seiten, 5 Repos, 3 Agenten-Teams, 39 PRs im Business-Repo** |
 
 Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
