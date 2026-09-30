@@ -116,7 +116,7 @@ test('JSON-LD: Organisation nur auf der Startseite, jeder Textwert sichtbar', ()
   const sichtbar = text(start);
   const pruefe = (o) => {
     for (const [k, v] of Object.entries(o)) {
-      if (k.startsWith('@') || /url|logo/.test(k)) continue;
+      if (k.startsWith('@') || /url|logo|sameAs/.test(k)) continue;
       if (typeof v === 'object') pruefe(v);
       else if (k !== 'addressCountry') assert.ok(sichtbar.includes(String(v)) || (k === 'name' && v === 'OSG Germany' && /<title>OSG Germany/.test(start)), `JSON-LD ${k}: „${v}“ nicht sichtbar`);
     }
@@ -143,10 +143,12 @@ test('Navigation: aktuelle Seite markiert, alle Seiten in der Sitemap, noindex n
   for (const [f, t] of seiten) {
     const noindex = /<meta name="robots" content="noindex">/.test(t);
     assert.equal(noindex, ['impressum.html', 'datenschutz.html', '404.html', 'nachricht-gesendet.html'].includes(f), `${f}: noindex falsch`);
-    const url = `${S.basis}/${f === 'index.html' ? '' : f}`;
+    const url = `${S.basis}/${f === 'index.html' ? '' : f.replace(/\.html$/, '')}`;
     assert.equal(sitemap.includes(`<loc>${url}</loc>`), !noindex, `${f}: Sitemap`);
-    if (['produkte.html', 'service.html', 'kontakt.html'].includes(f)) assert.match(t, new RegExp(`<a href="/${f}" aria-current="page">`));
-    for (const [, h] of t.matchAll(/href="\/([a-z-]+\.html)(?:#([a-z0-9-]+))?"/g)) assert.ok(alle[h], `${f}: toter Link /${h}`);
-    for (const [, h, a] of t.matchAll(/href="\/([a-z-]+\.html)#([a-z0-9-]+)"/g)) assert.ok(alle[h].includes(`id="${a}"`), `${f}: Anker /${h}#${a} fehlt`);
+    if (['produkte.html', 'service.html', 'kontakt.html'].includes(f)) assert.match(t, new RegExp(`<a href="/${f.replace('.html', '')}" aria-current="page">`));
+    // Cloudflare Pages: /x.html leitet auf /x um – intern nur Adressen ohne .html
+    assert.doesNotMatch(t, /href="\/[a-z0-9-]+\.html/, `${f}: interner Link mit .html (Umleitung)`);
+    for (const [, h] of t.matchAll(/href="\/([a-z-]+)(?:#([a-z0-9-]+))?"/g)) assert.ok(alle[`${h}.html`], `${f}: toter Link /${h}`);
+    for (const [, h, a] of t.matchAll(/href="\/([a-z-]*)#([a-z0-9-]+)"/g)) assert.ok(alle[`${h || 'index'}.html`].includes(`id="${a}"`), `${f}: Anker /${h}#${a} fehlt`);
   }
 });

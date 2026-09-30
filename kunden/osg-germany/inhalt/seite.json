@@ -750,5 +750,23 @@
     "gf": "Oliver Schunter, Michael Rupp",
     "register": "Amtsgericht Ulm, HRB 680833",
     "ust": "DE234679632"
-  }
+  },
+  "profile": [
+    {
+      "name": "LinkedIn",
+      "link": "https://www.linkedin.com/company/osg-gmbh"
+    },
+    {
+      "name": "YouTube",
+      "link": "https://www.youtube.com/@OSGGermany"
+    },
+    {
+      "name": "Instagram",
+      "link": "https://www.instagram.com/osggermany/"
+    },
+    {
+      "name": "Facebook",
+      "link": "https://www.facebook.com/osggmbh/"
+    }
+  ]
 }

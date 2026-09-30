@@ -1,6 +1,6 @@
 // Zusatzskript der OSG-Neugestaltung. Die Seite funktioniert vollständig ohne JavaScript:
 // Der Werkzeugfinder filtert per CSS (:has), das Formular ist ein normales POST-Formular.
-// Hier nur Verbesserungen: Trefferzahl für Screenreader, Standzeit-Balken beim Hereinscrollen, Sende-Zustand.
+// Hier nur Verbesserungen: Trefferzahl für Screenreader, Standzeit-Balken, Formular (Vorbelegung, Fehler am Feld, Sende-Zustand).
 function start() {
   const wurzel = document.documentElement;
   wurzel.classList.add('js');
@@ -29,12 +29,60 @@ function start() {
     beob.observe(balken);
   }
 
-  // Formular: Doppelklick verhindern, Zustand „wird gesendet“ zeigen
+  // Werkzeugfinder → Formular: die gewählte Bearbeitung und den Werkstoff mitnehmen
+  for (const a of document.querySelectorAll('.finder-anfrage')) {
+    a.addEventListener('click', () => {
+      const wahl = [...document.querySelectorAll('.finder input:checked')].filter((r) => !/-alle$/.test(r.id))
+        .map((r) => document.querySelector(`label[for="${r.id}"]`)?.textContent.trim()).filter(Boolean);
+      if (wahl.length) a.href = `/kontakt?finder=${encodeURIComponent(wahl.join(', '))}#formular`;
+    });
+  }
+
+  // Formular: Kontext aus der Adresse vorbelegen, eigene Fehlermeldungen am Feld, Sende-Zustand
   for (const form of document.querySelectorAll('form.formular')) {
-    form.addEventListener('submit', () => {
+    const q = new URLSearchParams(location.search);
+    const text = form.elements.nachricht;
+    const serie = (q.get('serie') || '').slice(0, 60); const finder = (q.get('finder') || '').slice(0, 120);
+    if (text && !text.value && (serie || finder)) {
+      text.value = serie ? `Anfrage zur ${serie}:\n` : `Werkzeugfinder – ${finder}:\n`;
+      if (form.elements.anliegen) form.elements.anliegen.value = 'Anwendungsberatung';
+    }
+
+    const MELDUNG = {
+      name: 'Bitte geben Sie Ihren Namen an.',
+      email: (f) => (f.validity.valueMissing ? 'Bitte geben Sie Ihre E-Mail-Adresse an.' : 'Bitte prüfen Sie die E-Mail-Adresse, z. B. name@firma.de.'),
+      telefon: 'Bitte nur Ziffern, Leerzeichen, + und - verwenden.',
+      nachricht: 'Bitte beschreiben Sie Ihr Anliegen in ein paar Worten.',
+    };
+    const zeige = (feld) => {
+      const id = `${feld.id}-fehler`; let p = document.getElementById(id);
+      const gut = feld.validity.valid;
+      if (gut) feld.removeAttribute('aria-invalid'); else feld.setAttribute('aria-invalid', 'true');
+      if (gut) { p?.remove(); feld.setAttribute('aria-describedby', (feld.getAttribute('aria-describedby') || '').replace(id, '').trim()); return true; }
+      if (!p) {
+        p = document.createElement('p'); p.id = id; p.className = 'feld-fehler'; feld.after(p);
+        feld.setAttribute('aria-describedby', `${id} ${feld.getAttribute('aria-describedby') || ''}`.trim());
+      }
+      const m = MELDUNG[feld.name]; p.textContent = typeof m === 'function' ? m(feld) : (m || 'Bitte prüfen Sie dieses Feld.');
+      return false;
+    };
+    form.noValidate = true;
+    for (const feld of form.querySelectorAll('input:not([type="hidden"]):not([tabindex="-1"]), textarea')) {
+      feld.addEventListener('blur', () => { if (feld.value) zeige(feld); });
+      feld.addEventListener('input', () => { if (feld.hasAttribute('aria-invalid')) zeige(feld); });
+    }
+    form.addEventListener('submit', (e) => {
+      const falsch = [...form.querySelectorAll('input:not([tabindex="-1"]), textarea')].filter((f) => !zeige(f));
+      if (falsch.length) { e.preventDefault(); falsch[0].focus(); falsch[0].scrollIntoView({ block: 'center' }); return; }
       const knopf = form.querySelector('button[type="submit"]');
       form.classList.add('formular--sendet');
-      if (knopf) { knopf.disabled = true; knopf.textContent = 'Wird gesendet …'; }
+      if (knopf) { knopf.dataset.text ||= knopf.textContent; knopf.disabled = true; knopf.textContent = 'Wird gesendet …'; }
+    });
+    // Zurück aus dem Zwischenspeicher (z. B. von der Fehlerseite): Knopf wieder freigeben
+    addEventListener('pageshow', () => {
+      const knopf = form.querySelector('button[type="submit"]');
+      form.classList.remove('formular--sendet');
+      if (knopf?.dataset.text) { knopf.disabled = false; knopf.textContent = knopf.dataset.text; }
     });
   }
 }

@@ -7,7 +7,7 @@
 import { weiter, fehler, fehlerSeite, seitenUrl, gleicheHerkunft } from '../_lib/antwort.js';
 
 // Wohin „Zurück zum Formular“ führt und welche Klassen die Fehlerseite bekommt (Anker des Formulars auf der Seite).
-const FORMULAR = { zurueck: '/kontakt.html#formular', haupt: 'huelle einfach' };
+const FORMULAR = { zurueck: '/kontakt#formular', haupt: 'huelle einfach' };
 // Anliegen im Formular (gleiche Liste wie ANLIEGEN in bauen.mjs; ein Test vergleicht beide). Fremde Werte → „Sonstiges“.
 export const ANLIEGEN = ['Anwendungsberatung', 'Angebot und Preise', 'Micro Toolmanagement', 'OSG Academy und Workshops', 'Sonstiges'];
 const zeige = (text, status) => fehlerSeite(text, status, FORMULAR);
@@ -18,13 +18,14 @@ const ohneSteuerzeichen = (s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u0
 export function pruefeFelder(form) {
   const f = (n) => ohneSteuerzeichen(String(form.get(n) ?? ''));
   const anliegen = ANLIEGEN.includes(f('anliegen')) ? f('anliegen') : 'Sonstiges';
-  const daten = { name: f('name'), firma: f('firma'), email: f('email'), anliegen, nachricht: f('nachricht') };
+  const daten = { name: f('name'), firma: f('firma'), email: f('email'), telefon: f('telefon'), anliegen, nachricht: f('nachricht') };
   if (f('firma_url')) return { spam: true };
   if (!daten.name || daten.name.length > 100) return { fehler: 'Bitte einen Namen angeben (höchstens 100 Zeichen).' };
   if (!EMAIL.test(daten.email)) return { fehler: 'Bitte eine gültige E-Mail-Adresse angeben.' };
   if (daten.firma.length > 120) return { fehler: 'Der Firmenname darf höchstens 120 Zeichen lang sein.' };
+  if (daten.telefon && !/^\+?[0-9 ()/-]{5,40}$/.test(daten.telefon)) return { fehler: 'Bitte die Telefonnummer nur mit Ziffern, Leerzeichen, + und - angeben.' };
   if (daten.nachricht.length < 5 || daten.nachricht.length > 5000) return { fehler: 'Die Nachricht muss 5 bis 5000 Zeichen lang sein.' };
-  if (/[\r\n]/.test(daten.name + daten.email + daten.firma)) return { spam: true };
+  if (/[\r\n]/.test(daten.name + daten.email + daten.firma + daten.telefon)) return { spam: true };
   return { daten };
 }
 
@@ -45,7 +46,7 @@ export async function onRequestPost({ request, env }) {
   const form = await request.formData().catch(() => null);
   if (!form) return zeige('Das Formular kam unvollständig an. Bitte erneut versuchen.', 400);
   const erg = pruefeFelder(form);
-  if (erg.spam) return weiter(`${basis}/nachricht-gesendet.html`); // Bots bekommen keinen Hinweis
+  if (erg.spam) return weiter(`${basis}/nachricht-gesendet`); // Bots bekommen keinen Hinweis
   if (erg.fehler) return zeige(erg.fehler, 400);
 
   if (!(await turnstileOk(env, form.get('cf-turnstile-response'), request.headers.get('CF-Connecting-IP')))) {
@@ -53,16 +54,16 @@ export async function onRequestPost({ request, env }) {
   }
   if (!env.RESEND_API_KEY || !env.KONTAKT_AN || !env.KONTAKT_VON) return zeige('Der Versand ist noch nicht eingerichtet.', 503);
 
-  const { name, firma, email, anliegen, nachricht } = erg.daten;
+  const { name, firma, email, telefon, anliegen, nachricht } = erg.daten;
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: env.KONTAKT_VON, to: [env.KONTAKT_AN], reply_to: email,
       subject: `${anliegen}: Anfrage von ${name}${firma ? ` (${firma})` : ''}`,
-      text: `Anliegen: ${anliegen}\nName: ${name}\nFirma: ${firma || '–'}\nE-Mail: ${email}\n\n${nachricht}`,
+      text: `Anliegen: ${anliegen}\nName: ${name}\nFirma: ${firma || '–'}\nE-Mail: ${email}\nTelefon: ${telefon || '–'}\n\n${nachricht}`,
     }),
   });
   if (!r.ok) { console.error('kontakt', r.status); return zeige('Senden fehlgeschlagen. Bitte später erneut versuchen.', 502); }
-  return weiter(`${basis}/nachricht-gesendet.html`);
+  return weiter(`${basis}/nachricht-gesendet`);
 }

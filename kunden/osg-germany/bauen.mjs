@@ -23,6 +23,7 @@ const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
   post: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>',
   ort: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/></svg>',
+  suche: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5.5 5.5"/></svg>',
 };
 
 // ---------- Bilder (AVIF + WebP aus werkzeuge/bilder.mjs) ----------
@@ -35,12 +36,16 @@ function bild(name, alt, sizes, { art = 'klein', w = 1200, h = 896, lazy = true,
 }
 const kiHinweis = (text = 'KI-Visualisierung') => `<figcaption class="ki-hinweis" data-pruefen="${esc(KI)}">${text}</figcaption>`;
 
+// Interne Links ohne .html (/produkte.html#x → /produkte#x, /index.html → /)
+const ohneEndung = (html) => html.replace(/href="\/index\.html/g, 'href="/').replace(/href="\/([a-z0-9-]+)\.html/g, 'href="/$1');
+
 // ---------- Rahmen jeder Seite ----------
 const NAV = [['produkte.html', 'Produkte'], ['industrieloesungen.html', 'Industrielösungen'], ['service.html', 'Service'], ['ueber-uns.html', 'Über OSG'], ['karriere.html', 'Karriere'], ['kontakt.html', 'Kontakt']];
 const SEITEN = [];
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false, extraCss = [], jsonld = '' }) {
-  const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
+  // Cloudflare Pages liefert /seite.html per 308 unter /seite aus: Canonical, Sitemap und Links ohne .html (Jury R1)
+  const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei.replace(/\.html$/, '')}`;
   if (!robots) SEITEN.push(kanon);
   const nav = NAV.map(([h, t]) => `        <li><a href="/${h}"${h === datei ? ' aria-current="page"' : ''}>${t}</a></li>`).join('\n');
   const html = `<!DOCTYPE html>
@@ -56,7 +61,8 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <meta property="og:title" content="${esc(titel)}">
 <meta property="og:description" content="${esc(beschreibung)}">
 <meta property="og:url" content="${kanon}">
-${start ? `<meta property="og:image" content="${S.basis}/medien/schaftfraeser-hero-1600.webp">\n` : ''}<meta name="theme-color" content="#0b1016">
+<meta property="og:image" content="${S.basis}/medien/schaftfraeser-hero-1600.webp">
+<meta name="theme-color" content="#0b1016">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
@@ -70,7 +76,11 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>\n` : ''}</head
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <div class="leiste">
   <div class="huelle leiste-in">
-    <p class="leiste-text">${esc(S.firma)} · ${esc(S.ort)}</p>
+    <form class="leiste-suche" action="${S.basis}/catalogsearch/result/" method="get" role="search" aria-label="Shop durchsuchen">
+      <label class="unsichtbar" for="suche-kopf">Artikel, EDP-Nummer oder Serie im Shop suchen</label>
+      <input id="suche-kopf" name="q" type="search" maxlength="128" required placeholder="Shop durchsuchen: Artikel, EDP-Nr., Serie" enterkeyhint="search">
+      <button type="submit">${ICON.suche}<span class="unsichtbar">Suchen (öffnet de.osgeurope.com)</span></button>
+    </form>
     <ul class="leiste-links">
       <li><a href="${TEL_A}">${ICON.tel}<span>${TEL}</span></a></li>
       <li>${extern(S.shop, 'Online-Shop', 'leiste-link')}</li>
@@ -86,6 +96,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>\n` : ''}</head
       <ul>
 ${nav}
         <li class="nur-blatt">${extern(S.shop, 'Online-Shop')}</li>
+        <li class="nur-blatt">${extern(`${S.shop}/customer/account/login/`, 'Anmelden im Shop')}</li>
         <li><a class="knopf" href="/kontakt.html#formular">Beratung anfragen</a></li>
       </ul>
     </nav>
@@ -98,10 +109,6 @@ ${inhalt}
 
 <footer class="fuss nacht">
   <div class="huelle">
-    <div class="fuss-kopf">
-      <p class="fuss-satz">Präzision beginnt an der Schneide.</p>
-      <a class="knopf" href="/kontakt.html#formular">Beratung anfragen</a>
-    </div>
     <div class="fuss-raster">
       <div>
         <h2 class="fuss-titel">${esc(S.firma)}</h2>
@@ -119,13 +126,25 @@ ${S.bereiche.map((b) => `          <li><a href="/produkte.html#${b.id}">${esc(b.
         </ul>
       </div>
       <div>
+        <h2 class="fuss-titel">Service</h2>
+        <ul class="fuss-liste">
+          <li><a href="/service.html#downloads">Kataloge und Downloads</a></li>
+          <li><a href="/service.html#haendler">Händlernetz</a></li>
+          <li><a href="/service.html#academy">Academy und Termine</a></li>
+          <li><a href="/service.html#toolmanagement">Micro Toolmanagement</a></li>
+          <li>${extern(`${S.basis}/customer/account/login/`, 'Anmelden im Shop', '')}</li>
+        </ul>
+      </div>
+      <div>
         <h2 class="fuss-titel">Unternehmen</h2>
         <ul class="fuss-liste">
           <li><a href="/industrieloesungen.html">Industrielösungen</a></li>
-          <li><a href="/service.html">Service und Academy</a></li>
           <li><a href="/ueber-uns.html">Über OSG</a></li>
           <li><a href="/karriere.html">Karriere</a></li>
           <li><a href="/kontakt.html">Kontakt</a></li>
+        </ul>
+        <ul class="fuss-profile" aria-label="OSG Germany in sozialen Netzwerken">
+${S.profile.map((x) => `          <li><a href="${x.link}" rel="noopener">${x.name}<span class="unsichtbar"> (externe Seite)</span></a></li>`).join('\n')}
         </ul>
       </div>
       <div>
@@ -134,8 +153,8 @@ ${S.bereiche.map((b) => `          <li><a href="/produkte.html#${b.id}">${esc(b.
           <li><a href="/impressum.html">Impressum</a></li>
           <li><a href="/datenschutz.html">Datenschutz</a></li>
           <li>${extern(`${S.basis}/allgemeine-geschaftsbedingungen`, 'AGB', '')}</li>
-          <li>${extern(`${S.basis}/rucknahmebedingungen`, 'Rücknahmebedingungen', '')}</li>
-          <li><a href="https://osg-gmbh.personiowhistleblowing.com/" rel="noopener">Hinweisgebersystem${raus}<span class="unsichtbar"> (externe Seite)</span></a></li>
+          <li>${extern(`${S.basis}/rucknahmebedingungen`, 'Rücknahme&shy;bedingungen', '')}</li>
+          <li><a href="https://osg-gmbh.personiowhistleblowing.com/" rel="noopener">Hinweisgeber&shy;system${raus}<span class="unsichtbar"> (externe Seite)</span></a></li>
         </ul>
       </div>
     </div>
@@ -150,16 +169,19 @@ ${S.bereiche.map((b) => `          <li><a href="/produkte.html#${b.id}">${esc(b.
 </body>
 </html>
 `;
-  writeFileSync(new URL(datei, OUT), html);
+  writeFileSync(new URL(datei, OUT), ohneEndung(html));
 }
 
 // Kopf einer Unterseite (dunkles Band mit H1)
-const seitenKopf = (nr, ueberText, h1, lead, extra = '') => `<section class="seitenkopf nacht" aria-labelledby="titel">
+// Kopf der Unterseiten; mit bild (HTML aus bild()) steht rechts ein Motiv, damit jede Unterseite ein eigenes Gesicht hat (Jury R1)
+const seitenKopf = (nr, ueberText, h1, lead, extra = '', bildHtml = '') => `<section class="seitenkopf nacht${bildHtml ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
-    ${ueber(nr, ueberText)}
-    <h1 id="titel">${h1}</h1>
-    <p class="lead">${lead}</p>
-${extra ? `    ${extra}\n` : ''}  </div>
+    <div class="seitenkopf-text">
+      ${ueber(nr, ueberText)}
+      <h1 id="titel">${h1}</h1>
+      <p class="lead">${lead}</p>
+${extra ? `      ${extra}\n` : ''}    </div>
+${bildHtml ? `    <figure class="seitenkopf-bild">${bildHtml}${kiHinweis()}</figure>\n` : ''}  </div>
   <div class="skala" aria-hidden="true"></div>
 </section>`;
 
@@ -231,7 +253,8 @@ function serieKarte(s) {
           <p class="serie-art">${esc(s.art)}</p>
           <p class="serie-spanne">${esc(s.spanne)}</p>
           <ul class="wchips" aria-label="Geeignete Werkstoffe">${s.werkstoffe.map((w) => `<li class="wchip wchip--${w}">${esc(wName[w])}</li>`).join('')}</ul>
-          <a class="serie-link" href="/produkte.html#serie-${s.id}">Serie ${esc(s.name.replace(/ Serie$/, ''))} ansehen ${pfeil}</a>
+          <p class="serie-links"><a class="serie-link" href="/produkte.html#serie-${s.id}">Serie ${esc(s.name.replace(/ Serie$/, ''))} ansehen ${pfeil}</a>
+          <a class="textlink serie-shop" href="${S.basis}/catalogsearch/result/?q=${encodeURIComponent(s.name.replace(/ Serie$/, ''))}" rel="noopener">Artikel im Shop${raus}<span class="unsichtbar"> (öffnet de.osgeurope.com)</span></a></p>
         </li>`;
 }
 
@@ -249,13 +272,13 @@ function finder() {
     <div class="abschnitt-kopf">
       ${ueber('01', 'Werkzeugfinder')}
       <h2 id="finder-titel" class="einblenden">Welche Serie passt zu Ihrem Werkstoff?</h2>
-      <p class="einblenden">Bearbeitung und Werkstoff wählen – der Finder zeigt die passenden OSG-Serien, sofort und ohne Anmeldung.</p>
+      <p class="einblenden">Bearbeitung und Werkstoff wählen – der Finder zeigt die passenden OSG-Leitserien, sofort und ohne Anmeldung. Er kennt ${SER.length} Serien, deren Werkstoffangaben OSG veröffentlicht; das vollständige Programm mit allen Artikeln steht im Online-Shop.</p>
     </div>
     <div class="finder-form">
       ${chipGruppe('verfahren', 'fv', '1 · Bearbeitung', V)}
       ${chipGruppe('werkstoff', 'fw', '2 · Werkstoff', W)}
     </div>
-    <p class="finder-stand"><span class="finder-zahl">${zahlen.join('')}</span><span class="finder-quelle">Auswahl nach den Werkstoffangaben der Serien</span></p>
+    <p class="finder-stand"><span class="finder-zahl">${zahlen.join('')}</span><span class="finder-quelle">${SER.length} Leitserien · Auswahl nach den Werkstoffangaben von OSG</span></p>
     <p class="unsichtbar" id="finder-ansage" aria-live="polite"></p>
     <ul class="serien">
         ${SER.map(serieKarte).join('\n        ')}
@@ -263,7 +286,7 @@ function finder() {
     <div class="finder-leer">
       <p class="finder-leer-titel">Für diese Kombination zeigt der Finder keine Serie.</p>
       <p>Das heißt nicht, dass es kein Werkzeug gibt: Die Anwendungstechnik findet die passende Lösung – bis hin zum Sonderwerkzeug.</p>
-      <a class="knopf" href="/kontakt.html#formular">Anwendung schildern</a>
+      <a class="knopf finder-anfrage" href="/kontakt#formular">Anwendung schildern</a>
     </div>
     <p class="finder-fuss">Schnittwerte und Sonderlösungen: <a class="textlink" href="/kontakt.html#formular">Anwendungsberatung anfragen</a> · alle Artikel mit EDP-Nummer und Verfügbarkeit ${extern(S.shop, 'im Online-Shop')}</p>
     ${shopSuche('suche-finder', 'Artikel schon bekannt? Direkt im Shop suchen')}
@@ -419,13 +442,13 @@ ${S.termine.map((t) => `          <li class="termin">
 
   const org = {
     '@type': 'Organization', name: S.firma, url: `${S.basis}/`,
-    logo: `${S.basis}/medien/osg-logo.svg`, email: S.email, telephone: S.telefon_anzeige,
+    logo: `${S.basis}/medien/osg-logo.svg`, sameAs: S.profile.map((x) => x.link), email: S.email, telephone: S.telefon_anzeige,
     address: { '@type': 'PostalAddress', streetAddress: S.strasse, postalCode: S.plz, addressLocality: S.ort, addressCountry: 'DE' },
   };
   const web = { '@type': 'WebSite', name: 'OSG Germany', url: `${S.basis}/` };
   seite('index.html', {
     titel: 'OSG Germany – Gewindebohrer, Bohrer und Fräser aus Göppingen',
-    beschreibung: 'Präzisionswerkzeuge von OSG: Gewindebohrer, Bohrer, Fräser, WSP-Werkzeuge, Reibahlen und Gewindelehren – mit Werkzeugfinder, Anwendungsberatung und Micro Toolmanagement.',
+    beschreibung: 'OSG-Präzisionswerkzeuge aus Göppingen: Gewindebohrer, Bohrer, Fräser, WSP und Reibahlen – mit Werkzeugfinder, Anwendungsberatung und Toolmanagement.',
     start: true, extraCss: ['finder.css'],
     jsonld: JSON.stringify({ '@context': 'https://schema.org', '@graph': [org, web] }).replace(/</g, '\\u003c'),
     inhalt: [held, finder(), bereiche, bericht, branchen, service, ctaBand('Sprechen Sie mit der Anwendungstechnik.', 'Werkstoff, Bauteil, Maschine – schildern Sie Ihre Bearbeitung. Wir empfehlen Serie, Schnittwerte oder ein Sonderwerkzeug.')].join('\n\n'),
@@ -456,10 +479,10 @@ ${s.aufstellung.length ? `      <h4>Aufstellung</h4>
 ${s.aufstellung.map(([a, b]) => `          <tr><th scope="row">${esc(a)}</th><td>${esc(b)}</td></tr>`).join('\n')}
         </tbody>
       </table>` : ''}
-      <p class="serie-wege">${extern(s.link, `${esc(s.name)} im Shop: Flyer, Film, Artikel`)} <a class="textlink" href="/kontakt.html#formular">Beratung zur ${esc(s.name)} ${pfeil}</a></p>
+      <p class="serie-wege">${extern(s.link, `${esc(s.name)} im Shop: Flyer, Film, Artikel`)} <a class="textlink" href="/kontakt?serie=${encodeURIComponent(s.name)}#formular">Beratung zur ${esc(s.name)} ${pfeil}</a></p>
     </article>`;
   const inhalt = `${seitenKopf('P', 'Produkte', 'Werkzeuge für Gewinden, Bohren und Fräsen', 'Sechs Produktbereiche, dazu die A Brand und die Marken der OSG-Gruppe. Jeder Artikel mit EDP-Nummer und Verfügbarkeit im Online-Shop.', `<p class="seitenkopf-wege"><a class="knopf" href="/#finder">Werkzeugfinder öffnen</a> ${extern(S.shop, 'Zum Online-Shop', 'knopf zweit')}</p>
-    ${shopSuche('suche-produkte')}`)}
+    ${shopSuche('suche-produkte')}`, bild('produkte', 'Vier Vollhartmetall-Werkzeuge nebeneinander auf gebürstetem Stahl: Gewindebohrer, Bohrer mit Kühlkanälen, beschichteter Schaftfräser und Reibahle', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }))}
 
 <section class="abschnitt" aria-labelledby="bereiche-titel">
   <div class="huelle">
@@ -522,7 +545,7 @@ ${ctaBand('Welche Serie für Ihr Bauteil?', 'Schildern Sie Werkstoff, Bearbeitun
 // Industrielösungen
 // =====================================================================
 function industrie() {
-  const inhalt = `${seitenKopf('I', 'Industrielösungen', 'Industrielösungen', 'Sechs Branchen, typische Bauteile und die Werkzeuge, die OSG dafür einsetzt – bis hin zu Sonderwerkzeugen über den Außendienst.', `<nav class="sprungleiste" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b) => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('')}</ul></nav>`)}
+  const inhalt = `${seitenKopf('I', 'Industrielösungen', 'Industrielösungen', 'Sechs Branchen, typische Bauteile und die Werkzeuge, die OSG dafür einsetzt – bis hin zu Sonderwerkzeugen über den Außendienst.', `<nav class="sprungleiste" aria-label="Branchen auf dieser Seite"><ul>${S.branchen.map((b) => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('')}</ul></nav>`, bild('branchen', 'Kugelkopffräser bearbeitet die Schaufeln eines Titan-Laufrads in einem 5-Achs-Bearbeitungszentrum, Kühlschmierstoff spritzt', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }))}
 
 <div class="huelle branchen-seite">
 ${S.branchen.map((b, i) => `  <section class="branche-block" id="${b.id}" aria-labelledby="h-${b.id}">
@@ -538,7 +561,14 @@ ${S.branchen.map((b, i) => `  <section class="branche-block" id="${b.id}" aria-l
       <tbody>
 ${b.bauteile.map(([t, w]) => `        <tr><th scope="row">${esc(t)}</th><td>${esc(w)}</td></tr>`).join('\n')}
       </tbody>
-    </table>
+    </table>${b.id === 'luftfahrt' ? `
+    <aside class="branche-bericht" aria-label="Anwenderbericht">
+      <p class="branche-bericht-kopf">Anwenderbericht · ${esc(S.bericht.kunde)}</p>
+      <p class="branche-bericht-titel">${esc(S.bericht.titel)}</p>
+      <p class="branche-bericht-zahl"><span>${S.bericht.vorher} → ${S.bericht.nachher}</span> ${esc(S.bericht.einheit)}</p>
+      <p>${esc(S.bericht.text)}</p>
+      ${extern(S.bericht.link, 'Bericht lesen')}
+    </aside>` : ''}
   </section>`).join('\n')}
 </div>
 
@@ -693,7 +723,7 @@ ${ctaBand('Mit OSG arbeiten', 'Als Kunde mit der Anwendungstechnik – oder im T
 // =====================================================================
 function karriere() {
   const K = S.karriere;
-  const inhalt = `${seitenKopf('K', 'Karriere', 'Karriere bei OSG', 'Werde Teil eines wachsenden, internationalen Unternehmens – in Göppingen, mit Kolleginnen und Kollegen in 33 Ländern.', extern(K.jobs, 'Offene Stellen in der Jobbörse', 'knopf'))}
+  const inhalt = `${seitenKopf('K', 'Karriere', 'Karriere bei OSG', 'Werden Sie Teil eines wachsenden, internationalen Unternehmens – in Göppingen, mit Kolleginnen und Kollegen in 33 Ländern.', extern(K.jobs, 'Offene Stellen in der Jobbörse', 'knopf'), bild('karriere', 'Hände eines Technikers setzen einen Schaftfräser in ein Einstell- und Messgerät, auf dem Bildschirm die vergrößerte Werkzeugkontur', '(min-width: 64rem) 40vw, 100vw', { w: 1200, h: 797, lazy: false }))}
 
 <section class="abschnitt" aria-labelledby="benefits-titel">
   <div class="huelle">
@@ -752,6 +782,7 @@ function kontakt() {
       <div class="feld"><label for="f-name">Name *</label><input id="f-name" name="name" type="text" autocomplete="name" required maxlength="100"></div>
       <div class="feld"><label for="f-firma">Firma</label><input id="f-firma" name="firma" type="text" autocomplete="organization" maxlength="120"></div>
       <div class="feld"><label for="f-email">E-Mail *</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+      <div class="feld"><label for="f-telefon">Telefon <span class="feld-optional">(für einen Rückruf)</span></label><input id="f-telefon" name="telefon" type="tel" autocomplete="tel" maxlength="40" pattern="\+?[0-9 \(\)\/\-]{5,40}"></div>
       <div class="feld"><label for="f-anliegen">Anliegen</label>
         <select id="f-anliegen" name="anliegen">
 ${ANLIEGEN.map((a) => `          <option>${esc(a)}</option>`).join('\n')}

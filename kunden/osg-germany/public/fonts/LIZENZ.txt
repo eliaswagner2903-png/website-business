@@ -1,3 +1,3 @@
-Fraunces (Undercase Type) und Instrument Sans (Instrument): SIL Open Font License 1.1.
-Quelle: npm @fontsource-variable/fraunces und @fontsource-variable/instrument-sans (Version 5.3).
+Archivo (Omnibus-Type, variabel wght 300–800, wdth 75–100) und IBM Plex Mono 500 (IBM): SIL Open Font License 1.1.
+Beide als Teilmenge (Latin, Latin Extended-A, Satzzeichen) per fontTools/pyftsubset erzeugt, sonst unverändert.
 Lizenztext: https://openfontlicense.org

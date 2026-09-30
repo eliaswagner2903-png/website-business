@@ -55,7 +55,7 @@ test('Kontakt: Fehler, die ein Mensch sieht, kommen als gestaltete HTML-Seite mi
     assert.match(html, /^<!DOCTYPE html>\n<html lang="de">/);
     assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
     assert.match(html, /<link rel="stylesheet" href="\/css\/stil\.css">/);
-    assert.ok(html.includes('<a class="knopf" href="/kontakt.html#formular">Zurück zum Formular</a>'), 'Rückweg zum Formular fehlt');
+    assert.ok(html.includes('<a class="knopf" href="/kontakt#formular">Zurück zum Formular</a>'), 'Rückweg zum Formular fehlt');
     assert.doesNotMatch(html, /\sstyle=|<script/, 'kein Inline-Stil/-Skript (CSP)');
   }
 });
@@ -76,6 +76,8 @@ test('Kontakt: Firma und Anliegen reisen mit, fremdes Anliegen wird „Sonstiges
   assert.equal(d.firma, 'Muster GmbH'); assert.equal(d.anliegen, 'Micro Toolmanagement');
   assert.equal(pruefeFelder(f({ name: 'A', email: 'a@b.de', anliegen: '<script>', nachricht: 'Hallo du' })).daten.anliegen, 'Sonstiges');
   assert.ok(pruefeFelder(f({ name: 'A', firma: 'x\nBcc: y', email: 'a@b.de', nachricht: 'Hallo du' })).spam);
+  assert.equal(pruefeFelder(f({ name: 'A', email: 'a@b.de', telefon: '+49 7161 6064-0', nachricht: 'Hallo du' })).daten.telefon, '+49 7161 6064-0');
+  assert.ok(pruefeFelder(f({ name: 'A', email: 'a@b.de', telefon: 'ruf an!', nachricht: 'Hallo du' })).fehler, 'Telefon nur Ziffern');
   const html = readFileSync(new URL('../public/kontakt.html', import.meta.url), 'utf8');
   const optionen = [...html.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]);
   assert.deepEqual(optionen, ANLIEGEN);
