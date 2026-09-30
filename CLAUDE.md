@@ -35,6 +35,7 @@ Prioritäten: 1 Website-Erstellung · 2 Server/Hosting · 3 Wartung/Abo · 4 Gew
 | `wissen/fachgebiete/` | Qualitätssystem: Regeln je Fachgebiet (SEO, Local SEO, GEO, Schema, CRO, A11y, Performance, Analytics, Sicherheit) mit Prioritäten und Quellen (`wissen/quellen/`) |
 | `wissen/referenzen/` | Berichte über fremde Websites (Hfw Fortenbacher), Muster-Katalog, Referenzliste für künftige Projekte |
 | `wissen/agenten-bibliothek/` | Katalog agency-agents (MIT, 279 Rollen, Englisch) – nur bei Bedarf nachschlagen, nicht vor dem Bauen lesen |
+| `wissen/youtube/` | YouTube-Lernsystem: gelerntes Videowissen (Quelle je Video, Konzepte, Index); Anleitung `README.md`, Werkzeug `werkzeuge/youtube.py` |
 | `vertrieb/` | Weg zum ersten Kunden: Pilotangebot, Marktpreise, Startklar-Liste, Verkaufsmappen je Kandidat |
 | `BUSINESSPLAN.md` | Business-Plan OQ: Angebot, Kunden, Preis, Fahrplan, offene Entscheidungen |
 | `ops/` | Auftragslog, Liste für den Nutzer, Erklärung wie Claude arbeitet |
@@ -60,6 +61,7 @@ Nie Rankings oder KI-Empfehlungen versprechen.
 
 | Agent | Modell | Auftrag |
 |---|---|---|
+| `youtube-lernagent` | sonnet | Aus YouTube-Videos Wissen bauen (`wissen/youtube/`) |
 | `visual-higgsfield` | sonnet | Visuals erzeugen und leistungsschonend einbauen |
 | `security-auditor` | sonnet | eigenen Code defensiv prüfen |
 | `wartungsoffizier` | haiku | wöchentliche Betreuung, Berichte |
@@ -84,6 +86,8 @@ Agents nur ansetzen, wenn es sich lohnt (parallele Teilaufgaben, eigener Kontext
 | `/referenz` | Aufklärungsbericht auswerten, Muster ins System, Referenzliste |
 | `/wartung` | Betreuungslauf aller Kundenseiten |
 | `/sichern` | Log, Prüfen, Commit, Push, PR, Merge-Vorschlag |
+| `/youtube-lernen` | Aus Video, Playlist, Kanal oder Thema lernen → `wissen/youtube/` |
+| `/youtube-wissen` | Gelerntes suchen, vergleichen, auf eine Aufgabe anwenden (nie alles laden) |
 | `/nachtrag` | Neues als datierten Nachtrag in den Papier-Lagebericht (Register A–H) einheften, nie Bestehendes ersetzen |
 
 ## Arbeitsweise mit dem Nutzer

@@ -15,5 +15,9 @@ case "$f" in
     [ -d "$seite/tests" ] || exit 0
     out=$(cd "$seite" && node --test tests/*.test.mjs 2>&1) || { echo "Tests in $seite schlagen fehl:" >&2; echo "$out" | grep -E '^not ok|Error|assert' | head -20 >&2; exit 2; }
     exit 0;;
+  */wissen/youtube/*.md)
+    case "$f" in */index.md|*/README.md|*/VORLAGE.md) exit 0;; esac
+    out=$(python3 werkzeuge/youtube.py pruefen "$f" 2>&1) || { echo "YouTube-Wissensdatei mit Mängeln (Format: wissen/youtube/VORLAGE.md):" >&2; echo "$out" | grep -E '^MANGEL|^   -' >&2; exit 2; }
+    exit 0;;
 esac
 exit 0
