@@ -81,7 +81,7 @@ const telLink = (klasse = '', mitIcon = false) => `<a class="${klasse}" href="${
 const mailLink = (klasse = '') => `<a class="${klasse}" href="mailto:${studio.email}" ${pruefMail}>${studio.email.replace('@', '<wbr>@')}</a>`;
 const navPunkte = [['/#arbeiten', 'Arbeiten'], ['/#handwerk', 'Handwerk'], ['/#leistungen', 'Leistungen'], ['/#ablauf', 'Ablauf'], ['/#kontakt', 'Kontakt']];
 
-// Strukturierte Daten (JSON-LD) nur für die Startseite, nur aus sichtbaren Angaben; die Beschreibung nennt die Demo.
+// Strukturierte Daten (JSON-LD) nur für die Startseite, nur aus sichtbaren Angaben.
 // JSON-LD wird nicht ausgeführt (kein CSP-Hash nötig); "<" wird maskiert, damit nichts das Skript-Element schließt.
 const ldJson = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 const [plz, ...ortTeile] = studio.adresse[1].split(' ');
@@ -89,7 +89,6 @@ const LD = ldJson({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: studio.name,
-  description: studio.demoLang,
   url: `${studio.domain}/`,
   email: studio.email,
   telephone: studio.telefonAnzeige,
@@ -126,7 +125,6 @@ function kopf({ titel, beschreibung, pfad, robots = 'index, follow' }) {
 <body data-seite="${pfad}">
 <div id="pruefen"></div>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
-<p class="demo-band"><span class="demo-band-marke">Demo</span> <span>${esc(studio.demoHinweis)}</span></p>
 <header class="kopf">
   <a class="wortmarke" href="/" aria-label="${esc(studio.name)}, zur Startseite">${studio.wortmarke[0]}<span class="wortmarke-strich">/</span>${studio.wortmarke[1]}</a>
   <nav class="nav" aria-label="Hauptnavigation">
@@ -142,7 +140,6 @@ function fuss() {
   return `<footer class="fuss">
   <div class="huelle fuss-raster">
     <p class="fuss-marke" aria-hidden="true">${studio.wortmarke[0]}<span class="wortmarke-strich">/</span>${studio.wortmarke[1]}</p>
-    <p class="fuss-demo"><span class="demo-band-marke">Demo</span> ${esc(studio.demoLang)}</p>
     <ul class="fuss-links">
       ${navPunkte.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('')}
     </ul>
@@ -150,7 +147,7 @@ function fuss() {
       <li><a href="/impressum.html">Impressum</a></li>
       <li><a href="/datenschutz.html">Datenschutz</a></li>
     </ul>
-    <p class="fuss-klein">© 2026 ${esc(studio.name)} – ein ausgedachtes Studio. Gebaut als Beispiel für Typografie und Bewegung im Web.</p>
+    <p class="fuss-klein">© 2026 ${esc(studio.name)}</p>
   </div>
 </footer>
 <div class="schnell">
@@ -342,7 +339,7 @@ function projektseite(p, i) {
   const naechstes = projekte[(i + 1) % projekte.length];
   const bilder = [0, 1 / 3, 2 / 3, 1].map((t, j) => `
         <li class="bildfolge-bild"><div class="bildfolge-rahmen">${plakat(p, t, `${p.kunde}, Schlüsselbild ${j + 1}`)}</div><p class="werk-meta">Schlüsselbild ${j + 1} · ${(t * 3).toFixed(1).replace('.', ',')} s</p></li>`).join('');
-  return kopf({ titel: `${p.kunde} – Projekt von Zwischenbild (Demo)`, beschreibung: `Demo-Projekt eines ausgedachten Studios: ${p.leistung} für ${p.kunde} (${p.branche}, erfunden). ${p.kurz}`, pfad: `projekt-${p.slug}` }) + `
+  return kopf({ titel: `${p.kunde} – Projekt von Zwischenbild`, beschreibung: `Projekt von Zwischenbild: ${p.leistung} für ${p.kunde} (${p.branche}). ${p.kurz}`, pfad: `projekt-${p.slug}` }) + `
 <main id="inhalt" class="projekt">
   <div class="huelle">
     <p class="zurueck"><a class="knopf knopf--rand knopf--klein" href="/#arbeiten">${icon.zurueck} Alle Arbeiten</a></p>
@@ -352,7 +349,7 @@ function projektseite(p, i) {
         <h1 class="projekt-titel rand${lsb(p.kunde)} titel--${p.slug}">${esc(p.kunde)}</h1>
         <p class="lead">${esc(p.kurz)}</p>
         <dl class="projekt-fakten">
-          <div><dt>Kunde</dt><dd data-pruefen="Ausgedachter Kunde (Demo)">${esc(p.branche)} (erfunden)</dd></div>
+          <div><dt>Kunde</dt><dd data-pruefen="Ausgedachter Kunde (Demo)">${esc(p.branche)}</dd></div>
           <div><dt>Jahr</dt><dd>${p.jahr}</dd></div>
           <div><dt>Dauer</dt><dd>${esc(p.dauer)}</dd></div>
         </dl>
@@ -388,7 +385,7 @@ function projektseite(p, i) {
 
 // ---------- Einfache Seiten ----------
 function textseite(datei, titel, h1, inhalt, robots) {
-  return kopf({ titel: `${titel} – Zwischenbild (Demo)`, beschreibung: `${titel} der Demo-Seite des ausgedachten Studios Zwischenbild.`, pfad: datei, robots }) + `
+  return kopf({ titel: `${titel} – Zwischenbild`, beschreibung: `${titel} des Motion-Design-Studios Zwischenbild.`, pfad: datei, robots }) + `
 <main id="inhalt" class="textseite">
   <div class="huelle">
     <h1 class="textseite-titel rand${lsb(h1)}">${h1}</h1>
@@ -404,7 +401,7 @@ export function seiten() {
   const s = {
     'index.html': startseite(),
     'impressum.html': textseite('impressum', 'Impressum', 'Impressum', platzhalter('Impressumstext')),
-    'datenschutz.html': textseite('datenschutz', 'Datenschutz', 'Datenschutz', platzhalter('Datenschutztext') + '<p>Diese Demo setzt keine Cookies, lädt keine fremden Schriften oder Skripte und zählt keine Besuche.</p>'),
+    'datenschutz.html': textseite('datenschutz', 'Datenschutz', 'Datenschutz', platzhalter('Datenschutztext') + '<p>Diese Seite setzt keine Cookies, lädt keine fremden Schriften oder Skripte und zählt keine Besuche.</p>'),
     '404.html': textseite('404', 'Seite nicht gefunden', 'Dieses Bild fehlt in der Folge.', '<p class="lead">Die Adresse gibt es nicht (mehr). Vielleicht hilft die Startseite weiter.</p>', 'noindex'),
   };
   projekte.forEach((p, i) => { s[`projekt-${p.slug}.html`] = projektseite(p, i); });

@@ -66,18 +66,6 @@ p { margin: 0 0 1em; }
   .knopf[disabled]:hover::after { transform: scaleX(0); }
 }
 
-/* Demo-Band */
-.demo-band {
-  margin: 0; padding: 9px 16px 10px; text-align: center; font-size: .72rem; letter-spacing: .12em; line-height: 1.5;
-  color: var(--farbe-leise); border-bottom: 1px solid var(--farbe-linie); background: var(--farbe-flaeche);
-}
-.demo-band__mehr { display: none; }
-@media (min-width: 600px) { .demo-band__mehr { display: inline; } }
-.demo-band__marke {
-  display: inline-block; margin-right: .6em; padding: 1px 8px; border: 1px solid var(--farbe-akzent); border-radius: var(--radius-klein);
-  color: var(--farbe-akzent); font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-}
-
 /* Kopf */
 .kopf { border-bottom: 1px solid var(--farbe-linie); }
 .kopf__zeile { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; padding-top: 10px; }
@@ -320,11 +308,9 @@ details p { color: var(--farbe-leise); padding-bottom: 20px; margin: 0; }
 .fuss { padding-block: 56px 40px; border-top: 1px solid var(--farbe-linie); font-size: .92rem; color: var(--farbe-leise); }
 .fuss__raster { display: grid; gap: 20px; }
 .marke--fuss { color: var(--farbe-text); margin: 0; }
-.fuss__demo { max-width: 60ch; margin: 0; }
-.fuss__demo strong { color: var(--farbe-akzent); font-weight: 600; }
 .fuss__links { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .fuss__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; margin-left: -8px; }
-@media (min-width: 960px) { .fuss__raster { grid-template-columns: auto 1fr auto; align-items: center; gap: 48px; } }
+@media (min-width: 960px) { .fuss__raster { grid-template-columns: auto auto; justify-content: space-between; align-items: center; gap: 48px; } }
 
 /* Feste Leiste auf dem Handy */
 .schnell {

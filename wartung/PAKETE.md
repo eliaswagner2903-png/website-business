@@ -3,19 +3,32 @@
 Die Website selbst wird einmalig berechnet (Werkvertrag). Das Abo ist ein eigener Dienstleistungsvertrag, monatlich
 über Stripe Billing. Preise legst du fest; unten stehen die Kosten, die jedes Paket decken muss.
 
-## Pakete (Entwurf, Preise offen)
+## Aufbau des Abos (Elias 2026-09-30)
 
-| | Basis | Plus | Premium |
-|---|---|---|---|
-| Hosting, Domain, SSL, E-Mail-Weiterleitung | ✓ | ✓ | ✓ |
-| Wöchentliche Prüfung (Erreichbarkeit, Header, Zertifikat) | ✓ | ✓ | ✓ |
-| Sicherheits- und Abhängigkeits-Updates | ✓ | ✓ | ✓ |
-| Monatlicher Kurzbericht | ✓ | ✓ | ✓ |
-| Inhaltsänderungen pro Monat | – | bis 1 Std. | bis 3 Std. |
-| Fernspäher-Tiefenprüfung (Design, Technik, SEO) | jährlich | quartalsweise | monatlich |
-| Neue Visuals (Higgsfield) | – | – | 1× pro Quartal |
-| Antwortzeit bei Störung | 2 Werktage | 1 Werktag | 4 Std. werktags |
-| Online-Terminbuchung und Zahlungen betreuen | – | ✓ | ✓ |
+Die Seite kostet **einmalig** (Sp). Der Kunde bekommt sie samt Bildern geschickt und kann sie selbst hosten. Das Abo ist
+**optional**: Elias schaut monatlich über die Seite und hält sie online. Der Kunde wählt dazu Leistungen, der Monatspreis
+steigt mit jeder Wahl. Ein Mietmodell ohne Einmalpreis gibt es nicht.
+
+```
+Monatspreis = Grundbetreuung + gewählte Wahlleistungen + Serverkosten
+```
+
+**Grundbetreuung** (immer im Abo, Pilotpreis 49 €/Monat): Hosting, Domain, SSL, E-Mail-Weiterleitung, wöchentliche
+Prüfung (Erreichbarkeit, Header, Zertifikat), Sicherheits- und Abhängigkeits-Updates, monatlicher Kurzbericht.
+
+**Wahlleistungen** (je Monat; nur Kundenfragen ist von Elias genannt, alle übrigen Werte Platzhalter):
+
+| Wahlleistung | Was Elias tut | Aufschlag |
+|---|---|---|
+| Kundenfragen beantworten | übernimmt Anfragen vom Formular und beantwortet sie im Namen des Betriebs | **+100 €** *(Beispiel von Elias)* |
+| Inhaltsänderungen | Texte, Preise, Bilder ändern, bis 1 bzw. 3 Stunden | +60 € / +150 € |
+| Termine und Zahlungen betreuen | Online-Buchung und Stripe überwachen, Störungen beheben | +40 € |
+| Tiefenprüfung | Fernspäherkommando prüft Design, Technik, SEO: quartalsweise / monatlich | +25 € / +60 € |
+| Neue Visuals | 1× pro Quartal ein neues Bild oder kurzer Film | +50 € |
+| Schnelle Antwort bei Störung | 4 Std. werktags statt 2 Werktage | +30 € |
+
+**Serverkosten** kommen dazu (durchgereicht nach Verbrauch oder als Pauschale; Entscheidung offen, bei reinen
+Cloudflare-Pages-Seiten meist 0 €).
 
 ## Kosten, die im Preis stecken müssen
 

@@ -16,7 +16,7 @@
     "foto": "Foto von Elias liefern (kein Stockfoto)",
     "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
     "preis_website": "Preis für die Website festlegen (PAKETE.md nennt keinen Preis)",
-    "preis_abo": "Monatspreis festlegen (PAKETE.md: Preise offen)",
+    "preis_abo": "Monatspreis festlegen: Grundbetreuung plus Wahlleistungen plus Serverkosten (wartung/PAKETE.md, Preise offen)",
     "urfa": "Freigabe des Restaurants für Referenz einholen",
     "link": "Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist",
     "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
@@ -32,7 +32,7 @@
       "name": "Lotlinie",
       "branche": "Physiotherapie",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Praxis, Namen und Preise sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
       "punkte": [
         "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
@@ -57,7 +57,7 @@
       "name": "Zwischenbild",
       "branche": "Studio für Motion-Design",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Studio und Projekte sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.",
       "punkte": [
         "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
@@ -82,7 +82,7 @@
       "name": "Lindgrund",
       "branche": "Uhrmacherei",
       "art": "Musterseite",
-      "art_lang": "Musterseite – Manufaktur, Modell und Preise sind ausgedacht",
+      "art_lang": "Musterseite",
       "satz": "Die Uhr steht als 3D-Modell im ersten Bildschirm und dreht sich mit.",
       "punkte": [
         "3D-Uhr im Browser, erst Standbild, dann Szene – pausiert außerhalb des Bildschirms",
@@ -127,135 +127,16 @@
       "link": ""
     }
   ],
-  "leistungen": [
-    {
-      "mass": "≥ 95",
-      "einheit": "Lighthouse mobil",
-      "titel": "Mobil zuerst",
-      "text": "Geprüft von 320 bis 1920 Pixel, Kontakt in einer festen Leiste."
-    },
-    {
-      "mass": "0",
-      "einheit": "Cookies, Tracker, fremde Skripte",
-      "titel": "Datenschutz ohne Umwege",
-      "text": "Schriften vom eigenen Server, keine Analyse-Werkzeuge."
-    },
-    {
-      "mass": "CSP",
-      "einheit": "strenge Sicherheitsregeln",
-      "titel": "Sicherheit ab dem ersten Tag",
-      "text": "Nur eigener Code läuft, Formulare mit Spam-Falle."
-    },
-    {
-      "mass": "≤ 500",
-      "einheit": "KB bis zur ersten Ansicht",
-      "titel": "Leicht, auch mit 3D und Video",
-      "text": "Erst ein Standbild, Film und 3D laden danach."
-    },
-    {
-      "mass": "Stripe",
-      "einheit": "Checkout",
-      "titel": "Termine und Zahlungen",
-      "text": "Kartendaten berühren die Website nie."
-    },
-    {
-      "mass": "AA",
-      "einheit": "WCAG-Kontrast",
-      "titel": "Für alle bedienbar",
-      "text": "Mit Tastatur, Bildschirmleser und ohne JavaScript."
-    }
-  ],
-  "pakete": {
-    "zeilen": [
-      [
-        "Hosting, Domain, SSL, E-Mail-Weiterleitung",
-        "✓",
-        "✓",
-        "✓"
-      ],
-      [
-        "Wöchentliche Prüfung (Erreichbarkeit, Header, Zertifikat)",
-        "✓",
-        "✓",
-        "✓"
-      ],
-      [
-        "Sicherheits- und Abhängigkeits-Updates",
-        "✓",
-        "✓",
-        "✓"
-      ],
-      [
-        "Monatlicher Kurzbericht",
-        "✓",
-        "✓",
-        "✓"
-      ],
-      [
-        "Inhaltsänderungen pro Monat",
-        "–",
-        "bis 1 Std.",
-        "bis 3 Std."
-      ],
-      [
-        "Tiefenprüfung (Design, Technik, SEO)",
-        "jährlich",
-        "quartalsweise",
-        "monatlich"
-      ],
-      [
-        "Neue Visuals",
-        "–",
-        "–",
-        "1× pro Quartal"
-      ],
-      [
-        "Antwortzeit bei Störung",
-        "2 Werktage",
-        "1 Werktag",
-        "4 Std. werktags"
-      ],
-      [
-        "Online-Terminbuchung und Zahlungen betreuen",
-        "–",
-        "✓",
-        "✓"
-      ]
-    ],
-    "namen": [
-      "Basis",
-      "Plus",
-      "Premium"
-    ]
-  },
-  "ablauf": [
-    {
-      "titel": "Briefing",
-      "text": "Wir klären Betrieb, Kundschaft und Ziel. Unsicheres bleibt markiert."
-    },
-    {
-      "titel": "Entwurf",
-      "text": "Sie sehen zwei bis drei Richtungen und entscheiden."
-    },
-    {
-      "titel": "Abnahme",
-      "text": "Ich messe nach, Sie bekommen die Werte und geben frei."
-    },
-    {
-      "titel": "Betreuung",
-      "text": "Wöchentliche Prüfung, monatlicher Bericht, Änderungen im Abo."
-    }
-  ],
   "kino": [
     {
       "id": "gebaut",
       "wort": "Gebaut.",
-      "text": "Eigener Code und ein Leitmotiv aus der Welt des Betriebs: Lot, Zeitleiste, Zifferblatt."
+      "text": "Ein Leitmotiv pro Betrieb, eigener Code."
     },
     {
       "id": "gemessen",
       "wort": "Gemessen.",
-      "text": "Vor der Übergabe nachgemessen, nicht geschätzt.",
+      "text": "Vor der Übergabe nachgemessen.",
       "werte": [
         [
           "≥ 95",
@@ -266,15 +147,15 @@
           "Tracker und Cookies"
         ],
         [
-          "≤ 500",
-          "KB bis zur ersten Ansicht"
+          "1 Person",
+          "von der Idee bis zum Start"
         ]
       ]
     },
     {
       "id": "betreut",
       "wort": "Betreut.",
-      "text": "Jede Woche geprüft, Technik aktuell, Änderungen inklusive."
+      "text": "Auf Wunsch bleibe ich dran."
     }
   ],
   "konfigurator": {
@@ -533,7 +414,7 @@
           ],
           [
             "Mit Bildern",
-            "Dazu passende Bilder und Grafiken, KI-Bilder sichtbar gekennzeichnet."
+            "Dazu passende Bilder und Grafiken."
           ],
           [
             "Komplett",
@@ -554,7 +435,7 @@
           ],
           [
             "Sicher",
-            "Updates und eine wöchentliche Prüfung."
+            "Ich halte die Seite online: Updates und eine wöchentliche Prüfung."
           ],
           [
             "Mit Bericht",
@@ -566,7 +447,7 @@
           ],
           [
             "Vorrang",
-            "Dazu schnelle Antwort und laufende Weiterentwicklung."
+            "Dazu beantworte ich Ihre Kundenfragen und reagiere schnell bei Störungen."
           ]
         ]
       }
@@ -578,5 +459,24 @@
       "Galerie",
       "Kontakt"
     ]
+  },
+  "betreuung": {
+    "seite": {
+      "titel": "Die Seite",
+      "text": "Einmalig. Sie bekommen die fertige Seite samt Bildern."
+    },
+    "abo": {
+      "titel": "Betreuung nach Wahl",
+      "text": "Optional, monatlich. Ich halte die Seite online und schaue regelmäßig darüber. Sie wählen, was ich zusätzlich übernehme.",
+      "wahl": [
+        "Kundenfragen beantworten",
+        "Inhalte ändern",
+        "Termine und Zahlungen betreuen",
+        "Tiefenprüfung",
+        "Neue Visuals",
+        "Schnelle Antwort bei Störung"
+      ],
+      "hinweis": "Jede Wahl erhöht den Monatspreis, dazu kommen die Serverkosten."
+    }
   }
 }

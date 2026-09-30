@@ -6,11 +6,10 @@
 import { playwright } from './_playwright.mjs';
 import { KLASSEN, leseKlasse } from './budgetklasse.mjs';
 const flags = process.argv.slice(2).filter(a => a.startsWith('--')); const [ordner, port = '8080', seite = 'index.html'] = process.argv.slice(2).filter(a => !a.startsWith('--'));
-const klasse = leseKlasse(ordner || '.', flags.find(f => f.startsWith('--klasse='))?.slice(9));
-if (!KLASSEN[klasse]) { console.log(`Unbekannte Klasse „${klasse}“ (schlank, erlebnis, kino)`); process.exit(1); }
+let klasse; try { klasse = leseKlasse(ordner || '.', flags.find(f => f.startsWith('--klasse='))?.slice(9)); } catch (e) { console.log(e.message); process.exit(1); }
 if (!ordner) { console.log('Aufruf: node werkzeuge/budget.mjs <ordner> [port] [seite]'); process.exit(1); }
 const url = `http://localhost:${port}/${seite}`;
-const { perf: _perf, ...GRENZEN } = KLASSEN[klasse];
+const { perf: _perf, bildMax: _bild, ...GRENZEN } = KLASSEN[klasse];
 // jsNachgeladen: JavaScript, das erst NACH dem load-Ereignis angefragt wird (z. B. 3D-Szene), plus das JS davor.
 
 const { chromium } = await playwright(); const b = await chromium.launch();

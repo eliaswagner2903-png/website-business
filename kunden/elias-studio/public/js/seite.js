@@ -1,19 +1,6 @@
 // Seitenskript der Portfolio-Seite. Die Seite funktioniert vollständig ohne JavaScript.
 // Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), der Film aus js/kino.js.
 (() => {
-  // Startseite: Schnellleiste erst zeigen, wenn die Knöpfe im Hero aus dem Bild sind
-  function leiste() {
-    const leiste = document.querySelector('.seite-start .schnell');
-    const ziel = document.querySelector('.held-aktionen');
-    if (!leiste || !ziel || !('IntersectionObserver' in window)) return;
-    // Auch im Generator weg, sonst deckt sie auf dem Handy Zurück/Weiter ab
-    const gen = document.querySelector('.generator');
-    let imHeld = true, imGen = false;
-    const setze = () => { const weg = imHeld || imGen; leiste.classList.toggle('schnell--weg', weg); leiste.inert = weg; };
-    new IntersectionObserver(([e]) => { imHeld = e.isIntersecting || e.boundingClientRect.top > 0; setze(); }).observe(ziel);
-    if (gen) new IntersectionObserver(([e]) => { imGen = e.isIntersecting; setze(); }).observe(gen);
-  }
-
   // Tag/Nacht: Schema „nacht“ aus marke.css, gemerkt im Browser (Kopf-Skript setzt es vor dem ersten Bild)
   function schema() {
     const knopf = document.querySelector('.schema-knopf');
@@ -187,7 +174,6 @@
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');
     pruefen();
     addEventListener('hashchange', pruefen);
-    leiste();
     schema();
     buehne();
     generator();

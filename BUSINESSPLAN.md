@@ -36,8 +36,7 @@ Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
 | Leistung | Was der Kunde bekommt | Preis |
 |---|---|---|
 | **Website (Sp)** | eigene Seite nach Konfigurator-Auswahl, mobil zuerst, schnell, barrierearm, DSGVO-schonend | einmalig, per Formel |
-| **Betreuungs-Abo (AM)** | Hosting, Domain, SSL, wöchentliche Prüfung, Updates, Bugfixes, Sicherheit, Bericht; je nach Paket Änderungsstunden und neue Visuals | monatlich, Pakete Basis / Plus / Premium |
-| **Mietmodell** *(Vorschlag)* | Seite ohne Einmalpreis, dafür höhere Monatsrate mit Mindestlaufzeit | Miete = AM + Sp · 1,1 / 24 |
+| **Betreuungs-Abo (AM)**, optional | Elias schaut monatlich über die Seite und hält sie online (Hosting, SSL, Prüfung, Updates, Bericht); dazu wählbare Leistungen, z. B. Kundenfragen beantworten | monatlich: Grundbetreuung + Wahlleistungen (z. B. Kundenfragen +100 €) + Serverkosten; Liste in `wartung/PAKETE.md` |
 | **Saison-Umgestaltung** | Seite zeitweise umgestaltet (z. B. Halloween-Aktion), danach Rückbau | per Formel, ab dem 2. Jahr günstiger |
 | **Relaunch** für Bestandskunden | Umbau mit Treuerabatt | per Formel |
 | **Später: Claude-Schablonen** | fertige Vorlagen, mit denen andere ein AI-Business aufbauen | zweites Standbein, erst nach den ersten Kunden |
@@ -223,7 +222,7 @@ Folgerungen:
 ## 13. Entscheidungen, die bei Elias liegen
 
 > **Neu 30.09. (A-056, `vertrieb/ERSTKUNDE.md`):** Für den ersten zahlenden Kunden zählen nur vier davon, gebündelt als
-> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € + 49 €/Monat oder 109 €/Monat Miete), E3 URFA persönlich ansprechen (= Nr. 8),
+> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € einmalig, dazu optional Abo ab 49 €/Monat mit Wahlleistungen), E3 URFA persönlich ansprechen (= Nr. 8),
 > E4 Kontakt und Name auf der Mappe (= Nr. 5). Die übrigen können bis nach dem ersten Kunden warten.
 
 1. **Preisformel:** A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?

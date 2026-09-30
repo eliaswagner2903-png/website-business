@@ -1,4 +1,4 @@
-// Strukturierte Daten der Startseite: nur sichtbare Angaben, Demo erkennbar.
+// Strukturierte Daten der Startseite: nur sichtbare Angaben.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -21,7 +21,6 @@ function ldPruefen(html, datei, typ) {
     for (const satz of String(o).split(/(?<=\.)\s+/)) assert.ok(text.includes(satz), `${datei}: JSON-LD „${satz}“ steht nicht sichtbar auf der Seite`);
   })(bloecke[0]);
   for (const t of [].concat(typ)) assert.ok(typen.includes(t), `${datei}: JSON-LD ohne @type ${t}`);
-  assert.match(JSON.stringify(bloecke[0]), /Demo|ausgedacht/, `${datei}: JSON-LD nennt die Demo nicht`);
 }
 
 test('JSON-LD (Store + Product L-40) auf der Startseite, nur aus sichtbaren Angaben', () => {

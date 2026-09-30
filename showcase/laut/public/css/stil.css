@@ -29,7 +29,7 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .sprung:focus { top: 1rem; }
 
 /* Kleine Überzeilen in Mono */
-.marke-klein, .werk-meta, .ueberzeile, .zeitleiste figcaption, .schritt-wann, .hinweis, .spur-wert, .demo-band, .kontakt-daten dt, .projekt-fakten dt {
+.marke-klein, .werk-meta, .ueberzeile, .zeitleiste figcaption, .schritt-wann, .hinweis, .spur-wert, .kontakt-daten dt, .projekt-fakten dt {
   font: 500 .78rem/1.4 var(--schrift-mono); letter-spacing: .11em; text-transform: uppercase;
 }
 .marke-klein-nr { display: inline-block; padding: .15rem .45rem; margin-right: .35rem; border-radius: var(--radius-klein); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font-family: var(--schrift-mono); font-weight: 600; letter-spacing: .04em; }
@@ -70,14 +70,6 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
   .knopf:hover .icon { transform: translateX(3px); }
   .knopf--rand:hover { background: var(--farbe-text); color: var(--farbe-grund); box-shadow: none; }
 }
-
-/* ---------- Demo-Band ---------- */
-.demo-band {
-  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .35rem .75rem;
-  padding: .6rem var(--rand); text-align: center; color: var(--farbe-grund);
-  background: repeating-linear-gradient(-45deg, var(--farbe-text) 0 12px, color-mix(in srgb, var(--farbe-text) 88%, var(--farbe-grund)) 12px 24px);
-}
-.demo-band-marke { display: inline-block; padding: .2rem .5rem; border-radius: var(--radius-klein); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); font: 700 .74rem/1.3 var(--schrift-mono); letter-spacing: .12em; text-transform: uppercase; }
 
 /* ---------- Kopf ---------- */
 .kopf {
@@ -332,7 +324,6 @@ code { font: 500 .85em/1.4 var(--schrift-mono); }
 .fuss { --fokus: var(--farbe-grund); background: var(--farbe-text); color: var(--farbe-grund); padding-block: clamp(3.5rem, 7vw, 6rem) 7.5rem; overflow-x: clip; }
 .fuss-raster { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
 .fuss-marke { font: 800 calc((min(100vw, 92rem) - 2 * var(--rand)) / 8.4)/.85 var(--schrift-display); font-stretch: var(--breite-display); letter-spacing: -.055em; white-space: nowrap; }
-.fuss-demo { max-width: 40em; }
 .fuss-links { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
 .fuss-links a { display: inline-flex; align-items: center; min-height: 44px; }
 .fuss-klein { font-size: .9rem; color: color-mix(in srgb, var(--farbe-grund) 74%, var(--farbe-text)); }

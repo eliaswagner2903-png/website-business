@@ -184,8 +184,8 @@ Pakete wie in `wartung/PAKETE.md`. Pflegepunkte kommen aus den Bausteinen: Was s
 - **Sinnvolle Lesart 1: gleiche Gleichung.** Sp und AM entstehen aus denselben Bausteinen (Punkte für Sp,
   Pflegepunkte für AM). So erklärt sich auch das Abo aus der Seite. **Umgesetzt oben.**
 - **Sinnvolle Lesart 2: `Sp = n · AM`.** Die Zahl n = Sp ÷ AM sagt, nach wie vielen Monaten das Abo so viel eingebracht
-  hat wie die Seite. Das ermöglicht ein **Mietmodell** (0 € Einmalpreis, dafür höheres AM mit Mindestlaufzeit n).
-  Als Prüfgröße: n zwischen 12 und 36 wirkt ausgewogen; n > 36 heißt, das Abo ist im Verhältnis zur Seite billig.
+  hat wie die Seite. Als reine Prüfgröße: n zwischen 12 und 36 wirkt ausgewogen; n > 36 heißt, das Abo ist im Verhältnis
+  zur Seite billig. Ein Mietmodell (Seite ohne Einmalpreis) gibt es nicht (Elias 2026-09-30).
 
 | Beispiel | Paket | Pflegepunkte | **AM (Formel)** | AM (2,5 % von Sp) | n = Sp ÷ AM |
 |---|---|---|---|---|---|
@@ -284,13 +284,17 @@ Akquisebudget je Neukunde ≤ 10 % des Kundenwerts
 Grund: Die Profit-Chain setzt Neukunden vor kurzfristigen Gewinn; diese Zahl sagt, **wie viel** ein Neukunde kosten
 darf (Rabatte, Gratismonate, Gewinnspiel-Preise). Lotlinie: Kundenwert 3.424 €, Budget 342 €.
 
-### 7.5 Mietmodell (Lesart 2 von „Sp = AM“)
+### 7.5 Abo mit Wahlleistungen (ersetzt das frühere Mietmodell)
 
 ```
-Miete = AM + Sp · (1 + 10 % Finanzierungsaufschlag) / 24 Monate Mindestlaufzeit
+Sp  = Einmalpreis der Seite; der Kunde bekommt die fertige Seite samt Bildern und kann sie selbst hosten
+AM  = Grundbetreuung + Σ gewählte Wahlleistungen + Serverkosten
 ```
 
-Für Kunden ohne Startkapital: 0 € einmalig. Lotlinie: 185 €/Monat. Nach der Mindestlaufzeit fällt die Miete auf AM.
+Das Abo ist optional und bezahlt echte Arbeit im Monat: Elias schaut über die Seite und hält sie online. Je Wahlleistung
+steigt der Monatspreis. Beispiel von Elias: Kundenfragen beantworten = +100 €/Monat. Serverkosten kommen dazu
+(durchgereicht nach Verbrauch oder als Pauschale; Entscheidung offen). Wer kein Abo will, zahlt nur Sp.
+Liste und Preise der Wahlleistungen: `wartung/PAKETE.md`.
 
 ### 7.6 Jährliche AM-Anpassung
 

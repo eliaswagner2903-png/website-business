@@ -293,8 +293,6 @@ const ZUSATZ = {
   mindestmarge: 0.4, // vom Sp muss nach Rabatten mindestens so viel Marge bleiben
   laufzeitErwartet: 36, // Monate, für den Kundenwert
   akquiseAnteil: 0.1, // höchstens 10 % des Kundenwerts für Gewinnung (Gewinnspiel, Rabatte)
-  mietLaufzeit: 24,
-  mietAufschlag: 0.1,
   anpassungMax: 0.05, // AM-Erhöhung pro Jahr höchstens
 };
 
@@ -324,11 +322,6 @@ function rabattGrenze(sp, rabatte, untergrenze, e = EINSTELLUNGEN, z = ZUSATZ) {
 function kundenwert(sp, am, e = EINSTELLUNGEN, z = ZUSATZ) {
   const clv = sp * e.margeSp + am * e.margeAm * z.laufzeitErwartet;
   return { clv, akquise: clv * z.akquiseAnteil };
-}
-
-// Mietmodell: 0 € Einmalpreis, Sp über die Mindestlaufzeit verteilt
-function miete(sp, am, z = ZUSATZ) {
-  return runde(am + (sp * (1 + z.mietAufschlag)) / z.mietLaufzeit, 5);
 }
 
 // Jährliche AM-Anpassung: neu gerechnet oder Kostensteigerung, gekappt

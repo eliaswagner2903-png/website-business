@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OQ – Websites mit Betreuung für Praxen und Betriebe</title>
-<meta name="description" content="Schnelle Websites ohne Tracking, gebaut für das Handy und im Monats-Abo betreut. Vier Arbeiten mit Messwerten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.">
+<title>OQ – Websites für Praxen und Betriebe</title>
+<meta name="description" content="Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Vier Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.">
 <link rel="canonical" href="https://www.beispiel.de/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
-<meta property="og:title" content="OQ – Websites mit Betreuung für Praxen und Betriebe">
-<meta property="og:description" content="Schnelle Websites ohne Tracking, gebaut für das Handy und im Monats-Abo betreut. Vier Arbeiten mit Messwerten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.">
+<meta property="og:title" content="OQ – Websites für Praxen und Betriebe">
+<meta property="og:description" content="Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Vier Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.">
 <meta property="og:url" content="https://www.beispiel.de/">
 <meta name="theme-color" content="#f3f2ee">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -19,8 +19,6 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<link rel="preload" href="/medien/werkbank-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">
-<link rel="preload" href="/medien/werkbank-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">
 <script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='nacht')d.setAttribute('data-schema','nacht')}catch(e){}})(document.documentElement)</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
@@ -37,9 +35,8 @@
       <ul>
         <li><a href="#arbeiten">Arbeiten</a></li>
         <li><a href="#konfigurator">Konfigurator</a></li>
-        <li><a href="#leistungen">Leistungen</a></li>
         <li><a href="#betreuung">Betreuung</a></li>
-        <li><a href="#ablauf">Ablauf</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
         <li><a class="knopf" href="#kontakt">Projekt anfragen</a></li>
       </ul>
     </nav>
@@ -47,43 +44,49 @@
 </header>
 
 <main id="inhalt">
-<section class="kino" aria-labelledby="titel" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
+<section class="hero" aria-labelledby="titel">
+  <div class="huelle hero-text">
+    <p class="ueberzeile">Websites für Betriebe</p>
+    <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
+    <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
+    <div class="aktionen held-aktionen">
+      <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
+      <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+    </div>
+  </div>
+  <div class="huelle hero-geraete">
+    <div class="rahmen rahmen--desktop marken">
+      <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">lotlinie · musterseite</span></span>
+      <div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-desktop-lang-800.avif 800w, /medien/arbeit-hell-desktop-lang-1440.avif 1440w" sizes="(min-width: 64rem) 960px, 1px"><img src="/medien/arbeit-hell-desktop-lang-800.webp" srcset="/medien/arbeit-hell-desktop-lang-800.webp 800w, /medien/arbeit-hell-desktop-lang-1440.webp 1440w" sizes="(min-width: 64rem) 960px, 1px" width="800" height="2000" alt="Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel." decoding="async"></picture></div>
+    </div>
+    <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-lang-320.avif 320w, /medien/arbeit-hell-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-hell-handy-lang-320.webp" srcset="/medien/arbeit-hell-handy-lang-320.webp 320w, /medien/arbeit-hell-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 220px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten." decoding="async"></picture></div></div>
+  </div>
+</section>
+<section class="kino" aria-label="Gebaut, gemessen, betreut" data-film-computer="/medien/werkbank-film-1280" data-film-handy="/medien/werkbank-film-960">
   <div class="kino-buehne" aria-hidden="true">
-    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" fetchpriority="high" decoding="async"></picture>
+    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/werkbank-anfang-640.avif 640w, /medien/werkbank-anfang-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-anfang-1280.webp" srcset="/medien/werkbank-anfang-640.webp 640w, /medien/werkbank-anfang-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
     <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/werkbank-ende-640.avif 640w, /medien/werkbank-ende-1280.avif 1280w" sizes="100vw"><img src="/medien/werkbank-ende-1280.webp" srcset="/medien/werkbank-ende-640.webp 640w, /medien/werkbank-ende-1280.webp 1280w" sizes="100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
     <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
     <span class="kino-schleier"></span>
     <span class="kino-skala"><span class="kino-marke"></span></span>
   </div>
   <div class="kino-kapitel">
-    <div class="kapitel kapitel--start">
-      <div class="huelle kapitel-in">
-        <p class="ueberzeile ueberzeile--kino">Websites mit Betreuung im Monats-Abo</p>
-        <h1 id="titel">Websites, die man nicht wegklickt. Gebaut, gemessen, <em>betreut</em>.</h1>
-        <p class="held-lead">Für Praxen, Werkstätten und Restaurants. Schnell, ohne Tracking, im Monats-Abo betreut.</p>
-        <div class="aktionen held-aktionen">
-          <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
-          <a class="knopf zweit" href="#konfigurator">Seite zusammenstellen</a>
-        </div>
-        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen spielt den Film ab</p>
-      </div>
-    </div>
     <div class="kapitel" id="kino-gebaut">
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>01</span> / 03</p>
         <h2 class="kapitel-wort">Gebaut.</h2>
-        <p class="kapitel-text">Eigener Code und ein Leitmotiv aus der Welt des Betriebs: Lot, Zeitleiste, Zifferblatt.</p>
+        <p class="kapitel-text">Ein Leitmotiv pro Betrieb, eigener Code.</p>
       </div>
     </div>
     <div class="kapitel" id="kino-gemessen">
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>02</span> / 03</p>
         <h2 class="kapitel-wort">Gemessen.</h2>
-        <p class="kapitel-text">Vor der Übergabe nachgemessen, nicht geschätzt.</p>
+        <p class="kapitel-text">Vor der Übergabe nachgemessen.</p>
         <dl class="kapitel-werte">
           <div><dt>Lighthouse mobil</dt><dd>≥ 95</dd></div>
           <div><dt>Tracker und Cookies</dt><dd>0</dd></div>
-          <div><dt>KB bis zur ersten Ansicht</dt><dd>≤ 500</dd></div>
+          <div><dt>von der Idee bis zum Start</dt><dd>1 Person</dd></div>
         </dl>
       </div>
     </div>
@@ -91,18 +94,17 @@
       <div class="huelle kapitel-in">
         <p class="kapitel-nr"><span>03</span> / 03</p>
         <h2 class="kapitel-wort">Betreut.</h2>
-        <p class="kapitel-text">Jede Woche geprüft, Technik aktuell, Änderungen inklusive.</p>
+        <p class="kapitel-text">Auf Wunsch bleibe ich dran.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="abschnitt arbeiten" id="arbeiten" aria-labelledby="t-arbeiten">
+<section class="abschnitt arbeiten abschnitt--dunkel" id="arbeiten" aria-labelledby="t-arbeiten">
   <div class="huelle">
     <div class="kopfzeile">
       <p class="ueberzeile">Arbeiten</p>
       <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
-      <p class="einblenden">Drei Musterseiten und ein Entwurf für ein echtes Restaurant. Jede hat ihr eigenes Leitmotiv, und im Gerät läuft die echte Seite.</p>
     </div>
     <div class="buehne">
       <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
@@ -121,18 +123,9 @@
       <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-hell-handy-lang-320.avif 320w, /medien/arbeit-hell-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-hell-handy-lang-320.webp" srcset="/medien/arbeit-hell-handy-lang-320.webp 320w, /medien/arbeit-hell-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten." loading="lazy" decoding="async"></picture></div></div>
     </div>
     <div class="werk-schild">
-      <p class="werk-nr"><span>01</span> <span class="werk-art">Musterseite – Praxis, Namen und Preise sind ausgedacht</span></p>
+      <p class="werk-nr"><span>01</span> <span class="werk-art">Musterseite</span></p>
       <h3 id="w-hell">Lotlinie</h3>
-      <p class="werk-branche">Physiotherapie · Lot und Messpunkte</p>
       <p class="werk-satz">Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.</p>
-      <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
-      <dl class="werk-werte">
-        <div><dt>Performance</dt><dd>99</dd></div>
-        <div><dt>Barrierefreiheit</dt><dd>100</dd></div>
-        <div><dt>Best Practices</dt><dd>100</dd></div>
-        <div><dt>SEO</dt><dd>100</dd></div>
-        <div><dt>Gewicht</dt><dd>122&nbsp;KB</dd></div>
-      </dl>
       <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Lotlinie öffnen <span class="pfeil" aria-hidden="true">↗</span></a></p>
     </div>
   </article>
@@ -145,18 +138,9 @@
       <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-laut-handy-lang-320.avif 320w, /medien/arbeit-laut-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-laut-handy-lang-320.webp" srcset="/medien/arbeit-laut-handy-lang-320.webp 320w, /medien/arbeit-laut-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Zwischenbild auf dem Handy mit Timecode, großer Überschrift und den Knöpfen „Projekt anfragen“ und „Arbeiten ansehen“." loading="lazy" decoding="async"></picture></div></div>
     </div>
     <div class="werk-schild">
-      <p class="werk-nr"><span>02</span> <span class="werk-art">Musterseite – Studio und Projekte sind ausgedacht</span></p>
+      <p class="werk-nr"><span>02</span> <span class="werk-art">Musterseite</span></p>
       <h3 id="w-laut">Zwischenbild</h3>
-      <p class="werk-branche">Studio für Motion-Design · Zeitleiste und Keyframes</p>
       <p class="werk-satz">Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.</p>
-      <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
-      <dl class="werk-werte">
-        <div><dt>Performance</dt><dd>99</dd></div>
-        <div><dt>Barrierefreiheit</dt><dd>100</dd></div>
-        <div><dt>Best Practices</dt><dd>100</dd></div>
-        <div><dt>SEO</dt><dd>100</dd></div>
-        <div><dt>Gewicht</dt><dd>112&nbsp;KB</dd></div>
-      </dl>
       <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Zwischenbild öffnen <span class="pfeil" aria-hidden="true">↗</span></a></p>
     </div>
   </article>
@@ -169,18 +153,9 @@
       <div class="rahmen rahmen--handy"><div class="fenster"><picture><source type="image/avif" srcset="/medien/arbeit-edel-handy-lang-320.avif 320w, /medien/arbeit-edel-handy-lang-600.avif 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw"><img src="/medien/arbeit-edel-handy-lang-320.webp" srcset="/medien/arbeit-edel-handy-lang-320.webp 320w, /medien/arbeit-edel-handy-lang-600.webp 600w" sizes="(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw" width="320" height="2790" alt="Startseite von Lindgrund auf dem Handy mit Überschrift, den Knöpfen „Beratung anfragen“ und „Zifferblätter“ und der Uhr darunter." loading="lazy" decoding="async"></picture></div></div>
     </div>
     <div class="werk-schild">
-      <p class="werk-nr"><span>03</span> <span class="werk-art">Musterseite – Manufaktur, Modell und Preise sind ausgedacht</span></p>
+      <p class="werk-nr"><span>03</span> <span class="werk-art">Musterseite</span></p>
       <h3 id="w-edel">Lindgrund</h3>
-      <p class="werk-branche">Uhrmacherei · Zifferblatt und Minutenteilung</p>
       <p class="werk-satz">Die Uhr steht als 3D-Modell im ersten Bildschirm und dreht sich mit.</p>
-      <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
-      <dl class="werk-werte">
-        <div><dt>Performance</dt><dd>100</dd></div>
-        <div><dt>Barrierefreiheit</dt><dd>100</dd></div>
-        <div><dt>Best Practices</dt><dd>100</dd></div>
-        <div><dt>SEO</dt><dd>100</dd></div>
-        <div><dt>Gewicht</dt><dd>117&nbsp;KB</dd></div>
-      </dl>
       <p class="werk-link"><a class="knopf" href="https://claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP" target="_blank" rel="noopener" data-pruefen="Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist">Lindgrund öffnen <span class="pfeil" aria-hidden="true">↗</span></a></p>
     </div>
   </article>
@@ -195,22 +170,12 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>04</span> <span class="werk-art" data-pruefen="Freigabe des Restaurants für Referenz einholen">Entwurf für ein echtes Restaurant – noch nicht veröffentlicht</span></p>
       <h3 id="w-urfa">URFA SOFRASI</h3>
-      <p class="werk-branche">Restaurant in Eislingen/Fils · Kupferplatte und Skyline aus dem Logo</p>
       <p class="werk-satz">Die Kupferplatte vom Tisch wird zum Bildrahmen, die Speisekarte ist durchsuchbar.</p>
-      <p class="werk-werte-titel">Messwerte der Startseite · Lighthouse mobil</p>
-      <dl class="werk-werte">
-        <div><dt>Performance</dt><dd>98</dd></div>
-        <div><dt>Barrierefreiheit</dt><dd>100</dd></div>
-        <div><dt>Best Practices</dt><dd>100</dd></div>
-        <div><dt>SEO</dt><dd>100</dd></div>
-        <div><dt>Gewicht</dt><dd>364&nbsp;KB</dd></div>
-      </dl>
       <p class="werk-link werk-link--offen" data-pruefen="Freigabe des Restaurants für Referenz einholen">Link folgt nach Freigabe durch das Restaurant</p>
     </div>
   </article>
       </div>
     </div>
-    <p class="messhinweis">Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.</p>
   </div>
 </section>
 
@@ -219,7 +184,7 @@
     <div class="kopfzeile">
       <p class="ueberzeile">Konfigurator</p>
       <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
-      <p class="einblenden">Wählen Sie Business, Farbe und Schrift und stufen Sie jeden Bereich von 1 bis 5 ein. Gebaut wird genau diese Stufe, nicht mehr und nicht weniger.</p>
+      <p class="einblenden">Business, Farbe, Schrift, dann jeden Bereich von 1 bis 5.</p>
     </div>
     <div class="generator">
       <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
@@ -367,7 +332,7 @@
               <li><span class="stufe-nr">Stufe 1</span> <strong>Alles von Ihnen</strong> Sie liefern Texte und Fotos fertig.</li>
               <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Geglättet</strong> Ihre Texte werden überarbeitet, Ihre Fotos bearbeitet.</li>
               <li><span class="stufe-nr">Stufe 3</span> <strong>Geschrieben</strong> Die Texte werden nach einem Gespräch für Sie geschrieben.</li>
-              <li><span class="stufe-nr">Stufe 4</span> <strong>Mit Bildern</strong> Dazu passende Bilder und Grafiken, KI-Bilder sichtbar gekennzeichnet.</li>
+              <li><span class="stufe-nr">Stufe 4</span> <strong>Mit Bildern</strong> Dazu passende Bilder und Grafiken.</li>
               <li><span class="stufe-nr">Stufe 5</span> <strong>Komplett</strong> Dazu ein Film oder Bilder eigens für Ihre Seite.</li>
             </ol>
           </fieldset>
@@ -381,10 +346,10 @@
             </div>
             <ol class="stufen-liste">
               <li><span class="stufe-nr">Stufe 1</span> <strong>Übergabe</strong> Die fertige Seite gehört Ihnen, danach pflegen Sie sie selbst.</li>
-              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Sicher</strong> Updates und eine wöchentliche Prüfung.</li>
+              <li class="ist"><span class="stufe-nr">Stufe 2</span> <strong>Sicher</strong> Ich halte die Seite online: Updates und eine wöchentliche Prüfung.</li>
               <li><span class="stufe-nr">Stufe 3</span> <strong>Mit Bericht</strong> Dazu jeden Monat ein Bericht über Tempo und Sicherheit.</li>
               <li><span class="stufe-nr">Stufe 4</span> <strong>Mit Änderungen</strong> Dazu kleine Änderungen jeden Monat inklusive.</li>
-              <li><span class="stufe-nr">Stufe 5</span> <strong>Vorrang</strong> Dazu schnelle Antwort und laufende Weiterentwicklung.</li>
+              <li><span class="stufe-nr">Stufe 5</span> <strong>Vorrang</strong> Dazu beantworte ich Ihre Kundenfragen und reagiere schnell bei Störungen.</li>
             </ol>
           </fieldset>
           <fieldset class="schritt-feld" id="gs-10">
@@ -418,168 +383,32 @@
   </div>
 </section>
 
-<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen">
-  <div class="huelle">
-    <div class="kopfzeile">
-      <p class="ueberzeile">Leistungen</p>
-      <h2 id="t-leistungen" class="einblenden">Was jede Seite <em>kann</em>, bevor sie online geht.</h2>
-      <p class="einblenden">Prüfpunkte statt Versprechen. Auch diese Seite wird daran gemessen.</p>
-    </div>
-    <ul class="mass-liste">
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">≥ 95</span> <span class="mass-einheit">Lighthouse mobil</span></p>
-        <h3>Mobil zuerst</h3>
-        <p>Geprüft von 320 bis 1920 Pixel, Kontakt in einer festen Leiste.</p>
-      </li>
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">0</span> <span class="mass-einheit">Cookies, Tracker, fremde Skripte</span></p>
-        <h3>Datenschutz ohne Umwege</h3>
-        <p>Schriften vom eigenen Server, keine Analyse-Werkzeuge.</p>
-      </li>
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">CSP</span> <span class="mass-einheit">strenge Sicherheitsregeln</span></p>
-        <h3>Sicherheit ab dem ersten Tag</h3>
-        <p>Nur eigener Code läuft, Formulare mit Spam-Falle.</p>
-      </li>
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">≤ 500</span> <span class="mass-einheit">KB bis zur ersten Ansicht</span></p>
-        <h3>Leicht, auch mit 3D und Video</h3>
-        <p>Erst ein Standbild, Film und 3D laden danach.</p>
-      </li>
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">Stripe</span> <span class="mass-einheit">Checkout</span></p>
-        <h3>Termine und Zahlungen</h3>
-        <p>Kartendaten berühren die Website nie.</p>
-      </li>
-      <li class="mass einblenden">
-        <p class="mass-wert"><span class="mass-zahl">AA</span> <span class="mass-einheit">WCAG-Kontrast</span></p>
-        <h3>Für alle bedienbar</h3>
-        <p>Mit Tastatur, Bildschirmleser und ohne JavaScript.</p>
-      </li>
-    </ul>
-    <div class="preiszeile einblenden">
-      <p>Die Website wird einmalig berechnet, die Betreuung monatlich.</p>
-      <p class="preis"><span class="preis-titel">Website</span> <span class="preis-wert" data-pruefen="Preis für die Website festlegen (PAKETE.md nennt keinen Preis)">Preis auf Anfrage</span></p>
-    </div>
-  </div>
-</section>
-
 <section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
-    <div class="tafel">
-      <div class="kopfzeile">
-        <p class="ueberzeile">Betreuung im Monats-Abo</p>
-        <h2 id="t-betreuung" class="einblenden">Nach dem Start geht die Arbeit <em>weiter</em>.</h2>
-        <p class="einblenden">Jede Woche eine automatische Prüfung, jeden Monat ein kurzer Bericht.</p>
-      </div>
-      <div class="pakete-tabelle">
-        <table>
-          <caption class="unsichtbar">Die drei Pakete im Vergleich</caption>
-          <thead><tr><th scope="col"><span class="unsichtbar">Leistung</span></th><th scope="col">Basis</th><th scope="col">Plus</th><th scope="col">Premium</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Hosting, Domain, SSL, E-Mail-Weiterleitung</th><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td></tr>
-            <tr><th scope="row">Wöchentliche Prüfung (Erreichbarkeit, Header, Zertifikat)</th><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td></tr>
-            <tr><th scope="row">Sicherheits- und Abhängigkeits-Updates</th><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td></tr>
-            <tr><th scope="row">Monatlicher Kurzbericht</th><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td></tr>
-            <tr><th scope="row">Inhaltsänderungen pro Monat</th><td><span class="nein" aria-hidden="true">–</span><span class="unsichtbar">nicht enthalten</span></td><td>bis 1 Std.</td><td>bis 3 Std.</td></tr>
-            <tr><th scope="row">Tiefenprüfung (Design, Technik, SEO)</th><td>jährlich</td><td>quartalsweise</td><td>monatlich</td></tr>
-            <tr><th scope="row">Neue Visuals</th><td><span class="nein" aria-hidden="true">–</span><span class="unsichtbar">nicht enthalten</span></td><td><span class="nein" aria-hidden="true">–</span><span class="unsichtbar">nicht enthalten</span></td><td>1× pro Quartal</td></tr>
-            <tr><th scope="row">Antwortzeit bei Störung</th><td>2 Werktage</td><td>1 Werktag</td><td>4 Std. werktags</td></tr>
-            <tr><th scope="row">Online-Terminbuchung und Zahlungen betreuen</th><td><span class="nein" aria-hidden="true">–</span><span class="unsichtbar">nicht enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td><td><span class="ja" aria-hidden="true">✓</span><span class="unsichtbar">enthalten</span></td></tr>
-            <tr class="preis-reihe"><th scope="row">Preis pro Monat</th><td data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">auf Anfrage</td><td data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">auf Anfrage</td><td data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">auf Anfrage</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pakete-karten">
-        <section class="paket paket--alle" aria-labelledby="p-alle">
-          <h3 id="p-alle">In jedem Paket</h3>
-          <ul>
-            <li>Hosting, Domain, SSL, E-Mail-Weiterleitung</li>
-            <li>Wöchentliche Prüfung (Erreichbarkeit, Header, Zertifikat)</li>
-            <li>Sicherheits- und Abhängigkeits-Updates</li>
-            <li>Monatlicher Kurzbericht</li>
-          </ul>
-        </section>
-        <section class="paket" aria-labelledby="p-0">
-          <h3 id="p-0">Basis</h3>
-          <ul>
-            <li>Tiefenprüfung (Design, Technik, SEO): <strong>jährlich</strong></li>
-            <li>Antwortzeit bei Störung: <strong>2 Werktage</strong></li>
-          </ul>
-          <p class="paket-preis" data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">Preis pro Monat: auf Anfrage</p>
-        </section>
-        <section class="paket" aria-labelledby="p-1">
-          <h3 id="p-1">Plus</h3>
-          <ul>
-            <li>Inhaltsänderungen pro Monat: <strong>bis 1 Std.</strong></li>
-            <li>Tiefenprüfung (Design, Technik, SEO): <strong>quartalsweise</strong></li>
-            <li>Antwortzeit bei Störung: <strong>1 Werktag</strong></li>
-            <li>Online-Terminbuchung und Zahlungen betreuen</li>
-          </ul>
-          <p class="paket-preis" data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">Preis pro Monat: auf Anfrage</p>
-        </section>
-        <section class="paket" aria-labelledby="p-2">
-          <h3 id="p-2">Premium</h3>
-          <ul>
-            <li>Inhaltsänderungen pro Monat: <strong>bis 3 Std.</strong></li>
-            <li>Tiefenprüfung (Design, Technik, SEO): <strong>monatlich</strong></li>
-            <li>Neue Visuals: <strong>1× pro Quartal</strong></li>
-            <li>Antwortzeit bei Störung: <strong>4 Std. werktags</strong></li>
-            <li>Online-Terminbuchung und Zahlungen betreuen</li>
-          </ul>
-          <p class="paket-preis" data-pruefen="Monatspreis festlegen (PAKETE.md: Preise offen)">Preis pro Monat: auf Anfrage</p>
-        </section>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf">
-  <div class="huelle">
     <div class="kopfzeile">
-      <p class="ueberzeile">Ablauf</p>
-      <h2 id="t-ablauf" class="einblenden">Vom ersten Gespräch bis zur <em>Betreuung</em>.</h2>
+      <p class="ueberzeile">Preis und Betreuung</p>
+      <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
     </div>
-    <ol class="schritte">
-      <li class="schritt einblenden">
-        <span class="schritt-marke" aria-hidden="true"></span>
-        <p class="schritt-nr">Schritt 1</p>
-        <h3>Briefing</h3>
-        <p>Wir klären Betrieb, Kundschaft und Ziel. Unsicheres bleibt markiert.</p>
-      </li>
-      <li class="schritt einblenden">
-        <span class="schritt-marke" aria-hidden="true"></span>
-        <p class="schritt-nr">Schritt 2</p>
-        <h3>Entwurf</h3>
-        <p>Sie sehen zwei bis drei Richtungen und entscheiden.</p>
-      </li>
-      <li class="schritt einblenden">
-        <span class="schritt-marke" aria-hidden="true"></span>
-        <p class="schritt-nr">Schritt 3</p>
-        <h3>Abnahme</h3>
-        <p>Ich messe nach, Sie bekommen die Werte und geben frei.</p>
-      </li>
-      <li class="schritt einblenden">
-        <span class="schritt-marke" aria-hidden="true"></span>
-        <p class="schritt-nr">Schritt 4</p>
-        <h3>Betreuung</h3>
-        <p>Wöchentliche Prüfung, monatlicher Bericht, Änderungen im Abo.</p>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<section class="abschnitt ueber" id="ueber" aria-labelledby="t-ueber">
-  <div class="huelle ueber-raster">
-    <figure class="ueber-foto marken" data-pruefen="Foto von Elias liefern (kein Stockfoto)">
-      <span class="ueber-foto-leer">Foto von Elias folgt</span>
-    </figure>
-    <div class="ueber-text">
-      <p class="ueberzeile">Über mich</p>
-      <h2 id="t-ueber" class="einblenden">Eine Person, ein <em>Maßstab</em>.</h2>
-      <p class="einblenden">Hinter <span class="platzhalter-wort" data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span> stehe ich, <span data-pruefen="Name aus Elias’ Konto übernommen – Schreibweise bestätigen">Elias Wagner</span>, in <span data-pruefen="Ort bzw. Region eintragen, in der Elias arbeitet">[Ort]</span>. Vom ersten Gespräch bis zur Betreuung eine Person.</p>
-      <p class="einblenden platzhalter-text" data-pruefen="Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst">[Hier ein paar Sätze von Elias: Werdegang, warum Websites, was ihn antreibt.]</p>
-      <p class="einblenden">Jede Seite durchläuft dieselbe Prüfung wie die Arbeiten oben, und Sie bekommen die Messwerte.</p>
+    <div class="bet-paar">
+      <section class="bet-karte einblenden" aria-labelledby="b-seite">
+        <h3 id="b-seite">Die Seite</h3>
+        <p>Einmalig. Sie bekommen die fertige Seite samt Bildern.</p>
+        <p class="preis"><span class="preis-wert" data-pruefen="Preis für die Website festlegen (PAKETE.md nennt keinen Preis)">Preis auf Anfrage</span></p>
+      </section>
+      <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
+        <h3 id="b-abo">Betreuung nach Wahl</h3>
+        <p>Optional, monatlich. Ich halte die Seite online und schaue regelmäßig darüber. Sie wählen, was ich zusätzlich übernehme.</p>
+        <ul class="bet-wahl">
+          <li>Kundenfragen beantworten</li>
+          <li>Inhalte ändern</li>
+          <li>Termine und Zahlungen betreuen</li>
+          <li>Tiefenprüfung</li>
+          <li>Neue Visuals</li>
+          <li>Schnelle Antwort bei Störung</li>
+        </ul>
+        <p class="bet-hinweis">Jede Wahl erhöht den Monatspreis, dazu kommen die Serverkosten.</p>
+        <p class="preis"><span class="preis-wert" data-pruefen="Monatspreis festlegen: Grundbetreuung plus Wahlleistungen plus Serverkosten (wartung/PAKETE.md, Preise offen)">Preis auf Anfrage</span></p>
+      </section>
     </div>
   </div>
 </section>
@@ -589,7 +418,7 @@
     <div class="kontakt-text">
       <p class="ueberzeile">Kontakt</p>
       <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
-      <p class="einblenden">Ein paar Sätze reichen: was Sie machen und für wen. Ich melde mich mit einem Vorschlag.</p>
+      <p class="einblenden">Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag.</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:hallo@beispiel.de" data-pruefen="E-Mail-Adresse von Elias eintragen">hallo@beispiel.de</a></li>
         <li><span class="wege-art">Telefon</span><a href="tel:+490000000000" data-pruefen="Telefonnummer von Elias eintragen (auch im tel:-Link)">0000&nbsp;000&nbsp;000</a></li>
@@ -633,13 +462,9 @@
         <li><a href="/datenschutz.html">Datenschutz</a></li>
       </ul>
     </div>
-    <p class="fuss-hinweis">Lotlinie, Zwischenbild und Lindgrund sind ausgedachte Marken für Musterseiten. URFA SOFRASI ist ein Entwurf für ein echtes Restaurant in Eislingen/Fils.</p>
+    <p class="fuss-hinweis">URFA SOFRASI ist ein Entwurf für ein echtes Restaurant in Eislingen/Fils.</p>
   </div>
 </footer>
 
-<nav class="schnell" aria-label="Schnellzugriff">
-  <a class="knopf" href="#kontakt">Projekt anfragen</a>
-  <a class="knopf zweit" href="tel:+490000000000" data-pruefen="Telefonnummer von Elias eintragen (auch im tel:-Link)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>Anrufen</span></a>
-</nav>
 </body>
 </html>

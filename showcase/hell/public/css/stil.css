@@ -72,11 +72,6 @@ main::before {
 .ueberzeile { font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-leise); margin-bottom: 1.4rem; }
 .marke-lot .voll { fill: var(--farbe-akzent); stroke: none; }
 
-/* ---------- Demo-Band ---------- */
-.demo-band { margin: 0; display: flex; justify-content: center; align-items: center; gap: .6rem; padding: .5rem 1.25rem; background: var(--farbe-text); color: var(--farbe-grund); font-size: .875rem; line-height: 1.35; text-align: center; }
-.demo-marke { display: inline-block; flex: none; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: .15rem .55rem; border-radius: 99px; border: 1px solid currentColor; }
-.demo-band .lang { display: none; }
-@media (min-width: 40rem) { .demo-band .lang { display: inline; } }
 
 /* ---------- Kopf ---------- */
 .kopf { position: sticky; top: 0; z-index: 20; background: var(--farbe-grund); border-bottom: 1px solid transparent; view-transition-name: kopf; }
@@ -391,8 +386,6 @@ main::before {
 .fuss-zeiten p + p { margin-top: .4rem; }
 .fuss-links { list-style: none; margin: 0; padding: 0; }
 .fuss-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); }
-.fuss-demo { grid-column: 1 / -1; display: flex; gap: .7rem; align-items: baseline; padding-top: 1.5rem; border-top: 1px solid var(--farbe-linie); color: var(--farbe-leise); font-size: .875rem; }
-.fuss-demo .demo-marke { color: var(--farbe-text); }
 
 /* ---------- Schnellleiste (Handy) ---------- */
 .schnell { position: fixed; z-index: 30; left: .75rem; right: .75rem; bottom: calc(.75rem + env(safe-area-inset-bottom)); display: flex; gap: .5rem; padding: .45rem; border-radius: 99px; background: var(--farbe-text); box-shadow: 0 10px 30px -12px rgb(0 0 0 / .45); }

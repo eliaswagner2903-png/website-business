@@ -3,6 +3,8 @@
   "slug": "elias-studio",
   "domain": "",
   "paket": "eigen",
+  "budgetklasse": "erlebnis",
+  "abweichungen": ["Keine feste Kontaktleiste auf dem Handy (CRO-02): Entscheidung von Elias am 2026-09-30 für die eigene Seite", "Keine Demo-/KI-Hinweise auf den fiktiven Musterseiten: Elias am 2026-09-30, Erklärung liegt in einem anderen System"],
   "ansprechpartner": "Elias",
   "start": "",
   "herkunft": "A-038: eigene Portfolio-/Agentur-Seite mit den vier Musterseiten als Referenzen",

@@ -333,18 +333,6 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .einfach ul { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .4rem; }
 .platzhalter { display: grid; gap: 1rem; padding: 1.5rem; border: 1px dashed var(--farbe-leise); border-radius: var(--radius-klein); max-width: 70ch; }
 
-/* ---------- Feste Schnellleiste auf dem Handy ---------- */
-.schnell {
-  position: fixed; z-index: 10; inset: auto .75rem calc(.75rem + env(safe-area-inset-bottom, 0px));
-  display: flex; gap: .4rem; padding: .4rem; background: var(--farbe-flaeche);
-  border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross);
-  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--farbe-text) 40%, transparent);
-  transition: transform var(--tempo-mittel) var(--kurve-standard), opacity var(--tempo-mittel) var(--kurve-standard);
-}
-.schnell .knopf { flex: 1; min-height: 48px; padding-inline: 1rem; }
-.schnell .knopf.zweit { flex: 0 1 auto; }
-.schnell--weg { transform: translateY(calc(100% + 1.5rem)); opacity: 0; }
-@media (min-width: 48rem) { .schnell { display: none; } }
 
 @media (max-width: 47.99rem) { .nav .knopf { margin-inline-start: 0; } }
 /* Menü-Schleier aus der Grundfarbe (FEHLER A-037: sonst grau im dunklen Schema) */
@@ -400,8 +388,8 @@ html:not(.js) .nur-js { display: none !important; }
 .kapitel--start { min-block-size: calc(var(--_buehne) - 4.25rem); padding-block-start: 12rem; }
 .kapitel-in { display: grid; gap: 1.25rem; align-content: end; }
 .kapitel-in > * { max-inline-size: 36rem; }
-.kino h1 { max-inline-size: 15ch; font-size: clamp(2.5rem, 1.2rem + 4vw, 5rem); }
-.kino h1 em { color: var(--kino-akzent); }
+
+
 .kino .held-lead { font-size: clamp(1.0625rem, 1rem + .4vw, 1.3rem); line-height: 1.55; color: var(--kino-leise); }
 .ueberzeile--kino { color: var(--kino-leise); }
 .kino :focus-visible { outline-color: var(--kino-text); }
@@ -430,7 +418,7 @@ html:not(.js) .nur-js { display: none !important; }
   .kapitel { align-items: center; padding-block: 6rem; }
   .kapitel--start { padding-block: 5rem; }
   .kapitel-in > * { max-inline-size: 34rem; }
-  .kino h1 { max-inline-size: 13ch; }
+
   /* Messskala am rechten Rand: der blaue Strich zeigt, wie weit der Film ist */
   .kino-skala {
     display: block; position: absolute; inset: 22% clamp(1rem, 2.5vw, 2.5rem) 22% auto; inline-size: 1.1rem;
@@ -791,3 +779,84 @@ html:not(.js) .nur-js { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Überarbeitung 2026-09-30: wenig Text, dunkle Bühne, Betreuung nach Wahl ---------- */
+.abschnitt--dunkel {
+  --farbe-grund: var(--gruen-tief); --farbe-text: var(--kino-text); --farbe-leise: var(--kino-leise); --farbe-akzent: var(--gruen-hell);
+  --farbe-auf-akzent: var(--gruen-tief); --farbe-linie: color-mix(in srgb, var(--kino-text) 18%, transparent);
+  background: var(--gruen-tief); color: var(--kino-text); padding-block: clamp(4rem, 3rem + 5vw, 8rem);
+}
+.abschnitt--dunkel { overflow-x: clip; }
+.abschnitt--dunkel :focus-visible { outline-color: var(--gruen-hell); }
+.abschnitt--dunkel .kopfzeile { margin-block-end: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.abschnitt--dunkel h2 { font-size: clamp(2.4rem, 1.6rem + 3.6vw, 5rem); }
+.abschnitt--dunkel h2 em { color: var(--gruen-hell); }
+.abschnitt--dunkel .werk { gap: clamp(1.5rem, 1rem + 3vw, 4rem); }
+.abschnitt--dunkel .werk-schild h3 { font-size: clamp(2.8rem, 1.6rem + 4vw, 5.2rem); }
+.abschnitt--dunkel .werk-satz { font-size: clamp(1.05rem, 1rem + .4vw, 1.3rem); color: var(--kino-leise); max-inline-size: 26ch; }
+.abschnitt--dunkel .rahmen { box-shadow: 0 2.5rem 6rem -1.5rem var(--gruen-tief), 0 0 0 1px color-mix(in srgb, var(--kino-text) 10%, transparent); }
+.abschnitt--dunkel .werk-bild::before {
+  content: ""; position: absolute; inset: -12% -8%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--_werk, var(--kino-akzent)) 38%, transparent), transparent 75%); opacity: .55;
+}
+.werk--hell { --_werk: var(--werk-hell); } .werk--laut { --_werk: var(--werk-laut); } .werk--edel { --_werk: var(--werk-edel); } .werk--urfa { --_werk: var(--werk-urfa); }
+.abschnitt--dunkel .werk-bild { isolation: isolate; }
+.abschnitt--dunkel .knopf.zweit { border-color: var(--kino-text); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .abschnitt--dunkel .werk-bild .rahmen--desktop { animation: bild-schweben linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+    .abschnitt--dunkel .werk-bild .rahmen--handy { animation: handy-hoch linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
+  }
+}
+@keyframes bild-schweben { from { transform: perspective(1400px) rotateX(8deg) translateY(3rem) scale(.94); opacity: .3; } to { transform: none; opacity: 1; } }
+@keyframes handy-hoch { from { transform: translateY(4rem); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.bet-paar { display: grid; gap: 1.25rem; }
+@media (min-width: 52rem) { .bet-paar { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 2rem; } }
+.bet-karte { display: grid; gap: 1rem; align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border: 1px solid var(--farbe-linie); border-radius: calc(var(--radius-klein) * 2); background: var(--farbe-flaeche); }
+.bet-karte h3 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
+.bet-karte--abo { background: var(--farbe-text); color: var(--farbe-grund); --_leise: color-mix(in srgb, var(--farbe-grund) 75%, var(--farbe-text)); }
+.bet-karte--abo .bet-hinweis { color: var(--_leise); }
+.bet-wahl { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.bet-wahl li { padding: .45rem .95rem; border: 1px solid color-mix(in srgb, var(--farbe-grund) 40%, transparent); border-radius: var(--radius-gross); font-size: .9375rem; }
+.bet-hinweis { font-size: .9375rem; }
+.bet-karte .preis { margin-block-start: .5rem; }
+.kopfzeile + .bet-paar { margin-block-start: 0; }
+
+/* ---------- Hero: warmes Papier, Lotlinie als Gerätepaar, Waldgrün ---------- */
+.hero {
+  position: relative; overflow-x: clip; text-align: center; isolation: isolate;
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 5rem) clamp(4rem, 3rem + 4vw, 7rem);
+  background:
+    radial-gradient(60rem 28rem at 50% 62%, var(--gruen-blass), transparent 70%),
+    radial-gradient(40rem 24rem at 12% 8%, color-mix(in srgb, var(--gruen-blass) 55%, transparent), transparent 70%);
+}
+.hero-text { display: grid; justify-items: center; gap: 1.25rem; }
+.hero h1 { max-inline-size: 14ch; font-size: clamp(3rem, 1.4rem + 5vw, 6.2rem); line-height: .96; letter-spacing: -.02em; }
+.hero h1 em { color: var(--farbe-akzent); }
+.hero .held-lead { max-inline-size: 34ch; font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); line-height: 1.5; color: var(--farbe-leise); }
+.hero .aktionen { justify-content: center; }
+.hero-geraete { position: relative; margin-block-start: clamp(2rem, 1.5rem + 2.5vw, 4rem); max-inline-size: 66rem; }
+.hero-geraete .rahmen--desktop { display: none; }
+.hero-geraete .rahmen--handy { inline-size: min(15.5rem, 66vw); margin-inline: auto; --_r: 1.7rem; padding: .4rem; background: var(--gruen-tief); box-shadow: 0 3rem 5rem -2rem color-mix(in srgb, var(--gruen-tief) 75%, transparent); }
+@media (min-width: 48rem) {
+  .hero-geraete { padding-block-end: 4rem; }
+  .hero-geraete .rahmen--desktop { display: block; inline-size: 88%; margin-inline: auto; box-shadow: 0 3rem 6rem -3rem color-mix(in srgb, var(--gruen-tief) 70%, transparent); }
+  .hero-geraete .rahmen--desktop .fenster { block-size: clamp(22rem, 52vw, 38rem); }
+  .hero-geraete .rahmen--handy { position: absolute; inset: auto 0 0; inline-size: clamp(9.5rem, 19vw, 14.5rem); margin-inline: auto; --_r: clamp(1.1rem, 1.8vw, 1.7rem); padding: .32rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
+  .hero-text > :nth-child(2) { animation-delay: .08s; } .hero-text > :nth-child(3) { animation-delay: .16s; } .hero-text > :nth-child(4) { animation-delay: .24s; }
+  .hero-geraete .rahmen--desktop { animation: hero-geraet 1.1s var(--kurve-sanft) .2s backwards; }
+  .hero-geraete .rahmen--handy { animation: hero-handy 1.1s var(--kurve-sanft) .45s backwards; }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 48rem) {
+    .hero-geraete .rahmen--handy { animation: hero-handy 1.1s var(--kurve-sanft) .45s backwards, hero-parallax linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 70vh; }
+  }
+}
+@keyframes hero-auf { from { transform: translateY(1.2rem); } }
+@keyframes hero-geraet { from { opacity: 0; transform: perspective(1400px) rotateX(9deg) translateY(3rem) scale(.95); } }
+@keyframes hero-handy { from { opacity: 0; transform: translateY(3.5rem); } }
+@keyframes hero-parallax { to { transform: translateY(-3rem); } }
