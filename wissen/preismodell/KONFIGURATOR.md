@@ -69,6 +69,9 @@ Hat ein Kunde Zahlung gewählt, schlägt der Konfigurator „hoch“ vor; unter 
 ## Offen (entscheidet Elias)
 
 - Business-Frage fest einbauen oder optional lassen (Vorschlag: fest, weil sie die Vorschläge liefert).
+- **Preisstrategie (2026-10-01):** Der Konfigurator zeigt dem Kunden nur den Zielpreis (Sp_ziel) und den Monatswert mit den
+  gewählten Wahlleistungen; Richtboden, harte Kosten und Nachlass-Spielraum (`PREISFORMELN.md`, 3a) sind nur für Elias sichtbar.
+  Wahlleistungen im Abo sind als eigener Schritt denkbar (Entscheidung Elias).
 - Zeigt der Konfigurator dem Kunden einen genauen Preis oder einen Rahmen („1.800–2.200 €“)? Vorschlag: Rahmen, weil BK
   und Elias' Bestätigung erst danach kommen.
 - Baut der Konfigurator sofort eine Vorschauseite oder erst nach dem Gespräch?

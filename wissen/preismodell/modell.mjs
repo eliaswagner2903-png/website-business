@@ -19,6 +19,12 @@ export const EINSTELLUNGEN = {
   empfehlungMaxMonate: 6,
   margeSp: 0.7, // Anteil von Sp, der nach Fremdkosten bleibt – Schätzung
   margeAm: 0.6,
+  // Preisstrategie (Elias 2026-10-01, Leitfaden „Partnerschaft über Geld leben“): Verdienst über Masse und Monatszahlungen
+  spRichtboden: 500, // € Richtwert Seitenpreis für eine gute Seite; Elias darf darunter, nie unter die harten Kosten – Platzhalter
+  grundbetreuung: 49, // €/Monat, im Abo immer enthalten (Pilotpreis laut wartung/PAKETE.md)
+  serverPauschale: 0, // €/Monat durchgereicht; bei Cloudflare Pages meist 0 – Entscheidung offen
+  amortisationMax: 12, // Monate: so lange darf ein Seitennachlass brauchen, bis das Abo ihn zurückgeholt hat – Platzhalter
+  betreuungsStundenMax: 40, // Stunden/Monat, die Elias für laufende Betreuung hat (Kapazität) – Platzhalter
 };
 
 // Kriterien-Gruppen mit Gewicht für Konzept B. Summe = 100.
@@ -100,6 +106,18 @@ export const BEISPIELE = [
   },
 ];
 
+// Wahlleistungen im Abo (je Monat). Nur „Kundenfragen“ stammt von Elias, alle übrigen Werte sind Platzhalter (wartung/PAKETE.md).
+export const WAHLLEISTUNGEN = {
+  kundenfragen: { name: 'Kundenfragen beantworten', preis: 100, stunden: 1.5 },
+  aenderungenKlein: { name: 'Inhaltsänderungen bis 1 Std.', preis: 60, stunden: 1 },
+  aenderungenGross: { name: 'Inhaltsänderungen bis 3 Std.', preis: 150, stunden: 3 },
+  termineZahlungen: { name: 'Termine und Zahlungen betreuen', preis: 40, stunden: 0.5 },
+  tiefenpruefungQuartal: { name: 'Tiefenprüfung quartalsweise', preis: 25, stunden: 0.3 },
+  tiefenpruefungMonat: { name: 'Tiefenprüfung monatlich', preis: 60, stunden: 0.8 },
+  neueVisuals: { name: 'Neue Visuals (1× je Quartal)', preis: 50, stunden: 0.5 },
+  schnelleAntwort: { name: 'Schnelle Antwort bei Störung (4 Std.)', preis: 30, stunden: 0.3 },
+};
+
 const runde = (x, auf) => Math.round(x / auf) * auf;
 
 export function bk(teile) {
@@ -168,6 +186,39 @@ export function abo(b, sp, e = EINSTELLUNGEN) {
   return { pflege, am, amAnteil, monateBisSp: sp / am };
 }
 
+// Monatswert je Kunde (Hauptgröße): Grundbetreuung + gewählte Wahlleistungen + Server. Kein Mietmodell.
+export function monatswert(wahl = [], e = EINSTELLUNGEN) {
+  const w = wahl.reduce((s, k) => s + WAHLLEISTUNGEN[k].preis, 0);
+  const stunden = wahl.reduce((s, k) => s + WAHLLEISTUNGEN[k].stunden, 0) + 0.5; // 0,5 Std. Grundbetreuung
+  return { am: e.grundbetreuung + w + e.serverPauschale, wahl: w, stunden };
+}
+
+// Seitenpreis-Spanne: Zielpreis = Konzept A (so hoch wie möglich verhandeln). Untergrenze nur intern, der Kunde erfährt sie nicht.
+// hart = Fremdkosten (nie darunter), richt = Richtwert für eine gute Seite (Elias darf darunter, mit Grund).
+export function spSpanne(b, e = EINSTELLUNGEN) {
+  const hart = runde(summe(b.bausteine, 'fremd') + 25, 5); // + Domain erstes Jahr u. Kleinkram wie in Konzept C
+  const ziel = konzeptA(b, e).sp;
+  return { ziel, richt: Math.min(ziel, e.spRichtboden), hart };
+}
+
+// Verhandlung: Nachlass auf den Zielpreis, bezahlt durch das Abo. Erlaubt, wenn der Nachlass innerhalb der Amortisationsfrist
+// zurückkommt (Nachlass ÷ Abo-Beitrag) und der Preis nicht unter den harten Kosten liegt. Ohne Abo gilt nur die Richtgrenze.
+export function spNachlass(spZiel, spAngebot, am, hart, e = EINSTELLUNGEN) {
+  const nachlass = Math.max(0, spZiel - spAngebot);
+  const monate = nachlass === 0 ? 0 : am > 0 ? nachlass / (am * e.margeAm) : Infinity;
+  return { nachlass, monate, ok: spAngebot >= hart && monate <= e.amortisationMax };
+}
+
+// Bestand: n betreute Seiten mit durchschnittlichem Monatswert. Zeigt Einnahmen, Gewinn und die Kapazitätsgrenze.
+export function bestand(n, amSchnitt, stundenJeKunde, e = EINSTELLUNGEN) {
+  return {
+    einnahmen: n * amSchnitt,
+    deckung: n * amSchnitt * e.margeAm,
+    stunden: n * stundenJeKunde,
+    maxKunden: Math.floor(e.betreuungsStundenMax / stundenJeKunde),
+  };
+}
+
 // Profit-Chain
 export function profitChain(sp, am, e = EINSTELLUNGEN) {
   const nkSp = runde(sp * (1 - e.willkommensRabatt), 10);
@@ -230,7 +281,7 @@ export function rabattGrenze(sp, rabatte, untergrenze, e = EINSTELLUNGEN, z = ZU
 // Kundenwert (CLV) und Akquisebudget
 export function kundenwert(sp, am, e = EINSTELLUNGEN, z = ZUSATZ) {
   const clv = sp * e.margeSp + am * e.margeAm * z.laufzeitErwartet;
-  return { clv, akquise: clv * z.akquiseAnteil };
+  return { clv, akquise: clv * z.akquiseAnteil, anteilAbo: (am * e.margeAm * z.laufzeitErwartet) / clv };
 }
 
 // Jährliche AM-Anpassung: neu gerechnet oder Kostensteigerung, gekappt
