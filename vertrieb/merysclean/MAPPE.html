@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Merys Clean – Ihre neue Website</title>
+<style>
+  /* Schriften lokal aus der Kundenseite (Instrument Serif / Instrument Sans, OFL) */
+  @font-face { font-family: "Instrument Serif"; font-weight: 400; src: url("../../kunden/merysclean/public/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC; }
+  @font-face { font-family: "Instrument Serif"; font-weight: 400; src: url("../../kunden/merysclean/public/fonts/instrument-serif-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+  @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("../../kunden/merysclean/public/fonts/instrument-sans-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2212; }
+  @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("../../kunden/merysclean/public/fonts/instrument-sans-latin-ext-wght-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+
+  /* Farben aus kunden/merysclean/DESIGN.md */
+  :root { --grund: #f5f2eb; --flaeche: #fbfaf6; --text: #202020; --leise: #55595a; --linie: #d9d3c6;
+          --akzent: #2a7430; --tint: #e6efdc; --gruen-hell: #6fbf52; --blau: #1d5f9e; --leise-hell: #c9ccc5; --rot: #a33a2c; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: "Instrument Sans", Arial, sans-serif; color: var(--text); background: var(--grund); font-size: 10pt; line-height: 1.45; }
+  .seite { width: 210mm; height: 297mm; padding: 14mm 16mm 12mm; position: relative; page-break-after: always; overflow: hidden; background: var(--grund); }
+  .seite:last-child { page-break-after: auto; }
+  .kopf { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--linie); padding-bottom: 3mm; }
+  .kopf img { height: 13mm; display: block; }
+  .kopf span { font-size: 8.5pt; color: var(--leise); letter-spacing: .14em; text-transform: uppercase; }
+  .ueber { font-size: 8pt; letter-spacing: .16em; text-transform: uppercase; color: var(--akzent); font-weight: 600; margin: 7mm 0 0; display: flex; align-items: center; gap: 3mm; }
+  .ueber::before { content: ""; width: 9mm; height: 1.2mm; border-top: 1.4px solid var(--gruen-hell); border-radius: 50%; }
+  h1, h2, h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-synthesis: none; }
+  h1 { font-size: 33pt; line-height: 1.02; margin: 3mm 0 6mm; }
+  h1 .schwung { position: relative; white-space: nowrap; }
+  h1 .schwung::after { content: ""; position: absolute; left: -1mm; right: -2mm; bottom: -1.5mm; height: 3mm; border-bottom: 1.6px solid var(--gruen-hell); border-radius: 0 0 50% 50%; }
+  h2 { font-size: 21pt; line-height: 1.08; margin: 2mm 0 3mm; }
+  h3 { font-size: 13pt; line-height: 1.15; margin: 0 0 1.5mm; }
+  .unter { font-size: 11.5pt; color: var(--leise); margin: 0 0 6mm; max-width: 158mm; }
+  .bild { border-radius: 3mm; border: 1px solid var(--linie); display: block; width: 100%; object-fit: cover; object-position: top; background: #fff; }
+  figure { margin: 0; }
+  figcaption { font-size: 8.5pt; margin-top: 1.8mm; color: var(--leise); line-height: 1.35; }
+  figcaption b { color: var(--text); }
+  .marke { display: inline-block; font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; padding: .6mm 2mm; border-radius: 10mm; margin-bottom: 1.5mm; }
+  .marke.alt { background: #ece6da; color: var(--leise); }
+  .marke.neu { background: var(--akzent); color: #fff; }
+
+  /* Seite 1 */
+  .titelgrid { display: grid; grid-template-columns: 55mm 55mm 1fr; gap: 6mm; align-items: start; }
+  .titelgrid .bild { height: 113mm; }
+  .zahlen { display: grid; gap: 3mm; }
+  .zahl { background: var(--flaeche); border: 1px solid var(--linie); border-radius: 3mm; padding: 3mm 3.5mm; }
+  .zahl .wert { font-family: "Instrument Serif", Georgia, serif; font-size: 22pt; line-height: 1; color: var(--akzent); }
+  .zahl .vorher { font-size: 8.5pt; color: var(--leise); }
+  .zahl .vorher s { color: var(--rot); }
+  .zahl .was { font-size: 8.5pt; color: var(--leise); margin-top: 1mm; line-height: 1.3; }
+  .band { background: var(--text); color: #fff; border-radius: 4mm; padding: 5mm 7mm; margin-top: 7mm; font-size: 11.5pt; line-height: 1.45; }
+  .band b { color: var(--gruen-hell); font-weight: 600; }
+
+  /* Seite 2 */
+  .desk { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .desk .bild { height: 54mm; }
+  .befunde { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm; margin-top: 2mm; }
+  .befund { background: var(--flaeche); border: 1px solid var(--linie); border-left: 1.2mm solid var(--rot); border-radius: 2.5mm; padding: 3.2mm 4mm; }
+  .befund p { margin: 0; font-size: 9.2pt; color: #3b3e3f; line-height: 1.42; }
+
+  /* Seite 3 */
+  ul.neu { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm 7mm; }
+  ul.neu li { padding-left: 6.5mm; position: relative; font-size: 9.3pt; line-height: 1.4; color: #3b3e3f; }
+  ul.neu li b { color: var(--text); }
+  ul.neu li::before { content: ""; position: absolute; left: 0; top: .9mm; width: 4mm; height: 4mm; border-radius: 50%; background: var(--tint); }
+  ul.neu li::after { content: ""; position: absolute; left: 1.25mm; top: 1.75mm; width: 1.3mm; height: 2mm; border: solid var(--akzent); border-width: 0 1.4px 1.4px 0; transform: rotate(45deg); }
+  .belege { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; margin-top: 5mm; }
+  .belege .bild { height: 50mm; }
+  .belege .karte-bild { object-position: center top; }
+  .messung { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; margin-top: 3mm; }
+  .messung .zahl { padding: 2.6mm 3mm; text-align: left; }
+  .messung .zahl .wert { font-size: 19pt; }
+
+  /* Seite 4 */
+  ol.offen { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.8mm; counter-reset: o; }
+  ol.offen li { counter-increment: o; display: grid; grid-template-columns: 7mm 1fr 30mm; gap: 3mm; align-items: start; background: var(--flaeche); border: 1px solid var(--linie); border-radius: 2.5mm; padding: 2mm 3.5mm; font-size: 9pt; line-height: 1.35; color: #3b3e3f; }
+  ol.offen li::before { content: counter(o); font-family: "Instrument Serif", Georgia, serif; font-size: 15pt; color: var(--akzent); line-height: 1; }
+  ol.offen li b { color: var(--text); display: block; font-size: 9.8pt; }
+  ol.offen .feld { border-bottom: 1px solid var(--leise-hell); height: 8mm; font-size: 7pt; color: var(--leise); text-align: right; }
+  .unten { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 4.5mm; }
+  .karte { background: var(--flaeche); border: 1px solid var(--linie); border-radius: 4mm; padding: 4.5mm 5.5mm; }
+  .karte.dunkel { background: var(--text); color: #fff; border-color: var(--text); }
+  .karte.dunkel p, .karte.dunkel ol.ablauf li { color: var(--leise-hell); }
+  .karte p { font-size: 9.2pt; margin: 1.5mm 0 0; color: var(--leise); line-height: 1.42; }
+  .preis { font-family: "Instrument Serif", Georgia, serif; font-size: 22pt; line-height: 1.1; }
+  .platzhalter { background: #fff3c4; color: var(--text); padding: 0 1mm; border-radius: 1mm; }
+  .karte.dunkel .platzhalter { color: var(--text); }
+  ol.ablauf { list-style: none; padding: 0; margin: 2mm 0 0; counter-reset: s; display: grid; gap: 1.6mm; }
+  ol.ablauf li { counter-increment: s; font-size: 9.2pt; line-height: 1.38; padding-left: 7mm; position: relative; color: #3b3e3f; }
+  ol.ablauf li::before { content: counter(s); position: absolute; left: 0; top: -.3mm; width: 4.8mm; height: 4.8mm; border-radius: 50%; background: var(--tint); color: var(--akzent); font-weight: 700; font-size: 7.5pt; display: grid; place-items: center; }
+  .kontakt { margin-top: 4mm; font-size: 10.5pt; line-height: 1.55; border-top: 1px solid var(--linie); padding-top: 4mm; }
+  .kontakt b { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 15pt; }
+
+  .fuss { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; font-size: 7pt; color: var(--leise); line-height: 1.4; border-top: 1px solid var(--linie); padding-top: 2mm; }
+  .fuss .nr { float: right; }
+</style>
+</head>
+<body>
+
+<!-- Seite 1: Titel, Vorher/Nachher am Handy -->
+<section class="seite">
+  <div class="kopf"><img src="../../kunden/merysclean/public/img/logo.svg" alt="Merys Clean"><span>Entwurf · Oktober 2026</span></div>
+  <p class="ueber">Ihre neue Website</p>
+  <h1>Ihre neue Website –<br>Entwurf für <span class="schwung">Merys Clean</span></h1>
+  <p class="unter">Gleiche Firma, gleiche Leistungen, gleiche Kontaktdaten. Aber am Handy sehen Ihre Kunden sofort, was Sie
+    machen, wo Sie arbeiten und wie sie ein Angebot bekommen: mit einem Fingertipp zum Anruf oder zum Anfrageformular.</p>
+
+  <div class="titelgrid">
+    <figure><span class="marke alt">Heute</span>
+      <img class="bild" src="bilder/alt-390.jpg" alt="Bisherige Startseite merysclean.de auf dem Handy">
+      <figcaption><b>Erster Bildschirm am Handy:</b> „Herzlich Willkommen“, kein Anruf- oder Anfrageknopf, Cookie-Hinweis unten.</figcaption></figure>
+    <figure><span class="marke neu">Neu</span>
+      <img class="bild" src="bilder/neu-390.jpg" alt="Neue Startseite Merys Clean auf dem Handy">
+      <figcaption><b>Erster Bildschirm am Handy:</b> Leistung und Ort, „Kostenloses Angebot anfragen“, Anrufen, Zeiten, Adresse.</figcaption></figure>
+    <div class="zahlen">
+      <div class="zahl"><div class="vorher">bisher <s>2,2 MB</s></div><div class="wert">160 KB</div><div class="was">Datenmenge der Startseite</div></div>
+      <div class="zahl"><div class="vorher">Google-Prüfwert</div><div class="wert">100</div><div class="was">Leistung am Handy (von 100)</div></div>
+      <div class="zahl"><div class="vorher">Hauptinhalt sichtbar</div><div class="wert">1,5–1,7 s</div><div class="was">am Handy, Labormessung</div></div>
+      <div class="zahl"><div class="vorher">Cookie-Banner</div><div class="wert">keins</div><div class="was">keine Cookies, keine fremden Dienste</div></div>
+    </div>
+  </div>
+
+  <div class="band">Die neue Seite ist ein <b>fertiger Entwurf</b>, den Sie am Handy ausprobieren können.
+    Bevor sie online geht, gehen wir gemeinsam alle Angaben durch: Nichts davon ist ohne Ihre Freigabe.</div>
+
+  <div class="fuss"><span class="nr">1 / 4</span>Messung bisherige Seite: merysclean.de am 01.10.2026 am Computer (Chromium, erster Aufruf, 120 Anfragen).
+    Neue Seite: Vorschau am 01.10.2026, Datenmenge komprimiert am Handy (160 KB) und am Computer (159 KB) gemessen; Google Lighthouse
+    Handy-Profil, Median aus 3 Läufen. Für die bisherige Seite liegt kein Lighthouse-Wert vor. Werte schwanken je Messung leicht.
+    Aussagen zu Google-Platzierungen oder mehr Aufträgen sind damit nicht verbunden.</div>
+</section>
+
+<!-- Seite 2: Computer und Befunde der alten Seite -->
+<section class="seite">
+  <div class="kopf"><img src="../../kunden/merysclean/public/img/logo.svg" alt="Merys Clean"><span>Ihre bisherige Seite</span></div>
+  <p class="ueber">Vorher und nachher am Computer</p>
+  <div class="desk">
+    <figure><span class="marke alt">Heute</span><img class="bild" src="bilder/alt-1440.jpg" alt="Bisherige Startseite am Computer">
+      <figcaption>Seriöser Eindruck, aber ohne Aussage, was Sie anbieten, und ohne Anfrageknopf.</figcaption></figure>
+    <figure><span class="marke neu">Neu</span><img class="bild" src="bilder/neu-1440.jpg" alt="Neue Startseite am Computer">
+      <figcaption>Ihr echtes Team im Bild, Leistung und Ort in der Überschrift, zwei klare Wege zur Anfrage.</figcaption></figure>
+  </div>
+
+  <h2 style="margin-top:7mm">Was uns an der bisherigen Seite aufgefallen ist</h2>
+  <div class="befunde">
+    <div class="befund"><h3>Wege, die ins Leere führen</h3>
+      <p>Die vier Leistungs-Kacheln auf der Startseite und der Knopf „Unverbindliche Angebotsanfrage“ auf „Über uns“ führen auf eine
+        Fehlerseite (404). Der E-Mail-Link oben und unten auf jeder Seite funktioniert ebenfalls nicht.</p></div>
+    <div class="befund"><h3>Kein klarer Weg zur Anfrage</h3>
+      <p>Auf der Startseite gibt es keinen Anfrageknopf. Am Handy ist die Telefonnummer hinter einem Balken versteckt, einen
+        sichtbaren Anrufknopf gibt es nicht. Der Cookie-Hinweis bedeckt rund ein Fünftel des Bildschirms.</p></div>
+    <div class="befund"><h3>Formular ohne Datenschutz-Hinweis</h3>
+      <p>Das Kontaktformular fragt nur Name, Betreff, E-Mail und Nachricht ab, ohne Hinweis oder Häkchen zum Datenschutz.
+        Angaben zu Objekt, Fläche oder Ort, die Sie für ein Angebot brauchen, fehlen.</p></div>
+    <div class="befund"><h3>Fremde Dienste vor der Zustimmung</h3>
+      <p>Google-Schriften, Google Maps (Kontaktseite) und Skripte des Hosters laden, bevor Besucher zustimmen. Die Datenschutz­erklärung
+        von 2022 nennt sie nicht alle. Ob das rechtlich ein Problem ist, kann nur ein Fachmann verbindlich sagen.</p></div>
+    <div class="befund"><h3>Schwer und langsam</h3>
+      <p>Die Startseite lädt am Computer rund 2,2 MB in 120 einzelnen Anfragen, dazu ein Werbevideo mit 3,5 MB. Ein großer Teil
+        davon ist Technik der gekauften Vorlage, die Ihre Kunden gar nicht sehen.</p></div>
+    <div class="befund"><h3>Keine Seiten für Ihre Leistungen</h3>
+      <p>Es gibt keine eigene Seite je Leistung. Die Seite „Reinigung“ zeigt nur Bildkacheln, ohne Überschrift und ohne Text.
+        Wer etwa Treppenhausreinigung sucht, findet bei Ihnen keine Beschreibung dazu.</p></div>
+  </div>
+
+  <div class="fuss"><span class="nr">2 / 4</span>Grundlage: Prüfung der Live-Seite merysclean.de am 01.10.2026 (alle 6 Seiten abgerufen, Links geprüft,
+    Bildschirmfotos und Netzwerkzählung mit Chromium). Keine Rechtsberatung.</div>
+</section>
+
+<!-- Seite 3: Was die neue Seite bringt -->
+<section class="seite">
+  <div class="kopf"><img src="../../kunden/merysclean/public/img/logo.svg" alt="Merys Clean"><span>Ihre neue Seite</span></div>
+  <p class="ueber">Was die neue Seite bringt</p>
+  <h2>Aufgeräumt, schnell und für Anfragen gebaut</h2>
+  <ul class="neu">
+    <li><b>Klare Struktur:</b> vier Menüpunkte (Leistungen, Einsatzgebiet, Über uns, Kontakt) und überall der Knopf „Angebot anfragen“.</li>
+    <li><b>Eine Seite je Leistung:</b> Büro und Gewerbe, Unterhaltsreinigung, Fenster und Glas, Treppenhaus, Privathaushalt, Umzugs-, Bauend- und Sonderreinigung.</li>
+    <li><b>Angebotsformular in zwei Schritten:</b> „Ihr Objekt“ (Leistung, Objektart, Fläche, Ort) und „So erreichen wir Sie“, mit Datenschutz-Häkchen und Schutz vor Spam.</li>
+    <li><b>Anrufen und WhatsApp:</b> am Handy eine feste Leiste unten mit „Anrufen“ und „Angebot anfragen“, WhatsApp im Menü und auf der Kontaktseite.</li>
+    <li><b>Karte des Einsatzgebiets:</b> eigene Karte mit den 17 Orten Ihrer bisherigen Seite, ohne Google Maps; die Route gibt es als Link.</li>
+    <li><b>Team-Bereich:</b> Safet und Merita Mustafa mit Foto, Rolle und Platz für einen persönlichen Satz.</li>
+    <li><b>Keine Cookies nötig:</b> keine Cookies, kein Banner, keine fremden Dienste; die Schriften liegen auf dem eigenen Server.</li>
+    <li><b>Nichts geht verloren:</b> Ihre alten Seitenadressen leiten auf die neuen Seiten weiter; Firma, Adresse und Zeiten sind für Google sauber hinterlegt.</li>
+  </ul>
+
+  <div class="belege">
+    <figure><img class="bild karte-bild" src="bilder/neu-karte.jpg" alt="Seite Einsatzgebiet mit Karte der Orte">
+      <figcaption><b>Einsatzgebiet:</b> Karte und Orte als Text</figcaption></figure>
+    <figure><img class="bild" src="bilder/neu-team.jpg" alt="Team-Bereich mit Safet und Merita Mustafa">
+      <figcaption><b>Über uns:</b> die Menschen hinter Merys Clean</figcaption></figure>
+    <figure><img class="bild" src="bilder/neu-angebot.jpg" alt="Angebotsformular in zwei Schritten">
+      <figcaption><b>Angebot anfragen:</b> Formular und direkte Wege</figcaption></figure>
+  </div>
+
+  <h3 style="margin-top:6mm">Gemessen an der neuen Startseite</h3>
+  <div class="messung">
+    <div class="zahl"><div class="wert">100</div><div class="was">Leistung (Google-Prüfwert, Handy)</div></div>
+    <div class="zahl"><div class="wert">100</div><div class="was">Barrierefreiheit</div></div>
+    <div class="zahl"><div class="wert">100</div><div class="was">Technik nach Google-Empfehlungen</div></div>
+    <div class="zahl"><div class="wert">100</div><div class="was">Suchmaschinen-Grundlagen</div></div>
+    <div class="zahl"><div class="wert">160 KB</div><div class="was">statt rund 2,2 MB Datenmenge</div></div>
+  </div>
+  <p style="font-size:9.2pt;color:var(--leise);margin:3mm 0 0">Außerdem: am Handy ist der Hauptinhalt nach 1,5 bis 1,7 Sekunden sichtbar, nichts
+    springt beim Laden (Verschiebung 0), und die Seite funktioniert von 320 bis 1920 Pixel Breite ohne seitliches Scrollen.</p>
+
+  <div class="fuss"><span class="nr">3 / 4</span>Google Lighthouse, Handy-Profil, Median aus 3 Läufen, Vorschau vom 01.10.2026; Datenmenge komprimiert gemessen.
+    Die Prüfwerte beschreiben die Technik der Seite, nicht ihre Platzierung bei Google.</div>
+</section>
+
+<!-- Seite 4: Was wir noch brauchen, Angebot, Ablauf, Kontakt -->
+<section class="seite">
+  <div class="kopf"><img src="../../kunden/merysclean/public/img/logo.svg" alt="Merys Clean"><span>Nächste Schritte</span></div>
+  <p class="ueber">Bevor die Seite online geht</p>
+  <h2>Was wir noch von Ihnen brauchen</h2>
+  <ol class="offen">
+    <li><span><b>Ihre Hauptnummer</b>Auf der Seite stehen 0173 185 35 63 und 07161 9454270. Welche soll groß erscheinen?</span><span class="feld">Notiz</span></li>
+    <li><span><b>WhatsApp</b>Nutzen Sie WhatsApp für Kundenanfragen, und unter welcher Nummer?</span><span class="feld">Notiz</span></li>
+    <li><span><b>Gründungsjahr</b>Seit wann gibt es Merys Clean? Auf der alten Seite steht „20 Jahre Erfahrung“; wir schreiben nur, was Sie bestätigen.</span><span class="feld">Notiz</span></li>
+    <li><span><b>Ihre persönlichen Sätze</b>Je ein kurzer Satz von Safet und Merita Mustafa für den Team-Bereich.</span><span class="feld">Notiz</span></li>
+    <li><span><b>Herkunft der Arbeitsfotos</b>Sind die Fotos von Reinigungskräften bei der Arbeit eigene Aufnahmen oder gekauft? Gibt es eine Lizenz? Sind alle Abgebildeten auf den Teamfotos einverstanden?</span><span class="feld">Notiz</span></li>
+    <li><span><b>Registerdaten</b>Registergericht zur HRB 747382 und, falls vorhanden, Ihre Umsatzsteuer-Identifikationsnummer (für das Impressum).</span><span class="feld">Notiz</span></li>
+    <li><span><b>Google-Unternehmensprofil</b>Gibt es ein Profil bei Google, und wer hat Zugang? Die Angaben dort sollten zur neuen Seite passen.</span><span class="feld">Notiz</span></li>
+    <li><span><b>Adresse und Rechtstexte</b>Ist In den Krummäckern 40 der Firmensitz oder ein Partnerbüro? Impressum und Datenschutz kommen von Ihnen oder Ihrem Fachmann.</span><span class="feld">Notiz</span></li>
+  </ol>
+
+  <div class="unten">
+    <div class="karte"><h3>Ihr Angebot</h3>
+      <div class="preis"><span class="platzhalter">Angebot nach Gespräch</span></div>
+      <p>Umfang und Preis legen wir gemeinsam fest, wenn klar ist, was Sie brauchen.</p></div>
+    <div class="karte dunkel"><h3>So geht es weiter</h3>
+      <ol class="ablauf">
+        <li>Sie sehen sich den Entwurf in Ruhe an und sagen, was geändert werden soll.</li>
+        <li>Sie beantworten die Punkte oben und geben die Texte frei.</li>
+        <li>Wir schalten die Seite unter merysclean.de live.</li>
+      </ol></div>
+  </div>
+
+  <div class="kontakt"><b>Elias Wagner</b> · Websites für Betriebe in der Region<br>
+    <span class="platzhalter">[Telefon]</span> · <span class="platzhalter">[E-Mail]</span></div>
+
+  <div class="fuss"><span class="nr">4 / 4</span>Entwurf vom 01.10.2026. <span class="platzhalter">Preise und Bedingungen vorbehaltlich.</span>
+    Vertragliche Einzelheiten regelt der Vertrag. Keine Rechtsberatung.</div>
+</section>
+
+</body>
+</html>
