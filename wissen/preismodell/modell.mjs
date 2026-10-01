@@ -25,6 +25,17 @@ export const EINSTELLUNGEN = {
   serverPauschale: 0, // €/Monat durchgereicht; bei Cloudflare Pages meist 0 – Entscheidung offen
   amortisationMax: 12, // Monate: so lange darf ein Seitennachlass brauchen, bis das Abo ihn zurückgeholt hat – Platzhalter
   betreuungsStundenMax: 40, // Stunden/Monat, die Elias für laufende Betreuung hat (Kapazität) – Platzhalter
+  // Preisliste Mindest-/Fair-/Zielpreis (intern, nie für Kunden sichtbar; PLATZHALTER aus allgemeinem Marktwissen, nicht recherchiert)
+  // Einmalpreis Seite (6–16 Unterseiten), Raum Göppingen, kleine Betriebe. Mindest-Spanne beginnt am Richtboden (500).
+  spMindestVon: 500, spMindestBis: 700, // € Referenzpreis für erste Kunden; darunter wird Arbeit verschenkt
+  spFairVon: 1200, spFairBis: 2000, // € heutiger Start ohne Referenzen/Name
+  spZielVon: 2500, spZielBis: 3500, // € erst mit Referenzen und bei Kunden mit Budget
+  spAgenturAb: 4000, // € Agenturen/Kunden mit Budget
+  spRealistischVon: 700, spRealistischBis: 1500, // € typisch bei kleinen Handwerks-/Dienstleistungsbetrieben
+  referenzenFuerZiel: 3, // mindestens so viele vorzeigbare Referenzen (3–5) für die Zielstufe
+  amGrundVon: 29, amGrundBis: 49, // €/Monat Grundbetreuung
+  amWahlVon: 79, amWahlBis: 149, // €/Monat mit Wahlleistungen
+  amSeoVon: 150, amSeoBis: 300, // €/Monat lokale SEO-Betreuung, nur bei echter Monatsleistung; nie Ranking versprechen
 };
 
 // Kriterien-Gruppen mit Gewicht für Konzept B. Summe = 100.
@@ -199,6 +210,15 @@ export function spSpanne(b, e = EINSTELLUNGEN) {
   const hart = runde(summe(b.bausteine, 'fremd') + 25, 5); // + Domain erstes Jahr u. Kleinkram wie in Konzept C
   const ziel = konzeptA(b, e).sp;
   return { ziel, richt: Math.min(ziel, e.spRichtboden), hart };
+}
+
+// Preisstufe eines Seitenpreises (intern): unter Mindest / Mindest / Fair / Ziel. Die Lücken 700–1.200 € und 2.000–2.500 €
+// zählen zur darunterliegenden Stufe (Übergang). Die Zielstufe braucht vorzeigbare Referenzen, sonst ist sie nur ein Wunsch.
+export function spStufe(sp, referenzen = 0, e = EINSTELLUNGEN) {
+  const stufe = sp < e.spMindestVon ? 'unterMindest' : sp < e.spFairVon ? 'mindest' : sp < e.spZielVon ? 'fair' : 'ziel';
+  const name = { unterMindest: 'unter Mindestpreis', mindest: 'Mindestpreis', fair: 'Fairpreis', ziel: 'Zielpreis' }[stufe];
+  const referenzNoetig = stufe === 'ziel';
+  return { stufe, name, referenzNoetig, referenzenOk: !referenzNoetig || referenzen >= e.referenzenFuerZiel, ueberZiel: sp > e.spZielBis, agentur: sp >= e.spAgenturAb };
 }
 
 // Verhandlung: Nachlass auf den Zielpreis, bezahlt durch das Abo. Erlaubt, wenn der Nachlass innerhalb der Amortisationsfrist

@@ -37,6 +37,24 @@ for (const b of m.BEISPIELE) {
   console.log(`| ${b.name} | ${eur(sp.ziel)} | ${eur(sp.richt)} | ${eur(sp.hart)} | ${eur(mw.am)} | ${eur(k.clv)} | ${Math.round(k.anteilAbo * 100)} % |`);
 }
 
+console.log('\n### Preisliste Mindest-, Fair-, Zielpreis (intern, Platzhalter)\n');
+{
+  const e = m.EINSTELLUNGEN, r = (v, b) => `${eur(v)} – ${eur(b)}`;
+  console.log('| Stufe | Einmalpreis Seite | Bedingung |\n|---|---|---|');
+  console.log(`| Mindestpreis | ${r(e.spMindestVon, e.spMindestBis)} | Referenzpreis für erste Kunden |`);
+  console.log(`| Fairpreis | ${r(e.spFairVon, e.spFairBis)} | heutiger Start, ohne Referenzen |`);
+  console.log(`| Zielpreis | ${r(e.spZielVon, e.spZielBis)} | ab ${e.referenzenFuerZiel} Referenzen, Kunden mit Budget (Agenturen ab ${eur(e.spAgenturAb)}) |`);
+  console.log(`| realistisch (Kleinbetriebe) | ${r(e.spRealistischVon, e.spRealistischBis)} | Handwerk/Dienstleistung |`);
+  console.log('\n| Monatlich | €/Monat |\n|---|---|');
+  console.log(`| Grundbetreuung | ${r(e.amGrundVon, e.amGrundBis)} |`);
+  console.log(`| mit Wahlleistungen | ${r(e.amWahlVon, e.amWahlBis)} |`);
+  console.log(`| lokale SEO-Betreuung | ${r(e.amSeoVon, e.amSeoBis)} |`);
+  console.log('\n| Beispiel (Konzept A) | Zielpreis Sp | Stufe | Referenzen nötig |\n|---|---|---|---|');
+  for (const b of m.BEISPIELE) { const sp = m.konzeptA(b).sp, t = m.spStufe(sp); console.log(`| ${b.name} | ${eur(sp)} | ${t.name} | ${t.referenzNoetig ? 'ja' : 'nein'} |`); }
+  console.log('\n| Merys Clean | Sp | Stufe | Abo |\n|---|---|---|---|');
+  for (const sp of [990, 1490]) console.log(`| Gebäudereinigung | ${eur(sp)} | ${m.spStufe(sp).name} | ab 79 € |`);
+}
+
 console.log('\n### Verhandlung: Nachlass gegen Abo (Lotlinie)\n');
 {
   const sp = m.spSpanne(m.BEISPIELE[0]);
