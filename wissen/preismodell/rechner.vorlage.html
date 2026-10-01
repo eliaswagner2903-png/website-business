@@ -55,7 +55,7 @@ td.haupt { font-weight: 600; color: var(--akzent); }
   <header style="display:grid;gap:6px">
     <h1>OQ Preisformel-Rechner</h1>
     <p class="hinweis">Schieben Sie die Gewichte und sehen Sie, wie sich der Seitenpreis Sp der fünf Musterseiten verschiebt.
-      Konzept A = Punkte-Stückliste, B = gewichtete Bewertung, C = Aufwand × Wert (Untergrenze).
+      Konzept A = Punkte-Stückliste, B = gewichtete Bewertung, C = Aufwand × Wert (Kostenkontrolle).
       <b>Alle Euro-Beträge sind Platzhalter ohne Marktbasis.</b> Formeln: <span class="zahl">wissen/preismodell/PREISFORMELN.md</span>.</p>
   </header>
 
@@ -73,9 +73,9 @@ td.haupt { font-weight: 600; color: var(--akzent); }
 
     <div style="display:grid;gap:20px;min-width:0">
       <section class="blatt" aria-labelledby="h-preise">
-        <h2 id="h-preise">Sp und AM je Musterseite</h2>
+        <h2 id="h-preise">Sp-Spanne und Monatswert je Musterseite</h2>
         <div class="tabelle"><table>
-          <thead><tr><th>Musterseite</th><th>BK</th><th>A: Sp</th><th>B: Sp</th><th>C: Untergrenze</th><th>AM</th><th>Sp ÷ AM</th></tr></thead>
+          <thead><tr><th>Musterseite</th><th>BK</th><th>A: Zielpreis</th><th>B: Sp</th><th>C: Kosten</th><th>Richtboden</th><th>Monatswert</th><th>Abo-Anteil Kundenwert</th></tr></thead>
           <tbody id="preise"></tbody>
         </table></div>
       </section>
@@ -135,12 +135,12 @@ function zeichnen() {
   document.getElementById('anteil').innerHTML = gk.map((k, i) => `<span style="width:${g[k].gewicht}%;background:var(${FARBEN[i]})"></span>`).join('');
 
   const zeilen = BEISPIELE.map((b) => {
-    const a = konzeptA(b, e, g), B = konzeptB(b, e, g), c = konzeptC(b, e), ab = abo(b, a.sp, e);
-    return { b, a, B, c, ab };
+    const a = konzeptA(b, e, g), B = konzeptB(b, e, g), c = konzeptC(b, e), sp = spSpanne(b, e), mw = monatswert(['kundenfragen'], e), kw = kundenwert(a.sp, mw.am, e);
+    return { b, a, B, c, sp, mw, kw };
   });
-  document.getElementById('preise').innerHTML = zeilen.map(({ b, a, B, c, ab }) => `
+  document.getElementById('preise').innerHTML = zeilen.map(({ b, a, B, c, sp, mw, kw }) => `
     <tr><td>${b.name}</td><td class="zahl">${z1(bk(b.bk))}</td><td class="zahl haupt">${eur(a.sp)}</td><td class="zahl">${eur(B.sp)}</td>
-    <td class="zahl">${eur(c.sp)}</td><td class="zahl">${eur(ab.am)}</td><td class="zahl">${z1(ab.monateBisSp)}</td></tr>`).join('');
+    <td class="zahl">${eur(c.sp)}</td><td class="zahl">${eur(sp.richt)}</td><td class="zahl haupt">${eur(mw.am)}</td><td class="zahl">${Math.round(kw.anteilAbo * 100)} %</td></tr>`).join('');
 
   const max = Math.max(...zeilen.map((r) => r.a.sp));
   document.getElementById('zus').innerHTML = zeilen.map(({ b, a }) => {
