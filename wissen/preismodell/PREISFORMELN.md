@@ -19,6 +19,8 @@ Darum gilt:
 3. **Trotzdem Sp so hoch wie möglich verhandeln.** Der Zielpreis (Konzept A) ist der Start jeder Verhandlung.
 4. Jeder Nachlass hat einen Grund: Er muss binnen weniger Monate durch das Abo zurückkommen (Abschnitt 3a).
 
+5. **Preisliste mit Mindest-, Fair- und Zielpreis** (intern): Abschnitt 3b ordnet jeden Sp einer Stufe zu.
+
 Euro-Werte bleiben Platzhalter.
 
 ## 0. Grundsatz: Jeder Preis hat einen Grund
@@ -231,6 +233,47 @@ zu opfern, aber nicht umgekehrt.
 
 Die Grenze zeigt, wann die Betreuung je Kunde automatisiert oder im Preis angehoben werden muss.
 
+### 3b. Preisliste: Mindest-, Fair-, Zielpreis (intern, Platzhalter)
+
+> **Nur intern, nie für Kunden sichtbar.** Alle Werte sind **PLATZHALTER aus allgemeinem Marktwissen, nicht recherchiert**.
+> Annahme: Einmalpreis einer Seite mit 6–16 Unterseiten, individuellen Wünschen und Higgsfield-Design, Raum Göppingen,
+> kleine Betriebe. Einstellungen und Funktion `spStufe` in `modell.mjs`, Ausgabe: `node wissen/preismodell/tabellen.mjs`.
+
+| Stufe | Einmalpreis Sp | Wann |
+|---|---|---|
+| **Mindestpreis** (Minimum) | 500–700 € | Referenzpreis für erste Kunden; darunter wird Arbeit verschenkt; passt zum Richtboden 500 € (3a) |
+| **Fairpreis** | 1.200–2.000 € | heutiger Start, ohne Referenzen und Namen |
+| **Zielpreis** (Maximum) | 2.500–3.500 € | erst mit 3–5 vorzeigbaren Referenzen und nur bei Kunden mit Budget (Agenturen ab 4.000 €) |
+| realistisch bei kleinen Handwerks-/Dienstleistungsbetrieben | 700–1.500 € | übliche Spanne im Alltag |
+
+| Monatlich (AM) | €/Monat | Hinweis |
+|---|---|---|
+| Grundbetreuung | 29–49 € | im Abo immer enthalten (Einstellung `grundbetreuung` = 49 € bleibt die obere Grenze) |
+| mit Wahlleistungen | 79–149 € | Wahlleistungen siehe 7.5 |
+| lokale SEO-Betreuung | 150–300 € | nur bei echter monatlicher Leistung (Google-Profil, Texte, Bewertungen pflegen) |
+
+**Stufenzuordnung in `spStufe`:** unter 500 € = unter Mindestpreis; 500 bis unter 1.200 € = Mindest; 1.200 bis unter 2.500 € = Fair;
+ab 2.500 € = Ziel. Die Lücken (700–1.200 €, 2.000–2.500 €) zählen zur darunterliegenden Stufe als Übergang. Die Zielstufe
+meldet „Referenzen nötig“ (mindestens 3, Einstellung `referenzenFuerZiel`).
+
+**Zwei harte Wahrheiten**
+
+1. **SEO:** Nie Ranking oder „Platz 1“ versprechen, nur bessere Voraussetzungen. Die SEO-Betreuung wird nur für echte
+   monatliche Arbeit berechnet.
+2. **Higgsfield-Design:** Der Wert liegt in der Wirkung der Seite, nicht in den Credits. Ein Hero kostet nur etwa 6 Credits;
+   der Preis begründet sich durch Konzept, Auswahl und Gestaltung, nicht durch die Erzeugungskosten.
+
+**Beispiel Merys Clean (Gebäudereinigung):** Sp 990–1.490 € plus Abo ab 79 € (Stufe Mindest bis Fair). Die Referenzfreigabe wird als
+Gegenleistung festgehalten. Der frühere Pilotpreis 1.490 € + 49 €/Monat ist für einen Reinigungsbetrieb eher hoch.
+
+**Einordnung der Beispieltabellen:** Die Zielpreise aus Konzept A (3, Vergleich) bleiben unverändert. Lotlinie 1.960 €, URFA 2.300 €,
+Zwischenbild 2.180 € und Lindgrund 2.420 € liegen in der Fairstufe (bis unter 2.500 €); nur Friseur-Erlebnis mit 3.660 € erreicht die Zielstufe und
+bräuchte Referenzen. Konzept A rechnet also ohne Referenzen eher hoch: Für den Start zählt der Fairpreis, der Mindestpreis ist die Verhandlungsuntergrenze.
+
+**Strategie bleibt (0a):** Der Verdienst liegt in der Masse betreuter Seiten und den Monatszahlungen. Sp ist intern sehr flexibel,
+trotzdem wird Sp so hoch wie möglich verhandelt. Das Angebot nennt immer den Ziel- oder Fairpreis; die Untergrenze bleibt intern.
+Die 12-Monats-Rückholfrist für Nachlässe (3a) gilt weiter.
+
 ## 4. AM – Abo monatlich
 
 **Verkaufte Größe (Monatswert je Kunde):** `AM = Grundbetreuung 49 € + Σ Wahlleistungen + Serverkosten` (Abschnitt 7.5,
@@ -385,9 +428,10 @@ Beispiel 8 neue, 10 umgebaute Punkte, 24 Abo-Monate: 420 €.
 2. Gewichte 30/20/20/15/10/5 so lassen oder per Paarvergleich selbst setzen (Rechner hilft).
 3. BK als Aufschlag (Vorschlag) oder als Referenzrabatt.
 4. Bewertungsrabatt rechtlich prüfen lassen oder gleich in Referenzfreigabe umwandeln.
-5. Euro-Werte (Punktwert, Richtboden, Wahlleistungen, Amortisationsfrist, Kapazität, Pakete) erst mit Marktvergleich festlegen; das ist ein eigener Auftrag.
+5. Euro-Werte (Punktwert, Richtboden, Preisliste 3b, Wahlleistungen, Amortisationsfrist, Kapazität, Pakete) erst mit Marktvergleich festlegen; das ist ein eigener Auftrag.
 
-6. Eigene Vorschläge aus Abschnitt 7 übernehmen, ändern oder streichen.
+6. Preisliste 3b: Stufengrenzen (Mindest 500–700 €, Fair 1.200–2.000 €, Ziel 2.500–3.500 €), Merys-Clean-Preis und Referenzzahl für die Zielstufe bestätigen.
+7. Eigene Vorschläge aus Abschnitt 7 übernehmen, ändern oder streichen.
 
 Die offenen Punkte aus den Notizen (AGB-Hinweis vs. Erinnerung bei Änderungen, Vorauszahlung) entscheiden Sie; 7.1 und
 7.2 machen dazu je einen Vorschlag.

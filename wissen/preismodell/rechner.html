@@ -56,7 +56,8 @@ td.haupt { font-weight: 600; color: var(--akzent); }
     <h1>OQ Preisformel-Rechner</h1>
     <p class="hinweis">Schieben Sie die Gewichte und sehen Sie, wie sich der Seitenpreis Sp der fünf Musterseiten verschiebt.
       Konzept A = Punkte-Stückliste, B = gewichtete Bewertung, C = Aufwand × Wert (Kostenkontrolle).
-      <b>Alle Euro-Beträge sind Platzhalter ohne Marktbasis.</b> Formeln: <span class="zahl">wissen/preismodell/PREISFORMELN.md</span>.</p>
+      <b>Alle Euro-Beträge sind Platzhalter ohne Marktbasis.</b> Die Stufe (Mindest-, Fair-, Zielpreis) ist nur für Elias; der Kunde sieht sie nicht
+      (Preisliste: <span class="zahl">PREISFORMELN.md</span>, 3b). Formeln: <span class="zahl">wissen/preismodell/PREISFORMELN.md</span>.</p>
   </header>
 
   <div class="raster">
@@ -75,7 +76,7 @@ td.haupt { font-weight: 600; color: var(--akzent); }
       <section class="blatt" aria-labelledby="h-preise">
         <h2 id="h-preise">Sp-Spanne und Monatswert je Musterseite</h2>
         <div class="tabelle"><table>
-          <thead><tr><th>Musterseite</th><th>BK</th><th>A: Zielpreis</th><th>B: Sp</th><th>C: Kosten</th><th>Richtboden</th><th>Monatswert</th><th>Abo-Anteil Kundenwert</th></tr></thead>
+          <thead><tr><th>Musterseite</th><th>BK</th><th>A: Zielpreis</th><th>Stufe (intern)</th><th>B: Sp</th><th>C: Kosten</th><th>Richtboden</th><th>Monatswert</th><th>Abo-Anteil Kundenwert</th></tr></thead>
           <tbody id="preise"></tbody>
         </table></div>
       </section>
@@ -116,6 +117,17 @@ const EINSTELLUNGEN = {
   serverPauschale: 0, // €/Monat durchgereicht; bei Cloudflare Pages meist 0 – Entscheidung offen
   amortisationMax: 12, // Monate: so lange darf ein Seitennachlass brauchen, bis das Abo ihn zurückgeholt hat – Platzhalter
   betreuungsStundenMax: 40, // Stunden/Monat, die Elias für laufende Betreuung hat (Kapazität) – Platzhalter
+  // Preisliste Mindest-/Fair-/Zielpreis (intern, nie für Kunden sichtbar; PLATZHALTER aus allgemeinem Marktwissen, nicht recherchiert)
+  // Einmalpreis Seite (6–16 Unterseiten), Raum Göppingen, kleine Betriebe. Mindest-Spanne beginnt am Richtboden (500).
+  spMindestVon: 500, spMindestBis: 700, // € Referenzpreis für erste Kunden; darunter wird Arbeit verschenkt
+  spFairVon: 1200, spFairBis: 2000, // € heutiger Start ohne Referenzen/Name
+  spZielVon: 2500, spZielBis: 3500, // € erst mit Referenzen und bei Kunden mit Budget
+  spAgenturAb: 4000, // € Agenturen/Kunden mit Budget
+  spRealistischVon: 700, spRealistischBis: 1500, // € typisch bei kleinen Handwerks-/Dienstleistungsbetrieben
+  referenzenFuerZiel: 3, // mindestens so viele vorzeigbare Referenzen (3–5) für die Zielstufe
+  amGrundVon: 29, amGrundBis: 49, // €/Monat Grundbetreuung
+  amWahlVon: 79, amWahlBis: 149, // €/Monat mit Wahlleistungen
+  amSeoVon: 150, amSeoBis: 300, // €/Monat lokale SEO-Betreuung, nur bei echter Monatsleistung; nie Ranking versprechen
 };
 
 // Kriterien-Gruppen mit Gewicht für Konzept B. Summe = 100.
@@ -292,6 +304,15 @@ function spSpanne(b, e = EINSTELLUNGEN) {
   return { ziel, richt: Math.min(ziel, e.spRichtboden), hart };
 }
 
+// Preisstufe eines Seitenpreises (intern): unter Mindest / Mindest / Fair / Ziel. Die Lücken 700–1.200 € und 2.000–2.500 €
+// zählen zur darunterliegenden Stufe (Übergang). Die Zielstufe braucht vorzeigbare Referenzen, sonst ist sie nur ein Wunsch.
+function spStufe(sp, referenzen = 0, e = EINSTELLUNGEN) {
+  const stufe = sp < e.spMindestVon ? 'unterMindest' : sp < e.spFairVon ? 'mindest' : sp < e.spZielVon ? 'fair' : 'ziel';
+  const name = { unterMindest: 'unter Mindestpreis', mindest: 'Mindestpreis', fair: 'Fairpreis', ziel: 'Zielpreis' }[stufe];
+  const referenzNoetig = stufe === 'ziel';
+  return { stufe, name, referenzNoetig, referenzenOk: !referenzNoetig || referenzen >= e.referenzenFuerZiel, ueberZiel: sp > e.spZielBis, agentur: sp >= e.spAgenturAb };
+}
+
 // Verhandlung: Nachlass auf den Zielpreis, bezahlt durch das Abo. Erlaubt, wenn der Nachlass innerhalb der Amortisationsfrist
 // zurückkommt (Nachlass ÷ Abo-Beitrag) und der Preis nicht unter den harten Kosten liegt. Ohne Abo gilt nur die Richtgrenze.
 function spNachlass(spZiel, spAngebot, am, hart, e = EINSTELLUNGEN) {
@@ -423,6 +444,12 @@ function reglerBauen() {
     '<span><i style="background:var(--linie)"></i>Grundpaket</span>';
 }
 
+// Intern: Stufe des Seitenpreises (Mindest/Fair/Ziel); der Kunde sieht sie nicht.
+function stufeText(sp) {
+  const t = spStufe(sp, 0, e);
+  return t.name + (t.referenzNoetig ? ` (ab ${e.referenzenFuerZiel} Referenzen)` : '');
+}
+
 function zeichnen() {
   const g = normiert();
   gk.forEach((k) => { document.getElementById('wv-' + k).textContent = Math.round(g[k].gewicht) + ' %'; });
@@ -434,7 +461,7 @@ function zeichnen() {
     return { b, a, B, c, sp, mw, kw };
   });
   document.getElementById('preise').innerHTML = zeilen.map(({ b, a, B, c, sp, mw, kw }) => `
-    <tr><td>${b.name}</td><td class="zahl">${z1(bk(b.bk))}</td><td class="zahl haupt">${eur(a.sp)}</td><td class="zahl">${eur(B.sp)}</td>
+    <tr><td>${b.name}</td><td class="zahl">${z1(bk(b.bk))}</td><td class="zahl haupt">${eur(a.sp)}</td><td>${stufeText(a.sp)}</td><td class="zahl">${eur(B.sp)}</td>
     <td class="zahl">${eur(c.sp)}</td><td class="zahl">${eur(sp.richt)}</td><td class="zahl haupt">${eur(mw.am)}</td><td class="zahl">${Math.round(kw.anteilAbo * 100)} %</td></tr>`).join('');
 
   const max = Math.max(...zeilen.map((r) => r.a.sp));
