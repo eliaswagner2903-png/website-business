@@ -1,40 +1,40 @@
 ---
 name: nachtrag
-description: Neue Ergebnisse als datierten Nachtrag in den Papier-Lagebericht (Register A–H) einheften, ohne Bestehendes zu ändern, damit Elias die ganze Entwicklung im Ordner sieht. Nutzen bei "/nachtrag", in der täglichen Nachtrags-Routine und wenn Elias einen neuen Stand zum Ausdrucken will.
+description: File new results as a dated addendum (Nachtrag) in the paper status report (Lagebericht, registers A–H) without changing existing material, so that Elias sees the whole development in the binder. Use on "/nachtrag", in the daily addendum routine and when Elias wants a new state to print.
 ---
 
-# Nachtrag zum Lagebericht
+# Addendum to the status report
 
-Der Lagebericht in `ops/dokumentation/` ist ein wachsender Ordner. **Nichts wird ersetzt oder umgeschrieben**: Der
-Grundbestand (`STAND-2026-09-30.html`) und alle früheren Nachträge bleiben, wie sie sind. Neues kommt als Nachtrag
-hinter das passende Register. So sieht Elias die Entwicklung. Regeln für alle Blätter: Deutsch, ohne Code, für Laien,
-nur Schwarz/Weiß/Grau, kleine SW-Grafiken als inline-SVG, wenn sie helfen.
+The status report (Lagebericht) in `ops/dokumentation/` is a growing binder. **Nothing is replaced or rewritten**: the
+base stock (`STAND-2026-09-30.html`) and all earlier addenda stay as they are. New material comes as an addendum
+behind the matching register. That way Elias sees the development. Rules for all sheets: German, no code, for laypeople,
+only black/white/gray, small b/w graphics as inline SVG when they help.
 
-## 1. Was ist neu?
+## 1. What is new?
 
-- Letzte Nummer und letztes Datum: `tail -1 ops/dokumentation/nachtraege/verzeichnis.jsonl`.
-- Neu seitdem: Auftragslog (`python3 ops/log.py liste`) mit Status `erledigt` oder geändertem Stand nach diesem Datum,
-  gemergte PRs, neue Threads im Projekt, Sitzungen in den anderen Repos (`list_sessions`), neue Entscheidungen von Elias.
-- Nichts Nennenswertes neu → **keinen** Nachtrag anlegen und nichts melden.
+- Last number and last date: `tail -1 ops/dokumentation/nachtraege/verzeichnis.jsonl`.
+- New since then: order log (`python3 ops/log.py liste`) with status `erledigt` or a changed state after that date,
+  merged PRs, new threads in the project, sessions in the other repos (`list_sessions`), new decisions by Elias.
+- Nothing noteworthy new → create **no** addendum and report nothing.
 
-## 2. Einordnen
+## 2. Classify
 
-| Register | Neues gehört hierhin, wenn … |
+| Register | New material belongs here if … |
 |---|---|
-| A Überblick | sich die Kurzfassung (Kennzahlen, Stand) spürbar ändert |
-| B Chronik | immer: neue Sitzungen und Aufträge mit Datum und Ergebnis |
-| C Projekte | neue oder geänderte Seiten, Kunden, Vorhaben |
-| D Arbeitsweise und Qualität | neue Abläufe, Prüfungen, Jury-Ergebnisse, Bauzeiten |
-| E Wissen und Lehren | neue Lehren, neue Fehler, neue Referenzen |
-| F Geld | Preise, Kosten, Credits, Entscheidungen zu Euro-Werten |
-| G Plan und Entscheidungen | Position im Plan, gefallene oder neue Entscheidungen, nächste Schritte |
-| H Anhang | neue Links und Ablageorte |
+| A Überblick | the short version (key figures, state) changes noticeably |
+| B Chronik | always: new sessions and orders with date and result |
+| C Projekte | new or changed sites, customers, undertakings |
+| D Arbeitsweise und Qualität | new procedures, checks, jury results, build times |
+| E Wissen und Lehren | new lessons, new errors, new references |
+| F Geld | prices, costs, credits, decisions on euro values |
+| G Plan und Entscheidungen | position in the plan, decisions made or new, next steps |
+| H Anhang | new links and storage locations |
 
-Ein Nachtrag berührt meist B und G, dazu die Register, zu denen es Inhalt gibt.
+An addendum usually touches B and G, plus the registers for which it has content.
 
-## 3. Schreiben
+## 3. Write
 
-Datei `ops/dokumentation/nachtraege/N###-JJJJ-MM-TT.html` (nächste Nummer, dreistellig). Aufbau je Register:
+File `ops/dokumentation/nachtraege/N###-JJJJ-MM-TT.html` (next number, three digits). Structure per register:
 
 ```html
 <!doctype html><html lang="de"><head><meta charset="utf-8"><title>Nachtrag N001</title>
@@ -47,23 +47,23 @@ Datei `ops/dokumentation/nachtraege/N###-JJJJ-MM-TT.html` (nächste Nummer, drei
 </div></body></html>
 ```
 
-- Abschnittsnummern laufen im Register weiter (nach B3 kommt B4, auch über mehrere Nachträge).
-- `verweis` nennt, welchen früheren Abschnitt der Nachtrag ergänzt oder überholt. Überholtes nie löschen,
-  sondern hier sagen: „Stand von G2 überholt: Entscheidung 1 ist gefallen …“.
-- In G immer die aktuelle Position im 6-Phasen-Plan (Grafik wie im Grundbestand, Bild „Wir sind hier“).
-- Zahlen nur mit Quelle (Log, Git, Bericht), Euro-Werte weiter als Platzhalter kennzeichnen, bis Elias sie festlegt.
+- Section numbers continue within the register (after B3 comes B4, also across several addenda).
+- `verweis` names which earlier section the addendum supplements or supersedes. Never delete superseded material,
+  say so here instead: "Stand von G2 überholt: Entscheidung 1 ist gefallen …".
+- In G always the current position in the 6-phase plan (graphic as in the base stock, image "Wir sind hier").
+- Figures only with a source (log, Git, report), keep marking euro values as placeholders until Elias fixes them.
 
-Eintrag ins Verzeichnis anhängen (eine Zeile):
+Append an entry to the index (one line):
 `{"nr":"N001","datum":"2026-10-01","register":["B","C","G"],"titel":"…","auftraege":["A-056"]}`
 
-## 4. Bauen, prüfen, abliefern
+## 4. Build, check, deliver
 
-1. `node ops/dokumentation/baue-pdf.cjs` baut Grundbestand, Nachtragsverzeichnis, `nachtraege/pdf/<Bu>-N###.pdf`
-   und `ORDNER-KOMPLETT.pdf`.
-2. Jede neue Seite als Bild ansehen (pymupdf `get_pixmap`): nichts abgeschnitten, Daumenleiste frei.
-3. Neue PDFs nach `/mnt/project-files/berichte/lagebericht-nachtraege/` kopieren, `ORDNER-KOMPLETT.pdf` nach
+1. `node ops/dokumentation/baue-pdf.cjs` builds the base stock, the addendum index, `nachtraege/pdf/<Bu>-N###.pdf`
+   and `ORDNER-KOMPLETT.pdf`.
+2. Look at every new page as an image (pymupdf `get_pixmap`): nothing cut off, thumb strip clear.
+3. Copy the new PDFs to `/mnt/project-files/berichte/lagebericht-nachtraege/`, `ORDNER-KOMPLETT.pdf` to
    `/mnt/project-files/berichte/`.
-4. Log-Eintrag (`/auftrag`), Branch `aufbau/nachtrag-N###`, `/sichern`.
-5. Elias kurz melden: welche Blätter hinter welches Register gehören, mit den PDFs als Anhang. Das neue
-   Nachtragsverzeichnis (register/0b) ersetzt das alte Blatt hinter dem Registerverzeichnis; das ist das einzige
-   Blatt, das ausgetauscht wird.
+4. Log entry (`/auftrag`), branch `aufbau/nachtrag-N###`, `/sichern`.
+5. Report briefly to Elias: which sheets belong behind which register, with the PDFs attached. The new
+   addendum index (register/0b) replaces the old sheet behind the register index; that is the only
+   sheet that gets replaced.

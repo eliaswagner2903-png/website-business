@@ -1,71 +1,71 @@
 # Globaler Mindeststandard
 
-> Schlüssel `global` · gilt für **jede** Seite, jede Regel ist **Muss** und durch keine Kundenoption abwählbar.
-> Baut auf `CLAUDE.md` („Pflicht für jede Kundenseite“) und `wissen/MEISTERSTANDARD.md` (P1–P4, W1–W7) auf, statt sie zu wiederholen.
+> Key `global` · applies to **every** site; every rule is **Muss** and cannot be opted out by any customer option.
+> Builds on `CLAUDE.md` („Pflicht für jede Kundenseite“) and `wissen/MEISTERSTANDARD.md` (P1–P4, W1–W7) instead of repeating them.
 
 ## 1 Ziel
-Jede ausgelieferte Seite ist auf jedem Gerät benutzbar, barrierearm, schnell, sicher, technisch sauber und inhaltlich korrekt –
-egal, welche Leistungen der Kunde bestellt hat.
+Every delivered site is usable on every device, low-barrier, fast, secure, technically clean and correct in content –
+regardless of which services the customer ordered.
 
 ## 2 Warum relevant
-Das ist das Handwerk, das der Kunde voraussetzt, ohne es zu bestellen. Google indexiert die Handy-Fassung (Q-G13); WCAG 2.2 AA ist
-der Maßstab für Barrierefreiheit (Q-W07); Impressumspflicht gilt für jede geschäftsmäßige Seite (Q-R01).
+This is the craft the customer takes for granted without ordering it. Google indexes the mobile version (Q-G13); WCAG 2.2 AA is
+the yardstick for accessibility (Q-W07); the imprint obligation applies to every commercial site (Q-R01).
 
 ## 3 Faktoren
-Responsive 320–1920 px · Bedienbarkeit (Tastatur, ohne JS, reduzierte Bewegung) · semantisches HTML (eine H1, Ebenen, lang) ·
-Metadaten · funktionierende Links und Navigation · Bildoptimierung · Leistung (Lighthouse, Budget) · Sicherheits-Header ·
-Datenschutz (keine fremden Herkünfte) · Rechtstexte erreichbar · korrekte, freigegebene Inhalte.
+Responsive 320–1920 px · operability (keyboard, without JS, reduced motion) · semantic HTML (one H1, heading levels, lang) ·
+metadata · working links and navigation · image optimization · performance (Lighthouse, budget) · security headers ·
+privacy (no third-party origins) · legal pages reachable · correct, approved content.
 
 ## 4 Beim Programmieren
-- Generator (`bauen.mjs`) statt Hand-HTML; Titel, Description, Canonical je Seite aus einer Datenquelle.
-- Kopf-Regeln aus `CLAUDE.md`, Skripte mit `defer`, keine Inline-Skripte ohne Hash.
-- `<img>` immer mit `alt`, `width`, `height`; erstes großes Bild `fetchpriority="high"`, nie lazy.
-- Navigation als `<nav>` mit `<a href>`, aktuelle Seite `aria-current="page"`, Skip-Link als erstes Element.
+- Generator (`bauen.mjs`) instead of hand-written HTML; title, description, canonical per page from one data source.
+- Head rules from `CLAUDE.md`, scripts with `defer`, no inline scripts without a hash.
+- `<img>` always with `alt`, `width`, `height`; first large image `fetchpriority="high"`, never lazy.
+- Navigation as `<nav>` with `<a href>`, current page `aria-current="page"`, skip link as the first element.
 
 ## 5 Inhalte und Strukturen
-Impressum und Datenschutz (Texte vom Kunden bzw. Generator, nie selbst formuliert), 404-Seite, Favicon, Kontaktweg auf jeder Seite.
+Imprint and privacy policy (texts from the customer or the generator, never written yourself), 404 page, favicon, a way to contact on every page.
 
 ## 6 Vermeiden
-Zoom-Sperre im Viewport · Blindtext · erfundene Fakten · fremde Skripte/Schriften · tote Links · Inhalte, die nur mit JS erscheinen.
+Zoom lock in the viewport · placeholder text · invented facts · third-party scripts/fonts · dead links · content that only appears with JS.
 
 ## 7–10 Automatik und Beleg
-- **Automatisch umgesetzt:** Vorlage (`vorlage/`) liefert Header, CSP, 404, Formular mit Honigtopf, Kopf-Struktur; Generator setzt Metadaten.
-- **Automatisch geprüft:** `werkzeuge/qualitaet.mjs` (statisch + Browser) und mit `--voll` `pruefen.mjs`, `lighthouse.sh`, `budget.mjs`.
-- **Manuell:** Richtigkeit der Inhalte (Kunde bestätigt), Sichtprüfung der Screenshots (`/meisterpruefung`, W1–W7).
-- **Beleg:** `QUALITAET.md` mit Urteil BESTANDEN; manuelle Punkte in `abnahme.md` mit Beleg (Screenshot-Pfad, Freigabe des Kunden mit Datum).
+- **Implemented automatically:** the template (`vorlage/`) provides headers, CSP, 404, form with honeypot, head structure; the generator sets metadata.
+- **Checked automatically:** `werkzeuge/qualitaet.mjs` (static + browser) and, with `--voll`, `pruefen.mjs`, `lighthouse.sh`, `budget.mjs`.
+- **Manual:** correctness of the content (customer confirms), visual check of the screenshots (`/meisterpruefung`, W1–W7).
+- **Evidence:** `QUALITAET.md` with verdict BESTANDEN; manual items in `abnahme.md` with evidence (screenshot path, customer approval with date).
 
 ## Regeln
 
 | ID | Regel | Stufe | Phase | Art | Prüfung | Beleg | Stand |
 |---|---|---|---|---|---|---|---|
-| GLB-01 | 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, keine Konsolenfehler, Inhalt, Navigation, Kontakt und Formulare auch ohne JS nutzbar (Erlebnisse mit Standbild), bei „Bewegung reduzieren“ alles sichtbar | G | BA | AUTO | ext-pruefen | O Q-W07, P Q-P01 | stabil |
-| GLB-02 | Viewport `width=device-width`, keine Zoom-Sperre (`user-scalable=no`, `maximum-scale` < 2) | G | B | AUTO | viewport | O Q-W08 | stabil |
-| GLB-03 | `<html lang>` gesetzt | G | B | AUTO | html-lang | O Q-W07 | stabil |
-| GLB-04 | Genau eine H1 je Seite, Überschriftenebenen ohne Sprung | G | PB | AUTO | h1, ueberschriften | F Q-W11, P Q-P03 | stabil |
-| GLB-05 | Jede Seite hat einen `<title>` und eine meta description (indexierte Seiten) | G | PB | AUTO | titel, description | O Q-G02, O Q-G03 | stabil |
-| GLB-06 | Keine toten internen Links, Anker existieren, kein `href="#"`/leer/`javascript:` | G | BA | AUTO | links-intern, links-leer | O Q-G04 | stabil |
-| GLB-07 | Skip-Link als erster Link, jede Seite hat einen Kontaktweg (tel:, mailto:, Kontaktseite) | G | B | AUTO | skip-link, kontakt-jede-seite | O Q-W07, P Q-P03 | stabil |
-| GLB-08 | Navigation funktioniert auf Handy und Computer, mit Tastatur, ohne JS (Rückfall: Zeile/Link); aktuelle Seite markiert | G | BA | SEMI-AUTO | ext-pruefen, link-namen | O Q-W07 | stabil |
-| GLB-09 | Jedes `<img>` hat `alt` (dekorativ: `alt=""`) sowie `width` und `height` | G | B | AUTO | bilder-alt, bilder-masse | O Q-G05, O Q-W03 | stabil |
-| GLB-10 | Bilder als WebP/AVIF, ≤ 300 KB (Klasse schlank) bzw. ≤ 500 KB (erlebnis, kino), erstes Bild nicht lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
-| GLB-11 | Lighthouse mobil (Startseite): Performance ≥ 95, Barrierefreiheit, Best Practices, SEO = 100 | G | A | AUTO | ext-lighthouse | P Q-P01 | stabil |
-| GLB-12 | Gewichts-Budget der gewählten Klasse (schlank/erlebnis/kino, `kunde.json`) eingehalten | G | A | AUTO | ext-budget | P Q-P01 | stabil |
-| GLB-13 | Tests der Seite grün, html-validate ohne Fehler, Kopf-Regeln eingehalten | G | BA | AUTO | ext-tests, ext-html-validate, ext-kopf | P Q-P03 | stabil |
-| GLB-14 | Sicherheits-Header: CSP ohne `unsafe-inline`/`unsafe-eval`, HSTS, nosniff, Referrer-, Permissions-Policy, frame-ancestors | G | B | AUTO | sicherheits-header | F Q-M01, P Q-P03 | stabil |
-| GLB-15 | Keine fremden Herkünfte (Skripte, Schriften, Bilder, iframes) und kein einwilligungspflichtiges Tracking | G | PB | AUTO | fremde-quellen, tracking-skripte | G Q-R04, O Q-R05, P Q-P03 | stabil |
-| GLB-16 | Kein Mixed Content (nur https-Adressen) | G | B | AUTO | mixed-content | F Q-M01 | stabil |
-| GLB-17 | Formulare: jedes Feld beschriftet, Honigtopf und serverseitige Prüfung | G | B | AUTO | formular-label, formular-honigtopf | O Q-W07, P Q-P03 | stabil |
-| GLB-18 | Impressum und Datenschutz von jeder Seite verlinkt; Texte vom Kunden/Generator, nicht erfunden | G | PBA | SEMI-AUTO | impressum-datenschutz | G Q-R01 | stabil |
-| GLB-19 | 404-Seite und Favicon vorhanden | G | B | AUTO | seite-404, favicon | P Q-P03 | stabil |
-| GLB-20 | Kein Blindtext, keine offenen `data-pruefen`-Angaben bei Abnahme | G | A | AUTO | platzhalter, data-pruefen | P Q-P03 | stabil |
-| GLB-21 | Jede Tatsache (Adresse, Zeiten, Preise, Leistungen) stammt vom Kunden; Kunde hat Texte freigegeben | G | PA | MANUAL | | P Q-P03 | stabil |
-| GLB-22 | Hauptinhalt steht im HTML und ist ohne JavaScript vorhanden | G | B | AUTO | inhalt-ohne-js | O Q-G14 | stabil |
-| GLB-23 | robots.txt und sitemap.xml vorhanden, Startseite indexierbar | G | B | AUTO | robots-txt, sitemap, noindex-bewusst | O Q-G08, O Q-G10 | stabil |
-| GLB-24 | Sichtprüfung Handy und Computer: Meisterprüfung W1–W7 im Schnitt ≥ 4 | G | A | MANUAL | | P Q-P01 | stabil |
+| GLB-01 | 320–1920 px without overflow, tap targets ≥ 44 px, no console errors; content, navigation, contact and forms usable without JS too (experiences with a still image); with „reduce motion“ everything visible | G | BA | AUTO | ext-pruefen | O Q-W07, P Q-P01 | stabil |
+| GLB-02 | Viewport `width=device-width`, no zoom lock (`user-scalable=no`, `maximum-scale` < 2) | G | B | AUTO | viewport | O Q-W08 | stabil |
+| GLB-03 | `<html lang>` set | G | B | AUTO | html-lang | O Q-W07 | stabil |
+| GLB-04 | Exactly one H1 per page, heading levels without gaps | G | PB | AUTO | h1, ueberschriften | F Q-W11, P Q-P03 | stabil |
+| GLB-05 | Every page has a `<title>` and a meta description (indexed pages) | G | PB | AUTO | titel, description | O Q-G02, O Q-G03 | stabil |
+| GLB-06 | No dead internal links, anchors exist, no `href="#"`/empty/`javascript:` | G | BA | AUTO | links-intern, links-leer | O Q-G04 | stabil |
+| GLB-07 | Skip link as the first link, every page has a way to contact (tel:, mailto:, contact page) | G | B | AUTO | skip-link, kontakt-jede-seite | O Q-W07, P Q-P03 | stabil |
+| GLB-08 | Navigation works on phone and computer, with keyboard, without JS (fallback: row/link); current page marked | G | BA | SEMI-AUTO | ext-pruefen, link-namen | O Q-W07 | stabil |
+| GLB-09 | Every `<img>` has `alt` (decorative: `alt=""`) as well as `width` and `height` | G | B | AUTO | bilder-alt, bilder-masse | O Q-G05, O Q-W03 | stabil |
+| GLB-10 | Images as WebP/AVIF, ≤ 300 KB (class schlank) or ≤ 500 KB (erlebnis, kino), first image not lazy | G | B | AUTO | bilder-format, bilder-gewicht, lcp-nicht-lazy | O Q-W02, O Q-W06 | stabil |
+| GLB-11 | Lighthouse mobile (home page): Performance ≥ 95, Accessibility, Best Practices, SEO = 100 | G | A | AUTO | ext-lighthouse | P Q-P01 | stabil |
+| GLB-12 | Weight budget of the chosen class (schlank/erlebnis/kino, `kunde.json`) met | G | A | AUTO | ext-budget | P Q-P01 | stabil |
+| GLB-13 | Site tests green, html-validate without errors, head rules met | G | BA | AUTO | ext-tests, ext-html-validate, ext-kopf | P Q-P03 | stabil |
+| GLB-14 | Security headers: CSP without `unsafe-inline`/`unsafe-eval`, HSTS, nosniff, Referrer- and Permissions-Policy, frame-ancestors | G | B | AUTO | sicherheits-header | F Q-M01, P Q-P03 | stabil |
+| GLB-15 | No third-party origins (scripts, fonts, images, iframes) and no tracking that requires consent | G | PB | AUTO | fremde-quellen, tracking-skripte | G Q-R04, O Q-R05, P Q-P03 | stabil |
+| GLB-16 | No mixed content (https addresses only) | G | B | AUTO | mixed-content | F Q-M01 | stabil |
+| GLB-17 | Forms: every field labelled, honeypot and server-side validation | G | B | AUTO | formular-label, formular-honigtopf | O Q-W07, P Q-P03 | stabil |
+| GLB-18 | Imprint and privacy policy linked from every page; texts from the customer/generator, not invented | G | PBA | SEMI-AUTO | impressum-datenschutz | G Q-R01 | stabil |
+| GLB-19 | 404 page and favicon present | G | B | AUTO | seite-404, favicon | P Q-P03 | stabil |
+| GLB-20 | No placeholder text, no open `data-pruefen` entries at acceptance | G | A | AUTO | platzhalter, data-pruefen | P Q-P03 | stabil |
+| GLB-21 | Every fact (address, hours, prices, services) comes from the customer; customer has approved the texts | G | PA | MANUAL | | P Q-P03 | stabil |
+| GLB-22 | Main content is in the HTML and present without JavaScript | G | B | AUTO | inhalt-ohne-js | O Q-G14 | stabil |
+| GLB-23 | robots.txt and sitemap.xml present, home page indexable | G | B | AUTO | robots-txt, sitemap, noindex-bewusst | O Q-G08, O Q-G10 | stabil |
+| GLB-24 | Visual check on phone and computer: master check W1–W7 averages ≥ 4 | G | A | MANUAL | | P Q-P01 | stabil |
 
 ## Mythen und Unbelegtes
-- „Google bestraft mehrere H1“: Google ist die Reihenfolge der Überschriften egal (Q-G01). Eine H1 ist unsere Regel wegen Barrierefreiheit (Q-W11).
-- „Mobile-Friendly-Test bestanden = mobil gut“: Den Test gibt es seit 2023-12-01 nicht mehr (Q-G34); wir messen mit Lighthouse und `pruefen.mjs`.
+- „Google penalizes multiple H1s“: Google does not care about the order of headings (Q-G01). One H1 is our rule, for accessibility (Q-W11).
+- „Passed the Mobile-Friendly Test = good on mobile“: the test has not existed since 2023-12-01 (Q-G34); we measure with Lighthouse and `pruefen.mjs`.
 
 ## Zeitabhängig
-Keine Regel hier ist zeitabhängig; die Lighthouse-Grenzen folgen dem Meisterstandard und ändern sich nur mit ihm.
+No rule here is time-dependent; the Lighthouse thresholds follow the Meisterstandard and change only with it.

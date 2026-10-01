@@ -1,18 +1,18 @@
 ---
 name: aufklaerung
-description: Eine Internetseite mit dem Fernspäherkommando vollständig aufklären (Design, Technik, Sicherheit beobachtend, Funktion, SEO) und ein Dossier liefern. Nutzen bei "/aufklaerung <url>", zur Wettbewerbsanalyse vor einem Angebot oder zur Tiefenprüfung einer Kundenseite.
+description: Fully reconnoiter a website with the Fernspäherkommando (design, technology, security by observation only, function, SEO) and deliver a dossier. Use on "/aufklaerung <url>", for competitor analysis before an offer, or for an in-depth check of a customer site.
 ---
 
-# Aufklärung durch das Fernspäherkommando
+# Reconnaissance by the Fernspäherkommando
 
-Übernommen aus dem Repo Fernsp-herkommando-Fortenbacher-; Kommandeur Stahl führt hier anstelle von Hfw Fortenbacher:
+Taken over from the repo Fernsp-herkommando-Fortenbacher-; Kommandeur Stahl leads here in place of Hfw Fortenbacher:
 
-1. Ziel-URL festlegen. Sicherheit ist rein beobachtend – kein Scannen, kein Angreifen.
-2. Die fünf Späher parallel mit derselben URL ansetzen (Agent-Werkzeug):
-   `uffz-schnoerkel` (Design), `osg-snats` (Technik/Performance/A11y), `gefr-gummihals` (Sicherheit),
-   `osg-fritte` (Funktion), `hptgefr-duden` (Content/SEO). Nicht passende Fächer weglassen und begründen.
-3. Alle Befund-Blöcke unverändert an `fw-gezi-golem` geben → ein Dossier.
-4. Dossier + Kommandeurs-Bewertung an den Nutzer; bei eigener Kundenseite Mängel als Aufträge loggen.
+1. Set the target URL. Security is purely observational – no scanning, no attacking.
+2. Deploy the five scouts in parallel with the same URL (agent tool):
+   `uffz-schnoerkel` (design), `osg-snats` (technology/performance/a11y), `gefr-gummihals` (security),
+   `osg-fritte` (function), `hptgefr-duden` (content/SEO). Leave out subjects that do not fit and give the reason.
+3. Hand all finding blocks unchanged to `fw-gezi-golem` → one dossier.
+4. Dossier + commander's assessment to the user; for our own customer site, log defects as orders.
 
-Die Späher starten ihren Browser über `.claude/mcp/playwright.mjs` (Ordner muss vertraut sein). Fällt der Browser aus,
-arbeiten sie „von außen“ – das muss im Dossier stehen.
+The scouts start their browser via `.claude/mcp/playwright.mjs` (folder must be trusted). If the browser fails,
+they work "from outside" – this must be stated in the dossier.

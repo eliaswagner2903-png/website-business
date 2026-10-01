@@ -1,70 +1,70 @@
-# Meisterstandard – woran eine High-End-Seite gemessen wird
+# Meisterstandard – the yardstick for a high-end site
 
-Jede Showcase- und jede Kundenseite muss **alle Pflichtpunkte (P)** erfüllen und in der **Wirkung (W)** im Schnitt
-mindestens 4 von 5 erreichen. Geprüft wird mit `/meisterpruefung`. Was nicht messbar ist, wird an Screenshots und
-Bildfolgen beurteilt, nicht am Code.
+Every showcase and every customer site must meet **all mandatory points (P)** and reach an average of at least 4 out of 5
+in **impact (W)**. It is checked with `/meisterpruefung`. What cannot be measured is judged on screenshots and
+frame sequences, not on code.
 
-## P1 Technik (automatisch, `werkzeuge/pruefen.mjs`, `lighthouse.sh`, `npm test`)
+## P1 Technik (automatic, `werkzeuge/pruefen.mjs`, `lighthouse.sh`, `npm test`)
 
-- Lighthouse mobil mit Kompression: Performance ≥ Wert der Gewichts-Klasse (P2: schlank 95, Erlebnis 90, Kino 85), Barrierefreiheit, Best Practices und SEO = 100, CLS ≤ 0,02.
-- 320–1920 px ohne Überlauf, Tippflächen ≥ 44 px, genau eine H1, keine Konsolenfehler.
-- JavaScript ist erlaubt, wenn es Nutzen bringt (Bedienung, Konfigurator, 3D, Bewegung). Ohne JavaScript bleiben **Inhalt, Navigation, Kontakt und Formulare** nutzbar; ein rein interaktives Erlebnis (3D, Film, Konfigurator) zeigt dann ein Standbild oder den Text dazu. Bei „Bewegung reduzieren“ nichts unsichtbar und nichts in Bewegung.
-- Strenge CSP ohne `unsafe-inline`, keine fremden Herkünfte (Schriften, Skripte, Bilder alle vom eigenen Server).
+- Lighthouse mobile with compression: Performance ≥ value of the weight class (P2: schlank 95, Erlebnis 90, Kino 85), Accessibility, Best Practices and SEO = 100, CLS ≤ 0.02.
+- 320–1920 px without overflow, tap targets ≥ 44 px, exactly one H1, no console errors.
+- JavaScript is allowed when it adds value (operation, configurator, 3D, motion). Without JavaScript, **content, navigation, contact and forms** stay usable; a purely interactive experience (3D, film, configurator) then shows a still image or the text for it. With „reduce motion“ nothing invisible and nothing moving.
+- Strict CSP without `unsafe-inline`, no third-party origins (fonts, scripts, images all from the own server).
 
-## P2 Gewicht (automatisch, `werkzeuge/budget.mjs`, gemessen komprimiert, erster Aufruf der Startseite)
+## P2 Gewicht (automatic, `werkzeuge/budget.mjs`, measured compressed, first load of the home page)
 
-Die Grenze hängt am **Zweck der Seite**, nicht an einer festen Zahl (Elias 2026-09-30). Die Klasse steht in `kunde.json`
-(`"budgetklasse"`) und wird im Pflichtenheft begründet; ohne Angabe gilt `schlank`. Gemessen wird das, was Nutzer spüren
-(LCP ≤ 2,5 s, CLS ≤ 0,02, ≥ 55 fps beim Scrollen, Lighthouse); die KB-Grenzen sind die Leitplanken dafür. Schwere Medien
-(Film, große 3D-Szene) kommen erst nach Poster und „geladen“, nie bei „Daten sparen“ oder „Bewegung reduzieren“.
+The limit depends on the **purpose of the site**, not on a fixed number (Elias 2026-09-30). The class is set in `kunde.json`
+(`"budgetklasse"`) and justified in the requirements spec; without a value, `schlank` applies. What is measured is what users feel
+(LCP ≤ 2.5 s, CLS ≤ 0.02, ≥ 55 fps when scrolling, Lighthouse); the KB limits are the guardrails for that. Heavy media
+(film, large 3D scene) come only after the poster and „loaded“, never with „save data“ or „reduce motion“.
 
-| Klasse | Wann | Gesamt | JS (1. Aufruf / nachgeladen) | CSS | Schriften | Anfragen | fps | Lighthouse Perf |
+| Class | When | Total | JS (1st load / lazy-loaded) | CSS | Fonts | Requests | fps | Lighthouse Perf |
 |---|---|---|---|---|---|---|---|---|
-| `schlank` | Info-Seite: Zeiten, Telefon, Karte (Handwerk, Gastro, Praxis) | 500 KB | 60 / 180 KB | 30 KB | 3 Dateien, 120 KB | 25 | 55 | 95 |
-| `erlebnis` | Markenauftritt mit Bewegung, 3D, Konfigurator | 1,2 MB | 200 / 600 KB | 60 KB | 5 Dateien, 250 KB | 40 | 55 | 90 |
-| `kino` | Scroll-Film, große 3D-Szene, Produkt-Showcase | 2,5 MB | 350 / 1500 KB | 100 KB | 6 Dateien, 400 KB | 60 | 50 | 85 |
+| `schlank` | Info site: hours, phone, map (trades, hospitality, practice) | 500 KB | 60 / 180 KB | 30 KB | 3 files, 120 KB | 25 | 55 | 95 |
+| `erlebnis` | Brand presence with motion, 3D, configurator | 1.2 MB | 200 / 600 KB | 60 KB | 5 files, 250 KB | 40 | 55 | 90 |
+| `kino` | Scroll film, large 3D scene, product showcase | 2.5 MB | 350 / 1500 KB | 100 KB | 6 files, 400 KB | 60 | 50 | 85 |
 
-Werte stehen in `werkzeuge/budgetklasse.mjs` (eine Quelle). Wer eine höhere Klasse wählt, nennt den Nutzen (Wirkung, Zweck) im
-Pflichtenheft. Für Medien gilt zusätzlich:
+Values live in `werkzeuge/budgetklasse.mjs` (single source). Whoever picks a higher class states the benefit (impact, purpose) in the
+requirements spec. For media the following also applies:
 
-| Posten | Grenze | Grund |
+| Item | Limit | Reason |
 |---|---|---|
-| Video im Hero | nur nach dem Poster, ≤ 1,5 MB (`schlank`) bzw. ≤ 3 MB (`erlebnis`, `kino`), nicht auf „Daten sparen“ | Poster ist das LCP-Element |
-| Scroll-Film (Kino-Hero, `wissen/lehren/scroll-film.md`) | Computer ≤ 12 MB, Handy ≤ 5 MB, erst nach dem Poster und nach „geladen“, nie bei „Daten sparen“ oder „Bewegung reduzieren“ | Elias 2026-09-29 (A-045); zählt nicht zum ersten Aufruf |
+| Video in the hero | only after the poster, ≤ 1.5 MB (`schlank`) or ≤ 3 MB (`erlebnis`, `kino`), not on „save data“ | The poster is the LCP element |
+| Scroll film (cinema hero, `wissen/lehren/scroll-film.md`) | computer ≤ 12 MB, phone ≤ 5 MB, only after the poster and after „loaded“, never on „save data“ or „reduce motion“ | Elias 2026-09-29 (A-045); not counted in the first load |
 
-## P3 Bewegung (Bildfolge, `werkzeuge/bildfolge.mjs`)
+## P3 Bewegung (frame sequence, `werkzeuge/bildfolge.mjs`)
 
-- Nach 150 ms ist höchstens ein Viertel einer großen Bewegung sichtbar; nichts nimmt in < 0,3 s den Bildschirm ein.
-- Nur `transform`, `opacity`, `clip-path`, `mask-position`. Keine Endlos-Puls- oder Schwebe-Effekte.
-- 3D und Videos pausieren außerhalb des Bildschirms und bei verstecktem Tab; bei „Bewegung reduzieren“ ein Standbild.
-- Mindestens 55 fps beim Scrollen auf dem Handy-Profil (4× CPU-Drosselung) – gemessen, nicht geschätzt.
+- After 150 ms at most a quarter of a large movement is visible; nothing takes over the screen in < 0.3 s.
+- Only `transform`, `opacity`, `clip-path`, `mask-position`. No endless pulse or floating effects.
+- 3D and videos pause off-screen and when the tab is hidden; with „reduce motion“ a still image.
+- At least 55 fps when scrolling on the phone profile (4× CPU throttling) – measured, not estimated.
 
 ## P4 Anpassbarkeit
 
-- Die ganze Marke steckt in **einer** Datei `css/marke.css`: Farben (6 Rollen), Schriften, Radien, Tempi, Abstände.
-  Eine Farb- oder Schriftänderung dort darf nichts anderes kaputt machen (Test: zweites Farbschema einspielen,
-  `/meisterpruefung` muss grün bleiben, Kontrast AA bleibt).
-- Inhalte (Texte, Leistungen, Preise) stehen an einer Stelle, nicht verstreut im Markup.
+- The whole brand lives in **one** file `css/marke.css`: colors (6 roles), fonts, radii, timings, spacing.
+  A color or font change there must not break anything else (test: load a second color scheme,
+  `/meisterpruefung` must stay green, AA contrast stays).
+- Content (texts, services, prices) lives in one place, not scattered through the markup.
 
-## W Wirkung (Beurteilung an Screenshots Handy + Computer, je 1–5)
+## W Wirkung (judged on screenshots phone + computer, 1–5 each)
 
-| | Frage | 5 heißt |
+| | Question | 5 means |
 |---|---|---|
-| W1 Erster Eindruck | Weiß man in 5 s, was es ist, für wen und was der nächste Schritt ist? | ja, und man will weiterscrollen |
-| W2 Eigenständigkeit | Könnte die Seite zu jeder beliebigen Firma gehören? | nein: Leitmotiv aus der Welt des Kunden |
-| W3 Typografie | Hierarchie, Rhythmus, Laufweite, Zeilenlänge 55–75 Zeichen | wirkt gesetzt, nicht getippt |
-| W4 Komposition | Spannung durch Größenunterschiede, Weißraum, Raster | keine gleichförmigen Kartenreihen |
-| W5 Bewegung | Hat jede Animation einen Zweck (führen, erklären, antworten)? | ruhig, genau, nie im Weg |
-| W6 Handwerk | Zustände (Hover, Fokus, Aktiv, Fehler, leer, lädt) gestaltet? | jeder Zustand bedacht |
-| W7 Glaubwürdigkeit | Echte Fotos/Visuals, konkrete Texte, keine Floskeln | nichts wirkt ausgedacht |
+| W1 First impression | Do you know within 5 s what it is, for whom, and what the next step is? | yes, and you want to keep scrolling |
+| W2 Distinctiveness | Could the site belong to any random company? | no: leitmotif from the customer's world |
+| W3 Typography | Hierarchy, rhythm, tracking, line length 55–75 characters | looks typeset, not typed |
+| W4 Composition | Tension through size contrast, white space, grid | no uniform rows of cards |
+| W5 Motion | Does every animation have a purpose (guide, explain, respond)? | calm, precise, never in the way |
+| W6 Craft | Are states (hover, focus, active, error, empty, loading) designed? | every state considered |
+| W7 Credibility | Real photos/visuals, concrete texts, no platitudes | nothing feels made up |
 
-Unter 4 in einem Punkt: konkret benennen, was fehlt, nachbessern, neu beurteilen. Die Beurteilung macht nicht nur
-der Erbauer: Uffz. Schnörkel (Optik-Späher) bewertet die Screenshots unabhängig; weichen die Noten um mehr als 1 ab,
-entscheidet die strengere.
+Below 4 in any point: name concretely what is missing, improve, judge again. The judging is not done by the builder alone:
+Uffz. Schnörkel (visual scout) rates the screenshots independently; if the scores differ by more than 1,
+the stricter one decides.
 
 ## Hinweis zur Zweitnote
 
-Der Optik-Späher (`uffz-schnoerkel`) hat in dieser Umgebung oft keinen Browser. Ihm deshalb immer die
-Screenshot-Pfade mitgeben (Handy, Computer, Ganzseite, Bildfolgen) und zusätzlich Belege für die Zustände:
-je ein Bild mit Tastaturfokus auf Hauptknopf, Telefonlink und einem aufklappbaren Element. Ohne solche Bilder
-kann er W5 und W6 nicht beurteilen und benotet zu Recht streng.
+The visual scout (`uffz-schnoerkel`) often has no browser in this environment. So always give him the
+screenshot paths (phone, computer, full page, frame sequences) plus evidence for the states:
+one image each with keyboard focus on the main button, the phone link and an expandable element. Without such images
+he cannot judge W5 and W6 and rightly grades strictly.

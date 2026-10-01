@@ -1,40 +1,40 @@
-# Wie Claude arbeitet – und wie wir es klug einsetzen
+# How Claude works – and how we use it wisely
 
-## Die Bausteine
+## The building blocks
 
-| Baustein | Was es ist | Wofür wir es nutzen |
+| Building block | What it is | What we use it for |
 |---|---|---|
-| **Session** | Eine Unterhaltung mit eigenem Arbeitsgedächtnis (Kontext) in einem frischen Cloud-Container. Endet die Session, ist der Container weg. | Deshalb wird alles committet und gepusht: GitHub ist das Langzeitgedächtnis für Code. |
-| **Kontext** | Was ich gerade „im Kopf“ habe. Groß, aber endlich; sehr lange Sessions werden zusammengefasst und verlieren Details. | Große Aufgaben in Threads aufteilen, Wichtiges in Dateien schreiben statt es nur zu sagen. |
-| **CLAUDE.md** | Datei im Repo, die ich bei jedem Start automatisch lese. | Regeln, Persona, Qualitätsstandard – gilt für jede Session gleich. |
-| **Projekt-Memory** | Kleine Notizen, die alle Claudes in diesem Projekt lesen. | Entscheidungen und Vorlieben, die sonst neu erfragt werden müssten. |
-| **Auftragslog** | `ops/auftraege.jsonl` | Was wann von wem verlangt und wie es erledigt wurde. |
-| **Skills** (`/pruefen`) | Gespeicherte Arbeitsanleitungen, per Schrägstrich-Befehl oder automatisch passend geladen. | Wiederkehrende Abläufe immer gleich gut erledigen. |
-| **Agents** (Subagents) | Helfer mit eigenem Kontext, eigenem Werkzeugsatz und wählbarem Modell. Sie melden nur das Ergebnis zurück. | Parallele Arbeit (5 Späher gleichzeitig) und Entlastung meines Kontexts. Kosten Energie, also gezielt. |
-| **Hooks** | Befehle, die das System (nicht ich) automatisch ausführt, z. B. nach jeder Dateiänderung. | Fehler sofort abfangen: HTML-, Kopf- und Sicherheitsprüfung nach jeder Bearbeitung. Ich kann sie nicht „vergessen“. |
-| **MCP / Connectors** | Anschlüsse an fremde Dienste (Higgsfield, Stripe, Cloudflare, GitHub, Browser). | Ich bediene die Dienste direkt – Zugang gibst du per Anmeldung, nie per Passwort im Chat. |
-| **Routinen** | Geplante Sessions, die zu festen Zeiten starten. | Wöchentliche Wartung ohne dein Zutun. |
-| **Workflows** | Viele Agents nach festem Plan, z. B. Review in mehreren Dimensionen mit Gegenprüfung. | Nur für große Aufgaben, weil teuer. Sag „nutze einen Workflow“, wenn du das willst. |
-| **Artifacts** | Private Webseiten auf claude.ai (wie die Lagekarte). | Vorschauen, Pläne, Berichte zum Anschauen und Teilen. |
-| **Remote Control** | Eine Session auf deinem eigenen Gerät, in einem Ordner von dir. | Wenn etwas lokal laufen muss (deine Konten, deine Programme). |
-| **Pull Request** | Vorschlag, einen Branch in `main` zu übernehmen, mit automatischer Prüfung (CI). | Jeder PR ist gleichzeitig Backup und Kontrollpunkt. Du mergst, ich bereite vor. |
+| **Session** | One conversation with its own working memory (context) in a fresh cloud container. When the session ends, the container is gone. | That is why everything is committed and pushed: GitHub is the long-term memory for code. |
+| **Context** | What I currently have "in my head". Large but finite; very long sessions get summarized and lose details. | Split big tasks into threads, write important things into files instead of only saying them. |
+| **CLAUDE.md** | A file in the repo that I read automatically at every start. | Rules, persona, quality standard – the same for every session. |
+| **Project memory** | Small notes that all Claudes in this project read. | Decisions and preferences that would otherwise have to be asked again. |
+| **Order log** | `ops/auftraege.jsonl` | What was requested by whom and when, and how it was handled. |
+| **Skills** (`/pruefen`) | Saved work instructions, loaded via slash command or automatically when they fit. | Do recurring procedures equally well every time. |
+| **Agents** (subagents) | Helpers with their own context, their own toolset and a selectable model. They report back only the result. | Parallel work (5 scouts at once) and relieving my context. They cost energy, so use them selectively. |
+| **Hooks** | Commands that the system (not I) runs automatically, e.g. after every file change. | Catch errors immediately: HTML, head and security checks after every edit. I cannot "forget" them. |
+| **MCP / connectors** | Connections to external services (Higgsfield, Stripe, Cloudflare, GitHub, browser). | I operate the services directly – you grant access by logging in, never by a password in the chat. |
+| **Routines** | Scheduled sessions that start at fixed times. | Weekly maintenance without any effort from you. |
+| **Workflows** | Many agents following a fixed plan, e.g. review across several dimensions with cross-checking. | Only for big tasks, because they are expensive. Say "use a workflow" if you want that. |
+| **Artifacts** | Private web pages on claude.ai (like the situation map). | Previews, plans, reports to look at and share. |
+| **Remote Control** | A session on your own device, in a folder of yours. | When something has to run locally (your accounts, your programs). |
+| **Pull request** | A proposal to take a branch into `main`, with automatic checking (CI). | Every PR is both a backup and a checkpoint. You merge, I prepare. |
 
-## Backup, Branch, PR – der Unterschied
+## Backup, branch, PR – the difference
 
-- **Commit + Push** = Backup. Der Stand liegt sicher auf GitHub, auch wenn die Session endet.
-- **Branch** = eigene Arbeitsspur. `main` bleibt immer lauffähig; neue Arbeit passiert daneben.
-- **Pull Request** = „Ich schlage vor, das in `main` zu übernehmen.“ GitHub prüft automatisch (Workflow „Prüfen“),
-  du siehst die Änderungen und klickst auf Merge. Erst dann geht eine Kundenseite live.
+- **Commit + push** = backup. The state is safe on GitHub even when the session ends.
+- **Branch** = a separate line of work. `main` always stays runnable; new work happens alongside it.
+- **Pull request** = "I propose taking this into `main`." GitHub checks automatically (workflow "Prüfen"),
+  you see the changes and click Merge. Only then does a customer site go live.
 
-## Was ich nicht kann (und wie wir es lösen)
+## What I cannot do (and how we solve it)
 
-- Konten anlegen, Verträge schließen, Ausweise hochladen, beim Amt anmelden → `ops/HAENDE.md`.
-- In dieser Umgebung keine neuen GitHub-Repos anlegen → du legst das leere Repo an, ich fülle es.
-- Geheimnisse sehen, die du mir nicht gibst → gut so. Schlüssel gehören in Cloudflare/GitHub-Secrets.
-- Mich an frühere Sessions erinnern, wenn nichts aufgeschrieben wurde → darum Log, Memory, CLAUDE.md.
+- Create accounts, sign contracts, upload IDs, register with the authorities → `ops/HAENDE.md`.
+- Creating new GitHub repos in this environment is not possible → you create the empty repo, I fill it.
+- See secrets that you do not give me → good that way. Keys belong in Cloudflare/GitHub secrets.
+- Remember earlier sessions if nothing was written down → hence log, memory, CLAUDE.md.
 
-## Energie sparen
+## Saving energy
 
-Große Modelle für Planung, Architektur und schwierige Fehler. Späher und Routine auf kleineren Modellen
-(im Agent festgelegt). Agents nur, wenn sie parallel arbeiten oder viel lesen müssen. Erst prüfen, dann pushen:
-ein sauberer Push spart drei Korrekturrunden.
+Large models for planning, architecture and hard bugs. Scouts and routine on smaller models
+(set in the agent). Agents only when they work in parallel or have to read a lot. Check first, then push:
+one clean push saves three rounds of corrections.

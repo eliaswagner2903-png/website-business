@@ -1,19 +1,19 @@
 ---
 name: bildfolge
-description: Eine Animation (Menü, Laden der Seite, Übergang) als exakte Bildfolge aufnehmen und beurteilen, ob sie ruhig und angenehm ist. Nutzen bei neuen oder geänderten Animationen oder bei Rückmeldungen wie "erschreckt", "zu schnell", "unruhig".
+description: Record an animation (menu, page load, transition) as an exact frame sequence and judge whether it is calm and pleasant. Use for new or changed animations or for feedback such as "erschreckt", "zu schnell", "unruhig".
 ---
 
-# Bildfolge einer Animation
+# Frame sequence of an animation
 
-1. Server läuft (`node werkzeuge/gzserver.mjs 8080 $S/public`).
-2. Aufnehmen:
-   - Menü o. Ä.: `node werkzeuge/bildfolge.mjs http://localhost:8080/index.html ".menue-knopf" 390 700`
-     (Selektor zum Antippen, Breite, vorher gescrollte Höhe)
-   - Laden der Seite: `node werkzeuge/bildfolge.mjs http://localhost:8080/index.html laden 390`
-3. `werkzeuge/ausgabe/bildfolge.png` ansehen (0–1500 ms nebeneinander) und beurteilen:
-   - Nach 150 ms höchstens ein Viertel der Bewegung → sonst Kurve mit leisem Start (`cubic-bezier(.45,.05,.25,1)`)
-     und längere Dauer.
-   - Große Flächen geben den Bildschirm **nach und nach** frei, die Seite bleibt als Kontext sichtbar.
-   - Nichts springt, nichts blitzt, Inhalte erscheinen, wenn die Fläche sie erreicht.
-   - Im ersten Bildschirm ist das größte Element (LCP) ab dem ersten Bild sichtbar.
-4. Bild dem Nutzer schicken, wenn es um eine Rückmeldung von ihm geht; Erkenntnis in `wissen/DESIGN-WISSEN.md` oder `wissen/FEHLER.md` anhängen.
+1. Server is running (`node werkzeuge/gzserver.mjs 8080 $S/public`).
+2. Record:
+   - Menu etc.: `node werkzeuge/bildfolge.mjs http://localhost:8080/index.html ".menue-knopf" 390 700`
+     (selector to tap, width, height scrolled beforehand)
+   - Page load: `node werkzeuge/bildfolge.mjs http://localhost:8080/index.html laden 390`
+3. Look at `werkzeuge/ausgabe/bildfolge.png` (0–1500 ms side by side) and judge:
+   - After 150 ms at most a quarter of the movement → otherwise use a curve with a gentle start (`cubic-bezier(.45,.05,.25,1)`)
+     and a longer duration.
+   - Large surfaces release the screen **gradually**, the page stays visible as context.
+   - Nothing jumps, nothing flashes, content appears when the surface reaches it.
+   - On the first screen the largest element (LCP) is visible from the first frame.
+4. Send the image to the user if it concerns feedback from him; append the insight to `wissen/DESIGN-WISSEN.md` or `wissen/FEHLER.md`.

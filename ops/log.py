@@ -37,7 +37,7 @@ def finde(eintraege, aid):
     for e in eintraege:
         if e["id"] == aid:
             return e
-    sys.exit(f"Auftrag {aid} nicht gefunden")
+    sys.exit(f"Order {aid} not found")
 
 
 def zeile(e):
@@ -86,22 +86,22 @@ def main():
         speichern(eintraege); print(zeile(e))
     elif a.befehl == "liste":
         auswahl = [e for e in eintraege if not a.offen or e["status"] != "erledigt"]
-        print("\n".join(zeile(e) for e in auswahl[-a.n:]) or "keine Einträge")
+        print("\n".join(zeile(e) for e in auswahl[-a.n:]) or "no entries")
     elif a.befehl == "suche":
         w = a.wort.lower()
-        print("\n".join(zeile(e) for e in eintraege if w in json.dumps(e, ensure_ascii=False).lower()) or "nichts gefunden")
+        print("\n".join(zeile(e) for e in eintraege if w in json.dumps(e, ensure_ascii=False).lower()) or "nothing found")
     elif a.befehl == "zeige":
         print(json.dumps(finde(eintraege, a.id), ensure_ascii=False, indent=2))
     elif a.befehl == "kurz":
-        # knapp halten: wird in jede Sitzung geladen; Details mit `zeige A-…`
+        # keep short: loaded into every session; details via `zeige A-…`
         offen = [e for e in eintraege if e["status"] != "erledigt"]
         letzte = [e for e in eintraege if e["status"] == "erledigt"][-3:]
         kurzzeile = lambda e, n: (z := zeile(e if e["status"] == "blockiert" else {**e, "ergebnis": ""}))[:n] + ("…" if len(z) > n else "")
-        print("Auftragslog (ops/auftraege.jsonl) – offen:")
-        print("\n".join(kurzzeile(e, 120) for e in offen) or "  keine")
-        print("zuletzt erledigt:")
-        print("\n".join(kurzzeile(e, 90) for e in letzte) or "  keine")
-        print("Regel: jeden neuen Auftrag mit `python3 ops/log.py neu …` anlegen und mit `fertig` abschließen.")
+        print("Order log (ops/auftraege.jsonl) – open:")
+        print("\n".join(kurzzeile(e, 120) for e in offen) or "  none")
+        print("recently completed:")
+        print("\n".join(kurzzeile(e, 90) for e in letzte) or "  none")
+        print("Rule: log every new order with `python3 ops/log.py neu …` and close it with `fertig`.")
 
 
 if __name__ == "__main__":
