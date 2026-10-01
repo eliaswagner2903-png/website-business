@@ -418,8 +418,8 @@ ${bildHtml ? `    <figure class="seitenkopf-bild"${pr(bildPruefen)}>${bildHtml}<
   <div class="huelle">
     <h2 id="alle-titel" class="unsichtbar">Alle Leistungen</h2>
     <ul class="leistung-karten">
-${LEI.map((l) => `      <li class="leistung-karte einblenden">
-        ${l.bild ? `<div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw')}</div>` : `<div class="leistung-karte-motiv" aria-hidden="true">${schwung('schwung schwung--karte')}</div>`}
+${LEI.map((l, i) => `      <li class="leistung-karte">
+        ${l.bild ? `<div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw', { lazy: i > 2 })}</div>` : `<div class="leistung-karte-motiv" aria-hidden="true">${schwung('schwung schwung--karte')}</div>`}
         <h3><a href="/${l.url}">${esc(l.name)}</a></h3>
         <p>${esc(l.lead)}</p>
         <p class="leistung-karte-mehr" aria-hidden="true">Mehr erfahren ${pfeil}</p>
