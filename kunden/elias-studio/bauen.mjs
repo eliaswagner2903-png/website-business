@@ -271,7 +271,7 @@ const konfig = `<section class="abschnitt konfig" id="stile" aria-labelledby="t-
       <h2 id="t-stile" class="einblenden">Drei Stile, <em>drei Vorschläge</em>.</h2>
       <p class="einblenden">${esc(S.stile_kopf)}</p>
     </div>
-    <ul class="stil-raster" role="list"${pr(P.stile)}>
+    <ul class="stil-raster"${pr(P.stile)}>
 ${K.stile.map(stilKarte).join('\n')}
     </ul>
     <div class="konfig-fuss">
