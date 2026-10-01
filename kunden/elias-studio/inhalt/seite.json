@@ -20,10 +20,9 @@
     "link": "Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist",
     "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
     "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
-    "konfigurator": "Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)",
-    "stufen": "Inhalt der Stufen 1–5 je Bereich ist ein Entwurf – Elias legt fest, was jede Stufe enthält (wissen/preismodell/KONFIGURATOR.md)",
     "ablauf": "Ablauf aus dem Business-Plan abgeleitet – Elias prüft Schritte und Wortlaut",
-    "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen"
+    "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen",
+    "stile": "Stilvorschläge (Schrift, Farben, Zuordnung zu den Musterseiten) sind ein Entwurf – Elias bestätigt Auswahl und Wortlaut"
   },
   "messung": "Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
@@ -159,308 +158,6 @@
       "text": "Auf Wunsch bleibe ich dran: Ich halte die Seite online, prüfe sie regelmäßig und ändere, was sich ändert."
     }
   ],
-  "konfigurator": {
-    "stile": [
-      {
-        "id": "hell",
-        "name": "Klassisch",
-        "text": "Serifenschrift, viel Luft, ruhig",
-        "beispiel": "wie Lotlinie",
-        "probe": "Aa"
-      },
-      {
-        "id": "laut",
-        "name": "Modern",
-        "text": "Kräftige Grotesk, großer Auftritt",
-        "beispiel": "wie Zwischenbild",
-        "probe": "Aa"
-      },
-      {
-        "id": "edel",
-        "name": "Edel",
-        "text": "Feine Versalien, dunkler Grund",
-        "beispiel": "wie Lindgrund",
-        "probe": "AA"
-      }
-    ],
-    "farben": [
-      {
-        "id": "salbei",
-        "name": "Salbei"
-      },
-      {
-        "id": "terrakotta",
-        "name": "Terrakotta"
-      },
-      {
-        "id": "kobalt",
-        "name": "Kobalt"
-      },
-      {
-        "id": "messing",
-        "name": "Messing"
-      }
-    ],
-    "branchen": [
-      {
-        "id": "praxis",
-        "name": "Praxis",
-        "muster": "Praxis am Markt",
-        "satz": "Termine, die zu Ihrem Alltag passen.",
-        "vorschlag": [
-          "termin",
-          "formular"
-        ],
-        "lead": "Kurze Wege, feste Ansprechpartner und Termine auch am Abend.",
-        "knopf": "Termin buchen"
-      },
-      {
-        "id": "handwerk",
-        "name": "Handwerk & Werkstatt",
-        "muster": "Werkstatt Berger",
-        "satz": "Handarbeit, die man sehen kann.",
-        "vorschlag": [
-          "galerie",
-          "formular"
-        ],
-        "lead": "Maßarbeit aus der eigenen Werkstatt, vom Aufmaß bis zur Montage.",
-        "knopf": "Anfrage stellen"
-      },
-      {
-        "id": "gastro",
-        "name": "Restaurant & Café",
-        "muster": "Café Lindenhof",
-        "satz": "Heute frisch auf der Karte.",
-        "vorschlag": [
-          "speisekarte",
-          "galerie"
-        ],
-        "lead": "Saisonal gekocht, mittags und abends, auch zum Mitnehmen.",
-        "knopf": "Tisch reservieren"
-      },
-      {
-        "id": "studio",
-        "name": "Studio & Dienstleistung",
-        "muster": "Studio Nord",
-        "satz": "Ideen, die sich bewegen.",
-        "vorschlag": [
-          "galerie",
-          "film"
-        ],
-        "lead": "Konzept, Gestaltung und Film aus einer Hand.",
-        "knopf": "Projekt anfragen"
-      }
-    ],
-    "bausteine": [
-      {
-        "id": "termin",
-        "name": "Online-Termine"
-      },
-      {
-        "id": "speisekarte",
-        "name": "Speisekarte mit Suche"
-      },
-      {
-        "id": "galerie",
-        "name": "Galerie"
-      },
-      {
-        "id": "formular",
-        "name": "Anfrageformular"
-      },
-      {
-        "id": "zahlung",
-        "name": "Zahlung über Stripe",
-        "sicher": 4
-      },
-      {
-        "id": "film",
-        "name": "Film im ersten Bildschirm"
-      },
-      {
-        "id": "dreid",
-        "name": "3D-Objekt"
-      }
-    ],
-    "stufen": [
-      {
-        "id": "sicherheit",
-        "name": "Sicherheit",
-        "frage": "Wie gut soll Ihre Seite geschützt sein?",
-        "start": 2,
-        "stufen": [
-          [
-            "Grundschutz",
-            "HTTPS, strenge Sicherheits-Header, keine fremden Skripte, kein Tracking."
-          ],
-          [
-            "Geprüft",
-            "Dazu wöchentliche automatische Prüfung und Spam-Schutz an Formularen."
-          ],
-          [
-            "Überwacht",
-            "Dazu Überwachung der Erreichbarkeit und regelmäßige Sicherungen."
-          ],
-          [
-            "Abgesichert",
-            "Dazu abgesicherte Zahlungen und Logins mit geprüften Webhooks."
-          ],
-          [
-            "Höchste Stufe",
-            "Dazu eine monatliche Tiefenprüfung mit Sicherheitsbericht."
-          ]
-        ]
-      },
-      {
-        "id": "design",
-        "name": "Gestaltung",
-        "frage": "Wie eigen soll Ihre Seite aussehen?",
-        "start": 3,
-        "stufen": [
-          [
-            "Vorlage",
-            "Eine bewährte Vorlage in Ihren Farben."
-          ],
-          [
-            "Angepasst",
-            "Die Vorlage mit Ihrer Schrift, Ihren Bildern und einer eigenen Startseite."
-          ],
-          [
-            "Eigenes Design",
-            "Jede Seite eigens für Ihren Betrieb entworfen."
-          ],
-          [
-            "Eigenes Design plus",
-            "Dazu eigene Grafiken, Symbole und liebevolle Details."
-          ],
-          [
-            "Markenauftritt",
-            "Alles aus einem Guss, mit festen Gestaltungsregeln für Ihre Marke."
-          ]
-        ]
-      },
-      {
-        "id": "umfang",
-        "name": "Umfang",
-        "frage": "Wie viele Seiten braucht Ihr Auftritt?",
-        "start": 2,
-        "stufen": [
-          [
-            "Eine Seite",
-            "Alles auf einer Seite: Angebot, Über uns, Kontakt."
-          ],
-          [
-            "Bis 3 Seiten",
-            "Startseite und zwei Unterseiten, etwa Leistungen und Kontakt."
-          ],
-          [
-            "Bis 5 Seiten",
-            "Eigene Seiten für Leistungen, Team, Galerie oder Karte."
-          ],
-          [
-            "Bis 8 Seiten",
-            "Ein ausführlicher Auftritt mit mehreren Bereichen."
-          ],
-          [
-            "Mehr als 8 Seiten",
-            "Ein großer Auftritt, der Umfang wird im Gespräch festgelegt."
-          ]
-        ]
-      },
-      {
-        "id": "bewegung",
-        "name": "Bewegung",
-        "frage": "Wie viel Bewegung darf sein?",
-        "start": 2,
-        "stufen": [
-          [
-            "Ruhig",
-            "Keine Animationen, nur klare Seiten."
-          ],
-          [
-            "Dezent",
-            "Inhalte blenden sanft ein."
-          ],
-          [
-            "Lebendig",
-            "Dazu Übergänge und Reaktionen beim Zeigen und Tippen."
-          ],
-          [
-            "Film",
-            "Dazu ein kurzer Film im ersten Bildschirm."
-          ],
-          [
-            "Kino",
-            "Ein Film, der beim Scrollen läuft, oder ein 3D-Objekt."
-          ]
-        ]
-      },
-      {
-        "id": "inhalte",
-        "name": "Texte und Bilder",
-        "frage": "Wer liefert Texte und Bilder?",
-        "start": 2,
-        "stufen": [
-          [
-            "Alles von Ihnen",
-            "Sie liefern Texte und Fotos fertig."
-          ],
-          [
-            "Geglättet",
-            "Ihre Texte werden überarbeitet, Ihre Fotos bearbeitet."
-          ],
-          [
-            "Geschrieben",
-            "Die Texte werden nach einem Gespräch für Sie geschrieben."
-          ],
-          [
-            "Mit Bildern",
-            "Dazu passende Bilder und Grafiken."
-          ],
-          [
-            "Komplett",
-            "Dazu ein Film oder Bilder eigens für Ihre Seite."
-          ]
-        ],
-        "kurz": "Inhalte"
-      },
-      {
-        "id": "betreuung",
-        "name": "Betreuung",
-        "frage": "Wie viel Betreuung nach dem Start?",
-        "start": 2,
-        "stufen": [
-          [
-            "Übergabe",
-            "Die fertige Seite gehört Ihnen, danach pflegen Sie sie selbst."
-          ],
-          [
-            "Sicher",
-            "Ich halte die Seite online: Updates und eine wöchentliche Prüfung."
-          ],
-          [
-            "Mit Bericht",
-            "Dazu jeden Monat ein Bericht über Tempo und Sicherheit."
-          ],
-          [
-            "Mit Änderungen",
-            "Dazu kleine Änderungen jeden Monat inklusive."
-          ],
-          [
-            "Vorrang",
-            "Dazu beantworte ich Ihre Kundenfragen und reagiere schnell bei Störungen."
-          ]
-        ]
-      }
-    ],
-    "muster_nav": [
-      "Start",
-      "Leistungen",
-      "Über uns",
-      "Galerie",
-      "Kontakt"
-    ]
-  },
   "betreuung": {
     "seite": {
       "titel": "Die Seite",
@@ -483,7 +180,7 @@
         "Neue Visuals",
         "Schnelle Antwort bei Störung"
       ],
-      "hinweis": "Jede Wahl erhöht den Monatspreis, dazu kommen die Serverkosten."
+      "hinweis": "Die Betreuung ist freiwillig. Den Umfang bestimmen Sie nach Wunsch, den Preis besprechen wir im Gespräch."
     },
     "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
   },
@@ -497,11 +194,11 @@
     "schritte": [
       {
         "titel": "Gespräch",
-        "text": "Sie erzählen von Ihrem Betrieb. Im Konfigurator wählen Sie Business, Farbe und Schrift und stufen jeden Bereich selbst ein."
+        "text": "Sie erzählen von Ihrem Betrieb. Bei den Stilvorschlägen können Sie anklicken, was Ihnen gefällt: einen Stil und eine Farbe."
       },
       {
         "titel": "Vorschlag",
-        "text": "Daraus entsteht ein Vorschlag mit eigenem Leitmotiv und einem offen gerechneten Preis. Sie sehen jede Position und ihren Grund."
+        "text": "Daraus entsteht ein Vorschlag mit eigenem Leitmotiv. Den Preis nenne ich Ihnen persönlich."
       },
       {
         "titel": "Bau und Messung",
@@ -513,7 +210,6 @@
       }
     ]
   },
-  "konfigurator_kopf": "Stellen Sie sich Ihre Seite Schritt für Schritt zusammen. Die Vorschau reagiert sofort, und Ihre Auswahl reist mit Ihrer Anfrage.",
   "fragen": {
     "ueber": "Fragen",
     "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
@@ -523,8 +219,8 @@
         "Nein. Die Seiten setzen keine Cookies, laden keine fremden Skripte und nutzen kein Tracking. Die Schriften liegen auf dem eigenen Server."
       ],
       [
-        "Wie wird der Preis berechnet?",
-        "Nach einer offenen Formel: Jede Auswahl im Konfigurator hat eine Stufe und einen Grund. Den Preis nenne ich nach dem ersten Gespräch."
+        "Was kostet eine Seite?",
+        "Den Preis nenne ich Ihnen persönlich nach dem ersten Gespräch. Er hängt vom Umfang Ihrer Seite ab."
       ],
       [
         "Wie schnell ist die Seite?",
@@ -532,7 +228,7 @@
       ],
       [
         "Muss ich die Betreuung buchen?",
-        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist optional. Jede Leistung, die Sie dazuwählen, erhöht den Monatspreis."
+        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist freiwillig. Was ich übernehme, richten wir nach Ihrem Wunsch aus; den Preis besprechen wir im Gespräch."
       ],
       [
         "Was gehört zur Betreuung?",
@@ -541,6 +237,69 @@
     ]
   },
   "kontakt": {
-    "text": "Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag. Die Einstufung aus dem Konfigurator schicken Sie einfach mit."
-  }
+    "text": "Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag. Haben Sie bei den Stilen etwas angeklickt, reist Ihre Auswahl mit."
+  },
+  "stile": {
+    "stile": [
+      {
+        "id": "hell",
+        "name": "Klassisch",
+        "text": "Ruhig, viel Luft, helle Seite",
+        "schrift": "Instrument Serif",
+        "satz": "Ihr Betrieb",
+        "probe": "Aa",
+        "farben": [
+          "salbei",
+          "terrakotta",
+          "messing",
+          "kobalt"
+        ]
+      },
+      {
+        "id": "laut",
+        "name": "Modern",
+        "text": "Kräftig, großer Auftritt",
+        "schrift": "Geist, fett",
+        "satz": "Ihr Betrieb",
+        "probe": "Aa",
+        "farben": [
+          "terrakotta",
+          "kobalt",
+          "messing"
+        ]
+      },
+      {
+        "id": "edel",
+        "name": "Edel",
+        "text": "Fein, dunkler Grund",
+        "schrift": "Instrument Serif, Versalien",
+        "satz": "Ihr Betrieb",
+        "probe": "AA",
+        "farben": [
+          "messing",
+          "salbei",
+          "kobalt"
+        ]
+      }
+    ],
+    "farben": [
+      {
+        "id": "salbei",
+        "name": "Salbei"
+      },
+      {
+        "id": "terrakotta",
+        "name": "Terrakotta"
+      },
+      {
+        "id": "kobalt",
+        "name": "Kobalt"
+      },
+      {
+        "id": "messing",
+        "name": "Messing"
+      }
+    ]
+  },
+  "stile_kopf": "Drei Vorschläge mit Schrift, Farben und einer Musterseite als Beispiel. Tippen Sie an, was Ihnen gefällt – Ihre Auswahl reist mit Ihrer Anfrage und wird im Gespräch besprochen."
 }

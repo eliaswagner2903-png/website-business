@@ -58,116 +58,32 @@
     addEventListener('hashchange', ausAnker);
   }
 
-  // Konfigurator: Vorschläge je Business, Regler 1–5 mit Stufentext, Zahlung verlangt Sicherheit ≥ 4, Zusammenfassung oben und im Formular
-  function konfigurator() {
+  // Stilvorschläge: Farbe gehört zu ihrem Stil (Farbe anklicken wählt den Stil mit, anderer Stil nimmt eine fremde Farbe zurück),
+  // Zusammenfassung oben und im Formular. Ohne JS bleiben die Felder einzeln wählbar und reisen trotzdem mit.
+  function stile() {
     const k = document.querySelector('.konfig');
     const form = document.getElementById('kontaktformular');
     if (!k || !form) return;
     const felder = [...document.querySelectorAll('input[form="kontaktformular"]')];
-    const regler = felder.filter((f) => f.type === 'range');
+    const gewaehlt = (name) => felder.find((f) => f.name === name && f.checked);
     const titel = (input) => input.closest('label').querySelector('.wahl-titel').textContent;
-    const stufen = (r) => [...r.closest('fieldset').querySelectorAll('.stufen-liste li')];
-    const bereich = (r) => r.closest('fieldset').querySelector('legend').lastChild.textContent.trim();
-    const regel = k.querySelector('.konfig-regel');
-    const sicherheit = document.getElementById('k-stufe-sicherheit');
     const zusammen = [k.querySelector('.konfig-zusammen'), form.querySelector('.kontakt-auswahl')];
-    const summe = k.querySelector('.einstufung-summe');
-    const modell = k.querySelector('.vorschau-seite');
-
-    function zeigeRegler(r) {
-      const n = Number(r.value);
-      const li = stufen(r);
-      li.forEach((l, i) => l.classList.toggle('ist', i === n - 1));
-      const name = li[n - 1].querySelector('strong').textContent;
-      r.setAttribute('aria-valuetext', `Stufe ${n} von 5: ${name}`);
-      r.style.setProperty('--anteil', `${(n - 1) * 25}%`);
-      const reihe = k.querySelector(`.einstufung-reihe[data-stufe="${r.id.replace('k-stufe-', '')}"]`);
-      if (reihe) reihe.dataset.wert = n;
-      const id = r.id.replace('k-stufe-', '');
-      modell.dataset[id] = n;
-      const siegel = k.querySelector(`.siegel--${id === 'sicherheit' ? 'schutz' : id} b`);
-      if (siegel) siegel.textContent = n;
-      return `${bereich(r)} <strong>${n}</strong> (${name})`;
-    }
-    function pruefeSicherheit() {
-      const mindestens = Math.max(1, ...felder.filter((f) => f.checked && f.dataset.sicher).map((f) => Number(f.dataset.sicher)));
-      if (Number(sicherheit.value) < mindestens) sicherheit.value = mindestens;
-      regel.hidden = mindestens === 1;
-    }
     function schreibe() {
-      const gewaehlt = (name) => felder.filter((f) => f.name === name && f.checked).map(titel);
-      const bausteine = gewaehlt('bausteine[]');
-      const einstufung = regler.map(zeigeRegler);
-      if (summe) summe.textContent = `${regler.reduce((a, r) => a + Number(r.value), 0)} von ${regler.length * 5}`;
-      const text = `Ihre Auswahl: <strong>${gewaehlt('branche')}</strong>, Farbe <strong>${gewaehlt('farbe')}</strong>, Schrift <strong>${gewaehlt('stil')}</strong>. `
-        + `Ihre Einstufung: ${einstufung.join(', ')}.`
-        + (bausteine.length ? ` Funktionen: ${bausteine.map((b) => `<strong>${b}</strong>`).join(', ')}.` : '');
+      const stil = gewaehlt('stil'), farbe = gewaehlt('farbe');
+      const teile = [];
+      if (stil) teile.push(`Stil <strong>${titel(stil)}</strong>`);
+      if (farbe) teile.push(`Farbe <strong>${titel(farbe)}</strong>`);
+      const text = teile.length ? `Ihre Auswahl: ${teile.join(', ')}.` : '';
       for (const z of zusammen) if (z) z.innerHTML = text;   // nur Texte aus dem eigenen HTML, keine Eingaben des Besuchers
     }
-    const neu = (e) => {
+    k.addEventListener('change', (e) => {
       const f = e.target;
-      if (e.type === 'change' && f.name === 'branche') {
-        const vorschlag = f.dataset.vorschlag.split(' ');
-        for (const b of felder.filter((x) => x.name === 'bausteine[]' && !x.dataset.sicher)) b.checked = vorschlag.includes(b.id.replace('k-bausteine-', ''));
-      }
-      pruefeSicherheit();
+      const karte = f.closest('.stil-karte');
+      if (f.name === 'farbe' && karte) karte.querySelector('input[name="stil"]').checked = true;
+      if (f.name === 'stil' && karte) for (const x of felder) if (x.name === 'farbe' && x.checked && x.closest('.stil-karte') !== karte) x.checked = false;
       schreibe();
-    };
-    k.addEventListener('change', neu);
-    k.addEventListener('input', neu);
-    pruefeSicherheit();
+    });
     schreibe();
-  }
-
-  // Generator: ein Schritt nach dem anderen an festem Ort (Reiter nach dem WAI-Muster „Tabs“, dazu Zurück/Weiter)
-  function generator() {
-    const g = document.querySelector('.generator');
-    const reiter = g ? [...g.querySelectorAll('[role="tab"]')] : [];
-    if (!reiter.length) return;
-    const tafeln = reiter.map((r) => document.getElementById(r.getAttribute('aria-controls')));
-    const bereich = g.querySelector('.gen-bereich');
-    const zurueck = g.querySelector('.gen-zurueck');
-    const weiter = g.querySelector('.gen-weiter');
-    const stand = g.querySelector('.gen-stand-text');
-    const n = reiter.length;
-    let jetzt = 0;
-    g.classList.add('generator--gefuehrt');
-    tafeln.forEach((t, i) => { t.setAttribute('role', 'tabpanel'); t.setAttribute('aria-labelledby', reiter[i].id); });
-    const waehle = (i, { fokus = false, rollen = true } = {}) => {
-      reiter[jetzt].classList.add('gen-tab--fertig');
-      jetzt = i;
-      reiter.forEach((r, j) => { r.setAttribute('aria-selected', String(i === j)); r.tabIndex = i === j ? 0 : -1; });
-      tafeln.forEach((t, j) => { t.hidden = i !== j; });
-      zurueck.disabled = i === 0;
-      weiter.firstChild.textContent = i === n - 1 ? 'Zur Anfrage ' : 'Weiter ';
-      stand.textContent = `${i + 1} von ${n}`;
-      g.style.setProperty('--gen-anteil', ((i + 1) / n).toFixed(3));
-      if (fokus) reiter[i].focus();
-      // Reiterleiste seitlich nachführen; die Seite nur zurückholen, wenn der Schritt oben unter Reiter/Modell verschwunden ist
-      const l = reiter[i].parentElement;
-      l.scrollLeft = Math.max(0, reiter[i].offsetLeft - l.offsetLeft - 48);
-      if (rollen) {
-        const oben = parseFloat(getComputedStyle(bereich).scrollMarginTop) || 0;
-        if (bereich.getBoundingClientRect().top < oben - 1) bereich.scrollIntoView({ block: 'start' });
-      }
-    };
-    reiter.forEach((r, i) => {
-      r.addEventListener('click', () => waehle(i));
-      r.addEventListener('keydown', (e) => {
-        const ziel = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key];
-        if (ziel === undefined) return;
-        e.preventDefault();
-        waehle(ziel, { fokus: true });
-      });
-    });
-    zurueck.addEventListener('click', () => waehle(Math.max(0, jetzt - 1)));
-    weiter.addEventListener('click', () => {
-      if (jetzt < n - 1) { waehle(jetzt + 1); return; }
-      reiter[jetzt].classList.add('gen-tab--fertig');
-      document.getElementById('kontakt').scrollIntoView();
-      document.getElementById('k-name').focus({ preventScroll: true });
-    });
-    waehle(0, { rollen: false });
   }
 
   // Menü am Computer: Marke gleitet zum Eintrag, der gelesen (Abschnitt in Bildmitte) oder berührt/fokussiert wird
@@ -219,8 +135,7 @@
     schema();
     menueMarke();
     buehne();
-    generator();
-    konfigurator();
+    stile();
     // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
     const meldung = (f) => {
       const v = f.validity;
