@@ -13,31 +13,18 @@ const zeige = (text, status) => fehlerSeite(text, status, FORMULAR);
 const EMAIL = /^[^\s@<>]{1,64}@[^\s@<>]{1,190}\.[a-z]{2,}$/i;
 const ohneSteuerzeichen = (s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim();
 
-// Auswahl aus dem Konfigurator (optional): nur bekannte Werte, alles andere fällt still weg.
-// Die Stufennamen stehen auch in inhalt/seite.json; der Test prüft, dass beide gleich sind.
+// Auswahl bei den Stilvorschlägen (optional): nur Stil und Farbe, nur bekannte Werte, alles andere fällt still weg.
+// Die Werte stehen auch in inhalt/seite.json (stile); der Test prüft, dass beide gleich sind.
 const KONFIG = {
-  branche: ['praxis', 'handwerk', 'gastro', 'studio'],
-  farbe: ['terrakotta', 'kobalt', 'salbei', 'messing'],
-  stil: ['hell', 'laut', 'edel'],
-  bausteine: ['termin', 'speisekarte', 'galerie', 'formular', 'zahlung', 'film', 'dreid'],
+  stil: { titel: 'Stil', erlaubt: { hell: 'Klassisch', laut: 'Modern', edel: 'Edel' } },
+  farbe: { titel: 'Farbe', erlaubt: { salbei: 'Salbei', terrakotta: 'Terrakotta', kobalt: 'Kobalt', messing: 'Messing' } },
 };
-export const STUFEN = {
-  sicherheit: ['Sicherheit', 'Grundschutz', 'Geprüft', 'Überwacht', 'Abgesichert', 'Höchste Stufe'],
-  design: ['Gestaltung', 'Vorlage', 'Angepasst', 'Eigenes Design', 'Eigenes Design plus', 'Markenauftritt'],
-  umfang: ['Umfang', 'Eine Seite', 'Bis 3 Seiten', 'Bis 5 Seiten', 'Bis 8 Seiten', 'Mehr als 8 Seiten'],
-  bewegung: ['Bewegung', 'Ruhig', 'Dezent', 'Lebendig', 'Film', 'Kino'],
-  inhalte: ['Texte und Bilder', 'Alles von Ihnen', 'Geglättet', 'Geschrieben', 'Mit Bildern', 'Komplett'],
-  betreuung: ['Betreuung', 'Übergabe', 'Sicher', 'Mit Bericht', 'Mit Änderungen', 'Vorrang'],
-};
+export const STILE = Object.fromEntries(Object.entries(KONFIG).map(([k, v]) => [k, Object.keys(v.erlaubt)]));
 export function konfigAuswahl(form) {
   const aus = {};
-  for (const [feld, erlaubt] of Object.entries(KONFIG)) {
-    const werte = form.getAll(feld === 'bausteine' ? 'bausteine[]' : feld).map(String).filter((w) => erlaubt.includes(w));
-    if (werte.length) aus[feld] = [...new Set(werte)].join(', ');
-  }
-  for (const [id, [titel, ...namen]] of Object.entries(STUFEN)) {
-    const n = String(form.get(`stufe_${id}`) ?? '');
-    if (/^[1-5]$/.test(n)) aus[titel] = `Stufe ${n} von 5 (${namen[n - 1]})`;
+  for (const [feld, { titel, erlaubt }] of Object.entries(KONFIG)) {
+    const w = String(form.get(feld) ?? '');
+    if (Object.hasOwn(erlaubt, w)) aus[titel] = erlaubt[w];
   }
   return aus;
 }
@@ -86,7 +73,7 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify({
       from: env.KONTAKT_VON, to: [env.KONTAKT_AN], reply_to: email,
       subject: `Anfrage über die Website von ${name}`,
-      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}${konfig ? `\n\nAuswahl im Konfigurator:\n${konfig}` : ''}`,
+      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}${konfig ? `\n\nAuswahl bei den Stilvorschlägen:\n${konfig}` : ''}`,
     }),
   });
   if (!r.ok) { console.error('kontakt', r.status); return zeige('Senden fehlgeschlagen. Bitte später erneut versuchen.', 502); }
