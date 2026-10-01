@@ -1,5 +1,5 @@
 // Regeln der Portfolio-Seite: HTML ist aktuell gebaut, alle persönlichen Angaben sind Platzhalter mit data-pruefen,
-// Musterseiten ehrlich gekennzeichnet, URFA nur als Entwurf, Preise nicht erfunden, Bilder vorhanden, Schriften lokal.
+// Musterseiten ehrlich gekennzeichnet, nur fiktive Marken, Preise nicht erfunden, Bilder vorhanden, Schriften lokal.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, mkdtempSync, cpSync, rmSync, existsSync, statSync } from 'node:fs';
@@ -52,7 +52,7 @@ test('Preise sind nicht erfunden: kein Euro-Betrag, nur „auf Anfrage“ mit Ma
   assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>Preis auf Anfrage`));
 });
 
-test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Vermerk, Vorschaubilder vorhanden', () => {
+test('Arbeiten: vier Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {
   for (const a of S.arbeiten) {
     assert.match(start, new RegExp(`id="arbeit-${a.id}"`), `${a.id}: fehlt`);
     for (const art of ['desktop', 'handy']) {
@@ -64,19 +64,21 @@ test('Arbeiten: Musterseiten gekennzeichnet, URFA als Entwurf mit Freigabe-Verme
     }
     assert.ok(a.werte.perf >= 95 && a.werte.kb > 0, `${a.id}: Messwerte fehlen`);
   }
-  for (const n of ['hell', 'laut', 'edel']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite<`), `${n}: nicht als Musterseite benannt`);
-  assert.match(start, new RegExp(`<span class="werk-art" ${re(markiert(S.pruefen.urfa))}>Entwurf für ein echtes Restaurant`));
-  assert.doesNotMatch(start, /URFA[^<]{0,80}(Kunde|live|online seit)/i, 'URFA darf nicht als Live-Kunde erscheinen');
+  for (const n of ['hell', 'laut', 'edel', 'glut']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite[ ·<]`), `${n}: nicht als Musterseite benannt`);
+  // Nur fiktive Firmen: keine echten Namen, Orte oder Telefonnummern aus Kundenprojekten, weder im Text noch in Dateinamen
+  const echt = /urfa|sofrasi|eislingen|\bOSG\b|ümit|uemit|hairstyle|mühlbach|7161/i;
+  for (const [f, t] of seiten) assert.doesNotMatch(t, echt, `${f}: echter Firmenbezug`);
+  assert.doesNotMatch(JSON.stringify(S), echt, 'seite.json: echter Firmenbezug');
+  assert.deepEqual(readdirSync(join(PUB, 'medien')).filter((f) => echt.test(f)), [], 'echter Firmenname in Dateinamen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
   // Erster Bildschirm ist der helle Hero mit dem Lotlinie-Gerätepaar: dessen Bilder nie lazy (LCP ist die Überschrift, die Bilder dürfen ihr keine Bandbreite nehmen).
   // Erster Bildschirm ist das helle Kino (Werktisch in Waldgrün): sein Startbild ist das LCP-Bild, nie lazy.
   assert.match(start, /<section class="kino"[\s\S]*?<picture class="kino-bild kino-bild--anfang">[\s\S]*?fetchpriority="high"/, 'Kino-Startbild nicht bevorzugt');
   assert.match(start, /<section class="kino"[\s\S]*?<h1 id="titel">/, 'H1 nicht im Kino');
-  // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, URFA ohne Link (Freigabe fehlt)
+  // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, alle mit Vorschau-Link
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
-    if (a.id === 'urfa') assert.doesNotMatch(werk, /href="https:/, 'URFA ohne Freigabe verlinkt');
-    else assert.match(werk, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" ${re(markiert(S.pruefen.link))}`), `${a.id}: Link fehlt`);
+    assert.match(werk, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" ${re(markiert(S.pruefen.link))}`), `${a.id}: Link fehlt`);
   }
 });
 

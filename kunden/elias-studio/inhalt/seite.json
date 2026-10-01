@@ -17,12 +17,13 @@
     "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
     "preis_website": "Preis für die Website festlegen (PAKETE.md nennt keinen Preis)",
     "preis_abo": "Monatspreis festlegen: Grundbetreuung plus Wahlleistungen plus Serverkosten (wartung/PAKETE.md, Preise offen)",
-    "urfa": "Freigabe des Restaurants für Referenz einholen",
     "link": "Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist",
     "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
     "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
     "konfigurator": "Konfigurator-Entwurf nach wissen/preismodell/KONFIGURATOR.md – Preise/Punkte noch offen (Elias)",
-    "stufen": "Inhalt der Stufen 1–5 je Bereich ist ein Entwurf – Elias legt fest, was jede Stufe enthält (wissen/preismodell/KONFIGURATOR.md)"
+    "stufen": "Inhalt der Stufen 1–5 je Bereich ist ein Entwurf – Elias legt fest, was jede Stufe enthält (wissen/preismodell/KONFIGURATOR.md)",
+    "ablauf": "Ablauf aus dem Business-Plan abgeleitet – Elias prüft Schritte und Wortlaut",
+    "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen"
   },
   "messung": "Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
@@ -102,41 +103,41 @@
       "link": "https://claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP"
     },
     {
-      "id": "urfa",
+      "id": "glut",
       "nr": "04",
-      "name": "URFA SOFRASI",
-      "branche": "Restaurant in Eislingen/Fils",
-      "art": "Entwurf für ein echtes Restaurant",
-      "art_lang": "Entwurf für ein echtes Restaurant – noch nicht veröffentlicht",
-      "satz": "Die Kupferplatte vom Tisch wird zum Bildrahmen, die Speisekarte ist durchsuchbar.",
+      "name": "ZEYTIN & GLUT",
+      "branche": "Restaurant",
+      "art": "Musterseite",
+      "art_lang": "Musterseite",
+      "satz": "Die Gerichte stehen wie Platten im Ring, die Speisekarte ist durchsuchbar.",
       "punkte": [
-        "Speisekarte als HTML mit Suche, 90 Positionen gegen das PDF geprüft",
+        "Speisekarte als HTML mit Suche",
         "Anrufen, Route und Karte in einer festen Leiste",
-        "Fotos nur aus dem Bestand des Restaurants"
+        "Fotos in runden Rahmen, Startseite lädt schnell"
       ],
-      "leitmotiv": "Kupferplatte und Skyline aus dem Logo",
-      "alt_desktop": "Entwurf der Startseite von URFA SOFRASI am Computer: dunkler Grund, Schriftzug URFA SOFRASI, Knopf zum Anrufen und eine runde Platte mit Lahmacun und Meze in einem Kupferring.",
-      "alt_handy": "Entwurf der Startseite von URFA SOFRASI auf dem Handy mit Öffnungsstatus, Schriftzug, rundem Foto und großem Knopf zum Anrufen.",
+      "leitmotiv": "Platte im Ring und Olivenzweig",
+      "alt_desktop": "Startseite von Zeytin & Glut am Computer: dunkler Grund, großer Schriftzug ZEYTIN & GLUT, Knopf zum Anrufen und Speisefotos in runden Rahmen.",
+      "alt_handy": "Startseite von Zeytin & Glut auf dem Handy mit Schriftzug, rundem Speisefoto und großem grünem Knopf zum Anrufen.",
       "werte": {
         "perf": 98,
         "a11y": 100,
         "bp": 100,
         "seo": 100,
-        "kb": 364
+        "kb": 241
       },
-      "link": ""
+      "link": "https://claude.ai/artifact/8xVkoHDVM7bDgowvTWxdak"
     }
   ],
   "kino": [
     {
       "id": "gebaut",
       "wort": "Gebaut.",
-      "text": "Ein Leitmotiv pro Betrieb, eigener Code."
+      "text": "Für jeden Betrieb ein eigenes Leitmotiv, in eigenem Code statt aus dem Baukasten."
     },
     {
       "id": "gemessen",
       "wort": "Gemessen.",
-      "text": "Vor der Übergabe nachgemessen.",
+      "text": "Vor der Übergabe wird nachgemessen. Die Werte stehen offen bei den Arbeiten.",
       "werte": [
         [
           "≥ 95",
@@ -155,7 +156,7 @@
     {
       "id": "betreut",
       "wort": "Betreut.",
-      "text": "Auf Wunsch bleibe ich dran."
+      "text": "Auf Wunsch bleibe ich dran: Ich halte die Seite online, prüfe sie regelmäßig und ändere, was sich ändert."
     }
   ],
   "konfigurator": {
@@ -463,12 +464,17 @@
   "betreuung": {
     "seite": {
       "titel": "Die Seite",
-      "text": "Einmalig. Sie bekommen die fertige Seite samt Bildern.",
-      "enthalten": ["Gestaltung für Ihren Betrieb", "Für das Handy gebaut", "Ohne Tracking und Cookies", "Vor der Übergabe nachgemessen"]
+      "text": "Einmalig: die fertige Seite mit Gestaltung, Bildern und Technik.",
+      "enthalten": [
+        "Gestaltung für Ihren Betrieb",
+        "Für das Handy gebaut",
+        "Ohne Tracking und Cookies",
+        "Vor der Übergabe nachgemessen"
+      ]
     },
     "abo": {
       "titel": "Betreuung nach Wahl",
-      "text": "Optional, monatlich. Ich halte die Seite online und schaue regelmäßig darüber. Sie wählen, was ich zusätzlich übernehme.",
+      "text": "Optional, monatlich. Ich halte die Seite online und prüfe sie regelmäßig. Sie wählen, was ich zusätzlich übernehme.",
       "wahl": [
         "Kundenfragen beantworten",
         "Inhalte ändern",
@@ -478,6 +484,63 @@
         "Schnelle Antwort bei Störung"
       ],
       "hinweis": "Jede Wahl erhöht den Monatspreis, dazu kommen die Serverkosten."
-    }
+    },
+    "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
+  },
+  "hero": {
+    "lead": "Schnelle Seiten ohne Tracking und Cookie-Banner – für Praxen, Werkstätten, Restaurants und Studios."
+  },
+  "arbeiten_kopf": "Vier Musterseiten für vier Branchen. Jede hat ein eigenes Leitmotiv, wurde nachgemessen und läuft auf dem Handy flüssig.",
+  "ablauf": {
+    "ueber": "Ablauf",
+    "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
+    "schritte": [
+      {
+        "titel": "Gespräch",
+        "text": "Sie erzählen von Ihrem Betrieb. Im Konfigurator wählen Sie Business, Farbe und Schrift und stufen jeden Bereich selbst ein."
+      },
+      {
+        "titel": "Vorschlag",
+        "text": "Daraus entsteht ein Vorschlag mit eigenem Leitmotiv und einem offen gerechneten Preis. Sie sehen jede Position und ihren Grund."
+      },
+      {
+        "titel": "Bau und Messung",
+        "text": "Die Seite wird gebaut und vor der Übergabe nachgemessen: Tempo, Barrierefreiheit, Sicherheit."
+      },
+      {
+        "titel": "Start",
+        "text": "Die Seite geht online. Auf Wunsch bleibe ich dran und betreue sie im Monats-Abo."
+      }
+    ]
+  },
+  "konfigurator_kopf": "Stellen Sie sich Ihre Seite Schritt für Schritt zusammen. Die Vorschau reagiert sofort, und Ihre Auswahl reist mit Ihrer Anfrage.",
+  "fragen": {
+    "ueber": "Fragen",
+    "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
+    "liste": [
+      [
+        "Brauche ich einen Cookie-Banner?",
+        "Nein. Die Seiten setzen keine Cookies, laden keine fremden Skripte und nutzen kein Tracking. Die Schriften liegen auf dem eigenen Server."
+      ],
+      [
+        "Wie wird der Preis berechnet?",
+        "Nach einer offenen Formel: Jede Auswahl im Konfigurator hat eine Stufe und einen Grund. Den Preis nenne ich nach dem ersten Gespräch."
+      ],
+      [
+        "Wie schnell ist die Seite?",
+        "Gemessen wird mit Lighthouse auf dem Handy, Ziel sind mindestens 95 Punkte. Die Werte meiner Musterseiten stehen bei den Arbeiten."
+      ],
+      [
+        "Muss ich die Betreuung buchen?",
+        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist optional. Jede Leistung, die Sie dazuwählen, erhöht den Monatspreis."
+      ],
+      [
+        "Was gehört zur Betreuung?",
+        "Ich halte die Seite online, prüfe sie regelmäßig und melde mich, wenn etwas auffällt. Dazu wählen Sie, was ich übernehme, etwa Inhalte ändern oder Kundenfragen beantworten."
+      ]
+    ]
+  },
+  "kontakt": {
+    "text": "Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag. Die Einstufung aus dem Konfigurator schicken Sie einfach mit."
   }
 }
