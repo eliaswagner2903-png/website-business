@@ -1,4 +1,4 @@
-# Designsystem Merys Clean (festgelegt vor dem Bau, A-071, neu bewertet von Opus am 01.10.)
+# Designsystem Merys Clean (festgelegt vor dem Bau, A-073, neu bewertet von Opus am 01.10.)
 
 Richtung: Salon Ümit Variante C (warme Wandtöne, redaktionelle Typografie, Teamporträts mit persönlichem Satz, ruhige
 Bewegung), übersetzt in die Welt der Gebäudereinigung. Nichts kopiert. **Leitmotiv: der Schwung** aus dem Logo (der Wischzug
