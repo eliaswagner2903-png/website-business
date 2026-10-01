@@ -170,11 +170,54 @@
     waehle(0, { rollen: false });
   }
 
+  // Menü am Computer: Marke gleitet zum Eintrag, der gelesen (Abschnitt in Bildmitte) oder berührt/fokussiert wird
+  function menueMarke() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    const links = [...nav.querySelectorAll('a:not(.knopf)')].filter((a) => a.hash && document.querySelector(a.hash));
+    if (!links.length) return;
+    const marke = document.createElement('span');
+    marke.className = 'nav-marke'; marke.setAttribute('aria-hidden', 'true');
+    nav.prepend(marke);
+    let aktuell = null, ueber = null;
+    const setze = () => {
+      const ziel = ueber || aktuell;
+      if (!ziel || !matchMedia('(min-width: 48rem)').matches) { marke.classList.remove('nav-marke--an'); return; }
+      const n = nav.getBoundingClientRect(), r = ziel.getBoundingClientRect();
+      marke.style.setProperty('--_x', `${Math.round(r.left - n.left)}px`);
+      marke.style.setProperty('--_b', `${Math.round(r.width)}px`);
+      marke.classList.add('nav-marke--an');
+    };
+    for (const a of links) {
+      a.addEventListener('pointerenter', () => { ueber = a; setze(); });
+      a.addEventListener('pointerleave', () => { ueber = null; setze(); });
+      a.addEventListener('focus', () => { ueber = a; setze(); });
+      a.addEventListener('blur', () => { ueber = null; setze(); });
+    }
+    const abschnitte = [...document.querySelectorAll('main > section[id]')];
+    const sichtbar = new Map();
+    const wahl = () => {
+      const oben = abschnitte.filter((sec) => sichtbar.get(sec)).pop();
+      aktuell = oben ? links.find((a) => a.hash === `#${oben.id}`) || null : null;
+      links.forEach((a) => (a === aktuell ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+      setze();
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((eintraege) => {
+        for (const e of eintraege) sichtbar.set(e.target, e.isIntersecting);
+        wahl();
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      abschnitte.forEach((sec) => io.observe(sec));
+    }
+    addEventListener('resize', setze);
+  }
+
   function start() {
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');
     pruefen();
     addEventListener('hashchange', pruefen);
     schema();
+    menueMarke();
     buehne();
     generator();
     konfigurator();
