@@ -81,8 +81,13 @@ ${start ? '<script src="/js/kino.js" defer></script>' : ''}
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
 ${nav}
-        <li><a class="knopf" href="${h('#kontakt')}">Projekt anfragen</a></li>
+        <li><a class="knopf" href="${h('#kontakt')}">Projekt anfragen ${pfeil}</a></li>
       </ul>
+      <div class="blatt-fuss">
+        <p class="blatt-fuss-titel">Direkt erreichbar</p>
+        <a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a>
+        <a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a>
+      </div>
     </nav>
   </div>
 </header>
@@ -92,31 +97,42 @@ ${inhalt}
 </main>
 
 <footer class="fuss">
-  <div class="huelle fuss-raster">
-    <div class="fuss-marke">
-      <p class="fuss-name"><span aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span aria-hidden="true">]</span></p>
-      <p>Websites mit Betreuung für Praxen, Werkstätten, Restaurants und Studios.</p>
+  <div class="huelle">
+    <div class="fuss-band">
+      <p class="fuss-frage">Ihre Seite beginnt mit <em>einem Gespräch</em>.</p>
+      <a class="knopf" href="${h('#kontakt')}">Projekt anfragen ${pfeil}</a>
     </div>
-    <div>
-      <h2 class="fuss-titel">Kontakt</h2>
-      <ul class="fuss-liste">
-        <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
-        <li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
-        <li><span${pr(P.ort)}>${esc(S.ort)}</span></li>
-      </ul>
+    <div class="fuss-raster">
+      <div class="fuss-marke">
+        <p class="fuss-name"><span aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span aria-hidden="true">]</span></p>
+        <p>Websites mit Betreuung für Praxen, Werkstätten, Restaurants und Studios.</p>
+      </div>
+      <div>
+        <h2 class="fuss-titel">Kontakt</h2>
+        <ul class="fuss-liste">
+          <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
+          <li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
+          <li><span${pr(P.ort)}>${esc(S.ort)}</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="fuss-titel">Seite</h2>
+        <ul class="fuss-liste">
+          <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
+          <li><a href="${h('#konfigurator')}">Konfigurator</a></li>
+          <li><a href="${h('#betreuung')}">Betreuung</a></li>
+          <li><a href="${h('#kontakt')}">Kontakt</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h2 class="fuss-titel">Seiten</h2>
-      <ul class="fuss-liste">
-        <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
-        <li><a href="${h('#konfigurator')}">Konfigurator</a></li>
-        <li><a href="${h('#betreuung')}">Betreuung</a></li>
-        <li><a href="${h('#kontakt')}">Kontakt</a></li>
+    <div class="fuss-unten">
+      <p>© ${new Date().getFullYear()} <span${pr(P.studio)}>${esc(S.studio)}</span></p>
+      <ul class="fuss-rechts">
         <li><a href="/impressum.html">Impressum</a></li>
         <li><a href="/datenschutz.html">Datenschutz</a></li>
+        <li><a href="#inhalt">Nach oben <span aria-hidden="true">↑</span></a></li>
       </ul>
     </div>
-${start ? '    <p class="fuss-hinweis">URFA SOFRASI ist ein Entwurf für ein echtes Restaurant in Eislingen/Fils.</p>' : ''}
   </div>
 </footer>
 
@@ -151,7 +167,7 @@ const held = `<section class="kino" aria-labelledby="titel" data-film-computer="
       <div class="huelle kapitel-in">
         ${ueber('Websites für Betriebe', 'ueberzeile--kino')}
         <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-        <p class="held-lead">Schnell, ohne Tracking, für Praxen, Werkstätten und Restaurants.</p>
+        <p class="held-lead">${esc(S.hero.lead)}</p>
         <div class="aktionen held-aktionen">
           <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
           <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
@@ -175,10 +191,10 @@ ${k.werte.map(([w, t]) => `          <div><dt>${esc(t)}</dt><dd>${esc(w)}</dd></
 // ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle vier untereinander) ----------
 const WERTE = [['perf', 'Performance'], ['a11y', 'Barrierefreiheit'], ['bp', 'Best Practices'], ['seo', 'SEO']];
 const werk = (a) => {
-  const urfa = a.id === 'urfa';
   const link = a.link
     ? `<p class="werk-link"><a class="knopf" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} öffnen ${raus}</a></p>`
-    : `<p class="werk-link werk-link--offen"${pr(P.urfa)}>Link folgt nach Freigabe durch das Restaurant</p>`;
+    : '';
+  const w = a.werte;
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
@@ -188,9 +204,16 @@ const werk = (a) => {
       <div class="rahmen rahmen--handy"><div class="fenster">${aufnahme(a, 'handy', '(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw')}</div></div>
     </div>
     <div class="werk-schild">
-      <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art"${urfa ? pr(P.urfa) : ''}>${esc(a.art_lang)}</span></p>
+      <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art">${esc(a.art_lang)} · ${esc(a.leitmotiv)}</span></p>
       <h3 id="w-${a.id}">${esc(a.name)}</h3>
       <p class="werk-satz">${esc(a.satz)}</p>
+      <ul class="werk-punkte">
+${a.punkte.map((t) => `        <li>${esc(t)}</li>`).join('\n')}
+      </ul>
+      <p class="werk-werte-titel">Lighthouse mobil, gemessen</p>
+      <dl class="werk-werte">
+${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join('\n')}
+      </dl>
       ${link}
     </div>
   </article>`;
@@ -201,6 +224,7 @@ const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelle
     <div class="kopfzeile">
       ${ueber('Arbeiten')}
       <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
+      <p class="einblenden">${esc(S.arbeiten_kopf)}</p>
     </div>
     <div class="buehne">
       <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
@@ -273,7 +297,7 @@ const konfig = `<section class="abschnitt konfig" id="konfigurator" aria-labelle
     <div class="kopfzeile">
       ${ueber('Konfigurator')}
       <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
-      <p class="einblenden">Business, Farbe, Schrift, dann jeden Bereich von 1 bis 5.</p>
+      <p class="einblenden">${esc(S.konfigurator_kopf)}</p>
     </div>
     <div class="generator">
       <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
@@ -316,6 +340,7 @@ const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labe
     <div class="kopfzeile">
       ${ueber('Preis und Betreuung')}
       <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
+      <p class="einblenden">${esc(B.kopf)}</p>
     </div>
     <div class="bet-paar">
       <section class="bet-karte einblenden" aria-labelledby="b-seite">
@@ -339,12 +364,38 @@ ${B.abo.wahl.map((w) => `          <li>${esc(w)}</li>`).join('\n')}
   </div>
 </section>`;
 
+const AB = S.ablauf;
+const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf"${pr(P.ablauf)}>
+  <div class="huelle">
+    <div class="kopfzeile">
+      ${ueber(AB.ueber)}
+      <h2 id="t-ablauf" class="einblenden">${AB.titel}</h2>
+    </div>
+    <ol class="schritte">
+${AB.schritte.map((st, i) => `      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
+    </ol>
+  </div>
+</section>`;
+
+const FR = S.fragen;
+const fragen = `<section class="abschnitt fragen" id="fragen" aria-labelledby="t-fragen"${pr(P.fragen)}>
+  <div class="huelle fragen-raster">
+    <div class="fragen-kopf">
+      ${ueber(FR.ueber)}
+      <h2 id="t-fragen" class="einblenden">${FR.titel}</h2>
+    </div>
+    <div class="fragen-liste">
+${FR.liste.map(([q, a]) => `      <details class="frage"><summary>${esc(q)}<span class="frage-zeichen" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`).join('\n')}
+    </div>
+  </div>
+</section>`;
+
 const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby="t-kontakt">
   <div class="huelle kontakt-raster">
     <div class="kontakt-text">
       ${ueber('Kontakt')}
       <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
-      <p class="einblenden">Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag.</p>
+      <p class="einblenden">${esc(S.kontakt.text)}</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
         <li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
@@ -368,7 +419,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
   beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Vier Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.',
-  inhalt: [held, arbeiten, konfig, betreuung, kontakt].join('\n\n'),
+  inhalt: [held, arbeiten, ablauf, konfig, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
 
