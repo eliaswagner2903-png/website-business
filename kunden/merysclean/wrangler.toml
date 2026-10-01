@@ -1,0 +1,13 @@
+# Cloudflare Pages – Merys Clean
+name = "merysclean"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+[vars]
+SEITE_URL = "https://merysclean.de"
+# Empfänger der Angebotsanfragen und verifizierte Absenderadresse bei Resend – vor dem Start mit dem Kunden bestätigen.
+KONTAKT_AN = "info@merysclean.de"
+KONTAKT_VON = "website@merysclean.de"
+
+# Geheimnisse NIE hier eintragen, sondern:
+#   npx wrangler pages secret put RESEND_API_KEY

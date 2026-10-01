@@ -1,0 +1,652 @@
+{
+  "_hinweis": "Alle Inhalte der Seite stehen NUR hier. Fakten stammen von merysclean.de (Stand 2026-10-01, Rohtexte: /mnt/project-files/merysclean/inhalte-roh.md). Unbekanntes trägt ein Feld '*pruefen' und wird auf der Seite mit data-pruefen markiert. HTML in public/ nie von Hand ändern: node bauen.mjs",
+  "basis": "https://merysclean.de",
+  "firma": "Merys Clean",
+  "firma_lang": "Merys Clean UG (haftungsbeschränkt)",
+  "branche": "Gebäudereinigung",
+  "telefon_anzeige": "0173 185 35 63",
+  "telefon_link": "+491731853563",
+  "telefon_pruefen": "Hauptnummer bestätigen: alte Seite nennt überall 0173 185 35 63 (Mobil), nur auf der Kontaktseite zusätzlich 07161 9454270",
+  "festnetz_anzeige": "07161 9454270",
+  "festnetz_link": "+4971619454270",
+  "whatsapp_link": "https://wa.me/491731853563?text=Hallo%20Merys%20Clean%2C%20ich%20m%C3%B6chte%20ein%20Angebot%20anfragen.",
+  "whatsapp_pruefen": "Prüfen, ob die Mobilnummer 0173 185 35 63 bei WhatsApp (Business) genutzt wird; sonst Knopf entfernen",
+  "email": "info@merysclean.de",
+  "strasse": "In den Krummäckern 40",
+  "plz": "73054",
+  "ort": "Eislingen/Fils",
+  "land": "DE",
+  "route_link": "https://www.google.com/maps/dir/?api=1&destination=In+den+Kr%C3%BCmm%C3%A4ckern+40%2C+73054+Eislingen%2FFils",
+  "zeiten_text": "Mo–Fr 08:00–16:00 Uhr",
+  "zeiten": {
+    "tage": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "von": "08:00",
+    "bis": "16:00"
+  },
+  "facebook": "https://www.facebook.com/profile.php?id=100086714580225",
+  "instagram": "https://www.instagram.com/merys_clean/",
+  "gf": "Safet Mustafa",
+  "hrb": "HRB 747382",
+  "steuernr": "63083/11063",
+  "zusagen": [
+    {
+      "titel": "Kostenlose Besichtigung",
+      "text": "Wir kommen zu Ihnen und sehen uns das Objekt an."
+    },
+    {
+      "titel": "Unverbindliches Angebot",
+      "text": "Individuell berechnet, ohne versteckte Kosten."
+    },
+    {
+      "titel": "Zufriedenheitsgarantie",
+      "text": "Reklamation binnen 24 Stunden, kostenlose Nachreinigung."
+    },
+    {
+      "titel": "Fester Ansprechpartner",
+      "text": "Und feste Reinigungskräfte, die wiederkehrend zu Ihnen kommen."
+    }
+  ],
+  "ablauf": [
+    {
+      "titel": "Anfrage",
+      "text": "Sie rufen an oder schicken uns das Formular mit ein paar Angaben zu Ihrem Objekt."
+    },
+    {
+      "titel": "Besichtigung",
+      "text": "Nach einem Erstgespräch sehen wir uns Ihre Räume vor Ort an. Das ist kostenlos."
+    },
+    {
+      "titel": "Angebot und Plan",
+      "text": "Sie erhalten ein unverbindliches Angebot und einen Reinigungsplan, der auf Ihre Bedürfnisse zugeschnitten ist."
+    },
+    {
+      "titel": "Reinigung",
+      "text": "Feste Kräfte reinigen, ein Ansprechpartner steht Ihnen zur Seite. Sind Sie nicht zufrieden, reinigen wir kostenlos erneut."
+    }
+  ],
+  "leistungen": [
+    {
+      "id": "unterhaltsreinigung",
+      "name": "Unterhaltsreinigung",
+      "kurz": "Regelmäßig sauber, nach festem Reinigungsplan.",
+      "h1": "Unterhaltsreinigung in Eislingen, Göppingen und Umgebung",
+      "titel": "Unterhaltsreinigung Eislingen & Göppingen | Merys Clean",
+      "beschreibung": "Regelmäßige Unterhaltsreinigung für Gewerbe und Privaträume rund um Göppingen: fester Ansprechpartner, feste Reinigungskräfte, kostenlose Besichtigung.",
+      "lead": "Regelmäßige Reinigung nach einem Plan, der zu Ihren Räumen passt. Immer dieselben Reinigungskräfte, ein persönlicher Ansprechpartner und vorab eine kostenlose Besichtigung.",
+      "bild": {
+        "name": "buero-boden",
+        "breiten": [
+          480,
+          800,
+          960
+        ],
+        "w": 960,
+        "h": 639,
+        "alt": "Zwei Reinigungskräfte in schwarzen Schürzen mit gelben Handschuhen reinigen ein helles Büro, eine wischt den Parkettboden",
+        "pruefen": "Bildrechte klären: Aufnahme von der alten Website, unklar ob eigenes Foto oder Stockfoto (Schürzenlogo wirkt montiert)"
+      },
+      "symbol": "kalender",
+      "wen": [
+        "Firmen und Büros, die regelmäßig gereinigt werden sollen",
+        "Geschäftsräume und Gewerbeobjekte",
+        "Treppenhäuser und Gemeinschaftsflächen",
+        "Privathaushalte mit wiederkehrendem Reinigungsbedarf"
+      ],
+      "faq": [
+        {
+          "f": "Wie oft wird gereinigt?",
+          "a": "Das richtet sich nach Ihrem Objekt und wird im individuellen Reinigungsplan festgelegt, den wir nach der Besichtigung mit Ihnen abstimmen."
+        },
+        {
+          "f": "Wer reinigt bei mir?",
+          "a": "Ihnen werden feste Reinigungskräfte zugeordnet, die wiederkehrend bei Ihnen arbeiten. Dazu erhalten Sie einen persönlichen Ansprechpartner."
+        },
+        {
+          "f": "Muss bei der Reinigung jemand vor Ort sein?",
+          "a": "Reinigungen finden meist unbeaufsichtigt statt. Gerade deshalb setzen wir auf feste Kräfte und einen persönlichen Ansprechpartner. Wie Zugang und Schlüssel geregelt werden, besprechen wir vorab mit Ihnen."
+        },
+        {
+          "f": "Was kostet die Unterhaltsreinigung?",
+          "a": "Einen Pauschalpreis nennen wir nicht, weil Fläche, Zustand und Rhythmus den Preis bestimmen. Nach der kostenlosen Besichtigung erhalten Sie ein unverbindliches Angebot ohne versteckte Kosten."
+        }
+      ],
+      "url": "unterhaltsreinigung"
+    },
+    {
+      "id": "bueroreinigung",
+      "name": "Büro- und Gewerbereinigung",
+      "kurz": "Saubere Büros und Geschäftsräume, zu abgestimmten Zeiten.",
+      "h1": "Büro- und Gewerbereinigung in Eislingen, Göppingen und Umgebung",
+      "titel": "Büroreinigung & Gewerbereinigung Göppingen | Merys Clean",
+      "beschreibung": "Büroreinigung und Gewerbereinigung in Eislingen, Göppingen, Ulm und Stuttgart: Reinigungsplan nach Maß, feste Kräfte, unverbindliches Angebot.",
+      "lead": "Saubere Büros und Geschäftsräume, ohne dass Sie sich darum kümmern müssen. Die Reinigungszeiten stimmen wir mit Ihnen ab, den Plan erstellen wir nach der Besichtigung individuell für Ihr Objekt.",
+      "bild": {
+        "name": "buero-dampf",
+        "breiten": [
+          480,
+          800,
+          960
+        ],
+        "w": 960,
+        "h": 639,
+        "alt": "Eine Reinigungskraft mit gelben Handschuhen reinigt mit einem Dampfreiniger ein Großraumbüro, im Hintergrund arbeitet eine zweite Person",
+        "pruefen": "Bildrechte klären: Aufnahme von der alten Website, unklar ob eigenes Foto oder Stockfoto (Schürzenlogo wirkt montiert)"
+      },
+      "symbol": "gebaeude",
+      "wen": [
+        "Büros und Verwaltungen",
+        "Geschäfte und Gewerbebetriebe",
+        "Industrie- und Firmenobjekte",
+        "Schulen und Kitas"
+      ],
+      "wen_pruefen": "Industrie, Schulen und Kitas stehen nur als Filter-Stichwörter auf der alten Seite: Leistungsumfang bestätigen",
+      "faq": [
+        {
+          "f": "Reinigen Sie auch Gewerbeobjekte, die keine Büros sind?",
+          "a": "Wir reinigen Gewerbe-, Firmen- und Industrieobjekte sowie Schulen und Kitas. Was Ihr Objekt braucht, klären wir bei der kostenlosen Besichtigung.",
+          "pruefen": "Aussage der alten Seite (Zielgruppen und Filter-Stichwörter), Umfang bestätigen"
+        },
+        {
+          "f": "Wie läuft die Besichtigung ab?",
+          "a": "Nach einem Erstgespräch sehen wir uns Ihre Räume vor Ort an und erstellen daraus einen Reinigungsplan und ein Angebot. Die Besichtigung ist kostenlos und unverbindlich."
+        },
+        {
+          "f": "Lässt sich der Reinigungsplan später ändern?",
+          "a": "Der Plan ist individuell auf Ihre Bedürfnisse zugeschnitten. Änderungswünsche besprechen Sie mit Ihrem persönlichen Ansprechpartner."
+        },
+        {
+          "f": "Was passiert, wenn wir mit der Reinigung nicht zufrieden sind?",
+          "a": "Melden Sie sich innerhalb von 24 Stunden bei uns. Wir reinigen den Bereich dann kostenlos erneut."
+        }
+      ],
+      "url": "bueroreinigung"
+    },
+    {
+      "id": "fensterreinigung",
+      "name": "Fenster- und Glasreinigung",
+      "kurz": "Klare Scheiben für Büro, Geschäft und Zuhause.",
+      "h1": "Fenster- und Glasreinigung in Eislingen, Göppingen und Umgebung",
+      "titel": "Fensterreinigung & Glasreinigung Göppingen | Merys Clean",
+      "beschreibung": "Fensterreinigung und Glasreinigung für Büros, Geschäfte und Privathaushalte in Eislingen, Göppingen und Umgebung. Kostenlose Besichtigung, unverbindliches Angebot.",
+      "lead": "Klare Scheiben für Ihr Büro, Ihr Geschäft oder Ihr Zuhause. Wir reinigen Glasflächen nach Absprache einmalig oder regelmäßig und nennen Ihnen den Preis vorab im Angebot.",
+      "bild": {
+        "name": "fenster-breit",
+        "breiten": [
+          640,
+          1024,
+          1600
+        ],
+        "w": 1600,
+        "h": 667,
+        "alt": "Eine Reinigungskraft in dunkler Latzschürze wischt mit gelbem Handschuh ein großes Fenster, dahinter eine zweite Person am Fenster",
+        "pruefen": "Bildrechte klären: Aufnahme von der alten Website (Startseiten-Hero), unklar ob eigenes Foto oder Stockfoto (Schürzenlogo wirkt montiert)",
+        "breit": true
+      },
+      "symbol": "fenster",
+      "wen": [
+        "Büros und Geschäfte mit großen Glasflächen",
+        "Treppenhäuser und Gemeinschaftsflächen",
+        "Privathaushalte"
+      ],
+      "faq": [
+        {
+          "f": "Was kostet die Fensterreinigung?",
+          "a": "Das hängt von Anzahl, Größe und Zugänglichkeit der Flächen ab. Nach der kostenlosen Besichtigung erhalten Sie ein unverbindliches Angebot ohne versteckte Kosten."
+        },
+        {
+          "f": "Ist die Reinigung einmalig oder regelmäßig möglich?",
+          "a": "Beides lässt sich vereinbaren. Den Rhythmus legen wir gemeinsam mit Ihnen im Angebot fest."
+        },
+        {
+          "f": "Reinigen Sie Fenster innen und außen?",
+          "a": "Was im Angebot enthalten ist, legen wir vor der Reinigung mit Ihnen fest, damit von Anfang an klar ist, was Sie bekommen.",
+          "pruefen": "Leistungsumfang (innen/außen, Höhenarbeit) vom Kunden bestätigen"
+        }
+      ],
+      "url": "fensterreinigung"
+    },
+    {
+      "id": "treppenhausreinigung",
+      "name": "Treppenhausreinigung",
+      "kurz": "Gepflegte Treppenhäuser und Gemeinschaftsflächen.",
+      "h1": "Treppenhausreinigung in Eislingen, Göppingen und Umgebung",
+      "titel": "Treppenhausreinigung Göppingen & Eislingen | Merys Clean",
+      "beschreibung": "Treppenhausreinigung für Wohnanlagen, Hausverwaltungen und Firmen in Eislingen, Göppingen und Umgebung: feste Kräfte, ein Ansprechpartner, kostenlose Besichtigung.",
+      "lead": "Gepflegte Treppenhäuser und Gemeinschaftsflächen: regelmäßig gereinigt, zuverlässig und mit einem Ansprechpartner, der sich kümmert.",
+      "bild": null,
+      "symbol": "treppe",
+      "wen": [
+        "Hausverwaltungen und Eigentümergemeinschaften",
+        "Vermieter von Mehrfamilienhäusern",
+        "Wohnanlagen",
+        "Firmengebäude mit Treppenhaus"
+      ],
+      "wen_pruefen": "Zielgruppen sind aus dem Stichwort Treppenhausreinigung abgeleitet, nicht vom Kunden genannt",
+      "faq": [
+        {
+          "f": "Wer kann die Treppenhausreinigung beauftragen?",
+          "a": "Hausverwaltungen, Eigentümergemeinschaften und Vermieter ebenso wie Firmen. Rufen Sie uns an oder schicken Sie das Formular, wir kommen zur Besichtigung."
+        },
+        {
+          "f": "Wie oft wird gereinigt?",
+          "a": "Den Rhythmus legen wir im individuellen Reinigungsplan fest, abgestimmt auf Ihr Haus."
+        },
+        {
+          "f": "Bieten Sie auch Winterdienst an?",
+          "a": "Winterdienst gehört zu unserem Angebot. Umfang und Einsatzzeiten stimmen wir mit Ihnen ab.",
+          "pruefen": "Winterdienst steht nur im Fließtext der alten Über-uns-Seite: Angebot, Umfang und Gebiet bestätigen"
+        }
+      ],
+      "url": "treppenhausreinigung"
+    },
+    {
+      "id": "sonderreinigung",
+      "name": "Umzugs-, Bauend- und Sonderreinigung",
+      "kurz": "Einmalig und gründlich: nach dem Umzug, nach dem Bau, nach der Veranstaltung.",
+      "h1": "Umzugs-, Bauend- und Sonderreinigung in Eislingen, Göppingen und Umgebung",
+      "titel": "Umzugsreinigung & Bauendreinigung Göppingen | Merys Clean",
+      "beschreibung": "Umzugsreinigung, Bauendreinigung, Veranstaltungsendreinigung und Sonderreinigung in Eislingen, Göppingen und Umgebung. Kostenlose Besichtigung, unverbindliches Angebot.",
+      "lead": "Für besondere Anlässe: Umzug, Bauende, Veranstaltung oder eine Reinigung, die nicht in den Alltag passt. Einmalig und mit vorher klar vereinbartem Umfang.",
+      "bild": null,
+      "symbol": "funke",
+      "wen": [
+        "Mieter und Vermieter beim Wohnungswechsel",
+        "Bauherren und Betriebe nach Umbau oder Neubau",
+        "Veranstalter nach Events",
+        "Firmen und Haushalte mit besonderem Reinigungsbedarf"
+      ],
+      "wen_pruefen": "Zielgruppen aus den Stichwörtern der alten Seite abgeleitet, nicht vom Kunden genannt",
+      "faq": [
+        {
+          "f": "Was gehört zur Umzugsreinigung?",
+          "a": "Der Umfang wird vor der Reinigung besprochen und im Angebot festgehalten, damit klar ist, was enthalten ist.",
+          "pruefen": "Leistungsumfang der Umzugsreinigung vom Kunden bestätigen"
+        },
+        {
+          "f": "Wie schnell ist ein Termin möglich?",
+          "a": "Das hängt von unserer Auslastung ab. Rufen Sie uns Montag bis Freitag zwischen 8 und 16 Uhr an und schildern Sie Ihren Wunschtermin, dann sagen wir Ihnen offen, was möglich ist."
+        },
+        {
+          "f": "Wie wird der Preis berechnet?",
+          "a": "Individuell nach Objekt und Aufwand. Nach der kostenlosen Besichtigung bekommen Sie ein unverbindliches Angebot ohne versteckte Kosten."
+        }
+      ],
+      "url": "sonderreinigung"
+    },
+    {
+      "id": "privathaushalt",
+      "name": "Reinigung für Privathaushalte",
+      "kurz": "Wohnung und Haus sauber, mit festen Kräften.",
+      "h1": "Reinigung für Privathaushalte in Eislingen, Göppingen und Umgebung",
+      "titel": "Wohnungsreinigung & Hausreinigung Göppingen | Merys Clean",
+      "beschreibung": "Wohnungsreinigung und Hausreinigung für Privathaushalte in Eislingen, Göppingen und Umgebung: feste Reinigungskräfte, fester Ansprechpartner, kostenlose Besichtigung.",
+      "lead": "Wohnung oder Haus sauber halten, ohne Stress: regelmäßig oder einmalig, mit festen Kräften, denen Sie vertrauen können, und einem Ansprechpartner für alle Fragen.",
+      "bild": null,
+      "symbol": "haus",
+      "wen": [
+        "Wohnungen und Häuser",
+        "Haushalte mit wiederkehrendem Reinigungsbedarf",
+        "Einmalige Reinigung zu besonderen Anlässen"
+      ],
+      "wen_pruefen": "Zielgruppen aus dem Stichwort Wohnungsreinigung abgeleitet, nicht vom Kunden genannt",
+      "faq": [
+        {
+          "f": "Ist die Besichtigung auch bei einer Wohnung kostenlos?",
+          "a": "Ja, die Besichtigung Ihres Objekts ist kostenlos und unverbindlich, bei Wohnungen und Häusern genauso wie bei Gewerbeobjekten."
+        },
+        {
+          "f": "Wer kommt zu mir nach Hause?",
+          "a": "Ihnen werden feste Reinigungskräfte zugeordnet, die wiederkehrend bei Ihnen arbeiten. Dazu haben Sie einen persönlichen Ansprechpartner."
+        },
+        {
+          "f": "Mit welchen Mitteln wird gereinigt?",
+          "a": "Wir setzen auf umweltbewusste Reinigungsmittel, die die Umwelt und Ihr Mobiliar schonen.",
+          "pruefen": "Aussage der alten Seite (umweltbewusste Mittel): Produkte/Nachweis vom Kunden bestätigen"
+        }
+      ],
+      "url": "privathaushalt"
+    }
+  ],
+  "karte": {
+    "orte": [
+      {
+        "id": "eislingen",
+        "name": "Eislingen/Fils",
+        "lat": 48.694,
+        "lon": 9.706,
+        "sitz": true,
+        "label": "s"
+      },
+      {
+        "id": "goeppingen",
+        "name": "Göppingen",
+        "lat": 48.703,
+        "lon": 9.652,
+        "label": "no"
+      },
+      {
+        "id": "suessen",
+        "name": "Süßen",
+        "lat": 48.68,
+        "lon": 9.757,
+        "label": "o",
+        "klein": true
+      },
+      {
+        "id": "gingen",
+        "name": "Gingen an der Fils",
+        "lat": 48.659,
+        "lon": 9.781,
+        "label": "o",
+        "kurz": "Gingen",
+        "klein": true
+      },
+      {
+        "id": "geislingen",
+        "name": "Geislingen",
+        "lat": 48.624,
+        "lon": 9.83,
+        "label": "o"
+      },
+      {
+        "id": "ulm",
+        "name": "Ulm",
+        "lat": 48.401,
+        "lon": 9.988,
+        "label": "w"
+      },
+      {
+        "id": "uhingen",
+        "name": "Uhingen",
+        "lat": 48.705,
+        "lon": 9.59,
+        "label": "s",
+        "klein": true
+      },
+      {
+        "id": "ebersbach",
+        "name": "Ebersbach an der Fils",
+        "lat": 48.716,
+        "lon": 9.524,
+        "label": "n",
+        "kurz": "Ebersbach",
+        "klein": true
+      },
+      {
+        "id": "schorndorf",
+        "name": "Schorndorf",
+        "lat": 48.805,
+        "lon": 9.527,
+        "label": "n"
+      },
+      {
+        "id": "gmuend",
+        "name": "Schwäbisch Gmünd",
+        "lat": 48.799,
+        "lon": 9.798,
+        "label": "o"
+      },
+      {
+        "id": "mutlangen",
+        "name": "Mutlangen",
+        "lat": 48.826,
+        "lon": 9.797,
+        "label": "o",
+        "klein": true
+      },
+      {
+        "id": "hall",
+        "name": "Schwäbisch Hall",
+        "lat": 49.112,
+        "lon": 9.737,
+        "label": "o"
+      },
+      {
+        "id": "kirchheim",
+        "name": "Kirchheim unter Teck",
+        "lat": 48.648,
+        "lon": 9.451,
+        "label": "s",
+        "kurz": "Kirchheim/Teck"
+      },
+      {
+        "id": "plochingen",
+        "name": "Plochingen",
+        "lat": 48.712,
+        "lon": 9.419,
+        "label": "sw",
+        "klein": true
+      },
+      {
+        "id": "esslingen",
+        "name": "Esslingen am Neckar",
+        "lat": 48.742,
+        "lon": 9.307,
+        "label": "sw",
+        "kurz": "Esslingen"
+      },
+      {
+        "id": "stuttgart",
+        "name": "Stuttgart",
+        "lat": 48.776,
+        "lon": 9.183,
+        "label": "w"
+      }
+    ],
+    "ohne_karte": [
+      {
+        "name": "Wangen",
+        "pruefen": "„Wangen“ auf der alten Seite ohne Zusatz: vermutlich Wangen (Landkreis Göppingen), bestätigen"
+      }
+    ],
+    "pruefen": "Einsatzgebiet bestätigen: Ortsliste stammt von der alten Seite („uvm.“), die zugleich „in ganz Deutschland“ behauptet. Kartenpunkte nach Ortskoordinaten, schematisch",
+    "gruppen": [
+      {
+        "titel": "Filstal",
+        "orte": [
+          "Eislingen/Fils",
+          "Göppingen",
+          "Süßen",
+          "Gingen an der Fils",
+          "Geislingen",
+          "Uhingen",
+          "Ebersbach an der Fils"
+        ]
+      },
+      {
+        "titel": "Richtung Stuttgart",
+        "orte": [
+          "Plochingen",
+          "Kirchheim unter Teck",
+          "Esslingen am Neckar",
+          "Stuttgart"
+        ]
+      },
+      {
+        "titel": "Remstal und Ostalb",
+        "orte": [
+          "Schorndorf",
+          "Schwäbisch Gmünd",
+          "Mutlangen",
+          "Schwäbisch Hall"
+        ]
+      },
+      {
+        "titel": "Richtung Donau",
+        "orte": [
+          "Ulm"
+        ]
+      }
+    ]
+  },
+  "team": [
+    {
+      "id": "safet",
+      "name": "Safet Mustafa",
+      "rolle": "Geschäftsinhaber",
+      "rolle_pruefen": "Rolle laut alter Über-uns-Seite „Geschäftsinhaber“, im Impressum „Geschäftsführer“: bestätigen",
+      "bild": {
+        "name": "safet-mustafa",
+        "breiten": [
+          480,
+          740
+        ],
+        "w": 740,
+        "h": 1024,
+        "alt": "Porträt von Safet Mustafa in schwarzem Hemd mit Merys-Clean-Logo",
+        "pruefen": "Nutzungsrecht und Einwilligung für das Porträt klären; Zuordnung Foto zu Name nach der Reihenfolge der alten Seite"
+      },
+      "zitat_pruefen": "Persönliches Zitat von Safet Mustafa einholen (nichts erfinden)"
+    },
+    {
+      "id": "merita",
+      "name": "Merita Mustafa",
+      "rolle": "Geschäftsführerin",
+      "rolle_pruefen": "Rolle laut alter Über-uns-Seite „Geschäftsführerin“, im Impressum steht nur Safet Mustafa als Geschäftsführer: bestätigen",
+      "bild": {
+        "name": "merita-mustafa",
+        "breiten": [
+          480,
+          740
+        ],
+        "w": 740,
+        "h": 1024,
+        "alt": "Porträt von Merita Mustafa mit langen blonden Haaren in schwarzer Bluse mit Merys-Clean-Logo",
+        "pruefen": "Nutzungsrecht und Einwilligung für das Porträt klären; Zuordnung Foto zu Name nach der Reihenfolge der alten Seite"
+      },
+      "zitat_pruefen": "Persönliches Zitat von Merita Mustafa einholen (nichts erfinden)"
+    }
+  ],
+  "team_gruppe": {
+    "name": "team-gruppe",
+    "breiten": [
+      640,
+      1024
+    ],
+    "w": 1024,
+    "h": 546,
+    "alt": "Das Team von Merys Clean: vier Mitarbeiterinnen und ein Mitarbeiter in schwarzer Arbeitskleidung mit Firmenlogo, zwei halten Wischtuch und Stiel",
+    "pruefen": "Namen der Teammitglieder und Einwilligung für das Gruppenfoto klären (Foto von 2022)"
+  },
+  "siegel": {
+    "name": "siegel",
+    "breiten": [
+      320,
+      480
+    ],
+    "w": 480,
+    "h": 505,
+    "alt": "Siegel: 100 % Zufriedenheitsgarantie"
+  },
+  "_quelle": "merysclean.de, Abruf 2026-10-01",
+  "weitere_leistungen": [
+    "Industriereinigung",
+    "Außenreinigung",
+    "Gartenpflege",
+    "Spüldienst",
+    "Winterdienst",
+    "Reinigung von Schulen",
+    "Reinigung von Kitas"
+  ],
+  "weitere_pruefen": "Auf der alten Seite nur als Filter-Etiketten (bzw. Winterdienst im Fließtext) ohne Beschreibung: Angebot und Umfang bestätigen",
+  "hero": {
+    "ueberzeile": "Gebäudereinigung · Eislingen/Fils",
+    "h1_vor": "Gebäudereinigung in Eislingen und ",
+    "h1_schwung": "Göppingen",
+    "lead": "Merys Clean reinigt Büros, Geschäfte, Treppenhäuser, Fenster und Privathaushalte. Mit festen Reinigungskräften, einem persönlichen Ansprechpartner und einer kostenlosen Besichtigung vor dem Angebot."
+  },
+  "erfahrung": {
+    "text": "Über 20 Jahre Erfahrung in der Gebäudereinigung",
+    "pruefen": "Aussage der alten Website („20 jährige Erfahrung“); Gründungsjahr nicht genannt, die UG ist jünger: Beleg und Formulierung bestätigen"
+  },
+  "familie": {
+    "text": "Familienunternehmen aus der Region",
+    "pruefen": "Aussage der alten Website („Familienunternehmen aus der Region“): bestätigen"
+  },
+  "gebiet_satz": "Wir sind in Eislingen/Fils zu Hause und reinigen in der Region: im Filstal von Ebersbach bis Geislingen, Richtung Stuttgart, Esslingen und Kirchheim unter Teck, im Remstal und auf der Ostalb bis Schwäbisch Hall sowie in Ulm.",
+  "gruende": [
+    {
+      "titel": "Zufriedenheit garantiert",
+      "text": "Ist eine Reinigung nicht zu Ihrer vollsten Zufriedenheit ausgefallen, melden Sie sich innerhalb von 24 Stunden. Wir reinigen dann unverzüglich und kostenlos erneut."
+    },
+    {
+      "titel": "Ein Ansprechpartner",
+      "text": "Von Beginn an haben Sie eine feste Person, die Sie betreut und Ihnen zur Seite steht, solange Sie unsere Dienstleistung nutzen."
+    },
+    {
+      "titel": "Feste Reinigungskräfte",
+      "text": "Reinigungen finden meist unbeaufsichtigt statt. Deshalb kommen bei Ihnen immer dieselben, fest zugeordneten Kräfte."
+    },
+    {
+      "titel": "Erfahrene Kräfte",
+      "text": "Unsere Reinigungskräfte bringen jahrelange Erfahrung mit und werden regelmäßig intern geschult.",
+      "pruefen": "Aussage der alten Website (jahrelange Erfahrung, interne Schulungen): bestätigen"
+    },
+    {
+      "titel": "Umweltbewusst",
+      "text": "Wir setzen auf umweltbewusste Reinigungsmittel, die die Umwelt und Ihr Mobiliar schonen.",
+      "pruefen": "Aussage der alten Website (umweltbewusste Mittel): Produkte/Nachweis vom Kunden"
+    },
+    {
+      "titel": "Individueller Plan",
+      "text": "Nach dem Erstgespräch sehen wir uns Ihre Räume an und erstellen einen Reinigungsplan, der auf Ihre Bedürfnisse zugeschnitten ist."
+    }
+  ],
+  "team_text": "Merys Clean ist Ihr Ansprechpartner für professionelle Reinigung: zuverlässige Reinigungslösungen für Gewerbe-, Firmen-, Industrie- und Privatkunden. Ob regelmäßige Unterhaltsreinigung, Glasreinigung oder Winterdienst, bei uns bekommen Sie alles aus einer Hand.",
+  "garantie": {
+    "titel": "Risikofrei: Zufriedenheit garantiert",
+    "text": "Sind Sie mit einem von uns gereinigten Bereich nicht zufrieden, rufen Sie innerhalb von 24 Stunden an. Wir führen die Reinigung dann erneut und kostenlos durch."
+  },
+  "faq_allgemein": [
+    {
+      "f": "Was kostet eine Reinigung?",
+      "a": "Feste Preise nennen wir nicht, weil Fläche, Zustand und Rhythmus den Aufwand bestimmen. Nach der kostenlosen Besichtigung erhalten Sie ein unverbindliches Angebot ohne versteckte Kosten."
+    },
+    {
+      "f": "Ist die Besichtigung wirklich kostenlos?",
+      "a": "Ja. Wir kommen zu Ihnen, sehen uns das Objekt an und erstellen danach ein unverbindliches Angebot. Es entstehen Ihnen dafür keine Kosten."
+    },
+    {
+      "f": "Wann erreiche ich Sie?",
+      "a": "Montag bis Freitag von 8 bis 16 Uhr am Telefon. Eine Anfrage über das Formular können Sie jederzeit schicken; wir melden uns zu unseren Bürozeiten."
+    },
+    {
+      "f": "Reinigen Sie auch in meinem Ort?",
+      "a": "Wir sind in Eislingen/Fils zu Hause und reinigen in der Region von Stuttgart bis Ulm. Steht Ihr Ort nicht auf unserer Karte, fragen Sie einfach nach."
+    }
+  ],
+  "formular": {
+    "objektarten": [
+      "Büro oder Praxis",
+      "Geschäft oder Gewerbe",
+      "Industrie oder Halle",
+      "Treppenhaus oder Wohnanlage",
+      "Wohnung oder Haus",
+      "Schule oder Kita",
+      "Baustelle",
+      "Sonstiges"
+    ],
+    "rhythmen": [
+      "Einmalig",
+      "Mehrmals pro Woche",
+      "Wöchentlich",
+      "Alle zwei Wochen",
+      "Monatlich",
+      "Noch offen"
+    ],
+    "rueckruf": [
+      "Egal, Hauptsache bald",
+      "Vormittags (8–12 Uhr)",
+      "Nachmittags (12–16 Uhr)",
+      "Lieber per E-Mail antworten"
+    ],
+    "antwort_pruefen": "Antwortzeit nicht bekannt: Zusage („innerhalb von … Stunden“) vom Kunden einholen",
+    "empfaenger_pruefen": "Empfänger der Anfragen (Variable KONTAKT_AN) und Versand über Resend einrichten"
+  }
+}

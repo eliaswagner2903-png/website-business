@@ -1,0 +1,18 @@
+# Alte Adressen von merysclean.de (WordPress, Stand 01.10.2026) → neue Seiten, dauerhaft (301). Erzeugt von bauen.mjs.
+# /service/ und /contacts/ waren auf der alten Seite tote Links (404), wurden aber von Startseite und Über uns verlinkt.
+/home/                     /              301
+/index.php                 /              301
+/reinigung/                /leistungen    301
+/reinigung                 /leistungen    301
+/service/                  /leistungen    301
+/service                   /leistungen    301
+/contacts/                 /angebot       301
+/contacts                  /angebot       301
+/ueber-uns/                /ueber-uns     301
+/kontakt/                  /kontakt       301
+/impressum/                /impressum     301
+/datenschutzerklaerung/    /datenschutz   301
+/datenschutzerklaerung     /datenschutz   301
+/datenschutz/              /datenschutz   301
+/sitemap_index.xml         /sitemap.xml   301
+/page-sitemap.xml          /sitemap.xml   301
