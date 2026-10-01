@@ -1,6 +1,6 @@
 # Kundenauftrag
 
-<!-- A-071, Elias 2026-10-01: Neubau merysclean.de (Analyse: /mnt/project-files/merysclean/ANALYSE.md). Nur Fakten der alten Seite.
+<!-- A-073, Elias 2026-10-01: Neubau merysclean.de (Analyse: /mnt/project-files/merysclean/ANALYSE.md). Nur Fakten der alten Seite.
      Neu bewertet (Opus) 01.10.: Leistungen/Prioritäten passen zu Elias' Vorgaben; Funktionen präzisiert (eigene Angebotsseite, keine Ortsseiten). -->
 
 Kunde: Merys Clean UG (haftungsbeschränkt)
