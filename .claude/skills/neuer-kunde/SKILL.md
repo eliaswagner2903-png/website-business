@@ -1,22 +1,22 @@
 ---
 name: neuer-kunde
-description: Eine neue Kundenseite aus der Vorlage anlegen - Ordner kunden/<slug>, Stammdaten, Branch, Wartungseintrag, Auftragslog. Nutzen bei "/neuer-kunde", "neuer Kunde", "neue Website für …".
+description: Create a new customer site from the template - folder kunden/<slug>, master data, branch, maintenance entry, order log. Use on "/neuer-kunde", "neuer Kunde", "neue Website für …".
 ---
 
-# Neue Kundenseite
+# New customer site
 
-1. Slug festlegen: klein, Bindestriche, eindeutig (z. B. `urfa-sofrasi`). Auftrag loggen (`/auftrag`, Bereich `kunde-<slug>`).
+1. Set the slug: lowercase, hyphens, unique (e.g. `urfa-sofrasi`). Log the order (`/auftrag`, area `kunde-<slug>`).
 2. Branch: `git switch -c kunde/<slug>`.
-3. Kopieren: `cp -r vorlage kunden/<slug>` (ohne `node_modules`), dann `kunden/<slug>/kunde.json`,
-   `wrangler.toml` (`name`, `SEITE_URL`, `PRODUKTE`) und Titel/Texte ausfüllen. Nur bestätigte Fakten, Rest `data-pruefen`.
-3b. **Auftrag:** `kunden/<slug>/auftrag.md` (kommt aus der Vorlage) mit Leistungen und Prioritäten ausfüllen, dann `/bestellung`.
-3a. **Klärungsfragen vor dem Design** (auch wenn der Auftrag klar scheint): Wer ist die Zielgruppe? Welche Stimmung
-   (3 Adjektive)? Was ist der eine nächste Schritt für Besucher (anrufen, reservieren, anfragen)? Gibt es ein
-   Produkt oder einen Moment, der sich als Hero-Bild/-Film eignet? Welche Seiten gefallen dem Kunden? Antworten in
-   `kunde.json` bzw. `kunden/<slug>/brief.md`. (Aus Referenz-Video Metics Media, A-045.)
-4. Design: Tokens in `public/css/stil.css` anpassen. Für Varianten das Brüder-Verfahren nutzen (2–3 Varianten, Kunde wählt).
-   Vorher `wissen/FEHLER.md`, `wissen/DESIGN-WISSEN.md`, `wissen/STOLPERFALLEN-URFA.md` lesen.
-5. Schriften lokal: `npm i @fontsource-variable/<schrift>` und die woff2-Dateien nach `public/fonts/` kopieren.
-6. Visuals: Agent `visual-higgsfield`.
-7. `wartung/kunden.json` ergänzen (`aktiv: false` bis zum Launch).
-8. `/pruefen` und `/sicherheit`, dann `/sichern` (PR mit Vorschau-Link aus Cloudflare).
+3. Copy: `cp -r vorlage kunden/<slug>` (without `node_modules`), then fill in `kunden/<slug>/kunde.json`,
+   `wrangler.toml` (`name`, `SEITE_URL`, `PRODUKTE`) and title/texts. Only confirmed facts, the rest `data-pruefen`.
+3b. **Order:** fill in `kunden/<slug>/auftrag.md` (comes from the template) with services and priorities, then `/bestellung`.
+3a. **Clarifying questions before the design** (even if the order seems clear): Who is the target group? What mood
+   (3 adjectives)? What is the one next step for visitors (call, reserve, inquire)? Is there a
+   product or a moment suited as a hero image/film? Which sites does the customer like? Answers in
+   `kunde.json` or `kunden/<slug>/brief.md`. (From the reference video Metics Media, A-045.)
+4. Design: adjust tokens in `public/css/stil.css`. For variants use the Brüder procedure (2–3 variants, customer chooses).
+   First read `wissen/FEHLER.md`, `wissen/DESIGN-WISSEN.md`, `wissen/STOLPERFALLEN-URFA.md`.
+5. Fonts local: `npm i @fontsource-variable/<schrift>` and copy the woff2 files to `public/fonts/`.
+6. Visuals: agent `visual-higgsfield`.
+7. Add to `wartung/kunden.json` (`aktiv: false` until launch).
+8. `/pruefen` and `/sicherheit`, then `/sichern` (PR with preview link from Cloudflare).

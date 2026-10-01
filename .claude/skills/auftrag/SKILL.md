@@ -1,17 +1,17 @@
 ---
 name: auftrag
-description: Einen Auftrag ins Auftragslog (ops/auftraege.jsonl) eintragen, Status ändern oder abschließen, offene Aufträge zeigen. Nutzen bei jedem neuen Auftrag des Nutzers, nach jeder erledigten Arbeit (auch von Agents und anderen Sessions) und bei "/auftrag".
+description: Enter an order into the order log (ops/auftraege.jsonl), change or close its status, show open orders. Use for every new order from the user, after every piece of completed work (also by agents and other sessions) and on "/auftrag".
 ---
 
-# Auftragslog führen
+# Keeping the order log
 
-Jeder Auftrag ist eine Zeile JSON. Ein Auftrag = was der Nutzer (oder eine andere Session) verlangt hat.
+Every order is one JSON line. One order = what the user (or another session) requested.
 
-1. Neuer Auftrag: `python3 ops/log.py neu "Auftrag in einem Satz" --bereich <front1|front2|front3|front4|kunde-<slug>|setup|plan>` → gibt die ID aus (A-012).
-2. Arbeit eines Agents oder einer anderen Session: eigener Eintrag mit `--von "<Agent/Session>"`.
-3. Abschluss: `python3 ops/log.py fertig A-012 "Ergebnis in einem Satz" --ausfuehrung "wie, knapp" --ref "PR #3"`.
-4. Blockiert: `python3 ops/log.py status A-012 blockiert "worauf gewartet wird"`.
-5. Nachschlagen: `liste --offen`, `suche stripe`, `zeige A-012`.
-6. Das Log wird mit dem nächsten Commit gesichert (`/sichern`).
+1. New order: `python3 ops/log.py neu "Auftrag in einem Satz" --bereich <front1|front2|front3|front4|kunde-<slug>|setup|plan>` → prints the ID (A-012).
+2. Work by an agent or another session: its own entry with `--von "<Agent/Session>"`.
+3. Completion: `python3 ops/log.py fertig A-012 "Ergebnis in einem Satz" --ausfuehrung "wie, knapp" --ref "PR #3"`.
+4. Blocked: `python3 ops/log.py status A-012 blockiert "worauf gewartet wird"`.
+5. Look-up: `liste --offen`, `suche stripe`, `zeige A-012`.
+6. The log is saved with the next commit (`/sichern`).
 
-Kurz halten: ein Satz pro Feld. Keine Geheimnisse, keine personenbezogenen Kundendaten ins Log.
+Keep it short: one sentence per field. No secrets, no personal customer data in the log.

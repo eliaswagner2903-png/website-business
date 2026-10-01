@@ -1,11 +1,11 @@
 ---
 name: wartung
-description: Betreuungslauf für alle aktiven Kundenseiten - Prüfung, Bewertung, Update-PRs, Monatsberichte - über den Agent wartungsoffizier. Nutzen bei "/wartung", bei einem Wartungs-Issue oder in der geplanten wöchentlichen Routine.
+description: Care run for all active customer sites - check, assessment, update PRs, monthly reports - via the wartungsoffizier agent. Use on "/wartung", on a maintenance issue or in the scheduled weekly routine.
 ---
 
-# Wartung
+# Maintenance
 
-1. Agent `wartungsoffizier` ansetzen (er führt `wartung/check.mjs` aus und schreibt die Berichte).
-2. Befunde KRIT/HOCH: sofort Branch `fix/<slug>-<thema>`, beheben, `/pruefen`, PR, Nutzer informieren.
-3. Laut Paket (`wartung/PAKETE.md`) fällige Tiefenprüfung: `/aufklaerung https://<domain>`.
-4. Berichte und Log mit `/sichern` committen.
+1. Deploy the agent `wartungsoffizier` (he runs `wartung/check.mjs` and writes the reports).
+2. KRIT/HOCH findings: immediately branch `fix/<slug>-<thema>`, fix, `/pruefen`, PR, inform the user.
+3. Deep check due according to the package (`wartung/PAKETE.md`): `/aufklaerung https://<domain>`.
+4. Commit reports and log with `/sichern`.

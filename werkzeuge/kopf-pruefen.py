@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Kopf-Prüfung: Was gehört in den <head>, was nicht? Für alle Bruder-Seiten.
+"""Head check: what belongs in the <head> and what does not? For all Bruder sites.
 
-    python3 werkzeuge/kopf-pruefen.py bruder-a            (alle .html/.htm im Ordner)
-    python3 werkzeuge/kopf-pruefen.py bruder-a/index.html  (eine Datei)
+    python3 werkzeuge/kopf-pruefen.py bruder-a            (all .html/.htm in the folder)
+    python3 werkzeuge/kopf-pruefen.py bruder-a/index.html  (one file)
 
-Läuft automatisch nach jeder Bearbeitung einer Bruder-Seite (Hook in .claude/settings.json) und in /pruefen.
-Exit 1 bei Fehlern. Regeln siehe CLAUDE.md, Abschnitt „Kopf (<head>)“.
+Runs automatically after every edit of a Bruder site (hook in .claude/settings.json) and in /pruefen.
+Exit 1 on errors. Rules: see CLAUDE.md, section „Kopf (<head>)“.
 """
 import re
 import sys
@@ -66,46 +66,46 @@ def pruefe(datei: Path):
     f = lambda z, m: fehler.append(f"{datei}:{z}: {m}")
 
     if not text.lstrip().lower().startswith("<!doctype html"):
-        f(1, "<!DOCTYPE html> fehlt (sonst Quirks-Modus)")
+        f(1, "<!DOCTYPE html> missing (otherwise quirks mode)")
     if not L.html_attrs.get("lang"):
-        f(1, '<html lang="de"> fehlt')
+        f(1, '<html lang="de"> missing')
     if not L.hat_head:
-        f(1, "kein <head>")
+        f(1, "no <head>")
         return fehler
     kopf_tags = [t for t, _, _ in L.kopf]
     if not kopf_tags or kopf_tags[0] != "meta" or "charset" not in L.kopf[0][1]:
-        f(L.kopf[0][2] if L.kopf else 1, '<meta charset="utf-8"> muss das erste Element im <head> sein')
+        f(L.kopf[0][2] if L.kopf else 1, '<meta charset="utf-8"> must be the first element in the <head>')
     if not any(t == "meta" and a.get("name") == "viewport" for t, a, _ in L.kopf):
-        f(1, '<meta name="viewport" …> fehlt im <head>')
+        f(1, '<meta name="viewport" …> missing in the <head>')
     if kopf_tags.count("title") != 1:
-        f(1, f"genau ein <title> im <head> nötig (gefunden: {kopf_tags.count('title')})")
+        f(1, f"exactly one <title> required in the <head> (found: {kopf_tags.count('title')})")
     if not any(t == "meta" and a.get("name") == "description" for t, a, _ in L.kopf):
-        f(1, '<meta name="description"> fehlt (SEO)')
+        f(1, '<meta name="description"> missing (SEO)')
 
     for t, a, z in L.kopf:
         if t not in ERLAUBT_IM_KOPF:
-            f(z, f"<{t}> gehört nicht in den <head> (nur meta, title, link, script, style, noscript, base)")
+            f(z, f"<{t}> does not belong in the <head> (only meta, title, link, script, style, noscript, base)")
         if t == "link" and a.get("rel") == "preload" and a.get("as") == "font" and "crossorigin" not in a:
-            f(z, "Schrift-Preload ohne crossorigin wird doppelt geladen")
+            f(z, "Font preload without crossorigin is loaded twice")
         if t == "link" and "fonts.googleapis" in (a.get("href") or ""):
-            f(z, "Google-Fonts-CDN verboten (Datenschutz) – Schriften lokal einbinden")
+            f(z, "Google Fonts CDN forbidden (privacy) – host fonts locally")
     for t, a, z in L.koerper:
         if t in NUR_IM_KOPF:
-            f(z, f"<{t}> gehört in den <head>, nicht in den <body>")
+            f(z, f"<{t}> belongs in the <head>, not in the <body>")
         if t == "meta" and "itemprop" not in a:
-            f(z, "<meta> gehört in den <head>")
+            f(z, "<meta> belongs in the <head>")
         if t == "link" and a.get("rel") in ("stylesheet", "preload", "icon"):
-            f(z, f'<link rel="{a.get("rel")}"> gehört in den <head>')
+            f(z, f'<link rel="{a.get("rel")}"> belongs in the <head>')
 
     for ort, a, z, js in L.skripte:
         if ort != "kopf":
             continue
         if a.get("src"):
             if not ({"defer", "async"} & set(a)) and a.get("type") != "module":
-                f(z, f'<script src="{a["src"]}"> im <head> ohne defer: blockiert das Laden und läuft vor der Seite → defer ergänzen')
+                f(z, f'<script src="{a["src"]}"> in the <head> without defer: blocks loading and runs before the page → add defer')
         elif DOM_ZUGRIFF.search(js) and not WARTET.search(js):
-            f(z, "Inline-Skript im <head> greift auf die Seite zu, die es dort noch nicht gibt → in Funktion packen, "
-                 "nach dem Element aufrufen oder auf DOMContentLoaded warten")
+            f(z, "Inline script in the <head> accesses the page, which does not exist there yet → wrap in a function, "
+                 "call it after the element or wait for DOMContentLoaded")
     return fehler
 
 
@@ -117,7 +117,7 @@ def main():
     alle = [m for d in dateien for m in pruefe(d)]
     for m in alle:
         print("  ✗", m)
-    print(f"Kopf-Prüfung: {len(dateien)} Seite(n), {len(alle)} Fehler")
+    print(f"Head check: {len(dateien)} page(s), {len(alle)} error(s)")
     sys.exit(1 if alle else 0)
 
 

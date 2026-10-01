@@ -1,61 +1,61 @@
 ---
 name: kundenseite-bauen
-description: Eine Kundenseite in einem Zug vom Briefing bis zur Abnahme bauen – Lesen, Anlegen, Gestaltung mit Generator, Speisekarte/Daten mit Abgleich-Test, Unterseiten, Prüfen, Nachbessern, Meisterprüfung, Doku. Mit Zeitvorgaben, Befehlen und Stolperfallen aus der Generalprobe A-037. Nutzen bei "/kundenseite-bauen", "baue die Seite für …", "komplette Kundenseite".
+description: Build a customer site in one go from briefing to acceptance – reading, setting up, design with generator, menu/data with reconciliation test, subpages, checking, refinement, master examination, documentation. With time targets, commands and pitfalls from the dress rehearsal A-037. Use on "/kundenseite-bauen", "baue die Seite für …", "komplette Kundenseite".
 ---
 
-# Kundenseite bauen (Ablauf aus der Generalprobe A-037)
+# Build a customer site (procedure from the dress rehearsal A-037)
 
-Ordner `S=kunden/<slug>`, Branch `kunde/<slug>`. Jede Phase mit `date -u +%H:%M` in ein Zeitprotokoll schreiben.
-Richtzeiten gelten für eine Restaurant-/Handwerkerseite mit 6–8 Seiten (Generalprobe: ≈ 40 min Bauen und Prüfen).
+Folder `S=kunden/<slug>`, branch `kunde/<slug>`. Write each phase into a time log with `date -u +%H:%M`.
+Target times apply to a restaurant/tradesman site with 6–8 pages (dress rehearsal: ≈ 40 min building and checking).
 
-| Phase | Richtzeit | Ergebnis |
+| Phase | Target time | Result |
 |---|---|---|
-| 1 Lesen | 5 min | Fakten, offene Punkte, Stolperfallen bekannt |
-| 2 Anlegen | 5 min | Ordner, Stammdaten, Wartungseintrag, Tests laufen |
-| 3 Gestaltung/Grundgerüst | 15–30 min | `bauen.mjs`, `marke.css`, `stil.css`, Startseite |
-| 4 Daten (Speisekarte, Preise) | 5–10 min | JSON aus der Quelle + Abgleich-Test |
-| 5 Unterseiten | 5 min | alte Adressen, Kontakt, Rechtstext-Platzhalter |
-| 6 Prüfen | 15 min | Tests, HTML, Kopf, Breiten, Lighthouse, Budget |
-| 7 Nachbessern | 5–15 min | alle Befunde behoben, Prüfung erneut grün |
-| 8 Meisterprüfung | 10 min | P1–P4, W1–W7, Zustands-Screenshots |
-| 9 Doku | 10 min | Zeitprotokoll, FEHLER.md, Log, Commit, Push |
+| 1 Read | 5 min | Facts, open points, pitfalls known |
+| 2 Set up | 5 min | Folder, master data, maintenance entry, tests run |
+| 3 Design/skeleton | 15–30 min | `bauen.mjs`, `marke.css`, `stil.css`, home page |
+| 4 Data (menu, prices) | 5–10 min | JSON from the source + reconciliation test |
+| 5 Subpages | 5 min | old addresses, contact, legal-text placeholders |
+| 6 Check | 15 min | Tests, HTML, head, widths, Lighthouse, budget |
+| 7 Refine | 5–15 min | all findings fixed, check green again |
+| 8 Master examination | 10 min | P1–P4, W1–W7, state screenshots |
+| 9 Documentation | 10 min | Time log, FEHLER.md, log, commit, push |
 
-## 1 Lesen
-**Zuerst `/bestellung`:** `auftrag.md` → `PFLICHTENHEFT.md`; dessen Regeln aus „Planen“ und „Bauen“ gelten ab hier in jeder Phase.
-Dazu `wissen/FEHLER.md`, `wissen/MEISTERSTANDARD.md`, `wissen/DESIGN-WISSEN.md`, beim Kunden vorhandene `CLAUDE.md`/Analyse.
-Eine Liste anlegen: **feste Fakten** (Telefon, Adresse, Route) und **offene Punkte** (werden `data-pruefen`).
+## 1 Read
+**First `/bestellung`:** `auftrag.md` → `PFLICHTENHEFT.md`; its rules under "Planen" and "Bauen" apply from here on in every phase.
+In addition `wissen/FEHLER.md`, `wissen/MEISTERSTANDARD.md`, `wissen/DESIGN-WISSEN.md`, and any `CLAUDE.md`/analysis the customer already has.
+Create a list: **fixed facts** (phone, address, route) and **open points** (these become `data-pruefen`).
 
-## 2 Anlegen
-`/neuer-kunde` (Kopie von `vorlage/` ohne `node_modules`/`package-lock.json`). Nicht Gebrauchtes sofort entfernen
-(z. B. Stripe-Functions und -Tests, wenn nichts verkauft wird) und `_headers`/CSP anpassen (`form-action 'self'`).
-Fotos nur aus dem Bestand des Kunden, nie hochrechnen (keine Breite über der Quelle).
+## 2 Set up
+`/neuer-kunde` (copy of `vorlage/` without `node_modules`/`package-lock.json`). Remove unused things immediately
+(e.g. Stripe functions and tests if nothing is sold) and adjust `_headers`/CSP (`form-action 'self'`).
+Photos only from the customer's existing stock, never upscale (no width above the source).
 
-## 3 Gestaltung/Grundgerüst
-- **Generator statt Hand-HTML:** `bauen.mjs` liest `inhalt/seite.json` (+ Daten-JSON) und schreibt alle Seiten und
-  `sitemap.xml`. Test „HTML ist aktuell“ baut in einem Temp-Ordner nach und vergleicht (Muster: `kunden/urfa-meister/tests/seite.test.mjs`).
-- **Leitmotiv aus der Welt des Kunden** (W2), z. B. Kupfertablett „Sini“, Logo-Skyline als CSS-Maske, Zierlinie aus dem Logo.
-- **Marke in einer Datei:** `public/css/marke.css` mit Schriften und 6–7 Farbrollen; zweites Schema
-  `:root[data-schema="…"]` gleich mitbauen (P4 kostet dann 2 min).
-- **Schriften:** woff2 aus npm `@fontsource…` oder google/fonts-Rohdateien, dann **eine** Datei je Schrift mit
-  Latin-1 + Latin Extended-A (türkisch, polnisch …):
+## 3 Design/skeleton
+- **Generator instead of hand-written HTML:** `bauen.mjs` reads `inhalt/seite.json` (+ data JSON) and writes all pages and
+  `sitemap.xml`. The test "HTML ist aktuell" rebuilds in a temp folder and compares (pattern: `kunden/urfa-meister/tests/seite.test.mjs`).
+- **Leitmotiv from the customer's world** (W2), e.g. copper tray "Sini", logo skyline as a CSS mask, ornamental line from the logo.
+- **Brand in one file:** `public/css/marke.css` with fonts and 6–7 color roles; build the second scheme
+  `:root[data-schema="…"]` right away (P4 then costs 2 min).
+- **Fonts:** woff2 from npm `@fontsource…` or google/fonts raw files, then **one** file per font with
+  Latin-1 + Latin Extended-A (Turkish, Polish …):
   `pyftsubset x.ttf --unicodes="U+0000-00FF,U+0100-017F,U+2000-206F,U+20AC" --flavor=woff2 --layout-features='*' --output-file=public/fonts/x.woff2`.
-  Ersatzschrift mit `size-adjust` aus fontTools messen (Breite von „Hamburgefonstiv“ gegen Arial/Georgia).
-- Bausteine: `node bausteine/einbauen.mjs einblenden seitenwechsel menue-blatt galerie` im Seitenordner.
-- Hero: LCP-Bild mit `fetchpriority="high"`, nie lazy, ab Bild 0 sichtbar; Ladeanimation nur `transform`/`opacity`.
+  Measure the fallback font with `size-adjust` from fontTools (width of "Hamburgefonstiv" against Arial/Georgia).
+- Building blocks: `node bausteine/einbauen.mjs einblenden seitenwechsel menue-blatt galerie` in the site folder.
+- Hero: LCP image with `fetchpriority="high"`, never lazy, visible from frame 0; loading animation only `transform`/`opacity`.
 
-## 4 Daten mit Abgleich-Test
-Daten nie abtippen: aus der maßgeblichen Quelle ziehen (Python-Quelle per `ast`, nicht ausführen – FEHLER 32).
-Test liest **alte und neue Seite mit derselben Regex** und vergleicht Position für Position (Nummer, Name,
-Kennzeichnung, Preis, Menge, Beschreibung, Prüf-Flag). Abgeleitete Angaben („ab 12,50 €“) im Test aus den Daten
-berechnen. **Gegenprobe:** einen Preis testweise ändern → Test muss rot werden, dann zurück.
-Muster: `kunden/urfa-meister/tests/speisekarte.test.mjs`.
+## 4 Data with reconciliation test
+Never type data by hand: pull it from the authoritative source (Python source via `ast`, do not execute it – FEHLER 32).
+The test reads the **old and the new page with the same regex** and compares position by position (number, name,
+label, price, quantity, description, check flag). Derived details ("ab 12,50 €") are computed from the data in the test.
+**Counter-check:** change a price as a test → the test must turn red, then change it back.
+Pattern: `kunden/urfa-meister/tests/speisekarte.test.mjs`.
 
-## 5 Unterseiten
-Alte Adressen behalten (`galerie.htm` …), `_redirects` für `/index.htm`. Impressum/Datenschutz nur als Platzhalter
-mit `data-pruefen="Rechtstext nicht erfinden …"`. Kontaktformular: Honigtopf, POST an `/api/kontakt`,
-Zieladresse offen lassen, Formular selbst `data-pruefen`. Feste Schnellleiste Anrufen/Route/Karte auf jeder Seite.
+## 5 Subpages
+Keep old addresses (`galerie.htm` …), `_redirects` for `/index.htm`. Imprint/privacy policy only as placeholders
+with `data-pruefen="Rechtstext nicht erfinden …"`. Contact form: honeypot, POST to `/api/kontakt`,
+leave the target address open, mark the form itself `data-pruefen`. Fixed quick bar call/route/map on every page.
 
-## 6 Prüfen
+## 6 Check
 ```bash
 node werkzeuge/gzserver.mjs 8231 $S/public &   # Port 8230–8239, PID merken: echo $! > …/server.pid
 (cd $S && npm test)
@@ -65,33 +65,33 @@ node werkzeuge/pruefen.mjs $S/public 8231       # 320–1920, ohne JS, reduziert
 werkzeuge/lighthouse.sh $S/public 8231           # SEITEN="index.html" für einzelne Seiten
 node werkzeuge/budget.mjs $S/public 8231
 ```
-Server am Ende mit `kill $(cat …/server.pid)` beenden, **nie `pkill -f`**.
+Stop the server at the end with `kill $(cat …/server.pid)`, **never `pkill -f`**.
 
-## 7 Nachbessern – häufigste Befunde der Generalprobe
-- 1 px Überlauf bei 360: Zierlinie mit `nowrap` → Linien schrumpfen lassen, unter 26rem umbrechen.
-- A11y 96: Akzent-/Kupferfarbe als Text unter 4,5:1 → `color-mix(in srgb, var(--farbe-linie) 72%, var(--farbe-text))`.
-- Kopfzeile zweizeilig bei 768 → Nebenelemente (Telefon im Kopf) zwischen 48–64rem ausblenden.
-- Menü-Schleier grau auf dunklem Thema → Schleier mit `--farbe-grund` überschreiben.
-- JSON-LD: jeder Textwert (auch Einträge in Arrays) muss sichtbar auf der Seite stehen, sonst weglassen.
+## 7 Refine – most frequent findings of the dress rehearsal
+- 1 px overflow at 360: ornamental line with `nowrap` → let the lines shrink, wrap below 26rem.
+- A11y 96: accent/copper color as text below 4.5:1 → `color-mix(in srgb, var(--farbe-linie) 72%, var(--farbe-text))`.
+- Header two lines at 768 → hide secondary elements (phone in the header) between 48–64rem.
+- Menu veil gray on a dark theme → override the veil with `--farbe-grund`.
+- JSON-LD: every text value (also entries in arrays) must be visibly on the page, otherwise leave it out.
 
-## 7a Quality Gate
-`/abnahme` (`node werkzeuge/qualitaet.mjs $S --voll`) – prüft Pflichten aus dem Auftrag und den globalen Standard; manuelle Punkte mit Beleg in `abnahme.md`.
+## 7a Quality gate
+`/abnahme` (`node werkzeuge/qualitaet.mjs $S --voll`) – checks obligations from the order and the global standard; manual items with evidence in `abnahme.md`.
 
-## 8 Meisterprüfung
-`/meisterpruefung`. Zustände selbst aufnehmen (Fokus, Hover, Fehler, leere Suche, offenes Menü, Schnellleiste,
-`#pruefen`, ohne JS) als Sammelbild je Handy/Desktop. **Ganzseiten-Screenshots mit `reducedMotion: 'reduce'`**,
-sonst verstecken Scroll-Timeline-Einblendungen Abschnitte. Bildfolgen nur für DocumentTimeline-Animationen.
-Screenshots als PNG ≤ 300 KB (DPR 1 für 1440, Ausschnitte statt Ganzseite).
+## 8 Master examination
+`/meisterpruefung`. Take the states yourself (focus, hover, error, empty search, open menu, quick bar,
+`#pruefen`, without JS) as a collage per phone/desktop. **Full-page screenshots with `reducedMotion: 'reduce'`**,
+otherwise scroll-timeline fade-ins hide sections. Frame sequences only for DocumentTimeline animations.
+Screenshots as PNG ≤ 300 KB (DPR 1 for 1440, crops instead of full page).
 
-## Sonderfall: Einseiter / Portfolio (A-038, ≈ 33 min)
-- Eine Startseite mit Ankern + Impressum/Datenschutz/404/Danke reicht; `bauen.mjs` trotzdem nutzen (Test „HTML ist aktuell“).
-- Kopf-Links auf Unterseiten als `/#anker`, auf der Startseite als `#anker`; Formular-Rückweg `zurueck: '/#kontakt'`.
-- Persönliches (Name, Ort, Telefon, E-Mail, Foto, Preise) als sichtbarer Platzhalter mit `data-pruefen`; ein Test prüft,
-  dass jeder `tel:`/`mailto:`-Link markiert ist und kein Euro-Betrag auf der Seite steht.
-- Messwerte fremder Arbeiten (Lighthouse, Budget) im Hintergrund messen, während der Generator entsteht.
-- Pillen-Radius nicht als `--radius-gross` für Flächen (Menü-Blatt wird rund), kein globales `scroll-behavior: smooth`.
+## Special case: one-pager / portfolio (A-038, ≈ 33 min)
+- One home page with anchors + imprint/privacy/404/thank-you is enough; still use `bauen.mjs` (test "HTML ist aktuell").
+- Header links on subpages as `/#anker`, on the home page as `#anker`; form return path `zurueck: '/#kontakt'`.
+- Personal details (name, place, phone, e-mail, photo, prices) as a visible placeholder with `data-pruefen`; a test checks
+  that every `tel:`/`mailto:` link is marked and no euro amount appears on the page.
+- Measure values of third-party work (Lighthouse, budget) in the background while the generator is being created.
+- Do not use the pill radius as `--radius-gross` for surfaces (the menu sheet becomes round), no global `scroll-behavior: smooth`.
 
-## 9 Doku
-Zeitprotokoll abschließen (Dauer, Gesamt, Zeitfresser), Lehren ans Ende von `wissen/FEHLER.md`,
-`python3 ops/log.py fertig A-xxx "…"`, `python3 ops/log_vereinen.py --pruefen`, Commit mit Trailer, `git push -u origin kunde/<slug>`.
-PR nur, wenn der Auftrag es verlangt.
+## 9 Documentation
+Close the time log (duration, total, time sinks), add lessons to the end of `wissen/FEHLER.md`,
+`python3 ops/log.py fertig A-xxx "…"`, `python3 ops/log_vereinen.py --pruefen`, commit with trailer, `git push -u origin kunde/<slug>`.
+PR only if the order requires it.

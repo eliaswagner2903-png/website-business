@@ -1,67 +1,67 @@
 # Strukturierte Daten (Schema.org, JSON-LD)
 
-> Schlüssel `structured-data` · Quellen: Q-G23–Q-G29, Q-S01–Q-S04, Q-P02 · Stand 2026-09-29
+> Key `structured-data` · Sources: Q-G23–Q-G29, Q-S01–Q-S04, Q-P02 · As of 2026-09-29
 
 ## 1 Ziel
-Suchsysteme lesen die wichtigsten Tatsachen über Betrieb und Seite maschinenlesbar – korrekt, vollständig und deckungsgleich mit dem sichtbaren Inhalt.
+Search systems read the most important facts about the business and the page in machine-readable form – correct, complete and matching the visible content.
 
 ## 2 Warum relevant
-Markup macht Rich Results möglich (keine Garantie) und hilft beim Verständnis der Entität (Q-G23). Es ist **kein Rankingfaktor** und kein
-KI-Hebel: Google braucht für KI-Funktionen kein spezielles Schema (Q-G19, Q-G20). Falsches Markup kostet die Rich-Result-Berechtigung (Q-G23).
+Markup makes rich results possible (no guarantee) and helps with understanding the entity (Q-G23). It is **not a ranking factor** and not an
+AI lever: Google needs no special schema for AI features (Q-G19, Q-G20). Wrong markup costs the rich-result eligibility (Q-G23).
 
 ## 3 Faktoren (belegt)
-- Nur markieren, was Besucher sehen; nichts Irreführendes; spezifischster Typ; JSON-LD empfohlen (Q-G23).
-- Pflichtfelder fehlen → kein Rich Result; lieber wenige, aber vollständige und richtige Felder (Q-G23).
-- LocalBusiness: Pflicht `name`, `address`; empfohlen `telephone`, `url`, `openingHoursSpecification`, `geo` (≥ 5 Nachkommastellen),
-  `priceRange` (< 100 Zeichen), bei Gastronomie `servesCuisine`, `menu` (Q-G24). Mehrfachtyp als Array (`["Plumber","HVACBusiness"]`).
-- Öffnungszeiten: 24 h = `00:00`–`23:59`, geschlossen = `00:00`–`00:00`, Saison mit `validFrom`/`validThrough` (Q-G24).
-- Eigenbewertungen (LocalBusiness/Organization über sich selbst) bekommen keine Sterne (Q-G25).
-- Eingestellt: FAQ-Rich-Results (seit 2026-05-07), HowTo, Sitelinks-Suchfeld; Breadcrumbs mobil nicht mehr sichtbar (Q-G29, Q-G27).
+- Mark up only what visitors see; nothing misleading; most specific type; JSON-LD recommended (Q-G23).
+- Required fields missing → no rich result; better few but complete and correct fields (Q-G23).
+- LocalBusiness: required `name`, `address`; recommended `telephone`, `url`, `openingHoursSpecification`, `geo` (≥ 5 decimal places),
+  `priceRange` (< 100 characters), for hospitality `servesCuisine`, `menu` (Q-G24). Multiple types as an array (`["Plumber","HVACBusiness"]`).
+- Opening hours: 24 h = `00:00`–`23:59`, closed = `00:00`–`00:00`, seasonal with `validFrom`/`validThrough` (Q-G24).
+- Self-reviews (LocalBusiness/Organization about itself) get no stars (Q-G25).
+- Discontinued: FAQ rich results (since 2026-05-07), HowTo, sitelinks search box; breadcrumbs no longer visible on mobile (Q-G29, Q-G27).
 
 ## 4 Beim Programmieren
-- JSON-LD im Generator aus denselben Stammdaten wie der sichtbare Text (siehe `kunden/urfa-meister/bauen.mjs`), `<` als `<` maskieren.
-- LocalBusiness auf Startseite und Kontaktseite; `WebSite` (name, url) nur auf der Startseite (Q-G28).
-- Arrays (z. B. `servesCuisine`) nur mit Werten, die sichtbar auf der Seite stehen (FEHLER.md, A-037).
-- Ein Test je Seite prüft Syntax und Sichtbarkeit (`werkzeuge/qualitaet.mjs` Prüfungen `jsonld-*`).
+- Generate JSON-LD in the generator from the same master data as the visible text (see `kunden/urfa-meister/bauen.mjs`), escape `<` (as `<`).
+- LocalBusiness on home page and contact page; `WebSite` (name, url) only on the home page (Q-G28).
+- Arrays (e.g. `servesCuisine`) only with values that are visibly on the page (FEHLER.md, A-037).
+- One test per page checks syntax and visibility (`werkzeuge/qualitaet.mjs` checks `jsonld-*`).
 
 ## 5 Inhalte und Strukturen
-Typ je Branche aus `branchen.md`. Speisekarte als HTML-Seite (dann `hasMenu`/`menu` = ihre URL). `sameAs` nur auf echte, aktive Profile.
+Type per industry from `branchen.md`. Menu as an HTML page (then `hasMenu`/`menu` = its URL). `sameAs` only to real, active profiles.
 
 ## 6 Vermeiden
-Unsichtbare Werte, erfundene Preise/Zeiten, veraltete Typen (`ProfessionalService`, `Attorney`), `aggregateRating` für den eigenen Betrieb,
-FAQ-Markup „für Snippets“, Markup auf jeder Seite doppelt mit abweichenden Werten.
+Invisible values, invented prices/hours, outdated types (`ProfessionalService`, `Attorney`), `aggregateRating` for the business itself,
+FAQ markup „for snippets“, duplicate markup on every page with deviating values.
 
 ## 7 Automatisch umsetzbar
-JSON-LD aus Stammdaten im Generator.
+JSON-LD from master data in the generator.
 
 ## 8 Automatisch prüfbar
-Syntax, @context/@type, Sichtbarkeit jedes Textwerts, LocalBusiness-Pflichtfelder und Typ, keine Eigenbewertungen.
+Syntax, @context/@type, visibility of every text value, LocalBusiness required fields and type, no self-reviews.
 
 ## 9 Manuell prüfen
-Richtigkeit der Werte (Kunde), Schema Markup Validator auf den Code, nach Launch Rich Results Test auf die URL.
+Correctness of the values (customer), Schema Markup Validator on the code, after launch Rich Results Test on the URL.
 
 ## 10 Wie Claude die Umsetzung belegt
-`QUALITAET.md` (jsonld-*); in `abnahme.md` Ergebnis des Schema Markup Validators (Anzahl Fehler/Warnungen) mit Datum.
+`QUALITAET.md` (jsonld-*); in `abnahme.md` the result of the Schema Markup Validator (number of errors/warnings) with date.
 
 ## Regeln
 
 | ID | Regel | Stufe | Phase | Art | Prüfung | Beleg | Stand |
 |---|---|---|---|---|---|---|---|
-| SD-01 | Strukturierte Daten nur als JSON-LD, syntaktisch gültig, `@context` schema.org, Startseite mit Typ, keine Eigenbewertungen des eigenen Betriebs (wie LOC-09) | K | B | AUTO | jsonld-syntax, jsonld-typ, jsonld-bewertungen | O Q-G23 | stabil |
-| SD-02 | Jeder Textwert im Markup (auch in Arrays) steht sichtbar auf derselben Seite | K | B | AUTO | jsonld-sichtbar | O Q-G23, P Q-P02 | stabil |
-| SD-03 | Spezifischster zutreffender Typ (Tabelle `branchen.md`), Mehrfachtyp als Array, keine veralteten Typen | K | P | SEMI-AUTO | jsonld-typ | O Q-G23, O Q-S02 | stabil |
-| SD-04 | Nur wahre, vom Kunden bestätigte Angaben (Preise, Zeiten, Leistungen) | K | P | MANUAL | | O Q-G23 | stabil |
-| SD-05 | Pflicht- und empfohlene Eigenschaften je Typ laut Google-Doku; lieber weniger, aber vollständig | E | B | SEMI-AUTO | jsonld-lokal | O Q-G23, O Q-G24 | zeitabh. |
-| SD-06 | WebSite (name, url) nur auf der Startseite; Organization-Angaben (logo ≥ 112 px, sameAs nur echte Profile) | E | B | MANUAL | | O Q-G26, O Q-G28 | stabil |
-| SD-07 | BreadcrumbList bei Seiten ab zweiter Ebene | Z | B | MANUAL | | O Q-G27 | zeitabh. |
-| SD-08 | Keine eingestellten Rich-Result-Typen versprechen (FAQ, HowTo); FAQPage nur, wenn die Fragen sichtbar sind | E | P | MANUAL | | O Q-G29 | zeitabh. |
-| SD-09 | Validierung: Schema Markup Validator auf den Code, nach Launch Rich Results Test auf die URL | E | A | MANUAL | | O Q-S03, O Q-S04 | stabil |
+| SD-01 | Structured data only as JSON-LD, syntactically valid, `@context` schema.org, home page with a type, no self-reviews of the business itself (as LOC-09) | K | B | AUTO | jsonld-syntax, jsonld-typ, jsonld-bewertungen | O Q-G23 | stabil |
+| SD-02 | Every text value in the markup (also in arrays) is visible on the same page | K | B | AUTO | jsonld-sichtbar | O Q-G23, P Q-P02 | stabil |
+| SD-03 | Most specific applicable type (table in `branchen.md`), multiple types as an array, no outdated types | K | P | SEMI-AUTO | jsonld-typ | O Q-G23, O Q-S02 | stabil |
+| SD-04 | Only true details confirmed by the customer (prices, hours, services) | K | P | MANUAL | | O Q-G23 | stabil |
+| SD-05 | Required and recommended properties per type according to the Google docs; better fewer but complete | E | B | SEMI-AUTO | jsonld-lokal | O Q-G23, O Q-G24 | zeitabh. |
+| SD-06 | WebSite (name, url) only on the home page; Organization details (logo ≥ 112 px, sameAs only real profiles) | E | B | MANUAL | | O Q-G26, O Q-G28 | stabil |
+| SD-07 | BreadcrumbList on pages from the second level | Z | B | MANUAL | | O Q-G27 | zeitabh. |
+| SD-08 | Do not promise discontinued rich-result types (FAQ, HowTo); FAQPage only if the questions are visible | E | P | MANUAL | | O Q-G29 | zeitabh. |
+| SD-09 | Validation: Schema Markup Validator on the code, after launch Rich Results Test on the URL | E | A | MANUAL | | O Q-S03, O Q-S04 | stabil |
 
 ## Mythen und Unbelegtes
-- „Schema verbessert das Ranking“ – Markup ermöglicht Rich Results, kein Ranking (Q-G23).
-- „Mit Schema empfiehlt dich ChatGPT“ – kein Beleg; Google: kein spezielles Schema für KI nötig (Q-G19, Q-G20).
-- „FAQ-Markup bringt Snippets“ – seit 2026-05-07 abgeschaltet (Q-G29).
-- „`hasMenu` statt `menu`“ – schema.org empfiehlt `hasMenu` (Q-S02), Google listet nur `menu` (Q-G24): **unsicher**, beide mit derselben URL sind unschädlich.
+- „Schema improves ranking“ – markup enables rich results, not ranking (Q-G23).
+- „With schema ChatGPT recommends you“ – no evidence; Google: no special schema needed for AI (Q-G19, Q-G20).
+- „FAQ markup brings snippets“ – switched off since 2026-05-07 (Q-G29).
+- „`hasMenu` instead of `menu`“ – schema.org recommends `hasMenu` (Q-S02), Google lists only `menu` (Q-G24): **uncertain**, both with the same URL are harmless.
 
 ## Zeitabhängig
-Liste der unterstützten Rich-Result-Typen (Q-G29), Bewertungsregeln (Q-G25), Breadcrumb-Darstellung (Q-G27).
+List of supported rich-result types (Q-G29), review rules (Q-G25), breadcrumb display (Q-G27).
