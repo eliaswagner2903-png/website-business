@@ -1,0 +1,65 @@
+/* =====================================================================
+   MARKE Merys Clean – die ganze Marke steht nur hier (Designsystem: ../../DESIGN.md).
+   Kontrast (WCAG AA), gemessen:
+     text/grund 14,6 · leise/grund 6,3 · akzent/grund 5,2 · akzent/tint 4,9 · auf-akzent/akzent 5,8
+     blau/grund 5,9 · gruen-hell/text 7,2 (nur auf Dunkel, nie als Text auf Hell) · leise-hell/text 10
+     fehler/flaeche 6,2 · fehler/grund 5,7
+   ===================================================================== */
+
+/* ---------- Schriften (lokal, OFL): Instrument Serif für Überschriften, Instrument Sans (variabel) für Text ---------- */
+@font-face {
+  font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Ersatzschriften mit angeglichenen Maßen (kaum Sprung beim Tausch) */
+@font-face { font-family: "Serif Ersatz"; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"); size-adjust: 88%; ascent-override: 98%; descent-override: 28%; line-gap-override: 0%; }
+@font-face { font-family: "Sans Ersatz"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 101.4%; ascent-override: 95.7%; descent-override: 24.7%; line-gap-override: 0%; }
+
+:root {
+  --farbe-grund: #f5f2eb;       /* Wand */
+  --farbe-flaeche: #fbfaf6;     /* Karten, Felder, Blatt */
+  --farbe-text: #202020;        /* Marke „Dunkel“ */
+  --farbe-leise: #55595a;       /* Nebentext, Feldrahmen */
+  --farbe-linie: #d9d3c6;       /* Trenner */
+  --farbe-akzent: #2a7430;      /* Marken-Grün abgedunkelt: Hauptknopf, Links */
+  --farbe-auf-akzent: #ffffff;
+  --farbe-tint: #e6efdc;        /* helle Grünfläche */
+  --farbe-gruen-hell: #6fbf52;  /* Markengrün: nur Deko und auf Dunkel */
+  --farbe-blau: #1d5f9e;        /* Markenblau abgedunkelt: zweiter Akzent */
+  --farbe-leise-hell: #c9ccc5;  /* Nebentext auf Dunkel */
+  --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */
+
+  --schrift-display: "Instrument Serif", "Serif Ersatz", Georgia, serif;
+  --schrift-text: "Instrument Sans", "Sans Ersatz", Arial, sans-serif;
+
+  --radius-klein: 12px;
+  --radius-gross: 28px;
+
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .85s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  --abstand-abschnitt: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --kopf-hoehe: 4.5rem;
+
+  color-scheme: light;
+}

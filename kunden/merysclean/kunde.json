@@ -1,0 +1,17 @@
+{
+  "name": "Merys Clean",
+  "slug": "merysclean",
+  "domain": "merysclean.de",
+  "paket": "basis",
+  "budgetklasse": "schlank",
+  "ansprechpartner": "Safet Mustafa",
+  "start": "",
+  "stripe_produkte": [],
+  "offen": [
+    "Alle data-pruefen-Angaben mit dem Kunden klären (Prüfansicht: Seite mit #pruefen öffnen)",
+    "Rechtstexte aus Generator (Impressum mit Registergericht, Datenschutz mit Cloudflare/Resend)",
+    "Resend einrichten: RESEND_API_KEY als Secret, KONTAKT_AN/KONTAKT_VON bestätigen",
+    "Cloudflare-Rate-Limit für /api/kontakt anlegen",
+    "Bildrechte der Arbeitsfotos und Einwilligungen für Teamfotos"
+  ]
+}

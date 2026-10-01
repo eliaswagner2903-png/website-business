@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Einblenden – Baustein-Demo</title>
+<meta name="description" content="Einblenden beim Scrollen mit CSS-Scroll-Timeline und Rückfall per IntersectionObserver.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../public/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../public/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../public/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../public/css/marke.css">
+<link rel="stylesheet" href="../../public/css/stil.css">
+<link rel="stylesheet" href="einblenden.css">
+<link rel="stylesheet" href="../bento/bento.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="einblenden.js" defer></script>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<header class="kopf">
+  <div class="huelle">
+    <a class="marke" href="../index.html">Bausteine</a>
+    <nav class="nav" aria-label="Bausteine">
+      <ul>
+        <li><a href="../index.html">Übersicht</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="inhalt">
+  <section class="held" aria-labelledby="titel">
+    <div class="huelle">
+      <div class="held-text">
+        <span class="eyebrow">Baustein</span>
+        <h1 id="titel">Einblenden</h1>
+        <p>Was beim Laden im Bild ist, bleibt ruhig. Alles darunter gleitet beim Hereinscrollen 24 px hoch. Rückfall testen: <a href="demo.html?rueckfall">mit ?rueckfall öffnen</a>.</p>
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt" aria-labelledby="t-demo">
+    <div class="huelle">
+      <div class="kopfzeile"><h2 id="t-demo" class="einblenden">Nach unten scrollen</h2><p class="einblenden">Jede Kachel hat die Klasse einblenden.</p></div>
+      <div class="bento">
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">01</span>
+          <div><h3>Kachel 1</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">02</span>
+          <div><h3>Kachel 2</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">03</span>
+          <div><h3>Kachel 3</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">04</span>
+          <div><h3>Kachel 4</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">05</span>
+          <div><h3>Kachel 5</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">06</span>
+          <div><h3>Kachel 6</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">07</span>
+          <div><h3>Kachel 7</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">08</span>
+          <div><h3>Kachel 8</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+        <article class="bento-kachel einblenden">
+          <span class="bento-nummer" aria-hidden="true">09</span>
+          <div><h3>Kachel 9</h3><p>Gleitet 24 px hoch, sobald sie ins Bild kommt.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="fuss"><div class="huelle"><a class="marke" href="../index.html">Bausteine</a><ul><li><a href="../index.html">Alle Bausteine</a></li></ul></div></footer>
+</body>
+</html>
