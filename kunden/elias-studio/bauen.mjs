@@ -36,7 +36,7 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
 }
 
 // ---------- Navigation ----------
-const NAV = [['#arbeiten', 'Arbeiten'], ['#konfigurator', 'Konfigurator'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
+const NAV = [['#arbeiten', 'Arbeiten'], ['#stile', 'Stile'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false }) {
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
@@ -119,7 +119,7 @@ ${inhalt}
         <h2 class="fuss-titel">Seite</h2>
         <ul class="fuss-liste">
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
-          <li><a href="${h('#konfigurator')}">Konfigurator</a></li>
+          <li><a href="${h('#stile')}">Stile</a></li>
           <li><a href="${h('#betreuung')}">Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
         </ul>
@@ -237,99 +237,46 @@ ${A.map(werk).join('\n')}
   </div>
 </section>`;
 
-// ---------- Konfigurator (wissen/preismodell/KONFIGURATOR.md): Auswahl und Einstufung reisen mit dem Kontaktformular ----------
-// Ablauf nach Elias: Business, Farbe, Schrift, dann jeder Bereich als Regler 1–5, den der Kunde selbst einstuft.
-// Alle Felder hängen per form="kontaktformular" am Formular unten; die Vorschau färbt sich allein per CSS (:has),
-// js/seite.js ergänzt Vorschläge je Branche, die Sicherheitsregel bei Zahlung, die Stufentexte und die Zusammenfassung.
-const K = S.konfigurator;
-const wahl = (name, id, inhalt, { typ = 'radio', an = false, extra = '' } = {}) =>
-  `<label class="wahl wahl--${name}"><input type="${typ}" id="k-${name}-${id}" name="${typ === 'checkbox' ? `${name}[]` : name}" value="${id}" form="kontaktformular"${an ? ' checked' : ''}${extra}>${inhalt}</label>`;
-const feld = (nr, titel, inhalt, klasse = '') => `          <fieldset class="schritt-feld${klasse}" id="gs-${nr}">
-            <legend><span class="feld-nr">${nr}</span> ${titel}</legend>
-${inhalt}
-          </fieldset>`;
-const regler = (st) => `            <p class="stufe-frage">${esc(st.frage)}</p>
-            <div class="regler">
-              <label class="unsichtbar" for="k-stufe-${st.id}">${esc(st.name)}, Stufe 1 bis 5</label>
-              <input class="regler-feld" type="range" id="k-stufe-${st.id}" name="stufe_${st.id}" min="1" max="5" step="1" value="${st.start}" form="kontaktformular">
-              <span class="regler-skala" aria-hidden="true">${[1, 2, 3, 4, 5].map((n) => `<span>${n}</span>`).join('')}</span>
-            </div>
-            <ol class="stufen-liste">
-${st.stufen.map(([name, text], i) => `              <li${i + 1 === st.start ? ' class="ist"' : ''}><span class="stufe-nr">Stufe ${i + 1}</span> <strong>${esc(name)}</strong> ${esc(text)}</li>`).join('\n')}
-            </ol>`;
-// [Titel, Reiter-Kurzname, Inhalt, Zusatzklasse]
-const SCHRITTE = [
-  ['Ihr Business', 'Business', `            <div class="wahl-reihe wahl-reihe--branche">
-${K.branchen.map((b, i) => `              ${wahl('branche', b.id, `<span class="wahl-titel">${esc(b.name)}</span>`, { an: i === 0, extra: ` data-vorschlag="${b.vorschlag.join(' ')}"` })}`).join('\n')}
-            </div>`],
-  ['Farbe', 'Farbe', `            <div class="wahl-reihe wahl-reihe--farbe">
-${K.farben.map((f, i) => `              ${wahl('farbe', f.id, `<span class="farbfleck farbfleck--${f.id}" aria-hidden="true"></span><span class="wahl-titel">${esc(f.name)}</span>`, { an: i === 0 })}`).join('\n')}
-            </div>`],
-  ['Schrift und Stil', 'Schrift', `            <div class="wahl-reihe wahl-reihe--stil">
-${K.stile.map((s, i) => `              ${wahl('stil', s.id, `<span class="schriftprobe schriftprobe--${s.id}" aria-hidden="true">${esc(s.probe)}</span><span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}, ${esc(s.beispiel)}</span>`, { an: i === 0 })}`).join('\n')}
-            </div>`],
-  ...K.stufen.map((st) => [esc(st.name), esc(st.kurz || st.name), regler(st), ' schritt-feld--stufe']),
-  ['Funktionen', 'Funktionen', `            <div class="wahl-reihe wahl-reihe--bausteine">
-${K.bausteine.map((b) => `              ${wahl('bausteine', b.id, `<span class="haken" aria-hidden="true"></span><span class="wahl-titel">${esc(b.name)}</span>`, { typ: 'checkbox', an: K.branchen[0].vorschlag.includes(b.id), extra: b.sicher ? ` data-sicher="${b.sicher}"` : '' })}`).join('\n')}
-            </div>
-            <p class="feld-hinweis nur-js">Zu Ihrem Business passende Funktionen sind vorgeschlagen und lassen sich abwählen.</p>
-            <p class="feld-hinweis konfig-regel" hidden>Zahlungen brauchen mindestens Sicherheitsstufe 4, der Regler geht deshalb nicht darunter.</p>`],
-];
-// Mini-Seite im Gerät: eine echte kleine Website, die Business, Farbe, Schrift, Stufen und Funktionen sofort übernimmt.
-// Texte je Business aus seite.json (branchen[].satz/lead/knopf), Funktionen als echte Bausteine (nur sichtbar, wenn gewählt).
-const nb = (feld) => K.branchen.map((b) => `<span class="nach-branche nach-branche--${b.id}">${esc(b[feld])}</span>`).join('');
-const miniSeite = `            <p class="vorschau-kopf"><span class="vorschau-logo"><span class="vorschau-zeichen"></span>${nb('muster')}</span><span class="vorschau-nav">${K.muster_nav.map((t) => `<i>${esc(t)}</i>`).join('')}</span></p>
-            <p class="vorschau-ueber">${nb('name')}</p>
-            <p class="vorschau-titel">${nb('satz')}</p>
-            <p class="vorschau-lead">${nb('lead')}</p>
-            <p class="vorschau-knoepfe"><span class="vorschau-knopf">${nb('knopf')}</span><span class="vorschau-knopf vorschau-knopf--zweit">Anrufen</span></p>
-            <p class="vorschau-bild"><span class="vorschau-ring"></span><span class="vorschau-bild-text">Ihr Foto</span><span class="vb vb--film vorschau-play">▶ Film</span><span class="vb vb--dreid vorschau-wuerfel"><i></i><i></i><i></i></span></p>
-            <div class="vorschau-bausteine">
-              <p class="vb vb--termin mini-karte"><span class="mini-titel">Nächster freier Termin</span><span class="mini-chips"><i>Di 9:30</i><i>Di 16:00</i><i>Mi 8:15</i></span></p>
-              <p class="vb vb--speisekarte mini-karte"><span class="mini-titel">Heute auf der Karte</span><span class="mini-zeile">Linsensuppe <b>6,50</b></span><span class="mini-zeile">Ofengemüse <b>12,90</b></span></p>
-              <p class="vb vb--galerie mini-galerie"><i></i><i></i><i></i></p>
-              <p class="vb vb--formular mini-karte"><span class="mini-titel">Anfrage</span><span class="mini-feld">Name</span><span class="mini-feld">Ihre Nachricht</span></p>
-              <p class="vb vb--zahlung mini-karte mini-karte--zeile"><span class="mini-titel">Gutschein kaufen</span><span class="mini-schloss">sicher bezahlen</span></p>
-            </div>
-            <p class="vorschau-siegel"><span class="siegel siegel--schutz">Schutz <b>2</b>/5</span><span class="siegel siegel--betreuung">Betreuung <b>2</b>/5</span></p>`;
-const konfig = `<section class="abschnitt konfig" id="konfigurator" aria-labelledby="t-konfig">
+// ---------- Stilvorschläge: drei Stile mit Schrift, Farben und Musterseite; Auswahl (Stil, Farbe) reist mit dem Kontaktformular ----------
+// Der Kunde baut sich nichts zusammen, er klickt höchstens einen Vorschlag an. Die Felder hängen per form="kontaktformular"
+// am Formular unten und funktionieren ohne JS; js/seite.js zeigt nur die Zusammenfassung und hält Stil und Farbe zusammen.
+// Jeder Stil gehört zur Musterseite mit gleicher id (arbeiten[].id): Bild, Name und Link kommen von dort.
+const K = S.stile;
+const STILE_FARBEN = Object.fromEntries(K.farben.map((f) => [f.id, f.name]));
+const stilKarte = (s) => {
+  const a = A.find((x) => x.id === s.id);
+  const bild = (typ) => [320, 600].map((b) => `/medien/arbeit-${a.id}-handy-lang-${b}.${typ} ${b}w`).join(', ');
+  const sizes = '(min-width: 64rem) 28vw, (min-width: 40rem) 40vw, 90vw';
+  return `      <li class="stil-karte stil-karte--${s.id}">
+        <label class="wahl wahl--stil"><input type="radio" id="k-stil-${s.id}" name="stil" value="${s.id}" form="kontaktformular"><span class="schriftprobe schriftprobe--${s.id}" aria-hidden="true">${esc(s.probe)}</span><span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}</span><span class="wahl-text">Schrift: ${esc(s.schrift)}</span></label>
+        <fieldset class="stil-farben">
+          <legend>Farbvorschläge für ${esc(s.name)}</legend>
+          <div class="wahl-reihe wahl-reihe--farbe">
+${s.farben.map((f) => `            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-${s.id}-${f}" name="farbe" value="${f}" form="kontaktformular"><span class="farbfleck farbfleck--${f}" aria-hidden="true"></span><span class="wahl-titel">${esc(STILE_FARBEN[f])}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+        <figure class="stil-beispiel">
+          <div class="stil-bild"><picture><source type="image/avif" srcset="${bild('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-handy-lang-320.webp" srcset="${bild('webp')}" sizes="${sizes}" width="320" height="${LANG.handy.h(320)}" alt="${esc(a.alt_handy)}" loading="lazy" decoding="async"></picture></div>
+          <figcaption>
+            <span class="stil-beispiel-art">Beispiel: ${esc(a.art)} ${esc(a.name)}, ${esc(a.branche)}</span>
+            <a class="knopf zweit" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} ansehen ${raus}</a>
+          </figcaption>
+        </figure>
+      </li>`;
+};
+const konfig = `<section class="abschnitt konfig" id="stile" aria-labelledby="t-stile">
   <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Konfigurator')}
-      <h2 id="t-konfig" class="einblenden">Ihr eigener <em>Website-Generator</em>.</h2>
-      <p class="einblenden">${esc(S.konfigurator_kopf)}</p>
+      ${ueber('Stile')}
+      <h2 id="t-stile" class="einblenden">Drei Stile, <em>drei Vorschläge</em>.</h2>
+      <p class="einblenden">${esc(S.stile_kopf)}</p>
     </div>
-    <div class="generator">
-      <div class="gen-reiter nur-js" role="tablist" aria-label="Schritte des Generators">
-${SCHRITTE.map(([, kurz], i) => `        <button class="gen-tab" type="button" role="tab" id="gt-${i + 1}" aria-controls="gs-${i + 1}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><span class="gen-tab-nr">${i + 1}</span><span class="gen-tab-name">${kurz}</span></button>`).join('\n')}
-      </div>
-      <div class="konfig-vorschau" aria-hidden="true">
-        <div class="vorschau-geraet">
-          <div class="vorschau-seite">
-${miniSeite}
-          </div>
-        </div>
-        <div class="einstufung nur-js">
-          <p class="einstufung-kopf"><span>Ihre Einstufung</span><span class="einstufung-summe"></span></p>
-${K.stufen.map((st) => `          <p class="einstufung-reihe" data-stufe="${st.id}" data-wert="${st.start}"><span>${esc(st.name)}</span><span class="punkte">${'<i></i>'.repeat(5)}</span></p>`).join('\n')}
-        </div>
-      </div>
-      <div class="gen-bereich"${pr(P.stufen)}>
-        <div class="gen-schritte">
-${SCHRITTE.map(([titel, , inhalt, klasse], i) => feld(i + 1, titel, inhalt, klasse)).join('\n')}
-        </div>
-        <div class="gen-steuer nur-js">
-          <button class="knopf zweit gen-zurueck" type="button">Zurück</button>
-          <p class="gen-stand"><span class="gen-stand-text">1 von ${SCHRITTE.length}</span><span class="gen-balken"><span></span></span></p>
-          <button class="knopf gen-weiter" type="button">Weiter ${pfeil}</button>
-        </div>
-        <label class="ganz-schalter nur-js"><input type="checkbox" id="k-ganz"><span class="ganz-knopf" aria-hidden="true"></span><span>Farbe und Schrift auf diese ganze Seite anwenden</span></label>
-      </div>
-    </div>
+    <ul class="stil-raster"${pr(P.stile)}>
+${K.stile.map(stilKarte).join('\n')}
+    </ul>
     <div class="konfig-fuss">
       <p class="konfig-zusammen nur-js" aria-live="polite"></p>
-      <p class="konfig-preis"${pr(P.konfigurator)}>Preis: nach dem ersten Gespräch, jede Position mit ihrer Stufe und ihrem Grund</p>
-      <a class="knopf" href="#kontakt">Mit dieser Einstufung anfragen ${pfeil}</a>
+      <a class="knopf" href="#kontakt">Mit diesem Vorschlag anfragen ${pfeil}</a>
     </div>
   </div>
 </section>`;
@@ -338,7 +285,7 @@ const B = S.betreuung;
 const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Preis und Betreuung')}
+      ${ueber('Seite und Betreuung')}
       <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
       <p class="einblenden">${esc(B.kopf)}</p>
     </div>

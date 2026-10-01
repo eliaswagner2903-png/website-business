@@ -7,6 +7,20 @@
 > Stand der Werte laut Elias (14:45): **vorerst Platzhalter**, werden noch angepasst. Ablauf des Konfigurators: `KONFIGURATOR.md`.
 > Rechnen: `node wissen/preismodell/tabellen.mjs` (alle Tabellen unten), `rechner.html` im Browser (Gewichte schieben).
 
+## 0a. Preisstrategie (Elias 2026-10-01, Leitfaden „Partnerschaft über Geld leben“)
+
+**Der Verdienst liegt in der Masse betreuter Seiten und ihren Monatszahlungen (AM), nicht im Seitenpreis (Sp).**
+Darum gilt:
+
+1. **Hauptgröße ist der Monatswert je Kunde** (Grundbetreuung + gewählte Wahlleistungen + Server, Abschnitt 3a und 4).
+   Kein Mietmodell: Sp bleibt ein Einmalpreis, das Abo ist optional.
+2. **Sp ist intern sehr flexibel.** Für eine gute Seite sind auch 500 € oder weniger möglich. Der Kunde erfährt das nicht:
+   Das Angebot nennt immer den Zielpreis; die Untergrenze und der Nachlass-Spielraum bleiben intern.
+3. **Trotzdem Sp so hoch wie möglich verhandeln.** Der Zielpreis (Konzept A) ist der Start jeder Verhandlung.
+4. Jeder Nachlass hat einen Grund: Er muss binnen weniger Monate durch das Abo zurückkommen (Abschnitt 3a).
+
+Euro-Werte bleiben Platzhalter.
+
 ## 0. Grundsatz: Jeder Preis hat einen Grund
 
 1. Jede Seite wird in **Bausteine** zerlegt (Agent kategorisiert vor dem Angebot).
@@ -165,13 +179,66 @@ höchstens 15 %), C liegt weit darunter.
 
 ### Empfehlung
 
-**A als Hauptformel** (erklärbar, passt in den Editor), **B als Gegenprobe** (weicht B mehr als 20 % ab, prüft Elias
-die Einstufung) und **C als Untergrenze** (`Sp ≥ C`). Die Gewichte aus Abschnitt 1 steuern A und B gleichzeitig.
+**A als Hauptformel** und Zielpreis (erklärbar, passt in den Editor), **B als Gegenprobe** (weicht B mehr als 20 % ab,
+prüft Elias die Einstufung) und **C als Kostenkontrolle** der eigenen Zeit (kein Boden mehr, siehe 3a). Die Gewichte aus
+Abschnitt 1 steuern A und B gleichzeitig.
+
+### 3a. Seitenpreis-Spanne und Nachlass gegen Abo (neu, Preisstrategie 0a)
+
+```
+Zielpreis  Sp_ziel  = Konzept A                                  (so hoch wie möglich verhandeln)
+Richtboden Sp_richt = min(Sp_ziel, 500 €)                        (Richtwert für eine gute Seite, Platzhalter)
+harte Kosten Sp_hart = Fremdkosten + 25 €                        (Credits, Domain, Kleinkram; nie darunter)
+Nachlass N = Sp_ziel − Sp_angebot
+Amortisation m = N ÷ (AM · Marge_AM)                              (Monate, bis das Abo den Nachlass zurückgeholt hat)
+Nachlass erlaubt, wenn Sp_angebot ≥ Sp_hart und m ≤ 12 Monate (Platzhalter) und ein Abo vereinbart ist
+```
+
+Unter dem Richtboden darf Elias mit Korrekturzeile samt Grund (Abschnitt 0, Punkt 5). Ohne Abo gilt nur der Richtboden,
+weil nichts den Nachlass zurückholt. Je mehr Wahlleistungen der Kunde nimmt, desto tiefer darf Sp fallen.
+
+Beispiel Lotlinie, Sp_ziel 1.960 €, Marge_AM 60 %:
+
+| Abo des Kunden | Monatswert | Angebot Sp | Nachlass | Amortisation | Ergebnis |
+|---|---|---|---|---|---|
+| Grundbetreuung | 49 € | 1.500 € | 460 € | 15,6 Monate | nicht erlaubt |
+| Grundbetreuung | 49 € | 1.000 € | 960 € | 32,7 Monate | nicht erlaubt |
+| + Kundenfragen | 149 € | 1.000 € | 960 € | 10,7 Monate | **erlaubt** |
+| + Kundenfragen | 149 € | 500 € | 1.460 € | 16,3 Monate | nicht erlaubt |
+| kein Abo | – | 1.500 € | 460 € | – | nicht erlaubt |
+
+Spanne und Kundenwert der Musterseiten (Monatswert 149 € = Grundbetreuung 49 € + Kundenfragen 100 €, Laufzeit 36 Monate):
+
+| Beispiel | Sp_ziel | Sp_richt | Sp_hart | Kundenwert | Anteil Abo am Kundenwert |
+|---|---|---|---|---|---|
+| Lotlinie Physio (hell) | 1.960 € | 500 € | 30 € | 4.590 € | 70 % |
+| URFA SOFRASI Restaurant | 2.300 € | 500 € | 25 € | 4.828 € | 67 % |
+| Zwischenbild Motion-Studio (laut) | 2.180 € | 500 € | 25 € | 4.744 € | 68 % |
+| Lindgrund Uhren (edel) | 2.420 € | 500 € | 30 € | 4.912 € | 66 % |
+| Friseur-Erlebnis | 3.660 € | 500 € | 35 € | 5.780 € | 56 % |
+
+Befund: Bei 149 €/Monat stammen zwei Drittel des Kundenwerts aus dem Abo. Darum lohnt es, den Seitenpreis für ein gutes Abo
+zu opfern, aber nicht umgekehrt.
+
+**Masse:** Der Bestand zählt (Monatswert 149 €, 1,5 Std. Betreuung je Kunde, Marge 60 %; Kapazität 40 Std./Monat ist ein Platzhalter):
+
+| Betreute Seiten | Einnahmen/Monat | Deckungsbeitrag/Monat | Betreuungsstunden |
+|---|---|---|---|
+| 5 | 745 € | 447 € | 7,5 |
+| 10 | 1.490 € | 894 € | 15,0 |
+| 20 | 2.980 € | 1.788 € | 30,0 |
+| 26 | 3.874 € | 2.324 € | 39,0 (Kapazitätsgrenze) |
+
+Die Grenze zeigt, wann die Betreuung je Kunde automatisiert oder im Preis angehoben werden muss.
 
 ## 4. AM – Abo monatlich
 
+**Verkaufte Größe (Monatswert je Kunde):** `AM = Grundbetreuung 49 € + Σ Wahlleistungen + Serverkosten` (Abschnitt 7.5,
+Liste in `wartung/PAKETE.md`). Die folgende Aufwandsformel dient nur noch als **Kostenprüfung**: Der Monatswert darf nie
+darunter liegen.
+
 ```
-AM = Fixkosten + Paketstunden · Stundensatz + Pflegepunkte · Pflegewert        (auf 5 € gerundet)
+AM_Kosten = Fixkosten + Paketstunden · Stundensatz + Pflegepunkte · Pflegewert        (auf 5 € gerundet)
 Fixkosten 7 €/Monat (Domain, Werkzeuge anteilig) · Pflegewert 3 € · Paketstunden: Basis 0,5 · Plus 1,5 · Premium 3,5
 ```
 
@@ -267,7 +334,7 @@ Friseur-Erlebnis 3.660 € ohne Empfehlung 50 % = 1.830 €.
 
 ```
 Summe aller Rabatte ≤ min(15 %, Marge − Mindestmarge 40 %)
-Endpreis ≥ Untergrenze C
+Endpreis ≥ Richtboden Sp_richt (3a); darunter nur mit Korrekturzeile, nie unter Sp_hart
 Gratismonate ≤ 6 (siehe 5)
 ```
 
@@ -291,7 +358,7 @@ Sp  = Einmalpreis der Seite; der Kunde bekommt die fertige Seite samt Bildern un
 AM  = Grundbetreuung + Σ gewählte Wahlleistungen + Serverkosten
 ```
 
-Das Abo ist optional und bezahlt echte Arbeit im Monat: Elias schaut über die Seite und hält sie online. Je Wahlleistung
+Der **Monatswert je Kunde** ist die Hauptgröße der Preisstrategie (0a). Das Abo ist optional und bezahlt echte Arbeit im Monat: Elias schaut über die Seite und hält sie online. Je Wahlleistung
 steigt der Monatspreis. Beispiel von Elias: Kundenfragen beantworten = +100 €/Monat. Serverkosten kommen dazu
 (durchgereicht nach Verbrauch oder als Pauschale; Entscheidung offen). Wer kein Abo will, zahlt nur Sp.
 Liste und Preise der Wahlleistungen: `wartung/PAKETE.md`.
@@ -314,11 +381,11 @@ Beispiel 8 neue, 10 umgebaute Punkte, 24 Abo-Monate: 420 €.
 
 ## 8. Was als Nächstes zu entscheiden ist
 
-1. Konzept A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?
+1. Konzept A als Zielpreis, B als Gegenprobe, C nur als Kostenkontrolle; Untergrenze nach 3a (Richtboden 500 €, harte Kosten) – einverstanden?
 2. Gewichte 30/20/20/15/10/5 so lassen oder per Paarvergleich selbst setzen (Rechner hilft).
 3. BK als Aufschlag (Vorschlag) oder als Referenzrabatt.
 4. Bewertungsrabatt rechtlich prüfen lassen oder gleich in Referenzfreigabe umwandeln.
-5. Euro-Werte (Punktwert, Stundensatz, Pakete) erst mit Marktvergleich festlegen; das ist ein eigener Auftrag.
+5. Euro-Werte (Punktwert, Richtboden, Wahlleistungen, Amortisationsfrist, Kapazität, Pakete) erst mit Marktvergleich festlegen; das ist ein eigener Auftrag.
 
 6. Eigene Vorschläge aus Abschnitt 7 übernehmen, ändern oder streichen.
 

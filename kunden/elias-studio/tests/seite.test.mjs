@@ -102,41 +102,52 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   assert.match(marke, /\[data-schema="licht"\]/, 'zweites Schema fehlt (P4)');
 });
 
-test('Konfigurator: alle Felder am Formular, Werte wie in der Function erlaubt, Vorschau-Regeln für jede Wahl', async () => {
-  const { konfigAuswahl, STUFEN } = await import('../functions/api/kontakt.js');
-  const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8');
-  const K = S.konfigurator;
-  const gruppen = { branche: K.branchen, farbe: K.farben, stil: K.stile, bausteine: K.bausteine };
-  for (const [name, liste] of Object.entries(gruppen)) {
-    for (const w of liste) {
-      assert.match(start, new RegExp(`<input type="(radio|checkbox)" id="k-${name}-${w.id}" name="${name}${name === 'bausteine' ? '\\[\\]' : ''}" value="${w.id}" form="kontaktformular"`), `${name}/${w.id} fehlt`);
-      const fd = new FormData(); fd.append(name === 'bausteine' ? 'bausteine[]' : name, w.id);
-      assert.equal(konfigAuswahl(fd)[name], w.id, `${name}/${w.id} wird von der Function verworfen`);
+test('Stilvorschläge: Stil und Farbe am Formular, Werte wie in der Function erlaubt, je Stil Schriftprobe, Farben und Musterseite', async () => {
+  const { konfigAuswahl, STILE } = await import('../functions/api/kontakt.js');
+  const K = S.stile;
+  // Wertebereich der Function = Inhalt der Seite (nur Stil und Farbe)
+  assert.deepEqual(Object.keys(STILE), ['stil', 'farbe']);
+  assert.deepEqual(K.stile.map((s) => s.id), STILE.stil);
+  assert.deepEqual(K.farben.map((f) => f.id), STILE.farbe);
+  assert.match(start, /<section class="abschnitt konfig" id="stile" aria-labelledby="t-stile">/);
+  for (const s of K.stile) {
+    const karte = start.match(new RegExp(`<li class="stil-karte stil-karte--${s.id}">[\\s\\S]*?</li>`))?.[0];
+    assert.ok(karte, `${s.id}: Karte fehlt`);
+    assert.match(karte, new RegExp(`<input type="radio" id="k-stil-${s.id}" name="stil" value="${s.id}" form="kontaktformular">`), `${s.id}: Stil-Radio`);
+    assert.match(karte, new RegExp(`schriftprobe--${s.id}`), `${s.id}: Schriftprobe fehlt`);
+    assert.ok(s.farben.length >= 3 && s.farben.length <= 4, `${s.id}: 3 bis 4 Farbvorschläge`);
+    for (const f of s.farben) {
+      assert.match(karte, new RegExp(`<input type="radio" id="k-farbe-${s.id}-${f}" name="farbe" value="${f}" form="kontaktformular">`), `${s.id}/${f} fehlt`);
+      assert.ok(STILE.farbe.includes(f), `${f}: von der Function nicht erlaubt`);
     }
+    // Musterseite: gleiche id wie bei den Arbeiten, Name, Link (markiert) und vorhandenes Bild
+    const a = S.arbeiten.find((x) => x.id === s.id);
+    assert.ok(a, `${s.id}: keine Musterseite`);
+    assert.ok(karte.includes(a.name) && karte.includes('Musterseite'), `${s.id}: Musterseite nicht benannt`);
+    assert.match(karte, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" ${re(markiert(S.pruefen.link))}`), `${s.id}: Link fehlt`);
+    assert.match(karte, new RegExp(`/medien/arbeit-${s.id}-handy-lang-320\\.webp`));
+    assert.match(karte, /width="320" height="\d+" alt="[^"]+" loading="lazy"/, `${s.id}: Bild ohne Maße oder Alt`);
   }
-  // Reihenfolge nach Elias: Business, Farbe, Schrift, dann die Regler (Sicherheit zuerst)
-  const legenden = [...start.matchAll(/<legend><span class="feld-nr">(\d+)<\/span> ([^<]+)<\/legend>/g)].map((m) => m[2]);
-  assert.deepEqual(legenden.slice(0, 4), ['Ihr Business', 'Farbe', 'Schrift und Stil', 'Sicherheit']);
-  // Generator: je Schritt ein Reiter, der auf sein Feld zeigt
-  legenden.forEach((_, i) => assert.match(start, new RegExp(`role="tab" id="gt-${i + 1}" aria-controls="gs-${i + 1}"[\\s\\S]*<fieldset class="schritt-feld[^"]*" id="gs-${i + 1}">`), `Reiter/Feld ${i + 1} fehlt`));
-  // Jeder Bereich: Regler 1–5 am Formular, fünf Stufen, gleiche Namen wie in der Function
-  assert.deepEqual(K.stufen.map((s) => s.id), Object.keys(STUFEN));
-  for (const st of K.stufen) {
-    assert.match(start, new RegExp(`<input class="regler-feld" type="range" id="k-stufe-${st.id}" name="stufe_${st.id}" min="1" max="5" step="1" value="${st.start}" form="kontaktformular">`), `Regler ${st.id} fehlt`);
-    assert.equal(st.stufen.length, 5, `${st.id}: nicht fünf Stufen`);
-    assert.deepEqual([st.name, ...st.stufen.map(([n]) => n)], STUFEN[st.id], `${st.id}: Namen weichen von der Function ab`);
-    const fd = new FormData(); fd.append(`stufe_${st.id}`, '3');
-    assert.equal(konfigAuswahl(fd)[st.name], `Stufe 3 von 5 (${st.stufen[2][0]})`);
-  }
-  // Vorschau: jede Wahl außer der Grundeinstellung hat eine :has()-Regel
-  for (const s of K.stile.slice(1)) assert.match(css, new RegExp(`#k-stil-${s.id}:checked`), `Stil ${s.id} ohne Vorschau`);
-  for (const f of K.farben.slice(1)) assert.match(css, new RegExp(`#k-farbe-${f.id}:checked`), `Farbe ${f.id} ohne Vorschau`);
-  for (const b of K.branchen) assert.match(css, new RegExp(`#k-branche-${b.id}:checked\\) \\.nach-branche--${b.id}`), `Branche ${b.id} ohne Vorschau`);
-  for (const b of K.bausteine) assert.match(css, new RegExp(`#k-bausteine-${b.id}:checked\\) \\.vb--${b.id}`), `Baustein ${b.id} ohne Vorschau`);
-  // Fremde Werte fallen still weg
+  for (const f of K.farben) assert.match(readFileSync(join(PUB, 'css/stil.css'), 'utf8'), new RegExp(`\\.farbfleck--${f.id}\\b`), `Farbfleck ${f.id} ohne CSS`);
+  // Die Function nimmt nur Stil und Farbe, alles andere fällt still weg
+  const fd = new FormData(); fd.append('stil', 'laut'); fd.append('farbe', 'kobalt');
+  assert.deepEqual(konfigAuswahl(fd), { Stil: 'Modern', Farbe: 'Kobalt' });
   const boese = new FormData();
-  for (const [k, v] of [['stil', '<script>'], ['bausteine[]', 'galerie'], ['bausteine[]', 'x'], ['stufe_sicherheit', '9'], ['stufe_design', '2<b>'], ['stufe_umfang', '0']]) boese.append(k, v);
-  assert.deepEqual(konfigAuswahl(boese), { bausteine: 'galerie' });
+  for (const [k, v] of [['stil', '<script>'], ['farbe', 'toString'], ['bausteine[]', 'galerie'], ['stufe_sicherheit', '3'], ['branche', 'praxis']]) boese.append(k, v);
+  assert.deepEqual(konfigAuswahl(boese), {});
+});
+
+test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
+  for (const [f, t] of seiten) {
+    const sichtbar = t.replace(/<script[\s\S]*?<\/script>/g, '').replace(/ data-pruefen="[^"]*"/g, '');
+    assert.doesNotMatch(sichtbar, /Konfigurator|Website-Generator|stuft jeden Bereich|offen gerechnet|offenen Formel|Jede Position|erhöht den Monatspreis|konfig-preis/i, `${f}: alter Wortlaut`);
+    assert.doesNotMatch(sichtbar, /type="range"|class="generator|vorschau-seite|einstufung|role="tab" id="gt-|name="bausteine|name="branche|name="stufe_/, `${f}: Selbstbau-Bedienung`);
+  }
+  assert.doesNotMatch(readFileSync(join(PUB, 'js/seite.js'), 'utf8'), /generator|regler|branche|bausteine\[/i);
+  assert.doesNotMatch(readFileSync(join(PUB, 'css/stil.css'), 'utf8'), /\.generator|\.regler|\.vorschau-|\.einstufung|\.gen-|stufen-liste/);
+  // Navigation und Fuß nennen „Stile“
+  assert.match(start, /<li><a href="#stile">Stile<\/a><\/li>/);
+  assert.doesNotMatch(start, /href="#konfigurator"/);
 });
 
 test('Kino: Film nur für Computer ≤ 12 MB und Handy ≤ 5 MB (P2), beide Formate, CSP erlaubt blob:', () => {
