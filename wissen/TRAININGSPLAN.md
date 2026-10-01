@@ -1,17 +1,17 @@
-# Trainingsplan: bereit für High-End-Websites
+# Training plan: ready for high-end websites
 
-Stand 2026-09-28. Auftrag von Elias: erst die Fähigkeit aufbauen, Verkauf, Konten, Preise und Amt kommen zum
-Schluss. Jede Stufe endet mit einem messbaren Ergebnis gegen den [Meisterstandard](MEISTERSTANDARD.md) und einem
-Eintrag im Auftragslog.
+As of 2026-09-28. Order from Elias: first build the capability, sales, accounts, prices and authorities come last.
+Each stage ends with a measurable result against the [Meisterstandard](MEISTERSTANDARD.md) and an
+entry in the order log.
 
-| Stufe | Inhalt | Ergebnis |
+| Stage | Content | Result |
 |---|---|---|
-| 1 Maßstab | Meisterstandard, Gewichts-Budget, Bildfolge, Skill `/meisterpruefung` | messbare Latte; Vorlage dagegen geprüft |
-| 2 Baukasten | geprüfte Bausteine in `vorlage/bausteine/`: Marken-Datei `marke.css` mit zwei Schemata; Hero mit Poster und Video; Einblenden über Scroll-Timeline (CSS, ohne JS) mit Rückfall; Seitenwechsel mit View Transitions; Menü-Blatt; Bento-Raster; Galerie mit `<dialog>`; 3D-Szene (three.js, nachgeladen, Standbild als Rückfall) | jeder Baustein einzeln bestanden (P1–P3) |
-| 3 Showcases | drei Demo-Seiten mit ausgedachten, klar als „Demo“ gekennzeichneten Marken, je ein Stil: **hell & ruhig** (Praxis/Dienstleister, Terminbuchung), **dunkel & edel** (Manufaktur, 3D-Produkt), **laut & modern** (Studio/Agentur, Typo und Bewegung) | drei Seiten mit W ≥ 4, zugleich das spätere Verkaufsportfolio |
-| 4 Visuals | Bildpipeline (AVIF/WebP/Poster, Video WebM+MP4 mit ffmpeg), 3D-Standbilder aus three.js rendern; Higgsfield einbinden, sobald ein Konto da ist | Visual in unter 30 min vom Entwurf bis eingebaut und gemessen |
-| 5 Fremdprüfung | Fernspäherkommando klärt die eigenen Showcases auf wie eine fremde Seite; Befunde nach `wissen/` | keine KRIT/HOCH-Befunde |
-| 6 Generalprobe | eine echte Seite (z. B. URFA-Meistervariante) in einem Zug vom Briefing bis zur Abnahme | Zeit und Aufwand gemessen, Ablauf als Skill |
+| 1 Yardstick | Meisterstandard, weight budget, frame sequence, skill `/meisterpruefung` | measurable bar; template checked against it |
+| 2 Toolkit | tested building blocks in `vorlage/bausteine/`: brand file `marke.css` with two schemes; hero with poster and video; fade-in via scroll timeline (CSS, no JS) with fallback; page transitions with View Transitions; menu sheet; bento grid; gallery with `<dialog>`; 3D scene (three.js, lazy-loaded, still image as fallback) | each block individually passed (P1–P3) |
+| 3 Showcases | three demo pages with made-up brands, clearly labelled „Demo“, one style each: **light & calm** (practice/service provider, appointment booking), **dark & refined** (manufactory, 3D product), **loud & modern** (studio/agency, typography and motion) | three pages with W ≥ 4, at the same time the later sales portfolio |
+| 4 Visuals | image pipeline (AVIF/WebP/poster, video WebM+MP4 with ffmpeg), render 3D stills from three.js; integrate Higgsfield as soon as an account exists | visual in under 30 min from draft to built in and measured |
+| 5 External review | Fernspäherkommando examines the own showcases like a foreign site; findings go to `wissen/` | no KRIT/HOCH findings |
+| 6 Dress rehearsal | a real site (e.g. the URFA master variant) in one go from briefing to acceptance | time and effort measured, process as a skill |
 
-Grundsatz: lieber drei Seiten, die jede Prüfung bestehen, als zehn Entwürfe. Jeder Fehler wird zur Zeile in
-`wissen/FEHLER.md`, jede bewährte Technik zu einem Baustein.
+Principle: better three pages that pass every check than ten drafts. Every mistake becomes a line in
+`wissen/FEHLER.md`, every proven technique becomes a building block.

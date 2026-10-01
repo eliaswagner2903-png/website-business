@@ -1,25 +1,24 @@
-## Bekannte Stolperfallen (sind schon passiert, bitte vermeiden)
+## Known pitfalls (they have already happened, please avoid)
 
-1. **Netzwerk:** Die alte Website `urfasofrasi-eislingen.de` sowie Unsplash, Pexels, Wikimedia, archive.org und jsdelivr sind in dieser Umgebung gesperrt.
-   - npm (`registry.npmjs.org`) und PyPI funktionieren.
-   - Referenzen deshalb als Screenshots oder Dateien vom Auftraggeber anfordern.
-2. **PDF-Textlayer der Speisekarte ist fehlerhaft:** Die Allergen-Buchstaben werden als „=“, „E“ oder Leerzeichen ausgelesen. Kennzeichnungen nie aus dem PDF-Text übernehmen, sondern aus `speisekarte.htm` (visuell geprüft).
-3. **Alte Website vs. PDF:** Die Nummerierung weicht ab (Lahmacun 49/50, Pizzen 51–59). **Das PDF gilt.**
-4. **CSS-Kurzschreibweise:** `.section { padding: 64px 0 }` hat den seitlichen Innenabstand von `.wrap` auf demselben Element überschrieben. Deshalb `padding-block` verwenden.
-5. **Sprungmarken unter fixierten Leisten:** `scroll-padding-top` (am `html`) und `scroll-margin-top` (am Ziel) **addieren sich**. Danach immer die Position nachmessen.
-6. **`text-transform: uppercase`** macht aus „Süßspeisen“ „SÜSSSPEISEN“. Deutsche Überschriften mit ß nicht per CSS in Großbuchstaben setzen.
-7. **SVG-Kommentare dürfen kein `--` enthalten.** Das SVG ist sonst ungültig und wird als CSS-Maske stillschweigend ignoriert. SVGs nach dem Schreiben mit einem XML-Parser prüfen.
-8. **Tests immer über einen lokalen HTTP-Server** (`python3 -m http.server`), nicht über `file://`: Masken, SVG-Sprites und Fonts schlagen sonst fehl.
-9. **Ganzseiten-Screenshots zeigen lazy geladene Bilder leer.** Vorher die Seite durchscrollen, sonst entstehen falsche Befunde.
-10. **Einblend-Animationen:**
-    - Die Klassen nach dem Einblenden wieder entfernen, sonst blockiert ihre höhere Spezifität die Hover-Transforms.
-    - Elemente, die beim Laden schon im Bild sind, nicht verstecken.
-11. **Mobiles Menü:** Nur per JS ein- und ausblenden, wenn es ohne JS trotzdem erreichbar ist (Klasse `js` früh im `<head>` setzen).
-12. **Spezifität bei `.js`-Regeln:** Neue `.js …`-Regeln können Desktop-Regeln überschreiben (so ging einmal der Rahmen um die Telefonnummer verloren). Nach CSS-Änderungen Desktop und Mobil ansehen.
-13. **Farbabsätze:** Der Auftraggeber möchte keine abgesetzten Hintergrundfarben zwischen Abschnitten.
-14. **LCP-Bild nie lazy laden:** Auf dem Handy war ein Foto im Hero das größte Element, aber `loading="lazy"` → Performance 87. Das LCP-Element in Lighthouse nachsehen (`lcp-breakdown-insight`).
-15. **Layout-Thrashing:** Im Skript erst alle Positionen lesen (`getBoundingClientRect`), dann Klassen/Styles schreiben.
-16. **`<figure>` hat 40 px Standard-Rand** links und rechts; immer `margin: 0` setzen.
-17. **`clip-path`-Animationen mit `fill-mode: both`** schneiden auch `outline` ab; `backwards` verwenden.
-18. **Lighthouse lokal ohne Kompression** ist zu pessimistisch; zusätzlich mit einem gzip-Server messen (der Webspace komprimiert per `.htaccess`).
-
+1. **Network:** The old website `urfasofrasi-eislingen.de` as well as Unsplash, Pexels, Wikimedia, archive.org and jsdelivr are blocked in this environment.
+   - npm (`registry.npmjs.org`) and PyPI work.
+   - So request references as screenshots or files from the client.
+2. **The PDF text layer of the menu is faulty:** The allergen letters are read out as „=“, „E“ or spaces. Never take the labels from the PDF text, but from `speisekarte.htm` (visually checked).
+3. **Old website vs. PDF:** The numbering differs (Lahmacun 49/50, Pizzen 51–59). **The PDF is authoritative.**
+4. **CSS shorthand:** `.section { padding: 64px 0 }` overrode the side padding of `.wrap` on the same element. Therefore use `padding-block`.
+5. **Anchors below fixed bars:** `scroll-padding-top` (on `html`) and `scroll-margin-top` (on the target) **add up**. Always re-measure the position afterwards.
+6. **`text-transform: uppercase`** turns „Süßspeisen“ into „SÜSSSPEISEN“. Do not set German headings with ß in capitals via CSS.
+7. **SVG comments must not contain `--`.** Otherwise the SVG is invalid and is silently ignored as a CSS mask. Check SVGs with an XML parser after writing.
+8. **Always test via a local HTTP server** (`python3 -m http.server`), not via `file://`: masks, SVG sprites and fonts otherwise fail.
+9. **Full-page screenshots show lazily loaded images empty.** Scroll through the page beforehand, otherwise false findings arise.
+10. **Fade-in animations:**
+    - Remove the classes again after fading in, otherwise their higher specificity blocks the hover transforms.
+    - Do not hide elements that are already in view on load.
+11. **Mobile menu:** Only show/hide it via JS if it is reachable without JS anyway (set class `js` early in `<head>`).
+12. **Specificity of `.js` rules:** New `.js …` rules can override desktop rules (that is how the frame around the phone number was once lost). After CSS changes look at desktop and mobile.
+13. **Colour blocks:** The client does not want contrasting background colours between sections.
+14. **Never load the LCP image lazily:** On the phone a photo in the hero was the largest element, but `loading="lazy"` → performance 87. Look up the LCP element in Lighthouse (`lcp-breakdown-insight`).
+15. **Layout thrashing:** In the script first read all positions (`getBoundingClientRect`), then write classes/styles.
+16. **`<figure>` has a 40 px default margin** left and right; always set `margin: 0`.
+17. **`clip-path` animations with `fill-mode: both`** also cut off `outline`; use `backwards`.
+18. **Lighthouse locally without compression** is too pessimistic; additionally measure with a gzip server (the web space compresses via `.htaccess`).
