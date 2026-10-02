@@ -74,3 +74,47 @@ Bei „Bewegung reduzieren“ alles statisch und sichtbar.
 
 Video (Stockclips, 848 × 464), Stockfotos als Referenzen/Projekte, Bewertungen (ohne Quelle), Vorher/Nachher (kein Material),
 Rückenfoto vor Greenscreen (unruhig), Google Maps/iframes, Cookies, Tracking, Cookie-Banner (nicht nötig).
+
+## Überarbeitung 02.10.2026 (A-076): Arbeitskleidung und Stickerei
+
+Wunsch von Elias: Menü überarbeiten, Hero voller (vor allem am Handy), unnötige Nummern weg, durchdachte eigene Zeichen,
+Textabschnitte lebendiger, Design aus Logo und Arbeitskleidung ableiten. Die Leitidee: **Das Team trägt schwarze Polos mit
+gesticktem grünem Logo.** Daraus kommen drei Mittel, die überall gleich eingesetzt werden:
+
+1. **Schwarz** (`--farbe-schwarz` #121412, erhaben `--farbe-schwarz-hoch` #1e221e) für Kopf, Schnellleiste, Vertrauensleiste,
+   Ablauf, Anfrage-Karte und Fuß. Auf Schwarz: Text Creme (17,7:1), Nebentext `leise-hell` (11,4:1), Grün nur `gruen-hell`
+   (8,2:1). Knöpfe auf Schwarz in Stickgrün mit schwarzer Schrift (`.knopf--stick`).
+2. **Naht**: gestrichelte grüne Linie wie eine Steppnaht. Unter dem Kopf, über dem Fuß, als Unterstrich im Menü, als Weg im
+   Ablauf, als Innenrand von Bogen, Panel, Menü-Blatt und Anfrage-Karte.
+3. **Aufnäher** (`.patch`): eigene Zeichen (24er-Raster, Strich 1,6, je Zeichen genau ein grünes Detail) auf einem schwarzen
+   Kreis mit Naht. Nur dort, wo ein Zeichen etwas erklärt: 6 Leistungen, 4 Zusagen, 4 Ablaufschritte, 6 Gründe. Keine
+   Zeichen in FAQ, Fuß oder Fließtext. Die Nummern 01–06 (Leistungen, Gründe), 01–04 (Ablauf) und 1–2 (Formular) sind weg.
+
+**Hero:** Das Team ist freigestellt und steht in einem bestickten Bogen; dahinter der schwarze Schwung aus dem Logo (im Logo
+umfasst er das Haus, hier das Team). Zwei Karten (Garantie, Besichtigung) schweben davor. Am Computer kippt die Bühne mit
+dem Zeiger (höchstens 5°, Ebenen in echter 3D-Tiefe), am Handy steht das Team direkt unter der H1 im ersten Bildschirm.
+Unter dem Team beginnt die schwarze Vertrauensleiste: die Hemden gehen in die Fläche über.
+
+**Menü:** Computer: Leiste mit Zeiten, Adresse, WhatsApp, E-Mail über dem schwarzen Kopf; „Leistungen“ öffnet ein breites
+Panel mit allen Leistungen samt Aufnäher und einer schwarzen Karte „kostenlose Besichtigung“. Handy: schwarzes Blatt von
+unten mit Naht, Leistungen mit Aufnähern, unten Angebot, Anrufen, WhatsApp, E-Mail, Bürozeiten.
+
+**Text:** Ein Haltungssatz in großer Serif (nur belegte Aussagen: feste Kräfte, ein Ansprechpartner, Nachreinigung binnen
+24 Stunden), Teile werden beim Lesen dunkel (Scroll-Timeline, ohne JS; vorher `leise`, also immer lesbar). Leistungsliste:
+Zeigen oder Fokus wischt das passende Bild wie ein Abzieher herein (clip-path). Garantie: Siegel als Medaille mit Glanz,
+pendelt leicht und folgt dem Zeiger. Bei „Bewegung reduzieren“ steht alles still.
+
+**Bilder (Higgsfield, 02.10.2026, 6 Credits):** Teamfoto 2× hochgerechnet (2 Credits) und freigestellt (1 Credit) →
+`medien/team-frei-*`. Drei Stimmungsbilder ohne Menschen für die Leistungen ohne eigenes Foto (je 1 Credit, GPT Image 2.5
+mittel): Treppenhaus, Bauendreinigung, Privathaushalt. Sie sind mit `data-pruefen` als KI-Bild markiert und werden ersetzt,
+sobald Merys Clean eigene Fotos liefert. Originale: Projektordner `merysclean/material/higgsfield/`.
+
+## Feinschliff 02.10.2026 (A-077, nach Elias' Durchsicht der Vorschau)
+
+- **Ein Grün:** überall das Logo-Grün `#5fba46` (`--farbe-akzent` = `--farbe-gruen-hell`); das dunkle `#2a7430` und die Tint-Fläche sind weg. Weil Grün auf Hell nur 2,2 : 1 hat, steht es dort nie als Schrift, Rahmen oder Fokus: Links sind dunkel mit grünem Unterstrich, Hauptknopf grün mit schwarzer Schrift, Fokus dunkel, Hervorhebungen als grüner Textmarker.
+- **Überzeile als Etikett** (schwarzes Band, Naht, grüner Stich) statt des kleinen Bogens, den man nicht verstanden hat.
+- **Grund:** feiner Piqué (Punktraster wie Polostoff) statt glatter Fläche; großer Logo-Schwung (`img/deko-schwung.svg`) hinter dem Haltungssatz.
+- **Hero:** Garantie und Besichtigung als zwei Etiketten unter den Knöpfen, nicht mehr im Bild; Bühne in warmem Creme mit Piqué statt Hellgrün.
+- **Leistungsliste:** aktive Zeile wird schwarzes Band; Bild wischt herein bei Zeigen, Fokus oder Scrollen (IntersectionObserver), auf dem Handy als mitlaufendes Bild über der Liste (sticky, kein Layoutsprung).
+- **Brotkrumen** als Leiste mit Haus-Zeichen und grünen Schrägstrichen auf allen Unterseiten (auch Impressum, Datenschutz, Danke).
+- **Anfrage-Band:** links Text mit drei Haken, rechts ein eingenähtes Fach: Knopf, „oder direkt“, Telefon, WhatsApp, E-Mail.

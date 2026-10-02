@@ -1,6 +1,7 @@
 // Merys Clean – kleine Helfer. Ohne JavaScript funktioniert alles (Menü als Zeile, Panel per Fokus, Formular mit
 // Browser-Prüfung); dieses Skript verbessert nur: Escape schließt das Leistungen-Panel, Vorauswahl der Leistung aus
-// ?leistung=…, Fehlermeldungen als Text direkt am Feld, Zustand „wird gesendet“.
+// ?leistung=…, Fehlermeldungen als Text direkt am Feld, Zustand „wird gesendet“, Bühne und Siegel kippen leicht mit
+// dem Zeiger, das Leistungsbild wechselt mit der gezeigten oder durchscrollten Zeile.
 (() => {
   function panel() {
     const li = document.querySelector('.nav-leistungen');
@@ -75,6 +76,67 @@
     addEventListener('pageshow', () => { knopf.disabled = false; knopf.removeAttribute('aria-busy'); knopf.textContent = knopfText; });
   }
 
-  function start() { panel(); formular(); }
+  // [data-kippen]: dreht sich höchstens 5° zum Zeiger (nur Maus, nicht bei „Bewegung reduzieren“). Ruhig: Werte nur je Bild.
+  function kippen() {
+    if (!matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+    for (const el of document.querySelectorAll('[data-kippen]')) {
+      const flaeche = el.closest('section') || el;
+      let rahmen = 0;
+      flaeche.addEventListener('pointermove', (e) => {
+        if (rahmen) return;
+        rahmen = requestAnimationFrame(() => {
+          rahmen = 0;
+          const r = el.getBoundingClientRect();
+          const x = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / (r.width / 2)));
+          const y = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / (r.height / 2)));
+          el.classList.add('kippt');
+          el.style.setProperty('--_ry', `${(x * 5).toFixed(2)}deg`);
+          el.style.setProperty('--_rx', `${(-y * 4).toFixed(2)}deg`);
+          el.style.setProperty('--_glanz', (x * 30).toFixed(1));
+        });
+      });
+      flaeche.addEventListener('pointerleave', () => { el.style.setProperty('--_rx', '0deg'); el.style.setProperty('--_ry', '0deg'); el.style.setProperty('--_glanz', '0'); });
+    }
+  }
+
+  // Startseite: die aktive Leistung wird zum schwarzen Band und ihr Bild wischt herein. Aktiv wird, was gezeigt oder
+  // fokussiert wird, sonst die Zeile, die beim Scrollen durch die Mitte des Bildschirms läuft.
+  function leistungsbilder() {
+    const bilder = document.querySelectorAll('.leistungen-bild');
+    const zeilen = [...document.querySelectorAll('.leistung-zeilen > li')];
+    if (!bilder.length || !zeilen.length) return;
+    const aktiv = (i) => {
+      zeilen.forEach((z, j) => z.classList.toggle('ist-aktiv', j === i));
+      bilder.forEach((b, j) => b.classList.toggle('ist-aktiv', j === i));
+    };
+    const zeige = (e) => { const z = e.target.closest('.leistung-zeilen > li'); if (z) aktiv(zeilen.indexOf(z)); };
+    const liste = document.querySelector('.leistung-zeilen');
+    let zeiger = false;
+    liste.addEventListener('pointerover', zeige);
+    liste.addEventListener('focusin', zeige);
+    liste.addEventListener('pointerenter', () => { zeiger = true; });
+    liste.addEventListener('pointerleave', () => { zeiger = false; });
+    if (!('IntersectionObserver' in window)) return;
+    // Scrollen übernimmt nicht, solange Zeiger oder Tastaturfokus in der Liste sind
+    const io = new IntersectionObserver((eintraege) => {
+      if (zeiger || liste.contains(document.activeElement)) return;
+      for (const e of eintraege) if (e.isIntersecting) aktiv(zeilen.indexOf(e.target));
+    }, { rootMargin: '-58% 0px -38% 0px' });
+    zeilen.forEach((z) => io.observe(z));
+  }
+
+  // Schnellleiste (Handy): erst einblenden, wenn die Knöpfe im Seitenkopf aus dem Bild sind, damit sie nichts verdeckt
+  function schnellleiste() {
+    const leiste = document.querySelector('.schnell');
+    const wege = document.querySelector('main .wege');
+    if (!leiste) return;
+    if (!wege || !('IntersectionObserver' in window)) { leiste.classList.remove('ist-versteckt'); return; }
+    leiste.classList.add('ist-versteckt');
+    new IntersectionObserver(([e]) => {
+      leiste.classList.toggle('ist-versteckt', e.isIntersecting || e.boundingClientRect.top > 0);
+    }).observe(wege);
+  }
+
+  function start() { panel(); formular(); kippen(); leistungsbilder(); schnellleiste(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

@@ -29,6 +29,7 @@ def route(m):
 def bearbeiten(t):
     t = re.sub(r'\s+data-pruefen="[^"]*"', '', t)                               # interne Prüfnotizen raus
     t = re.sub(r'src="/(medien|img)/([^"]+\.svg)"', lambda m: f'src="{daten_svg(Q / m.group(1) / m.group(2))}"', t)
+    t = re.sub(r'src="/medien/([^"]+\.webp)"', lambda m: 'src="data:image/webp;base64,' + base64.b64encode((Q / 'medien' / m.group(1)).read_bytes()).decode() + '"', t)
     t = t.replace(' loading="lazy"', '')                                         # Grafiken sind eingebettet, nichts nachzuladen
     t = re.sub(r'(href)="(/(?!/)[^"]*)"', route, t)
     return t
@@ -53,9 +54,11 @@ css_name = re.search(r'href="/css/(mc\.[0-9a-f]+\.css)"', kopf_html).group(1)
 css = (Q / 'css' / css_name).read_text()
 css = re.sub(r'url\("\.\./fonts/([^"]+\.woff2)"\)',
              lambda m: 'url("data:font/woff2;base64,' + base64.b64encode((Q / 'fonts' / m.group(1)).read_bytes()).decode() + '")', css)
+css = css.replace('url("../medien/siegel-480.webp")', f'url("{daten_svg(Q / "medien" / "siegel.svg")}")')
+css = css.replace('url("../img/deko-schwung.svg")', f'url("{daten_svg(Q / "img" / "deko-schwung.svg")}")')
 css += '''
 /* Musterseite-Hinweis (nur Vorschau) */
-.fk-hinweis { margin: 0; padding: .45rem 1rem; background: var(--farbe-tint); color: var(--farbe-text); font-size: 1rem; line-height: 1.4; text-align: center; border-bottom: 1px solid var(--farbe-linie); }
+.fk-hinweis { margin: 0; max-width: none; padding: .45rem 1rem; background: var(--farbe-akzent); color: var(--farbe-schwarz); font-size: 1rem; line-height: 1.4; text-align: center; }
 .fk-hinweis strong { font-weight: 600; }
 '''
 kopf_html = re.sub(r'<meta charset[^>]*>\s*|<meta name="viewport"[^>]*>\s*', '', kopf_html)
@@ -77,7 +80,8 @@ js_b = (Q / 'js' / 'bausteine.js').read_text()
 js_s = (Q / 'js' / 'seite.js').read_text()
 js_s = js_s.replace("new URLSearchParams(location.search).get('leistung')",
                     "new URLSearchParams(location.search || location.hash.split('?')[1] || '').get('leistung')")
-js_s, n = re.subn(r'function start\(\) \{ panel\(\); formular\(\); \}', 'function start() { panel(); formular(); }\n  window.fkFormular = formular;', js_s)
+js_s, n = re.subn(r'function start\(\) \{ panel\(\); formular\(\); kippen\(\); leistungsbilder\(\); schnellleiste\(\); \}',
+                  'function start() { panel(); formular(); kippen(); leistungsbilder(); schnellleiste(); }\n  window.fkFormular = () => { formular(); kippen(); leistungsbilder(); schnellleiste(); };', js_s)
 assert n == 1, 'seite.js: start() nicht gefunden'
 ROUTER = r'''
 /* Vorschau: Unterseiten per Hash-Adresse (#/angebot) in <main> zeigen; Formular sendet nichts. */

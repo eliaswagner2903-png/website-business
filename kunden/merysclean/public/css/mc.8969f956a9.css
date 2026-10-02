@@ -1,3 +1,74 @@
+/* ===== marke.css ===== */
+/* =====================================================================
+   MARKE Merys Clean – die ganze Marke steht nur hier (Designsystem: ../../DESIGN.md).
+   Kontrast (WCAG AA), gemessen:
+     text/grund 14,6 · leise/grund 6,3 · blau/grund 5,9 · fehler/flaeche 6,2 · fehler/grund 5,7
+     EIN Grün (Logo #5FBA46, seit 02.10.2026 A-077): gruen/schwarz 7,6 · gruen/schwarz-hoch 6,6 · schwarz auf gruen 7,6
+     · text auf gruen 6,7 – aber gruen/grund nur 2,2: auf Hell nie als Text, Rahmen oder Fokus, nur als Fläche
+     (mit schwarzem Text), Naht, Unterstrich oder Punkt.
+     Arbeitskleidung: flaeche/schwarz 17,7 · leise-hell/schwarz 11,4 · leise-hell/schwarz-hoch 9,9
+   ===================================================================== */
+
+/* ---------- Schriften (lokal, OFL): Instrument Serif für Überschriften, Instrument Sans (variabel) für Text ---------- */
+@font-face {
+  font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/instrument-serif-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/instrument-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Ersatzschriften mit angeglichenen Maßen (kaum Sprung beim Tausch) */
+@font-face { font-family: "Serif Ersatz"; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"); size-adjust: 88%; ascent-override: 98%; descent-override: 28%; line-gap-override: 0%; }
+@font-face { font-family: "Sans Ersatz"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 101.4%; ascent-override: 95.7%; descent-override: 24.7%; line-gap-override: 0%; }
+
+:root {
+  --farbe-grund: #f5f2eb;       /* Wand */
+  --farbe-flaeche: #fbfaf6;     /* Karten, Felder, Blatt */
+  --farbe-text: #202020;        /* Marke „Dunkel“ */
+  --farbe-leise: #55595a;       /* Nebentext, Feldrahmen */
+  --farbe-linie: #d9d3c6;       /* Trenner */
+  --farbe-akzent: #5fba46;      /* das eine Grün = Logo-Grün: Hauptknopf (schwarze Schrift), Nähte, Unterstriche */
+  --farbe-auf-akzent: #121412;  /* Schrift auf Grün */
+  --farbe-gruen-hell: #5fba46;  /* gleicher Wert wie akzent (alter Name, auf Dunkel als Text erlaubt) */
+  --farbe-blau: #1d5f9e;        /* Markenblau abgedunkelt: zweiter Akzent */
+  --farbe-leise-hell: #c9ccc5;  /* Nebentext auf Dunkel */
+  --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */
+  --farbe-schwarz: #121412;     /* Arbeitskleidung (Polo, Schürze): Kopf, dunkle Flächen, Aufnäher */
+  --farbe-schwarz-hoch: #1e221e; /* erhabene Fläche auf Schwarz */
+
+  --schrift-display: "Instrument Serif", "Serif Ersatz", Georgia, serif;
+  --schrift-text: "Instrument Sans", "Sans Ersatz", Arial, sans-serif;
+
+  --radius-klein: 12px;
+  --radius-gross: 28px;
+
+  --tempo-kurz: .3s;
+  --tempo-mittel: .42s;
+  --tempo-lang: .85s;
+  --kurve-standard: cubic-bezier(.2, .8, .2, 1);
+  --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
+  --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+
+  --abstand-abschnitt: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --kopf-hoehe: 4.5rem;
+
+  color-scheme: light;
+}
+
+/* ===== stil.css ===== */
 /* =====================================================================
    STIL Merys Clean – Grundgerüst, Kopf, Seiten. Nutzt nur die Variablen aus marke.css
    (Designsystem: ../../DESIGN.md). Keine Farbwerte, Schriftnamen oder Tempi hier eintragen.
@@ -822,3 +893,118 @@ main { isolation: isolate; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
 }
+
+/* ===== bausteine.css ===== */
+/* Erzeugt von bausteine/einbauen.mjs – nicht von Hand ändern. Bausteine: einblenden, seitenwechsel, menue-blatt */
+
+/* ===== einblenden/einblenden.css ===== */
+/* ---------- Baustein: einblenden ----------
+   Elemente mit class="einblenden" gleiten beim Hereinscrollen 24 px hoch und werden sichtbar.
+   1. Wahl: CSS-Scroll-Timeline (ohne JS). 2. Wahl: einblenden.js mit IntersectionObserver.
+   Bewegt wird die Eigenschaft `translate` (nicht `transform`): Hover-Transforms bleiben frei.
+   Was beim Laden schon ganz im Bild ist, bleibt unverändert sichtbar (Bereich endet bei „entry 100 %“). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root:not(.einblenden-rueckfall) .einblenden {
+      animation: einblenden-auf var(--kurve-standard) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 100%;
+    }
+  }
+  .js .einblenden--wartet { opacity: 0; translate: 0 24px; }
+  .js .einblenden--los {
+    transition: opacity var(--tempo-lang) var(--kurve-standard), translate var(--tempo-lang) var(--kurve-standard);
+  }
+}
+@keyframes einblenden-auf {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* ===== seitenwechsel/seitenwechsel.css ===== */
+/* ---------- Baustein: seitenwechsel ----------
+   Weicher Übergang zwischen Seiten derselben Website (View Transitions, ohne JS).
+   Beide Seiten brauchen diese Regeln. Kopf und Schnellleiste bleiben stehen, der Inhalt wechselt:
+   alter Inhalt geht kurz nach oben weg (0,3 s, schließende Kurve), neuer steigt 16 px auf (0,55 s).
+   Benannte Übergänge: ein Element mit class="uebergang-titel" (bzw. -bild) auf Seite A verwandelt sich in das
+   Element mit derselben Klasse auf Seite B. Jeder Name darf pro Seite nur EINMAL vorkommen.
+   Bei „Bewegung reduzieren“ gibt es keinen Übergang. Browser ohne Unterstützung laden ganz normal. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+
+  .kopf { view-transition-name: kopf; }
+  .schnell { view-transition-name: schnell; }
+  main { view-transition-name: inhalt; }
+  .uebergang-titel { view-transition-name: titel; }
+  .uebergang-bild { view-transition-name: bild; }
+
+  ::view-transition-group(*) { animation-duration: var(--tempo-lang); animation-timing-function: var(--kurve-sanft); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--tempo-mittel); }
+  ::view-transition-old(inhalt) { animation: seitenwechsel-weg .3s var(--kurve-schliessen) both; }
+  ::view-transition-new(inhalt) { animation: seitenwechsel-her .55s var(--kurve-standard) .12s both; }
+}
+@keyframes seitenwechsel-weg { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes seitenwechsel-her { from { opacity: 0; transform: translateY(16px); } }
+
+/* ===== menue-blatt/menue-blatt.css ===== */
+/* ---------- Baustein: menue-blatt ----------
+   Handy-Menü als Blatt von unten (Daumenbereich). Nur mit JS und unter 64rem; ohne JS bleibt die
+   Navigation eine sichtbare Zeile im Kopf. Öffnen 0,85 s sanft, Schließen 0,42 s, Einträge ab 0,22 s
+   um 60 ms versetzt. Geschlossen: visibility hidden + inert. Schleier dunkelt die Seite ab.
+   Wichtig: Kopf (Eltern des Blatts) ohne backdrop-filter/transform, sonst ist position: fixed falsch. */
+@media (max-width: 63.99rem) {
+  .js .menue-knopf {
+    display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; min-width: 44px; padding-inline: 1rem;
+    font: 600 1rem/1 var(--schrift-text); color: var(--farbe-text); background: var(--farbe-flaeche);
+    border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); cursor: pointer;
+  }
+  .js .menue-knopf::before {           /* zwei Striche, die beim Öffnen zum X werden */
+    content: ""; inline-size: 1rem; block-size: .5rem;
+    background: linear-gradient(currentColor, currentColor) top / 100% 1.5px no-repeat,
+                linear-gradient(currentColor, currentColor) bottom / 100% 1.5px no-repeat;
+    transition: transform var(--tempo-mittel) var(--kurve-standard);
+  }
+  .js .menue-knopf[aria-expanded="true"]::before { transform: scaleY(.2); }
+  .js .menue-knopf:active { transform: scale(.97); }
+
+  .js .blatt {
+    position: fixed; z-index: 2; inset: auto 0 0 0; display: grid; gap: 1rem;
+    max-block-size: min(88dvh, 44rem); overflow-y: auto; overscroll-behavior: contain;
+    padding: .75rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    background: var(--farbe-flaeche); border-radius: var(--radius-gross) var(--radius-gross) 0 0;
+    box-shadow: 0 -12px 40px -18px color-mix(in srgb, var(--farbe-text) 45%, transparent);
+    transform: translateY(100%); visibility: hidden;
+    transition: transform var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .js .blatt--offen { transform: none; visibility: visible; transition: transform var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .js .blatt--zieht { transition: none; }
+  .js .blatt::before {                 /* Griff: zeigt, dass man das Blatt nach unten wischen kann */
+    content: ""; justify-self: center; inline-size: 2.75rem; block-size: 4px; border-radius: 2px; background: var(--farbe-linie);
+  }
+  .js .blatt ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .js .blatt li { border-bottom: 1px solid var(--farbe-linie); }
+  .js .blatt li:has(.knopf) { border: 0; padding-block-start: 1.25rem; }
+  .js .blatt a:not(.knopf) {
+    display: flex; min-height: 3.75rem; padding-inline: .25rem;
+    font: 480 1.9rem/1.1 var(--schrift-display); letter-spacing: -.02em;
+  }
+  .js .blatt a:not(.knopf)::after { content: none; }
+  .js .blatt .knopf { inline-size: 100%; }
+  .js .blatt--offen li { animation: blatt-eintrag .6s var(--kurve-standard) backwards; }
+  .js .blatt--offen li:nth-child(1) { animation-delay: .22s; }
+  .js .blatt--offen li:nth-child(2) { animation-delay: .28s; }
+  .js .blatt--offen li:nth-child(3) { animation-delay: .34s; }
+  .js .blatt--offen li:nth-child(4) { animation-delay: .40s; }
+  .js .blatt--offen li:nth-child(5) { animation-delay: .46s; }
+  .js .blatt--offen li:nth-child(n+6) { animation-delay: .52s; }
+
+  .blatt-schleier {
+    position: fixed; z-index: 15; inset: 0; background: color-mix(in srgb, var(--farbe-text) 42%, transparent);
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--tempo-mittel) var(--kurve-schliessen), visibility 0s linear var(--tempo-mittel);
+  }
+  .blatt-schleier--an { opacity: 1; visibility: visible; transition: opacity var(--tempo-lang) var(--kurve-sanft), visibility 0s; }
+  .menue-offen { overflow: hidden; }
+}
+@media (min-width: 64rem) { .blatt-schleier { display: none; } }
+@keyframes blatt-eintrag { from { opacity: 0; transform: translateY(14px); } }
