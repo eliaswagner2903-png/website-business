@@ -32,6 +32,35 @@ const ICON = {
   route: ic('<path d="M5 19c4-1 3-6 7-7s4-5 7-7"/><circle cx="5" cy="19" r="1.6"/><circle cx="19" cy="5" r="1.6"/>'),
 };
 
+// Eigene Bildzeichen (24er-Raster, Strich 1,6, runde Enden). Je Zeichen genau ein grünes Detail (class "a"):
+// so wie das gestickte Logo auf der schwarzen Arbeitskleidung. Gezeigt als „Aufnäher“ (.patch): schwarzer Kreis,
+// gestrichelte Naht, Zeichen in Creme. Nur dort, wo ein Zeichen etwas erklärt (Leistungen, Zusagen, Ablauf, Gründe).
+const a = (d) => `<path class="a" d="${d}"/>`;
+const STERN = (x, y, r) => { const f = (n) => +(n * r).toFixed(2); return `M${x} ${y - r}c${f(.12)} ${f(.76)} ${f(.54)} ${f(1.18)} ${f(1.3)} ${f(1.3)}-${f(.76)} ${f(.12)}-${f(1.18)} ${f(.54)}-${f(1.3)} ${f(1.3)}-${f(.12)}-${f(.76)}-${f(.54)}-${f(1.18)}-${f(1.3)}-${f(1.3)} ${f(.76)}-${f(.12)} ${f(1.18)}-${f(.54)} ${f(1.3)}-${f(1.3)}z`; };
+const Z = {
+  // Leistungen
+  unterhaltsreinigung: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/>' + a(STERN(12, 15, 3)),
+  bueroreinigung: '<path d="M4.5 20.5v-15a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v15M14.5 9.5h4a1 1 0 0 1 1 1v10M3 20.5h18M8 8.5h.01M11 8.5h.01M8 12h.01M11 12h.01M8 15.5h.01M11 15.5h.01"/>' + a(STERN(18.5, 5, 2.4)),
+  fensterreinigung: '<rect x="3.5" y="3.5" width="10.5" height="16" rx="1"/><path d="M8.75 3.5v16M3.5 11.5h10.5"/>' + a('M13 18.5 18.5 13M15.75 15.75l4 4'),
+  treppenhausreinigung: '<path d="M3.5 20.5h5v-4h4v-4h4v-4h4"/>' + a('M3.5 14 15.5 3.5'),
+  sonderreinigung: '<path d="M12 3.8 20 8v8.6l-8 4.2-8-4.2V8z"/><path d="m4 8 8 4.3L20 8M12 12.3v8.5"/>' + a('m8 5.9 8 4.2'),
+  privathaushalt: '<path d="M3.5 11 12 4l8.5 7M6 9v11.5h12V9"/>' + a('M10 20.5v-5.5h4v5.5'),
+  // Zusagen und Ablauf
+  lupe: '<circle cx="10.5" cy="10.5" r="6"/>' + a('m15 15 5.5 5.5'),
+  dokument: '<path d="M6 3.5h7.5l4.5 4.5v12.5H6z"/><path d="M13.5 3.5V8H18"/>' + a('m9 14.2 2 2 4-4'),
+  schild: '<path d="M12 3.5 5 6.2v5.6c0 4.4 3 7.6 7 8.7 4-1.1 7-4.3 7-8.7V6.2z"/>' + a('m9 12 2.2 2.2 4-4.2'),
+  person: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20.5c.7-4 3.5-6.4 7-6.4s6.3 2.4 7 6.4"/>' + a('m9.6 14.4 2.4 2.3 2.4-2.3'),
+  anfrage: '<path d="M4.5 6.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7.5l-4 3.5v-3.5a1.5 1.5 0 0 1-1.5-1.5z"/>' + a('M8.5 9h7M8.5 12h4.5'),
+  glanz: `<path d="${STERN(10.5, 11.5, 6.5)}"/>` + a(STERN(18, 17.5, 2.6)),
+  schluessel: '<circle cx="8" cy="15.5" r="4"/><path d="m10.9 12.7 8.6-8.7M16.5 7l2.5 2.5"/>' + a('M14 9.5l2 2'),
+  medaille: '<circle cx="12" cy="9" r="5.5"/><path d="m8.7 13.4-1.4 7.1 4.7-2.3 4.7 2.3-1.4-7.1"/>' + a(STERN(12, 9, 2.4)),
+  blatt: '<path d="M5 19.5C5 11 10.5 5 19.5 4.5c.5 9.5-5 15-14.5 15z"/>' + a('M5 19.5c3.2-4.6 6.3-7.6 10-10'),
+};
+const zeichen = (name, klasse = '') => `<span class="patch${klasse ? ` ${klasse}` : ''}" aria-hidden="true"><svg class="patch-ic" viewBox="0 0 24 24" focusable="false">${Z[name]}</svg></span>`;
+const ZUSAGE_Z = ['lupe', 'dokument', 'schild', 'person'];
+const ABLAUF_Z = ['anfrage', 'lupe', 'dokument', 'glanz'];
+const GRUND_Z = ['schild', 'person', 'schluessel', 'medaille', 'blatt', 'dokument'];
+
 // ---------- Bilder (AVIF + WebP, Breiten aus seite.json, nie hochskaliert) ----------
 function bild(b, sizes, { lazy = true, prio = false, klasse = '' } = {}) {
   const set = (t) => b.breiten.map((x) => `/medien/${b.name}-${x}.${t} ${x}w`).join(', ');
@@ -52,24 +81,36 @@ function kopfzeile(aktiv) {
     return `        <li class="nav-leistungen"><a class="nav-oben" href="/leistungen"${an}>Leistungen</a>
           <div class="panel">
             <ul class="nav-unter">
-${LEI.map((l) => `              <li><a href="/${l.url}"${aktiv === l.url ? ' aria-current="page"' : ''}><span class="nav-unter-name">${esc(l.name)}</span><span class="nav-unter-kurz">${esc(l.kurz)}</span></a></li>`).join('\n')}
+${LEI.map((l) => `              <li><a href="/${l.url}"${aktiv === l.url ? ' aria-current="page"' : ''}>${zeichen(l.id, 'patch--klein')}<span class="nav-unter-text"><span class="nav-unter-name">${esc(l.name)}</span><span class="nav-unter-kurz">${esc(l.kurz)}</span></span></a></li>`).join('\n')}
             </ul>
-            <p class="panel-fuss"><a class="textlink" href="/leistungen">Alle Leistungen im Überblick ${pfeil}</a><a class="textlink" href="/angebot">Kostenlos anfragen ${pfeil}</a></p>
+            <div class="panel-seite">
+              <p class="panel-titel">Jede Leistung beginnt mit einer kostenlosen Besichtigung.</p>
+              <p class="panel-text">Wir sehen uns Ihr Objekt an und schicken Ihnen danach ein unverbindliches Angebot.</p>
+              <a class="knopf knopf--stick" href="/angebot">Besichtigung anfragen</a>
+              <a class="textlink textlink--hell" href="/leistungen">Alle Leistungen im Überblick ${pfeil}</a>
+            </div>
           </div>
         </li>`;
   };
-  return `<header class="kopf">
+  return `<div class="leiste">
+  <div class="huelle leiste-in">
+    <p>${ICON.uhr}<span>${esc(S.zeiten_text)}</span></p>
+    <p>${ICON.ort}<span>${esc(S.strasse)}, ${esc(S.ort)}</span></p>
+    <p class="leiste-rechts"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
+  </div>
+</div>
+<header class="kopf">
   <div class="huelle kopf-in">
-    <a class="marke" href="/"><img src="/img/logo.svg" width="128" height="52" alt="Merys Clean – Dienstleistungen, Gebäudereinigung"><span class="unsichtbar"> – zur Startseite</span></a>
+    <a class="marke" href="/"><img src="/img/logo-hell.svg" width="128" height="52" alt="Merys Clean – Dienstleistungen, Gebäudereinigung"><span class="unsichtbar"> – zur Startseite</span></a>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
 ${NAV.map(eintrag).join('\n')}
-        <li class="nur-blatt blatt-wege"><a class="knopf" href="/angebot">Kostenloses Angebot anfragen</a><a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>Anrufen&nbsp;${TEL}</span></a><span class="blatt-klein"><a href="${S.whatsapp_link}" rel="noopener">${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}E-Mail</a></span></li>
+        <li class="nur-blatt blatt-wege"><a class="knopf knopf--stick" href="/angebot">Kostenloses Angebot anfragen</a><a class="knopf zweit knopf--hell" href="${TEL_A}">${ICON.tel}<span>Anrufen&nbsp;${TEL}</span></a><span class="blatt-klein"><a href="${S.whatsapp_link}" rel="noopener">${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}E-Mail</a></span><span class="blatt-zeit">${ICON.uhr}${esc(S.zeiten_text)}</span></li>
       </ul>
     </nav>
     <div class="kopf-wege">
       <a class="kopf-tel" href="${TEL_A}">${ICON.tel}<span class="kopf-tel-nr">${TEL}</span><span class="unsichtbar kopf-tel-wort"> anrufen</span></a>
-      <a class="knopf kopf-angebot" href="/angebot"${aktiv === 'angebot' ? ' aria-current="page"' : ''}>Angebot<span class="kopf-angebot-lang"> anfragen</span></a>
+      <a class="knopf knopf--stick kopf-angebot" href="/angebot"${aktiv === 'angebot' ? ' aria-current="page"' : ''}>Angebot<span class="kopf-angebot-lang"> anfragen</span></a>
     </div>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
   </div>
@@ -153,7 +194,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}${datei === '404.ht
 <meta property="og:image:width" content="${OG.w}">
 <meta property="og:image:height" content="${OG.h}">
 <meta property="og:image:alt" content="${esc(OG.alt)}">
-<meta name="theme-color" content="#f5f2eb">
+<meta name="theme-color" content="#121412">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -173,8 +214,8 @@ ${inhalt.replace(/([^\s<>;]+) ?(<span class="pfeil" aria-hidden="true">→<\/spa
 ${fusszeile()}
 
 <nav class="schnell" aria-label="Schnellzugriff">
-  <a class="knopf zweit" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>
-  <a class="knopf" href="/angebot">Angebot anfragen</a>
+  <a class="knopf zweit knopf--hell" href="${TEL_A}">${ICON.tel}<span>Anrufen</span></a>
+  <a class="knopf knopf--stick" href="/angebot">Angebot anfragen</a>
 </nav>
 </body>
 </html>
@@ -195,29 +236,29 @@ const zusagen = (klasse = '') => `<section class="vertrauen${klasse}" aria-label
   <div class="huelle">
     <h2 id="vertrauen-titel" class="unsichtbar">Was Sie bei Merys Clean bekommen</h2>
     <ul class="vertrauen-liste">
-${S.zusagen.map((z) => `      <li>${ICON.haken}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
+${S.zusagen.map((z, i) => `      <li>${zeichen(ZUSAGE_Z[i], 'patch--klein')}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
     </ul>
   </div>
 </section>`;
 
-const ablauf = (titel = 'So läuft es ab') => `<section class="abschnitt ablauf" aria-labelledby="ablauf-titel">
+const ablauf = (titel = 'So läuft es ab') => `<section class="abschnitt ablauf dunkel" aria-labelledby="ablauf-titel">
   <div class="huelle">
     <div class="abschnitt-kopf einblenden">
-      ${ueber('Ablauf')}
+      ${ueber('Ablauf', true)}
       <h2 id="ablauf-titel">${titel}</h2>
       <p class="abschnitt-text">Von der ersten Anfrage bis zur festen Reinigung: Sie wissen vorher, was gereinigt wird und was es kostet.</p>
     </div>
     <ol class="schritte">
-${S.ablauf.map((a, i) => `      <li class="schritt einblenden"><span class="schritt-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><h3>${esc(a.titel)}</h3><p>${esc(a.text)}</p></li>`).join('\n')}
+${S.ablauf.map((s, i) => `      <li class="schritt einblenden">${zeichen(ABLAUF_Z[i], 'patch--gross')}<h3>${esc(s.titel)}</h3><p>${esc(s.text)}</p></li>`).join('\n')}
     </ol>
   </div>
 </section>`;
 
-const garantie = () => `<section class="abschnitt garantie dunkel" aria-labelledby="garantie-titel">
+const garantie = () => `<section class="abschnitt garantie" aria-labelledby="garantie-titel">
   <div class="huelle garantie-in">
-    <figure class="garantie-siegel einblenden">${bild(S.siegel, '(min-width: 48rem) 15rem, 11rem')}</figure>
+    <figure class="garantie-siegel einblenden"><div class="medaille" data-kippen>${bild(S.siegel, '(min-width: 48rem) 16rem, 12rem')}<span class="medaille-glanz" aria-hidden="true"></span></div></figure>
     <div class="garantie-text einblenden">
-      ${ueber('Zufriedenheits&shy;garantie', true)}
+      ${ueber('Zufriedenheits&shy;garantie')}
       <h2 id="garantie-titel">${esc(S.garantie.titel)}</h2>
       <p>${esc(S.garantie.text)}</p>
       <p class="garantie-tel">Reklamation am Telefon: <a href="${TEL_A}">${TEL}</a></p>
@@ -239,14 +280,15 @@ ${eintraege.map((e) => `      <details class="faq-eintrag"${pr(e.pruefen)}><summ
 </section>`;
 
 const anfrageBand = (titel = 'Kostenloses Angebot für Ihr Objekt', text = 'Erzählen Sie uns kurz, was gereinigt werden soll. Wir melden uns, vereinbaren die kostenlose Besichtigung und schicken Ihnen ein unverbindliches Angebot.') => `<section class="abschnitt anfrage" aria-labelledby="anfrage-titel">
-  <div class="huelle anfrage-in einblenden">
+  <div class="huelle anfrage-in dunkel einblenden">
+    <svg class="anfrage-schwung" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M-20 360C180 410 520 380 760 220S1000 40 1040 20"/></svg>
     <div>
-      ${ueber('Nächster Schritt')}
+      ${ueber('Nächster Schritt', true)}
       <h2 id="anfrage-titel">${titel}</h2>
       <p class="abschnitt-text">${text}</p>
     </div>
     <div class="anfrage-wege">
-      <a class="knopf gross" href="/angebot">Angebot anfragen</a>
+      <a class="knopf knopf--stick gross" href="/angebot">Angebot anfragen</a>
       <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Mo–Fr&nbsp;8–16&nbsp;Uhr</span>${TEL}</span></a>
       <p class="anfrage-mehr"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
     </div>
@@ -330,15 +372,27 @@ cssBuendeln();
         <li>${ICON.ort}<span>${esc(S.strasse)}, ${esc(S.ort)}</span></li>
       </ul>
     </div>
-    <figure class="held-bild"${pr(S.team_gruppe.pruefen)}>
-      <svg class="held-bogen" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M150 34C300 -4 470 -2 596 74"/></svg>
-      <div class="held-rahmen">${bild(S.team_gruppe, '(min-width: 64rem) 36rem, (min-width: 40rem) 80vw, 94vw', { lazy: false, prio: true })}</div>
-      <figcaption>Das Team von Merys Clean</figcaption>
+    <figure class="held-bild"${pr(S.team_frei.pruefen)}>
+      <div class="buehne" data-kippen>
+        <div class="buehne-bogen" aria-hidden="true"></div>
+        <svg class="buehne-schwung" viewBox="0 0 1000 760" aria-hidden="true" focusable="false"><path class="buehne-schwung-flaeche" d="M70 640C-10 420 170 170 520 128c180-22 330 18 430 96-112-52-256-74-420-52C228 214 70 418 70 640Z"/><path class="buehne-schwung-linie" d="M40 690C-60 430 150 120 520 84c170-16 320 22 440 104"/></svg>
+        <div class="buehne-team">${bild(S.team_frei, '(min-width: 64rem) 40rem, 100vw', { lazy: false, prio: true })}</div>
+        <p class="buehne-karte buehne-karte--a">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung binnen 24&nbsp;Stunden</span></p>
+        <p class="buehne-karte buehne-karte--b">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></p>
+      </div>
+      <figcaption>Das Team von Merys Clean in Arbeitskleidung</figcaption>
     </figure>
   </div>
 </section>
 
 ${zusagen()}
+
+<section class="abschnitt haltung" aria-labelledby="haltung-titel">
+  <div class="huelle">
+    <h2 id="haltung-titel" class="unsichtbar">Was Sie von uns erwarten können</h2>
+    <p class="haltung-text"><span class="haltung-teil">Feste Kräfte, die Ihre Räume <em>kennen</em>.</span> <span class="haltung-teil">Ein Ansprechpartner, der <em>erreichbar</em> ist.</span> <span class="haltung-teil">Und wenn etwas nicht passt, reinigen wir binnen <em>24&nbsp;Stunden</em> kostenlos nach.</span></p>
+  </div>
+</section>
 
 <section class="abschnitt leistungen-start" aria-labelledby="leistungen-titel">
   <div class="huelle">
@@ -348,10 +402,12 @@ ${zusagen()}
       <p class="abschnitt-text">Regelmäßig oder einmalig, für Firmen, Hausverwaltungen und Privathaushalte. Jede Leistung beginnt mit einer kostenlosen Besichtigung.</p>
     </div>
     <div class="leistungen-raster">
-      <ol class="leistung-zeilen">
-${LEI.map((l, i) => `        <li class="einblenden"><a class="leistung-zeile" href="/${l.url}"><span class="leistung-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
-      </ol>
-      <figure class="leistungen-bild einblenden"${pr(LEI[1].bild.pruefen)}>${bild(LEI[1].bild, '(min-width: 64rem) 30rem, 92vw')}</figure>
+      <ul class="leistung-zeilen">
+${LEI.map((l, i) => `        <li class="einblenden"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
+      </ul>
+      <div class="leistungen-bilder" aria-hidden="true">
+${LEI.map((l, i) => `        <figure class="leistungen-bild${i === 0 ? ' ist-aktiv' : ''}"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 64rem) 30rem, 92vw')}</figure>`).join('\n')}
+      </div>
     </div>
     <p class="weiter-link"><a class="textlink" href="/leistungen">Alle Leistungen im Überblick ${pfeil}</a></p>
   </div>
@@ -419,7 +475,7 @@ ${bildHtml ? `    <figure class="seitenkopf-bild"${pr(bildPruefen)}>${bildHtml}<
     <h2 id="alle-titel" class="unsichtbar">Alle Leistungen</h2>
     <ul class="leistung-karten">
 ${LEI.map((l, i) => `      <li class="leistung-karte">
-        ${l.bild ? `<div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw', { lazy: i > 2 })}</div>` : `<div class="leistung-karte-motiv" aria-hidden="true">${schwung('schwung schwung--karte')}</div>`}
+        <div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw', { lazy: i > 2 })}${zeichen(l.id)}</div>
         <h3><a href="/${l.url}">${esc(l.name)}</a></h3>
         <p>${esc(l.lead)}</p>
         <p class="leistung-karte-mehr" aria-hidden="true">Mehr erfahren ${pfeil}</p>
@@ -455,7 +511,7 @@ ${anfrageBand()}`;
 // ---------- Je Leistung eine Seite ----------
 for (const l of LEI) {
   const andere = LEI.filter((x) => x !== l);
-  const inhalt = `${seitenKopf({ ueberText: 'Leistung', h1: esc(l.h1), lead: esc(l.lead), extra: zweiWege(`?leistung=${l.id}`), pfad: pfadZeile([['/', 'Start'], ['/leistungen', 'Leistungen'], ['', l.name]]), bildHtml: l.bild ? bild(l.bild, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }) : '', bildPruefen: l.bild?.pruefen })}
+  const inhalt = `${seitenKopf({ ueberText: 'Leistung', h1: esc(l.h1), lead: esc(l.lead), extra: zweiWege(`?leistung=${l.id}`), pfad: pfadZeile([['/', 'Start'], ['/leistungen', 'Leistungen'], ['', l.name]]), bildHtml: bild(l.bild, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }) + zeichen(l.id, 'patch--gross'), bildPruefen: l.bild.pruefen })}
 
 ${zusagen(' vertrauen--seite')}
 
@@ -548,7 +604,7 @@ ${anfrageBand()}`;
       <h2 id="gruende-titel">Warum Kunden uns beauftragen</h2>
     </div>
     <ul class="gruende-liste">
-${S.gruende.map((g, i) => `      <li class="einblenden"${pr(g.pruefen)}><span class="gruende-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><h3>${esc(g.titel)}</h3><p>${esc(g.text)}</p></li>`).join('\n')}
+${S.gruende.map((g, i) => `      <li class="einblenden"${pr(g.pruefen)}>${zeichen(GRUND_Z[i])}<h3>${esc(g.titel)}</h3><p>${esc(g.text)}</p></li>`).join('\n')}
     </ul>
   </div>
 </section>
@@ -577,7 +633,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
   const formular = `<form class="formular" id="formular" action="/api/kontakt" method="post" data-pruefen="${esc(F.empfaenger_pruefen)}">
       <p class="formular-hinweis">Pflichtfelder sind mit <span class="pflicht">*</span> markiert.</p>
       <fieldset>
-        <legend><span class="legend-nr" aria-hidden="true">1</span>Ihr Objekt</legend>
+        <legend>Ihr Objekt</legend>
         ${feld('leistung', 'Welche Leistung?', `<select id="leistung" name="leistung" required><option value="">Bitte wählen</option>${LEI.map((l) => `<option data-id="${l.id}">${esc(l.name)}</option>`).join('')}${option(LEISTUNG_OPTIONEN.at(-1))}</select>`, { pflicht: true })}
         ${feld('objektart', 'Art des Objekts', auswahl('objektart', 'objektart', F.objektarten, { pflicht: true }), { pflicht: true })}
         <div class="feld-reihe">
@@ -587,7 +643,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
         ${feld('rhythmus', 'Wie oft soll gereinigt werden?', auswahl('rhythmus', 'rhythmus', F.rhythmen, { leer: '', vorwahl: 'Noch offen' }))}
       </fieldset>
       <fieldset>
-        <legend><span class="legend-nr" aria-hidden="true">2</span>So erreichen wir Sie</legend>
+        <legend>So erreichen wir Sie</legend>
         ${feld('name', 'Ihr Name', '<input id="name" name="name" type="text" required maxlength="100" autocomplete="name">', { pflicht: true })}
         <div class="feld-reihe">
         ${feld('telefon', 'Telefon für den Rückruf', '<input id="telefon" name="telefon" type="tel" required maxlength="40" pattern="\\+?[0-9 \\(\\)\\/\\-]{5,40}" autocomplete="tel">', { pflicht: true })}

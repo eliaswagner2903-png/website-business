@@ -1,6 +1,7 @@
 // Merys Clean – kleine Helfer. Ohne JavaScript funktioniert alles (Menü als Zeile, Panel per Fokus, Formular mit
 // Browser-Prüfung); dieses Skript verbessert nur: Escape schließt das Leistungen-Panel, Vorauswahl der Leistung aus
-// ?leistung=…, Fehlermeldungen als Text direkt am Feld, Zustand „wird gesendet“.
+// ?leistung=…, Fehlermeldungen als Text direkt am Feld, Zustand „wird gesendet“, Bühne und Siegel kippen leicht mit
+// dem Zeiger, das Leistungsbild wechselt mit der gezeigten Zeile.
 (() => {
   function panel() {
     const li = document.querySelector('.nav-leistungen');
@@ -75,6 +76,43 @@
     addEventListener('pageshow', () => { knopf.disabled = false; knopf.removeAttribute('aria-busy'); knopf.textContent = knopfText; });
   }
 
-  function start() { panel(); formular(); }
+  // [data-kippen]: dreht sich höchstens 5° zum Zeiger (nur Maus, nicht bei „Bewegung reduzieren“). Ruhig: Werte nur je Bild.
+  function kippen() {
+    if (!matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+    for (const el of document.querySelectorAll('[data-kippen]')) {
+      const flaeche = el.closest('section') || el;
+      let rahmen = 0;
+      flaeche.addEventListener('pointermove', (e) => {
+        if (rahmen) return;
+        rahmen = requestAnimationFrame(() => {
+          rahmen = 0;
+          const r = el.getBoundingClientRect();
+          const x = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / (r.width / 2)));
+          const y = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / (r.height / 2)));
+          el.classList.add('kippt');
+          el.style.setProperty('--_ry', `${(x * 5).toFixed(2)}deg`);
+          el.style.setProperty('--_rx', `${(-y * 4).toFixed(2)}deg`);
+          el.style.setProperty('--_glanz', (x * 30).toFixed(1));
+        });
+      });
+      flaeche.addEventListener('pointerleave', () => { el.style.setProperty('--_rx', '0deg'); el.style.setProperty('--_ry', '0deg'); el.style.setProperty('--_glanz', '0'); });
+    }
+  }
+
+  // Startseite: Zeigen oder Fokus auf eine Leistung wischt ihr Bild herein
+  function leistungsbilder() {
+    const bilder = document.querySelectorAll('.leistungen-bild');
+    if (!bilder.length) return;
+    const zeige = (e) => {
+      const i = e.target.closest('[data-bild]')?.dataset.bild;
+      if (i === undefined) return;
+      bilder.forEach((b, j) => b.classList.toggle('ist-aktiv', String(j) === i));
+    };
+    const liste = document.querySelector('.leistung-zeilen');
+    liste.addEventListener('pointerover', zeige);
+    liste.addEventListener('focusin', zeige);
+  }
+
+  function start() { panel(); formular(); kippen(); leistungsbilder(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

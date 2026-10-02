@@ -4,6 +4,8 @@
      text/grund 14,6 · leise/grund 6,3 · akzent/grund 5,2 · akzent/tint 4,9 · auf-akzent/akzent 5,8
      blau/grund 5,9 · gruen-hell/text 7,2 (nur auf Dunkel, nie als Text auf Hell) · leise-hell/text 10
      fehler/flaeche 6,2 · fehler/grund 5,7
+     Arbeitskleidung: flaeche/schwarz 17,7 · leise-hell/schwarz 11,4 · gruen-hell/schwarz 8,2 (auch schwarz auf gruen-hell)
+     gruen-hell/schwarz-hoch 7,1 · leise-hell/schwarz-hoch 9,9 · akzent/schwarz nur 3,2: auf Schwarz nie als Text
    ===================================================================== */
 
 /* ---------- Schriften (lokal, OFL): Instrument Serif für Überschriften, Instrument Sans (variabel) für Text ---------- */
@@ -44,6 +46,8 @@
   --farbe-blau: #1d5f9e;        /* Markenblau abgedunkelt: zweiter Akzent */
   --farbe-leise-hell: #c9ccc5;  /* Nebentext auf Dunkel */
   --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */
+  --farbe-schwarz: #121412;     /* Arbeitskleidung (Polo, Schürze): Kopf, dunkle Flächen, Aufnäher */
+  --farbe-schwarz-hoch: #1e221e; /* erhabene Fläche auf Schwarz */
 
   --schrift-display: "Instrument Serif", "Serif Ersatz", Georgia, serif;
   --schrift-text: "Instrument Sans", "Sans Ersatz", Arial, sans-serif;

@@ -219,7 +219,18 @@
       "titel": "Treppenhausreinigung Göppingen & Eislingen | Merys Clean",
       "beschreibung": "Treppenhausreinigung für Wohnanlagen, Hausverwaltungen und Firmen in Eislingen, Göppingen und Umgebung: feste Kräfte, ein Ansprechpartner, kostenlose Besichtigung.",
       "lead": "Gepflegte Treppenhäuser und Gemeinschaftsflächen: regelmäßig gereinigt, zuverlässig und mit einem Ansprechpartner, der sich kümmert.",
-      "bild": null,
+      "bild": {
+        "name": "treppe",
+        "breiten": [
+          480,
+          800,
+          1200
+        ],
+        "w": 1200,
+        "h": 896,
+        "alt": "Frisch gereinigtes Treppenhaus mit hellen Terrazzostufen, schwarzem Handlauf und Tageslicht vom Fenster",
+        "pruefen": "KI-Stimmungsbild (Higgsfield, 02.10.2026; Nutzungsrecht über das Higgsfield-Abo), kein echtes Objekt von Merys Clean: durch eigenes Foto ersetzen, sobald vorhanden"
+      },
       "symbol": "treppe",
       "wen": [
         "Hausverwaltungen und Eigentümergemeinschaften",
@@ -253,7 +264,18 @@
       "titel": "Umzugsreinigung & Bauendreinigung Göppingen | Merys Clean",
       "beschreibung": "Umzugsreinigung, Bauendreinigung, Veranstaltungsendreinigung und Sonderreinigung in Eislingen, Göppingen und Umgebung. Kostenlose Besichtigung, unverbindliches Angebot.",
       "lead": "Für besondere Anlässe: Umzug, Bauende, Veranstaltung oder eine Reinigung, die nicht in den Alltag passt. Einmalig und mit vorher klar vereinbartem Umfang.",
-      "bild": null,
+      "bild": {
+        "name": "bau",
+        "breiten": [
+          480,
+          800,
+          1200
+        ],
+        "w": 1200,
+        "h": 896,
+        "alt": "Leerer, frisch renovierter Raum nach der Bauendreinigung, glänzender Betonboden und großes Fenster",
+        "pruefen": "KI-Stimmungsbild (Higgsfield, 02.10.2026; Nutzungsrecht über das Higgsfield-Abo), kein echtes Objekt von Merys Clean: durch eigenes Foto ersetzen, sobald vorhanden"
+      },
       "symbol": "funke",
       "wen": [
         "Mieter und Vermieter beim Wohnungswechsel",
@@ -287,7 +309,18 @@
       "titel": "Wohnungsreinigung & Hausreinigung Göppingen | Merys Clean",
       "beschreibung": "Wohnungsreinigung und Hausreinigung für Privathaushalte in Eislingen, Göppingen und Umgebung: feste Reinigungskräfte, fester Ansprechpartner, kostenlose Besichtigung.",
       "lead": "Wohnung oder Haus sauber halten, ohne Stress: regelmäßig oder einmalig, mit festen Kräften, denen Sie vertrauen können, und einem Ansprechpartner für alle Fragen.",
-      "bild": null,
+      "bild": {
+        "name": "haushalt",
+        "breiten": [
+          480,
+          800,
+          1200
+        ],
+        "w": 1200,
+        "h": 896,
+        "alt": "Helle, aufgeräumte Wohnküche mit Eichenboden, auf der Arbeitsplatte ein grünes Mikrofasertuch und eine Sprühflasche",
+        "pruefen": "KI-Stimmungsbild (Higgsfield, 02.10.2026; Nutzungsrecht über das Higgsfield-Abo), kein echtes Objekt von Merys Clean: durch eigenes Foto ersetzen, sobald vorhanden"
+      },
       "symbol": "haus",
       "wen": [
         "Wohnungen und Häuser",
@@ -648,5 +681,17 @@
     ],
     "antwort_pruefen": "Antwortzeit nicht bekannt: Zusage („innerhalb von … Stunden“) vom Kunden einholen",
     "empfaenger_pruefen": "Empfänger der Anfragen (Variable KONTAKT_AN) und Versand über Resend einrichten"
+  },
+  "team_frei": {
+    "name": "team-frei",
+    "breiten": [
+      640,
+      1000,
+      1400
+    ],
+    "w": 1400,
+    "h": 687,
+    "alt": "Das Team von Merys Clean: vier Mitarbeiterinnen und ein Mitarbeiter in schwarzer Arbeitskleidung mit Firmenlogo, zwei halten Wischtuch und Stiel",
+    "pruefen": "Namen der Teammitglieder und Einwilligung für das Gruppenfoto klären (Foto von 2022)"
   }
 }
