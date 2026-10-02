@@ -118,3 +118,24 @@ sobald Merys Clean eigene Fotos liefert. Originale: Projektordner `merysclean/ma
 - **Leistungsliste:** aktive Zeile wird schwarzes Band; Bild wischt herein bei Zeigen, Fokus oder Scrollen (IntersectionObserver), auf dem Handy als mitlaufendes Bild über der Liste (sticky, kein Layoutsprung).
 - **Brotkrumen** als Leiste mit Haus-Zeichen und grünen Schrägstrichen auf allen Unterseiten (auch Impressum, Datenschutz, Danke).
 - **Anfrage-Band:** links Text mit drei Haken, rechts ein eingenähtes Fach: Knopf, „oder direkt“, Telefon, WhatsApp, E-Mail.
+
+## Icons, Wegweiser und Jury (02.10.2026, A-078)
+
+**Symbole:** Jedes Symbol ist weiß gezeichnet und sitzt auf einem schwarzen Aufnäher mit grüner gestrichelter Naht
+(`.patch::before`, kleine Aufnäher mit dünnerer Naht). Kleine Symbole auf Dunkel sind `flaeche`.
+
+**Navigation ohne Brotkrumen:** Die Pfad-Leiste („Start / Leistungen / …“) ist entfernt, ebenso die BreadcrumbList.
+Unterseiten haben dafür am Ende den **Wegweiser** „Wohin als Nächstes?“ (Startseite, Leistungen, Einsatzgebiet,
+Über uns, Kontakt, Angebot; die aktuelle Seite fehlt; bei fünf Zielen 3 + 2 ohne Lücke). Das Handy-Blatt beginnt mit
+„Startseite“. Unterseiten tragen eine schlichte WebPage im JSON-LD.
+
+**Seitenkopf:** Ohne Bild steht rechts ein schwarzes Fach mit Naht (`fachDirekt`: Telefon, WhatsApp, E-Mail, Adresse;
+`fachAblauf` auf der Angebotsseite). Kontakt und Über uns zeigen das freigestellte Team im schwarzen Bogen.
+
+**Siegel:** HTML statt Bild: schwarze Scheibe, grüne Strichelnaht, „100 %“ in Serif.
+
+**Schnellleiste (Handy):** erscheint erst, wenn die Knöpfe im Seitenkopf aus dem Bild sind, und weicht beim Ausfüllen
+des Formulars. Der Fuß hat darunter Platz für sie.
+
+**Jury:** Fünf Runden mit Design-, UX- und Qualitätsjury (Opus). Ergebnis: Design 9,1, UX 9, Qualität 9; letzte
+Muss-Punkte behoben. Offene Kundenangaben bleiben `data-pruefen` (Zitate erscheinen erst mit echtem Text).

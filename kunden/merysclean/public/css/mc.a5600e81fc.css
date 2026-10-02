@@ -646,7 +646,7 @@ main { isolation: isolate; }
 .gebiet-sitz { display: flex; gap: .6rem; align-items: flex-start; margin-top: 1rem; color: var(--farbe-leise); }
 .gebiet-sitz .ic { color: var(--farbe-text); margin-top: .2rem; }
 @media (min-width: 64rem) {
-  .gebiet-start .gebiet-in { grid-template-columns: minmax(0, .9fr) minmax(0, 38rem); gap: 4rem; }
+  .gebiet-start .gebiet-in { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 4rem; }
   .gebiet-seite .gebiet-in { grid-template-columns: minmax(0, 42rem) minmax(0, 1fr); gap: 4rem; align-items: start; }
 }
 
@@ -894,7 +894,7 @@ main { isolation: isolate; }
 .fuss-liste { list-style: none; margin: 0; padding: 0; display: grid; }
 .fuss-liste a, .fuss-zeit { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; }
 .fuss-liste .ic { color: var(--farbe-flaeche); }
-.fuss-unten { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--farbe-flaeche) 18%, transparent); color: var(--farbe-leise-hell); font-size: .95rem; }
+.fuss-unten { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 2rem; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--farbe-flaeche) 18%, transparent); color: var(--farbe-leise-hell); font-size: .95rem; }
 .fuss-recht { display: flex; gap: 1.5rem; }
 .fuss-recht a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (hover: hover) and (pointer: fine) { .fuss a:hover { text-decoration: underline; } }

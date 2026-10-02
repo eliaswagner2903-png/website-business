@@ -323,7 +323,7 @@ const anfrageBand = (titel = 'Kostenloses Angebot f√ºr Ihr Objekt', text = 'Erz√
       </ul>
     </div>
     <div class="anfrage-fach">
-      <a class="knopf knopf--stick gross" href="/angebot"><span>Angebot online anfragen ${pfeil}</span></a>
+      <a class="knopf knopf--stick gross" href="/angebot"><span>Angebot anfragen ${pfeil}</span></a>
       <p class="anfrage-oder">oder direkt</p>
       <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Anrufen</span>${TEL}</span></a>
       <p class="anfrage-mehr"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
