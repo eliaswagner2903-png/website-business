@@ -109,6 +109,7 @@ ${LEI.map((l) => `              <li><a href="/${l.url}"${aktiv === l.url ? ' ari
     <a class="marke" href="/"><img src="/img/logo-hell.svg" width="128" height="52" alt="Merys Clean – Dienstleistungen, Gebäudereinigung"><span class="unsichtbar"> – zur Startseite</span></a>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
+        <li class="nur-blatt blatt-start"><a href="/">Startseite</a></li>
 ${NAV.map(eintrag).join('\n')}
         <li class="nur-blatt blatt-wege"><a class="knopf knopf--stick" href="/angebot">Kostenloses Angebot anfragen</a><a class="knopf zweit knopf--hell" href="${TEL_A}">${ICON.tel}<span>Anrufen&nbsp;${TEL}</span></a><span class="blatt-klein"><a href="${S.whatsapp_link}" rel="noopener">${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}E-Mail</a></span><span class="blatt-zeit">${ICON.uhr}${esc(S.zeiten_text)}</span></li>
       </ul>
@@ -185,11 +186,13 @@ const WEGE = [
   ['kontakt.html', '/kontakt', 'Kontakt', 'Telefon, E-Mail, Adresse und Zeiten', 'telefon'],
   ['angebot.html', '/angebot', 'Angebot anfragen', 'Kostenlos und unverbindlich', 'dokument'],
 ];
+// Auf 404 und Danke steht „Angebot anfragen“ schon als Knopf darüber
+const OHNE_ANGEBOT = ['404.html', 'nachricht-gesendet.html'];
 const wegweiser = (datei) => `<section class="abschnitt abschnitt--eng wegweiser" aria-labelledby="wegweiser-titel">
   <div class="huelle">
     <h2 id="wegweiser-titel" class="wegweiser-titel">Wohin als Nächstes?</h2>
     <ul class="wegweiser-liste">
-${WEGE.filter(([d]) => d !== datei).map(([, href, titel, text, z]) => `      <li><a href="${href}">${zeichen(z, 'patch--klein')}<span><strong>${titel}</strong> <span class="wegweiser-text">${text}</span></span>${pfeil}</a></li>`).join('\n')}
+${WEGE.filter(([d]) => d !== datei && !(OHNE_ANGEBOT.includes(datei) && d === 'angebot.html')).map(([, href, titel, text, z]) => `      <li><a href="${href}">${zeichen(z, 'patch--klein')}<span><strong>${titel}</strong> <span class="wegweiser-text">${text}</span></span>${pfeil}</a></li>`).join('\n')}
     </ul>
   </div>
 </section>`;

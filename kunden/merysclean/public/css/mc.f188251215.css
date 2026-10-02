@@ -254,6 +254,7 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
   .js .kopf .blatt .nav-unter a[aria-current] { color: var(--farbe-gruen-hell); font-weight: 650; }
   .js .kopf .blatt a[aria-current]:not(.knopf) { color: var(--farbe-gruen-hell); }
   .js .kopf .blatt .nur-blatt { display: grid; gap: .6rem; }
+  .js .kopf .blatt .blatt-start { display: block; }
   .js .kopf .blatt .blatt-klein { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
   .js .kopf .blatt .blatt-klein a { font: 600 1rem/1.2 var(--schrift-text); letter-spacing: 0; min-height: 44px; gap: .5rem; color: var(--farbe-gruen-hell); }
   .js .kopf .blatt .blatt-zeit { display: inline-flex; align-items: center; gap: .5rem; font-size: .95rem; color: var(--farbe-leise-hell); }
@@ -327,7 +328,7 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
 .schnell { display: none; }
 @media (max-width: 63.99rem) {
   html { scroll-padding-bottom: 5.5rem; }
-  .fuss { padding-bottom: calc(1.5rem + 4.6rem + env(safe-area-inset-bottom, 0px)); }
+  body:has(.formular :is(input, select, textarea):focus) .schnell { display: none; }
   .schnell {
     position: fixed; inset: auto 0 0; z-index: 12; display: grid; grid-template-columns: 1fr 1.4fr; gap: .5rem;
     padding: .55rem max(1rem, env(safe-area-inset-left, 0px)) calc(.55rem + env(safe-area-inset-bottom, 0px));
@@ -530,7 +531,7 @@ main { isolation: isolate; }
   .leistungen-bild { clip-path: inset(0 0 0 100%); }
   .leistungen-bild.ist-aktiv { clip-path: inset(0 0 0 0); }
   .leistungen-bild::after { border-radius: 999px 999px 20px 20px; }
-  .leistungen-bild img { aspect-ratio: 4 / 5; }
+  .leistungen-bild img { aspect-ratio: 4 / 5; max-block-size: calc(100svh - var(--kopf-hoehe) - 4rem); }
   .leistungen-bild-name { left: 1.4rem; bottom: 1.4rem; font-size: .85rem; }
 }
 
@@ -871,6 +872,8 @@ main { isolation: isolate; }
 .fuss { background: var(--farbe-schwarz); color: var(--farbe-flaeche); padding-block: clamp(3rem, 2.5rem + 3vw, 5rem) 1.5rem; }
 .fuss a { color: var(--farbe-flaeche); text-decoration: none; }
 .fuss :focus-visible { outline-color: var(--farbe-gruen-hell); }
+/* Unter 64rem liegt die Schnellleiste über dem Seitenende: der Fuß bekommt darunter Platz für sie */
+@media (max-width: 63.99rem) { .fuss { padding-bottom: calc(1.5rem + 5rem + env(safe-area-inset-bottom, 0px)); } }
 .fuss-raster { display: grid; gap: 2.5rem 2rem; }
 .fuss-marke img { block-size: 3.75rem; inline-size: auto; }
 .fuss-claim { margin-top: 1rem; color: var(--farbe-leise-hell); max-width: 22rem; }
