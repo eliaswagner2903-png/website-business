@@ -121,7 +121,7 @@
     const io = new IntersectionObserver((eintraege) => {
       if (zeiger || liste.contains(document.activeElement)) return;
       for (const e of eintraege) if (e.isIntersecting) aktiv(zeilen.indexOf(e.target));
-    }, { rootMargin: '-58% 0px -38% 0px' });
+    }, { rootMargin: '-45% 0px -45% 0px' });
     zeilen.forEach((z) => io.observe(z));
   }
 

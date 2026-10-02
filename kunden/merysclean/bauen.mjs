@@ -109,6 +109,7 @@ ${LEI.map((l) => `              <li><a href="/${l.url}"${aktiv === l.url ? ' ari
     <a class="marke" href="/"><img src="/img/logo-hell.svg" width="128" height="52" alt="Merys Clean – Dienstleistungen, Gebäudereinigung"><span class="unsichtbar"> – zur Startseite</span></a>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
+        <li class="nur-blatt blatt-start"><a href="/">Startseite</a></li>
 ${NAV.map(eintrag).join('\n')}
         <li class="nur-blatt blatt-wege"><a class="knopf knopf--stick" href="/angebot">Kostenloses Angebot anfragen</a><a class="knopf zweit knopf--hell" href="${TEL_A}">${ICON.tel}<span>Anrufen&nbsp;${TEL}</span></a><span class="blatt-klein"><a href="${S.whatsapp_link}" rel="noopener">${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}E-Mail</a></span><span class="blatt-zeit">${ICON.uhr}${esc(S.zeiten_text)}</span></li>
       </ul>
@@ -185,11 +186,13 @@ const WEGE = [
   ['kontakt.html', '/kontakt', 'Kontakt', 'Telefon, E-Mail, Adresse und Zeiten', 'telefon'],
   ['angebot.html', '/angebot', 'Angebot anfragen', 'Kostenlos und unverbindlich', 'dokument'],
 ];
+// Auf 404 und Danke steht „Angebot anfragen“ schon als Knopf darüber
+const OHNE_ANGEBOT = ['404.html', 'nachricht-gesendet.html'];
 const wegweiser = (datei) => `<section class="abschnitt abschnitt--eng wegweiser" aria-labelledby="wegweiser-titel">
   <div class="huelle">
     <h2 id="wegweiser-titel" class="wegweiser-titel">Wohin als Nächstes?</h2>
     <ul class="wegweiser-liste">
-${WEGE.filter(([d]) => d !== datei).map(([, href, titel, text, z]) => `      <li><a href="${href}">${zeichen(z, 'patch--klein')}<span><strong>${titel}</strong> <span class="wegweiser-text">${text}</span></span>${pfeil}</a></li>`).join('\n')}
+${WEGE.filter(([d]) => d !== datei && !(OHNE_ANGEBOT.includes(datei) && d === 'angebot.html')).map(([, href, titel, text, z]) => `      <li><a href="${href}">${zeichen(z, 'patch--klein')}<span><strong>${titel}</strong> <span class="wegweiser-text">${text}</span></span>${pfeil}</a></li>`).join('\n')}
     </ul>
   </div>
 </section>`;
@@ -257,11 +260,13 @@ const zweiWege = (zusatz = '') => `<div class="wege">
         <a class="knopf zweit gross" href="${TEL_A}">${ICON.tel}<span>Anrufen <span class="wege-nr">${TEL}</span></span></a>
       </div>`;
 
+// Startseite: Garantie und Besichtigung stehen ab Tablet schon als Karten im Hero, das Band zeigt dort nur die anderen zwei
+const IM_HELD = [0, 2];
 const zusagen = (klasse = '') => `<section class="vertrauen${klasse}" aria-labelledby="vertrauen-titel">
   <div class="huelle">
     <h2 id="vertrauen-titel" class="unsichtbar">Was Sie bei Merys Clean bekommen</h2>
     <ul class="vertrauen-liste">
-${S.zusagen.map((z, i) => `      <li>${zeichen(ZUSAGE_Z[i], 'patch--klein')}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
+${S.zusagen.map((z, i) => `      <li${!klasse && IM_HELD.includes(i) ? ' class="im-held"' : ''}>${zeichen(ZUSAGE_Z[i], 'patch--klein')}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
     </ul>
   </div>
 </section>`;
@@ -318,7 +323,7 @@ const anfrageBand = (titel = 'Kostenloses Angebot für Ihr Objekt', text = 'Erz�
       </ul>
     </div>
     <div class="anfrage-fach">
-      <a class="knopf knopf--stick gross" href="/angebot"><span>Angebot online anfragen ${pfeil}</span></a>
+      <a class="knopf knopf--stick gross" href="/angebot"><span>Angebot anfragen ${pfeil}</span></a>
       <p class="anfrage-oder">oder direkt</p>
       <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Anrufen</span>${TEL}</span></a>
       <p class="anfrage-mehr"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
@@ -732,6 +737,12 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
       <h2 id="daten-titel" class="h3-gross">${esc(S.firma)}</h2>
       <address>${esc(S.firma_lang)}<br>${esc(S.strasse)}<br>${esc(S.plz)} ${esc(S.ort)}</address>
       <p><a class="textlink" href="${S.route_link}" rel="noopener">${ICON.route}Route planen${extern}</a></p>
+      <h2 class="h3-gross kontakt-zwischen">Bürozeiten</h2>
+      <dl class="zeiten">
+        <div><dt>Montag bis Freitag</dt><dd>08:00–16:00 Uhr</dd></div>
+        <div><dt>Samstag, Sonntag</dt><dd>geschlossen</dd></div>
+      </dl>
+      <p class="kontakt-klein">Anfragen über das Formular können Sie jederzeit senden.</p>
     </div>
     <div class="kontakt-karte">
       <h2 class="h3-gross">Telefon und E-Mail</h2>
@@ -741,17 +752,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
         <li><span class="kontakt-klein">E-Mail</span><a href="${MAIL_A}">${esc(S.email)}</a></li>
         <li${pr(S.whatsapp_pruefen)}><span class="kontakt-klein">WhatsApp</span><a href="${S.whatsapp_link}" rel="noopener">Nachricht schreiben${extern}</a></li>
       </ul>
-    </div>
-    <div class="kontakt-karte">
-      <h2 class="h3-gross">Bürozeiten</h2>
-      <dl class="zeiten">
-        <div><dt>Montag bis Freitag</dt><dd>08:00–16:00 Uhr</dd></div>
-        <div><dt>Samstag, Sonntag</dt><dd>geschlossen</dd></div>
-      </dl>
-      <p class="kontakt-klein">Anfragen über das Formular können Sie jederzeit senden.</p>
-    </div>
-    <div class="kontakt-karte">
-      <h2 class="h3-gross">Social Media</h2>
+      <h2 class="h3-gross kontakt-zwischen">Social Media</h2>
       <ul class="kontakt-liste">
         <li><a href="${S.facebook}" rel="noopener">Facebook${extern}</a></li>
         <li><a href="${S.instagram}" rel="noopener">Instagram: @merys_clean${extern}</a></li>
