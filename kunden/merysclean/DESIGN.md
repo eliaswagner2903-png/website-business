@@ -90,10 +90,10 @@ gesticktem grünem Logo.** Daraus kommen drei Mittel, die überall gleich einges
    Kreis mit Naht. Nur dort, wo ein Zeichen etwas erklärt: 6 Leistungen, 4 Zusagen, 4 Ablaufschritte, 6 Gründe. Keine
    Zeichen in FAQ, Fuß oder Fließtext. Die Nummern 01–06 (Leistungen, Gründe), 01–04 (Ablauf) und 1–2 (Formular) sind weg.
 
-**Hero:** Das Team ist freigestellt und steht in einem bestickten Bogen; dahinter der schwarze Schwung aus dem Logo (im Logo
-umfasst er das Haus, hier das Team). Zwei Karten (Garantie, Besichtigung) schweben davor. Am Computer kippt die Bühne mit
-dem Zeiger (höchstens 5°, Ebenen in echter 3D-Tiefe), am Handy steht das Team direkt unter der H1 im ersten Bildschirm.
-Unter dem Team beginnt die schwarze Vertrauensleiste: die Hemden gehen in die Fläche über.
+**Hero (seit A-079):** Das Originalfoto des Teams (team-gruppe, Foto von 2022) steht in einem schwarzen Rahmen mit grüner Strichelnaht
+und einem versetzten Nahtumriss dahinter; Etikett „Unser Team“ am unteren Rand. Keine schwarze Kuppel und kein Schwung mehr. Am Computer kippt
+der Rahmen mit dem Zeiger (höchstens 5°). Über uns und Kontakt nutzen dasselbe Foto im gleichen Rahmen. Bewusst nicht das
+hochgerechnete Higgsfield-Bild: dort sind die Logos auf den Hemden verfälscht.
 
 **Menü:** Computer: Leiste mit Zeiten, Adresse, WhatsApp, E-Mail über dem schwarzen Kopf; „Leistungen“ öffnet ein breites
 Panel mit allen Leistungen samt Aufnäher und einer schwarzen Karte „kostenlose Besichtigung“. Handy: schwarzes Blatt von
