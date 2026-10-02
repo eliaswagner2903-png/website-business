@@ -735,6 +735,12 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
       <h2 id="daten-titel" class="h3-gross">${esc(S.firma)}</h2>
       <address>${esc(S.firma_lang)}<br>${esc(S.strasse)}<br>${esc(S.plz)} ${esc(S.ort)}</address>
       <p><a class="textlink" href="${S.route_link}" rel="noopener">${ICON.route}Route planen${extern}</a></p>
+      <h2 class="h3-gross kontakt-zwischen">Bürozeiten</h2>
+      <dl class="zeiten">
+        <div><dt>Montag bis Freitag</dt><dd>08:00–16:00 Uhr</dd></div>
+        <div><dt>Samstag, Sonntag</dt><dd>geschlossen</dd></div>
+      </dl>
+      <p class="kontakt-klein">Anfragen über das Formular können Sie jederzeit senden.</p>
     </div>
     <div class="kontakt-karte">
       <h2 class="h3-gross">Telefon und E-Mail</h2>
@@ -744,17 +750,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
         <li><span class="kontakt-klein">E-Mail</span><a href="${MAIL_A}">${esc(S.email)}</a></li>
         <li${pr(S.whatsapp_pruefen)}><span class="kontakt-klein">WhatsApp</span><a href="${S.whatsapp_link}" rel="noopener">Nachricht schreiben${extern}</a></li>
       </ul>
-    </div>
-    <div class="kontakt-karte">
-      <h2 class="h3-gross">Bürozeiten</h2>
-      <dl class="zeiten">
-        <div><dt>Montag bis Freitag</dt><dd>08:00–16:00 Uhr</dd></div>
-        <div><dt>Samstag, Sonntag</dt><dd>geschlossen</dd></div>
-      </dl>
-      <p class="kontakt-klein">Anfragen über das Formular können Sie jederzeit senden.</p>
-    </div>
-    <div class="kontakt-karte">
-      <h2 class="h3-gross">Social Media</h2>
+      <h2 class="h3-gross kontakt-zwischen">Social Media</h2>
       <ul class="kontakt-liste">
         <li><a href="${S.facebook}" rel="noopener">Facebook${extern}</a></li>
         <li><a href="${S.instagram}" rel="noopener">Instagram: @merys_clean${extern}</a></li>
