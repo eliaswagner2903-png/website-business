@@ -401,11 +401,10 @@ cssBuendeln();
         <li class="held-zusage">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></li>
       </ul>
     </div>
-    <figure class="held-bild"${pr(S.team_frei.pruefen)}>
-      <div class="buehne" data-kippen>
-        <div class="buehne-bogen" aria-hidden="true"></div>
-        <svg class="buehne-schwung" viewBox="0 0 1000 760" aria-hidden="true" focusable="false"><path class="buehne-schwung-flaeche" d="M70 640C-10 420 170 170 520 128c180-22 330 18 430 96-112-52-256-74-420-52C228 214 70 418 70 640Z"/><path class="buehne-schwung-linie" d="M40 690C-60 430 150 120 520 84c170-16 320 22 440 104"/></svg>
-        <div class="buehne-team">${bild(S.team_frei, '(min-width: 64rem) 40rem, 100vw', { lazy: false, prio: true })}</div>
+    <figure class="held-bild"${pr(S.team_gruppe.pruefen)}>
+      <div class="rahmen" data-kippen>
+        <div class="rahmen-foto">${bild(S.team_gruppe, '(min-width: 64rem) 36rem, 100vw', { lazy: false, prio: true })}</div>
+        <span class="rahmen-etikett">Unser Team</span>
       </div>
       <figcaption>Das Team von Merys Clean in Arbeitskleidung</figcaption>
     </figure>
@@ -613,7 +612,7 @@ ${anfrageBand()}`;
 
 // ---------- Über uns ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_frei, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_frei.pruefen, bildFrei: true })}
+  const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen, bildFrei: true })}
 
 <section class="abschnitt ueber-text" aria-labelledby="mehr-titel">
   <div class="huelle ueber-text-in einblenden">
@@ -729,7 +728,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
 
 // ---------- Kontakt ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege(), bildHtml: bild(S.team_frei, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_frei.pruefen, bildFrei: true })}
+  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege(), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen, bildFrei: true })}
 
 <section class="abschnitt abschnitt--eng kontakt" aria-labelledby="daten-titel">
   <div class="huelle kontakt-raster">
