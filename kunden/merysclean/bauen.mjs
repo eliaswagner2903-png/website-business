@@ -260,11 +260,13 @@ const zweiWege = (zusatz = '') => `<div class="wege">
         <a class="knopf zweit gross" href="${TEL_A}">${ICON.tel}<span>Anrufen <span class="wege-nr">${TEL}</span></span></a>
       </div>`;
 
+// Startseite: Garantie und Besichtigung stehen ab Tablet schon als Karten im Hero, das Band zeigt dort nur die anderen zwei
+const IM_HELD = [0, 2];
 const zusagen = (klasse = '') => `<section class="vertrauen${klasse}" aria-labelledby="vertrauen-titel">
   <div class="huelle">
     <h2 id="vertrauen-titel" class="unsichtbar">Was Sie bei Merys Clean bekommen</h2>
     <ul class="vertrauen-liste">
-${S.zusagen.map((z, i) => `      <li>${zeichen(ZUSAGE_Z[i], 'patch--klein')}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
+${S.zusagen.map((z, i) => `      <li${!klasse && IM_HELD.includes(i) ? ' class="im-held"' : ''}>${zeichen(ZUSAGE_Z[i], 'patch--klein')}<span><strong>${esc(z.titel)}</strong> ${esc(z.text)}</span></li>`).join('\n')}
     </ul>
   </div>
 </section>`;

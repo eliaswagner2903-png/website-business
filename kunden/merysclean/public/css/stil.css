@@ -60,6 +60,7 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
   background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-radius: 6px;
   box-shadow: 0 6px 14px -10px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent);
 }
+@media (max-width: 29.99rem) { .ueberzeile { letter-spacing: .08em; font-size: .72rem; } }
 .ueberzeile::before { content: ""; inline-size: .45rem; block-size: .45rem; flex: none; border-radius: 50%; background: var(--farbe-akzent); }
 .ueberzeile::after { content: ""; position: absolute; inset: 3px; border: 1px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); border-radius: 4px; pointer-events: none; }
 .ueberzeile--hell { background: var(--farbe-schwarz-hoch); color: var(--farbe-flaeche); }
@@ -387,6 +388,10 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
 .ic-haken { inline-size: 1.9rem; block-size: 1.9rem; padding: .35rem; border-radius: 50%; background: var(--farbe-schwarz); color: var(--farbe-flaeche); stroke-width: 2.4; outline: 1.5px dashed var(--farbe-akzent); outline-offset: -1.5px; }
 @media (min-width: 40rem) { .vertrauen-liste { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 64rem) { .vertrauen-liste { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 37.5rem) {
+  .vertrauen-liste .im-held { display: none; }
+  .vertrauen-liste:has(.im-held) { grid-template-columns: repeat(2, minmax(0, 24rem)); justify-content: center; column-gap: 5rem; }
+}
 
 /* ---------- Haltung: ein großer Satz statt Fließtext; Teile werden beim Lesen dunkel ---------- */
 .haltung { padding-bottom: 0; position: relative; overflow-x: clip; }
@@ -530,6 +535,7 @@ main { isolation: isolate; }
 @media (min-width: 64rem) { .team-kopf { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; } .team-kopf .ueberzeile { grid-column: 1 / -1; margin-bottom: 0; } }
 .portraets { display: grid; gap: 3rem 2rem; }
 .portraet { max-width: 26rem; }
+@media (max-width: 39.99rem) { .portraet { max-width: 19rem; margin-inline: auto; } }
 .portraet-bild { position: relative; padding: 10px; border-radius: 999px 999px var(--radius-gross) var(--radius-gross); background: var(--farbe-schwarz); box-shadow: 0 30px 50px -36px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent); }
 .portraet-bild img { border-radius: 999px 999px calc(var(--radius-gross) - 10px) calc(var(--radius-gross) - 10px); }
 .portraet-bild::after { content: ""; position: absolute; inset: 4px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 70%, transparent); border-radius: 999px 999px calc(var(--radius-gross) - 4px) calc(var(--radius-gross) - 4px); pointer-events: none; }
@@ -561,7 +567,7 @@ main { isolation: isolate; }
 }
 .karte figcaption { margin-top: .5rem; font-size: .9rem; color: var(--farbe-leise); text-align: center; }
 .gebiet-text h2 + p { margin-top: 1rem; }
-.team-start + .gebiet-start { padding-top: calc(var(--abstand-abschnitt) * .4); }
+@media (min-width: 64rem) { .gebiet-start .gebiet-in { align-items: start; } }
 .gebiet-gruppen { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
 .gebiet-gruppe h3 { font: 600 .85rem/1.3 var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise); margin-bottom: .35rem; }
 .gebiet-gruppe p { font: 400 1.35rem/1.35 var(--schrift-display); }
@@ -643,7 +649,7 @@ main { isolation: isolate; }
 .seitenkopf-bild .patch { position: absolute; left: 1.25rem; bottom: -1.5rem; }
 .seitenkopf-fach { display: none; }
 /* Freigestelltes Team im schwarzen Bogen mit Naht, wie die Bühne der Startseite */
-.seitenkopf-bild--frei { overflow: hidden; padding: clamp(2.5rem, 2rem + 3vw, 4.5rem) 4% 0; background: radial-gradient(ellipse at 50% 85%, var(--farbe-schwarz-hoch), var(--farbe-schwarz) 70%); border-radius: 999px 999px var(--radius-gross) var(--radius-gross); }
+.seitenkopf-bild--frei { overflow: hidden; padding: clamp(3.25rem, 2.5rem + 3.5vw, 5.75rem) 6% 0; background: radial-gradient(ellipse at 50% 85%, var(--farbe-schwarz-hoch), var(--farbe-schwarz) 70%); border-radius: 999px 999px var(--radius-gross) var(--radius-gross); }
 .seitenkopf-bild--frei::after { content: ""; position: absolute; inset: 8px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 60%, transparent); border-radius: 999px 999px calc(var(--radius-gross) - 8px) calc(var(--radius-gross) - 8px); pointer-events: none; }
 .seitenkopf-bild--frei img { border-radius: 0; }
 @media (min-width: 64rem) {
