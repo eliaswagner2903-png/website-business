@@ -62,8 +62,10 @@ ALT = {
     'buero-dampf': 'Illustration: Großraumbüro mit Stühlen und einem Dampfreiniger, aus dem Dampfwolken steigen',
     'fenster-breit': 'Illustration: große, frisch geputzte Fensterfront mit Abzieher, dahinter eine Stadtsilhouette',
 }
+# KI-Stimmungsbilder (Higgsfield) zeigen keine Menschen und kein Firmenzeichen: sie bleiben als Rasterbild
+RASTER = {'treppe', 'bau', 'haushalt'}
 for l in S['leistungen']:
-    if l.get('bild'):
+    if l.get('bild') and l['bild']['name'] not in RASTER:
         l['bild']['alt'] = ALT[l['bild']['name']]
 TEAM = [('max', 'Max Mustermann', 'MM', 'Platzhalter-Grafik: Silhouette mit Monogramm MM für Max Mustermann'),
         ('erika', 'Erika Musterfrau', 'EM', 'Platzhalter-Grafik: Silhouette mit Monogramm EM für Erika Musterfrau')]
@@ -73,6 +75,7 @@ for p, (pid, name, _, alt) in zip(S['team'], TEAM):
 S['team_gruppe']['name'] = 'team-gruppe'
 S['team_gruppe']['alt'] = 'Illustration: fünf stilisierte Figuren in Arbeitskleidung ohne Gesichter, Platzhalter für ein Teamfoto'
 S['siegel']['alt'] = 'Siegel: 100 % Zufriedenheitsgarantie'
+S['team_frei']['alt'] = 'Illustration: fünf Figuren ohne Gesichter in schwarzer Arbeitskleidung mit grünem Abzeichen, Platzhalter für das freigestellte Teamfoto'
 (D / 'inhalt/seite.json').write_text(json.dumps(S, ensure_ascii=False, indent=2) + '\n')
 
 # ---------- bauen.mjs ----------
@@ -85,7 +88,8 @@ B = B.replace('<figcaption>Das Team von Klarwerk</figcaption>', '<figcaption>Das
 # Bilder: eine SVG-Datei je Motiv statt AVIF/WebP-Reihen
 NEU_BILD = '''function bild(b, sizes, { lazy = true, prio = false, klasse = '' } = {}) {
   const laden = prio ? ' fetchpriority="high" decoding="async"' : lazy ? ' loading="lazy" decoding="async"' : ' decoding="async"';
-  return `<picture${klasse ? ` class="${klasse}"` : ''}><img src="/medien/${b.name}.svg" width="${b.w}" height="${b.h}" alt="${esc(b.alt)}"${laden}></picture>`;
+  const datei = ['treppe', 'bau', 'haushalt'].includes(b.name) ? `${b.name}-800.webp` : `${b.name}.svg`;
+  return `<picture${klasse ? ` class="${klasse}"` : ''}><img src="/medien/${datei}" width="${b.w}" height="${b.h}" alt="${esc(b.alt)}"${laden}></picture>`;
 }
 '''
 B, n = re.subn(r'function bild\(b, sizes.*?\n}\n', lambda m: NEU_BILD, B, count=1, flags=re.S)
@@ -98,7 +102,8 @@ for f in list((P / 'css').glob('*.css')) + list((P / 'js').glob('*.js')):
 
 # ---------- Grafiken (Designsystem: Wand #f5f2eb, Grün #2a7430/#6fbf52, Tint #e6efdc, Blau #1d5f9e, Dunkel #202020) ----------
 for f in list(M.glob('*.webp')) + list(M.glob('*.avif')):
-    f.unlink()
+    if not (f.name.split('-')[0] in RASTER and f.name.endswith('-800.webp')):
+        f.unlink()
 SVG = 'xmlns="http://www.w3.org/2000/svg"'
 
 
@@ -133,6 +138,25 @@ team = f'''<svg {SVG} viewBox="0 0 1024 546">
 </svg>
 '''
 (M / 'team-gruppe.svg').write_text(team)
+
+# Freigestelltes Team (Hero): fünf gesichtslose Figuren in schwarzer Arbeitskleidung, transparenter Hintergrund
+def polo(x, boden, s, haar):
+    return (f'<g transform="translate({x} {boden}) scale({s})">'
+            f'<path fill="#121412" d="M-120 0C-124-170-100-262 0-268C100-262 124-170 120 0Z"/>'
+            f'<path fill="#2a2e2a" d="M-26-266 0-236 26-266Z"/>'
+            f'<circle cx="-56" cy="-196" r="13" fill="#6fbf52"/>'
+            f'<rect x="-22" y="-300" width="44" height="40" rx="14" fill="#cdbba6"/>'
+            f'<ellipse cy="-350" rx="58" ry="66" fill="#d9c7b2"/>'
+            f'<path fill="{haar}" d="M-58-352C-62-420 62-420 58-352C50-392-50-392-58-352Z"/></g>')
+
+(M / 'team-frei.svg').write_text(f'''<svg {SVG} viewBox="0 0 1400 687">
+{polo(260, 687, 1.18, '#3b2a20')}
+{polo(1150, 687, 1.18, '#1d1d1d')}
+{polo(720, 687, 1.12, '#6b4a2e')}
+{polo(500, 687, 1.32, '#2b2b2b')}
+{polo(930, 687, 1.3, '#b08850')}
+</svg>
+''')
 
 # Porträts: Silhouette mit Monogramm, keine Gesichter
 for (pid, _, mono, _), (grund, koerper) in zip(TEAM, [('#e6efdc', '#2a7430'), ('#dde8f3', '#1d5f9e')]):
