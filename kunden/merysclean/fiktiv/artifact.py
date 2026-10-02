@@ -80,8 +80,8 @@ js_b = (Q / 'js' / 'bausteine.js').read_text()
 js_s = (Q / 'js' / 'seite.js').read_text()
 js_s = js_s.replace("new URLSearchParams(location.search).get('leistung')",
                     "new URLSearchParams(location.search || location.hash.split('?')[1] || '').get('leistung')")
-js_s, n = re.subn(r'function start\(\) \{ panel\(\); formular\(\); kippen\(\); leistungsbilder\(\); \}',
-                  'function start() { panel(); formular(); kippen(); leistungsbilder(); }\n  window.fkFormular = () => { formular(); kippen(); leistungsbilder(); };', js_s)
+js_s, n = re.subn(r'function start\(\) \{ panel\(\); formular\(\); kippen\(\); leistungsbilder\(\); schnellleiste\(\); \}',
+                  'function start() { panel(); formular(); kippen(); leistungsbilder(); schnellleiste(); }\n  window.fkFormular = () => { formular(); kippen(); leistungsbilder(); schnellleiste(); };', js_s)
 assert n == 1, 'seite.js: start() nicht gefunden'
 ROUTER = r'''
 /* Vorschau: Unterseiten per Hash-Adresse (#/angebot) in <main> zeigen; Formular sendet nichts. */

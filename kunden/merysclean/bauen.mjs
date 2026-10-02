@@ -185,20 +185,22 @@ const WEGE = [
   ['kontakt.html', '/kontakt', 'Kontakt', 'Telefon, E-Mail, Adresse und Zeiten', 'telefon'],
   ['angebot.html', '/angebot', 'Angebot anfragen', 'Kostenlos und unverbindlich', 'dokument'],
 ];
-const wegweiser = (datei) => `<nav class="abschnitt abschnitt--eng wegweiser" aria-labelledby="wegweiser-titel">
+const wegweiser = (datei) => `<section class="abschnitt abschnitt--eng wegweiser" aria-labelledby="wegweiser-titel">
   <div class="huelle">
     <h2 id="wegweiser-titel" class="wegweiser-titel">Wohin als Nächstes?</h2>
     <ul class="wegweiser-liste">
 ${WEGE.filter(([d]) => d !== datei).map(([, href, titel, text, z]) => `      <li><a href="${href}">${zeichen(z, 'patch--klein')}<span><strong>${titel}</strong> <span class="wegweiser-text">${text}</span></span>${pfeil}</a></li>`).join('\n')}
     </ul>
   </div>
-</nav>`;
+</section>`;
 
 const OG = { name: 'team-gruppe-1024', w: 1024, h: 546, alt: S.team_gruppe.alt };
 function seite(datei, { titel, beschreibung, inhalt, aktiv = '', robots = '', jsonld = null, klasse = '', preload = '' }) {
   const pfad = datei === 'index.html' ? '' : datei.replace(/\.html$/, '');
   const kanon = `${S.basis}/${pfad}`;
   if (!robots) SEITEN.push(kanon);
+  // Seiten ohne eigene Daten: schlichte WebPage, die zum Betrieb gehört (ersetzt die frühere Brotkrumen-Liste)
+  if (!jsonld && !robots) jsonld = [{ '@type': 'WebPage', name: titel, url: kanon, isPartOf: { '@id': `${S.basis}/#website` }, about: { '@id': ID } }];
   const ld = jsonld ? `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonld }).replace(/</g, '\\u003c')}</script>\n` : '';
   const html = `<!DOCTYPE html>
 <html lang="de">
@@ -279,7 +281,7 @@ ${S.ablauf.map((s, i) => `      <li class="schritt einblenden">${zeichen(ABLAUF_
 
 const garantie = () => `<section class="abschnitt garantie" aria-labelledby="garantie-titel">
   <div class="huelle garantie-in">
-    <figure class="garantie-siegel einblenden"><div class="medaille" data-kippen>${bild(S.siegel, '(min-width: 48rem) 16rem, 12rem')}<span class="medaille-glanz" aria-hidden="true"></span></div></figure>
+    <div class="garantie-siegel einblenden"><div class="medaille" data-kippen><p class="siegel">${zeichen('schild')}<span class="siegel-zahl">100&nbsp;%</span><span class="siegel-wort">Zufriedenheit garantiert</span></p><span class="medaille-glanz" aria-hidden="true"></span></div></div>
     <div class="garantie-text einblenden">
       ${ueber('Zufriedenheits&shy;garantie')}
       <h2 id="garantie-titel">${esc(S.garantie.titel)}</h2>
@@ -372,13 +374,6 @@ const betrieb = () => ({
   areaServed: S.karte.orte.filter((o) => `${S.gebiet_satz} ${S.hero.h1_vor}${S.hero.h1_schwung} ${S.karte.orte.map((x) => x.kurz || x.name).join(' ')}`.includes(o.name)).map((o) => ({ '@type': 'City', name: o.name })),
   sameAs: [S.facebook, S.instagram],
 });
-const krumen = (name, url) => ({ '@type': 'BreadcrumbList', itemListElement: [
-  { '@type': 'ListItem', position: 1, name: 'Start', item: `${S.basis}/` },
-  { '@type': 'ListItem', position: 2, name, item: `${S.basis}/${url}` }] });
-const krumenLeistung = (l) => ({ '@type': 'BreadcrumbList', itemListElement: [
-  { '@type': 'ListItem', position: 1, name: 'Start', item: `${S.basis}/` },
-  { '@type': 'ListItem', position: 2, name: 'Leistungen', item: `${S.basis}/leistungen` },
-  { '@type': 'ListItem', position: 3, name: l.name, item: `${S.basis}/${l.url}` }] });
 
 // =====================================================================
 // Seiten
@@ -396,7 +391,7 @@ cssBuendeln();
       <p class="held-lead">${esc(H.lead)}</p>
       ${zweiWege()}
       <ul class="held-zusagen">
-        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung binnen 24&nbsp;Stunden</span></li>
+        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Reklamation binnen 24&nbsp;Stunden, Nachreinigung kostenlos</span></li>
         <li class="held-zusage">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></li>
       </ul>
     </div>
@@ -416,7 +411,7 @@ ${zusagen()}
 <section class="abschnitt haltung" aria-labelledby="haltung-titel">
   <div class="huelle">
     <h2 id="haltung-titel" class="unsichtbar">Was Sie von uns erwarten können</h2>
-    <p class="haltung-text"><span class="haltung-teil">Feste Kräfte, die Ihre Räume <em>kennen</em>.</span> <span class="haltung-teil">Ein Ansprechpartner, der <em>erreichbar</em> ist.</span> <span class="haltung-teil">Und wenn etwas nicht passt, reinigen wir binnen <em>24&nbsp;Stunden</em> kostenlos nach.</span></p>
+    <p class="haltung-text"><span class="haltung-teil">Feste Kräfte, die Ihre Räume <em>kennen</em>.</span> <span class="haltung-teil">Ein Ansprechpartner, der <em>erreichbar</em> ist.</span> <span class="haltung-teil">Und passt etwas nicht, melden Sie sich binnen <em>24&nbsp;Stunden</em>: Wir reinigen kostenlos nach.</span></p>
   </div>
 </section>
 
@@ -481,19 +476,33 @@ ${anfrageBand()}`;
 }
 
 // ---------- Kopf einer Unterseite ----------
-const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '' }) => `<section class="seitenkopf${bildHtml ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
+// Rechte Spalte im Seitenkopf ohne Bild: ein eingenähtes schwarzes Fach (direkt erreichen bzw. wie es weitergeht)
+const fachDirekt = () => `<aside class="seitenkopf-fach" aria-label="Direkt erreichen">
+      <p class="fach-titel">Direkt erreichen</p>
+      <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Mo–Fr&nbsp;8–16&nbsp;Uhr</span>${TEL}</span></a>
+      <p class="anfrage-mehr"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
+      <p class="fach-ort">${ICON.ort}<span>${esc(S.strasse)}, ${esc(S.plz)} ${esc(S.ort)}</span></p>
+    </aside>`;
+const fachAblauf = () => `<aside class="seitenkopf-fach" aria-label="So geht es weiter">
+      <p class="fach-titel">So geht es weiter</p>
+      <ul class="fach-schritte">
+${S.ablauf.slice(1, 4).map((a, i) => `        <li>${zeichen(ABLAUF_Z[i + 1], 'patch--klein')}<span><strong>${esc(a.titel)}</strong> ${esc(a.text)}</span></li>`).join('\n')}
+      </ul>
+    </aside>`;
+
+const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '', fach = '' }) => `<section class="seitenkopf${bildHtml || fach ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
     <div class="seitenkopf-text">
       ${ueber(ueberText)}
       <h1 id="titel">${h1}</h1>
       <p class="seitenkopf-lead">${lead}</p>
 ${extra ? `      ${extra}\n` : ''}    </div>
-${bildHtml ? `    <figure class="seitenkopf-bild"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}  </div>
+${bildHtml ? `    <figure class="seitenkopf-bild"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
 </section>`;
 
 // ---------- Leistungen (Übersicht) ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Leistungen', h1: 'Unsere Leistungen', lead: 'Regelmäßige und einmalige Reinigung für Firmen, Hausverwaltungen und Privathaushalte in Eislingen, Göppingen und Umgebung. Den Umfang legen wir nach einer kostenlosen Besichtigung gemeinsam mit Ihnen fest.', extra: zweiWege() })}
+  const inhalt = `${seitenKopf({ ueberText: 'Leistungen', h1: 'Unsere Leistungen', lead: 'Regelmäßige und einmalige Reinigung für Firmen, Hausverwaltungen und Privathaushalte in Eislingen, Göppingen und Umgebung. Den Umfang legen wir nach einer kostenlosen Besichtigung gemeinsam mit Ihnen fest.', extra: zweiWege(), fach: fachDirekt() })}
 
 <section class="abschnitt" aria-labelledby="alle-titel">
   <div class="huelle">
@@ -529,7 +538,7 @@ ${anfrageBand()}`;
     titel: 'Leistungen: Gebäudereinigung Eislingen & Göppingen | Merys Clean',
     beschreibung: 'Unterhaltsreinigung, Büro- und Gewerbereinigung, Fenster-, Treppenhaus-, Umzugs- und Bauendreinigung sowie Reinigung für Privathaushalte rund um Göppingen.',
     inhalt, aktiv: 'leistungen',
-    jsonld: [krumen('Leistungen', 'leistungen'), { '@type': 'ItemList', name: 'Unsere Leistungen', itemListElement: LEI.map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: l.name, url: `${S.basis}/${l.url}` })) }],
+    jsonld: [{ '@type': 'ItemList', name: 'Unsere Leistungen', itemListElement: LEI.map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: l.name, url: `${S.basis}/${l.url}` })) }],
   });
 }
 
@@ -560,7 +569,7 @@ ${faq(l.faq, `Fragen zur ${esc(l.name)}`)}
   <div class="huelle">
     <h2 id="andere-titel" class="h3-gross">Weitere Leistungen</h2>
     <ul class="andere-liste">
-${andere.map((x) => `      <li><a href="/${x.url}">${esc(x.name)} ${pfeil}</a></li>`).join('\n')}
+${andere.map((x) => `      <li><a href="/${x.url}"><span>${esc(x.name)} ${pfeil}</span></a></li>`).join('\n')}
     </ul>
   </div>
 </section>
@@ -568,13 +577,13 @@ ${andere.map((x) => `      <li><a href="/${x.url}">${esc(x.name)} ${pfeil}</a></
 ${anfrageBand()}`;
   seite(`${l.url}.html`, {
     titel: l.titel, beschreibung: l.beschreibung, inhalt, aktiv: l.url,
-    jsonld: [krumenLeistung(l), { '@type': 'Service', name: l.name, serviceType: l.name, provider: { '@id': ID }, areaServed: [{ '@type': 'City', name: 'Eislingen/Fils' }, { '@type': 'City', name: 'Göppingen' }] }],
+    jsonld: [{ '@type': 'Service', name: l.name, serviceType: l.name, provider: { '@id': ID }, areaServed: [{ '@type': 'City', name: 'Eislingen/Fils' }, { '@type': 'City', name: 'Göppingen' }] }],
   });
 }
 
 // ---------- Einsatzgebiet ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Einsatzgebiet', h1: 'Einsatzgebiet rund um Eislingen und Göppingen', lead: esc(S.gebiet_satz) })}
+  const inhalt = `${seitenKopf({ ueberText: 'Einsatzgebiet', h1: 'Einsatzgebiet rund um Eislingen und Göppingen', lead: esc(S.gebiet_satz), fach: fachDirekt() })}
 
 <section class="abschnitt abschnitt--eng gebiet-seite" aria-labelledby="orte-titel">
   <div class="huelle gebiet-in">
@@ -593,7 +602,6 @@ ${anfrageBand()}`;
     titel: 'Einsatzgebiet: Göppingen, Stuttgart, Ulm & Umgebung | Merys Clean',
     beschreibung: 'Merys Clean reinigt von Eislingen/Fils aus im Filstal, Richtung Stuttgart und Esslingen, im Remstal, auf der Ostalb bis Schwäbisch Hall und in Ulm. Karte und Ortsliste.',
     inhalt, aktiv: 'einsatzgebiet',
-    jsonld: [krumen('Einsatzgebiet', 'einsatzgebiet')],
   });
 }
 
@@ -641,7 +649,6 @@ ${anfrageBand()}`;
     titel: 'Über uns: Team und Werte | Merys Clean Eislingen',
     beschreibung: 'Merys Clean aus Eislingen/Fils: Safet und Merita Mustafa mit Team. Persönlicher Ansprechpartner, feste Reinigungskräfte und Zufriedenheitsgarantie mit kostenloser Nachreinigung.',
     inhalt, aktiv: 'ueber-uns',
-    jsonld: [krumen('Über uns', 'ueber-uns')],
   });
 }
 
@@ -663,7 +670,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
         ${feld('objektart', 'Art des Objekts', auswahl('objektart', 'objektart', F.objektarten, { pflicht: true }), { pflicht: true })}
         <div class="feld-reihe">
         ${feld('flaeche', 'Fläche in m²', '<input id="flaeche" name="flaeche" type="text" inputmode="numeric" pattern="[0-9]{1,6}" maxlength="6" autocomplete="off" aria-describedby="flaeche-hilfe">', { hilfe: 'ungefähr genügt' })}
-        ${feld('ort', 'PLZ und Ort', '<input id="ort" name="ort" type="text" required maxlength="80" autocomplete="off">', { pflicht: true })}
+        ${feld('ort', 'PLZ und Ort', '<input id="ort" name="ort" type="text" required maxlength="80" autocomplete="address-level2">', { pflicht: true })}
         </div>
         ${feld('rhythmus', 'Wie oft soll gereinigt werden?', auswahl('rhythmus', 'rhythmus', F.rhythmen, { leer: '', vorwahl: 'Noch offen' }))}
       </fieldset>
@@ -687,7 +694,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
         <p class="formular-antwort"${pr(F.antwort_pruefen)}>Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr).</p>
       </div>
     </form>`;
-  const inhalt = `${seitenKopf({ ueberText: 'Angebot anfragen', h1: 'Kostenloses Angebot anfragen', lead: 'Ein paar Angaben genügen. Wir rufen Sie zurück, vereinbaren einen Termin für die kostenlose Besichtigung und schicken Ihnen danach ein unverbindliches Angebot.' })}
+  const inhalt = `${seitenKopf({ ueberText: 'Angebot anfragen', h1: 'Kostenloses Angebot anfragen', lead: 'Ein paar Angaben genügen. Wir rufen Sie zurück, vereinbaren einen Termin für die kostenlose Besichtigung und schicken Ihnen danach ein unverbindliches Angebot.', fach: fachAblauf() })}
 
 <section class="abschnitt abschnitt--eng formular-abschnitt" aria-labelledby="formular-titel">
   <div class="huelle formular-raster">
@@ -704,12 +711,6 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
           <li><a href="${MAIL_A}">${ICON.post}<span><span class="direkt-klein">E-Mail</span>${esc(S.email)}</span></a></li>
         </ul>
       </div>
-      <div class="danach">
-        <h2 class="h3-gross">Was danach passiert</h2>
-        <ol class="danach-liste">
-${S.ablauf.slice(1, 4).map((a) => `          <li><strong>${esc(a.titel)}:</strong> ${esc(a.text)}</li>`).join('\n')}
-        </ol>
-      </div>
     </aside>
   </div>
 </section>`;
@@ -717,13 +718,12 @@ ${S.ablauf.slice(1, 4).map((a) => `          <li><strong>${esc(a.titel)}:</stron
     titel: 'Kostenloses Angebot anfragen | Merys Clean Gebäudereinigung',
     beschreibung: 'Angebot für Unterhalts-, Büro-, Fenster- oder Treppenhausreinigung anfragen: Objekt, Fläche und Ort angeben, Rückruf erhalten, kostenlose Besichtigung vereinbaren.',
     inhalt, aktiv: 'angebot',
-    jsonld: [krumen('Angebot anfragen', 'angebot')],
   });
 }
 
 // ---------- Kontakt ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege() })}
+  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege(), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen })}
 
 <section class="abschnitt abschnitt--eng kontakt" aria-labelledby="daten-titel">
   <div class="huelle kontakt-raster">
@@ -764,7 +764,6 @@ ${anfrageBand()}`;
     titel: 'Kontakt: Merys Clean in Eislingen/Fils',
     beschreibung: 'Merys Clean, In den Krummäckern 40, 73054 Eislingen/Fils. Telefon 0173 185 35 63, E-Mail info@merysclean.de, erreichbar Montag bis Freitag 8 bis 16 Uhr.',
     inhalt, aktiv: 'kontakt',
-    jsonld: [krumen('Kontakt', 'kontakt')],
   });
 }
 
@@ -808,31 +807,10 @@ seite('datenschutz.html', {
 </section>` });
 
 seite('404.html', {
-  titel: 'Seite nicht gefunden | Merys Clean', beschreibung: 'Diese Seite gibt es nicht (mehr). Hier geht es weiter zu den Leistungen, zur Anfrage und zum Kontakt.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Fehler 404', h1: 'Diese Seite gibt es nicht', lead: 'Vielleicht hat sich die Adresse geändert. Hier finden Sie, was Sie suchen:', extra: zweiWege() })}
-
-<section class="abschnitt abschnitt--eng">
-  <div class="huelle">
-    <ul class="andere-liste">
-      <li><a href="/">Startseite ${pfeil}</a></li>
-      <li><a href="/leistungen">Leistungen ${pfeil}</a></li>
-      <li><a href="/einsatzgebiet">Einsatzgebiet ${pfeil}</a></li>
-      <li><a href="/kontakt">Kontakt ${pfeil}</a></li>
-    </ul>
-  </div>
-</section>` });
+  titel: 'Seite nicht gefunden | Merys Clean', beschreibung: 'Diese Seite gibt es nicht (mehr). Hier geht es weiter zu den Leistungen, zur Anfrage und zum Kontakt.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Fehler 404', h1: 'Diese Seite gibt es nicht', lead: 'Vielleicht hat sich die Adresse geändert. Hier finden Sie, was Sie suchen:', extra: zweiWege() })}` });
 
 seite('nachricht-gesendet.html', {
-  titel: 'Anfrage gesendet | Merys Clean', beschreibung: 'Danke für Ihre Anfrage bei Merys Clean. Wir melden uns zu unseren Bürozeiten.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Danke', h1: 'Ihre Anfrage ist angekommen', lead: 'Vielen Dank. Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr) und vereinbaren mit Ihnen einen Termin für die kostenlose Besichtigung.', extra: `<p class="seitenkopf-lead">Eilt es? Rufen Sie an: <a href="${TEL_A}">${TEL}</a></p>` })}
-
-<section class="abschnitt abschnitt--eng">
-  <div class="huelle">
-    <ul class="andere-liste">
-      <li><a href="/leistungen">Leistungen ansehen ${pfeil}</a></li>
-      <li><a href="/ueber-uns">Wer zu Ihnen kommt ${pfeil}</a></li>
-      <li><a href="/">Zur Startseite ${pfeil}</a></li>
-    </ul>
-  </div>
-</section>` });
+  titel: 'Anfrage gesendet | Merys Clean', beschreibung: 'Danke für Ihre Anfrage bei Merys Clean. Wir melden uns zu unseren Bürozeiten.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Danke', h1: 'Ihre Anfrage ist angekommen', lead: 'Vielen Dank. Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr) und vereinbaren mit Ihnen einen Termin für die kostenlose Besichtigung.', extra: `<p class="seitenkopf-lead">Eilt es? Rufen Sie an: <a href="${TEL_A}">${TEL}</a></p>` })}` });
 
 // ---------- Sitemap, robots.txt, Weiterleitungen ----------
 writeFileSync(new URL('sitemap.xml', OUT), `<?xml version="1.0" encoding="UTF-8"?>

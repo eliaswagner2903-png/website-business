@@ -111,15 +111,32 @@
     };
     const zeige = (e) => { const z = e.target.closest('.leistung-zeilen > li'); if (z) aktiv(zeilen.indexOf(z)); };
     const liste = document.querySelector('.leistung-zeilen');
+    let zeiger = false;
     liste.addEventListener('pointerover', zeige);
     liste.addEventListener('focusin', zeige);
+    liste.addEventListener('pointerenter', () => { zeiger = true; });
+    liste.addEventListener('pointerleave', () => { zeiger = false; });
     if (!('IntersectionObserver' in window)) return;
+    // Scrollen übernimmt nicht, solange Zeiger oder Tastaturfokus in der Liste sind
     const io = new IntersectionObserver((eintraege) => {
+      if (zeiger || liste.contains(document.activeElement)) return;
       for (const e of eintraege) if (e.isIntersecting) aktiv(zeilen.indexOf(e.target));
     }, { rootMargin: '-58% 0px -38% 0px' });
     zeilen.forEach((z) => io.observe(z));
   }
 
-  function start() { panel(); formular(); kippen(); leistungsbilder(); }
+  // Schnellleiste (Handy): erst einblenden, wenn die Knöpfe im Seitenkopf aus dem Bild sind, damit sie nichts verdeckt
+  function schnellleiste() {
+    const leiste = document.querySelector('.schnell');
+    const wege = document.querySelector('main .wege');
+    if (!leiste) return;
+    if (!wege || !('IntersectionObserver' in window)) { leiste.classList.remove('ist-versteckt'); return; }
+    leiste.classList.add('ist-versteckt');
+    new IntersectionObserver(([e]) => {
+      leiste.classList.toggle('ist-versteckt', e.isIntersecting || e.boundingClientRect.top > 0);
+    }).observe(wege);
+  }
+
+  function start() { panel(); formular(); kippen(); leistungsbilder(); schnellleiste(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

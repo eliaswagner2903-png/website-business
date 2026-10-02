@@ -200,6 +200,7 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
   .leiste p { display: inline-flex; align-items: center; gap: .5rem; max-width: none; }
   .leiste .ic { inline-size: 1.05rem; block-size: 1.05rem; color: var(--farbe-flaeche); }
   .leiste-rechts { margin-left: auto; gap: 1.75rem !important; }
+  .leiste :focus-visible { outline-color: var(--farbe-gruen-hell); }
   .leiste a { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; color: var(--farbe-leise-hell); text-decoration: none; }
 }
 @media (min-width: 64rem) and (hover: hover) and (pointer: fine) { .leiste a:hover { color: var(--farbe-flaeche); } }
@@ -326,7 +327,7 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
 .schnell { display: none; }
 @media (max-width: 63.99rem) {
   html { scroll-padding-bottom: 5.5rem; }
-  body { padding-bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); }
+  .fuss { padding-bottom: calc(1.5rem + 4.6rem + env(safe-area-inset-bottom, 0px)); }
   .schnell {
     position: fixed; inset: auto 0 0; z-index: 12; display: grid; grid-template-columns: 1fr 1.4fr; gap: .5rem;
     padding: .55rem max(1rem, env(safe-area-inset-left, 0px)) calc(.55rem + env(safe-area-inset-bottom, 0px));
@@ -336,6 +337,8 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
   .schnell .knopf { min-height: 50px; padding-inline: .8rem; }
   .schnell .ic { color: currentColor; }
   .schnell :focus-visible { outline-color: var(--farbe-gruen-hell); }
+  .js .schnell { transition: translate var(--tempo-mittel) var(--kurve-standard), visibility var(--tempo-mittel); }
+  .js .schnell.ist-versteckt { translate: 0 110%; visibility: hidden; }
 }
 
 /* ---------- Abschnitte ---------- */
@@ -493,7 +496,8 @@ main { isolation: isolate; }
 @media (hover: hover) and (pointer: fine) { .leistung-zeile:hover .pfeil { transform: translateX(4px); } }
 
 /* Bilderstapel: Bogen mit Naht, Etikett mit dem Namen; das aktive Bild wischt von rechts herein */
-.leistungen-bilder { position: sticky; top: calc(var(--kopf-hoehe) + .75rem); z-index: 2; display: grid; order: -1; }
+.leistungen-bilder { position: relative; top: calc(var(--kopf-hoehe) + .75rem); z-index: 2; display: grid; order: -1; }
+@media (min-height: 40rem) { .js .leistungen-bilder { position: sticky; } }
 .leistungen-bild { position: relative; grid-area: 1 / 1; overflow: hidden; border-radius: 26px; clip-path: inset(0 0 0 100% round 26px); transition: clip-path .8s var(--kurve-sanft); }
 .leistungen-bild img { aspect-ratio: 16 / 9; object-fit: cover; inline-size: 100%; scale: 1.08; transition: scale 1.2s var(--kurve-sanft); }
 .leistungen-bild::after { content: ""; position: absolute; inset: 7px; border: 1.5px dashed color-mix(in srgb, var(--farbe-flaeche) 75%, transparent); border-radius: 20px; pointer-events: none; }
@@ -505,6 +509,8 @@ main { isolation: isolate; }
 }
 .leistungen-bild-name::before { content: ""; inline-size: .45rem; block-size: .45rem; border-radius: 50%; background: var(--farbe-akzent); }
 @media (max-width: 63.99rem) {
+  .leistungen-bild img { max-block-size: 34svh; }
+  .leistung-zeile { scroll-margin-top: calc(var(--kopf-hoehe) + 34svh + 1.5rem); }
   .leistungen-bilder { margin-inline: -.5rem; box-shadow: 0 18px 30px -24px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent); border-radius: 26px; }
   .leistung-name { font-size: 1.45rem; }
   .leistung-zeile { padding: .9rem .8rem; column-gap: .85rem; }
@@ -556,8 +562,20 @@ main { isolation: isolate; }
 .medaille-glanz {
   position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
   background: linear-gradient(115deg, transparent 30%, var(--farbe-flaeche) 48%, transparent 62%) calc(50% + var(--_glanz, 0) * 1%) 0 / 250% 100% no-repeat;
-  -webkit-mask: url("../medien/siegel-480.webp") center / contain no-repeat; mask: url("../medien/siegel-480.webp") center / contain no-repeat;
+  border-radius: 50%;
 }
+/* Siegel in HTML: schwarze Scheibe wie ein großer Aufnäher, zwei Nahtringe in Grün */
+.siegel {
+  position: relative; display: grid; place-content: center; justify-items: center; gap: .35rem; aspect-ratio: 1; max-width: none; margin: 0;
+  border-radius: 50%; background: radial-gradient(circle at 35% 28%, var(--farbe-schwarz-hoch), var(--farbe-schwarz) 70%); color: var(--farbe-flaeche); text-align: center;
+  box-shadow: inset 0 0 0 6px var(--farbe-schwarz), inset 0 0 0 7px color-mix(in srgb, var(--farbe-flaeche) 12%, transparent);
+}
+.siegel::before, .siegel::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.siegel::before { inset: 9px; border: 2px dashed var(--farbe-akzent); }
+.siegel::after { inset: 13%; border: 1px solid color-mix(in srgb, var(--farbe-flaeche) 18%, transparent); }
+.siegel .patch { inline-size: 3rem; block-size: 3rem; background: var(--farbe-schwarz-hoch); }
+.siegel-zahl { font: 400 clamp(2.6rem, 2rem + 2vw, 3.6rem)/1 var(--schrift-display); }
+.siegel-wort { max-inline-size: 11ch; text-align: center; font: 600 .68rem/1.3 var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise-hell); }
 .garantie-text p:not(.ueberzeile) { margin-top: 1rem; font-size: 1.15rem; color: var(--farbe-leise); }
 .garantie-text .garantie-tel { color: var(--farbe-text); font-weight: 600; }
 .garantie-tel a { display: inline-flex; align-items: center; min-height: 44px; }
@@ -591,9 +609,10 @@ main { isolation: isolate; }
 .karte { padding: clamp(.75rem, .5rem + 1vw, 1.5rem); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
 .karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 800 / 730; max-width: none; overflow: visible; }
 .karte-wege path { fill: none; stroke: var(--farbe-linie); stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; }
-.ort circle { fill: var(--farbe-blau); stroke: var(--farbe-flaeche); stroke-width: 3; }
+.ort circle { fill: var(--farbe-schwarz); stroke: var(--farbe-flaeche); stroke-width: 3; }
 .ort text { font: 500 26px var(--schrift-text); fill: var(--farbe-text); paint-order: stroke; stroke: var(--farbe-flaeche); stroke-width: 6px; stroke-linejoin: round; }
 .ort--klein text { display: none; }
+@media (max-width: 39.99rem) { .ort--klein { display: none; } }
 .ort--sitz circle { fill: var(--farbe-akzent); stroke: var(--farbe-schwarz); stroke-width: 5; }
 .ort--sitz text { font-weight: 700; font-size: 30px; }
 @media (min-width: 40rem) {
@@ -681,6 +700,23 @@ main { isolation: isolate; }
 .seitenkopf-bild { position: relative; }
 .seitenkopf-bild img { border-radius: var(--radius-gross); }
 .seitenkopf-bild .patch { position: absolute; left: 1.25rem; bottom: -1.5rem; }
+.seitenkopf-fach { display: none; }
+@media (min-width: 64rem) {
+  .seitenkopf-fach {
+    position: relative; display: grid; gap: 1.1rem; align-content: start; padding: 2.25rem; background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-radius: var(--radius-gross);
+    box-shadow: 0 30px 50px -36px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent);
+  }
+  .seitenkopf-fach::after { content: ""; position: absolute; inset: 8px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 60%, transparent); border-radius: calc(var(--radius-gross) - 8px); pointer-events: none; }
+  .seitenkopf-fach :focus-visible { outline-color: var(--farbe-gruen-hell); }
+  .fach-titel { font: 600 .8rem/1.3 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise-hell); }
+  .seitenkopf-fach .anfrage-tel, .seitenkopf-fach .anfrage-tel .ic, .seitenkopf-fach .anfrage-mehr a { color: var(--farbe-flaeche); }
+  .seitenkopf-fach .anfrage-klein { color: var(--farbe-leise-hell); }
+  .fach-ort { display: flex; gap: .6rem; align-items: center; color: var(--farbe-leise-hell); padding-top: 1rem; border-top: 1px dashed color-mix(in srgb, var(--farbe-flaeche) 22%, transparent); }
+  .fach-ort .ic { inline-size: 1.15rem; block-size: 1.15rem; flex: none; color: var(--farbe-flaeche); }
+  .fach-schritte { list-style: none; display: grid; gap: 1.1rem; margin: 0; padding: 0; }
+  .fach-schritte li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .9rem; align-items: start; color: var(--farbe-leise-hell); }
+  .fach-schritte strong { display: block; color: var(--farbe-flaeche); }
+}
 @media (min-width: 64rem) { .seitenkopf--bild .seitenkopf-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; } }
 
 /* ---------- Leistungen (Übersicht) ---------- */
@@ -749,7 +785,7 @@ main { isolation: isolate; }
 .feld label { font-weight: 600; }
 .pflicht { color: var(--farbe-fehler); }
 .optional, .feld-hilfe { font-weight: 400; color: var(--farbe-leise); font-size: .95rem; }
-.feld-reihe { display: grid; gap: 1.25rem; }
+.feld-reihe { display: grid; gap: 1.25rem; align-items: end; }
 .formular input:not([type="checkbox"]), .formular select, .formular textarea {
   inline-size: 100%; min-height: 3.1rem; padding: .7rem .9rem; font: inherit; font-size: 1rem; color: var(--farbe-text);
   background: var(--farbe-flaeche); border: 1.5px solid var(--farbe-leise); border-radius: var(--radius-klein);
@@ -806,7 +842,8 @@ main { isolation: isolate; }
 .zeiten { margin: .75rem 0 1rem; display: grid; gap: .5rem; }
 .zeiten div { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--farbe-linie); }
 .zeiten dt { font-weight: 600; }
-.zeiten dd { margin: 0; }
+.zeiten dd { margin: 0; white-space: nowrap; }
+@media (max-width: 29.99rem) { .zeiten div { flex-direction: column; gap: .15rem; } }
 @media (min-width: 48rem) { .kontakt-raster { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- Fehlerseite der Function (functions/_lib/antwort.js) ---------- */
