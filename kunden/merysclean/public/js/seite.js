@@ -1,7 +1,7 @@
 // Merys Clean – kleine Helfer. Ohne JavaScript funktioniert alles (Menü als Zeile, Panel per Fokus, Formular mit
 // Browser-Prüfung); dieses Skript verbessert nur: Escape schließt das Leistungen-Panel, Vorauswahl der Leistung aus
 // ?leistung=…, Fehlermeldungen als Text direkt am Feld, Zustand „wird gesendet“, Bühne und Siegel kippen leicht mit
-// dem Zeiger, das Leistungsbild wechselt mit der gezeigten Zeile.
+// dem Zeiger, das Leistungsbild wechselt mit der gezeigten oder durchscrollten Zeile.
 (() => {
   function panel() {
     const li = document.querySelector('.nav-leistungen');
@@ -99,18 +99,25 @@
     }
   }
 
-  // Startseite: Zeigen oder Fokus auf eine Leistung wischt ihr Bild herein
+  // Startseite: die aktive Leistung wird zum schwarzen Band und ihr Bild wischt herein. Aktiv wird, was gezeigt oder
+  // fokussiert wird, sonst die Zeile, die beim Scrollen durch die Mitte des Bildschirms läuft.
   function leistungsbilder() {
     const bilder = document.querySelectorAll('.leistungen-bild');
-    if (!bilder.length) return;
-    const zeige = (e) => {
-      const i = e.target.closest('[data-bild]')?.dataset.bild;
-      if (i === undefined) return;
-      bilder.forEach((b, j) => b.classList.toggle('ist-aktiv', String(j) === i));
+    const zeilen = [...document.querySelectorAll('.leistung-zeilen > li')];
+    if (!bilder.length || !zeilen.length) return;
+    const aktiv = (i) => {
+      zeilen.forEach((z, j) => z.classList.toggle('ist-aktiv', j === i));
+      bilder.forEach((b, j) => b.classList.toggle('ist-aktiv', j === i));
     };
+    const zeige = (e) => { const z = e.target.closest('.leistung-zeilen > li'); if (z) aktiv(zeilen.indexOf(z)); };
     const liste = document.querySelector('.leistung-zeilen');
     liste.addEventListener('pointerover', zeige);
     liste.addEventListener('focusin', zeige);
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) if (e.isIntersecting) aktiv(zeilen.indexOf(e.target));
+    }, { rootMargin: '-58% 0px -38% 0px' });
+    zeilen.forEach((z) => io.observe(z));
   }
 
   function start() { panel(); formular(); kippen(); leistungsbilder(); }

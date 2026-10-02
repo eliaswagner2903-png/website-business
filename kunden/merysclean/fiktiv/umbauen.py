@@ -100,7 +100,7 @@ assert n == 1, 'bild() in bauen.mjs nicht gefunden'
 for f in list((P / 'css').glob('*.css')) + list((P / 'js').glob('*.js')):
     f.write_text(ersetzen(f.read_text()))
 
-# ---------- Grafiken (Designsystem: Wand #f5f2eb, Grün #2a7430/#6fbf52, Tint #e6efdc, Blau #1d5f9e, Dunkel #202020) ----------
+# ---------- Grafiken (Designsystem: Wand #f5f2eb, ein Grün #5fba46 (Logo), Creme #ece6da, Blau #1d5f9e, Dunkel #202020) ----------
 for f in list(M.glob('*.webp')) + list(M.glob('*.avif')):
     if not (f.name.split('-')[0] in RASTER and f.name.endswith('-800.webp')):
         f.unlink()
@@ -128,13 +128,13 @@ team = f'''<svg {SVG} viewBox="0 0 1024 546">
 <circle cx="760" cy="150" r="250" fill="#fbfaf6" opacity=".55"/>
 <rect y="452" width="1024" height="94" fill="#d9d3c6"/>
 <path d="M0 452h1024" stroke="#c9c1b0" stroke-width="3"/>
-<path d="M120 500C340 540 640 540 930 470" fill="none" stroke="#6fbf52" stroke-width="10" stroke-linecap="round" opacity=".55"/>
-{figur(250, 470, 1.05, '#1d5f9e', '#e6efdc')}
-{figur(780, 470, 1.05, '#55595a', '#e6efdc')}
-{figur(390, 476, 1.18, '#2a7430', '#fbfaf6')}
-{figur(640, 476, 1.18, '#202020', '#6fbf52')}
+<path d="M120 500C340 540 640 540 930 470" fill="none" stroke="#5fba46" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+{figur(250, 470, 1.05, '#1d5f9e', '#ece6da')}
+{figur(780, 470, 1.05, '#55595a', '#ece6da')}
+{figur(390, 476, 1.18, '#5fba46', '#fbfaf6')}
+{figur(640, 476, 1.18, '#202020', '#5fba46')}
 {figur(515, 482, 1.3, '#3d8a3f', '#fbfaf6')}
-{funke(140, 120, 26, '#6fbf52')}{funke(905, 90, 20, '#1d5f9e', .7)}{funke(880, 330, 14, '#2a7430', .8)}{funke(90, 330, 12, '#1d5f9e', .6)}
+{funke(140, 120, 26, '#5fba46')}{funke(905, 90, 20, '#1d5f9e', .7)}{funke(880, 330, 14, '#5fba46', .8)}{funke(90, 330, 12, '#1d5f9e', .6)}
 </svg>
 '''
 (M / 'team-gruppe.svg').write_text(team)
@@ -144,7 +144,7 @@ def polo(x, boden, s, haar):
     return (f'<g transform="translate({x} {boden}) scale({s})">'
             f'<path fill="#121412" d="M-120 0C-124-170-100-262 0-268C100-262 124-170 120 0Z"/>'
             f'<path fill="#2a2e2a" d="M-26-266 0-236 26-266Z"/>'
-            f'<circle cx="-56" cy="-196" r="13" fill="#6fbf52"/>'
+            f'<circle cx="-56" cy="-196" r="13" fill="#5fba46"/>'
             f'<rect x="-22" y="-300" width="44" height="40" rx="14" fill="#cdbba6"/>'
             f'<ellipse cy="-350" rx="58" ry="66" fill="#d9c7b2"/>'
             f'<path fill="{haar}" d="M-58-352C-62-420 62-420 58-352C50-392-50-392-58-352Z"/></g>')
@@ -159,14 +159,14 @@ def polo(x, boden, s, haar):
 ''')
 
 # Porträts: Silhouette mit Monogramm, keine Gesichter
-for (pid, _, mono, _), (grund, koerper) in zip(TEAM, [('#e6efdc', '#2a7430'), ('#dde8f3', '#1d5f9e')]):
+for (pid, _, mono, _), (grund, koerper) in zip(TEAM, [('#ece6da', '#5fba46'), ('#dde8f3', '#1d5f9e')]):
     (M / f'portraet-{pid}.svg').write_text(f'''<svg {SVG} viewBox="0 0 740 1024">
 <rect width="740" height="1024" fill="{grund}"/>
 <circle cx="370" cy="420" r="300" fill="#fbfaf6" opacity=".6"/>
 <circle cx="370" cy="380" r="140" fill="{koerper}" opacity=".9"/>
 <path fill="{koerper}" d="M70 1024C70 740 200 600 370 600S670 740 670 1024Z"/>
 <text x="370" y="880" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="150" letter-spacing="8" fill="#fbfaf6">{mono}</text>
-{funke(600, 170, 30, koerper, .8)}{funke(150, 260, 18, '#6fbf52')}
+{funke(600, 170, 30, koerper, .8)}{funke(150, 260, 18, '#5fba46')}
 </svg>
 ''')
 
@@ -181,10 +181,10 @@ for (pid, _, mono, _), (grund, koerper) in zip(TEAM, [('#e6efdc', '#2a7430'), ('
 <path d="M550 322l-20 190M830 322l20 190" stroke="#55595a" stroke-width="14" stroke-linecap="round"/>
 <rect x="600" y="240" width="130" height="60" rx="6" fill="#202020"/><rect x="655" y="300" width="20" height="10" fill="#202020"/>
 <rect x="770" y="250" width="50" height="50" rx="8" fill="#c9ccc5"/>
-<path d="M795 250c-30-60 10-90 0-120M795 250c20-50 50-60 60-90M795 250c-50-30-60-70-90-80" fill="none" stroke="#2a7430" stroke-width="10" stroke-linecap="round"/>
+<path d="M795 250c-30-60 10-90 0-120M795 250c20-50 50-60 60-90M795 250c-50-30-60-70-90-80" fill="none" stroke="#5fba46" stroke-width="10" stroke-linecap="round"/>
 <path d="M210 150L330 520" stroke="#c9ccc5" stroke-width="14" stroke-linecap="round"/>
-<rect x="250" y="515" width="170" height="26" rx="8" fill="#2a7430" transform="rotate(-4 335 528)"/>
-<rect x="90" y="340" width="90" height="90" rx="12" fill="#6fbf52"/><path d="M90 360h90" stroke="#2a7430" stroke-width="8"/>
+<rect x="250" y="515" width="170" height="26" rx="8" fill="#5fba46" transform="rotate(-4 335 528)"/>
+<rect x="90" y="340" width="90" height="90" rx="12" fill="#5fba46"/><path d="M90 360h90" stroke="#5fba46" stroke-width="8"/>
 {funke(470, 520, 22)}{funke(160, 560, 14)}{funke(430, 590, 10)}{funke(690, 120, 18, '#1d5f9e', .6)}
 </svg>
 ''')
@@ -198,10 +198,10 @@ for (pid, _, mono, _), (grund, koerper) in zip(TEAM, [('#e6efdc', '#2a7430'), ('
 <rect x="120" y="330" width="560" height="20" rx="6" fill="#d9d3c6"/><path d="M150 350v120M650 350v120" stroke="#d9d3c6" stroke-width="12" stroke-linecap="round"/>
 <g fill="#1d5f9e"><rect x="200" y="380" width="110" height="26" rx="10"/><rect x="215" y="290" width="80" height="100" rx="18"/><rect x="480" y="380" width="110" height="26" rx="10"/><rect x="495" y="290" width="80" height="100" rx="18"/></g>
 <path d="M255 406v80M535 406v80" stroke="#202020" stroke-width="10"/>
-<rect x="730" y="470" width="150" height="110" rx="26" fill="#6fbf52"/><rect x="760" y="440" width="90" height="40" rx="12" fill="#2a7430"/>
+<rect x="730" y="470" width="150" height="110" rx="26" fill="#5fba46"/><rect x="760" y="440" width="90" height="40" rx="12" fill="#5fba46"/>
 <path d="M760 460C640 420 640 330 720 280" fill="none" stroke="#202020" stroke-width="10" stroke-linecap="round"/>
 <g fill="#fbfaf6" opacity=".85"><circle cx="725" cy="240" r="34"/><circle cx="760" cy="205" r="26"/><circle cx="700" cy="195" r="22"/><circle cx="740" cy="160" r="16"/></g>
-{funke(410, 250, 20, '#6fbf52')}{funke(870, 120, 16, '#1d5f9e', .7)}
+{funke(410, 250, 20, '#5fba46')}{funke(870, 120, 16, '#1d5f9e', .7)}
 </svg>
 ''')
 
@@ -218,14 +218,14 @@ tuerme = ''.join(f'<rect x="{x}" y="{y}" width="{b}" height="{620 - y}" fill="#1
 <g stroke="#55595a" stroke-width="14">{''.join(f'<path d="M{x} 60v560"/>' for x in (450, 810, 1170))}</g>
 <path d="M500 560L760 120" stroke="#fbfaf6" stroke-width="60" opacity=".35" stroke-linecap="round"/>
 <path d="M880 520L1080 180" stroke="#fbfaf6" stroke-width="34" opacity=".3" stroke-linecap="round"/>
-<g transform="rotate(-28 1000 330)"><rect x="940" y="300" width="160" height="22" rx="6" fill="#202020"/><rect x="1010" y="322" width="20" height="110" rx="8" fill="#6fbf52"/></g>
+<g transform="rotate(-28 1000 330)"><rect x="940" y="300" width="160" height="22" rx="6" fill="#202020"/><rect x="1010" y="322" width="20" height="110" rx="8" fill="#5fba46"/></g>
 {funke(720, 160, 30)}{funke(640, 260, 16)}{funke(1120, 210, 22)}{funke(300, 140, 14, '#fff', .8)}
 </svg>
 ''')
 
 # Siegel
 (M / 'siegel.svg').write_text(f'''<svg {SVG} viewBox="0 0 480 505">
-<path d="M40 30h40v40H40zM400 30h40v40h-40z" fill="#2a7430"/>
+<path d="M40 30h40v40H40zM400 30h40v40h-40z" fill="#5fba46"/>
 <path d="M70 20h340v380L240 485L70 400Z" fill="#3d8a3f"/>
 <path d="M90 38h300v350L240 460L90 388Z" fill="none" stroke="#fbfaf6" stroke-width="3" stroke-dasharray="12 9"/>
 <g fill="#fbfaf6" font-family="Arial, Helvetica, sans-serif" font-weight="700" text-anchor="middle">
@@ -237,7 +237,7 @@ tuerme = ''.join(f'<rect x="{x}" y="{y}" width="{b}" height="{620 - y}" fill="#1
 ''')
 
 # Logo und Favicon: neutrales Text-Zeichen (Quadrat mit Funke + Wortmarke)
-ZEICHEN = f'<rect x="4" y="22" width="86" height="86" rx="22" fill="#2a7430"/>{funke(47, 65, 30)}{funke(70, 42, 9, "#6fbf52")}'
+ZEICHEN = f'<rect x="4" y="22" width="86" height="86" rx="22" fill="#5fba46"/>{funke(47, 65, 30)}{funke(70, 42, 9, "#5fba46")}'
 for name, schrift, unter in (('logo.svg', '#202020', '#55595a'), ('logo-hell.svg', '#fbfaf6', '#c9ccc5')):
     (P / 'img' / name).write_text(f'''<svg {SVG} viewBox="0 0 320 130" role="img"><title>Klarwerk Gebäudereinigung</title>
 {ZEICHEN}

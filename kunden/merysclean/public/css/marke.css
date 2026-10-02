@@ -1,11 +1,11 @@
 /* =====================================================================
    MARKE Merys Clean – die ganze Marke steht nur hier (Designsystem: ../../DESIGN.md).
    Kontrast (WCAG AA), gemessen:
-     text/grund 14,6 · leise/grund 6,3 · akzent/grund 5,2 · akzent/tint 4,9 · auf-akzent/akzent 5,8
-     blau/grund 5,9 · gruen-hell/text 7,2 (nur auf Dunkel, nie als Text auf Hell) · leise-hell/text 10
-     fehler/flaeche 6,2 · fehler/grund 5,7
-     Arbeitskleidung: flaeche/schwarz 17,7 · leise-hell/schwarz 11,4 · gruen-hell/schwarz 8,2 (auch schwarz auf gruen-hell)
-     gruen-hell/schwarz-hoch 7,1 · leise-hell/schwarz-hoch 9,9 · akzent/schwarz nur 3,2: auf Schwarz nie als Text
+     text/grund 14,6 · leise/grund 6,3 · blau/grund 5,9 · fehler/flaeche 6,2 · fehler/grund 5,7
+     EIN Grün (Logo #5FBA46, seit 02.10.2026 A-077): gruen/schwarz 7,6 · gruen/schwarz-hoch 6,6 · schwarz auf gruen 7,6
+     · text auf gruen 6,7 – aber gruen/grund nur 2,2: auf Hell nie als Text, Rahmen oder Fokus, nur als Fläche
+     (mit schwarzem Text), Naht, Unterstrich oder Punkt.
+     Arbeitskleidung: flaeche/schwarz 17,7 · leise-hell/schwarz 11,4 · leise-hell/schwarz-hoch 9,9
    ===================================================================== */
 
 /* ---------- Schriften (lokal, OFL): Instrument Serif für Überschriften, Instrument Sans (variabel) für Text ---------- */
@@ -39,10 +39,9 @@
   --farbe-text: #202020;        /* Marke „Dunkel“ */
   --farbe-leise: #55595a;       /* Nebentext, Feldrahmen */
   --farbe-linie: #d9d3c6;       /* Trenner */
-  --farbe-akzent: #2a7430;      /* Marken-Grün abgedunkelt: Hauptknopf, Links */
-  --farbe-auf-akzent: #ffffff;
-  --farbe-tint: #e6efdc;        /* helle Grünfläche */
-  --farbe-gruen-hell: #6fbf52;  /* Markengrün: nur Deko und auf Dunkel */
+  --farbe-akzent: #5fba46;      /* das eine Grün = Logo-Grün: Hauptknopf (schwarze Schrift), Nähte, Unterstriche */
+  --farbe-auf-akzent: #121412;  /* Schrift auf Grün */
+  --farbe-gruen-hell: #5fba46;  /* gleicher Wert wie akzent (alter Name, auf Dunkel als Text erlaubt) */
   --farbe-blau: #1d5f9e;        /* Markenblau abgedunkelt: zweiter Akzent */
   --farbe-leise-hell: #c9ccc5;  /* Nebentext auf Dunkel */
   --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */

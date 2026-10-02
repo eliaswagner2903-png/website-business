@@ -55,9 +55,10 @@ css = (Q / 'css' / css_name).read_text()
 css = re.sub(r'url\("\.\./fonts/([^"]+\.woff2)"\)',
              lambda m: 'url("data:font/woff2;base64,' + base64.b64encode((Q / 'fonts' / m.group(1)).read_bytes()).decode() + '")', css)
 css = css.replace('url("../medien/siegel-480.webp")', f'url("{daten_svg(Q / "medien" / "siegel.svg")}")')
+css = css.replace('url("../img/deko-schwung.svg")', f'url("{daten_svg(Q / "img" / "deko-schwung.svg")}")')
 css += '''
 /* Musterseite-Hinweis (nur Vorschau) */
-.fk-hinweis { margin: 0; max-width: none; padding: .45rem 1rem; background: var(--farbe-tint); color: var(--farbe-text); font-size: 1rem; line-height: 1.4; text-align: center; border-bottom: 1px solid var(--farbe-linie); }
+.fk-hinweis { margin: 0; max-width: none; padding: .45rem 1rem; background: var(--farbe-akzent); color: var(--farbe-schwarz); font-size: 1rem; line-height: 1.4; text-align: center; }
 .fk-hinweis strong { font-weight: 600; }
 '''
 kopf_html = re.sub(r'<meta charset[^>]*>\s*|<meta name="viewport"[^>]*>\s*', '', kopf_html)

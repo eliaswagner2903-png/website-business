@@ -108,3 +108,13 @@ pendelt leicht und folgt dem Zeiger. Bei „Bewegung reduzieren“ steht alles s
 `medien/team-frei-*`. Drei Stimmungsbilder ohne Menschen für die Leistungen ohne eigenes Foto (je 1 Credit, GPT Image 2.5
 mittel): Treppenhaus, Bauendreinigung, Privathaushalt. Sie sind mit `data-pruefen` als KI-Bild markiert und werden ersetzt,
 sobald Merys Clean eigene Fotos liefert. Originale: Projektordner `merysclean/material/higgsfield/`.
+
+## Feinschliff 02.10.2026 (A-077, nach Elias' Durchsicht der Vorschau)
+
+- **Ein Grün:** überall das Logo-Grün `#5fba46` (`--farbe-akzent` = `--farbe-gruen-hell`); das dunkle `#2a7430` und die Tint-Fläche sind weg. Weil Grün auf Hell nur 2,2 : 1 hat, steht es dort nie als Schrift, Rahmen oder Fokus: Links sind dunkel mit grünem Unterstrich, Hauptknopf grün mit schwarzer Schrift, Fokus dunkel, Hervorhebungen als grüner Textmarker.
+- **Überzeile als Etikett** (schwarzes Band, Naht, grüner Stich) statt des kleinen Bogens, den man nicht verstanden hat.
+- **Grund:** feiner Piqué (Punktraster wie Polostoff) statt glatter Fläche; großer Logo-Schwung (`img/deko-schwung.svg`) hinter dem Haltungssatz.
+- **Hero:** Garantie und Besichtigung als zwei Etiketten unter den Knöpfen, nicht mehr im Bild; Bühne in warmem Creme mit Piqué statt Hellgrün.
+- **Leistungsliste:** aktive Zeile wird schwarzes Band; Bild wischt herein bei Zeigen, Fokus oder Scrollen (IntersectionObserver), auf dem Handy als mitlaufendes Bild über der Liste (sticky, kein Layoutsprung).
+- **Brotkrumen** als Leiste mit Haus-Zeichen und grünen Schrägstrichen auf allen Unterseiten (auch Impressum, Datenschutz, Danke).
+- **Anfrage-Band:** links Text mit drei Haken, rechts ein eingenähtes Fach: Knopf, „oder direkt“, Telefon, WhatsApp, E-Mail.

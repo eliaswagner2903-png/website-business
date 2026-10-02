@@ -29,6 +29,7 @@ const ICON = {
   ort: ic('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/>'),
   uhr: ic('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'),
   haken: ic('<path d="m5 12.5 4.2 4.2L19 7"/>', 'ic ic-haken'),
+  haus: ic('<path d="M3.5 11 12 4l8.5 7M6 9.5v11h12v-11"/><path d="M10 20.5v-5h4v5"/>'),
   route: ic('<path d="M5 19c4-1 3-6 7-7s4-5 7-7"/><circle cx="5" cy="19" r="1.6"/><circle cx="19" cy="5" r="1.6"/>'),
 };
 
@@ -281,15 +282,21 @@ ${eintraege.map((e) => `      <details class="faq-eintrag"${pr(e.pruefen)}><summ
 
 const anfrageBand = (titel = 'Kostenloses Angebot für Ihr Objekt', text = 'Erzählen Sie uns kurz, was gereinigt werden soll. Wir melden uns, vereinbaren die kostenlose Besichtigung und schicken Ihnen ein unverbindliches Angebot.') => `<section class="abschnitt anfrage" aria-labelledby="anfrage-titel">
   <div class="huelle anfrage-in dunkel einblenden">
-    <svg class="anfrage-schwung" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M-20 360C180 410 520 380 760 220S1000 40 1040 20"/></svg>
-    <div>
+    <svg class="anfrage-schwung" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M-20 280C200 320 520 290 740 170S960 30 1040 10"/></svg>
+    <div class="anfrage-text">
       ${ueber('Nächster Schritt', true)}
       <h2 id="anfrage-titel">${titel}</h2>
       <p class="abschnitt-text">${text}</p>
+      <ul class="anfrage-punkte">
+        <li>${ICON.haken}Kostenlose Besichtigung</li>
+        <li>${ICON.haken}Unverbindliches Angebot</li>
+        <li>${ICON.haken}Mo–Fr 8–16&nbsp;Uhr erreichbar</li>
+      </ul>
     </div>
-    <div class="anfrage-wege">
-      <a class="knopf knopf--stick gross" href="/angebot">Angebot anfragen</a>
-      <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Mo–Fr&nbsp;8–16&nbsp;Uhr</span>${TEL}</span></a>
+    <div class="anfrage-fach">
+      <a class="knopf knopf--stick gross" href="/angebot">Angebot online anfragen ${pfeil}</a>
+      <p class="anfrage-oder">oder direkt</p>
+      <a class="anfrage-tel" href="${TEL_A}">${ICON.tel}<span><span class="anfrage-klein">Anrufen</span>${TEL}</span></a>
       <p class="anfrage-mehr"><a href="${S.whatsapp_link}" rel="noopener"${pr(S.whatsapp_pruefen)}>${ICON.whatsapp}WhatsApp${extern}</a><a href="${MAIL_A}">${ICON.post}${esc(S.email)}</a></p>
     </div>
   </div>
@@ -350,7 +357,7 @@ const krumenLeistung = (l) => ({ '@type': 'BreadcrumbList', itemListElement: [
   { '@type': 'ListItem', position: 1, name: 'Start', item: `${S.basis}/` },
   { '@type': 'ListItem', position: 2, name: 'Leistungen', item: `${S.basis}/leistungen` },
   { '@type': 'ListItem', position: 3, name: l.name, item: `${S.basis}/${l.url}` }] });
-const pfadZeile = (teile) => `<nav class="pfad" aria-label="Brotkrumen"><ol>${teile.map(([h, t], i) => i === teile.length - 1 ? `<li><span aria-current="page">${esc(t)}</span></li>` : `<li><a href="${h}">${esc(t)}</a></li>`).join('')}</ol></nav>`;
+const pfadZeile = (teile) => `<nav class="pfad" aria-label="Brotkrumen"><ol>${teile.map(([h, t], i) => i === teile.length - 1 ? `<li><span aria-current="page">${esc(t)}</span></li>` : `<li><a href="${h}">${i === 0 ? ICON.haus : ''}<span>${esc(t)}</span></a></li>`).join('')}</ol></nav>`;
 
 // =====================================================================
 // Seiten
@@ -367,9 +374,9 @@ cssBuendeln();
       <h1 id="titel">${esc(H.h1_vor)}<span class="mit-schwung">${esc(H.h1_schwung)}${schwung('schwung schwung--h1')}</span></h1>
       <p class="held-lead">${esc(H.lead)}</p>
       ${zweiWege()}
-      <ul class="held-fakten">
-        <li>${ICON.uhr}<span>${esc(S.zeiten_text)}</span></li>
-        <li>${ICON.ort}<span>${esc(S.strasse)}, ${esc(S.ort)}</span></li>
+      <ul class="held-zusagen">
+        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung binnen 24&nbsp;Stunden</span></li>
+        <li class="held-zusage">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></li>
       </ul>
     </div>
     <figure class="held-bild"${pr(S.team_frei.pruefen)}>
@@ -377,8 +384,6 @@ cssBuendeln();
         <div class="buehne-bogen" aria-hidden="true"></div>
         <svg class="buehne-schwung" viewBox="0 0 1000 760" aria-hidden="true" focusable="false"><path class="buehne-schwung-flaeche" d="M70 640C-10 420 170 170 520 128c180-22 330 18 430 96-112-52-256-74-420-52C228 214 70 418 70 640Z"/><path class="buehne-schwung-linie" d="M40 690C-60 430 150 120 520 84c170-16 320 22 440 104"/></svg>
         <div class="buehne-team">${bild(S.team_frei, '(min-width: 64rem) 40rem, 100vw', { lazy: false, prio: true })}</div>
-        <p class="buehne-karte buehne-karte--a">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung binnen 24&nbsp;Stunden</span></p>
-        <p class="buehne-karte buehne-karte--b">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></p>
       </div>
       <figcaption>Das Team von Merys Clean in Arbeitskleidung</figcaption>
     </figure>
@@ -403,10 +408,10 @@ ${zusagen()}
     </div>
     <div class="leistungen-raster">
       <ul class="leistung-zeilen">
-${LEI.map((l, i) => `        <li class="einblenden"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
+${LEI.map((l, i) => `        <li class="einblenden${i === 0 ? ' ist-aktiv' : ''}"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
       </ul>
       <div class="leistungen-bilder" aria-hidden="true">
-${LEI.map((l, i) => `        <figure class="leistungen-bild${i === 0 ? ' ist-aktiv' : ''}"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 64rem) 30rem, 92vw')}</figure>`).join('\n')}
+${LEI.map((l, i) => `        <figure class="leistungen-bild${i === 0 ? ' ist-aktiv' : ''}"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 64rem) 30rem, 96vw')}<span class="leistungen-bild-name">${esc(l.name)}</span></figure>`).join('\n')}
       </div>
     </div>
     <p class="weiter-link"><a class="textlink" href="/leistungen">Alle Leistungen im Überblick ${pfeil}</a></p>
@@ -746,7 +751,7 @@ ${anfrageBand()}`;
 // ---------- Rechtliches (Gerüst, keine selbst geschriebenen Rechtstexte) ----------
 const RECHT = 'Rechtstext nicht erfinden: aus Generator (z. B. eRecht24) oder vom Anwalt einsetzen lassen';
 seite('impressum.html', {
-  titel: 'Impressum | Merys Clean', beschreibung: 'Impressum der Merys Clean UG (haftungsbeschränkt), Eislingen/Fils.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Rechtliches', h1: 'Impressum', lead: 'Angaben übernommen aus dem Impressum auf merysclean.de (Stand 01.10.2026).' })}
+  titel: 'Impressum | Merys Clean', beschreibung: 'Impressum der Merys Clean UG (haftungsbeschränkt), Eislingen/Fils.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Rechtliches', h1: 'Impressum', lead: 'Angaben übernommen aus dem Impressum auf merysclean.de (Stand 01.10.2026).', pfad: pfadZeile([['/', 'Start'], ['', 'Impressum']]) })}
 
 <section class="abschnitt abschnitt--eng">
   <div class="huelle text-spalte">
@@ -763,7 +768,7 @@ seite('impressum.html', {
 </section>` });
 
 seite('datenschutz.html', {
-  titel: 'Datenschutz | Merys Clean', beschreibung: 'Datenschutzerklärung der Website von Merys Clean, Eislingen/Fils.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Rechtliches', h1: 'Datenschutz', lead: 'Die Datenschutzerklärung wird vor dem Start aus einem Generator erstellt. Hier stehen die Punkte, die sie für diese Website abdecken muss.' })}
+  titel: 'Datenschutz | Merys Clean', beschreibung: 'Datenschutzerklärung der Website von Merys Clean, Eislingen/Fils.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Rechtliches', h1: 'Datenschutz', lead: 'Die Datenschutzerklärung wird vor dem Start aus einem Generator erstellt. Hier stehen die Punkte, die sie für diese Website abdecken muss.', pfad: pfadZeile([['/', 'Start'], ['', 'Datenschutz']]) })}
 
 <section class="abschnitt abschnitt--eng">
   <div class="huelle text-spalte">
@@ -797,7 +802,7 @@ seite('404.html', {
 </section>` });
 
 seite('nachricht-gesendet.html', {
-  titel: 'Anfrage gesendet | Merys Clean', beschreibung: 'Danke für Ihre Anfrage bei Merys Clean. Wir melden uns zu unseren Bürozeiten.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Danke', h1: 'Ihre Anfrage ist angekommen', lead: 'Vielen Dank. Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr) und vereinbaren mit Ihnen einen Termin für die kostenlose Besichtigung.', extra: `<p class="seitenkopf-lead">Eilt es? Rufen Sie an: <a href="${TEL_A}">${TEL}</a></p>` })}
+  titel: 'Anfrage gesendet | Merys Clean', beschreibung: 'Danke für Ihre Anfrage bei Merys Clean. Wir melden uns zu unseren Bürozeiten.', robots: 'noindex', inhalt: `${seitenKopf({ ueberText: 'Danke', h1: 'Ihre Anfrage ist angekommen', lead: 'Vielen Dank. Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr) und vereinbaren mit Ihnen einen Termin für die kostenlose Besichtigung.', extra: `<p class="seitenkopf-lead">Eilt es? Rufen Sie an: <a href="${TEL_A}">${TEL}</a></p>`, pfad: pfadZeile([['/', 'Start'], ['/angebot', 'Angebot anfragen'], ['', 'Gesendet']]) })}
 
 <section class="abschnitt abschnitt--eng">
   <div class="huelle">
