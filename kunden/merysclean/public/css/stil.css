@@ -297,7 +297,13 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
 }
 .wegweiser-liste .pfeil { transition: transform var(--tempo-kurz) var(--kurve-standard); }
 @media (min-width: 40rem) { .wegweiser-liste { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 64rem) { .wegweiser-liste { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 40rem) and (max-width: 63.99rem) { .wegweiser-liste > li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+/* Fünf Ziele: oben drei, unten zwei breite, damit kein Feld leer bleibt */
+@media (min-width: 64rem) {
+  .wegweiser-liste { grid-template-columns: repeat(6, 1fr); }
+  .wegweiser-liste > li { grid-column: span 2; }
+  .wegweiser-liste:has(> li:nth-child(5):last-child) > li:nth-child(n+4) { grid-column: span 3; }
+}
 
 /* ---------- Hero Startseite: das Team im Schwung, wie im Logo das Haus ---------- */
 .held { padding-block: clamp(1.5rem, 1rem + 2.5vw, 3.5rem) 0; overflow-x: clip; }
@@ -630,6 +636,10 @@ main { isolation: isolate; }
 .seitenkopf-bild img { border-radius: var(--radius-gross); }
 .seitenkopf-bild .patch { position: absolute; left: 1.25rem; bottom: -1.5rem; }
 .seitenkopf-fach { display: none; }
+/* Freigestelltes Team im schwarzen Bogen mit Naht, wie die Bühne der Startseite */
+.seitenkopf-bild--frei { overflow: hidden; padding: clamp(2.5rem, 2rem + 3vw, 4.5rem) 4% 0; background: radial-gradient(ellipse at 50% 85%, var(--farbe-schwarz-hoch), var(--farbe-schwarz) 70%); border-radius: 999px 999px var(--radius-gross) var(--radius-gross); }
+.seitenkopf-bild--frei::after { content: ""; position: absolute; inset: 8px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 60%, transparent); border-radius: 999px 999px calc(var(--radius-gross) - 8px) calc(var(--radius-gross) - 8px); pointer-events: none; }
+.seitenkopf-bild--frei img { border-radius: 0; }
 @media (min-width: 64rem) {
   .seitenkopf-fach {
     position: relative; display: grid; gap: 1.1rem; align-content: start; padding: 2.25rem; background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-radius: var(--radius-gross);
@@ -761,7 +771,7 @@ main { isolation: isolate; }
 }
 
 /* ---------- Kontakt ---------- */
-.kontakt-raster { display: grid; gap: 1.25rem; }
+.kontakt-raster { display: grid; gap: 1.25rem; align-items: start; }
 .kontakt-karte { padding: 1.75rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
 .kontakt-karte address { margin-top: .75rem; font-style: normal; font-size: 1.15rem; line-height: 1.55; }
 .kontakt-karte .textlink .ic { color: var(--farbe-text); }

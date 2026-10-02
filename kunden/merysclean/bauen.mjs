@@ -353,12 +353,13 @@ ${S.karte.gruppen.map((g) => `      <div class="gebiet-gruppe"><h3>${esc(g.titel
     </div>`;
 
 // ---------- Team ----------
-const portraet = (p, gross = false) => `<figure class="portraet${gross ? ' portraet--gross' : ''} einblenden">
+// Zitat erscheint erst, wenn der Kunde einen echten Satz liefert (inhalt/seite.json: zitat); bis dahin nur der Prüfhinweis
+const portraet = (p, gross = false) => `<figure class="portraet${gross ? ' portraet--gross' : ''} einblenden"${p.zitat ? '' : pr(p.zitat_pruefen)}>
         <div class="portraet-bild"${pr(p.bild.pruefen)}>${bild(p.bild, gross ? '(min-width: 64rem) 26rem, (min-width: 40rem) 45vw, 88vw' : '(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 88vw')}</div>
         <figcaption>
           <span class="portraet-name">${esc(p.name)}</span>
           <span class="portraet-rolle"${pr(p.rolle_pruefen)}>${esc(p.rolle)}</span>
-          <blockquote class="portraet-zitat" data-pruefen="${esc(p.zitat_pruefen)}"><p>„Hier steht bald ein persönlicher Satz von ${esc(p.name.split(' ')[0])}.“</p></blockquote>
+${p.zitat ? `          <blockquote class="portraet-zitat"><p>„${esc(p.zitat)}“</p></blockquote>\n` : ''}
         </figcaption>
       </figure>`;
 
@@ -391,7 +392,7 @@ cssBuendeln();
       <p class="held-lead">${esc(H.lead)}</p>
       ${zweiWege()}
       <ul class="held-zusagen">
-        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Reklamation binnen 24&nbsp;Stunden, Nachreinigung kostenlos</span></li>
+        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung kostenlos, bei Meldung binnen 24&nbsp;h</span></li>
         <li class="held-zusage">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></li>
       </ul>
     </div>
@@ -490,14 +491,14 @@ ${S.ablauf.slice(1, 4).map((a, i) => `        <li>${zeichen(ABLAUF_Z[i + 1], 'pa
       </ul>
     </aside>`;
 
-const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '', fach = '' }) => `<section class="seitenkopf${bildHtml || fach ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
+const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '', bildFrei = false, fach = '' }) => `<section class="seitenkopf${bildHtml || fach ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
     <div class="seitenkopf-text">
       ${ueber(ueberText)}
       <h1 id="titel">${h1}</h1>
       <p class="seitenkopf-lead">${lead}</p>
 ${extra ? `      ${extra}\n` : ''}    </div>
-${bildHtml ? `    <figure class="seitenkopf-bild"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
+${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--frei' : ''}"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
 </section>`;
 
 // ---------- Leistungen (Übersicht) ----------
@@ -607,7 +608,7 @@ ${anfrageBand()}`;
 
 // ---------- Über uns ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen })}
+  const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_frei, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_frei.pruefen, bildFrei: true })}
 
 <section class="abschnitt ueber-text" aria-labelledby="mehr-titel">
   <div class="huelle ueber-text-in einblenden">
@@ -691,7 +692,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
       </div>
       <div class="formular-senden">
         <button class="knopf gross" type="submit">Anfrage senden</button>
-        <p class="formular-antwort"${pr(F.antwort_pruefen)}>Wir melden uns zu unseren Bürozeiten (Mo–Fr 8–16 Uhr).</p>
+        <p class="formular-antwort"${pr(F.antwort_pruefen)}>Wir melden uns zu unseren Bürozeiten <span class="nw">(Mo–Fr 8–16 Uhr)</span>.</p>
       </div>
     </form>`;
   const inhalt = `${seitenKopf({ ueberText: 'Angebot anfragen', h1: 'Kostenloses Angebot anfragen', lead: 'Ein paar Angaben genügen. Wir rufen Sie zurück, vereinbaren einen Termin für die kostenlose Besichtigung und schicken Ihnen danach ein unverbindliches Angebot.', fach: fachAblauf() })}
@@ -723,7 +724,7 @@ export const LEISTUNG_OPTIONEN = [...LEI.map((l) => l.name), 'Weitere Leistung o
 
 // ---------- Kontakt ----------
 {
-  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege(), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen })}
+  const inhalt = `${seitenKopf({ ueberText: 'Kontakt', h1: 'Kontakt', lead: 'Rufen Sie uns an, schreiben Sie uns oder schicken Sie direkt eine Anfrage. Wir sind Montag bis Freitag von 8 bis 16 Uhr für Sie da.', extra: zweiWege(), bildHtml: bild(S.team_frei, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_frei.pruefen, bildFrei: true })}
 
 <section class="abschnitt abschnitt--eng kontakt" aria-labelledby="daten-titel">
   <div class="huelle kontakt-raster">
