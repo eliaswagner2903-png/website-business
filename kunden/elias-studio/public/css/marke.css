@@ -73,11 +73,16 @@
   --kino-leise: #bdbab1;
   --kino-akzent: #9fd9b8;
 
-  /* Farben der vier Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
+  /* Farben der fünf Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
   --werk-hell: #a4462a;
   --werk-laut: #ff4a1c;
   --werk-edel: #d4b37c;
   --werk-glut: #8cbf5f;
+  --werk-klarwerk: #5fba46;
+
+  /* Wegweiser-Zeichen: weiß mit Rand, in beiden Schemas gleich */
+  --zeichen-grund: #ffffff;
+  --zeichen-strich: #10281d;
 
   /* Konfigurator: Farbwelten und Stile der Vorschau */
   --muster-auf-akzent: #ffffff;

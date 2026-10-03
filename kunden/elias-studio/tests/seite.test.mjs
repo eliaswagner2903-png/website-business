@@ -52,7 +52,7 @@ test('Preise sind nicht erfunden: kein Euro-Betrag, nur „auf Anfrage“ mit Ma
   assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>Preis auf Anfrage`));
 });
 
-test('Arbeiten: vier Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {
+test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {
   for (const a of S.arbeiten) {
     assert.match(start, new RegExp(`id="arbeit-${a.id}"`), `${a.id}: fehlt`);
     for (const art of ['desktop', 'handy']) {
@@ -62,9 +62,10 @@ test('Arbeiten: vier Musterseiten (nur fiktive Marken), Vorschaubilder und Messw
         assert.ok(statSync(f).size < 120 * 1024, `${f} zu groß`);
       }
     }
-    assert.ok(a.werte.perf >= 95 && a.werte.kb > 0, `${a.id}: Messwerte fehlen`);
+    if (a.werte) assert.ok(a.werte.perf >= 95 && a.werte.kb > 0, `${a.id}: Messwerte fehlen`);
+    else assert.equal(a.id, 'klarwerk', `${a.id}: Messwerte fehlen (nur Klarwerk ist unvermessen)`);
   }
-  for (const n of ['hell', 'laut', 'edel', 'glut']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite[ ·<]`), `${n}: nicht als Musterseite benannt`);
+  for (const n of ['hell', 'laut', 'edel', 'glut', 'klarwerk']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite[ ·<]`), `${n}: nicht als Musterseite benannt`);
   // Nur fiktive Firmen: keine echten Namen, Orte oder Telefonnummern aus Kundenprojekten, weder im Text noch in Dateinamen
   const echt = /urfa|sofrasi|eislingen|\bOSG\b|ümit|uemit|hairstyle|mühlbach|7161/i;
   for (const [f, t] of seiten) assert.doesNotMatch(t, echt, `${f}: echter Firmenbezug`);
