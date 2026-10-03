@@ -292,7 +292,7 @@ html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfe
 @media (min-width: 30rem) { .formular .knopf { inline-size: auto; } }
 
 /* ---------- Fuß ---------- */
-.fuss { padding-block: clamp(3.5rem, 2rem + 4vw, 6rem) 8rem; border-top: 1px solid var(--farbe-linie); }
+.fuss { padding-block: clamp(3.5rem, 2rem + 4vw, 6rem) 8rem; border-top: 1px dashed var(--farbe-akzent); } /* Naht statt Haarlinie (Klarwerk-Erkenntnis) */
 .fuss-raster { display: grid; gap: 2.5rem; }
 .fuss-name { font: 400 2.4rem/1 var(--schrift-display); margin-block-end: .75rem; }
 .fuss-name > span[aria-hidden] { color: var(--farbe-akzent); }
@@ -437,6 +437,7 @@ html:not(.js) .nur-js { display: none !important; }
 .reiter--laut { --_werk: var(--werk-laut); }
 .reiter--edel { --_werk: var(--werk-edel); }
 .reiter--glut { --_werk: var(--werk-glut); }
+.reiter--klarwerk { --_werk: var(--werk-klarwerk); }
 .reiter-name { font: 400 clamp(1.5rem, 1.2rem + .9vw, 2rem)/1.05 var(--schrift-display); color: var(--farbe-text); }
 .reiter-branche { font-size: .9375rem; }
 .reiter[aria-selected="true"] { color: var(--farbe-text); }
@@ -563,7 +564,7 @@ html:not(.js) .nur-js { display: none !important; }
   content: ""; position: absolute; inset: -12% -8%; z-index: -1; pointer-events: none;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--_werk, var(--kino-akzent)) 38%, transparent), transparent 75%); opacity: .55;
 }
-.werk--hell { --_werk: var(--werk-hell); } .werk--laut { --_werk: var(--werk-laut); } .werk--edel { --_werk: var(--werk-edel); } .werk--glut { --_werk: var(--werk-glut); }
+.werk--hell { --_werk: var(--werk-hell); } .werk--laut { --_werk: var(--werk-laut); } .werk--edel { --_werk: var(--werk-edel); } .werk--glut { --_werk: var(--werk-glut); } .werk--klarwerk { --_werk: var(--werk-klarwerk); }
 .abschnitt--dunkel .werk-bild { isolation: isolate; }
 .abschnitt--dunkel .knopf.zweit { border-color: var(--kino-text); }
 @supports (animation-timeline: view()) {
@@ -808,3 +809,14 @@ p { max-width: 64ch; }
 /* ---------- Kino kürzer: die Kapitel brauchen nicht mehr als drei Viertel einer Bühne ---------- */
 .kapitel { min-block-size: calc(var(--_buehne) * .78); }
 .kapitel--start { min-block-size: calc(var(--_buehne) - 4.25rem); }
+
+/* ---------- Wegweiser (Unterseiten): weißes Zeichen im Rand, Nahtlinie; Erkenntnis aus der Klarwerk-Arbeit ---------- */
+.wegweiser { display: grid; gap: 1rem; padding-block-start: 2rem; border-top: 1px dashed var(--farbe-akzent); }
+.wegweiser-titel { font: 400 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.1 var(--schrift-display); }
+.wegweiser ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.wegweiser a { display: flex; align-items: center; gap: .9rem; min-height: 44px; padding: .8rem 1rem; color: var(--farbe-text); text-decoration: none; background: var(--farbe-flaeche); border: 1px dashed var(--farbe-leise); border-radius: calc(var(--radius-klein) * 2); transition: border-color var(--tempo-kurz) var(--kurve-standard); }
+.wegweiser-zeichen { display: grid; place-items: center; flex: none; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background: var(--zeichen-grund); color: var(--zeichen-strich); border: 1.5px solid var(--farbe-akzent); }
+.wegweiser-zeichen .ic { inline-size: 1.3rem; block-size: 1.3rem; }
+.wegweiser-text { display: grid; gap: .1rem; min-width: 0; }
+.wegweiser-text span { color: var(--farbe-leise); font-size: .9375rem; }
+.wegweiser a:hover, .wegweiser a:focus-visible { border-color: var(--farbe-akzent); }

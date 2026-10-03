@@ -125,6 +125,24 @@
         "kb": 241
       },
       "link": "https://claude.ai/artifact/8xVkoHDVM7bDgowvTWxdak"
+    },
+    {
+      "id": "klarwerk",
+      "nr": "05",
+      "name": "Klarwerk",
+      "branche": "Gebäudereinigung",
+      "art": "Musterseite",
+      "art_lang": "Musterseite, fiktive Firma",
+      "satz": "Die Nahtlinie und der Aufnäher der Arbeitskleidung ziehen sich als Zeichen durch die Seite.",
+      "punkte": [
+        "Leistungen als Liste, das passende Bild wischt beim Zeigen herein",
+        "Wege mit Aufnähern: Zeichen weiß auf Schwarz, mit gestrichelter Naht",
+        "Zwölf Seiten mit Leistungsseiten, Einsatzgebiet und Angebotsformular"
+      ],
+      "leitmotiv": "Naht und Aufnäher",
+      "alt_desktop": "Startseite von Klarwerk am Computer: Überschrift „Gebäudereinigung in Musterstadt und Göppingen“, daneben ein schwarz gerahmtes Bild mit fünf gesichtslosen Figuren als Team, darunter eine schwarze Leiste mit Zusagen.",
+      "alt_handy": "Startseite von Klarwerk auf dem Handy mit Überschrift, den Knöpfen „Kostenloses Angebot anfragen“ und „Anrufen“, der Leistungsliste und dem Ablauf auf schwarzem Grund.",
+      "link": "https://claude.ai/artifact/8TY9ZnGE7qzPHCXkGmGFKW"
     }
   ],
   "kino": [
@@ -187,7 +205,7 @@
   "hero": {
     "lead": "Schnelle Seiten ohne Tracking und Cookie-Banner – für Praxen, Werkstätten, Restaurants und Studios."
   },
-  "arbeiten_kopf": "Vier Musterseiten für vier Branchen. Jede hat ein eigenes Leitmotiv, wurde nachgemessen und läuft auf dem Handy flüssig.",
+  "arbeiten_kopf": "Fünf Musterseiten für fünf Branchen. Jede hat ein eigenes Leitmotiv. Vier wurden nachgemessen, die fünfte ist eine fiktive Vorschau-Fassung. Alle laufen auf dem Handy flüssig.",
   "ablauf": {
     "ueber": "Ablauf",
     "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
