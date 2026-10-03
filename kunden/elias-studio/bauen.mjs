@@ -19,6 +19,9 @@ const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
 const KOPF_SKRIPT = "(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)";
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
+  haus: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7v8.5h-5.5V14h-5v5.5H4z"/></svg>',
+  arbeiten: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h7v7H4zM13 5h7v4h-7zM13 11h7v8h-7zM4 14h7v5H4z"/></svg>',
+  schild: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.5 5 6v5.5c0 4.2 2.8 7.2 7 9 4.2-1.8 7-4.8 7-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>',
   post: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>',
 };
 
@@ -188,13 +191,18 @@ ${k.werte.map(([w, t]) => `          <div><dt>${esc(t)}</dt><dd>${esc(w)}</dd></
   </div>
 </section>`;
 
-// ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle vier untereinander) ----------
+// ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle fünf untereinander) ----------
 const WERTE = [['perf', 'Performance'], ['a11y', 'Barrierefreiheit'], ['bp', 'Best Practices'], ['seo', 'SEO']];
 const werk = (a) => {
   const link = a.link
     ? `<p class="werk-link"><a class="knopf" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} öffnen ${raus}</a></p>`
     : '';
   const w = a.werte;
+  const werte = w ? `
+      <p class="werk-werte-titel">Lighthouse mobil, gemessen</p>
+      <dl class="werk-werte">
+${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join('\n')}
+      </dl>` : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
       <div class="rahmen rahmen--desktop marken">
@@ -209,11 +217,7 @@ const werk = (a) => {
       <p class="werk-satz">${esc(a.satz)}</p>
       <ul class="werk-punkte">
 ${a.punkte.map((t) => `        <li>${esc(t)}</li>`).join('\n')}
-      </ul>
-      <p class="werk-werte-titel">Lighthouse mobil, gemessen</p>
-      <dl class="werk-werte">
-${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join('\n')}
-      </dl>
+      </ul>${werte}
       ${link}
     </div>
   </article>`;
@@ -223,7 +227,7 @@ const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelle
   <div class="huelle">
     <div class="kopfzeile">
       ${ueber('Arbeiten')}
-      <h2 id="t-arbeiten" class="einblenden">Vier Betriebe, vier <em>Welten</em>.</h2>
+      <h2 id="t-arbeiten" class="einblenden">Fünf Betriebe, fünf <em>Welten</em>.</h2>
       <p class="einblenden">${esc(S.arbeiten_kopf)}</p>
     </div>
     <div class="buehne">
@@ -365,7 +369,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
-  beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Vier Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant.',
+  beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Fünf Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant, Gebäudereinigung.',
   inhalt: [held, arbeiten, ablauf, konfig, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
@@ -373,8 +377,18 @@ seite('index.html', {
 // =====================================================================
 // Rechtliches: nur Platzhalter (nicht selbst formulieren)
 // =====================================================================
+// Wegweiser statt Brotkrumen (Erkenntnis aus Klarwerk/Merys-Clean-Arbeit, kunden/merysclean/DESIGN.md): am Ende jeder Unterseite
+// vier Ziele mit weißem Symbol im Rand und Nahtlinie.
+const WEGE = [['/', 'Startseite', 'Zurück zum Anfang', ICON.haus], ['/#arbeiten', 'Arbeiten', 'Fünf Musterseiten ansehen', ICON.arbeiten], ['/#betreuung', 'Betreuung', 'Seite und Betreuung', ICON.schild], ['/#kontakt', 'Kontakt', 'Projekt anfragen', ICON.post]];
+const wegweiser = `<nav class="wegweiser" aria-labelledby="t-wegweiser">
+    <h2 id="t-wegweiser" class="wegweiser-titel">Wohin als <em>Nächstes</em>?</h2>
+    <ul>
+${WEGE.map(([href, name, satz, ic]) => `      <li><a href="${href}"><span class="wegweiser-zeichen">${ic}</span><span class="wegweiser-text"><strong>${name}</strong><span>${satz}</span></span></a></li>`).join('\n')}
+    </ul>
+  </nav>`;
 const einfach = (inhalt) => `<div class="huelle einfach">
 ${inhalt}
+  ${wegweiser}
 </div>`;
 seite('impressum.html', {
   robots: 'noindex, follow',

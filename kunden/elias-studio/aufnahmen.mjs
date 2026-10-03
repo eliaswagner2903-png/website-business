@@ -10,7 +10,13 @@ import { playwright } from '../../werkzeuge/_playwright.mjs';
 const sharp = createRequire(new URL('../../werkzeuge/package.json', import.meta.url))('sharp');
 const WURZEL = fileURLToPath(new URL('../../', import.meta.url));
 const ZIEL = fileURLToPath(new URL('./public/medien/', import.meta.url));
-const QUELLEN = [['hell', 'showcase/hell/public'], ['laut', 'showcase/laut/public'], ['edel', 'showcase/edel/public'], ['urfa', 'kunden/urfa-sofrasi/public']];
+const ALLE = [['hell', 'showcase/hell/public'], ['laut', 'showcase/laut/public'], ['edel', 'showcase/edel/public'], ['urfa', 'kunden/urfa-sofrasi/public']];
+// Klarwerk (fiktive Fassung der Merys-Clean-Seite, nur fiktive Marke!): Ordner mit der umhüllten Vorschau-Datei als index.html,
+// gebaut nach kunden/merysclean/fiktiv/README.md. Aufruf: KLARWERK_ORDNER=/pfad node aufnahmen.mjs klarwerk
+if (process.env.KLARWERK_ORDNER) ALLE.push(['klarwerk', process.env.KLARWERK_ORDNER]);
+// Optional nur bestimmte Arbeiten aufnehmen: node aufnahmen.mjs klarwerk
+const NUR = process.argv.slice(2);
+const QUELLEN = NUR.length ? ALLE.filter(([id]) => NUR.includes(id)) : ALLE;
 // [Viewport, Pixeldichte, Höhe in CSS-Pixeln, Ausgabebreiten]
 const ARTEN = {
   desktop: [{ width: 1440, height: 900 }, 1, 3600, [800, 1440]],
