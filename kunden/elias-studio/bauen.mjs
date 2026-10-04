@@ -302,7 +302,7 @@ const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labe
         <ul class="bet-liste">
 ${(B.seite.enthalten || []).map((w) => `          <li>${esc(w)}</li>`).join('\n')}
         </ul>
-        <p class="preis"><span class="preis-wert"${pr(P.preis_website)}>Preis auf Anfrage</span></p>
+        <p class="preis"><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span></p>
       </section>
       <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
         <h3 id="b-abo">${esc(B.abo.titel)}</h3>
@@ -311,7 +311,7 @@ ${(B.seite.enthalten || []).map((w) => `          <li>${esc(w)}</li>`).join('\n'
 ${B.abo.wahl.map((w) => `          <li>${esc(w)}</li>`).join('\n')}
         </ul>
         <p class="bet-hinweis">${esc(B.abo.hinweis)}</p>
-        <p class="preis"><span class="preis-wert"${pr(P.preis_abo)}>Preis auf Anfrage</span></p>
+        <p class="preis"><span class="preis-wert"${pr(P.preis_abo)}>${esc(S.preis_abo_anzeige)}</span></p>
       </section>
     </div>
   </div>

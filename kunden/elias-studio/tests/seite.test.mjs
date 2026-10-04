@@ -46,11 +46,11 @@ test('Persönliche Angaben sind Platzhalter mit data-pruefen – nichts erfunden
   for (const f of ['impressum.html', 'datenschutz.html']) assert.match(alle[f], /class="platzhalter" data-pruefen="Rechtstext nicht erfinden/, `${f}: kein Platzhalter`);
 });
 
-test('Preise sind nicht erfunden: kein Euro-Betrag, nur „auf Anfrage“ mit Markierung', () => {
-  for (const [f, t] of seiten) assert.doesNotMatch(t, /\d\s*(?:&nbsp;)?(?:€|EUR|Euro)/, `${f}: Preis mit Betrag`);
-  const abo = [...start.matchAll(new RegExp(`${re(markiert(S.pruefen.preis_abo))}>[^<]*auf Anfrage`, 'g'))].length;
-  assert.equal(abo, 1, 'Abo-Preis: eine markierte Angabe (Grundbetreuung plus Wahlleistungen)');
-  assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>Preis auf Anfrage`));
+test('Preise: nur die von Elias gesetzten Beträge (1.490 €, 75 €), markiert', () => {
+  const erlaubt = /^(?:1\.490|75)$/;
+  for (const [f, t] of seiten) for (const [, n] of t.matchAll(/(\d[\d.]*)\s*(?:&nbsp;)?(?:€|EUR|Euro)/g)) assert.match(n, erlaubt, `${f}: nicht gesetzter Preis ${n}`);
+  assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_abo))}>ab 75`), 'Abo-Preis: markierte Angabe');
+  assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>ab 1\\.490`), 'Website-Preis: markierte Angabe');
 });
 
 test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {

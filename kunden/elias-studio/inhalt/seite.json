@@ -15,8 +15,8 @@
     "email": "E-Mail-Adresse von Elias eintragen",
     "foto": "Foto von Elias liefern (kein Stockfoto)",
     "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
-    "preis_website": "Preis für die Website festlegen (PAKETE.md nennt keinen Preis)",
-    "preis_abo": "Monatspreis festlegen: Grundbetreuung plus Wahlleistungen plus Serverkosten (wartung/PAKETE.md, Preise offen)",
+    "preis_website": "Preis ab 1.490 € von Elias am 04.10. gesetzt – vor Livegang bestätigen (Pilot-/Marktpreis, wissen/preismodell)",
+    "preis_abo": "Abo ab 75 €/Monat von Elias am 04.10. gesetzt – vor Livegang bestätigen (Grundbetreuung, Wahlleistungen und Serverkosten kommen dazu)",
     "link": "Vorschau-Link (privat, Claude-Artifact) – durch die echte Adresse ersetzen, sobald die Musterseite online ist",
     "formular": "Empfänger und Versand (Resend) einrichten, erst dann ist das Formular aktiv",
     "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
@@ -198,7 +198,7 @@
         "Neue Visuals",
         "Schnelle Antwort bei Störung"
       ],
-      "hinweis": "Die Betreuung ist freiwillig. Den Umfang bestimmen Sie nach Wunsch, den Preis besprechen wir im Gespräch."
+      "hinweis": "Die Betreuung ist freiwillig. Den Umfang bestimmen Sie nach Wunsch. Ab 75 € im Monat, gewählte Zusatzleistungen und Serverkosten kommen dazu."
     },
     "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
   },
@@ -238,7 +238,7 @@
       ],
       [
         "Was kostet eine Seite?",
-        "Den Preis nenne ich Ihnen persönlich nach dem ersten Gespräch. Er hängt vom Umfang Ihrer Seite ab."
+        "Eine Seite beginnt bei 1.490 €. Den genauen Preis nenne ich Ihnen nach dem ersten Gespräch, er hängt vom Umfang Ihrer Seite ab."
       ],
       [
         "Wie schnell ist die Seite?",
@@ -246,7 +246,7 @@
       ],
       [
         "Muss ich die Betreuung buchen?",
-        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist freiwillig. Was ich übernehme, richten wir nach Ihrem Wunsch aus; den Preis besprechen wir im Gespräch."
+        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist freiwillig. Was ich übernehme, richten wir nach Ihrem Wunsch aus. Die Betreuung beginnt bei 75 € im Monat, gewählte Zusatzleistungen und die Serverkosten kommen dazu."
       ],
       [
         "Was gehört zur Betreuung?",
@@ -319,5 +319,7 @@
       }
     ]
   },
-  "stile_kopf": "Drei Vorschläge mit Schrift, Farben und einer Musterseite als Beispiel. Tippen Sie an, was Ihnen gefällt – Ihre Auswahl reist mit Ihrer Anfrage und wird im Gespräch besprochen."
+  "stile_kopf": "Drei Vorschläge mit Schrift, Farben und einer Musterseite als Beispiel. Tippen Sie an, was Ihnen gefällt – Ihre Auswahl reist mit Ihrer Anfrage und wird im Gespräch besprochen.",
+  "preis_website_anzeige": "ab 1.490 €",
+  "preis_abo_anzeige": "ab 75 € pro Monat"
 }
