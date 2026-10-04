@@ -22,7 +22,8 @@
     "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
     "ablauf": "Ablauf aus dem Business-Plan abgeleitet – Elias prüft Schritte und Wortlaut",
     "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen",
-    "stile": "Stilvorschläge (Schrift, Farben, Zuordnung zu den Musterseiten) sind ein Entwurf – Elias bestätigt Auswahl und Wortlaut"
+    "stile": "Stilvorschläge (Schrift, Farben, Zuordnung zu den Musterseiten) sind ein Entwurf – Elias bestätigt Auswahl und Wortlaut",
+    "leistungen": "Leistungstexte aus Elias’ Wunsch (04.10.: neue Seiten, alte erneuern, SEO, GEO) und dem Qualitätssystem abgeleitet – Elias prüft Wortlaut und Umfang"
   },
   "messung": "Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
@@ -233,6 +234,10 @@
     "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
     "liste": [
       [
+        "Können Sie auch meine bestehende Seite erneuern?",
+        "Ja. Ich erneuere Gestaltung und Technik, übernehme Ihre guten Texte und Bilder und richte Weiterleitungen ein, damit alte Adressen weiter funktionieren. Danach optimiere ich die Seite für Suchmaschinen (SEO) und für KI-Suche (GEO)."
+      ],
+      [
         "Brauche ich einen Cookie-Banner?",
         "Nein. Die Seiten setzen keine Cookies, laden keine fremden Skripte und nutzen kein Tracking. Die Schriften liegen auf dem eigenen Server."
       ],
@@ -321,5 +326,34 @@
   },
   "stile_kopf": "Drei Vorschläge mit Schrift, Farben und einer Musterseite als Beispiel. Tippen Sie an, was Ihnen gefällt – Ihre Auswahl reist mit Ihrer Anfrage und wird im Gespräch besprochen.",
   "preis_website_anzeige": "ab 1.490 €",
-  "preis_abo_anzeige": "ab 75 € pro Monat"
+  "preis_abo_anzeige": "ab 75 € pro Monat",
+  "leistungen": {
+    "kopf": "Neue Seiten sind nur ein Teil. Ich erneuere auch bestehende Seiten und sorge dafür, dass Suchmaschinen und KI-Assistenten Ihre Seite gut verstehen.",
+    "karten": [
+      {
+        "titel": "Neue Seite",
+        "text": "Von Grund auf gestaltet für Ihren Betrieb, schnell auf dem Handy und ohne Tracking."
+      },
+      {
+        "titel": "Alte Seite erneuern",
+        "text": "Ihre bestehende Seite bekommt Gestaltung und Technik neu. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass keine alte Adresse ins Leere läuft."
+      },
+      {
+        "titel": "Suchmaschinen (SEO)",
+        "text": "Saubere Technik, klare Seitentitel, gute Struktur und Angaben zu Ihrem Ort (Local SEO), damit Google Ihre Seite richtig versteht. Eine bestimmte Platzierung kann niemand zusagen."
+      },
+      {
+        "titel": "KI-Suche (GEO)",
+        "text": "Inhalte so aufgebaut, dass Assistenten wie ChatGPT, Claude oder Perplexity sie lesen und nennen können: klare Antworten und strukturierte Daten. Ob eine KI Sie empfiehlt, entscheidet die KI."
+      },
+      {
+        "titel": "Tempo und Barrierefreiheit",
+        "text": "Gemessen mit Lighthouse auf dem Handy, Ziel mindestens 95 Punkte. Bedienbar per Tastatur und gut lesbar nach WCAG AA."
+      },
+      {
+        "titel": "Sicherheit und Datenschutz",
+        "text": "Keine Cookies und keine fremden Skripte, Schriften vom eigenen Server, gesicherte Formulare. Zahlungen laufen nur über Stripe."
+      }
+    ]
+  }
 }
