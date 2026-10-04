@@ -41,7 +41,7 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
 }
 
 // ---------- Navigation ----------
-const NAV = [['#arbeiten', 'Arbeiten'], ['#stile', 'Stile'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
+const NAV = [['#leistungen', 'Leistungen'], ['#arbeiten', 'Arbeiten'], ['#stile', 'Stile'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false }) {
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
@@ -287,6 +287,20 @@ ${K.stile.map(stilKarte).join('\n')}
   </div>
 </section>`;
 
+const L = S.leistungen;
+const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
+  <div class="huelle">
+    <div class="kopfzeile">
+      ${ueber('Leistungen')}
+      <h2 id="t-leistungen" class="einblenden">Mehr als eine <em>neue Seite</em>.</h2>
+      <p class="einblenden">${esc(L.kopf)}</p>
+    </div>
+    <ul class="leist-raster">
+${L.karten.map((k) => `      <li class="bet-karte einblenden"><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></li>`).join('\n')}
+    </ul>
+  </div>
+</section>`;
+
 const B = S.betreuung;
 const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
@@ -372,7 +386,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
   beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Fünf Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant, Gebäudereinigung.',
-  inhalt: [held, arbeiten, ablauf, konfig, betreuung, fragen, kontakt].join('\n\n'),
+  inhalt: [held, leistungen, arbeiten, ablauf, konfig, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
 
