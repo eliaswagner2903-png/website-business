@@ -12,6 +12,8 @@ const P = S.pruefen;
 const pr = (grund) => (grund ? ` data-pruefen="${esc(grund)}"` : '');
 const TEL = esc(S.telefon_anzeige).replace(/ /g, '&nbsp;');
 const TEL_A = `tel:${S.telefon_link}`;
+// Ohne Telefonnummer (Elias, 04.10.) entfallen alle Telefonzeilen
+const TELZ = (html, leer = '') => (S.telefon_link ? html : leer);
 const STUDIO = `<span class="platzhalter-wort"${pr(P.studio)}>${esc(S.studio)}</span>`;
 const pfeil = '<span class="pfeil" aria-hidden="true">→</span>';
 const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
@@ -89,7 +91,7 @@ ${nav}
       <div class="blatt-fuss">
         <p class="blatt-fuss-titel">Direkt erreichbar</p>
         <a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a>
-        <a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a>
+        ${TELZ(`<a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a>`, "")}
       </div>
     </nav>
   </div>
@@ -114,7 +116,7 @@ ${inhalt}
         <h2 class="fuss-titel">Kontakt</h2>
         <ul class="fuss-liste">
           <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
-          <li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
+          ${TELZ(`<li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
           <li><span${pr(P.ort)}>${esc(S.ort)}</span></li>
         </ul>
       </div>
@@ -142,7 +144,7 @@ ${inhalt}
 </body>
 </html>
 `;
-  writeFileSync(new URL(datei, OUT), html);
+  writeFileSync(new URL(datei, OUT), html.replace(/^[ \t]+\n/gm, "")); // leere Zeilen ohne Telefon entfernen
 }
 
 // =====================================================================
@@ -349,7 +351,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
       <p class="einblenden">${esc(S.kontakt.text)}</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
-        <li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>
+        ${TELZ(`<li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
         <li><span class="wege-art">Ort</span><span${pr(P.ort)}>${esc(S.ort)}</span></li>
       </ul>
     </div>
