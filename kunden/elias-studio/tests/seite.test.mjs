@@ -35,6 +35,7 @@ test('Genau eine H1 pro Seite, lang="de"', () => {
 test('Persönliche Angaben sind Platzhalter mit data-pruefen – nichts erfunden', () => {
   const P = S.pruefen;
   for (const k of ['studio', 'ort', 'telefon', 'email', 'preis_website', 'preis_abo', 'formular']) {
+    if (!P[k]) continue; // von Elias bestätigte Angabe (Ort, Telefon entfällt)
     assert.ok(start.includes(markiert(P[k])), `Startseite: ${k} nicht markiert`);
   }
   // jeder sichtbare tel:/mailto:-Link trägt die Markierung
@@ -67,9 +68,11 @@ test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Mess
   }
   for (const n of ['hell', 'laut', 'edel', 'glut', 'klarwerk']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite[ ·<]`), `${n}: nicht als Musterseite benannt`);
   // Nur fiktive Firmen: keine echten Namen, Orte oder Telefonnummern aus Kundenprojekten, weder im Text noch in Dateinamen
-  const echt = /urfa|sofrasi|eislingen|\bOSG\b|ümit|uemit|hairstyle|mühlbach|7161/i;
+  const echt = /urfa|sofrasi|\bOSG\b|ümit|uemit|hairstyle|mühlbach|7161/i;
   for (const [f, t] of seiten) assert.doesNotMatch(t, echt, `${f}: echter Firmenbezug`);
   assert.doesNotMatch(JSON.stringify(S), echt, 'seite.json: echter Firmenbezug');
+  // Eislingen ist Elias’ eigener Ort (04.10.), darf aber nie in den Texten der Arbeiten stehen
+  assert.doesNotMatch(JSON.stringify(S.arbeiten), /eislingen/i, 'Eislingen in den Arbeiten');
   assert.deepEqual(readdirSync(join(PUB, 'medien')).filter((f) => echt.test(f)), [], 'echter Firmenname in Dateinamen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
   // Erster Bildschirm ist der helle Hero mit dem Lotlinie-Gerätepaar: dessen Bilder nie lazy (LCP ist die Überschrift, die Bilder dürfen ihr keine Bandbreite nehmen).
