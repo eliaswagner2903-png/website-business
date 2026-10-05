@@ -1,0 +1,37 @@
+{
+  "quelle": "https://www.space-rocket-berlin.de/ (HTML, custom.261005184600.css, Inline-Styles), abgerufen 2026-10-05, statisch per curl; keine Browser-Messung",
+  "baukasten": "site-media.eu 'webcard' (app.min.css, custom.<datum>.css, app.bundle.js)",
+  "farben": {
+    "primaer-blau": "#0471ec (rgb 4,113,236)",
+    "text-dunkelblau": "#293247 (rgb 41,50,71)",
+    "sekundaer-grau": "#3a3c3b",
+    "flaeche-hell": "#f9f9f9",
+    "flaeche-warm": "#fbf9f6",
+    "flaeche-kuehl": "#f2f4f7",
+    "user-blau-2": "#1773c2",
+    "gruen-erfolg": "#30b85e / #28a745",
+    "dunkelgruen-akzent": "#24332c",
+    "gelb-sterne": "#f8b400",
+    "ampel-fenster": ["#ff5f57", "#febc2e", "#28c840"],
+    "baukasten-default-orange": "#f58220 (Webcard-Default, keine Marke)"
+  },
+  "schrift": {
+    "familie": "Encode Sans Semi Condensed (300, 400, 600), self-hosted woff2, font-display: swap",
+    "fallback": "Helvetica, sans-serif"
+  },
+  "radien": ["55px (Buttons, Pille)", "30px (Buttons klein)", "20px (Karten)", "12px", "9px", "50% (Punkte)"],
+  "schatten": {
+    "button": "rgba(0,0,0,.2) 2px 2px 4px 0",
+    "karte-ruhig": "0 0 0 .5px rgba(41,50,71,.08), 0 1px 2px rgba(20,34,70,.05), 0 22px 40px -22px rgba(20,34,70,.32)",
+    "karte-hoch": "0 0 0 .5px rgba(41,50,71,.1), 0 2px 6px rgba(20,34,70,.06), 0 14px 30px -12px rgba(20,34,70,.38)"
+  },
+  "bewegung": {
+    "easings": ["cubic-bezier(.32,.72,0,1)", "cubic-bezier(.16,1,.3,1)", "cubic-bezier(.34,1.42,.64,1) (leichtes Überschwingen)", "cubic-bezier(.25,.1,.25,1)"],
+    "hover": "background-color/color/transform .2s sanft",
+    "keyframes-baukasten": ["fadeIn", "slideDown", "slideUp", "zoomIn", "zoominout", "marquee-animation", "move_horizontal", "move_vertical", "scale-up", "scale-down", "blink", "arrow"],
+    "keyframes-eigen": ["srb-sf-pop", "srb-sf-puls", "srb-sf-ring", "srb-sf-haken", "srb-sf-toast", "srb-sf-zeiger", "srb-sf-hell", "srb-sf-gruen", "srb-sf-da", "srb-sf-aus", "srb-ref-ein", "srb-ref-aus", "srb-rk-blick", "srb-rk-tiefe"],
+    "reduced-motion": "transition:none !important kommt vor (Handhabung vorhanden)"
+  },
+  "abstand": { "spacer": "80px", "container": "nicht gemessen (kein Browser)" },
+  "weitere-variablen": { "--color-primary": "4,113,236", "--color-default": "41,50,71", "--color-background": "255,255,255", "--color-user-1": "249,249,249", "--color-user-2": "23,115,194" }
+}
