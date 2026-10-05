@@ -39,3 +39,9 @@ Order = priority. Ticked off here and in the order log.
 
 - [x] URFA SOFRASI: logo decided, the original skyline stays → order A-002
 - [ ] Bruder C (Hairstyle by Ümit): answer "implement 3?" → order A-004
+
+## Geschäfts-E-Mail (05.10., A-088)
+Ich habe keinen Zugang zu einem Postfach-Anbieter und kann selbst kein Postfach anlegen. Zu tun für Elias:
+1. Domain festlegen und registrieren (dann `hallo@<domain>`).
+2. Postfach wählen: Weiterleitung per Cloudflare Email Routing (kostenlos, an die private Adresse) oder ein Postfach beim Anbieter (z. B. Proton, Zoho, IONOS).
+3. Zugang zum Postfach hat nur Elias; für das Kontaktformular braucht es nur die Zieladresse und den Resend-Schlüssel als Cloudflare-Secret (nie im Repo).
