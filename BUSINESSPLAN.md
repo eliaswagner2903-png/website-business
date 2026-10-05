@@ -222,7 +222,7 @@ Folgerungen:
 ## 13. Entscheidungen, die bei Elias liegen
 
 > **Neu 30.09. (A-056, `vertrieb/ERSTKUNDE.md`):** Für den ersten zahlenden Kunden zählen nur vier davon, gebündelt als
-> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € einmalig, dazu optional Abo mit Wahlleistungen; Stand 05.10.: **regulär ab 75 €/Monat, Gründungskunden 49 €/Monat für die ersten 3 Kunden, 12 Monate**; Mietmodell verworfen), E3 URFA persönlich ansprechen (= Nr. 8),
+> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € einmalig, dazu optional Abo mit Wahlleistungen; Stand 05.10.: **Betreuung ab 75 €/Monat für alle, auch Merys Clean und URFA (Elias, 05.10.), 12 Monate**; Mietmodell verworfen), E3 URFA persönlich ansprechen (= Nr. 8),
 > E4 Kontakt und Name auf der Mappe (= Nr. 5). Die übrigen können bis nach dem ersten Kunden warten.
 
 1. **Preisformel:** A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?
