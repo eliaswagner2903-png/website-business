@@ -457,69 +457,6 @@ html:not(.js) .nur-js { display: none !important; }
 .werk-link--offen { font-size: .9375rem; color: var(--farbe-leise); }
 
 
-/* ---------- Stilvorschläge: drei Karten mit Schriftprobe, Farbflecken und Musterseite ----------
-   Ohne JS sind alle Felder echte Radios (am Kontaktformular). Handy: eine Spalte, Beispielbild über der Textspalte. */
-.stil-raster { display: grid; gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
-.stil-karte { display: grid; gap: 1.25rem; align-content: start; min-width: 0; padding: clamp(1rem, .8rem + 1vw, 1.5rem); }
-.stil-karte:has(.wahl--stil input:checked) { border-color: var(--farbe-akzent); box-shadow: 0 0 0 1px var(--farbe-akzent), 0 1.5rem 3rem -2rem var(--farbe-akzent); }
-@media (min-width: 40rem) and (max-width: 63.99rem) {
-  .stil-karte { grid-template-columns: minmax(0, 1fr) minmax(0, 14rem); grid-template-areas: "stil bild" "farben bild"; align-items: start; }
-  .stil-karte .wahl--stil { grid-area: stil; }
-  .stil-farben { grid-area: farben; }
-  .stil-beispiel { grid-area: bild; }
-}
-@media (min-width: 64rem) { .stil-raster { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
-
-.wahl {
-  position: relative; display: grid; gap: .3rem; align-content: start; min-height: 52px; padding: .85rem 1rem; min-width: 0;
-  background: color-mix(in srgb, var(--farbe-akzent) 5%, var(--farbe-grund)); border: 1px solid color-mix(in srgb, var(--farbe-akzent) 18%, var(--farbe-linie));
-  border-radius: calc(var(--radius-klein) * 2); cursor: pointer;
-  transition: border-color var(--tempo-kurz) var(--kurve-standard), box-shadow var(--tempo-kurz) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard);
-}
-.wahl input { position: absolute; inset: 0; margin: 0; appearance: none; background: none; border: 0; border-radius: inherit; cursor: pointer; }
-.wahl input:focus-visible { outline: 0; }
-.wahl:has(input:focus-visible) { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; }
-.wahl:has(input:checked) {
-  background: color-mix(in srgb, var(--farbe-akzent) 15%, var(--farbe-flaeche));
-  border-color: var(--farbe-akzent); box-shadow: 0 0 0 1px var(--farbe-akzent);
-}
-@media (hover: hover) and (pointer: fine) { .wahl:hover { border-color: var(--farbe-akzent); } }
-.wahl-titel { font-weight: 550; line-height: 1.3; }
-.wahl-text { font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }
-.wahl--farbe { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: .75rem; align-content: center; }
-.wahl-reihe { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr)); }
-.schriftprobe { font: 400 2.6rem/1 var(--schrift-display); letter-spacing: -.01em; margin-block-end: .3rem; }
-.schriftprobe--laut { font: 800 2.6rem/1 var(--schrift-text); letter-spacing: -.045em; }
-.schriftprobe--edel { font-size: 2.1rem; letter-spacing: .08em; }
-.farbfleck { inline-size: 1.6rem; block-size: 1.6rem; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-text) 20%, transparent); }
-.farbfleck--terrakotta { background: var(--muster-terrakotta); }
-.farbfleck--kobalt { background: var(--muster-kobalt); }
-.farbfleck--salbei { background: var(--muster-salbei); }
-.farbfleck--messing { background: var(--muster-messing); }
-.wahl--farbe:has(input:checked) .farbfleck { box-shadow: 0 0 0 2px var(--farbe-grund), 0 0 0 4px var(--farbe-text); }
-
-.stil-farben { min-width: 0; margin: 0; padding: 0; border: 0; }
-.stil-farben legend { padding: 0; margin-block-end: .6rem; font: 500 .78rem/1.4 var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise); }
-.stil-beispiel { display: grid; gap: .9rem; align-content: start; margin: 0; min-width: 0; }
-.stil-bild {
-  inline-size: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: calc(var(--radius-klein) * 2);
-  border: 1px solid color-mix(in srgb, var(--farbe-akzent) 24%, var(--farbe-linie)); background: var(--farbe-grund);
-}
-.stil-bild picture, .stil-bild img { display: block; inline-size: 100%; block-size: 100%; }
-.stil-bild img { object-fit: cover; object-position: top center; }
-.stil-beispiel figcaption { display: grid; gap: .75rem; justify-items: start; }
-.stil-beispiel-art { font-size: .9375rem; color: var(--farbe-leise); }
-
-.konfig-fuss {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem;
-  margin-block-start: 1.5rem; padding-block-start: 1.5rem; border-top: 1px solid var(--farbe-text);
-}
-.konfig-zusammen { flex: 1 1 100%; font-size: 1.0625rem; }
-.konfig-zusammen:empty { display: none; }
-.konfig-zusammen strong { font-weight: 550; }
-.kontakt-auswahl { padding: .9rem 1rem; border-left: 2px solid var(--farbe-akzent); background: var(--farbe-grund); font-size: .9375rem; }
-.kontakt-auswahl:empty { display: none; }
-
 /* ---------- Ablauf: Linie zeichnet sich beim Hineinscrollen (nur mit Scroll-Timeline, sonst steht sie) ---------- */
 @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -664,20 +601,19 @@ p { max-width: 64ch; }
   background: radial-gradient(46rem 24rem at var(--_gx, 88%) 0, color-mix(in srgb, var(--farbe-akzent) 11%, transparent), transparent 72%);
 }
 .arbeiten { --_gx: 12%; }
-.konfig, .fragen {
+.fragen {
   background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--farbe-flaeche) 62%, transparent) 14%, color-mix(in srgb, var(--farbe-flaeche) 62%, transparent) 86%, transparent);
 }
 .fragen { --_gx: 8%; }
 .kontakt { --_gx: 92%; }
 
 /* ---------- Boxen: eine Sprache – grünlich getönte Fläche, Haarkante, Licht von oben ---------- */
-.bet-karte, .kontakt-form, .frage, .ablauf .schritt, .werk-werte, .stil-karte {
+.bet-karte, .kontakt-form, .frage, .ablauf .schritt, .werk-werte {
   --_kr: calc(var(--radius-klein) * 3);
   background: linear-gradient(155deg, color-mix(in srgb, var(--farbe-akzent) 11%, var(--farbe-flaeche)) 0, var(--farbe-flaeche) 64%);
   border: 1px solid color-mix(in srgb, var(--farbe-akzent) 24%, var(--farbe-linie)); border-radius: var(--_kr);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--farbe-text) 7%, transparent), 0 2.25rem 3.5rem -2.75rem color-mix(in srgb, black 75%, transparent);
 }
-.kontakt-auswahl { border-radius: 0 calc(var(--radius-klein) * 2) calc(var(--radius-klein) * 2) 0; background: color-mix(in srgb, var(--farbe-akzent) 9%, var(--farbe-grund)); }
 .kontakt-form { padding: clamp(1.5rem, 1rem + 2.4vw, 3rem); }
 .formular input, .formular textarea {
   background: color-mix(in srgb, var(--farbe-grund) 78%, transparent); border-color: color-mix(in srgb, var(--farbe-akzent) 30%, var(--farbe-linie)); border-radius: calc(var(--radius-klein) * 2);

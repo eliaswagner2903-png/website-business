@@ -41,7 +41,7 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
 }
 
 // ---------- Navigation ----------
-const NAV = [['#leistungen', 'Leistungen'], ['#arbeiten', 'Arbeiten'], ['#stile', 'Stile'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
+const NAV = [['#leistungen', 'Leistungen'], ['#arbeiten', 'Arbeiten'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false }) {
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
@@ -124,7 +124,6 @@ ${inhalt}
         <h2 class="fuss-titel">Seite</h2>
         <ul class="fuss-liste">
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
-          <li><a href="${h('#stile')}">Stile</a></li>
           <li><a href="${h('#betreuung')}">Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
         </ul>
@@ -243,50 +242,6 @@ ${A.map(werk).join('\n')}
   </div>
 </section>`;
 
-// ---------- Stilvorschläge: drei Stile mit Schrift, Farben und Musterseite; Auswahl (Stil, Farbe) reist mit dem Kontaktformular ----------
-// Der Kunde baut sich nichts zusammen, er klickt höchstens einen Vorschlag an. Die Felder hängen per form="kontaktformular"
-// am Formular unten und funktionieren ohne JS; js/seite.js zeigt nur die Zusammenfassung und hält Stil und Farbe zusammen.
-// Jeder Stil gehört zur Musterseite mit gleicher id (arbeiten[].id): Bild, Name und Link kommen von dort.
-const K = S.stile;
-const STILE_FARBEN = Object.fromEntries(K.farben.map((f) => [f.id, f.name]));
-const stilKarte = (s) => {
-  const a = A.find((x) => x.id === s.id);
-  const bild = (typ) => [320, 600].map((b) => `/medien/arbeit-${a.id}-handy-lang-${b}.${typ} ${b}w`).join(', ');
-  const sizes = '(min-width: 64rem) 28vw, (min-width: 40rem) 40vw, 90vw';
-  return `      <li class="stil-karte stil-karte--${s.id}">
-        <label class="wahl wahl--stil"><input type="radio" id="k-stil-${s.id}" name="stil" value="${s.id}" form="kontaktformular"><span class="schriftprobe schriftprobe--${s.id}" aria-hidden="true">${esc(s.probe)}</span><span class="wahl-titel">${esc(s.name)}</span><span class="wahl-text">${esc(s.text)}</span><span class="wahl-text">Schrift: ${esc(s.schrift)}</span></label>
-        <fieldset class="stil-farben">
-          <legend>Farbvorschläge für ${esc(s.name)}</legend>
-          <div class="wahl-reihe wahl-reihe--farbe">
-${s.farben.map((f) => `            <label class="wahl wahl--farbe"><input type="radio" id="k-farbe-${s.id}-${f}" name="farbe" value="${f}" form="kontaktformular"><span class="farbfleck farbfleck--${f}" aria-hidden="true"></span><span class="wahl-titel">${esc(STILE_FARBEN[f])}</span></label>`).join('\n')}
-          </div>
-        </fieldset>
-        <figure class="stil-beispiel">
-          <div class="stil-bild"><picture><source type="image/avif" srcset="${bild('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-handy-lang-320.webp" srcset="${bild('webp')}" sizes="${sizes}" width="320" height="${LANG.handy.h(320)}" alt="${esc(a.alt_handy)}" loading="lazy" decoding="async"></picture></div>
-          <figcaption>
-            <span class="stil-beispiel-art">Beispiel: ${esc(a.art)} ${esc(a.name)}, ${esc(a.branche)}</span>
-            <a class="knopf zweit" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} ansehen ${raus}</a>
-          </figcaption>
-        </figure>
-      </li>`;
-};
-const konfig = `<section class="abschnitt konfig" id="stile" aria-labelledby="t-stile">
-  <div class="huelle">
-    <div class="kopfzeile">
-      ${ueber('Stile')}
-      <h2 id="t-stile" class="einblenden">Drei Stile, <em>drei Vorschläge</em>.</h2>
-      <p class="einblenden">${esc(S.stile_kopf)}</p>
-    </div>
-    <ul class="stil-raster"${pr(P.stile)}>
-${K.stile.map(stilKarte).join('\n')}
-    </ul>
-    <div class="konfig-fuss">
-      <p class="konfig-zusammen nur-js" aria-live="polite"></p>
-      <a class="knopf" href="#kontakt">Mit diesem Vorschlag anfragen ${pfeil}</a>
-    </div>
-  </div>
-</section>`;
-
 const L = S.leistungen;
 const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
   <div class="huelle">
@@ -375,7 +330,6 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
         <label>E-Mail <input id="k-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
         <label>Worum geht es? <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
         <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
-        <p class="kontakt-auswahl nur-js" aria-live="polite"></p>
         <p class="hinweis">Ich verwende Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
         <p><button class="knopf" type="submit">Nachricht senden ${pfeil}</button></p>
       </form>
@@ -386,7 +340,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
   beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Fünf Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant, Gebäudereinigung.',
-  inhalt: [held, leistungen, arbeiten, ablauf, konfig, betreuung, fragen, kontakt].join('\n\n'),
+  inhalt: [held, leistungen, arbeiten, ablauf, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
 

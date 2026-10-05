@@ -106,39 +106,17 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   assert.match(marke, /\[data-schema="licht"\]/, 'zweites Schema fehlt (P4)');
 });
 
-test('Stilvorschläge: Stil und Farbe am Formular, Werte wie in der Function erlaubt, je Stil Schriftprobe, Farben und Musterseite', async () => {
-  const { konfigAuswahl, STILE } = await import('../functions/api/kontakt.js');
-  const K = S.stile;
-  // Wertebereich der Function = Inhalt der Seite (nur Stil und Farbe)
-  assert.deepEqual(Object.keys(STILE), ['stil', 'farbe']);
-  assert.deepEqual(K.stile.map((s) => s.id), STILE.stil);
-  assert.deepEqual(K.farben.map((f) => f.id), STILE.farbe);
-  assert.match(start, /<section class="abschnitt konfig" id="stile" aria-labelledby="t-stile">/);
-  for (const s of K.stile) {
-    const karte = start.match(new RegExp(`<li class="stil-karte stil-karte--${s.id}">[\\s\\S]*?</li>`))?.[0];
-    assert.ok(karte, `${s.id}: Karte fehlt`);
-    assert.match(karte, new RegExp(`<input type="radio" id="k-stil-${s.id}" name="stil" value="${s.id}" form="kontaktformular">`), `${s.id}: Stil-Radio`);
-    assert.match(karte, new RegExp(`schriftprobe--${s.id}`), `${s.id}: Schriftprobe fehlt`);
-    assert.ok(s.farben.length >= 3 && s.farben.length <= 4, `${s.id}: 3 bis 4 Farbvorschläge`);
-    for (const f of s.farben) {
-      assert.match(karte, new RegExp(`<input type="radio" id="k-farbe-${s.id}-${f}" name="farbe" value="${f}" form="kontaktformular">`), `${s.id}/${f} fehlt`);
-      assert.ok(STILE.farbe.includes(f), `${f}: von der Function nicht erlaubt`);
-    }
-    // Musterseite: gleiche id wie bei den Arbeiten, Name, Link (markiert) und vorhandenes Bild
-    const a = S.arbeiten.find((x) => x.id === s.id);
-    assert.ok(a, `${s.id}: keine Musterseite`);
-    assert.ok(karte.includes(a.name) && karte.includes('Musterseite'), `${s.id}: Musterseite nicht benannt`);
-    assert.match(karte, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" ${re(markiert(S.pruefen.link))}`), `${s.id}: Link fehlt`);
-    assert.match(karte, new RegExp(`/medien/arbeit-${s.id}-handy-lang-320\\.webp`));
-    assert.match(karte, /width="320" height="\d+" alt="[^"]+" loading="lazy"/, `${s.id}: Bild ohne Maße oder Alt`);
-  }
-  for (const f of K.farben) assert.match(readFileSync(join(PUB, 'css/stil.css'), 'utf8'), new RegExp(`\\.farbfleck--${f.id}\\b`), `Farbfleck ${f.id} ohne CSS`);
-  // Die Function nimmt nur Stil und Farbe, alles andere fällt still weg
-  const fd = new FormData(); fd.append('stil', 'laut'); fd.append('farbe', 'kobalt');
-  assert.deepEqual(konfigAuswahl(fd), { Stil: 'Modern', Farbe: 'Kobalt' });
-  const boese = new FormData();
-  for (const [k, v] of [['stil', '<script>'], ['farbe', 'toString'], ['bausteine[]', 'galerie'], ['stufe_sicherheit', '3'], ['branche', 'praxis']]) boese.append(k, v);
-  assert.deepEqual(konfigAuswahl(boese), {});
+test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {
+  assert.doesNotMatch(start, /id="stile"|href="#stile"|class="[^"]*(konfig|stil-karte|stil-raster)|name="(stil|farbe)"|kontakt-auswahl/);
+  assert.equal(S.stile, undefined);
+  assert.equal(S.stile_kopf, undefined);
+  assert.equal(S.pruefen.stile, undefined);
+  const mod = await import('../functions/api/kontakt.js');
+  assert.equal(mod.konfigAuswahl, undefined);
+  assert.equal(mod.STILE, undefined);
+  assert.doesNotMatch(readFileSync(join(PUB, 'js/seite.js'), 'utf8'), /\.konfig|stil-karte|kontakt-auswahl/);
+  assert.doesNotMatch(readFileSync(join(PUB, 'css/stil.css'), 'utf8'), /\.(stil-|konfig|farbfleck|schriftprobe|wahl|kontakt-auswahl)/);
+  for (const n of ['name', 'email', 'nachricht', 'firma_url']) assert.match(start, new RegExp(`<form class="formular" id="kontaktformular"[\\s\\S]*name="${n}"`));
 });
 
 test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
@@ -149,8 +127,6 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
   }
   assert.doesNotMatch(readFileSync(join(PUB, 'js/seite.js'), 'utf8'), /generator|regler|branche|bausteine\[/i);
   assert.doesNotMatch(readFileSync(join(PUB, 'css/stil.css'), 'utf8'), /\.generator|\.regler|\.vorschau-|\.einstufung|\.gen-|stufen-liste/);
-  // Navigation und Fuß nennen „Stile“
-  assert.match(start, /<li><a href="#stile">Stile<\/a><\/li>/);
   assert.doesNotMatch(start, /href="#konfigurator"/);
 });
 
