@@ -1,6 +1,6 @@
 # Business-Plan OQ
 
-> Stand **2026-09-30**, Auftrag A-055 (fortgeschrieben aus A-043/A-044 vom 2026-09-29). Neu seit gestern: Qualitätssystem (A-051),
+> Stand **2026-10-05**, Auftrag A-086 (fortgeschrieben aus A-055 vom 2026-09-30). Neu seit 30.09.: Pilotpreis 1.490 € mit Abo (Mietmodell verworfen), Name OQ und Ort Eislingen entschieden (A-082), Merys Clean als erste echte Kundenseite gebaut (A-073–A-078), eigene OQ-Seite neu mit Angaben und Preisen (A-081–A-084). Frühere Ergänzung 30.09.: Qualitätssystem (A-051),
 > Belastungsprobe OSG-Neubau mit Jury (A-053/A-054), überarbeitete OQ-Seite (A-047–A-050). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
 > `ops/dokumentation/STAND-2026-09-30.pdf`.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
@@ -18,7 +18,7 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Kennzahl | Stand |
 |---|---|
 | Aufbauzeit gesamt | rund 5 Tage (25.09. abends bis 30.09.), 16 Arbeitssitzungen, 224 Commits in 5 Repos, 39 PRs im Business-Repo |
-| Gebaute Seiten | 11: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio, OSG-Neubau (8 Seiten, als fiktive Fassung NORVAK vorzeigbar) |
+| Gebaute Seiten | Stand 05.10.: dazu Merys Clean (echte Kundenseite, 16 Seiten, nicht öffentlich verlinkt, fiktive Fassung Klarwerk vorzeigbar) und die neu gebaute OQ-Seite; Stand 30.09.: 11: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio, OSG-Neubau (8 Seiten, als fiktive Fassung NORVAK vorzeigbar) |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
 | Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
@@ -26,7 +26,7 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Qualitätssystem | 125 Regeln in 11 Fachgebieten plus globalem Mindeststandard, 90 Primärquellen mit Prüfdatum; jeder Auftrag läuft Auftrag → Pflichtenheft → Bau → Abnahme |
 | Größte Probe | OSG-Neubau (Industrie, 8 Seiten) in rund 10 Stunden, fremde Jury in 5 Runden: 63,75 → 75,75 von 100 (Ziel 75) |
 | Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf; Spanne mit Platzhaltern von rund 2.000 € (Musterseite) bis rund 4.800 € (OSG) |
-| Higgsfield | 40,25 Credits verbraucht (Visualtest 7,50, Portfolio-Film 7,75, OSG 25,00), 29,5 übrig |
+| Higgsfield | 46,25 Credits verbraucht, 23,5 übrig *(errechnet: Stand 30.09. 40,25 + 6 für Merys Clean, A-076; am Konto nicht neu geprüft)* |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
 
 Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
@@ -213,23 +213,23 @@ Folgerungen:
 | Phase | Inhalt | Stand |
 |---|---|---|
 | **1 Können** | Maßstab, Baukasten, Showcases, Visuals, Fremdprüfung, Generalprobe, Portfolio; am 30.09. ergänzt um Qualitätssystem und Belastungsprobe OSG | ✅ erledigt |
-| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; 0 von 10 Entscheidungen gefallen) |
-| **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | teilweise vorgezogen: Gestaltung und Generator stehen, echte Angaben fehlen |
+| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; Name OQ und Ort entschieden, Pilotpreis 1.490 € gesetzt, Rest offen) |
+| **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | weitgehend gebaut (A-081–A-084, Name, Ort, Preise „Seite ab 1.490 €“, „Abo ab 75 €/Monat“); Angaben vor Livegang bestätigen |
 | **4 Konten und Amt** | Steuerberater, Gewerbe, ELSTER, Konto, Versicherung, Verträge; Cloudflare, Stripe, Domain (`ops/HAENDE.md`) | vor dem ersten zahlenden Kunden |
-| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
+| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | Merys Clean ist die erste echte Kundenseite (Mappe `vertrieb/merysclean/`, Preis trägt Elias ein); URFA weiter offen. Vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
 | **6 Wachsen** | Profit-Chain aktiv, Saisonpakete, Abo-Stamm aufbauen; dann Claude-Schablonen als zweites Standbein | – |
 
 ## 13. Entscheidungen, die bei Elias liegen
 
 > **Neu 30.09. (A-056, `vertrieb/ERSTKUNDE.md`):** Für den ersten zahlenden Kunden zählen nur vier davon, gebündelt als
-> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € einmalig, dazu optional Abo ab 49 €/Monat mit Wahlleistungen), E3 URFA persönlich ansprechen (= Nr. 8),
+> E1 Gewerbe + ELSTER jetzt starten, E2 Pilotpreis (1.490 € einmalig, dazu optional Abo mit Wahlleistungen; Stand 05.10.: **Betreuung ab 75 €/Monat für alle, auch Merys Clean und URFA (Elias, 05.10.), 12 Monate**; Mietmodell verworfen), E3 URFA persönlich ansprechen (= Nr. 8),
 > E4 Kontakt und Name auf der Mappe (= Nr. 5). Die übrigen können bis nach dem ersten Kunden warten.
 
 1. **Preisformel:** A als Hauptformel, B als Gegenprobe, C als Untergrenze – einverstanden?
 2. **Euro-Werte** (Punktwert, Stundensatz, Paketpreise): als eigener Auftrag mit Marktvergleich festlegen?
 3. **Bewertungsrabatt:** in Referenzfreigabe umwandeln oder rechtlich prüfen lassen?
 4. **Zielgruppe:** lokale Betriebe wie oben, oder enger (z. B. nur Gastronomie und Friseure)?
-5. **Name:** OQ als Marke festlegen, Schreibweise und Inhabername bestätigen.
+5. **Name:** ~~OQ als Marke~~ entschieden (A-082, Name OQ, Ort Eislingen); Inhabername und Schreibweise nur noch bestätigen.
 6. **Konfigurator:** Branchenfrage fest einbauen? Preisrahmen statt genauem Preis? Vorschauseite sofort oder nach dem Gespräch?
 7. **Framer:** statt Higgsfield, zusätzlich oder gar nicht?
 8. **Pilotkunde:** URFA SOFRASI ansprechen, sobald Phase 4 steht?

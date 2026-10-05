@@ -12,10 +12,12 @@ Referenzen.
 
 ## Das Angebot
 
+> **Preisstand 05.10. (A-086):** Betreuung **ab 75 €/Monat** für alle Kunden, auch Merys Clean und URFA (Elias, 05.10.). Der frühere Gründungspreis 49 € entfällt. Zum Ändern nur diese Zeile und die Zeile „Betreuung Basis“ weiter unten anpassen.
+
 | Posten | Regulär *(Platzhalter)* | Gründungskunde |
 |---|---|---|
 | Website (bis 6 Seiten, Speisekarte/Leistungen, mobil zuerst, ohne Cookie-Banner) | 2.400 € | **1.490 € einmalig** |
-| Abo Grundbetreuung, **optional** (Hosting, SSL, wöchentliche Prüfung, Updates, Sicherheit, 3 kleine Änderungen/Jahr) | 59 €/Monat | **49 €/Monat**, 12 Monate Mindestlaufzeit |
+| Abo Grundbetreuung, **optional** (Hosting, SSL, wöchentliche Prüfung, Updates, Sicherheit, 3 kleine Änderungen/Jahr) | ab 75 €/Monat | **ab 75 €/Monat**, 12 Monate Mindestlaufzeit |
 | Wahlleistungen zum Abo (z. B. Kundenfragen beantworten) | siehe `wartung/PAKETE.md` | je Leistung ein Aufschlag im Monat |
 
 **Zahlung:** nichts vorab. Die Seite wird gezeigt, abgestimmt und erst **bei Livegang** berechnet
@@ -29,10 +31,10 @@ und ein kurzes Gespräch nach 3 Monaten.
 | | Markt (Ratgeber-Werte, Quellen in `MARKTPREISE.md`) | Pilot |
 |---|---|---|
 | Einmalpreis 1–5 Seiten | Freelancer 800–2.500 €, kleine Agentur 2.500–5.000 € | 1.490 € (Mitte Freelancer) |
-| Betreuung Basis | 30–60 €/Monat | 49 € |
+| Betreuung Basis | 30–60 €/Monat | ab 75 € |
 | Gründerrabatt | verbreitet rund 20 % | rund 38 % unter regulär, dafür Referenz |
 
-Erstes Jahr je Kunde mit Grundbetreuung: 1.490 + 12 × 49 = **2.078 €**. Ohne Abo: 1.490 €, die Seite gehört dem Kunden und wird samt Bildern übergeben.
+Erstes Jahr je Kunde mit Grundbetreuung: 1.490 + 12 × 75 = **2.390 €** (bei „ab 75 €“, Wahlleistungen und Serverkosten kommen dazu). Ohne Abo: 1.490 €, die Seite gehört dem Kunden und wird samt Bildern übergeben.
 
 ## Untergrenze
 
