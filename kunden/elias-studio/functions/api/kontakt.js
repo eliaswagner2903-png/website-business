@@ -13,22 +13,6 @@ const zeige = (text, status) => fehlerSeite(text, status, FORMULAR);
 const EMAIL = /^[^\s@<>]{1,64}@[^\s@<>]{1,190}\.[a-z]{2,}$/i;
 const ohneSteuerzeichen = (s) => s.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim();
 
-// Auswahl bei den Stilvorschlägen (optional): nur Stil und Farbe, nur bekannte Werte, alles andere fällt still weg.
-// Die Werte stehen auch in inhalt/seite.json (stile); der Test prüft, dass beide gleich sind.
-const KONFIG = {
-  stil: { titel: 'Stil', erlaubt: { hell: 'Klassisch', laut: 'Modern', edel: 'Edel' } },
-  farbe: { titel: 'Farbe', erlaubt: { salbei: 'Salbei', terrakotta: 'Terrakotta', kobalt: 'Kobalt', messing: 'Messing' } },
-};
-export const STILE = Object.fromEntries(Object.entries(KONFIG).map(([k, v]) => [k, Object.keys(v.erlaubt)]));
-export function konfigAuswahl(form) {
-  const aus = {};
-  for (const [feld, { titel, erlaubt }] of Object.entries(KONFIG)) {
-    const w = String(form.get(feld) ?? '');
-    if (Object.hasOwn(erlaubt, w)) aus[titel] = erlaubt[w];
-  }
-  return aus;
-}
-
 export function pruefeFelder(form) {
   const f = (n) => ohneSteuerzeichen(String(form.get(n) ?? ''));
   const daten = { name: f('name'), email: f('email'), nachricht: f('nachricht') };
@@ -66,14 +50,13 @@ export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY || !env.KONTAKT_AN || !env.KONTAKT_VON) return zeige('Der Versand ist noch nicht eingerichtet.', 503);
 
   const { name, email, nachricht } = erg.daten;
-  const konfig = Object.entries(konfigAuswahl(form)).map(([k, v]) => `${k}: ${v}`).join('\n');
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: env.KONTAKT_VON, to: [env.KONTAKT_AN], reply_to: email,
       subject: `Anfrage über die Website von ${name}`,
-      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}${konfig ? `\n\nAuswahl bei den Stilvorschlägen:\n${konfig}` : ''}`,
+      text: `Name: ${name}\nE-Mail: ${email}\n\n${nachricht}`,
     }),
   });
   if (!r.ok) { console.error('kontakt', r.status); return zeige('Senden fehlgeschlagen. Bitte später erneut versuchen.', 502); }

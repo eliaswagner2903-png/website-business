@@ -1,14 +1,13 @@
 /* =====================================================================
    MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
    stil.css und bausteine.css lesen nur diese Variablen.
-   Farbwelt „Waldgrün auf Papier“ (2026-09-30, nach Lotlinie): warmes Papier, grünschwarze Tinte, EIN Akzent Waldgrün für Vertrauen
-   (Links, Hauptknopf, ein Wort). Der Hero ist ein heller Film vom Werktisch (Eiche, Waldgrün), er übernimmt die Seitenfarben.
-   Standard ist das dunkle Waldgrün (Elias 2026-09-30: „durchgehend Nacht“); zweites Schema zum Test (Meisterstandard P4): <html data-schema="licht">
+   Farbwelt „Dunkles Atelier“ (2026-10-05, Hero-Variante C „Lichtkegel“): fast schwarzer Grund, warmes Weiß als Schrift,
+   EIN Lichtakzent (Periwinkle) für Links, Fokus, Überzeilen und ein Wort, tiefes Blau nur für Flächen und Verläufe.
+   Die Seite ist durchgehend dunkel; es gibt keinen Hell/Dunkel-Schalter. Zum Test der Anpassbarkeit (Meisterstandard P4)
+   liegt unten ein zweites, ebenfalls dunkles Schema: <html data-schema="kobalt"> (nur per Hand/Test, ohne Bedienelement).
    Kontrast (WCAG AA), gemessen:
-     licht: text/grund 16,5 · text/flaeche 17,7 · leise/grund 6,3 · leise/flaeche 6,7
-            akzent/grund 7,4 · akzent/flaeche 8,0 · auf-akzent/akzent 8,3
-     nacht (Waldgrün): text/grund 14,5 · leise/grund 8,8 · leise/flaeche 7,8 · akzent/grund 10,6 · fehler/flaeche 7,7
-   Die dunkle Tafel (Betreuung) kehrt text und grund um: 16,5 bzw. 16,1.
+     text/grund 17,1 · text/flaeche 16,1 · leise/grund 8,0 · leise/flaeche 7,5 · akzent/grund 11,5 · akzent/flaeche 10,9
+     auf-akzent/akzent 11,5 · fehler/flaeche 9,4 · text auf blau-tief 7,2 · leise auf den Kartenverläufen (≤ 50 % blau-tief) ≥ 5,2
    ===================================================================== */
 
 /* ---------- Schriften: je Schnitt EINE Datei (Latin-1), lokal, SIL OFL ----------
@@ -53,25 +52,15 @@
 
 :root {
   /* Farben: 6 Rollen + Schrift auf dem Akzent */
-  --farbe-grund: #0f1f18;       /* warmes Papier */
-  --farbe-flaeche: #152a20;     /* Rahmen, Felder, Blatt */
-  --farbe-text: #f1ece0;        /* grünschwarze Tinte; auch Grund der dunklen Tafel */
-  --farbe-leise: #b3bdb3;       /* Nebentext */
-  --farbe-linie: #2c4136;       /* Haarlinien, Schnittmarken */
-  --farbe-akzent: #9fd9b8;      /* Waldgrün: Hauptknopf, Links, ein Wort */
-  --farbe-auf-akzent: #0f1f18;
-  --farbe-fehler: #f4a58f;      /* Fehlermeldungen im Formular (6,4 auf grund) */
-  --gruen-tief: #10261d;        /* dunkle Bühne der Arbeiten */
-  --gruen-hell: #9fd9b8;        /* Akzent auf Dunkelgrün und im Kino */
-  --gruen-blass: #dfe9dc;       /* Salbei-Fläche, Schimmer im Hero */
-
-  /* Kino (Scroll-Film im ersten Bildschirm): immer dunkel, in beiden Schemata gleich.
-     Kontrast gegen kino-grund: text 17,0 · leise 10,1 · akzent 10,1 · Knopf (grund auf akzent) 10,1.
-     Über dem Film hält der Schleier (stil.css .kino-schleier) den Grund hinter dem Text dunkel. */
-  --kino-grund: #0b0c0f;
-  --kino-text: #f1efe9;
-  --kino-leise: #bdbab1;
-  --kino-akzent: #9fd9b8;
+  --farbe-grund: #0a0b0d;       /* dunkles Atelier */
+  --farbe-flaeche: #121317;     /* Karten, Felder, Blatt */
+  --farbe-text: #f1efe9;        /* warmes Weiß; auch Hauptknopf */
+  --farbe-leise: #a8a59d;       /* Nebentext */
+  --farbe-linie: #2a2b30;       /* Haarlinien */
+  --farbe-akzent: #b9c3ff;      /* Lichtakzent: Links, Fokus, Überzeilen, ein Wort */
+  --farbe-auf-akzent: #0a0b0d;
+  --farbe-fehler: #f4a58f;      /* Fehlermeldungen im Formular */
+  --blau-tief: #2a3cc2;         /* Flächen und Verläufe, nie als Textfarbe auf Grund */
 
   /* Farben der fünf Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
   --werk-hell: #a4462a;
@@ -80,33 +69,15 @@
   --werk-glut: #8cbf5f;
   --werk-klarwerk: #5fba46;
 
-  /* Wegweiser-Zeichen: weiß mit Rand, in beiden Schemas gleich */
-  --zeichen-grund: #ffffff;
-  --zeichen-strich: #10281d;
-
-  /* Konfigurator: Farbwelten und Stile der Vorschau */
-  --muster-auf-akzent: #ffffff;
-  --muster-terrakotta: #a4462a;
-  --muster-kobalt: #2a3cc2;
-  --muster-salbei: #4f6e55;
-  --muster-messing: #9a7433;
-  --muster-hell-grund: #f6f1e8;
-  --muster-hell-text: #2a2521;
-  --muster-laut-grund: #f2efe8;
-  --muster-laut-text: #111111;
-  --muster-edel-grund: #121212;
-  --muster-edel-text: #efe9dc;
-  /* nur für „ganze Seite anwenden“ im Generator: Messing als Text braucht mehr Tiefe; dunkles „Edel“-Schema */
-  --muster-messing-tief: #7a5a22;
-  --muster-edel-flaeche: #1b1b1a;
-  --muster-edel-leise: #aea79a;
-  --muster-edel-linie: #3a3935;
+  /* Wegweiser-Zeichen: helle Scheibe mit dunklem Symbol */
+  --zeichen-grund: #f1efe9;
+  --zeichen-strich: #0a0b0d;
 
   /* Schriften */
   --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
   --schrift-text: "Geist", "Geist Ersatz", Arial, sans-serif;
 
-  /* Formen: Rahmen fast kantig wie ein Passepartout, Knöpfe als Pille */
+  /* Formen: Karten weich gerundet, Knöpfe als Pille */
   --radius-klein: 6px;
   --radius-gross: 999px;
 
@@ -124,15 +95,12 @@
   color-scheme: dark;
 }
 
-/* Hell (Wahl per Schalter im Kopf): Papier-Creme mit Waldgrün. Standard der Seite ist das dunkle Waldgrün oben. */
-:root[data-schema="licht"] {
-  --farbe-grund: #f6f1e8;
-  --farbe-flaeche: #fbf8f2;
-  --farbe-text: #17241d;
-  --farbe-leise: #56625a;
-  --farbe-linie: #d9d2c3;
-  --farbe-akzent: #1f5a43;
-  --farbe-auf-akzent: #fbf8f2;
-  --farbe-fehler: #a3321f;
-  color-scheme: light;
+/* Zweites Schema nur zum Test (P4): kühleres Blauschwarz, gleiche Rollen. Kein Schalter auf der Seite. */
+:root[data-schema="kobalt"] {
+  --farbe-grund: #070a1c;
+  --farbe-flaeche: #0e1230;
+  --farbe-leise: #aab0d0;
+  --farbe-linie: #232a5c;
+  --farbe-akzent: #c6ceff;
+  --farbe-auf-akzent: #070a1c;
 }

@@ -12,10 +12,12 @@
 <meta property="og:title" content="Nachricht gesendet – OQ">
 <meta property="og:description" content="Ihre Nachricht ist angekommen.">
 <meta property="og:url" content="https://www.beispiel.de/nachricht-gesendet.html">
-<meta property="og:image" content="https://www.beispiel.de/medien/tisch-anfang-1280.webp">
-<meta property="og:image:alt" content="Werktisch mit Handy, Messschieber und Seitenentwurf in Waldgrün">
+<meta property="og:image" content="https://www.beispiel.de/medien/og-startseite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0f1f18">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
@@ -23,7 +25,7 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)</script>
+<script>document.documentElement.classList.add('js')</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
 
@@ -33,13 +35,11 @@
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
-    <button class="schema-knopf nur-js" type="button" aria-pressed="false"><span class="schema-zeichen" aria-hidden="true"></span><span class="unsichtbar">Dunkle Ansicht</span></button>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
         <li><a href="/#leistungen">Leistungen</a></li>
         <li><a href="/#arbeiten">Arbeiten</a></li>
-        <li><a href="/#stile">Stile</a></li>
         <li><a href="/#betreuung">Betreuung</a></li>
         <li><a href="/#kontakt">Kontakt</a></li>
         <li><a class="knopf" href="/#kontakt">Projekt anfragen <span class="pfeil" aria-hidden="true">→</span></a></li>
@@ -92,7 +92,6 @@
         <h2 class="fuss-titel">Seite</h2>
         <ul class="fuss-liste">
           <li><a href="/#arbeiten">Arbeiten</a></li>
-          <li><a href="/#stile">Stile</a></li>
           <li><a href="/#betreuung">Betreuung</a></li>
           <li><a href="/#kontakt">Kontakt</a></li>
         </ul>

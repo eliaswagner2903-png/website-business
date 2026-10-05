@@ -41,7 +41,7 @@
 // Baustein menue-kreis – Handy-Menü als Kreis, der aus dem Menü-Knopf wächst.
 // Erwartet: <button class="menue-knopf" aria-expanded="false" aria-controls="nav">Menü</button> und
 // <nav class="nav blatt" id="nav">…</nav> im Kopf. Ohne JS bleibt die Navigation als Zeile sichtbar.
-// Geschlossen: Fläche inert. Offen: alles außer Knopf, Logo, Schema-Schalter und Fläche inert, Fokus auf den ersten
+// Geschlossen: Fläche inert. Offen: alles außer Knopf, Logo und Fläche inert, Fokus auf den ersten
 // Eintrag, Escape/Link/Knopf schließt, Fokus zurück zum Knopf. Der Kreis geht von der Knopfmitte aus.
 (() => {
   function start() {
@@ -74,7 +74,7 @@
         blatt.inert = false;
         // alles außer Kopfzeile-Bedienung und Fläche sperren (auch Skip-Link, Fuß)
         const kopf = blatt.closest('header') || blatt.parentElement;
-        const frei = (el) => el === blatt || el === knopf || el.matches('.marke, .schema-knopf') || el.contains(blatt);
+        const frei = (el) => el === blatt || el === knopf || el.matches('.marke') || el.contains(blatt);
         gesperrt = [...document.body.children, ...kopf.querySelectorAll('.huelle > *')].filter((el) => !frei(el) && !el.inert);
         gesperrt.forEach((el) => { el.inert = true; });
         const erster = blatt.querySelector('a, button');

@@ -1,26 +1,6 @@
 // Seitenskript der Portfolio-Seite. Die Seite funktioniert vollständig ohne JavaScript.
-// Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), der Film aus js/kino.js.
+// Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), der Lichtkegel im Hero aus js/held.js.
 (() => {
-  // Nacht (Standard) / Licht: Schema „licht“ aus marke.css, gemerkt im Browser (Kopf-Skript setzt es vor dem ersten Bild)
-  function schema() {
-    const knopf = document.querySelector('.schema-knopf');
-    if (!knopf) return;
-    const wurzel = document.documentElement;
-    const farbe = document.querySelector('meta[name="theme-color"]');
-    const zeigen = () => {
-      const nacht = wurzel.getAttribute('data-schema') !== 'licht';
-      knopf.setAttribute('aria-pressed', String(nacht));
-      if (farbe) farbe.content = getComputedStyle(wurzel).getPropertyValue('--farbe-grund').trim();
-    };
-    knopf.addEventListener('click', () => {
-      const licht = wurzel.getAttribute('data-schema') !== 'licht';
-      if (licht) wurzel.setAttribute('data-schema', 'licht'); else wurzel.removeAttribute('data-schema');
-      try { localStorage.setItem('oq-schema', licht ? 'licht' : 'nacht'); } catch {}
-      zeigen();
-    });
-    zeigen();
-  }
-
   // Bühne: Reiter nach dem WAI-Muster „Tabs“ (Pfeiltasten, Pos1/Ende), Anker #arbeit-… öffnet den passenden Reiter
   function buehne() {
     const b = document.querySelector('.buehne');
@@ -56,34 +36,6 @@
     waehle(0, { rein: false });
     ausAnker();
     addEventListener('hashchange', ausAnker);
-  }
-
-  // Stilvorschläge: Farbe gehört zu ihrem Stil (Farbe anklicken wählt den Stil mit, anderer Stil nimmt eine fremde Farbe zurück),
-  // Zusammenfassung oben und im Formular. Ohne JS bleiben die Felder einzeln wählbar und reisen trotzdem mit.
-  function stile() {
-    const k = document.querySelector('.konfig');
-    const form = document.getElementById('kontaktformular');
-    if (!k || !form) return;
-    const felder = [...document.querySelectorAll('input[form="kontaktformular"]')];
-    const gewaehlt = (name) => felder.find((f) => f.name === name && f.checked);
-    const titel = (input) => input.closest('label').querySelector('.wahl-titel').textContent;
-    const zusammen = [k.querySelector('.konfig-zusammen'), form.querySelector('.kontakt-auswahl')];
-    function schreibe() {
-      const stil = gewaehlt('stil'), farbe = gewaehlt('farbe');
-      const teile = [];
-      if (stil) teile.push(`Stil <strong>${titel(stil)}</strong>`);
-      if (farbe) teile.push(`Farbe <strong>${titel(farbe)}</strong>`);
-      const text = teile.length ? `Ihre Auswahl: ${teile.join(', ')}.` : '';
-      for (const z of zusammen) if (z) z.innerHTML = text;   // nur Texte aus dem eigenen HTML, keine Eingaben des Besuchers
-    }
-    k.addEventListener('change', (e) => {
-      const f = e.target;
-      const karte = f.closest('.stil-karte');
-      if (f.name === 'farbe' && karte) karte.querySelector('input[name="stil"]').checked = true;
-      if (f.name === 'stil' && karte) for (const x of felder) if (x.name === 'farbe' && x.checked && x.closest('.stil-karte') !== karte) x.checked = false;
-      schreibe();
-    });
-    schreibe();
   }
 
   // Menü am Computer: Marke gleitet zum Eintrag, der gelesen (Abschnitt in Bildmitte) oder berührt/fokussiert wird
@@ -132,10 +84,8 @@
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');
     pruefen();
     addEventListener('hashchange', pruefen);
-    schema();
     menueMarke();
     buehne();
-    stile();
     // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
     const meldung = (f) => {
       const v = f.validity;
