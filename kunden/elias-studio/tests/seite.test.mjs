@@ -75,10 +75,16 @@ test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Mess
   assert.doesNotMatch(JSON.stringify(S.arbeiten), /eislingen/i, 'Eislingen in den Arbeiten');
   assert.deepEqual(readdirSync(join(PUB, 'medien')).filter((f) => echt.test(f)), [], 'echter Firmenname in Dateinamen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
-  // Erster Bildschirm ist der helle Hero mit dem Lotlinie-Gerätepaar: dessen Bilder nie lazy (LCP ist die Überschrift, die Bilder dürfen ihr keine Bandbreite nehmen).
-  // Erster Bildschirm ist das helle Kino (Werktisch in Waldgrün): sein Startbild ist das LCP-Bild, nie lazy.
-  assert.match(start, /<section class="kino"[\s\S]*?<picture class="kino-bild kino-bild--anfang">[\s\S]*?fetchpriority="high"/, 'Kino-Startbild nicht bevorzugt');
-  assert.match(start, /<section class="kino"[\s\S]*?<h1 id="titel">/, 'H1 nicht im Kino');
+  // Erster Bildschirm ist der Hero „Lichtkegel“: die H1 (reiner Text) ist das LCP-Element, das Mosaik ist Dekor und darf ihr nie
+  // Bandbreite mit Vorrang nehmen (kein fetchpriority="high", nur Bilder mit alt="" in einem aria-hidden-Rahmen).
+  const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
+  assert.match(held, /<h1 id="titel"><span>Gebaut\.<\/span> <span>Gemessen\.<\/span> <span>Betreut\.<\/span><\/h1>/, 'H1 nicht im Hero');
+  assert.match(held, /<div class="held-mosaik" aria-hidden="true">/, 'Mosaik nicht aria-hidden');
+  assert.doesNotMatch(held, /fetchpriority/, 'Mosaikbild mit Vorrang');
+  for (const [img] of held.matchAll(/<img [^>]*>/g)) assert.match(img, /alt="" decoding="async"/, `Mosaikbild ohne alt="" oder decoding: ${img}`);
+  assert.ok(held.match(/<img /g).length <= 3, 'Mosaik zu groß (höchstens drei Bilder)');
+  assert.match(held, /href="#arbeiten">Arbeiten ansehen/, 'Hauptknopf fehlt');
+  assert.match(held, /class="knopf zweit" href="#kontakt">Projekt anfragen/, 'zweiter Knopf fehlt');
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, alle mit Vorschau-Link
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
@@ -103,7 +109,7 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  assert.match(marke, /\[data-schema="licht"\]/, 'zweites Schema fehlt (P4)');
+  assert.match(marke, /\[data-schema="kobalt"\]/, 'zweites Schema fehlt (P4)');
 });
 
 test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {
@@ -130,15 +136,26 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
   assert.doesNotMatch(start, /href="#konfigurator"/);
 });
 
-test('Kino: Film nur für Computer ≤ 12 MB und Handy ≤ 5 MB (P2), beide Formate, CSP erlaubt blob:', () => {
-  for (const [datei, grenze] of [['tisch-film-1280', 12], ['tisch-film-960', 5]]) {
-    for (const typ of ['mp4', 'webm']) {
-      const f = join(PUB, 'medien', `${datei}.${typ}`);
-      assert.ok(existsSync(f), `${f} fehlt`);
-      assert.ok(statSync(f).size < grenze * 1024 * 1024, `${f} über ${grenze} MB`);
-    }
-  }
-  assert.match(start, /<video class="kino-film" muted playsinline preload="none"/);
-  assert.doesNotMatch(start, /<video[^>]*autoplay/);
-  assert.match(readFileSync(join(PUB, '_headers'), 'utf8'), /media-src 'self' blob:/);
+test('Hero „Lichtkegel“: kein Film mehr, Kegel nur per Skript und CSS, still ohne JS und bei reduzierter Bewegung', () => {
+  assert.doesNotMatch(start, /<video|kino|tisch-(film|anfang|ende)|werkbank-/, 'Rest des alten Kino-Heros');
+  assert.doesNotMatch(readFileSync(join(PUB, '_headers'), 'utf8'), /media-src 'self' blob:/, 'blob: für den Film nicht mehr nötig');
+  assert.match(start, /<script src="\/js\/held\.js" defer><\/script>/);
+  const js = readFileSync(join(PUB, 'js/held.js'), 'utf8');
+  assert.match(js, /prefers-reduced-motion: reduce/, 'held.js ignoriert „Bewegung reduzieren“ nicht');
+  assert.match(js, /style\.setProperty\('--licht-x'/, 'Lichtposition nicht per setProperty');
+  assert.doesNotMatch(js, /\.style\.(cssText|left|top|transform)|setAttribute\('style'|innerHTML/, 'held.js schreibt Inline-Stil am HTML vorbei');
+  const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8');
+  assert.match(css, /\.held \{\s*--licht-x: 60%; --licht-y: 45%;/, 'feste Vorgabe des Kegels fehlt (Stand ohne JS)');
+  // Mosaikbilder vorhanden und klein (Zeitkonto des ersten Bildschirms)
+  for (const [, src] of start.match(/<section class="held"[\s\S]*?<\/section>/)[0].matchAll(/srcset="(\/medien\/[^" ]+)"/g)) assert.ok(statSync(join(PUB, src)).size < 40 * 1024, `${src} zu groß fürs Mosaik`);
+});
+
+test('Kein Hell/Dunkel-Schalter: die Seite ist durchgehend dunkel, kein Rest von Schalter, Speicher und Waldgrün-Creme', () => {
+  for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|localStorage|aria-pressed|data-schema=/, `${f}: Rest des Schemaschalters`);
+  for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema|localStorage/, `${d}: Rest des Schemaschalters`);
+  const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
+  assert.match(marke, /--farbe-grund: #0a0b0d;/);
+  assert.doesNotMatch(marke, /data-schema="licht"|--gruen-|--kino-|--muster-/, 'alte Farbwelt in marke.css');
+  assert.ok(existsSync(join(PUB, 'medien/og-startseite.jpg')), 'og:image fehlt');
+  for (const [f, t] of seiten) assert.match(t, /og:image" content="[^"]*\/medien\/og-startseite\.jpg"/, `${f}: og:image`);
 });

@@ -17,8 +17,8 @@ const TELZ = (html, leer = '') => (S.telefon_link ? html : leer);
 const STUDIO = `<span class="platzhalter-wort"${pr(P.studio)}>${esc(S.studio)}</span>`;
 const pfeil = '<span class="pfeil" aria-hidden="true">→</span>';
 const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
-// Einziges Inline-Skript (CSP-Hash in public/_headers, Test prüft ihn): Klasse js setzen, gespeichertes Schema vor dem ersten Bild.
-const KOPF_SKRIPT = "(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)";
+// Einziges Inline-Skript (CSP-Hash in public/_headers, Test prüft ihn): Klasse js setzen. Die Seite ist durchgehend dunkel, kein Schema-Schalter.
+const KOPF_SKRIPT = "document.documentElement.classList.add('js')";
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
   haus: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7v8.5h-5.5V14h-5v5.5H4z"/></svg>',
@@ -60,28 +60,29 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <meta property="og:title" content="${esc(titel)}">
 <meta property="og:description" content="${esc(beschreibung)}">
 <meta property="og:url" content="${kanon}">
-<meta property="og:image" content="${S.basis}/medien/tisch-anfang-1280.webp">
-<meta property="og:image:alt" content="Werktisch mit Handy, Messschieber und Seitenentwurf in Waldgrün">
+<meta property="og:image" content="${S.basis}/medien/og-startseite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0f1f18">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
-${start ? '<link rel="preload" href="/medien/tisch-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">\n<link rel="preload" href="/medien/tisch-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">\n' : ''}<link rel="stylesheet" href="/css/stil.css">
+<link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
 <script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${start ? '<script src="/js/kino.js" defer></script>' : ''}
+${start ? '<script src="/js/held.js" defer></script>' : ''}
 </head>
 <body${start ? ' class="seite-start"' : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
-    <button class="schema-knopf nur-js" type="button" aria-pressed="false"><span class="schema-zeichen" aria-hidden="true"></span><span class="unsichtbar">Dunkle Ansicht</span></button>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -152,43 +153,32 @@ ${inhalt}
 const A = S.arbeiten;
 const ueber = (text, k = '') => `<p class="ueberzeile${k ? ` ${k}` : ''}">${text}</p>`;
 
-// ---------- Hero = Kino: Scroll-Film „Werktisch“ (Higgsfield, wissen/lehren/scroll-film.md) ----------
-// Erster Bildschirm: heller Werktisch in Eiche und Waldgrün, beim Scrollen geht das Handy an und zeigt eine Seite.
-// Die Bühne klebt, die Kapitel laufen als normales HTML darüber. Ohne JS, bei „Bewegung reduzieren“ oder
-// „Daten sparen“ bleibt das Standbild stehen (js/kino.js lädt dann keinen Film).
-const filmBild = (art, lcp) => `<picture class="kino-bild kino-bild--${art}"><source type="image/avif" srcset="/medien/tisch-${art}-640.avif 640w, /medien/tisch-${art}-1280.avif 1280w" sizes="(min-width: 64rem) 74vw, 100vw"><img src="/medien/tisch-${art}-1280.webp" srcset="/medien/tisch-${art}-640.webp 640w, /medien/tisch-${art}-1280.webp 1280w" sizes="(min-width: 64rem) 74vw, 100vw" width="1280" height="716" alt=""${lcp ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async"></picture>`;
-const KAP = S.kino;
-const held = `<section class="kino" aria-labelledby="titel" data-film-computer="/medien/tisch-film-1280" data-film-handy="/medien/tisch-film-960">
-  <div class="kino-buehne" aria-hidden="true">
-    ${filmBild('anfang', true)}
-    ${filmBild('ende', false)}
-    <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
-    <span class="kino-schleier"></span>
-    <span class="kino-skala"><span class="kino-marke"></span></span>
+// ---------- Hero „Lichtkegel“ (Variante C, Elias 05.10.): Mosaik aus den Arbeiten, ein Lichtkegel macht sie sichtbar ----------
+// Die H1 ist reiner Text (LCP). Das Mosaik ist Dekor (alt="", aria-hidden): je Spalte eine lange Aufnahme (Handy: Handy-Aufnahme 200 px,
+// ab 48rem Desktop-Aufnahme 560 px, jeweils AVIF mit WebP-Rückfall, klein erzeugt mit node mosaik.mjs). Ohne JS und bei „Bewegung reduzieren“ steht der Kegel still (js/held.js).
+const MOSAIK = [['hell'], ['laut'], ['edel']];
+const mosaikBild = (id) => {
+  const d = (typ) => `/medien/mosaik-${id}-desktop.${typ}`;
+  const h = (typ) => `/medien/mosaik-${id}-handy.${typ}`;
+  return `<picture><source media="(min-width: 48rem)" type="image/avif" srcset="${d('avif')}" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="${d('webp')}" width="560" height="1190"><source type="image/avif" srcset="${h('avif')}" width="200" height="1483"><img src="${h('webp')}" width="200" height="1483" alt="" decoding="async"></picture>`;
+};
+const held = `<section class="held" aria-labelledby="titel">
+  <div class="held-mosaik" aria-hidden="true">
+    <div class="held-raster">
+${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).join('\n')}
+    </div>
   </div>
-  <div class="kino-kapitel">
-    <div class="kapitel kapitel--start">
-      <div class="huelle kapitel-in">
-        ${ueber('Websites für Betriebe', 'ueberzeile--kino')}
-        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-        <p class="held-lead">${esc(S.hero.lead)}</p>
-        <div class="aktionen held-aktionen">
-          <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
-          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-        </div>
-        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen</p>
+  <div class="huelle held-in">
+    ${ueber('Websites für Betriebe')}
+    <h1 id="titel"><span>Gebaut.</span> <span>Gemessen.</span> <span>Betreut.</span></h1>
+    <div class="held-fuss">
+      <p class="held-satz">${esc(S.hero.lead)}</p>
+      <div class="aktionen held-aktionen">
+        <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
+        <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
       </div>
     </div>
-${KAP.map((k, i) => `    <div class="kapitel" id="kino-${k.id}">
-      <div class="huelle kapitel-in">
-        <p class="kapitel-nr"><span>${String(i + 1).padStart(2, '0')}</span> / ${String(KAP.length).padStart(2, '0')}</p>
-        <h2 class="kapitel-wort">${esc(k.wort)}</h2>
-        <p class="kapitel-text">${esc(k.text)}</p>${k.werte ? `
-        <dl class="kapitel-werte">
-${k.werte.map(([w, t]) => `          <div><dt>${esc(t)}</dt><dd>${esc(w)}</dd></div>`).join('\n')}
-        </dl>` : ''}
-      </div>
-    </div>`).join('\n')}
+    <p class="held-hinweis nur-js" aria-hidden="true">Zeiger bewegen, das Licht folgt</p>
   </div>
 </section>`;
 

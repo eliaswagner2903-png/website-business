@@ -145,37 +145,6 @@
       "link": "https://claude.ai/artifact/8TY9ZnGE7qzPHCXkGmGFKW"
     }
   ],
-  "kino": [
-    {
-      "id": "gebaut",
-      "wort": "Gebaut.",
-      "text": "Für jeden Betrieb ein eigenes Leitmotiv, in eigenem Code statt aus dem Baukasten."
-    },
-    {
-      "id": "gemessen",
-      "wort": "Gemessen.",
-      "text": "Vor der Übergabe wird nachgemessen. Die Werte stehen offen bei den Arbeiten.",
-      "werte": [
-        [
-          "≥ 95",
-          "Lighthouse mobil"
-        ],
-        [
-          "0",
-          "Tracker und Cookies"
-        ],
-        [
-          "1 Person",
-          "von der Idee bis zum Start"
-        ]
-      ]
-    },
-    {
-      "id": "betreut",
-      "wort": "Betreut.",
-      "text": "Auf Wunsch bleibe ich dran: Ich halte die Seite online, prüfe sie regelmäßig und ändere, was sich ändert."
-    }
-  ],
   "betreuung": {
     "seite": {
       "titel": "Die Seite",
@@ -203,7 +172,7 @@
     "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
   },
   "hero": {
-    "lead": "Schnelle Seiten ohne Tracking und Cookie-Banner – für Praxen, Werkstätten, Restaurants und Studios."
+    "lead": "Websites für Praxen, Werkstätten und Restaurants, die man nicht wegklickt. Im Lichtkegel: echte Arbeiten."
   },
   "arbeiten_kopf": "Fünf Musterseiten für fünf Branchen. Jede hat ein eigenes Leitmotiv. Vier wurden nachgemessen, die fünfte ist eine fiktive Vorschau-Fassung. Alle laufen auf dem Handy flüssig.",
   "ablauf": {

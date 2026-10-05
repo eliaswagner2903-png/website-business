@@ -114,12 +114,12 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .rahmen--handy {
   --_r: clamp(8px, 1.4vw, 16px);
   border-radius: var(--_r); padding: 0;
-  box-shadow: 0 1.5rem 2.5rem -1.8rem color-mix(in srgb, var(--farbe-text) 55%, transparent);
+  box-shadow: 0 1.5rem 2.5rem -1.8rem color-mix(in srgb, var(--blau-tief) 80%, transparent);
 }
 .rahmen--handy img { border-radius: calc(var(--_r) - 1px); }
 .rahmen--desktop {
   border-radius: var(--radius-klein);
-  box-shadow: 0 2.5rem 4rem -3rem color-mix(in srgb, var(--farbe-text) 50%, transparent);
+  box-shadow: 0 2.5rem 4rem -3rem color-mix(in srgb, var(--blau-tief) 80%, transparent);
 }
 .rahmen--desktop img { border-radius: 0 0 var(--radius-klein) var(--radius-klein); }
 .rahmen-leiste {
@@ -149,7 +149,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 }
 @keyframes seite-rollen { 0%, 6% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
 .werk-bild .rahmen--desktop { display: none; }
-.werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--kino-grund); }
+.werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--farbe-grund); }
 @media (min-width: 48rem) {
   .werk-bild { margin-inline-end: 2rem; }
   .werk-bild .rahmen--desktop { display: block; }
@@ -320,100 +320,13 @@ html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfe
 }
 
 /* =====================================================================
-   A-047 Überarbeitung: Kino (Scroll-Film), Bühne der Arbeiten, Konfigurator, Schema-Schalter, Ablauf-Linie
+   A-047 Überarbeitung: Bühne der Arbeiten, Ablauf-Linie. Hero „Lichtkegel“ steht weiter unten (A-0xx, 2026-10-05).
    ===================================================================== */
 html:not(.js) .nur-js { display: none !important; }
 
-/* ---------- Kopf: Schema-Schalter ---------- */
+/* ---------- Kopf: Reihenfolge ---------- */
 .nav { order: 1; margin-inline-start: auto; }
-.schema-knopf { order: 2; }
 .menue-knopf { order: 3; }
-.schema-knopf {
-  display: inline-grid; place-items: center; inline-size: 44px; block-size: 44px; padding: 0; flex: none;
-  border: 1px solid var(--farbe-linie); border-radius: 50%; background: none; color: var(--farbe-text); cursor: pointer;
-  transition: border-color var(--tempo-kurz) var(--kurve-standard);
-}
-.schema-zeichen {
-  inline-size: 1.05rem; block-size: 1.05rem; border-radius: 50%; border: 1.5px solid currentColor;
-  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
-  transition: transform var(--tempo-mittel) var(--kurve-standard);
-}
-.schema-knopf[aria-pressed="true"] .schema-zeichen { transform: rotate(180deg); }
-@media (hover: hover) and (pointer: fine) { .schema-knopf:hover { border-color: var(--farbe-text); } }
-@media (max-width: 47.99rem) { .schema-knopf { margin-inline-start: auto; } }
-
-/* ---------- Kino: klebende Bühne, Kapitel laufen darüber ---------- */
-.kino {
-  --_buehne: max(100svh, 34rem);
-  position: relative; isolation: isolate; background: var(--kino-grund); color: var(--kino-text);
-}
-.kino-buehne { position: sticky; top: 0; block-size: var(--_buehne); overflow: hidden; }
-.kino-bild, .kino-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
-.kino-bild img, .kino-film { inline-size: 100%; block-size: 100%; max-width: none; object-fit: cover; object-position: 40% 45%; }
-.kino-bild--ende, .kino-film { visibility: hidden; }
-.kino--film .kino-film { visibility: visible; animation: film-auf .6s var(--kurve-sanft); }
-@keyframes film-auf { from { opacity: 0; } }
-.kino-schleier {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(0deg, var(--kino-grund) 0, color-mix(in srgb, var(--kino-grund) 88%, transparent) 30%, transparent 68%),
-    linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 55%, transparent) 0, transparent 22%);
-}
-.kino-skala { display: none; }
-.kino-kapitel { position: relative; z-index: 1; margin-block-start: calc(-1 * var(--_buehne)); }
-.kapitel { display: grid; align-items: end; min-block-size: var(--_buehne); padding-block: 6rem 3.5rem; }
-.kapitel--start { min-block-size: calc(var(--_buehne) - 4.25rem); padding-block-start: 12rem; }
-.kapitel-in { display: grid; gap: 1.25rem; align-content: end; }
-.kapitel-in > * { max-inline-size: 36rem; }
-
-
-.kino .held-lead { font-size: clamp(1.0625rem, 1rem + .4vw, 1.3rem); line-height: 1.55; color: var(--kino-leise); }
-.ueberzeile--kino { color: var(--kino-leise); }
-.kino :focus-visible { outline-color: var(--kino-text); }
-.kino .knopf.zweit { color: var(--kino-text); border-color: var(--kino-text); }
-.kino .knopf:not(.zweit) { border-color: var(--kino-akzent); background: var(--kino-akzent); color: var(--kino-grund); }
-@media (hover: hover) and (pointer: fine) { .kino .knopf.zweit:hover { background: var(--kino-text); color: var(--kino-grund); } }
-@media (max-width: 29.99rem) { .held-aktionen .knopf { flex: 1 1 100%; } }
-.kino-hinweis { display: flex; align-items: center; gap: .75rem; font-size: .8125rem; letter-spacing: .08em; text-transform: uppercase; color: var(--kino-leise); }
-.kino-hinweis-linie { inline-size: 1px; block-size: 2.25rem; background: linear-gradient(var(--kino-leise), transparent); }
-.kapitel-nr { font-size: .8125rem; letter-spacing: .16em; color: var(--kino-leise); font-variant-numeric: tabular-nums; }
-.kapitel-nr span { color: var(--kino-akzent); }
-.kapitel-wort { font-size: clamp(3.6rem, 1.6rem + 8vw, 9rem); line-height: .92; letter-spacing: -.03em; }
-.kapitel-text { font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); line-height: 1.6; color: var(--kino-leise); }
-.kapitel-werte { display: flex; flex-wrap: wrap; gap: 1rem 2.25rem; margin: .5rem 0 0; padding-block-start: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--kino-text) 28%, transparent); }
-.kapitel-werte div { display: flex; flex-direction: column-reverse; gap: .25rem; }
-.kapitel-werte dt { font-size: .9375rem; color: var(--kino-leise); }
-.kapitel-werte dd { margin: 0; font: 400 clamp(2rem, 1.6rem + 1.4vw, 2.8rem)/1 var(--schrift-display); font-variant-numeric: tabular-nums; }
-@media (min-width: 48rem) {
-  .kino-bild, .kino-film { inset: 0 0 0 auto; inline-size: min(100%, 74vw); }
-  .kino-bild img, .kino-film { object-position: 45% 50%; }
-  .kino-schleier {
-    background:
-      linear-gradient(90deg, var(--kino-grund) 0, var(--kino-grund) 26%, color-mix(in srgb, var(--kino-grund) 70%, transparent) 38%, transparent 56%),
-      linear-gradient(0deg, color-mix(in srgb, var(--kino-grund) 70%, transparent) 0, transparent 30%);
-  }
-  .kapitel { align-items: center; padding-block: 6rem; }
-  .kapitel--start { padding-block: 5rem; }
-  .kapitel-in > * { max-inline-size: 34rem; }
-
-  /* Messskala am Rand: der Strich zeigt, wie weit der Film ist */
-  .kino-skala {
-    display: block; position: absolute; inset: 22% clamp(1rem, 2.5vw, 2.5rem) 22% auto; inline-size: 1.1rem;
-    background:
-      linear-gradient(var(--kino-leise), var(--kino-leise)) right top / 100% 1px,
-      repeating-linear-gradient(180deg, color-mix(in srgb, var(--kino-leise) 90%, transparent) 0 1px, transparent 1px 20%) right top / 100% 100%,
-      repeating-linear-gradient(180deg, color-mix(in srgb, var(--kino-leise) 55%, transparent) 0 1px, transparent 1px 4%) right top / 45% 100%;
-    background-repeat: no-repeat;
-  }
-  .kino-marke {
-    position: absolute; inset-inline: -.5rem 0; top: 0; block-size: 2px; background: var(--kino-akzent);
-    transform: translateY(calc(var(--fortschritt, 0) * (max(100svh, 34rem) * .56)));
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .kino-bild--ende { visibility: visible; }
-  .kino-hinweis { display: none; }
-}
 
 /* ---------- Bühne der Arbeiten: Reiter ---------- */
 .buehne-reiter {
@@ -482,36 +395,8 @@ html:not(.js) .nur-js { display: none !important; }
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; scroll-behavior: auto !important; }
 }
 
-/* ---------- Überarbeitung 2026-09-30: wenig Text, dunkle Bühne, Betreuung nach Wahl ---------- */
-.abschnitt--dunkel {
-  --farbe-grund: var(--gruen-tief); --farbe-text: var(--kino-text); --farbe-leise: var(--kino-leise); --farbe-akzent: var(--gruen-hell);
-  --farbe-auf-akzent: var(--gruen-tief); --farbe-linie: color-mix(in srgb, var(--kino-text) 18%, transparent);
-  background: var(--gruen-tief); color: var(--kino-text); padding-block: clamp(4rem, 3rem + 5vw, 8rem);
-}
-.abschnitt--dunkel { overflow-x: clip; }
-.abschnitt--dunkel :focus-visible { outline-color: var(--gruen-hell); }
-.abschnitt--dunkel .kopfzeile { margin-block-end: clamp(1.5rem, 1rem + 2vw, 3rem); }
-.abschnitt--dunkel h2 { font-size: clamp(2.4rem, 1.6rem + 3.6vw, 5rem); }
-.abschnitt--dunkel h2 em { color: var(--gruen-hell); }
-.abschnitt--dunkel .werk { gap: clamp(1.5rem, 1rem + 3vw, 4rem); }
-.abschnitt--dunkel .werk-schild h3 { font-size: clamp(2.8rem, 1.6rem + 4vw, 5.2rem); }
-.abschnitt--dunkel .werk-satz { font-size: clamp(1.05rem, 1rem + .4vw, 1.3rem); color: var(--kino-leise); max-inline-size: 26ch; }
-.abschnitt--dunkel .rahmen { box-shadow: 0 2.5rem 6rem -1.5rem var(--gruen-tief), 0 0 0 1px color-mix(in srgb, var(--kino-text) 10%, transparent); }
-.abschnitt--dunkel .werk-bild::before {
-  content: ""; position: absolute; inset: -12% -8%; z-index: -1; pointer-events: none;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--_werk, var(--kino-akzent)) 38%, transparent), transparent 75%); opacity: .55;
-}
+/* ---------- Überarbeitung 2026-09-30: wenig Text, Betreuung nach Wahl ---------- */
 .werk--hell { --_werk: var(--werk-hell); } .werk--laut { --_werk: var(--werk-laut); } .werk--edel { --_werk: var(--werk-edel); } .werk--glut { --_werk: var(--werk-glut); } .werk--klarwerk { --_werk: var(--werk-klarwerk); }
-.abschnitt--dunkel .werk-bild { isolation: isolate; }
-.abschnitt--dunkel .knopf.zweit { border-color: var(--kino-text); }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .abschnitt--dunkel .werk-bild .rahmen--desktop { animation: bild-schweben linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
-    .abschnitt--dunkel .werk-bild .rahmen--handy { animation: handy-hoch linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
-  }
-}
-@keyframes bild-schweben { from { transform: perspective(1400px) rotateX(8deg) translateY(3rem) scale(.94); opacity: .3; } to { transform: none; opacity: 1; } }
-@keyframes handy-hoch { from { transform: translateY(4rem); opacity: 0; } to { transform: none; opacity: 1; } }
 
 .bet-paar { display: grid; gap: 1.25rem; }
 @media (min-width: 52rem) { .bet-paar { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 2rem; } }
@@ -525,51 +410,60 @@ html:not(.js) .nur-js { display: none !important; }
 .bet-karte .preis { margin-block-start: auto; padding-block-start: .5rem; }
 .kopfzeile + .bet-paar { margin-block-start: 0; }
 
-/* ---------- Hero = helles Kino: Werktisch in Eiche und Waldgrün, Text rechts im ruhigen Teil des Bildes ----------
-   Das Kino übernimmt die Seitenfarben (auch im Nacht-Schema). Der Schleier hält den Grund hinter dem Text hell. */
-.kino {
-  --kino-grund: var(--farbe-grund); --kino-text: var(--farbe-text); --kino-leise: var(--farbe-leise); --kino-akzent: var(--farbe-akzent);
+/* ---------- Hero „Lichtkegel“ (Variante C): dunkles Atelier, Arbeiten als Mosaik, ein Lichtkegel macht sie sichtbar ----------
+   Ohne JS und bei „Bewegung reduzieren“ steht der Kegel still an --licht-x/--licht-y (Vorgabe unten). Mit JS folgt er dem
+   Zeiger (Maus) oder wandert von selbst (Touch, Zeiger ruht). Die Maske liegt auf einem ungedrehten Rahmen, damit die
+   Koordinaten des Zeigers stimmen. Die Überschrift ist der LCP: reiner Text, die Bilder sind Dekor (alt="", aria-hidden). */
+.held {
+  --licht-x: 60%; --licht-y: 45%; --_licht: clamp(15rem, 11rem + 16vw, 24rem);
+  position: relative; isolation: isolate; overflow: hidden; display: grid; align-content: center;
+  min-block-size: max(34rem, calc(100svh - 4.25rem));
+  padding-block: clamp(3.5rem, 2rem + 6vw, 6rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  background: var(--farbe-grund);
 }
-.kino h1 { font-size: clamp(3.1rem, 1.5rem + 5.2vw, 6.6rem); line-height: .94; letter-spacing: -.025em; max-inline-size: 11ch; }
-.kino h1 em { color: var(--farbe-akzent); }
-.kino .held-lead { max-inline-size: 30ch; }
-.kino .knopf:not(.zweit) { color: var(--farbe-auf-akzent); }
-.kino-bild img, .kino-film { object-position: 30% 50%; }
-.kino-bild, .kino-film { inset: 0 0 auto; block-size: 52%; }
-.kino-schleier {
+@media (hover: hover) and (pointer: fine) { .held { cursor: crosshair; } }
+.held-mosaik {
+  position: absolute; inset: 0; z-index: -2;
+  -webkit-mask-image: radial-gradient(var(--_licht) var(--_licht) at var(--licht-x) var(--licht-y), black 0 30%, color-mix(in srgb, black 9%, transparent) 70%);
+  mask-image: radial-gradient(var(--_licht) var(--_licht) at var(--licht-x) var(--licht-y), black 0 30%, color-mix(in srgb, black 9%, transparent) 70%);
+}
+.held-raster {
+  position: absolute; inset: -4rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.75rem, .4rem + 1.4vw, 1.4rem);
+  transform: rotate(-6deg) scale(1.15); transform-origin: 50% 40%;
+}
+.held-raster > div { min-width: 0; }
+.held-raster > div:nth-child(2) { margin-block-start: -9rem; }
+.held-raster img { inline-size: 100%; block-size: auto; border-radius: .5rem; }
+.held::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(0deg, var(--kino-grund) 0, var(--kino-grund) 48%, color-mix(in srgb, var(--kino-grund) 80%, transparent) 52%, transparent 64%),
-    linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 40%, transparent) 0, transparent 14%);
+    linear-gradient(0deg, color-mix(in srgb, var(--farbe-grund) 92%, transparent) 0, color-mix(in srgb, var(--farbe-grund) 70%, transparent) 30%, transparent 58%),
+    color-mix(in srgb, var(--farbe-grund) 58%, transparent);
 }
-.kapitel-werte { border-top-color: var(--farbe-linie); }
-@media (min-width: 48rem) {
-  .kino-bild, .kino-film { inset: 0 auto 0 0; inline-size: min(100%, 72vw); block-size: 100%; }
-  .kino-bild img, .kino-film { object-position: 0% 50%; }
-  .kino-schleier {
-    background:
-      linear-gradient(270deg, var(--kino-grund) 0, var(--kino-grund) 30%, color-mix(in srgb, var(--kino-grund) 75%, transparent) 40%, transparent 54%),
-      linear-gradient(180deg, color-mix(in srgb, var(--kino-grund) 35%, transparent) 0, transparent 16%);
-  }
-  .kino .kapitel-in { grid-template-columns: minmax(0, 34rem); justify-content: end; }
-  .kino-skala { inset-inline: clamp(1rem, 2.5vw, 2.5rem) auto; }
+.held-in { display: grid; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
+.held .ueberzeile { color: var(--farbe-text); }
+.held .ueberzeile::before { background: var(--farbe-akzent); }
+.held h1 {
+  max-inline-size: none; font-size: clamp(4.2rem, 1rem + 10vw, 11.5rem); line-height: .88; letter-spacing: -.035em;
+  text-shadow: 0 0 .35em color-mix(in srgb, var(--farbe-grund) 85%, transparent), 0 .04em .5em color-mix(in srgb, var(--farbe-grund) 70%, transparent);
 }
+.held h1 span { display: block; }
+.held h1 span:nth-child(2) { padding-inline-start: 12vw; font-style: italic; color: var(--farbe-akzent); }
+.held h1 span:nth-child(3) { padding-inline-start: 4vw; }
+.held-fuss { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem 3rem; margin-block-start: clamp(.75rem, .5rem + 1.5vw, 2rem); }
+.held-satz { max-inline-size: 30rem; font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); line-height: 1.55; color: var(--farbe-text); text-shadow: 0 1px 12px var(--farbe-grund); }
+.held-hinweis { display: none; font-size: .8125rem; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-leise); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .held-hinweis { display: block; } }
+@media (max-width: 29.99rem) { .held-aktionen { inline-size: 100%; } .held-aktionen .knopf { flex: 1 1 100%; } }
 @media (prefers-reduced-motion: no-preference) {
-  .kapitel--start .kapitel-in > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
-  .kapitel--start .kapitel-in > :nth-child(2) { animation-delay: .08s; }
-  .kapitel--start .kapitel-in > :nth-child(3) { animation-delay: .16s; }
-  .kapitel--start .kapitel-in > :nth-child(4) { animation-delay: .24s; }
+  .held-in > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
+  .held-in > :nth-child(2) { animation-delay: .08s; }
+  .held-in > :nth-child(3) { animation-delay: .16s; }
+  .held-in > :nth-child(4) { animation-delay: .24s; }
 }
-@keyframes hero-auf { from { transform: translateY(1.2rem); } }
+@keyframes hero-auf { from { opacity: 0; transform: translateY(1.2rem); } }
 
 /* ---------- Feinschliff nach Prüfung 2026-09-30 ---------- */
-/* Handy: Kapitel laufen über das Foto – sie stehen auf einer Tafel in der Grundfarbe, damit der Text immer lesbar bleibt */
-@media (max-width: 47.99rem) {
-  .kino .kapitel:not(.kapitel--start) .kapitel-in {
-    padding: 1.25rem 1.25rem 1.5rem; border-radius: calc(var(--radius-klein) * 2);
-    background: color-mix(in srgb, var(--kino-grund) 90%, transparent); backdrop-filter: blur(8px);
-  }
-  .kino .kapitel:not(.kapitel--start) { padding-block: 4rem 2rem; min-block-size: 70svh; }
-}
 /* Reiterleisten auf dem Handy: Kante blendet aus, damit man sieht, dass es weitergeht */
 @media (max-width: 63.99rem) {
   .buehne-reiter { mask-image: linear-gradient(90deg, black 0, black calc(100% - 2.5rem), transparent); }
@@ -598,7 +492,7 @@ p { max-width: 64ch; }
 .abschnitt, .abschnitt + .abschnitt { padding-block: calc(var(--abstand-abschnitt) / 2); position: relative; isolation: isolate; }
 .abschnitt::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(46rem 24rem at var(--_gx, 88%) 0, color-mix(in srgb, var(--farbe-akzent) 11%, transparent), transparent 72%);
+  background: radial-gradient(46rem 24rem at var(--_gx, 88%) 0, color-mix(in srgb, var(--blau-tief) 34%, transparent), transparent 72%);
 }
 .arbeiten { --_gx: 12%; }
 .fragen {
@@ -610,7 +504,7 @@ p { max-width: 64ch; }
 /* ---------- Boxen: eine Sprache – grünlich getönte Fläche, Haarkante, Licht von oben ---------- */
 .bet-karte, .kontakt-form, .frage, .ablauf .schritt, .werk-werte {
   --_kr: calc(var(--radius-klein) * 3);
-  background: linear-gradient(155deg, color-mix(in srgb, var(--farbe-akzent) 11%, var(--farbe-flaeche)) 0, var(--farbe-flaeche) 64%);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--blau-tief) 28%, var(--farbe-flaeche)) 0, var(--farbe-flaeche) 64%);
   border: 1px solid color-mix(in srgb, var(--farbe-akzent) 24%, var(--farbe-linie)); border-radius: var(--_kr);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--farbe-text) 7%, transparent), 0 2.25rem 3.5rem -2.75rem color-mix(in srgb, black 75%, transparent);
 }
@@ -624,9 +518,9 @@ p { max-width: 64ch; }
 
 /* Betreuung: die Wahl-Karte leuchtet grün statt hell zu kippen */
 .bet-karte--abo {
-  background: linear-gradient(150deg, color-mix(in srgb, var(--farbe-akzent) 34%, var(--farbe-flaeche)) 0, color-mix(in srgb, var(--farbe-akzent) 9%, var(--farbe-flaeche)) 78%);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--blau-tief) 50%, var(--farbe-flaeche)) 0, color-mix(in srgb, var(--blau-tief) 16%, var(--farbe-flaeche)) 78%);
   color: var(--farbe-text); border-color: color-mix(in srgb, var(--farbe-akzent) 55%, var(--farbe-linie));
-  box-shadow: inset 0 1px 0 color-mix(in srgb, white 14%, transparent), 0 2.5rem 4rem -2.5rem var(--farbe-akzent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--farbe-text) 14%, transparent), 0 2.5rem 4rem -2.5rem var(--blau-tief);
 }
 .bet-karte--abo .bet-hinweis { color: var(--farbe-leise); }
 .bet-wahl li { border-color: color-mix(in srgb, var(--farbe-text) 28%, transparent); background: color-mix(in srgb, var(--farbe-grund) 35%, transparent); }
@@ -684,34 +578,32 @@ p { max-width: 64ch; }
 @media (prefers-reduced-motion: no-preference) { .frage[open] p { animation: frage-auf .5s var(--kurve-standard); } }
 @keyframes frage-auf { from { opacity: 0; transform: translateY(-.4rem); } }
 
-/* ---------- Knöpfe: Pille mit Lichtkante, Pfeil im Kreis, Glanz beim Darüberfahren ---------- */
+/* ---------- Knöpfe: Hauptknopf warmes Weiß (Schrift dunkel), zweiter Knopf transparent mit Rand; Pfeil im Kreis, Glanz beim Darüberfahren ---------- */
 .knopf {
-  position: relative; overflow: hidden; isolation: isolate; gap: .75rem; padding: .85rem 1.65rem; font-weight: 550; letter-spacing: .01em;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--farbe-akzent) 86%, white), var(--farbe-akzent));
-  box-shadow: inset 0 1px 0 color-mix(in srgb, white 32%, transparent), 0 .9rem 1.8rem -1.1rem var(--farbe-akzent);
+  position: relative; overflow: hidden; isolation: isolate; gap: .75rem; min-height: 48px; padding: .85rem 1.65rem; font-weight: 550; letter-spacing: .01em;
+  background: var(--farbe-text); border-color: var(--farbe-text); color: var(--farbe-grund);
+  box-shadow: 0 .9rem 2rem -1.2rem var(--farbe-akzent);
 }
 .knopf::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 36%, color-mix(in srgb, white 34%, transparent) 50%, transparent 64%);
+  content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 36%, color-mix(in srgb, var(--farbe-akzent) 55%, transparent) 50%, transparent 64%);
   transform: translateX(-130%); transition: transform .8s var(--kurve-standard);
 }
 .knopf .pfeil {
   display: inline-grid; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; margin-inline: .1rem -.7rem; border-radius: 50%;
-  background: color-mix(in srgb, currentColor 15%, transparent); font-size: 1rem; line-height: 1;
+  background: color-mix(in srgb, currentColor 12%, transparent); font-size: 1rem; line-height: 1;
 }
 .knopf.zweit {
-  background: color-mix(in srgb, var(--farbe-text) 6%, transparent); border-color: color-mix(in srgb, var(--farbe-text) 34%, transparent); color: var(--farbe-text);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+  background: transparent; border-color: color-mix(in srgb, var(--farbe-text) 38%, transparent); color: var(--farbe-text); box-shadow: none;
 }
 @media (hover: hover) and (pointer: fine) {
   .knopf:hover::before { transform: translateX(130%); }
-  .knopf:hover { box-shadow: inset 0 1px 0 color-mix(in srgb, white 36%, transparent), 0 1.1rem 2.2rem -1rem var(--farbe-akzent); }
-  .knopf:hover .pfeil { transform: translateX(3px); background: color-mix(in srgb, currentColor 24%, transparent); }
-  .knopf.zweit:hover { background: color-mix(in srgb, var(--farbe-text) 14%, transparent); color: var(--farbe-text); border-color: var(--farbe-text); }
+  .knopf:hover { box-shadow: 0 1.1rem 2.4rem -1rem var(--farbe-akzent); }
+  .knopf:hover .pfeil { transform: translateX(3px); background: color-mix(in srgb, currentColor 20%, transparent); }
+  .knopf.zweit:hover { background: color-mix(in srgb, var(--farbe-text) 10%, transparent); color: var(--farbe-text); border-color: var(--farbe-text); box-shadow: none; }
 }
 .knopf:disabled::before { display: none; }
 .nav .knopf { padding-block: .4rem; padding-inline: 1.1rem .5rem; }
 .nav .knopf .pfeil { inline-size: 1.5rem; block-size: 1.5rem; margin-inline: .1rem 0; }
-.kino .knopf.zweit { background: color-mix(in srgb, var(--farbe-grund) 40%, transparent); }
 
 /* ---------- Menü am Computer: eine Marke gleitet zum Eintrag, der gerade gelesen oder berührt wird ---------- */
 .nav-marke { display: none; }
@@ -730,7 +622,7 @@ p { max-width: 64ch; }
 
 /* ---------- Fuß: großer Abschluss, dann ruhige Spalten ---------- */
 .fuss { position: relative; isolation: isolate; border-top: 0; padding-block: clamp(3rem, 2rem + 4vw, 6rem) 2rem; }
-.fuss::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60rem 22rem at 50% 0, color-mix(in srgb, var(--farbe-akzent) 13%, transparent), transparent 72%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--farbe-flaeche) 70%, transparent)); }
+.fuss::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60rem 22rem at 50% 0, color-mix(in srgb, var(--blau-tief) 36%, transparent), transparent 72%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--farbe-flaeche) 70%, transparent)); }
 .fuss-band { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.75rem 3rem; padding-block-end: clamp(2.5rem, 2rem + 3vw, 4.5rem); border-bottom: 1px solid color-mix(in srgb, var(--farbe-akzent) 26%, var(--farbe-linie)); }
 .fuss-frage { max-inline-size: 16ch; font: 400 clamp(2.5rem, 1.4rem + 4.4vw, 5rem)/.98 var(--schrift-display); letter-spacing: -.025em; text-wrap: balance; }
 .fuss-frage em { color: var(--farbe-akzent); font-style: italic; }
@@ -741,10 +633,6 @@ p { max-width: 64ch; }
 .fuss-unten p { margin: 0; }
 .fuss-rechts { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; }
 .fuss-rechts a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); }
-
-/* ---------- Kino kürzer: die Kapitel brauchen nicht mehr als drei Viertel einer Bühne ---------- */
-.kapitel { min-block-size: calc(var(--_buehne) * .78); }
-.kapitel--start { min-block-size: calc(var(--_buehne) - 4.25rem); }
 
 /* ---------- Wegweiser (Unterseiten): weißes Zeichen im Rand, Nahtlinie; Erkenntnis aus der Klarwerk-Arbeit ---------- */
 .wegweiser { display: grid; gap: 1rem; padding-block-start: 2rem; border-top: 1px dashed var(--farbe-akzent); }

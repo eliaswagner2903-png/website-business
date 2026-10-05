@@ -32,9 +32,9 @@
    Schließen 0,45 s. Mittelpunkt und Radius setzt das Skript als --kx/--ky/--kr (Knopfmitte, fernste Ecke).
    Einträge ab 0,35 s um 70 ms versetzt. Geschlossen: clip-path 0 + visibility hidden + inert.
    Wichtig: Kopf (Eltern der Fläche) ohne backdrop-filter/transform, sonst ist position: fixed falsch.
-   Marke, Schema-Knopf und Menü-Knopf liegen über der Fläche (z-index), damit man das Menü dort schließen kann. */
+   Marke und Menü-Knopf liegen über der Fläche (z-index), damit man das Menü dort schließen kann. */
 @media (max-width: 47.99rem) {
-  .js .marke, .js .schema-knopf, .js .menue-knopf { position: relative; z-index: 3; }
+  .js .marke, .js .menue-knopf { position: relative; z-index: 3; }
   .js .menue-knopf {
     display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; min-width: 44px; padding-inline: 1rem;
     font: 600 1rem/1 var(--schrift-text); color: var(--farbe-text); background: var(--farbe-flaeche);
@@ -64,8 +64,8 @@
     color: var(--farbe-text);
     background:
       repeating-linear-gradient(180deg, color-mix(in srgb, var(--farbe-text) 32%, transparent) 0 1px, transparent 1px 1.1rem) left .9rem top 0 / .55rem 100% no-repeat,
-      radial-gradient(120% 55% at 100% 0%, color-mix(in srgb, var(--farbe-akzent) 26%, transparent), transparent 62%),
-      radial-gradient(90% 40% at 0% 100%, color-mix(in srgb, var(--farbe-akzent) 14%, transparent), transparent 70%),
+      radial-gradient(120% 55% at 100% 0%, color-mix(in srgb, var(--blau-tief) 60%, transparent), transparent 62%),
+      radial-gradient(90% 40% at 0% 100%, color-mix(in srgb, var(--blau-tief) 36%, transparent), transparent 70%),
       linear-gradient(var(--farbe-grund), var(--farbe-grund));
     clip-path: circle(0 at var(--kx, 100%) var(--ky, 2.2rem)); visibility: hidden;
     transition: clip-path .45s var(--kurve-schliessen), visibility 0s linear .45s;

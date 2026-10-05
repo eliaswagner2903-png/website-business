@@ -11,30 +11,29 @@
 <meta property="og:title" content="OQ – Websites für Praxen und Betriebe">
 <meta property="og:description" content="Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Fünf Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant, Gebäudereinigung.">
 <meta property="og:url" content="https://www.beispiel.de/">
-<meta property="og:image" content="https://www.beispiel.de/medien/tisch-anfang-1280.webp">
-<meta property="og:image:alt" content="Werktisch mit Handy, Messschieber und Seitenentwurf in Waldgrün">
+<meta property="og:image" content="https://www.beispiel.de/medien/og-startseite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0f1f18">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
-<link rel="preload" href="/medien/tisch-anfang-1280.avif" as="image" type="image/avif" media="(min-width: 48rem)">
-<link rel="preload" href="/medien/tisch-anfang-640.avif" as="image" type="image/avif" media="(max-width: 47.99rem)">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
-<script>(function(d){d.classList.add('js');try{if(localStorage.getItem('oq-schema')==='licht')d.setAttribute('data-schema','licht')}catch(e){}})(document.documentElement)</script>
+<script>document.documentElement.classList.add('js')</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-<script src="/js/kino.js" defer></script>
+<script src="/js/held.js" defer></script>
 </head>
 <body class="seite-start">
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 <header class="kopf">
   <div class="huelle kopf-in">
     <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
-    <button class="schema-knopf nur-js" type="button" aria-pressed="false"><span class="schema-zeichen" aria-hidden="true"></span><span class="unsichtbar">Dunkle Ansicht</span></button>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -53,53 +52,25 @@
 </header>
 
 <main id="inhalt">
-<section class="kino" aria-labelledby="titel" data-film-computer="/medien/tisch-film-1280" data-film-handy="/medien/tisch-film-960">
-  <div class="kino-buehne" aria-hidden="true">
-    <picture class="kino-bild kino-bild--anfang"><source type="image/avif" srcset="/medien/tisch-anfang-640.avif 640w, /medien/tisch-anfang-1280.avif 1280w" sizes="(min-width: 64rem) 74vw, 100vw"><img src="/medien/tisch-anfang-1280.webp" srcset="/medien/tisch-anfang-640.webp 640w, /medien/tisch-anfang-1280.webp 1280w" sizes="(min-width: 64rem) 74vw, 100vw" width="1280" height="716" alt="" fetchpriority="high" decoding="async"></picture>
-    <picture class="kino-bild kino-bild--ende"><source type="image/avif" srcset="/medien/tisch-ende-640.avif 640w, /medien/tisch-ende-1280.avif 1280w" sizes="(min-width: 64rem) 74vw, 100vw"><img src="/medien/tisch-ende-1280.webp" srcset="/medien/tisch-ende-640.webp 640w, /medien/tisch-ende-1280.webp 1280w" sizes="(min-width: 64rem) 74vw, 100vw" width="1280" height="716" alt="" loading="lazy" decoding="async"></picture>
-    <video class="kino-film" muted playsinline preload="none" tabindex="-1"></video>
-    <span class="kino-schleier"></span>
-    <span class="kino-skala"><span class="kino-marke"></span></span>
+<section class="held" aria-labelledby="titel">
+  <div class="held-mosaik" aria-hidden="true">
+    <div class="held-raster">
+      <div><picture><source media="(min-width: 48rem)" type="image/avif" srcset="/medien/mosaik-hell-desktop.avif" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="/medien/mosaik-hell-desktop.webp" width="560" height="1190"><source type="image/avif" srcset="/medien/mosaik-hell-handy.avif" width="200" height="1483"><img src="/medien/mosaik-hell-handy.webp" width="200" height="1483" alt="" decoding="async"></picture></div>
+      <div><picture><source media="(min-width: 48rem)" type="image/avif" srcset="/medien/mosaik-laut-desktop.avif" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="/medien/mosaik-laut-desktop.webp" width="560" height="1190"><source type="image/avif" srcset="/medien/mosaik-laut-handy.avif" width="200" height="1483"><img src="/medien/mosaik-laut-handy.webp" width="200" height="1483" alt="" decoding="async"></picture></div>
+      <div><picture><source media="(min-width: 48rem)" type="image/avif" srcset="/medien/mosaik-edel-desktop.avif" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="/medien/mosaik-edel-desktop.webp" width="560" height="1190"><source type="image/avif" srcset="/medien/mosaik-edel-handy.avif" width="200" height="1483"><img src="/medien/mosaik-edel-handy.webp" width="200" height="1483" alt="" decoding="async"></picture></div>
+    </div>
   </div>
-  <div class="kino-kapitel">
-    <div class="kapitel kapitel--start">
-      <div class="huelle kapitel-in">
-        <p class="ueberzeile ueberzeile--kino">Websites für Betriebe</p>
-        <h1 id="titel">Websites, die man nicht <em>wegklickt</em>.</h1>
-        <p class="held-lead">Schnelle Seiten ohne Tracking und Cookie-Banner – für Praxen, Werkstätten, Restaurants und Studios.</p>
-        <div class="aktionen held-aktionen">
-          <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
-          <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-        </div>
-        <p class="kino-hinweis nur-js" aria-hidden="true"><span class="kino-hinweis-linie"></span>Scrollen</p>
+  <div class="huelle held-in">
+    <p class="ueberzeile">Websites für Betriebe</p>
+    <h1 id="titel"><span>Gebaut.</span> <span>Gemessen.</span> <span>Betreut.</span></h1>
+    <div class="held-fuss">
+      <p class="held-satz">Websites für Praxen, Werkstätten und Restaurants, die man nicht wegklickt. Im Lichtkegel: echte Arbeiten.</p>
+      <div class="aktionen held-aktionen">
+        <a class="knopf" href="#arbeiten">Arbeiten ansehen <span class="pfeil" aria-hidden="true">→</span></a>
+        <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
       </div>
     </div>
-    <div class="kapitel" id="kino-gebaut">
-      <div class="huelle kapitel-in">
-        <p class="kapitel-nr"><span>01</span> / 03</p>
-        <h2 class="kapitel-wort">Gebaut.</h2>
-        <p class="kapitel-text">Für jeden Betrieb ein eigenes Leitmotiv, in eigenem Code statt aus dem Baukasten.</p>
-      </div>
-    </div>
-    <div class="kapitel" id="kino-gemessen">
-      <div class="huelle kapitel-in">
-        <p class="kapitel-nr"><span>02</span> / 03</p>
-        <h2 class="kapitel-wort">Gemessen.</h2>
-        <p class="kapitel-text">Vor der Übergabe wird nachgemessen. Die Werte stehen offen bei den Arbeiten.</p>
-        <dl class="kapitel-werte">
-          <div><dt>Lighthouse mobil</dt><dd>≥ 95</dd></div>
-          <div><dt>Tracker und Cookies</dt><dd>0</dd></div>
-          <div><dt>von der Idee bis zum Start</dt><dd>1 Person</dd></div>
-        </dl>
-      </div>
-    </div>
-    <div class="kapitel" id="kino-betreut">
-      <div class="huelle kapitel-in">
-        <p class="kapitel-nr"><span>03</span> / 03</p>
-        <h2 class="kapitel-wort">Betreut.</h2>
-        <p class="kapitel-text">Auf Wunsch bleibe ich dran: Ich halte die Seite online, prüfe sie regelmäßig und ändere, was sich ändert.</p>
-      </div>
-    </div>
+    <p class="held-hinweis nur-js" aria-hidden="true">Zeiger bewegen, das Licht folgt</p>
   </div>
 </section>
 
