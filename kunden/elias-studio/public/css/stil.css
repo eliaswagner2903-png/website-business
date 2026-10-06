@@ -144,6 +144,8 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .rahmen .fenster img { border-radius: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .fenster img { animation: seite-rollen 46s cubic-bezier(.45, 0, .55, 1) 1.2s infinite alternate; will-change: transform; }
+  /* Mit JS läuft die Aufnahme erst, wenn die Arbeit im Bild ist, und beginnt dann oben (06.10.: sonst kam man unten auf der Seite an) */
+  .js .werk:not(.werk--im-bild) .fenster img { animation: none; }
   .rahmen--handy .fenster img { animation-duration: 38s; animation-delay: 2.4s; }
   .werk-bild:hover .fenster img, .werk-bild:focus-within .fenster img { animation-play-state: paused; }
 }
@@ -1078,3 +1080,11 @@ p { max-width: 64ch; }
   .leist--neu .leist-text h3 { grid-column: 1; grid-row: 2; }
   .leist--neu .leist-text > p:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
 }
+
+/* Preiskarte Website: Vorteile mit Kurzbeschreibung (06.10.) */
+.bet-liste { gap: .85rem; }
+.bet-liste li { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .7rem; align-items: start; }
+.bet-liste strong, .bet-liste span { grid-column: 2; }
+.bet-liste li::before { grid-row: 1 / 3; margin-block-start: .45rem; transform: rotate(-45deg); }
+.bet-liste strong { display: block; font-weight: 550; line-height: 1.35; }
+.bet-liste span { display: block; font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }

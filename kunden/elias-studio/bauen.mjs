@@ -313,7 +313,7 @@ const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labe
         <h3 id="b-seite">${esc(B.seite.titel)}</h3>
         <p>${esc(B.seite.text)}</p>
         <ul class="bet-liste">
-${(B.seite.enthalten || []).map((w) => `          <li>${esc(w)}</li>`).join('\n')}
+${(B.seite.enthalten || []).map(([n, t]) => `          <li><strong>${esc(n)}</strong><span>${esc(t)}</span></li>`).join('\n')}
         </ul>
         <p class="preis"><span class="preis-titel">${esc(B.seite.preis_art)}</span><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span></p>
       </section>
@@ -395,7 +395,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
-  beschreibung: `Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Musterseiten: ${A.map((a) => a.branche).join(', ')}.`,
+  beschreibung: `Suchmaschinenoptimierte, schnelle Websites ohne Tracking, auf Wunsch betreut. Musterseiten: ${A.map((a) => a.branche).join(', ')}.`,
   inhalt: [held, leistungen, arbeiten, ablauf, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });

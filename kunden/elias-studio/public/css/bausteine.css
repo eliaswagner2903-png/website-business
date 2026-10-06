@@ -68,6 +68,10 @@
       conic-gradient(from 200deg at var(--kx, 100%) -2rem, transparent 0deg, color-mix(in srgb, var(--farbe-licht) 6%, transparent) 14deg, transparent 34deg),
       radial-gradient(90% 40% at 0% 100%, color-mix(in srgb, var(--blau-tief) 34%, transparent), transparent 70%),
       linear-gradient(var(--farbe-grund), var(--farbe-grund));
+    /* Inhalt läuft beim Scrollen im Blatt nicht unter Marke und Knopf durch (06.10.: „Leistungen“ lag über dem Logo):
+       der Kopfstreifen bleibt frei, darunter blendet der Inhalt weich ein */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0 4.4rem, black 5.6rem);
+    mask-image: linear-gradient(to bottom, transparent 0 4.4rem, black 5.6rem);
     clip-path: circle(0 at var(--kx, 100%) var(--ky, 2.2rem)); visibility: hidden;
     transition: clip-path .45s var(--kurve-schliessen), visibility 0s linear .45s;
   }

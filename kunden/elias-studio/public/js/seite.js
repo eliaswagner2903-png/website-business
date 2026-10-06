@@ -104,7 +104,20 @@
     }
   }
 
+  // Gerätebilder der Arbeiten: Die lange Aufnahme rollt erst, wenn die Arbeit im Bild ist, und beginnt dann oben.
+  // Verlässt sie das Bild (oder wird ein anderer Reiter gewählt), springt sie zurück an den Anfang.
+  function werkeImBild() {
+    const els = [...document.querySelectorAll('.werk')];
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('werk--im-bild')); return; }
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) e.target.classList.toggle('werk--im-bild', e.isIntersecting);
+    }, { rootMargin: '-20% 0px -20% 0px' }); // Arbeiten sind auf dem Handy höher als der Bildschirm: Band in der Mitte statt Anteil
+    els.forEach((el) => io.observe(el));
+  }
+
   function start() {
+    werkeImBild();
     minis();
     kartenLicht();
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');

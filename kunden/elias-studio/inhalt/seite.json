@@ -139,10 +139,30 @@
       "preis_art": "einmalig",
       "text": "Ihre fertige Seite mit Gestaltung, Bildern und Technik, bereit für den Start.",
       "enthalten": [
-        "Gestaltung mit eigenem Leitmotiv",
-        "Für das Handy gebaut",
-        "Ohne Tracking und Cookie-Banner",
-        "Vor der Übergabe nachgemessen"
+        [
+          "Suchmaschinenoptimiert",
+          "Saubere Struktur, Titel und strukturierte Daten, damit Google Sie auch in Ihrer Region richtig einordnet."
+        ],
+        [
+          "Bereit für KI-Suche",
+          "Klare Antworten und Firmendaten, die ChatGPT, Perplexity und Co. sauber auslesen können."
+        ],
+        [
+          "Spürbar schnell",
+          "Jede Seite wird vor dem Start mit Lighthouse nachgemessen."
+        ],
+        [
+          "Barrierefrei",
+          "Bedienbar für alle, auch per Tastatur und Vorleseprogramm."
+        ],
+        [
+          "Ohne Tracking",
+          "Keine Cookie-Banner und keine fremden Skripte."
+        ],
+        [
+          "Eigenes Leitmotiv",
+          "Gestaltung aus Ihrem Betrieb heraus statt Baukasten."
+        ]
       ]
     },
     "abo": {
@@ -182,7 +202,7 @@
   "hero": {
     "lead": "Websites für Praxen, Werkstätten und Restaurants: schnell auf dem Handy, klar im Aufbau, mit eigenem Charakter. Im Lichtkegel sehen Sie Ausschnitte meiner Arbeiten."
   },
-  "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Alle sind für das Handy gebaut und vor der Übergabe nachgemessen.",
+  "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Jede wurde vor der Übergabe nachgemessen.",
   "ablauf": {
     "ueber": "Ablauf",
     "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
