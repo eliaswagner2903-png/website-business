@@ -137,34 +137,9 @@ Website 1.490 € einmalig; Betreuung **ab 75 €/Monat für alle Kunden** (Elia
 
 ## 8. Was schon steht
 
-### Der Weg bis hierher (Gesamtbilanz)
-
-Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
-(Zeilen bis 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
-
-| Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
-|---|---|---|---|---|
-| URFA SOFRASI (Repo `urfa`) | 25.–27.09. | 2 | 30 | erste echte Seite: Variante dunkel und hell, Speisekarte mit 90 Gerichten als HTML, Schnellleiste, Regeln und Stolperfallen; Lighthouse bis Performance 96, Barrierefreiheit 100 |
-| Claude-Setup | 27.09. | 1 | 2 | Setup-Skript für jede Cloud-Sitzung, 5 Agents, Hooks (Secret-Schutz, Audit, Diff vor Push), MCPs |
-| Brüder-Wettbewerb (Hairstyle by Ümit) | 26.–28.09. | 3 | 54 | drei Websites parallel im Wettbewerb, 7 Skills, Prüfwerkzeuge (Lighthouse, Kopf-Check, Vorschau-Test), `FEHLER.md` und `DESIGN-WISSEN.md`; Lighthouse 99/100/100/100 |
-| Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
-| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
-| Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
-| Website-Business, dritter Abschnitt | 01.–06.10. | 13 | 92 | Merys Clean (Neubau, Designüberarbeitung, Team-Rahmen, Mappe), Preisstrategie „Masse statt Seitenpreis“, System auf Englisch, OQ-Seite fertig (Angaben, Preise, Leistungen, Hero, Graphit, Menü), Betreuung ab 75 €, Space-Rocket-Referenz, Lagebericht-Nachträge N003–N005 |
-| Vorprojekt-Repos, neu seit 30.09. | 01.–06.10. | – | 22 | **Seite C des Brüder-Wettbewerbs in der Endfassung** (Personenauswahl für das Team: Münzen zum Wischen, große Münze auf einem Marmorpodest, Abnahme nach weiteren Jury-Runden bei 55–56 von 60; PR #8 im Brüder-Repo, Commit 0ca5c87, 15 Commits), Claude-Setup (5), Fernspäherkommando (2) |
-| **Summe Stand 06.10.** | **12 Kalendertage** | **37 sichtbar** | **373 in 5 Repos (neu gezählt)** | **13 Seiten, 5 Repos, 3 Agenten-Teams, PR-Nummern bis #77** |
-
-*Zählweise 06.10.:* Alle Commits aller Branches jedes Repos mit `git log --all` (Merges eingeschlossen, flache Kopien mit bis zu 1.000 Commits Tiefe). Business-Repo 260 (je Tag: 28.09. 67, 29.09. 57, 30.09. 44, 01.10. 27, 02.10. 23, 03.10. 9, 04.10. 7, 05.10. 12, 06.10. 14), Brüder-Repo 69, URFA 30, Claude-Setup 7, Fernspäherkommando 7. Für 28.–30.09. ergibt dieses Verfahren 168 statt der 133 in der älteren Tabelle, weil früher anders abgegrenzt wurde; die älteren Zeilen sind deshalb nicht mit der neuen Summe addierbar. Bruder C (Ümits Seite C) ist seit 06.10. fertig. Sitzungen: 7 außerhalb dieses Projekts plus 30 Fäden; die 16 vom 30.09. stammen aus einer anderen Abgrenzung. Die Seitenzahl bleibt 13, weil die Endfassung von Seite C die bisherige Variante ersetzt und keine zusätzliche Seite ist.
-
-Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
-Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
-
-Was daraus folgt: Der Baukasten ist eine Investition von mehreren Tagen, die sich über jede Kundenseite verteilt.
-Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konzept A/B nach Wert, nicht nach Minuten).
-
 ### Zeitleiste: jede Station mit Datum
 
-Quelle: Auftragslog (`ops/auftraege.jsonl`, A-001 bis A-093), Git-Historie und Sitzungslisten. Alle Daten 2026.
+Ältestes oben, jüngstes unten. Quelle: Auftragslog (`ops/auftraege.jsonl`, A-001 bis A-093), Git-Historie und Sitzungslisten. Alle Daten 2026.
 
 | Datum | Was geschah | Aufträge |
 |---|---|---|
@@ -183,22 +158,49 @@ Quelle: Auftragslog (`ops/auftraege.jsonl`, A-001 bis A-093), Git-Historie und S
 
 Alles, was im Plan als „neu“ steht, trägt seine Daten aus dieser Tabelle; „seit 30.09.“ ist nur der Abstand zum letzten Plan, nicht der Beginn.
 
-### Bestand
+### Der Weg bis hierher (Gesamtbilanz)
 
-| Bereich | Ergebnis |
-|---|---|
-| Vorlage und Baukasten | statische Vorlage mit Cloudflare Functions (Stripe Checkout, Webhook, Kontakt), strenge CSP, Bausteine: Marke, Hero mit Video, Einblenden, Seitenwechsel, Menü, Bento, Galerie, 3D |
-| Musterseiten | **Lotlinie** Physio (hell & ruhig, mit KI-Raumbild), **Zwischenbild** Motion-Studio (laut & modern), **Lindgrund** Uhren (dunkel & edel, KI-Werkstattfilm), **URFA SOFRASI** Meistervariante (echtes Restaurant, Generalprobe) |
-| Eigene OQ-Seite | `kunden/elias-studio/`: Hero Lichtkegel, Farbwelt Graphit, Leistungen als Bento mit sechs Schaubildern, Menü mit Lichtkegel, vier Arbeiten mit Live-Vorschau, Ablauf mit Linienzeichnungen, Preiskarten (Seite ab 1.490 €, Betreuung ab 75 €/Monat, beschriebene Wahlleistungen), Kontaktformular; 27 Tests, Lighthouse mobil 99–100/100/100/100. Name OQ, Nachname Wagner, Ort Eislingen von Elias bestätigt; E-Mail, Foto, Über-mich-Text, Impressum, Datenschutz und Domain **offen** (siehe Abschnitt 13) |
-| Erste echte Kundenseite | **Merys Clean** (Gebäudereinigung): 16 Seiten, Designüberarbeitung nach Logo und Arbeitskleidung (A-076–A-078, Jury 9+), Team-Rahmen, Mappe `vertrieb/merysclean/`; Preis, Telefon, E-Mail trägt Elias selbst ein; offen vom Kunden: Hauptnummer, WhatsApp, Zitate, Herkunft der Arbeitsfotos, Rechtstexte, Mail-Schlüssel. Nie als Artifact; vorzeigbar nur als fiktive Fassung Klarwerk |
-| Referenzen | `wissen/referenzen/eingang/`: Auswertung Space Rocket Berlin (Struktur, Stil, Texte, Design-Tokens, 11 Kundenseiten) als Muster-Quelle |
-| Qualität | Meisterstandard, Skills `/meisterpruefung`, `/pruefen`, `/sicherheit`; Fernspäherkommando für Außenprüfung |
-| Visuals | Higgsfield angebunden, Pipeline für AVIF/WebP und WebM/MP4, nahtlose Schleifen, Preisliste der Modelle |
-| Betreuung | `wartung/check.mjs` wöchentlich per GitHub Action, Paketentwurf, Wartungsoffizier |
-| Preis | Formeln, Preisstrategie, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
-| Recht | Leitfaden zu Gewerbe, Umsatzsteuer, Buchhaltung, Verträgen und Pflichten der Kundenseiten |
-| Qualitätssystem | `wissen/fachgebiete/` (SEO, Technical SEO, Local SEO, GEO, strukturierte Daten, CRO, Barrierefreiheit, Performance, Analytics, Sicherheit + GLOBAL), `wissen/quellen/`, Skills `/bestellung` und `/abnahme`, Werkzeuge mit 17 Tests (PR #37) |
-| Belastungsprobe | OSG-Neubau `kunden/osg-germany/` mit Jury-Protokoll, Preis-Einstufung, SEO/GEO-Vergleich; vorzeigbar nur als fiktive Marke NORVAK, weil OSG eine echte Firma ist (PR #38, #39) |
+Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Die Zeilen sind nach Beginn geordnet, das Älteste steht oben. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
+(Zeilen bis 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
+
+| Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
+|---|---|---|---|---|
+| URFA SOFRASI (Repo `urfa`) | 25.–27.09. | 2 | 30 | erste echte Seite: Variante dunkel und hell, Speisekarte mit 90 Gerichten als HTML, Schnellleiste, Regeln und Stolperfallen; Lighthouse bis Performance 96, Barrierefreiheit 100 |
+| Brüder-Wettbewerb (Hairstyle by Ümit) | 26.–28.09. | 3 | 54 | drei Websites parallel im Wettbewerb, 7 Skills, Prüfwerkzeuge (Lighthouse, Kopf-Check, Vorschau-Test), `FEHLER.md` und `DESIGN-WISSEN.md`; Lighthouse 99/100/100/100 |
+| Claude-Setup | 27.09. | 1 | 2 | Setup-Skript für jede Cloud-Sitzung, 5 Agents, Hooks (Secret-Schutz, Audit, Diff vor Push), MCPs |
+| Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
+| Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
+| Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
+| Website-Business, dritter Abschnitt | 01.–06.10. | 13 | 92 | Merys Clean (Neubau, Designüberarbeitung, Team-Rahmen, Mappe), Preisstrategie „Masse statt Seitenpreis“, System auf Englisch, OQ-Seite fertig (Angaben, Preise, Leistungen, Hero, Graphit, Menü), Betreuung ab 75 €, Space-Rocket-Referenz, Lagebericht-Nachträge N003–N005 |
+| Vorprojekt-Repos, neu seit 30.09. | 01.–06.10. | – | 22 | **Seite C des Brüder-Wettbewerbs in der Endfassung** (Personenauswahl für das Team: Münzen zum Wischen, große Münze auf einem Marmorpodest, Abnahme nach weiteren Jury-Runden bei 55–56 von 60; PR #8 im Brüder-Repo, Commit 0ca5c87, 15 Commits), Claude-Setup (5), Fernspäherkommando (2) |
+| **Summe Stand 06.10.** | **12 Kalendertage** | **37 sichtbar** | **373 in 5 Repos (neu gezählt)** | **13 Seiten, 5 Repos, 3 Agenten-Teams, PR-Nummern bis #77** |
+
+*Zählweise 06.10.:* Alle Commits aller Branches jedes Repos mit `git log --all` (Merges eingeschlossen, flache Kopien mit bis zu 1.000 Commits Tiefe). Business-Repo 260 (je Tag: 28.09. 67, 29.09. 57, 30.09. 44, 01.10. 27, 02.10. 23, 03.10. 9, 04.10. 7, 05.10. 12, 06.10. 14), Brüder-Repo 69, URFA 30, Claude-Setup 7, Fernspäherkommando 7. Für 28.–30.09. ergibt dieses Verfahren 168 statt der 133 in der älteren Tabelle, weil früher anders abgegrenzt wurde; die älteren Zeilen sind deshalb nicht mit der neuen Summe addierbar. Bruder C (Ümits Seite C) ist seit 06.10. fertig. Sitzungen: 7 außerhalb dieses Projekts plus 30 Fäden; die 16 vom 30.09. stammen aus einer anderen Abgrenzung. Die Seitenzahl bleibt 13, weil die Endfassung von Seite C die bisherige Variante ersetzt und keine zusätzliche Seite ist.
+
+Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
+Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
+
+Was daraus folgt: Der Baukasten ist eine Investition von mehreren Tagen, die sich über jede Kundenseite verteilt.
+Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konzept A/B nach Wert, nicht nach Minuten).
+
+### Bestand: nach Oberpunkt, darin nach Datum
+
+Die Spalte „seit“ nennt den Beginn; innerhalb eines Oberpunkts steht das Älteste oben.
+
+| Oberpunkt | Bereich | seit | Ergebnis |
+|---|---|---|---|
+| Können und Werkzeuge | Vorlage und Baukasten | 28.09. | statische Vorlage mit Cloudflare Functions (Stripe Checkout, Webhook, Kontakt), strenge CSP, Bausteine: Marke, Hero mit Video, Einblenden, Seitenwechsel, Menü, Bento, Galerie, 3D |
+|  | Musterseiten | 28.09. | **Lotlinie** Physio (hell & ruhig, mit KI-Raumbild), **Zwischenbild** Motion-Studio (laut & modern), **Lindgrund** Uhren (dunkel & edel, KI-Werkstattfilm), **URFA SOFRASI** Meistervariante (echtes Restaurant, Generalprobe) |
+|  | Qualität | 28.09. | Meisterstandard, Skills `/meisterpruefung`, `/pruefen`, `/sicherheit`; Fernspäherkommando für Außenprüfung |
+|  | Visuals | 29.09. | Higgsfield angebunden, Pipeline für AVIF/WebP und WebM/MP4, nahtlose Schleifen, Preisliste der Modelle |
+|  | Qualitätssystem | 29.–30.09. | `wissen/fachgebiete/` (SEO, Technical SEO, Local SEO, GEO, strukturierte Daten, CRO, Barrierefreiheit, Performance, Analytics, Sicherheit + GLOBAL), `wissen/quellen/`, Skills `/bestellung` und `/abnahme`, Werkzeuge mit 17 Tests (PR #37) |
+| Kundenarbeit | Belastungsprobe | 30.09. | OSG-Neubau `kunden/osg-germany/` mit Jury-Protokoll, Preis-Einstufung, SEO/GEO-Vergleich; vorzeigbar nur als fiktive Marke NORVAK, weil OSG eine echte Firma ist (PR #38, #39) |
+|  | Erste echte Kundenseite | 01.10. | **Merys Clean** (Gebäudereinigung): 16 Seiten, Designüberarbeitung nach Logo und Arbeitskleidung (A-076–A-078, Jury 9+), Team-Rahmen, Mappe `vertrieb/merysclean/`; Preis, Telefon, E-Mail trägt Elias selbst ein; offen vom Kunden: Hauptnummer, WhatsApp, Zitate, Herkunft der Arbeitsfotos, Rechtstexte, Mail-Schlüssel. Nie als Artifact; vorzeigbar nur als fiktive Fassung Klarwerk |
+| Eigener Auftritt | Preis | 29.09.–05.10. | Formeln, Preisstrategie, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
+|  | Eigene OQ-Seite | 03.–06.10. | `kunden/elias-studio/`: Hero Lichtkegel, Farbwelt Graphit, Leistungen als Bento mit sechs Schaubildern, Menü mit Lichtkegel, vier Arbeiten mit Live-Vorschau, Ablauf mit Linienzeichnungen, Preiskarten (Seite ab 1.490 €, Betreuung ab 75 €/Monat, beschriebene Wahlleistungen), Kontaktformular; 27 Tests, Lighthouse mobil 99–100/100/100/100. Name OQ, Nachname Wagner, Ort Eislingen von Elias bestätigt; E-Mail, Foto, Über-mich-Text, Impressum, Datenschutz und Domain **offen** (siehe Abschnitt 13) |
+|  | Referenzen | 05.10. | `wissen/referenzen/eingang/`: Auswertung Space Rocket Berlin (Struktur, Stil, Texte, Design-Tokens, 11 Kundenseiten) als Muster-Quelle |
+| Betrieb und Recht | Betreuung | 28.09. | `wartung/check.mjs` wöchentlich per GitHub Action, Paketentwurf, Wartungsoffizier |
+|  | Recht | 28.09. | Leitfaden zu Gewerbe, Umsatzsteuer, Buchhaltung, Verträgen und Pflichten der Kundenseiten |
 
 ## 9. Kosten und Tragfähigkeit
 
@@ -249,7 +251,7 @@ Folgerungen:
 |---|---|---|
 | **1 Können** | Maßstab, Baukasten, Showcases, Visuals, Fremdprüfung, Generalprobe, Portfolio; am 30.09. ergänzt um Qualitätssystem und Belastungsprobe OSG | ✅ erledigt |
 | **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; entschieden: Name OQ, Ort Eislingen, Pilotpreis 1.490 €, Betreuung ab 75 €; offen: Euro-Werte der Wahlleistungen, Zielgruppe, Gewerbe) |
-| **3 OQ-Seite** | Eigene Seite mit echten Angaben, Leistungen, Preisen, Arbeiten, Referenzfreigaben | **gebaut** (A-081–A-092, Stand 06.10., PR #76 wartet auf Merge); Livegang wartet auf Domain, Geschäfts-E-Mail, Foto, Über-mich-Text und Rechtstexte von Elias |
+| **3 OQ-Seite** | Eigene Seite mit echten Angaben, Leistungen, Preisen, Arbeiten, Referenzfreigaben | **gebaut** (A-081–A-092, Stand 06.10., PR #76 gemergt); Livegang wartet auf Domain, Geschäfts-E-Mail, Foto, Über-mich-Text und Rechtstexte von Elias |
 | **4 Konten und Amt** | Steuerberater, Gewerbe, ELSTER, Konto, Versicherung, Verträge; Cloudflare, Stripe, Domain (`ops/HAENDE.md`) | vor dem ersten zahlenden Kunden |
 | **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | Merys Clean ist die erste echte Kundenseite (Mappe `vertrieb/merysclean/`, Preis trägt Elias ein; noch kein Vertrag, keine Zahlung); URFA weiter offen. Vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
 | **6 Wachsen** | Profit-Chain aktiv, Saisonpakete, Abo-Stamm aufbauen; dann Claude-Schablonen als zweites Standbein | – |
