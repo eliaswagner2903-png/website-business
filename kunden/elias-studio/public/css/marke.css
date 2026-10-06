@@ -1,13 +1,22 @@
 /* =====================================================================
    MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
-   stil.css und bausteine.css lesen nur diese Variablen.
-   Farbwelt „Dunkles Atelier“ (2026-10-05, Hero-Variante C „Lichtkegel“): fast schwarzer Grund, warmes Weiß als Schrift,
-   EIN Lichtakzent (Periwinkle) für Links, Fokus, Überzeilen und ein Wort, tiefes Blau nur für Flächen und Verläufe.
-   Die Seite ist durchgehend dunkel; es gibt keinen Hell/Dunkel-Schalter. Zum Test der Anpassbarkeit (Meisterstandard P4)
-   liegt unten ein zweites, ebenfalls dunkles Schema: <html data-schema="kobalt"> (nur per Hand/Test, ohne Bedienelement).
-   Kontrast (WCAG AA), gemessen:
-     text/grund 17,1 · text/flaeche 16,1 · leise/grund 8,0 · leise/flaeche 7,5 · akzent/grund 11,5 · akzent/flaeche 10,9
-     auf-akzent/akzent 11,5 · fehler/flaeche 9,4 · text auf blau-tief 7,2 · leise auf den Kartenverläufen (≤ 50 % blau-tief) ≥ 5,2
+   stil.css und bausteine.css lesen nur diese Variablen (Test: tests/bausteine.test.mjs).
+   Farbwelt „Graphit“ (2026-10-06, Runde 3): Elias fand das fast reine Schwarz mit hellem Text zu hart und wählte aus drei Entwürfen B.
+   Darum: warmes Dunkelgrau statt Schwarz, Flächen in drei Höhen (grund → flaeche → flaeche-hoch), weiches Elfenbein als
+   Schrift statt Weiß, EIN Lichtakzent (Messing) für Links, Fokus und das eine Wort, ein ruhiges Grün nur für Zustände
+   („erledigt“, Häkchen in den kleinen Schaubildern), tiefes Blau nur für Lichtflächen und Verläufe.
+   Drei Schemata zum Vergleich (Meisterstandard P4, gleiche Rollen, kein Schalter auf der Seite):
+     <html>                           B „Graphit“ (Vorgabe, Elias 06.10.) – warmes Dunkelgrau, Messinglicht
+     <html data-schema="mitternacht"> A „Mitternacht“ – kühles Tintenblau, Periwinkle
+     <html data-schema="kalk">      C „Kalk“     – heller Kalkputz, Tintenblau als Akzent
+   Bauen mit Schema: SCHEMA=mitternacht node bauen.mjs (nur für Vorschauen, nie so ausliefern).
+   Kontrast (WCAG 2.x, gemessen mit scratch kontrast.mjs; Fließtext ≥ 4,5 : 1):
+     A  text/grund 13,4 · text/flaeche 12,3 · text/hoch 11,0 · leise/grund 7,5 · leise/flaeche 6,8 · leise/hoch 6,1
+        akzent/grund 10,0 · akzent/hoch 8,2 · gut/hoch 9,0 · auf-akzent/akzent 10,0 · Knopf grund/text 13,4 · fehler/flaeche 8,2
+     B  text/grund 13,7 · text/hoch 11,5 · leise/grund 7,2 · leise/hoch 6,0 · akzent/grund 10,2 · gut/hoch 8,7 · Knopf 13,7
+     C  text/grund 14,0 · text/hoch 16,4 · leise/grund 5,9 · leise/flaeche 6,4 · akzent/grund 6,9 · gut/flaeche 5,2
+        auf-akzent/akzent 7,5 · fehler/flaeche 5,7
+     Alle: leise auf den Kartenverläufen (≤ 40 % Tiefenfarbe) ≥ 5,2 · gut/grund in C 4,8 (nur Marken, kein Fließtext)
    ===================================================================== */
 
 /* ---------- Schriften: je Schnitt EINE Datei (Latin-1), lokal, SIL OFL ----------
@@ -50,17 +59,28 @@
   size-adjust: 104.9%; ascent-override: 95.8%; descent-override: 28.1%; line-gap-override: 0%;
 }
 
+/* ---------- B „Graphit“ (Vorgabe, von Elias am 06.10. gewählt) ---------- */
 :root {
-  /* Farben: 6 Rollen + Schrift auf dem Akzent */
-  --farbe-grund: #0a0b0d;       /* dunkles Atelier */
-  --farbe-flaeche: #121317;     /* Karten, Felder, Blatt */
-  --farbe-text: #f1efe9;        /* warmes Weiß; auch Hauptknopf */
-  --farbe-leise: #a8a59d;       /* Nebentext */
-  --farbe-linie: #2a2b30;       /* Haarlinien */
-  --farbe-akzent: #b9c3ff;      /* Lichtakzent: Links, Fokus, Überzeilen, ein Wort */
-  --farbe-auf-akzent: #0a0b0d;
-  --farbe-fehler: #f4a58f;      /* Fehlermeldungen im Formular */
-  --blau-tief: #2a3cc2;         /* Flächen und Verläufe, nie als Textfarbe auf Grund */
+  /* Farben: 6 Rollen + Höhe, Zustand, Schrift auf dem Akzent */
+  --farbe-grund: #1c1a17;        /* warmes Dunkelgrau statt Schwarz */
+  --farbe-flaeche: #24211d;      /* Bänder, Felder, Blatt */
+  --farbe-flaeche-hoch: #2c2924; /* Karten, gehoben */
+  --farbe-text: #ebe4d6;         /* warmes Elfenbein, gedämpft; auch Hauptknopf */
+  --farbe-leise: #afa695;        /* Nebentext */
+  --farbe-linie: #3a352e;        /* Haarlinien */
+  --farbe-akzent: #e6c18a;       /* Lichtakzent: Links, Fokus, Überzeilen, ein Wort */
+  --farbe-auf-akzent: #1c1a17;
+  --farbe-gut: #a8d4a0;          /* Zustand „erledigt“ – nur Häkchen und Marken in Schaubildern */
+  --farbe-fehler: #f2a48c;       /* Fehlermeldungen im Formular */
+  --farbe-licht: #ffd9a0;        /* Schein des Lichtkegels im Hero (nur als Hauch) */
+  --blau-tief: #6b4423;          /* Tiefenfarbe: Flächen und Verläufe, nie als Textfarbe */
+
+  /* Handwerk der Karten: Haarring 0,5 px + weicher, tiefer Schatten; Glanzkante oben */
+  --farbe-ring: rgba(230, 193, 138, .16);
+  --farbe-glanz: rgba(235, 228, 214, .07);
+  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(10, 8, 5, .4), 0 28px 48px -28px rgba(10, 8, 5, .9);
+  --schatten-hoch: 0 0 0 .5px rgba(230, 193, 138, .3), 0 2px 6px rgba(10, 8, 5, .4), 0 34px 60px -26px rgba(10, 8, 5, .95);
+  --held-schleier: 50%;          /* Deckkraft des Schleiers über dem Mosaik */
 
   /* Farben der fünf Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
   --werk-hell: #a4462a;
@@ -70,24 +90,28 @@
   --werk-klarwerk: #5fba46;
 
   /* Wegweiser-Zeichen: helle Scheibe mit dunklem Symbol */
-  --zeichen-grund: #f1efe9;
-  --zeichen-strich: #0a0b0d;
+  --zeichen-grund: #ebe4d6;
+  --zeichen-strich: #1c1a17;
 
-  /* Schriften */
+  /* Schriften (Code: nur Systemschrift, kein Download) */
   --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
   --schrift-text: "Geist", "Geist Ersatz", Arial, sans-serif;
+  --schrift-code: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Consolas, monospace;
 
   /* Formen: Karten weich gerundet, Knöpfe als Pille */
   --radius-klein: 6px;
+  --radius-karte: 1.375rem;
   --radius-gross: 999px;
 
-  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md) */
+  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md; weich/schwung nach Referenz Space Rocket) */
   --tempo-kurz: .3s;
   --tempo-mittel: .42s;
   --tempo-lang: .9s;
   --kurve-standard: cubic-bezier(.2, .8, .2, 1);
   --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
   --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
+  --kurve-weich: cubic-bezier(.16, 1, .3, 1);      /* langes, ruhiges Auslaufen */
+  --kurve-schwung: cubic-bezier(.34, 1.42, .64, 1); /* leichtes Überschwingen für kleine Marken */
 
   /* Rhythmus */
   --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 10rem);
@@ -95,12 +119,48 @@
   color-scheme: dark;
 }
 
-/* Zweites Schema nur zum Test (P4): kühleres Blauschwarz, gleiche Rollen. Kein Schalter auf der Seite. */
-:root[data-schema="kobalt"] {
-  --farbe-grund: #070a1c;
-  --farbe-flaeche: #0e1230;
-  --farbe-leise: #aab0d0;
-  --farbe-linie: #232a5c;
-  --farbe-akzent: #c6ceff;
-  --farbe-auf-akzent: #070a1c;
+/* ---------- A „Mitternacht“: kühles Tintenblau, Periwinkle (Alternative) ---------- */
+:root[data-schema="mitternacht"] {
+  --farbe-grund: #131826;
+  --farbe-flaeche: #1a2032;
+  --farbe-flaeche-hoch: #212842;
+  --farbe-text: #e4e0d6;
+  --farbe-leise: #a2a8ba;
+  --farbe-linie: #2b3249;
+  --farbe-akzent: #b3bfff;
+  --farbe-auf-akzent: #131826;
+  --farbe-gut: #9bd9b4;
+  --farbe-fehler: #f4a58f;
+  --farbe-licht: #c9d1ff;
+  --blau-tief: #3446c4;
+  --farbe-ring: rgba(179, 191, 255, .16);
+  --farbe-glanz: rgba(228, 224, 214, .07);
+  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(5, 8, 20, .35), 0 28px 48px -28px rgba(5, 8, 20, .85);
+  --schatten-hoch: 0 0 0 .5px rgba(179, 191, 255, .3), 0 2px 6px rgba(5, 8, 20, .35), 0 34px 60px -26px rgba(5, 8, 20, .95);
+  --zeichen-grund: #e4e0d6;
+  --zeichen-strich: #131826;
+}
+
+/* ---------- C „Kalk“: heller Kalkputz, Tintenblau – die Seite bei Tageslicht ---------- */
+:root[data-schema="kalk"] {
+  --farbe-grund: #f1ede5;
+  --farbe-flaeche: #faf7f1;
+  --farbe-flaeche-hoch: #ffffff;
+  --farbe-text: #1b1f2d;
+  --farbe-leise: #555a69;
+  --farbe-linie: #ddd6c9;
+  --farbe-akzent: #3442b8;
+  --farbe-auf-akzent: #faf7f1;
+  --farbe-gut: #2c7550;
+  --farbe-fehler: #b0391c;
+  --farbe-licht: #fff6dc;
+  --blau-tief: #c3c9f6;
+  --farbe-ring: rgba(27, 31, 45, .1);
+  --farbe-glanz: rgba(255, 255, 255, .8);
+  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(27, 34, 70, .05), 0 22px 40px -22px rgba(27, 34, 70, .28);
+  --schatten-hoch: 0 0 0 .5px rgba(27, 31, 45, .14), 0 2px 6px rgba(27, 34, 70, .06), 0 26px 46px -18px rgba(27, 34, 70, .34);
+  --held-schleier: 62%;
+  --zeichen-grund: #1b1f2d;
+  --zeichen-strich: #faf7f1;
+  color-scheme: light;
 }

@@ -65,7 +65,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0a0b0d">
+<meta name="theme-color" content="#1c1a17">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
@@ -205,6 +205,7 @@ ${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join
     <div class="werk-schild">
       <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art">${esc(a.art_lang)} · ${esc(a.leitmotiv)}</span></p>
       <h3 id="w-${a.id}">${esc(a.name)}</h3>
+      ${a.entscheidung ? `<p class="werk-entscheidung"${pr(P.entscheidung)}>${esc(a.entscheidung)}</p>` : ''}
       <p class="werk-satz">${esc(a.satz)}</p>
       <ul class="werk-punkte">
 ${a.punkte.map((t) => `        <li>${esc(t)}</li>`).join('\n')}
@@ -232,6 +233,51 @@ ${A.map(werk).join('\n')}
   </div>
 </section>`;
 
+// ---------- Leistungen: Bento mit sechs kleinen Schaubildern (Runde 3, 2026-10-05) ----------
+// Jede Karte zeigt in einem handgebauten Schaubild, was die Leistung tut (HTML/CSS, kein Bild, kein Icon-Satz).
+// Die Schaubilder sind Dekor (aria-hidden), der echte Text steht daneben im HTML. Ohne JS und bei „Bewegung reduzieren“
+// zeigen sie ihren Endzustand; mit JS spielen sie einmal, sobald sie im Bild sind (js/seite.js → .mini--an).
+// Beispielinhalte (ihr-betrieb.de, Adressen, Fragen) sind erkennbar Muster, keine Aussagen über echte Betriebe.
+const haken = '<i class="haken"></i>';
+const MINI = {
+  neu: `<div class="mn-fenster">
+        <div class="mn-leiste"><span class="mn-punkte"></span><span class="mn-adresse">ihr-betrieb.de</span></div>
+        <div class="mn-seite">
+          <span class="mn-raster">${'<i></i>'.repeat(6)}</span>
+          <span class="mn-nav"><b></b><i></i><i></i><i></i></span>
+          <span class="mn-links">
+            <span class="mn-spec">H1 · Instrument Serif</span>
+            <span class="mn-titel">Ihr Betrieb,<br>Ihr <em>Leitmotiv</em>.</span>
+            <span class="mn-zeilen"><i></i><i></i></span>
+            <span class="mn-knopf-zeile"><span class="mn-knopf">Termin anfragen</span><span class="mn-mass">44 px</span></span>
+          </span>
+          <span class="mn-bild"><svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMax slice" focusable="false"><circle class="strich" pathLength="1" cx="80" cy="52" r="14"/><path class="strich" pathLength="1" d="M0 96 C 26 70, 46 70, 66 86 S 104 92, 120 70"/><path class="strich" pathLength="1" d="M0 112 C 30 96, 60 100, 120 92"/></svg></span>
+        </div>
+      </div>`,
+  alt: `<span class="ma-kopf"><span>alte Adresse</span><span>neue Adresse</span></span>
+      ${[['/angebot.php', '/angebot'], ['/team.html', '/team'], ['/kontakt.php', '/kontakt']].map(([v, n]) => `<span class="ma-zeile"><span class="ma-von">${v}</span><span class="ma-pfeil"></span><span class="ma-nach">${n}</span><span class="ma-code">301</span></span>`).join('\n      ')}
+      <span class="ma-fuss">${haken}Keine Adresse läuft ins Leere</span>`,
+  seo: `<span class="ms-suche"><span class="ms-lupe"></span><span class="ms-anfrage">Physiotherapie in der Nähe</span></span>
+      <span class="ms-treffer">
+        <span class="ms-quelle"><b></b>ihr-betrieb.de › leistungen</span>
+        <span class="ms-titel">Ihr Betrieb – Leistungen und Termine</span>
+        <span class="ms-text">Öffnungszeiten, Anfahrt und Leistungen auf einen Blick.</span>
+        <span class="ms-chips"><i>Ort</i><i>Öffnungszeiten</i><i>Telefon</i></span>
+      </span>`,
+  geo: `<span class="mg-code"><span><b>"@type"</b>: "Physiotherapy",</span><span><b>"openingHours"</b>: "Sa 09:00-12:00"</span></span>
+      <span class="mg-frage">Hat die Praxis samstags geöffnet?</span>
+      <span class="mg-stapel">
+        <span class="mg-tippt"><i></i><i></i><i></i></span>
+        <span class="mg-antwort"><span class="mg-funke"></span><span>Ja, samstags von 9 bis 12 Uhr – so steht es auf der Website der Praxis.</span><span class="mg-quelle">Quelle: ihr-betrieb.de</span></span>
+      </span>`,
+  tempo: `<span class="mt-ring"><svg viewBox="0 0 80 80" focusable="false"><circle class="mt-bahn" cx="40" cy="40" r="34"/><circle class="mt-wert" pathLength="100" cx="40" cy="40" r="34"/></svg><span class="mt-zahl">95<small>+</small></span></span>
+      <span class="mt-titel"><span class="mt-taste">Tab</span>durch die Seite</span>
+      <span class="mt-reihe"><i>Start</i><i>Leistungen</i><i>Kontakt</i><span class="mt-fokus"></span></span>
+      <span class="mt-checks"><i>${haken}Tastatur</i><i>${haken}Kontrast AA</i><i>${haken}Alt-Texte</i></span>`,
+  sicher: `<span class="mz-status"><b></b>HTTP 200 · Antwort-Header</span>
+      ${[['content-security-policy', "default-src 'self'"], ['strict-transport-security', 'max-age=31536000'], ['x-frame-options', 'DENY']].map(([k, v]) => `<span class="mz-zeile"><b>${k}</b><span>${esc(v)}</span>${haken}</span>`).join('\n      ')}
+      <span class="mz-null"><span><b>0</b>Cookies</span><span><b>0</b>fremde Skripte</span></span>`,
+};
 const L = S.leistungen;
 const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
   <div class="huelle">
@@ -240,8 +286,13 @@ const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-l
       <h2 id="t-leistungen" class="einblenden">Mehr als eine <em>neue Seite</em>.</h2>
       <p class="einblenden">${esc(L.kopf)}</p>
     </div>
-    <ul class="leist-raster">
-${L.karten.map((k) => `      <li class="bet-karte einblenden"><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></li>`).join('\n')}
+    <ul class="bento">
+${L.karten.map((k) => `      <li class="leist leist--${k.id} einblenden">
+        <div class="mini mini--${k.id}" aria-hidden="true">
+      ${MINI[k.id]}
+        </div>
+        <div class="leist-text"><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></div>
+      </li>`).join('\n')}
     </ul>
   </div>
 </section>`;
@@ -277,6 +328,17 @@ ${B.abo.wahl.map((w) => `          <li>${esc(w)}</li>`).join('\n')}
 </section>`;
 
 const AB = S.ablauf;
+// Ablauf: je Schritt eine Linienzeichnung (Dekor), die sich einmal zeichnet, wenn sie ins Bild kommt; statisch ohne JS/Bewegung.
+const ZEICHNUNG = [
+  // Gespräch: zwei Sprechblasen
+  '<path class="strich" pathLength="1" d="M10 14h52a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H30l-10 9v-9h-2a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8Z"/><path class="strich" pathLength="1" d="M78 30h24a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8h-2v8l-9-8H78a8 8 0 0 1-8-8"/><circle class="punkt" cx="28" cy="31" r="2.6"/><circle class="punkt" cx="40" cy="31" r="2.6"/><circle class="punkt" cx="52" cy="31" r="2.6"/>',
+  // Vorschlag: Blatt mit Zeilen und Farbmuster des Leitmotivs
+  '<path class="strich" pathLength="1" d="M30 6h46l14 14v48H30Z"/><path class="strich" pathLength="1" d="M76 6v14h14"/><path class="strich" pathLength="1" d="M40 32h34M40 42h40M40 52h24"/><circle class="punkt punkt--gross" cx="98" cy="58" r="9"/><circle class="strich" pathLength="1" cx="108" cy="46" r="7"/>',
+  // Bau und Messung: Fenster mit Messbogen
+  '<path class="strich" pathLength="1" d="M8 10h104v56H8Z"/><path class="strich" pathLength="1" d="M8 20h104"/><path class="strich" pathLength="1" d="M38 56a22 22 0 0 1 44 0"/><path class="strich strich--akzent" pathLength="1" d="M60 56 75 41"/><circle class="punkt" cx="60" cy="56" r="3"/>',
+  // Start: Adresszeile mit Schloss, Signal „online“
+  '<path class="strich" pathLength="1" d="M10 30h86a10 10 0 0 1 0 20H10a10 10 0 0 1 0-20Z"/><path class="strich" pathLength="1" d="M17 41h8v6h-8Zm1.5 0v-3a2.5 2.5 0 0 1 5 0v3"/><path class="strich" pathLength="1" d="M34 40h44"/><circle class="punkt punkt--gut" cx="102" cy="18" r="4"/><path class="strich" pathLength="1" d="M93 9a13 13 0 0 1 18 0M89 4a19 19 0 0 1 26 0"/>',
+];
 const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf"${pr(P.ablauf)}>
   <div class="huelle">
     <div class="kopfzeile">
@@ -284,7 +346,7 @@ const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t
       <h2 id="t-ablauf" class="einblenden">${AB.titel}</h2>
     </div>
     <ol class="schritte">
-${AB.schritte.map((st, i) => `      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
+${AB.schritte.map((st, i) => `      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">${String(i + 1).padStart(2, '0')}</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false">${ZEICHNUNG[i] || ''}</svg></span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
     </ol>
   </div>
 </section>`;

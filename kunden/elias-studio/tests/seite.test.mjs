@@ -109,7 +109,8 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  assert.match(marke, /\[data-schema="kobalt"\]/, 'zweites Schema fehlt (P4)');
+  for (const s of ['mitternacht', 'kalk']) assert.match(marke, new RegExp(`\\[data-schema="${s}"\\]`), `Schema ${s} fehlt (P4)`);
+  assert.doesNotMatch(marke, /kobalt/, 'altes Testschema kobalt');
 });
 
 test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {
@@ -150,12 +151,52 @@ test('Hero „Lichtkegel“: kein Film mehr, Kegel nur per Skript und CSS, still
   for (const [, src] of start.match(/<section class="held"[\s\S]*?<\/section>/)[0].matchAll(/srcset="(\/medien\/[^" ]+)"/g)) assert.ok(statSync(join(PUB, src)).size < 40 * 1024, `${src} zu groß fürs Mosaik`);
 });
 
-test('Kein Hell/Dunkel-Schalter: die Seite ist durchgehend dunkel, kein Rest von Schalter, Speicher und Waldgrün-Creme', () => {
+test('Kein Schema-Schalter: Vorgabe „Graphit“, die Schemata „mitternacht“ und „kalk“ gibt es nur für Vorschauen', () => {
   for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|localStorage|aria-pressed|data-schema=/, `${f}: Rest des Schemaschalters`);
   for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema|localStorage/, `${d}: Rest des Schemaschalters`);
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
-  assert.match(marke, /--farbe-grund: #0a0b0d;/);
+  assert.match(marke, /--farbe-grund: #1c1a17;/, 'Vorgabe ist nicht „Graphit“');
+  assert.doesNotMatch(marke, /#0a0b0d/, 'altes Fast-Schwarz in marke.css');
   assert.doesNotMatch(marke, /data-schema="licht"|--gruen-|--kino-|--muster-/, 'alte Farbwelt in marke.css');
+  assert.match(start, /<meta name="theme-color" content="#1c1a17">/);
   assert.ok(existsSync(join(PUB, 'medien/og-startseite.jpg')), 'og:image fehlt');
   for (const [f, t] of seiten) assert.match(t, /og:image" content="[^"]*\/medien\/og-startseite\.jpg"/, `${f}: og:image`);
+});
+
+test('Kontrast WCAG AA in allen drei Schemata (Text, Nebentext, Akzent, Knöpfe ≥ 4,5 : 1)', () => {
+  const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  const block = (sel) => Object.fromEntries([...marke.match(new RegExp(`${re(sel)} \\{([^}]*)\\}`))[1].matchAll(/--(farbe-[\w-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
+  const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+  const hell = (h) => { const n = parseInt(h.slice(1), 16); return 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255); };
+  const k = (a, b) => { const [x, y] = [hell(a), hell(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  const vorgabe = block(':root');
+  for (const [name, sel] of [['graphit', null], ['mitternacht', ':root[data-schema="mitternacht"]'], ['kalk', ':root[data-schema="kalk"]']]) {
+    const f = { ...vorgabe, ...(sel ? block(sel) : {}) };
+    const paare = [['text', 'grund'], ['text', 'flaeche'], ['text', 'flaeche-hoch'], ['leise', 'grund'], ['leise', 'flaeche'], ['leise', 'flaeche-hoch'],
+      ['akzent', 'grund'], ['akzent', 'flaeche-hoch'], ['auf-akzent', 'akzent'], ['grund', 'text'], ['fehler', 'flaeche']];
+    for (const [v, h] of paare) assert.ok(k(f[`farbe-${v}`], f[`farbe-${h}`]) >= 4.5, `${name}: ${v} auf ${h} nur ${k(f[`farbe-${v}`], f[`farbe-${h}`]).toFixed(2)} : 1`);
+  }
+});
+
+test('Leistungen als Bento: sechs Karten mit Schaubild (Dekor), echter Text im HTML, keine Platzierungsversprechen', () => {
+  const sek = start.match(/<section class="abschnitt leistungen"[\s\S]*?<\/section>/)[0];
+  const karten = [...sek.matchAll(/<li class="leist leist--(\w+) einblenden">([\s\S]*?)<\/li>\n/g)];
+  assert.equal(karten.length, 6, 'sechs Leistungskarten');
+  for (const [, id, inhalt] of karten) {
+    assert.match(inhalt, new RegExp(`<div class="mini mini--${id}" aria-hidden="true">`), `${id}: Schaubild nicht aria-hidden`);
+    assert.match(inhalt, /<div class="leist-text"><h3>[^<]+<\/h3><p>[^<]+<\/p><\/div>/, `${id}: Text fehlt`);
+    assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, `${id}: Bild oder Versprechen im Schaubild`);
+  }
+  for (const k of S.leistungen.karten) assert.ok(sek.includes(`<h3>${k.titel.replace(/&/g, '&amp;')}</h3>`), `${k.id}: Titel fehlt`);
+  // Ablauf: Zeichnungen sind Dekor
+  for (const [svg] of start.matchAll(/<svg class="schritt-bild[^>]*>/g)) assert.match(svg, /focusable="false"/);
+  assert.match(start, /<span class="schritt-kopf" aria-hidden="true">/);
+});
+
+test('Arbeiten: Entscheidungssatz je Arbeit, neu formuliert und markiert', () => {
+  for (const a of S.arbeiten) {
+    assert.ok(a.entscheidung, `${a.id}: Entscheidungssatz fehlt`);
+    const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
+    assert.ok(werk.includes(`<p class="werk-entscheidung" ${markiert(S.pruefen.entscheidung)}>`), `${a.id}: Entscheidungssatz nicht markiert`);
+  }
 });
