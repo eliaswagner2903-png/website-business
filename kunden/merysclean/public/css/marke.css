@@ -39,6 +39,7 @@
   --farbe-text: #202020;        /* Marke „Dunkel“ */
   --farbe-leise: #55595a;       /* Nebentext, Feldrahmen */
   --farbe-linie: #d9d3c6;       /* Trenner */
+  --farbe-leinen: #ede8dc;      /* Köper-Bahn: dunklerer Stoffton für jeden zweiten hellen Abschnitt */
   --farbe-akzent: #5fba46;      /* das eine Grün = Logo-Grün: Hauptknopf (schwarze Schrift), Nähte, Unterstriche */
   --farbe-auf-akzent: #121412;  /* Schrift auf Grün */
   --farbe-gruen-hell: #5fba46;  /* gleicher Wert wie akzent (alter Name, auf Dunkel als Text erlaubt) */

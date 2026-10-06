@@ -105,6 +105,8 @@
     const bilder = document.querySelectorAll('.leistungen-bild');
     const zeilen = [...document.querySelectorAll('.leistung-zeilen > li')];
     if (!bilder.length || !zeilen.length) return;
+    // Handy und Tablet: jede Zeile hat ihr eigenes festes Bild – kein Wechselbild, das beim Wischen flackert
+    if (!matchMedia('(min-width: 64rem)').matches) return;
     const aktiv = (i) => {
       zeilen.forEach((z, j) => z.classList.toggle('ist-aktiv', j === i));
       bilder.forEach((b, j) => b.classList.toggle('ist-aktiv', j === i));

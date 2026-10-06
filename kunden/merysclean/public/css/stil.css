@@ -281,13 +281,56 @@ a { color: var(--farbe-text); text-decoration-color: var(--farbe-akzent); text-u
 .weiter-link { margin-top: 1.5rem; }
 .gross-text { font-size: clamp(1.15rem, 1.05rem + .4vw, 1.35rem); line-height: 1.6; margin-top: 1.4rem; }
 
+/* ---------- Stoffbahnen: helle Abschnitte wechseln zwischen Piqué (Grund, body) und Köper (Leinen mit feinen Schrägrippen).
+   Jede Köper-Bahn ist oben und unten mit einer grünen Naht eingefasst, dazu ein leiser Faden im Hintergrund.
+   So wirkt keine helle Fläche leer, ohne neue Farben einzuführen. ---------- */
+.koeper {
+  position: relative; isolation: isolate;
+  background:
+    url("../img/deko-faden.svg") right -6rem bottom -4rem / min(52rem, 85%) auto no-repeat,
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--farbe-text) 4%, transparent) 0 1px, transparent 1px 7px),
+    var(--farbe-leinen);
+  box-shadow: inset 0 1px 0 var(--farbe-linie), inset 0 -1px 0 var(--farbe-linie);
+}
+.koeper::before, .koeper::after {
+  content: ""; position: absolute; inset-inline: 0; block-size: 2px; pointer-events: none;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 75%, transparent) 0 11px, transparent 11px 19px);
+}
+.koeper::before { top: 9px; }
+.koeper::after { bottom: 9px; }
+/* Faden wechselt die Seite, damit nicht jede Bahn gleich aussieht */
+.koeper:is(.faq, .gruende, .weitere) { background-position: left -10rem bottom -5rem, 0 0, 0 0; }
+/* FAQ und „Weitere Leistungen“ auf Leistungsseiten bilden eine Bahn: keine Naht dazwischen */
+.faq.koeper:has(+ .andere)::after, .faq + .andere.koeper::before { display: none; }
+.faq.koeper:has(+ .andere) { box-shadow: inset 0 1px 0 var(--farbe-linie); }
+.faq + .andere.koeper { box-shadow: inset 0 -1px 0 var(--farbe-linie); }
+
+/* ---------- Genähte Karte: helle Fläche, feiner Rand, innen eine grüne Strichelnaht, weicher Schatten.
+   Einheitlich für alle hellen Karten (Leistungen, Wegweiser, FAQ, Gründe, Kontakt, Karte, Garantie). ---------- */
+.leistung-karte, .wegweiser-liste a, .karte, .direkt, .danach, .kontakt-karte, .faq-liste, .fuer-wen .haken-liste, .gruende-liste li, .garantie-in {
+  --_r: var(--radius-gross);
+  position: relative;
+  background: linear-gradient(to bottom, var(--farbe-flaeche), color-mix(in srgb, var(--farbe-flaeche) 55%, var(--farbe-grund)));
+  border: 1px solid var(--farbe-linie); border-radius: var(--_r);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--farbe-flaeche) 80%, white), 0 24px 44px -34px color-mix(in srgb, var(--farbe-schwarz) 75%, transparent);
+}
+.leistung-karte::after, .wegweiser-liste a::after, .karte::after, .direkt::after, .danach::after, .kontakt-karte::after, .faq-liste::after, .fuer-wen .haken-liste::after, .gruende-liste li::after, .garantie-in::after {
+  content: ""; position: absolute; inset: 6px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent);
+  border-radius: calc(var(--_r) - 6px); pointer-events: none; transition: border-color var(--tempo-kurz) var(--kurve-standard);
+}
+.wegweiser-liste a { --_r: 20px; }
+.gruende-liste li { --_r: 22px; }
+@media (hover: hover) and (pointer: fine) {
+  :is(.leistung-karte, .wegweiser-liste a):hover::after { border-color: var(--farbe-akzent); }
+}
+
 /* Wegweiser am Ende jeder Unterseite: alle Hauptziele als Karten (statt Brotkrumen) */
 .wegweiser { padding-top: 0; }
 .wegweiser-titel { margin-bottom: 1.25rem; font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); }
 .wegweiser-liste { list-style: none; display: grid; gap: .75rem; margin: 0; padding: 0; }
 .wegweiser-liste a {
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; min-height: 4.5rem; padding: .85rem 1.1rem .85rem .85rem;
-  background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: 18px; color: var(--farbe-text); text-decoration: none;
+  color: var(--farbe-text); text-decoration: none;
   transition: border-color var(--tempo-kurz) var(--kurve-standard), transform var(--tempo-kurz) var(--kurve-standard);
 }
 .wegweiser-liste strong { display: block; font: 400 1.35rem/1.15 var(--schrift-display); }
@@ -419,13 +462,17 @@ main { isolation: isolate; }
   border: 1px solid var(--farbe-linie); border-radius: 50%; color: var(--farbe-text);
   transition: background-color var(--tempo-mittel), color var(--tempo-mittel), border-color var(--tempo-mittel), transform var(--tempo-kurz) var(--kurve-standard);
 }
-.leistung-zeilen li.ist-aktiv { background: var(--farbe-schwarz); box-shadow: 0 24px 40px -30px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent); }
-.leistung-zeilen li.ist-aktiv::after { content: ""; position: absolute; inset: 5px; border: 1px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); border-radius: 17px; pointer-events: none; }
-.leistung-zeilen li.ist-aktiv::before, .leistung-zeilen li.ist-aktiv + li::before { opacity: 0; }
-.ist-aktiv .leistung-zeile { color: var(--farbe-flaeche); }
-.ist-aktiv .leistung-kurz { color: var(--farbe-leise-hell); }
-.ist-aktiv .leistung-zeile .pfeil { background: var(--farbe-akzent); border-color: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
-.ist-aktiv .patch { background: var(--farbe-schwarz-hoch); rotate: -8deg; }
+/* Aktive Zeile als schwarzes Band nur am Computer; am Handy hat jede Zeile ihr festes Bild (siehe unten) */
+@media (min-width: 64rem) {
+  .leistung-zeilen li.ist-aktiv { background: var(--farbe-schwarz); box-shadow: 0 24px 40px -30px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent); }
+  .leistung-zeilen li.ist-aktiv::after { content: ""; position: absolute; inset: 5px; border: 1px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); border-radius: 17px; pointer-events: none; }
+  .leistung-zeilen li.ist-aktiv::before, .leistung-zeilen li.ist-aktiv + li::before { opacity: 0; }
+  .ist-aktiv .leistung-zeile { color: var(--farbe-flaeche); }
+  .ist-aktiv .leistung-kurz { color: var(--farbe-leise-hell); }
+  .ist-aktiv .leistung-zeile .pfeil { background: var(--farbe-akzent); border-color: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+  .ist-aktiv .patch { background: var(--farbe-schwarz-hoch); rotate: -8deg; }
+}
+.leistung-foto { display: none; }
 .leistung-zeilen .leistung-zeile:focus-visible { outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) { .leistung-zeile:hover .pfeil { transform: translateX(4px); } }
 
@@ -442,14 +489,25 @@ main { isolation: isolate; }
   background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-radius: 6px; font: 600 .8rem/1.2 var(--schrift-text); letter-spacing: .08em; text-transform: uppercase;
 }
 .leistungen-bild-name::before { content: ""; inline-size: .45rem; block-size: .45rem; border-radius: 50%; background: var(--farbe-akzent); }
+/* Handy und Tablet: kein mitlaufendes Wechselbild (flackerte beim Wischen). Jede Leistung ist eine genähte Karte
+   mit eigenem festen Bild im schwarzen Rahmen, der Aufnäher sitzt auf dem Bild. */
 @media (max-width: 63.99rem) {
-  .leistungen-bild img { max-block-size: 34svh; }
-  .leistung-zeile { scroll-margin-top: calc(var(--kopf-hoehe) + 34svh + 1.5rem); }
-  .leistungen-bilder { margin-inline: -.5rem; box-shadow: 0 18px 30px -24px color-mix(in srgb, var(--farbe-schwarz) 90%, transparent); border-radius: 26px; }
-  .leistung-name { font-size: 1.45rem; }
-  .leistung-zeile { padding: .9rem .8rem; column-gap: .85rem; }
-  .leistung-zeile .patch { inline-size: 2.75rem; block-size: 2.75rem; }
-  .leistung-zeile .pfeil { inline-size: 2.25rem; block-size: 2.25rem; font-size: 1.05rem; }
+  .leistungen-bilder { display: none; }
+  .leistung-zeilen { gap: .75rem; }
+  .leistung-zeilen li + li::before { display: none; }
+  .leistung-zeilen li {
+    background: linear-gradient(to bottom, var(--farbe-flaeche), color-mix(in srgb, var(--farbe-flaeche) 55%, var(--farbe-grund)));
+    border: 1px solid var(--farbe-linie); border-radius: 22px; box-shadow: 0 18px 32px -26px color-mix(in srgb, var(--farbe-schwarz) 75%, transparent);
+  }
+  .leistung-zeilen li::after { content: ""; position: absolute; inset: 5px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); border-radius: 17px; pointer-events: none; }
+  .leistung-zeile { grid-template-columns: 5.75rem minmax(0, 1fr) auto; padding: .7rem .9rem .7rem .7rem; column-gap: .95rem; }
+  .leistung-zeile > .patch { display: none; }
+  .leistung-foto { position: relative; display: block; grid-row: 1 / 3; padding: 4px; background: var(--farbe-schwarz); border-radius: 16px; }
+  .leistung-foto img { aspect-ratio: 1; object-fit: cover; inline-size: 100%; border-radius: 12px; }
+  .leistung-foto .patch { position: absolute; right: -.55rem; bottom: -.55rem; inline-size: 2.1rem; block-size: 2.1rem; }
+  .leistung-name { font-size: 1.4rem; }
+  .leistung-kurz { font-size: .95rem; line-height: 1.4; }
+  .leistung-zeile .pfeil { inline-size: 2.25rem; block-size: 2.25rem; font-size: 1.05rem; background: var(--farbe-schwarz); border-color: var(--farbe-schwarz); color: var(--farbe-flaeche); }
 }
 @media (min-width: 64rem) {
   .leistungen-raster { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
@@ -486,8 +544,8 @@ main { isolation: isolate; }
 .dunkel :focus-visible { outline-color: var(--farbe-gruen-hell); }
 
 /* ---------- Garantie: das Siegel als Medaille, die sich leicht mit dem Zeiger dreht ---------- */
-.garantie { background: var(--farbe-flaeche); overflow-x: clip; }
-.garantie-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: center; }
+.garantie { overflow-x: clip; }
+.garantie-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: center; padding: clamp(1.75rem, 1rem + 3vw, 3.5rem); }
 .garantie-siegel { inline-size: 12rem; perspective: 900px; }
 .medaille {
   --_rx: 0deg; --_ry: 0deg; position: relative; transform: rotateX(var(--_rx)) rotateY(var(--_ry)); transition: transform .9s var(--kurve-standard);
@@ -514,6 +572,7 @@ main { isolation: isolate; }
 .garantie-text .garantie-tel { color: var(--farbe-text); font-weight: 600; }
 .garantie-tel a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (min-width: 48rem) { .garantie-in { grid-template-columns: 16rem minmax(0, 1fr); gap: 5rem; } .garantie-siegel { inline-size: 16rem; } }
+.garantie-text { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: no-preference) {
   .medaille { animation: medaille-pendel 7s var(--kurve-sanft) infinite alternate; }
   .medaille.kippt { animation: none; }
@@ -542,7 +601,7 @@ main { isolation: isolate; }
 
 /* ---------- Karte Einsatzgebiet ---------- */
 .gebiet-in { display: grid; gap: 2.5rem; align-items: center; }
-.karte { padding: clamp(.75rem, .5rem + 1vw, 1.5rem); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
+.karte { padding: clamp(1rem, .6rem + 1.4vw, 1.75rem); }
 .karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 800 / 730; max-width: none; overflow: visible; }
 .karte-wege path { fill: none; stroke: var(--farbe-linie); stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; }
 .ort circle { fill: var(--farbe-schwarz); stroke: var(--farbe-flaeche); stroke-width: 3; }
@@ -572,14 +631,13 @@ main { isolation: isolate; }
 
 /* ---------- FAQ ---------- */
 .faq-in { display: grid; gap: 1rem 4rem; }
-.faq-liste { border-top: 1px solid var(--farbe-linie); }
-.faq-eintrag { border-bottom: 1px solid var(--farbe-linie); }
+.faq-liste { padding: .6rem clamp(1.1rem, .8rem + 1.2vw, 2rem); }
+.faq-eintrag + .faq-eintrag { border-top: 1px dashed var(--farbe-linie); }
 .faq-eintrag summary {
   position: relative; display: flex; align-items: center; min-height: 3.75rem; padding: 1rem 3rem 1rem 0;
   font-weight: 600; font-size: 1.1rem; line-height: 1.4; cursor: pointer; list-style: none;
 }
 .faq-eintrag summary::-webkit-details-marker { display: none; }
-.faq + .anfrage { padding-top: 0; }
 .faq-eintrag summary::before, .faq-eintrag summary::after {
   content: ""; position: absolute; right: .6rem; top: 50%; inline-size: 1rem; block-size: 2px; background: var(--farbe-text);
   transition: transform var(--tempo-kurz) var(--kurve-standard);
@@ -664,52 +722,60 @@ main { isolation: isolate; }
 /* ---------- Leistungen (Übersicht) ---------- */
 .leistung-karten { list-style: none; display: grid; gap: 1.25rem; margin: 0; padding: 0; }
 .leistung-karte {
-  position: relative; display: flex; flex-direction: column; gap: .8rem; padding: 1.75rem; background: var(--farbe-flaeche);
-  border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross);
-  transition: border-color var(--tempo-kurz) var(--kurve-standard), transform var(--tempo-kurz) var(--kurve-standard);
+  display: flex; flex-direction: column; gap: .8rem; padding: .85rem .85rem 1.1rem;
+  transition: border-color var(--tempo-kurz) var(--kurve-standard), transform var(--tempo-kurz) var(--kurve-standard), box-shadow var(--tempo-kurz) var(--kurve-standard);
 }
-.leistung-karte-bild { position: relative; margin: -.85rem -.85rem 1.25rem; }
-.leistung-karte-bild img { border-radius: calc(var(--radius-gross) - .6rem); aspect-ratio: 4 / 3; object-fit: cover; inline-size: 100%; }
+.leistung-karte > :not(.leistung-karte-bild) { margin-inline: .9rem; }
+.leistung-karte-bild { position: relative; margin: 0 0 1.5rem; padding: 6px; background: var(--farbe-schwarz); border-radius: calc(var(--radius-gross) - 6px); }
+.leistung-karte-bild img { border-radius: calc(var(--radius-gross) - 12px); aspect-ratio: 4 / 3; object-fit: cover; inline-size: 100%; }
 .leistung-karte-bild .patch { position: absolute; left: 1rem; bottom: -1.6rem; }
 @media (hover: hover) and (pointer: fine) { .leistung-karte:hover .patch { rotate: -8deg; scale: 1.06; } }
 .leistung-karte h3 a { color: var(--farbe-text); text-decoration: none; }
 .leistung-karte h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .leistung-karte p { color: var(--farbe-leise); }
-.leistung-karte-mehr { margin-top: auto; padding-top: .5rem; font-weight: 600; text-decoration: underline 2px var(--farbe-akzent); text-underline-offset: .35em; }
+.leistung-karte-mehr { position: relative; margin-top: auto; padding: .9rem 3.25rem 0 0; min-block-size: 3.4rem; line-height: 2.5rem; border-top: 1px dashed var(--farbe-linie); font-weight: 600; }
+.leistung-karte-mehr .pfeil { position: absolute; right: 0; top: .9rem; display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background: var(--farbe-schwarz); color: var(--farbe-flaeche); transition: background-color var(--tempo-kurz), color var(--tempo-kurz); }
+@media (hover: hover) and (pointer: fine) { .leistung-karte:hover .leistung-karte-mehr .pfeil { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); } }
 .leistung-karte:focus-within { outline: 3px solid var(--farbe-text); outline-offset: 3px; }
 .leistung-karte h3 a:focus-visible { outline: none; }
-@media (hover: hover) and (pointer: fine) { .leistung-karte:hover { border-color: var(--farbe-text); transform: translateY(-3px); box-shadow: 0 30px 50px -36px color-mix(in srgb, var(--farbe-schwarz) 80%, transparent); } }
+@media (hover: hover) and (pointer: fine) { .leistung-karte:hover { border-color: var(--farbe-text); transform: translateY(-3px); box-shadow: 0 34px 54px -34px color-mix(in srgb, var(--farbe-schwarz) 85%, transparent); } }
 @media (min-width: 40rem) { .leistung-karten { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 64rem) { .leistung-karten { grid-template-columns: repeat(3, 1fr); } }
 
-.weitere { background: var(--farbe-flaeche); }
 .weitere-in { display: grid; gap: 2rem; align-items: center; }
 .chips { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; margin: 0; padding: 0; }
-.chips li { padding: .55rem 1.1rem; border: 1px solid var(--farbe-leise); border-radius: 999px; font-weight: 500; background: var(--farbe-grund); }
+.chips li { padding: .6rem 1.15rem; border: 1px solid var(--farbe-linie); border-radius: 999px; font-weight: 500; background: var(--farbe-flaeche); outline: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); outline-offset: -5px; box-shadow: 0 10px 18px -14px color-mix(in srgb, var(--farbe-schwarz) 70%, transparent); }
 @media (min-width: 64rem) { .weitere-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 4rem; } }
 
 /* ---------- Leistungsseite ---------- */
 .vertrauen--seite { margin-bottom: 0; }
-.fuer-wen-in { display: grid; gap: 1rem 4rem; }
+.fuer-wen-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem 4rem; }
+.fuer-wen h2, .haken-liste li { hyphens: auto; overflow-wrap: break-word; }
+.haken-liste { grid-template-columns: minmax(0, 1fr); }
+.haken-liste li > span { min-inline-size: 0; }
+@media (max-width: 22rem) { .fuer-wen .haken-liste { padding: 1.2rem 1rem; } .haken-liste li { font-size: 1.05rem; } }
 .fuer-wen .abschnitt-kopf { margin-bottom: 0; }
 .haken-liste { list-style: none; display: grid; gap: .9rem; margin: 0; padding: 0; }
 .haken-liste li { display: flex; gap: .8rem; align-items: flex-start; font-size: 1.15rem; line-height: 1.45; }
-.haken-liste .ic-haken { inline-size: 1.7rem; block-size: 1.7rem; }
+.haken-liste .ic-haken { inline-size: 1.7rem; block-size: 1.7rem; flex: none; }
+.fuer-wen .haken-liste { padding: clamp(1.4rem, 1rem + 1.5vw, 2.25rem); }
+.fuer-wen .haken-liste li + li { padding-top: .9rem; border-top: 1px dashed var(--farbe-linie); }
 @media (min-width: 64rem) { .fuer-wen-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; } }
 .andere { padding-top: 0; }
 .andere-liste { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.25rem 0 0; padding: 0; }
 .andere-liste a {
   display: inline-flex; align-items: center; gap: .3em; min-height: 48px; padding: .5rem 1.15rem; border: 1px solid var(--farbe-linie);
   border-radius: 999px; background: var(--farbe-flaeche); color: var(--farbe-text); text-decoration: none; font-weight: 500;
+  outline: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 55%, transparent); outline-offset: -5px; box-shadow: 0 10px 18px -14px color-mix(in srgb, var(--farbe-schwarz) 70%, transparent);
 }
+.andere-liste a:focus-visible { outline: 3px solid var(--farbe-text); outline-offset: 2px; }
 .andere-liste .pfeil { color: var(--farbe-text); }
 @media (hover: hover) and (pointer: fine) { .andere-liste a:hover { border-color: var(--farbe-text); } .andere-liste a:hover .pfeil { transform: translateX(4px); } }
 
 /* ---------- Über uns ---------- */
-.ueber-text { background: var(--farbe-flaeche); }
 .ueber-text-in { max-width: 54rem; }
-.gruende-liste { list-style: none; display: grid; gap: 2rem 3rem; margin: 0; padding: 0; }
-.gruende-liste li { padding-top: 1.25rem; border-top: 1px solid var(--farbe-linie); }
+.gruende-liste { list-style: none; display: grid; gap: 1.25rem; margin: 0; padding: 0; }
+.gruende-liste li { padding: 1.6rem 1.6rem 1.75rem; }
 .gruende-liste .patch { margin-bottom: 1rem; }
 .gruende-liste h3 { margin-bottom: .5rem; }
 .gruende-liste p { color: var(--farbe-leise); }
@@ -759,7 +825,7 @@ main { isolation: isolate; }
 .formular-antwort { color: var(--farbe-leise); }
 .formular button[aria-busy="true"] { opacity: .75; cursor: progress; }
 .formular-seite { display: grid; gap: 2rem; align-content: start; }
-.direkt, .danach { padding: 1.75rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
+.direkt, .danach { padding: 1.75rem; }
 .direkt-liste { list-style: none; display: grid; gap: .5rem; margin: 1rem 0 0; padding: 0; }
 .direkt-liste a { display: flex; gap: .85rem; align-items: center; min-height: 3.5rem; color: var(--farbe-text); text-decoration: none; font-size: 1.15rem; font-weight: 600; }
 .direkt-liste a > span { display: grid; }
@@ -776,7 +842,7 @@ main { isolation: isolate; }
 /* ---------- Kontakt ---------- */
 .kontakt-raster { display: grid; gap: 1.25rem; }
 .kontakt-zwischen { margin-top: 2rem; padding-top: 1.75rem; border-top: 1px dashed var(--farbe-linie); }
-.kontakt-karte { padding: 1.75rem; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); }
+.kontakt-karte { padding: 1.75rem; }
 .kontakt-karte address { margin-top: .75rem; font-style: normal; font-size: 1.15rem; line-height: 1.55; }
 .kontakt-karte .textlink .ic { color: var(--farbe-text); }
 .kontakt-liste { list-style: none; display: grid; gap: .5rem; margin: .75rem 0 0; padding: 0; }
