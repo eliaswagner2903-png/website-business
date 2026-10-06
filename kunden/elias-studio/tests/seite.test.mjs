@@ -109,7 +109,7 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  for (const s of ['graphit', 'kalk']) assert.match(marke, new RegExp(`\\[data-schema="${s}"\\]`), `Schema ${s} fehlt (P4)`);
+  for (const s of ['mitternacht', 'kalk']) assert.match(marke, new RegExp(`\\[data-schema="${s}"\\]`), `Schema ${s} fehlt (P4)`);
   assert.doesNotMatch(marke, /kobalt/, 'altes Testschema kobalt');
 });
 
@@ -151,14 +151,14 @@ test('Hero „Lichtkegel“: kein Film mehr, Kegel nur per Skript und CSS, still
   for (const [, src] of start.match(/<section class="held"[\s\S]*?<\/section>/)[0].matchAll(/srcset="(\/medien\/[^" ]+)"/g)) assert.ok(statSync(join(PUB, src)).size < 40 * 1024, `${src} zu groß fürs Mosaik`);
 });
 
-test('Kein Schema-Schalter: Vorgabe „Mitternacht“, die Schemata „graphit“ und „kalk“ gibt es nur für Vorschauen', () => {
+test('Kein Schema-Schalter: Vorgabe „Graphit“, die Schemata „mitternacht“ und „kalk“ gibt es nur für Vorschauen', () => {
   for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|localStorage|aria-pressed|data-schema=/, `${f}: Rest des Schemaschalters`);
   for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema|localStorage/, `${d}: Rest des Schemaschalters`);
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
-  assert.match(marke, /--farbe-grund: #131826;/, 'Vorgabe ist nicht „Mitternacht“');
+  assert.match(marke, /--farbe-grund: #1c1a17;/, 'Vorgabe ist nicht „Graphit“');
   assert.doesNotMatch(marke, /#0a0b0d/, 'altes Fast-Schwarz in marke.css');
   assert.doesNotMatch(marke, /data-schema="licht"|--gruen-|--kino-|--muster-/, 'alte Farbwelt in marke.css');
-  assert.match(start, /<meta name="theme-color" content="#131826">/);
+  assert.match(start, /<meta name="theme-color" content="#1c1a17">/);
   assert.ok(existsSync(join(PUB, 'medien/og-startseite.jpg')), 'og:image fehlt');
   for (const [f, t] of seiten) assert.match(t, /og:image" content="[^"]*\/medien\/og-startseite\.jpg"/, `${f}: og:image`);
 });
@@ -170,7 +170,7 @@ test('Kontrast WCAG AA in allen drei Schemata (Text, Nebentext, Akzent, Knöpfe 
   const hell = (h) => { const n = parseInt(h.slice(1), 16); return 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255); };
   const k = (a, b) => { const [x, y] = [hell(a), hell(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
   const vorgabe = block(':root');
-  for (const [name, sel] of [['mitternacht', null], ['graphit', ':root[data-schema="graphit"]'], ['kalk', ':root[data-schema="kalk"]']]) {
+  for (const [name, sel] of [['graphit', null], ['mitternacht', ':root[data-schema="mitternacht"]'], ['kalk', ':root[data-schema="kalk"]']]) {
     const f = { ...vorgabe, ...(sel ? block(sel) : {}) };
     const paare = [['text', 'grund'], ['text', 'flaeche'], ['text', 'flaeche-hoch'], ['leise', 'grund'], ['leise', 'flaeche'], ['leise', 'flaeche-hoch'],
       ['akzent', 'grund'], ['akzent', 'flaeche-hoch'], ['auf-akzent', 'akzent'], ['grund', 'text'], ['fehler', 'flaeche']];
