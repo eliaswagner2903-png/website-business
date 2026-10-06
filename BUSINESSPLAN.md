@@ -1,8 +1,11 @@
 # Business-Plan OQ
 
-> Stand **2026-10-05**, Auftrag A-086 (fortgeschrieben aus A-055 vom 2026-09-30). Neu seit 30.09.: Pilotpreis 1.490 € mit Abo (Mietmodell verworfen), Name OQ und Ort Eislingen entschieden (A-082), Merys Clean als erste echte Kundenseite gebaut (A-073–A-078), eigene OQ-Seite neu mit Angaben und Preisen (A-081–A-084). Frühere Ergänzung 30.09.: Qualitätssystem (A-051),
-> Belastungsprobe OSG-Neubau mit Jury (A-053/A-054), überarbeitete OQ-Seite (A-047–A-050). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
-> `ops/dokumentation/STAND-2026-09-30.pdf`.
+> Stand **2026-10-06**, Auftrag A-093 (fortgeschrieben aus A-086 vom 05.10. und A-055 vom 30.09.). Neu seit 05.10.: eigene OQ-Seite fertig
+> (Hero Lichtkegel, Farbwelt Graphit, Leistungen als Bento, neues Menü, Preiskarten mit Wahlleistungen, vier Musterseiten gezeigt; Konfigurator entfernt; PR #72, #75, #76),
+> Betreuung ab 75 €/Monat für alle (A-086), Referenzauswertung Space Rocket Berlin (A-088), Zugriffsprüfung maxpruegner.com.
+> Davor: Pilotpreis 1.490 € mit Abo (Mietmodell verworfen), Name OQ und Ort Eislingen (A-082), Merys Clean als erste echte Kundenseite (A-073–A-078),
+> Qualitätssystem (A-051), Belastungsprobe OSG-Neubau (A-053/A-054). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
+> `ops/dokumentation/STAND-2026-09-30.pdf` plus Nachträge N001–N005.
 > Quellen: Elias' Notizen (`wissen/notizen/`), Preisformeln und Konfigurator (`wissen/preismodell/`, PR #28),
 > Trainingsplan, Generalprobe, Portfolio-Seite (PR #26, #29), `wartung/PAKETE.md`, `recht/LEITFADEN.md`.
 > **Alle Euro-Beträge sind Platzhalter**, bis Elias sie festlegt. Was von mir (Stahl) vorgeschlagen und nicht von
@@ -17,16 +20,16 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 
 | Kennzahl | Stand |
 |---|---|
-| Aufbauzeit gesamt | rund 5 Tage (25.09. abends bis 30.09.), 16 Arbeitssitzungen, 224 Commits in 5 Repos, 39 PRs im Business-Repo |
-| Gebaute Seiten | Stand 05.10.: dazu Merys Clean (echte Kundenseite, 16 Seiten, nicht öffentlich verlinkt, fiktive Fassung Klarwerk vorzeigbar) und die neu gebaute OQ-Seite; Stand 30.09.: 11: URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten, URFA-Meistervariante, Portfolio, OSG-Neubau (8 Seiten, als fiktive Fassung NORVAK vorzeigbar) |
+| Aufbauzeit gesamt | 25.09. bis 06.10. (12 Kalendertage): 37 sichtbare Sitzungen (7 im Vorprojekt, 30 Fäden in diesem Projekt), 247 Commits auf `main` im Business-Repo, PR-Nummern bis #76 *(Zählweise siehe Abschnitt 8; nicht mit den 224 vom 30.09. vergleichbar)* |
+| Gebaute Seiten | **13** (Zählung unten): URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten (Lotlinie, Lindgrund, Zwischenbild), URFA-Meistervariante, OSG-Neubau (8 Seiten; fiktive Fassung NORVAK), Merys Clean (echte Kundenseite, 16 Seiten, nicht öffentlich verlinkt) mit der fiktiven Fassung Klarwerk, und die eigene OQ-Seite (das ursprüngliche Portfolio, seit 30.09. mehrfach neu gebaut, einmal gezählt) |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
 | Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
 | Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; OSG-Neubau: SEO 83–85 → 100, Performance 40–44 → 98–100, Barrierefreiheit 64–73 → 100 |
-| Qualitätssystem | 125 Regeln in 11 Fachgebieten plus globalem Mindeststandard, 90 Primärquellen mit Prüfdatum; jeder Auftrag läuft Auftrag → Pflichtenheft → Bau → Abnahme |
+| Qualitätssystem | 125 Regeln in 11 Fachgebieten (Stand 30.09., nicht neu gezählt) plus globalem Mindeststandard, 90 Primärquellen mit Prüfdatum; jeder Auftrag läuft Auftrag → Pflichtenheft → Bau → Abnahme |
 | Größte Probe | OSG-Neubau (Industrie, 8 Seiten) in rund 10 Stunden, fremde Jury in 5 Runden: 63,75 → 75,75 von 100 (Ziel 75) |
 | Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf; Spanne mit Platzhaltern von rund 2.000 € (Musterseite) bis rund 4.800 € (OSG) |
-| Higgsfield | 46,25 Credits verbraucht, 23,5 übrig *(errechnet: Stand 30.09. 40,25 + 6 für Merys Clean, A-076; am Konto nicht neu geprüft)* |
+| Higgsfield | 15 Credits übrig *(am Konto geprüft 06.10.; verbraucht rechnerisch 54,75 von 69,75, Plan Basic)* |
 | Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
 
 Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
@@ -35,13 +38,13 @@ Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
 
 | Leistung | Was der Kunde bekommt | Preis |
 |---|---|---|
-| **Website (Sp)** | eigene Seite nach Konfigurator-Auswahl, mobil zuerst, schnell, barrierearm, DSGVO-schonend | einmalig, per Formel |
+| **Website (Sp)** | eigene Seite nach Absprache und Pflichtenheft, mobil zuerst, schnell, barrierearm, DSGVO-schonend | einmalig, per Formel |
 | **Betreuungs-Abo (AM)**, optional | Elias schaut monatlich über die Seite und hält sie online (Hosting, SSL, Prüfung, Updates, Bericht); dazu wählbare Leistungen, z. B. Kundenfragen beantworten | monatlich: Grundbetreuung + Wahlleistungen (z. B. Kundenfragen +100 €) + Serverkosten; Liste in `wartung/PAKETE.md` |
 | **Saison-Umgestaltung** | Seite zeitweise umgestaltet (z. B. Halloween-Aktion), danach Rückbau | per Formel, ab dem 2. Jahr günstiger |
 | **Relaunch** für Bestandskunden | Umbau mit Treuerabatt | per Formel |
 | **Später: Claude-Schablonen** | fertige Vorlagen, mit denen andere ein AI-Business aufbauen | zweites Standbein, erst nach den ersten Kunden |
 
-Sicherheit in drei Stufen (Konfigurator): **Standard** ist immer dabei (HTTPS, strenge Header, kein Tracking,
+Sicherheit in drei Stufen (Preismodell): **Standard** ist immer dabei (HTTPS, strenge Header, kein Tracking,
 wöchentliche Prüfung). **Erhöht** fügt Spam-Schutz, Überwachung und Sicherungen hinzu. **Hoch** ist Pflicht bei
 Zahlung, Buchung oder Kundendaten (Webhook-Prüfung, monatliche Tiefenprüfung durch das Fernspäherkommando).
 
@@ -64,8 +67,8 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
 ## 4. Was OQ unterscheidet
 
 1. **Offener Preis:** Punkte je Baustein, Gewichte je Kriterium; der Kunde sieht jede Zeile und ihren Grund.
-2. **Konfigurator:** Stil → Farbe → Branche → Sicherheit → Bausteine → Preisrahmen. Aus denselben Angaben entsteht
-   das Briefing für den Bau (`/kundenseite-bauen`).
+2. **Pflichtenheft statt Spielwiese:** Aus dem Auftrag (`auftrag.md`) entsteht mit `/bestellung` das Pflichtenheft, danach der Bau
+   (`/kundenseite-bauen`). Der Stil-Konfigurator auf der OQ-Seite wurde am 05.10. bewusst entfernt (A-087); das Preismodell bleibt als Rechner im Repo.
 3. **Tempo in zwei Stufen** (Richtwerte, gemessen):
 
    | Stufe | Wann | Richtzeit | Beleg |
@@ -88,8 +91,9 @@ also ohne Verkaufsdruck und ohne Fantasiepreis.
 
 | Weg | Inhalt | Stand |
 |---|---|---|
-| **Eigene OQ-Seite** | fesselnder erster Bildschirm, Portfolio mit Stilbeispielen, Kontakt in drei Wegen: kostenloses Gespräch, Nachricht, Seite selbst zusammenstellen | überarbeitet (A-047–A-050): Kino-Einstieg mit KI-Film, Arbeiten im Gerät mit Links, Website-Generator mit Reglern 1–5; Name/Kontakt/Preise weiter Platzhalter, dunkle Welt auf Abruf |
-| **Konfigurator mit Preisrechner** | Kunde baut seine Wunschseite und sieht den Preisrahmen | als Website-Generator in der OQ-Seite (10 Reiter, Einstufung reist mit der Anfrage); Preisrahmen noch nicht angezeigt |
+| **Eigene OQ-Seite** | erster Bildschirm „Gebaut. Gemessen. Betreut.“ (Lichtkegel), Farbwelt Graphit (warmes Dunkelgrau, Messing), Leistungen als Bento mit Schaubildern (neue Seite, Erneuerung, suchmaschinenoptimiert, KI-Suche, Tempo, Sicherheit), Menü mit Lichtkegel, vier Arbeiten mit Live-Vorschau (Lindgrund, NORVAK, Zeytin & Glut, Zwischenbild), Preiskarten, Kontakt | **gebaut** (A-081–A-092, PR #72, #75, #76; Elias 06.10.: „sieht super aus“; Lighthouse mobil 99–100/100/100/100). **Offen vor Livegang:** Domain, Geschäfts-E-Mail, Foto, Über-mich-Text, Impressum und Datenschutz vom Fachmann; Preise und Angaben sind mit `data-pruefen` markiert |
+| **Preisrechner** | Preisrahmen für Kunden | **entfällt auf der Seite** (Konfigurator am 05.10. entfernt); Rechner `wissen/preismodell/rechner.html` bleibt Werkzeug für Elias |
+| **Referenzen von außen** | Fremde Seiten auswerten, Muster übernehmen (`/referenz`) | Space Rocket Berlin ausgewertet (A-088, Bericht in `wissen/referenzen/eingang/`, ohne Screenshots, weil der Browser in der Cloud-Umgebung gesperrt ist); maxpruegner.com per Abruf erreichbar, nur Kurzüberblick |
 | **Profit-Chain** | Empfehlung mit Abschluss → Gratismonate für den Empfehler (gedeckt aus dem Gewinn des Neukunden, höchstens 6) | Formel steht |
 | **Rabatt für Bewertung** | 5 % für eine Google-Bewertung | ⚠ vermutlich gegen Googles Richtlinien und das Wettbewerbsrecht; *(Vorschlag)* umwandeln in 5 % für eine **Referenzfreigabe** (Logo, Zitat, Vorschau auf der OQ-Seite) |
 | **Saisonpakete** | Aktionsseiten zu Halloween, Weihnachten usw. an Bestandskunden | Formel steht |
@@ -116,9 +120,14 @@ darf, sagt das Akquisebudget: höchstens 10 % des Kundenwerts (Sp-Marge + 36 Mon
 Ein Angebot entsteht so: Agent stuft die Seite ein → Formel rechnet → **Elias bestätigt** Preis, Abo und
 Zusammensetzung. Beides bleibt nachträglich änderbar.
 
+**Preisstrategie (Elias 01.10., Leitfaden „Partnerschaft über Geld leben“, PR #55/#56):** Der Verdienst liegt in der **Masse betreuter
+Seiten** und ihren Monatszahlungen (AM), nicht im Seitenpreis. Der Seitenpreis (Sp) ist intern sehr flexibel, bei einer guten Seite auch
+500 € oder weniger denkbar; der Kunde erfährt das nicht, trotzdem wird Sp so hoch wie möglich verhandelt. **Stand 06.10.:** Pilotpreis
+Website 1.490 € einmalig; Betreuung **ab 75 €/Monat für alle Kunden** (Elias 05.10., 12 Monate), dazu Wahlleistungen und Serverkosten.
+
 ## 7. Ablauf eines Auftrags
 
-1. **Anfrage** über die OQ-Seite (Gespräch, Nachricht oder Konfigurator).
+1. **Anfrage** über die OQ-Seite (Gespräch oder Nachricht).
 2. **Angebot** aus der Formel, jede Zeile mit Grund; Elias bestätigt.
 3. **Vertrag und Anzahlung** (Werkvertrag für die Seite, eigener Betreuungsvertrag fürs Abo, AV-Vertrag).
 4. **Inhalte einsammeln:** Fakten, Fotos, Logo, Rechtstexte vom Kunden. Nichts wird erfunden.
@@ -132,7 +141,7 @@ Zusammensetzung. Beides bleibt nachträglich änderbar.
 ### Der Weg bis hierher (Gesamtbilanz)
 
 Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten und der Git-Historie der Repos
-(Stand 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
+(Zeilen bis 30.09.2026, 11 Uhr; alle Commits aller Branches einschließlich Zusammenführungen, Aufteilung Website-Business nach Commit-Datum).
 
 | Abschnitt | Zeitraum | Sitzungen | Commits | Ergebnis |
 |---|---|---|---|---|
@@ -142,7 +151,10 @@ Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten u
 | Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
 | Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
 | Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
-| **Summe** | **rund 5 Tage** | **16** | **224** | **11 Seiten, 5 Repos, 3 Agenten-Teams, 39 PRs im Business-Repo** |
+| Website-Business, dritter Abschnitt | 01.–06.10. | 13 | 82 | Merys Clean (Neubau, Designüberarbeitung, Team-Rahmen, Mappe), Preisstrategie „Masse statt Seitenpreis“, System auf Englisch, OQ-Seite fertig (Angaben, Preise, Leistungen, Hero, Graphit, Menü), Betreuung ab 75 €, Space-Rocket-Referenz, Lagebericht-Nachträge N003–N005 |
+| **Summe Stand 06.10.** | **12 Kalendertage** | **37 sichtbar** | **247 auf `main` im Business-Repo, dazu 91 in den Vorprojekt-Repos (Stand 30.09.)** | **13 Seiten, 5 Repos, 3 Agenten-Teams, PR-Nummern bis #76** |
+
+*Zählweise 06.10.:* Commits mit `git log` auf `main` des Business-Repos (Merges eingeschlossen, flache Kopie, 247 Stück; je Tag: 28.09. 65, 29.09. 56, 30.09. 44, 01.10. 24, 02.10. 23, 03.10. 9, 04.10. 7, 05.10. 12, 06.10. 7). Dieses Verfahren ergibt für 28.–30.09. mehr (165) als die 133 der Tabelle oben, weil die frühere Zählung anders abgegrenzt war; die Summen sind deshalb nicht fortschreibbar. Die 91 Commits der Vorprojekt-Repos (urfa, Claude-Setup, Brüder-Repo, Fernspäherkommando) sind **nicht neu gezählt**; die Sitzung „Bruder C“ (Ümits Seite) arbeitet weiter. Sitzungen: 7 außerhalb dieses Projekts (Abfrage 06.10.) plus 30 Fäden in diesem Projekt; die 16 vom 30.09. stammen aus einer anderen Abgrenzung.
 
 Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
 Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
@@ -156,11 +168,13 @@ Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konz
 |---|---|
 | Vorlage und Baukasten | statische Vorlage mit Cloudflare Functions (Stripe Checkout, Webhook, Kontakt), strenge CSP, Bausteine: Marke, Hero mit Video, Einblenden, Seitenwechsel, Menü, Bento, Galerie, 3D |
 | Musterseiten | **Lotlinie** Physio (hell & ruhig, mit KI-Raumbild), **Zwischenbild** Motion-Studio (laut & modern), **Lindgrund** Uhren (dunkel & edel, KI-Werkstattfilm), **URFA SOFRASI** Meistervariante (echtes Restaurant, Generalprobe) |
-| Portfolio | eigene Seite im Stil „Galeriewand“ mit den vier Arbeiten, Leistungen, Paketen, Ablauf, Kontaktformular; Studio-Name OQ und Inhaber als Platzhalter markiert |
+| Eigene OQ-Seite | `kunden/elias-studio/`: Hero Lichtkegel, Farbwelt Graphit, Leistungen als Bento mit sechs Schaubildern, Menü mit Lichtkegel, vier Arbeiten mit Live-Vorschau, Ablauf mit Linienzeichnungen, Preiskarten (Seite ab 1.490 €, Betreuung ab 75 €/Monat, beschriebene Wahlleistungen), Kontaktformular; 27 Tests, Lighthouse mobil 99–100/100/100/100. Name OQ, Nachname Wagner, Ort Eislingen von Elias bestätigt; E-Mail, Foto, Über-mich-Text, Impressum, Datenschutz und Domain **offen** (siehe Abschnitt 13) |
+| Erste echte Kundenseite | **Merys Clean** (Gebäudereinigung): 16 Seiten, Designüberarbeitung nach Logo und Arbeitskleidung (A-076–A-078, Jury 9+), Team-Rahmen, Mappe `vertrieb/merysclean/`; Preis, Telefon, E-Mail trägt Elias selbst ein; offen vom Kunden: Hauptnummer, WhatsApp, Zitate, Herkunft der Arbeitsfotos, Rechtstexte, Mail-Schlüssel. Nie als Artifact; vorzeigbar nur als fiktive Fassung Klarwerk |
+| Referenzen | `wissen/referenzen/eingang/`: Auswertung Space Rocket Berlin (Struktur, Stil, Texte, Design-Tokens, 11 Kundenseiten) als Muster-Quelle |
 | Qualität | Meisterstandard, Skills `/meisterpruefung`, `/pruefen`, `/sicherheit`; Fernspäherkommando für Außenprüfung |
 | Visuals | Higgsfield angebunden, Pipeline für AVIF/WebP und WebM/MP4, nahtlose Schleifen, Preisliste der Modelle |
 | Betreuung | `wartung/check.mjs` wöchentlich per GitHub Action, Paketentwurf, Wartungsoffizier |
-| Preis | Formeln, Konfigurator-Ablauf, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
+| Preis | Formeln, Preisstrategie, Rechner `wissen/preismodell/rechner.html` (PR #28, gemergt) |
 | Recht | Leitfaden zu Gewerbe, Umsatzsteuer, Buchhaltung, Verträgen und Pflichten der Kundenseiten |
 | Qualitätssystem | `wissen/fachgebiete/` (SEO, Technical SEO, Local SEO, GEO, strukturierte Daten, CRO, Barrierefreiheit, Performance, Analytics, Sicherheit + GLOBAL), `wissen/quellen/`, Skills `/bestellung` und `/abnahme`, Werkzeuge mit 17 Tests (PR #37) |
 | Belastungsprobe | OSG-Neubau `kunden/osg-germany/` mit Jury-Protokoll, Preis-Einstufung, SEO/GEO-Vergleich; vorzeigbar nur als fiktive Marke NORVAK, weil OSG eine echte Firma ist (PR #38, #39) |
@@ -172,17 +186,17 @@ IT-Haftpflicht, Steuerberater, Geschäftskonto. Hosting auf Cloudflare Pages kos
 
 **Rechenbeispiel mit den Platzhaltern** (keine Prognose, nur um die Logik zu zeigen):
 
-| Kunden mit Abo | Abo-Einnahmen im Monat (Ø 95 €) | Einmalumsatz bei Ø 2.100 € |
+| Kunden mit Abo | Abo-Einnahmen im Monat (ab 75 €, ohne Wahlleistungen) | Einmalumsatz bei Pilotpreis 1.490 € |
 |---|---|---|
-| 5 | 475 € | 10.500 € |
-| 10 | 950 € | 21.000 € |
-| 20 | 1.900 € | 42.000 € |
+| 5 | 375 € | 7.450 € |
+| 10 | 750 € | 14.900 € |
+| 20 | 1.500 € | 29.800 € |
 
 Folgerungen:
 
 - Das Abo ist das Fundament: Es wächst mit jedem Kunden und trägt die Fixkosten. Ziel *(Vorschlag)*: Die Abos
   decken alle laufenden Kosten, bevor Werbung Geld kostet.
-- Ab etwa 12 Seiten im Jahr ist die Grenze der Kleinunternehmerregelung (25.000 € Vorjahresumsatz) in Reichweite.
+- Zum Pilotpreis 1.490 € sind es rund 17 Seiten im Jahr, bei Ø 2.100 € rund 12: dann ist die Grenze der Kleinunternehmerregelung (25.000 € Vorjahresumsatz) in Reichweite.
   Die Entscheidung dafür oder dagegen gehört ins erste Gespräch mit dem Steuerberater.
 - Anschaffungen werden vorher geprüft und dokumentiert (Preis, Sinn, Kosten-Nutzen, Chance auf MwSt-Erstattung);
   Liste bisher leer.
@@ -213,10 +227,10 @@ Folgerungen:
 | Phase | Inhalt | Stand |
 |---|---|---|
 | **1 Können** | Maßstab, Baukasten, Showcases, Visuals, Fremdprüfung, Generalprobe, Portfolio; am 30.09. ergänzt um Qualitätssystem und Belastungsprobe OSG | ✅ erledigt |
-| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; Name OQ und Ort entschieden, Pilotpreis 1.490 € gesetzt, Rest offen) |
-| **3 OQ-Seite** | Portfolio-Seite mit echten Angaben, Konfigurator mit Preisrahmen, Referenzfreigaben | weitgehend gebaut (A-081–A-084, Name, Ort, Preise „Seite ab 1.490 €“, „Abo ab 75 €/Monat“); Angaben vor Livegang bestätigen |
+| **2 Entscheiden** | Preisformel und Euro-Werte, Zielgruppe, Name/Marke, Pakete; Marktvergleich der Preise | ▶ jetzt (seit 29.09.; entschieden: Name OQ, Ort Eislingen, Pilotpreis 1.490 €, Betreuung ab 75 €; offen: Euro-Werte der Wahlleistungen, Zielgruppe, Gewerbe) |
+| **3 OQ-Seite** | Eigene Seite mit echten Angaben, Leistungen, Preisen, Arbeiten, Referenzfreigaben | **gebaut** (A-081–A-092, Stand 06.10., PR #76 wartet auf Merge); Livegang wartet auf Domain, Geschäfts-E-Mail, Foto, Über-mich-Text und Rechtstexte von Elias |
 | **4 Konten und Amt** | Steuerberater, Gewerbe, ELSTER, Konto, Versicherung, Verträge; Cloudflare, Stripe, Domain (`ops/HAENDE.md`) | vor dem ersten zahlenden Kunden |
-| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | Merys Clean ist die erste echte Kundenseite (Mappe `vertrieb/merysclean/`, Preis trägt Elias ein); URFA weiter offen. Vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
+| **5 Erste Kunden** | 2–3 Pilotkunden *(Vorschlag: URFA SOFRASI als erster, weil die Seite fertig ist)*, Referenzen sammeln, Ablauf nachschärfen | Merys Clean ist die erste echte Kundenseite (Mappe `vertrieb/merysclean/`, Preis trägt Elias ein; noch kein Vertrag, keine Zahlung); URFA weiter offen. Vorbereitet (A-056): Pilotangebot, Verkaufsmappe, Gesprächsleitfaden, Startklar-Liste in `vertrieb/`; Amtsweg parallel starten, weil die Steuernummer Wochen braucht |
 | **6 Wachsen** | Profit-Chain aktiv, Saisonpakete, Abo-Stamm aufbauen; dann Claude-Schablonen als zweites Standbein | – |
 
 ## 13. Entscheidungen, die bei Elias liegen
@@ -230,8 +244,12 @@ Folgerungen:
 3. **Bewertungsrabatt:** in Referenzfreigabe umwandeln oder rechtlich prüfen lassen?
 4. **Zielgruppe:** lokale Betriebe wie oben, oder enger (z. B. nur Gastronomie und Friseure)?
 5. **Name:** ~~OQ als Marke~~ entschieden (A-082, Name OQ, Ort Eislingen); Inhabername und Schreibweise nur noch bestätigen.
-6. **Konfigurator:** Branchenfrage fest einbauen? Preisrahmen statt genauem Preis? Vorschauseite sofort oder nach dem Gespräch?
+6. ~~Konfigurator~~ entfällt: auf der OQ-Seite am 05.10. entfernt (A-087). Offen bleibt nur, ob ein Preisrahmen später wieder angezeigt werden soll.
 7. **Framer:** statt Higgsfield, zusätzlich oder gar nicht?
 8. **Pilotkunde:** URFA SOFRASI ansprechen, sobald Phase 4 steht?
 9. **Qualitätssystem im Alltag:** `qualitaet.mjs` in die automatische Prüfung (CI) aufnehmen und den Baustein „zaehler“ (Besucherzählung ohne Cookies) bauen (A-052)?
 10. **OSG:** Studie ruht nach Runde 5. Weiterführen (Runde 6 mit den offenen Mängeln), als Verkaufsargument an OSG herantreten oder ruhen lassen?
+11. **Livegang der OQ-Seite (neu 06.10.):** Domain wählen und kaufen, Geschäfts-E-Mail und Postfach einrichten (Anleitung `ops/HAENDE.md`), Foto und Über-mich-Text liefern, Impressum und Datenschutz vom Fachmann; erst dann kann die Seite öffentlich gehen. Die Preise auf der Seite (ab 1.490 €, ab 75 €/Monat) vor Livegang bestätigen.
+12. **Gewerbe und Pilotpreis** (aus E1/E2, weiter offen): Gewerbe + ELSTER starten, Pilotpreis bestätigen, Kontakt auf der Merys-Clean-Mappe eintragen.
+
+**Ehrlich als offen markiert (Stand 06.10.):** alle Euro-Beträge der Wahlleistungen und Serverkosten (Platzhalter); kein Umsatz, kein Vertrag, keine Zahlung; kein Gewerbe; Domain und Geschäfts-E-Mail fehlen; Higgsfield-Verbrauch zuletzt am Konto geprüft am 06.10. (15 Credits); Commits und Sitzungen der Vorprojekt-Repos seit 30.09. nicht neu gezählt.
