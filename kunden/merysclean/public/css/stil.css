@@ -511,12 +511,19 @@ main { isolation: isolate; }
 }
 @media (min-width: 64rem) {
   .leistungen-raster { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
-  .leistungen-bilder { order: 0; top: calc(var(--kopf-hoehe) + 2rem); }
-  .leistungen-bild, .leistungen-bild.ist-aktiv { border-radius: 999px 999px 26px 26px; }
+  /* Rahmen um den Bogen wie bei Porträts und Teamfoto: schwarzer Rand mit grüner Naht, dahinter ein versetzter Nahtumriss.
+     Die Bilder wischen innerhalb des Rahmens, der Rahmen selbst steht still. */
+  .leistungen-bilder {
+    order: 0; top: calc(var(--kopf-hoehe) + 2rem); padding: 12px; background: var(--farbe-schwarz); border-radius: 999px 999px 34px 34px;
+    box-shadow: 0 36px 60px -38px color-mix(in srgb, var(--farbe-schwarz) 95%, transparent);
+  }
+  .leistungen-bilder::before { content: ""; position: absolute; inset: 0; z-index: -1; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 75%, transparent); border-radius: inherit; translate: .85rem .85rem; pointer-events: none; }
+  .leistungen-bilder::after { content: ""; position: absolute; inset: 5px; z-index: 3; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 75%, transparent); border-radius: 999px 999px 29px 29px; pointer-events: none; }
+  .leistungen-bild, .leistungen-bild.ist-aktiv { border-radius: 999px 999px 22px 22px; }
   .leistungen-bild { clip-path: inset(0 0 0 100%); }
   .leistungen-bild.ist-aktiv { clip-path: inset(0 0 0 0); }
-  .leistungen-bild::after { border-radius: 999px 999px 20px 20px; }
-  .leistungen-bild img { aspect-ratio: 4 / 5; max-block-size: calc(100svh - var(--kopf-hoehe) - 4rem); }
+  .leistungen-bild::after { border-radius: 999px 999px 16px 16px; }
+  .leistungen-bild img { aspect-ratio: 4 / 5; max-block-size: calc(100svh - var(--kopf-hoehe) - 4rem - 24px); }
   .leistungen-bild-name { left: 1.4rem; bottom: 1.4rem; font-size: .85rem; }
 }
 

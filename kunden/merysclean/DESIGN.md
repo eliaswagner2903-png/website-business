@@ -105,7 +105,8 @@ die Naht als Innenlinie.
 
 **Leistungen am Handy (seit A-097):** Kein mitlaufendes Wechselbild mehr (wechselte beim Wischen zu oft und zu schnell). Jede
 Leistung ist eine genähte Karte mit eigenem festen Bild im schwarzen Rahmen, der Aufnäher sitzt auf dem Bild. Das Wechselbild
-mit schwarzem Band bleibt nur am Computer (ab 64rem).
+mit schwarzem Band bleibt nur am Computer (ab 64rem). Dort steht der Bogen in einem schwarzen Rahmen mit grüner Naht und
+versetztem Nahtumriss wie Porträts und Teamfoto; die Bilder wischen innerhalb des stehenden Rahmens.
 
 **Menü:** Computer: Leiste mit Zeiten, Adresse, WhatsApp, E-Mail über dem schwarzen Kopf; „Leistungen“ öffnet ein breites
 Panel mit allen Leistungen samt Aufnäher und einer schwarzen Karte „kostenlose Besichtigung“. Handy: schwarzes Blatt von
