@@ -21,6 +21,8 @@ Priorities: 1 Website creation · 2 Server/hosting · 3 Maintenance/subscription
 6. Irreversible things (going live, deleting, e-mails to customers, real payments) only on explicit instruction.
 7. **Higgsfield credits** (and any other paid generation) only with Elias's explicit permission:
    ask beforehand what, roughly how many credits, and what for. Read-only calls (balance, models) are free.
+8. **Store as small as possible without visible quality loss** (Elias, 06.10.): new images as WebP/AVIF (or optimized JPG/PNG),
+   screenshots as WebP, no duplicate files, one version of each report. Never replace or delete existing files without a list and his approval.
 
 ## Structure
 
