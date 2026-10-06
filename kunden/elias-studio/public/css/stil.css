@@ -143,13 +143,14 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .rahmen--handy .fenster { aspect-ratio: 390 / 844; border-radius: calc(var(--_r) - 1px); }
 .rahmen .fenster img { border-radius: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .fenster img { animation: seite-rollen 46s cubic-bezier(.45, 0, .55, 1) 1.2s infinite alternate; will-change: transform; }
+  .fenster img { animation: seite-rollen 46s cubic-bezier(.3, .2, .55, 1) infinite alternate; will-change: transform; }
   /* Mit JS läuft die Aufnahme erst, wenn die Arbeit im Bild ist, und beginnt dann oben (06.10.: sonst kam man unten auf der Seite an) */
   .js .werk:not(.werk--im-bild) .fenster img { animation: none; }
-  .rahmen--handy .fenster img { animation-duration: 38s; animation-delay: 2.4s; }
+  .rahmen--handy .fenster img { animation-duration: 38s; }
   .werk-bild:hover .fenster img, .werk-bild:focus-within .fenster img { animation-play-state: paused; }
 }
-@keyframes seite-rollen { 0%, 6% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
+/* Kein Halt am Anfang (06.10.: sonst wirkt die Vorschau wie ein Standbild); unten kurz verweilen */
+@keyframes seite-rollen { 0% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
 .werk-bild .rahmen--desktop { display: none; }
 .werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--farbe-grund); }
 @media (min-width: 48rem) {
