@@ -2,7 +2,7 @@
 
 > Stand **2026-10-06**, Auftrag A-093 (fortgeschrieben aus A-086 vom 05.10. und A-055 vom 30.09.). Neu seit 05.10.: eigene OQ-Seite fertig
 > (Hero Lichtkegel, Farbwelt Graphit, Leistungen als Bento, neues Menü, Preiskarten mit Wahlleistungen, vier Musterseiten gezeigt; Konfigurator entfernt; PR #72, #75, #76),
-> Betreuung ab 75 €/Monat für alle (A-086), Referenzauswertung Space Rocket Berlin (A-088), Zugriffsprüfung maxpruegner.com.
+> Seite C des Brüder-Wettbewerbs fertig (Endfassung am 06.10., Personenauswahl im Team), Betreuung ab 75 €/Monat für alle (A-086), Referenzauswertung Space Rocket Berlin (A-088), Zugriffsprüfung maxpruegner.com.
 > Davor: Pilotpreis 1.490 € mit Abo (Mietmodell verworfen), Name OQ und Ort Eislingen (A-082), Merys Clean als erste echte Kundenseite (A-073–A-078),
 > Qualitätssystem (A-051), Belastungsprobe OSG-Neubau (A-053/A-054). Laien-Fassung (Lagebericht in 8 Registern, alle Vorhaben):
 > `ops/dokumentation/STAND-2026-09-30.pdf` plus Nachträge N001–N005.
@@ -20,11 +20,11 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 
 | Kennzahl | Stand |
 |---|---|
-| Aufbauzeit gesamt | 25.09. bis 06.10. (12 Kalendertage): 37 sichtbare Sitzungen (7 im Vorprojekt, 30 Fäden in diesem Projekt), 247 Commits auf `main` im Business-Repo, PR-Nummern bis #76 *(Zählweise siehe Abschnitt 8; nicht mit den 224 vom 30.09. vergleichbar)* |
+| Aufbauzeit gesamt | 25.09. bis 06.10. (12 Kalendertage): 37 sichtbare Sitzungen (7 im Vorprojekt, 30 Fäden in diesem Projekt), **369 Commits in 5 Repos** (Business-Repo 260, dazu Brüder-Repo 65, URFA 30, Claude-Setup 7, Fernspäherkommando 7; alle Branches, neu gezählt am 06.10.), PR-Nummern im Business-Repo bis #77 *(Zählweise siehe Abschnitt 8)* |
 | Gebaute Seiten | **13** (Zählung unten): Websites für Firmen und Business aller Art, von Varianten und Musterseiten über eine mehrseitige Firmenseite (8 Seiten, als fiktive Marke vorzeigbar) und eine echte Kundenseite (16 Seiten, nicht öffentlich verlinkt, mit fiktiver Fassung) bis zur eigenen OQ-Seite (das ursprüngliche Portfolio, seit 30.09. mehrfach neu gebaut, einmal gezählt) |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
-| Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
+| Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 *Nachtrag 06.10.: Seite C ist endgültig, zuletzt mit Personenauswahl fürs Team; Jury-Runden 5–8 mit 56, 55, 55,5 und 56 von 60.* |
 | Qualität gemessen | Lighthouse mobil 97–100 in allen vier Kategorien; OSG-Neubau: SEO 83–85 → 100, Performance 40–44 → 98–100, Barrierefreiheit 64–73 → 100 |
 | Qualitätssystem | 125 Regeln in 11 Fachgebieten (Stand 30.09., nicht neu gezählt) plus globalem Mindeststandard, 90 Primärquellen mit Prüfdatum; jeder Auftrag läuft Auftrag → Pflichtenheft → Bau → Abnahme |
 | Größte Probe | OSG-Neubau (Industrie, 8 Seiten) in rund 10 Stunden, fremde Jury in 5 Runden: 63,75 → 75,75 von 100 (Ziel 75) |
@@ -150,10 +150,11 @@ Die kurzen Bauzeiten stehen auf dieser Vorarbeit. Zahlen aus den Sitzungsdaten u
 | Fernspäherkommando | 27.–28.09. | 1 | 5 | Hfw Fortenbacher und 6 Späher mit eigenem Browser für die Außenaufklärung |
 | Website-Business (dieses Projekt) | 28.–29.09. | 4 | 97 | Vorlage mit Baukasten, 3 Musterseiten, Visual-Pipeline mit Higgsfield, Fremdprüfung, Generalprobe URFA, Portfolio, Wartung, Recht, Preismodell, dieser Plan |
 | Website-Business, zweiter Abschnitt | 29.09. abends – 30.09. | 5 | 36 | Video-Auswertung (Scroll-Film), OQ-Seite überarbeitet mit Generator, Qualitätssystem (125 Regeln), OSG-Neubau mit Jury, Preis-Einstufung, NORVAK-Link |
-| Website-Business, dritter Abschnitt | 01.–06.10. | 13 | 82 | Merys Clean (Neubau, Designüberarbeitung, Team-Rahmen, Mappe), Preisstrategie „Masse statt Seitenpreis“, System auf Englisch, OQ-Seite fertig (Angaben, Preise, Leistungen, Hero, Graphit, Menü), Betreuung ab 75 €, Space-Rocket-Referenz, Lagebericht-Nachträge N003–N005 |
-| **Summe Stand 06.10.** | **12 Kalendertage** | **37 sichtbar** | **247 auf `main` im Business-Repo, dazu 91 in den Vorprojekt-Repos (Stand 30.09.)** | **13 Seiten, 5 Repos, 3 Agenten-Teams, PR-Nummern bis #76** |
+| Website-Business, dritter Abschnitt | 01.–06.10. | 13 | 92 | Merys Clean (Neubau, Designüberarbeitung, Team-Rahmen, Mappe), Preisstrategie „Masse statt Seitenpreis“, System auf Englisch, OQ-Seite fertig (Angaben, Preise, Leistungen, Hero, Graphit, Menü), Betreuung ab 75 €, Space-Rocket-Referenz, Lagebericht-Nachträge N003–N005 |
+| Vorprojekt-Repos, neu seit 30.09. | 01.–06.10. | – | 18 | **Seite C des Brüder-Wettbewerbs in der Endfassung** (Personenauswahl für das Team: Münzen zum Wischen, große Münze auf einem Marmorpodest, Abnahme nach weiteren Jury-Runden bei 55–56 von 60; PR #5 und #6 im Brüder-Repo, 11 Commits), Claude-Setup (5), Fernspäherkommando (2) |
+| **Summe Stand 06.10.** | **12 Kalendertage** | **37 sichtbar** | **369 in 5 Repos (neu gezählt)** | **13 Seiten, 5 Repos, 3 Agenten-Teams, PR-Nummern bis #77** |
 
-*Zählweise 06.10.:* Commits mit `git log` auf `main` des Business-Repos (Merges eingeschlossen, flache Kopie, 247 Stück; je Tag: 28.09. 65, 29.09. 56, 30.09. 44, 01.10. 24, 02.10. 23, 03.10. 9, 04.10. 7, 05.10. 12, 06.10. 7). Dieses Verfahren ergibt für 28.–30.09. mehr (165) als die 133 der Tabelle oben, weil die frühere Zählung anders abgegrenzt war; die Summen sind deshalb nicht fortschreibbar. Die 91 Commits der Vorprojekt-Repos (urfa, Claude-Setup, Brüder-Repo, Fernspäherkommando) sind **nicht neu gezählt**; die Sitzung „Bruder C“ (Ümits Seite) arbeitet weiter. Sitzungen: 7 außerhalb dieses Projekts (Abfrage 06.10.) plus 30 Fäden in diesem Projekt; die 16 vom 30.09. stammen aus einer anderen Abgrenzung.
+*Zählweise 06.10.:* Alle Commits aller Branches jedes Repos mit `git log --all` (Merges eingeschlossen, flache Kopien mit bis zu 1.000 Commits Tiefe). Business-Repo 260 (je Tag: 28.09. 67, 29.09. 57, 30.09. 44, 01.10. 27, 02.10. 23, 03.10. 9, 04.10. 7, 05.10. 12, 06.10. 14), Brüder-Repo 65, URFA 30, Claude-Setup 7, Fernspäherkommando 7. Für 28.–30.09. ergibt dieses Verfahren 168 statt der 133 in der älteren Tabelle, weil früher anders abgegrenzt wurde; die älteren Zeilen sind deshalb nicht mit der neuen Summe addierbar. Bruder C (Ümits Seite C) ist seit 06.10. fertig. Sitzungen: 7 außerhalb dieses Projekts plus 30 Fäden; die 16 vom 30.09. stammen aus einer anderen Abgrenzung. Die Seitenzahl bleibt 13, weil die Endfassung von Seite C die bisherige Variante ersetzt und keine zusätzliche Seite ist.
 
 Rechenleistung der Vorarbeit vor diesem Projekt laut Sitzungsdaten: rund 2,5 Mio. erzeugte Tokens, rechnerischer
 Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen keine vergleichbaren Summen vor.
