@@ -21,7 +21,7 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Kennzahl | Stand |
 |---|---|
 | Aufbauzeit gesamt | 25.09. bis 06.10. (12 Kalendertage): 37 sichtbare Sitzungen (7 im Vorprojekt, 30 Fäden in diesem Projekt), 247 Commits auf `main` im Business-Repo, PR-Nummern bis #76 *(Zählweise siehe Abschnitt 8; nicht mit den 224 vom 30.09. vergleichbar)* |
-| Gebaute Seiten | **13** (Zählung unten): URFA SOFRASI (2 Varianten), Hairstyle by Ümit (3 Varianten im Brüder-Wettbewerb), 3 Musterseiten (Lotlinie, Lindgrund, Zwischenbild), URFA-Meistervariante, OSG-Neubau (8 Seiten; fiktive Fassung NORVAK), Merys Clean (echte Kundenseite, 16 Seiten, nicht öffentlich verlinkt) mit der fiktiven Fassung Klarwerk, und die eigene OQ-Seite (das ursprüngliche Portfolio, seit 30.09. mehrfach neu gebaut, einmal gezählt) |
+| Gebaute Seiten | **13** (Zählung unten): Restaurant (2 Varianten), Friseur (3 Varianten im Brüder-Wettbewerb), drei Musterseiten (Physio, Uhrmacher, Motion-Studio), Restaurant-Meistervariante, Industriefirma (8 Seiten, als fiktive Marke vorzeigbar), Gebäudereinigung (echte Kundenseite, 16 Seiten, nicht öffentlich verlinkt, mit fiktiver Fassung) und die eigene OQ-Seite (das ursprüngliche Portfolio, seit 30.09. mehrfach neu gebaut, einmal gezählt) |
 | Werkzeuge | Claude-Setup (5 Agents, Hooks), 7 Brüder-Skills, Fernspäherkommando (Hfw + 6 Späher), Vorlage mit Baukasten, 12 Skills im Business-Repo |
 | Bauzeit heute | 38 min (Restaurant mit 90 Gerichten), 33 min (Portfolio): **nur die Bauzeit einer Seite, möglich erst durch die 4 Tage Vorarbeit** |
 | Bauzeit Meisterseite | Maßstab Hairstyle by Ümit (Bruder C): rund 16 Stunden vom Stil bis zum Feinschliff, 9 Prüfrunden (8 Jury-Runden), Jury 54 → 56 von 60, Lighthouse 99–100/100/100/100 |
@@ -30,7 +30,6 @@ ohne Tracking). Jeder Preis entsteht aus einer offenen Formel: Der Kunde sieht, 
 | Größte Probe | OSG-Neubau (Industrie, 8 Seiten) in rund 10 Stunden, fremde Jury in 5 Runden: 63,75 → 75,75 von 100 (Ziel 75) |
 | Preismodell | Formeln Sp, AM, BK, Profit-Chain als Entwurf; Spanne mit Platzhaltern von rund 2.000 € (Musterseite) bis rund 4.800 € (OSG) |
 | Higgsfield | 15 Credits übrig *(am Konto geprüft 06.10.; verbraucht rechnerisch 54,75 von 69,75, Plan Basic)* |
-| Umsatz | noch keiner; Verkauf kommt bewusst zuletzt |
 
 Die ganze Bilanz mit Herkunft der Zahlen steht in Abschnitt 8.
 
@@ -252,4 +251,4 @@ Folgerungen:
 11. **Livegang der OQ-Seite (neu 06.10.):** Domain wählen und kaufen, Geschäfts-E-Mail und Postfach einrichten (Anleitung `ops/HAENDE.md`), Foto und Über-mich-Text liefern, Impressum und Datenschutz vom Fachmann; erst dann kann die Seite öffentlich gehen. Die Preise auf der Seite (ab 1.490 €, ab 75 €/Monat) vor Livegang bestätigen.
 12. **Gewerbe und Pilotpreis** (aus E1/E2, weiter offen): Gewerbe + ELSTER starten, Pilotpreis bestätigen, Kontakt auf der Merys-Clean-Mappe eintragen.
 
-**Ehrlich als offen markiert (Stand 06.10.):** alle Euro-Beträge der Wahlleistungen und Serverkosten (Platzhalter); kein Umsatz, kein Vertrag, keine Zahlung; kein Gewerbe; Domain und Geschäfts-E-Mail fehlen; Higgsfield-Verbrauch zuletzt am Konto geprüft am 06.10. (15 Credits); Commits und Sitzungen der Vorprojekt-Repos seit 30.09. nicht neu gezählt.
+**Ehrlich als offen markiert (Stand 06.10.):** alle Euro-Beträge der Wahlleistungen und Serverkosten (Platzhalter); kein Vertrag, keine Zahlung; kein Gewerbe; Domain und Geschäfts-E-Mail fehlen; Higgsfield-Verbrauch zuletzt am Konto geprüft am 06.10. (15 Credits); Commits und Sitzungen der Vorprojekt-Repos seit 30.09. nicht neu gezählt.
