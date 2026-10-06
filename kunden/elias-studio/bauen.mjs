@@ -41,12 +41,13 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
 }
 
 // ---------- Navigation ----------
-const NAV = [['#leistungen', 'Leistungen'], ['#arbeiten', 'Arbeiten'], ['#betreuung', 'Betreuung'], ['#kontakt', 'Kontakt']];
+// Einträge stehen in inhalt/seite.json (nav: Anker, Name, Zusatzzeile). Die Zusatzzeile erscheint nur im Handy-Blatt.
+const NAV = S.nav;
 
 function seite(datei, { titel, beschreibung, inhalt, robots = '', start = false }) {
   const kanon = `${S.basis}/${datei === 'index.html' ? '' : datei}`;
   const h = (anker) => (start ? anker : `/${anker}`);
-  const nav = NAV.map(([a, t]) => `        <li><a href="${h(a)}">${t}</a></li>`).join('\n');
+  const nav = NAV.map(([a, t, z]) => `        <li><a href="${h(a)}"><span class="nav-name">${esc(t)}</span><span class="nav-zusatz">${esc(z)}</span></a></li>`).join('\n');
   const html = `<!DOCTYPE html>
 <html lang="de"${SCHEMA}>
 <head>
@@ -125,7 +126,7 @@ ${inhalt}
         <h2 class="fuss-titel">Seite</h2>
         <ul class="fuss-liste">
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
-          <li><a href="${h('#betreuung')}">Betreuung</a></li>
+          <li><a href="${h('#betreuung')}">Preise und Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
         </ul>
       </div>
@@ -150,13 +151,14 @@ ${inhalt}
 // =====================================================================
 // Startseite
 // =====================================================================
-const A = S.arbeiten;
+const A = S.arbeiten; // gezeigt, in dieser Reihenfolge; S.arbeiten_ruhend wird nicht gebaut
+const ANZAHL = ['Null', 'Eine', 'Zwei', 'Drei', 'Vier', 'Fünf', 'Sechs', 'Sieben'][A.length] || String(A.length);
 const ueber = (text, k = '') => `<p class="ueberzeile${k ? ` ${k}` : ''}">${text}</p>`;
 
 // ---------- Hero „Lichtkegel“ (Variante C, Elias 05.10.): Mosaik aus den Arbeiten, ein Lichtkegel macht sie sichtbar ----------
 // Die H1 ist reiner Text (LCP). Das Mosaik ist Dekor (alt="", aria-hidden): je Spalte eine lange Aufnahme (Handy: Handy-Aufnahme 200 px,
 // ab 48rem Desktop-Aufnahme 560 px, jeweils AVIF mit WebP-Rückfall, klein erzeugt mit node mosaik.mjs). Ohne JS und bei „Bewegung reduzieren“ steht der Kegel still (js/held.js).
-const MOSAIK = [['hell'], ['laut'], ['edel']];
+const MOSAIK = [['edel'], ['glut'], ['norvak']]; // die dunklen, warmen Arbeiten passen ins Atelier (06.10.)
 const mosaikBild = (id) => {
   const d = (typ) => `/medien/mosaik-${id}-desktop.${typ}`;
   const h = (typ) => `/medien/mosaik-${id}-handy.${typ}`;
@@ -174,7 +176,7 @@ ${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).
     <div class="held-fuss">
       <p class="held-satz">${esc(S.hero.lead)}</p>
       <div class="aktionen held-aktionen">
-        <a class="knopf" href="#arbeiten">Arbeiten ansehen ${pfeil}</a>
+        <a class="knopf knopf--arbeiten" href="#arbeiten">Arbeiten ansehen <span class="knopf-bilder" aria-hidden="true">${MOSAIK.map(([id]) => `<i class="knopf-bild knopf-bild--${id}"></i>`).join('')}</span></a>
         <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
       </div>
     </div>
@@ -183,10 +185,10 @@ ${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).
 </section>`;
 
 // ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle fünf untereinander) ----------
-const WERTE = [['perf', 'Performance'], ['a11y', 'Barrierefreiheit'], ['bp', 'Best Practices'], ['seo', 'SEO']];
+const WERTE = [['perf', 'Tempo'], ['a11y', 'Barriere&shy;frei'], ['bp', 'Technik'], ['seo', 'SEO']]; // Lighthouse: Performance, Accessibility, Best Practices, SEO
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="knopf" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>${esc(a.name)} öffnen ${raus}</a></p>`
+    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-art">Live-Vorschau</span><span class="oeffnen-name">${esc(a.name)} öffnen</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><span class="unsichtbar"> (öffnet in neuem Tab)</span></a></p>`
     : '';
   const w = a.werte;
   const werte = w ? `
@@ -196,6 +198,7 @@ ${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join
       </dl>` : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
+      ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Seite öffnen ${raus}</span></a>` : ''}
       <div class="rahmen rahmen--desktop marken">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(a.name.toLowerCase())} · ${esc(a.art.toLowerCase())}</span></span>
         <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 64vw, 1px')}</div>
@@ -219,7 +222,7 @@ const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelle
   <div class="huelle">
     <div class="kopfzeile">
       ${ueber('Arbeiten')}
-      <h2 id="t-arbeiten" class="einblenden">Fünf Betriebe, fünf <em>Welten</em>.</h2>
+      <h2 id="t-arbeiten" class="einblenden">${ANZAHL} Betriebe, ${ANZAHL.toLowerCase()} <em>Welten</em>.</h2>
       <p class="einblenden">${esc(S.arbeiten_kopf)}</p>
     </div>
     <div class="buehne">
@@ -291,7 +294,7 @@ ${L.karten.map((k) => `      <li class="leist leist--${k.id} einblenden">
         <div class="mini mini--${k.id}" aria-hidden="true">
       ${MINI[k.id]}
         </div>
-        <div class="leist-text"><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></div>
+        <div class="leist-text"><p class="leist-kurz">${esc(k.kurz)}</p><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></div>
       </li>`).join('\n')}
     </ul>
   </div>
@@ -301,7 +304,7 @@ const B = S.betreuung;
 const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Seite und Betreuung')}
+      ${ueber('Preise und Betreuung')}
       <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
       <p class="einblenden">${esc(B.kopf)}</p>
     </div>
@@ -310,18 +313,19 @@ const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labe
         <h3 id="b-seite">${esc(B.seite.titel)}</h3>
         <p>${esc(B.seite.text)}</p>
         <ul class="bet-liste">
-${(B.seite.enthalten || []).map((w) => `          <li>${esc(w)}</li>`).join('\n')}
+${(B.seite.enthalten || []).map(([n, t]) => `          <li><strong>${esc(n)}</strong><span>${esc(t)}</span></li>`).join('\n')}
         </ul>
-        <p class="preis"><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span></p>
+        <p class="preis"><span class="preis-titel">${esc(B.seite.preis_art)}</span><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span></p>
       </section>
       <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
         <h3 id="b-abo">${esc(B.abo.titel)}</h3>
         <p>${esc(B.abo.text)}</p>
-        <ul class="bet-wahl">
-${B.abo.wahl.map((w) => `          <li>${esc(w)}</li>`).join('\n')}
+        <p class="bet-wahl-titel">Zusätzlich wählbar</p>
+        <ul class="bet-wahl"${pr(P.wahl)}>
+${B.abo.wahl.map(([n, t]) => `          <li><strong>${esc(n)}</strong><span>${esc(t)}</span></li>`).join('\n')}
         </ul>
         <p class="bet-hinweis">${esc(B.abo.hinweis)}</p>
-        <p class="preis"><span class="preis-wert"${pr(P.preis_abo)}>${esc(S.preis_abo_anzeige)}</span></p>
+        <p class="preis"><span class="preis-titel">${esc(B.abo.preis_art)}</span><span class="preis-wert"${pr(P.preis_abo)}>${esc(S.preis_abo_anzeige)}</span></p>
       </section>
     </div>
   </div>
@@ -391,7 +395,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
-  beschreibung: 'Schnelle Websites ohne Tracking, gebaut für das Handy, auf Wunsch betreut. Fünf Arbeiten: Physiotherapie, Motion-Studio, Uhrmacherei, Restaurant, Gebäudereinigung.',
+  beschreibung: `Suchmaschinenoptimierte, schnelle Websites ohne Tracking, auf Wunsch betreut. Musterseiten: ${A.map((a) => a.branche).join(', ')}.`,
   inhalt: [held, leistungen, arbeiten, ablauf, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
@@ -401,7 +405,7 @@ seite('index.html', {
 // =====================================================================
 // Wegweiser statt Brotkrumen (Erkenntnis aus Klarwerk/Merys-Clean-Arbeit, kunden/merysclean/DESIGN.md): am Ende jeder Unterseite
 // vier Ziele mit weißem Symbol im Rand und Nahtlinie.
-const WEGE = [['/', 'Startseite', 'Zurück zum Anfang', ICON.haus], ['/#arbeiten', 'Arbeiten', 'Fünf Musterseiten ansehen', ICON.arbeiten], ['/#betreuung', 'Betreuung', 'Seite und Betreuung', ICON.schild], ['/#kontakt', 'Kontakt', 'Projekt anfragen', ICON.post]];
+const WEGE = [['/', 'Startseite', 'Zurück zum Anfang', ICON.haus], ['/#arbeiten', 'Arbeiten', `${ANZAHL} Musterseiten ansehen`, ICON.arbeiten], ['/#betreuung', 'Preise', 'Website und Betreuung', ICON.schild], ['/#kontakt', 'Kontakt', 'Projekt anfragen', ICON.post]];
 const wegweiser = `<nav class="wegweiser" aria-labelledby="t-wegweiser">
     <h2 id="t-wegweiser" class="wegweiser-titel">Wohin als <em>Nächstes</em>?</h2>
     <ul>

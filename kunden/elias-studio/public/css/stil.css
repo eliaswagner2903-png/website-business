@@ -143,11 +143,14 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .rahmen--handy .fenster { aspect-ratio: 390 / 844; border-radius: calc(var(--_r) - 1px); }
 .rahmen .fenster img { border-radius: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .fenster img { animation: seite-rollen 46s cubic-bezier(.45, 0, .55, 1) 1.2s infinite alternate; will-change: transform; }
-  .rahmen--handy .fenster img { animation-duration: 38s; animation-delay: 2.4s; }
+  .fenster img { animation: seite-rollen 46s cubic-bezier(.3, .2, .55, 1) infinite alternate; will-change: transform; }
+  /* Mit JS läuft die Aufnahme erst, wenn die Arbeit im Bild ist, und beginnt dann oben (06.10.: sonst kam man unten auf der Seite an) */
+  .js .werk:not(.werk--im-bild) .fenster img { animation: none; }
+  .rahmen--handy .fenster img { animation-duration: 38s; }
   .werk-bild:hover .fenster img, .werk-bild:focus-within .fenster img { animation-play-state: paused; }
 }
-@keyframes seite-rollen { 0%, 6% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
+/* Kein Halt am Anfang (06.10.: sonst wirkt die Vorschau wie ein Standbild); unten kurz verweilen */
+@keyframes seite-rollen { 0% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
 .werk-bild .rahmen--desktop { display: none; }
 .werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--farbe-grund); }
 @media (min-width: 48rem) {
@@ -948,3 +951,141 @@ p { max-width: 64ch; }
   .mz-null b { font-size: 3.2rem; }
   .mz-null { gap: .25rem 2rem; margin-block-start: .75rem; }
 }
+
+/* =====================================================================
+   Runde 4 (2026-10-06, A-091): Menü ohne Messskala, Lichtlinie statt Pille, Knöpfe und Seitenlinks hochwertiger,
+   Fachbegriff als Etikett über den Leistungen, Preiskarten mit Preisschild und beschriebenen Wahlleistungen (mobil eine Spalte).
+   ===================================================================== */
+.werk--norvak, .reiter--norvak { --_werk: var(--werk-norvak); }
+
+/* ---------- Menü: Zusatzzeile nur im Handy-Blatt ---------- */
+.nav-zusatz { display: none; }
+.nav-name { display: inline; }
+
+/* ---------- Menü am Computer: eine Lichtlinie gleitet unter den Eintrag, darüber ein Hauch Licht ---------- */
+@media (min-width: 48rem) {
+  .nav-marke {
+    inset-block: auto .2rem; margin-block-start: 0; block-size: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--farbe-akzent) 22% 78%, transparent);
+    box-shadow: 0 0 .9rem color-mix(in srgb, var(--farbe-akzent) 55%, transparent);
+  }
+  .nav-marke::before {
+    content: ""; position: absolute; inset: -2rem -15% 0; pointer-events: none;
+    background: radial-gradient(50% 100% at 50% 100%, color-mix(in srgb, var(--farbe-licht) 12%, transparent), transparent 75%);
+  }
+  .nav a:not(.knopf) { color: color-mix(in srgb, var(--farbe-text) 82%, var(--farbe-leise)); }
+  .nav a:not(.knopf):hover, .nav a[aria-current="location"]:not(.knopf) { color: var(--farbe-text); }
+}
+
+/* ---------- Hauptknopf „Arbeiten ansehen“: drei kleine Ausschnitte der Arbeiten statt Pfeil, fächern beim Darüberfahren auf ---------- */
+.knopf--arbeiten { padding-inline-end: .55rem; }
+.knopf-bilder { display: inline-flex; align-items: center; margin-inline-start: .35rem; }
+.knopf-bild {
+  inline-size: 2.1rem; block-size: 2.1rem; border-radius: 50%; margin-inline-start: -.7rem;
+  background: var(--farbe-grund) var(--_bx, 50%) var(--_by, 0%) / 300% auto no-repeat;
+  box-shadow: 0 0 0 2px var(--farbe-text), 0 .3rem .7rem -.3rem var(--farbe-grund);
+  transition: transform var(--tempo-mittel) var(--kurve-schwung);
+}
+.knopf-bild:first-child { margin-inline-start: 0; }
+.knopf-bild--edel { --_bx: 46%; --_by: 23%; } .knopf-bild--glut { --_bx: 50%; --_by: 15%; } .knopf-bild--norvak { --_bx: 82%; --_by: 4%; }
+.knopf-bild--edel { background-image: url("/medien/mosaik-edel-handy.webp"); background-image: image-set(url("/medien/mosaik-edel-handy.avif") type("image/avif"), url("/medien/mosaik-edel-handy.webp") type("image/webp")); }
+.knopf-bild--norvak { background-image: url("/medien/mosaik-norvak-handy.webp"); background-image: image-set(url("/medien/mosaik-norvak-handy.avif") type("image/avif"), url("/medien/mosaik-norvak-handy.webp") type("image/webp")); }
+.knopf-bild--glut { background-image: url("/medien/mosaik-glut-handy.webp"); background-image: image-set(url("/medien/mosaik-glut-handy.avif") type("image/avif"), url("/medien/mosaik-glut-handy.webp") type("image/webp")); }
+@media (hover: hover) and (pointer: fine) {
+  .knopf--arbeiten:hover .knopf-bild:nth-child(1) { transform: translateX(-.35rem) rotate(-6deg); }
+  .knopf--arbeiten:hover .knopf-bild:nth-child(3) { transform: translateX(.35rem) rotate(6deg); }
+}
+@media (max-width: 29.99rem) { .held-aktionen .knopf--arbeiten { justify-content: space-between; padding-inline-start: 1.65rem; } }
+
+/* ---------- Direkter Link zur Musterseite: Etikett „Live-Vorschau“ mit Puls, Name, Pfeil im Messingkreis ---------- */
+.werk-link { margin-block-start: 1.25rem; }
+.oeffnen {
+  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+  inline-size: min(100%, 22rem); min-height: 4.25rem; padding: .65rem .65rem .65rem 1.5rem; border-radius: var(--radius-gross);
+  color: var(--farbe-text); text-decoration: none;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--blau-tief) 24%, var(--farbe-flaeche-hoch)) 0, var(--farbe-flaeche) 80%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 36%, transparent), inset 0 1px 0 var(--farbe-glanz), var(--schatten-karte);
+  transition: box-shadow var(--tempo-mittel) var(--kurve-standard);
+}
+.oeffnen::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--farbe-licht) 16%, transparent) 50%, transparent 65%);
+  transform: translateX(-120%); transition: transform .9s var(--kurve-standard);
+}
+.oeffnen-text { display: grid; gap: .2rem; min-width: 0; }
+.oeffnen-art { display: inline-flex; align-items: center; gap: .5rem; font: 500 .75rem/1.2 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent); }
+.oeffnen-art::before { content: ""; inline-size: .45rem; block-size: .45rem; border-radius: 50%; background: var(--farbe-gut); box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--farbe-gut) 22%, transparent); }
+.oeffnen-name { font: 400 1.5rem/1.1 var(--schrift-display); letter-spacing: -.01em; }
+.oeffnen-zeichen {
+  display: grid; place-items: center; flex: none; inline-size: 2.9rem; block-size: 2.9rem; border-radius: 50%;
+  background: var(--farbe-akzent); color: var(--farbe-auf-akzent); transition: transform var(--tempo-mittel) var(--kurve-schwung);
+}
+.oeffnen-zeichen svg { inline-size: 1.15rem; block-size: 1.15rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.oeffnen:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .oeffnen:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 70%, transparent), inset 0 1px 0 var(--farbe-glanz), var(--schatten-hoch); }
+  .oeffnen:hover::before { transform: translateX(120%); }
+  .oeffnen:hover .oeffnen-zeichen { transform: rotate(45deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .oeffnen-art::before { animation: live-puls 2.4s var(--kurve-weich) infinite; }
+}
+@keyframes live-puls { 50% { box-shadow: 0 0 0 .38rem color-mix(in srgb, var(--farbe-gut) 0%, transparent); } }
+
+/* Das Gerätebild selbst öffnet die Seite (Maus/Touch); Tastatur und Vorleser nutzen den Link daneben */
+.werk-bild-link { position: absolute; inset: 0; z-index: 3; display: grid; place-items: end center; padding-block-end: 1.5rem; border-radius: calc(var(--radius-klein) * 3); cursor: pointer; text-decoration: none; }
+.werk-bild-hinweis {
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .6rem 1.2rem; border-radius: var(--radius-gross);
+  font: 550 .9375rem/1 var(--schrift-text); color: var(--farbe-grund); background: var(--farbe-text);
+  box-shadow: 0 1rem 2rem -1rem var(--farbe-grund); visibility: hidden; transform: translateY(.5rem) scale(.96);
+  transition: transform var(--tempo-mittel) var(--kurve-standard), visibility 0s linear var(--tempo-mittel);
+}
+@media (hover: hover) and (pointer: fine) {
+  .werk-bild-link:hover .werk-bild-hinweis { visibility: visible; transform: none; transition-delay: 0s; }
+}
+
+/* ---------- Leistungen: Fachbegriff als kleines Etikett über dem Titel ---------- */
+.leist-text .leist-kurz {
+  display: inline-flex; align-items: center; gap: .55rem; margin: 0; max-inline-size: none;
+  font: 500 .75rem/1.2 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent);
+}
+.leist-text .leist-kurz::before { content: ""; inline-size: 1.25rem; block-size: 1px; background: currentColor; }
+.leist-text h3 { hyphens: manual; text-wrap: balance; }
+
+/* ---------- Preise und Betreuung: Preisschild oben im Fuß, Wahlleistungen als beschriebene Liste ---------- */
+.bet-karte { container-type: inline-size; }
+.bet-wahl-titel { margin: .5rem 0 0; font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise); }
+.bet-wahl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 1.75rem; margin: 0; padding: 0; list-style: none; }
+@container (min-width: 34rem) { .bet-wahl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bet-wahl li {
+  position: relative; display: grid; gap: .2rem; padding: .85rem 0 .85rem 2.1rem; font-size: 1rem;
+  border: 0; border-top: 1px solid color-mix(in srgb, var(--farbe-text) 12%, transparent); border-radius: 0; background: none;
+}
+.bet-wahl li::before {
+  content: "+"; position: absolute; inset: .95rem auto auto 0; display: grid; place-items: center; inline-size: 1.35rem; block-size: 1.35rem;
+  border-radius: 50%; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent); color: var(--farbe-akzent); font: 400 1rem/1 var(--schrift-text);
+}
+.bet-wahl strong { font-weight: 550; line-height: 1.35; }
+.bet-wahl span { font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }
+.bet-hinweis { margin-block-start: .25rem; }
+.bet-karte .preis { flex-direction: column; align-items: flex-start; gap: .4rem; padding-block-start: 1.25rem; }
+.preis-titel { font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent); }
+.bet-karte .preis-wert { font-size: clamp(2.2rem, 1.7rem + 1.8vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
+@media (max-width: 29.99rem) {
+  .bet-karte { padding: 1.4rem 1.25rem 1.5rem; }
+  .bet-karte h3 { font-size: 2rem; }
+}
+@media (min-width: 64rem) {
+  .leist--neu .leist-text { row-gap: .55rem; }
+  .leist--neu .leist-text .leist-kurz { grid-column: 1; grid-row: 1; }
+  .leist--neu .leist-text h3 { grid-column: 1; grid-row: 2; }
+  .leist--neu .leist-text > p:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
+}
+
+/* Preiskarte Website: Vorteile mit Kurzbeschreibung (06.10.) */
+.bet-liste { gap: .85rem; }
+.bet-liste li { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .7rem; align-items: start; }
+.bet-liste strong, .bet-liste span { grid-column: 2; }
+.bet-liste li::before { grid-row: 1 / 3; margin-block-start: .45rem; transform: rotate(-45deg); }
+.bet-liste strong { display: block; font-weight: 550; line-height: 1.35; }
+.bet-liste span { display: block; font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }

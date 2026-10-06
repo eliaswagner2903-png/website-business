@@ -6,7 +6,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 const sharp = createRequire(new URL('../../werkzeuge/package.json', import.meta.url))('sharp');
 const MEDIEN = fileURLToPath(new URL('./public/medien/', import.meta.url));
-const IDS = ['hell', 'laut', 'edel'];
+const IDS = ['edel', 'glut', 'norvak']; // gleiche Reihe wie MOSAIK in bauen.mjs
 // [Art, Quelle (Breite), Zielbreite, Anteil der Quellhöhe von oben]
 const ARTEN = { desktop: [800, 560, 0.85], handy: [320, 200, 0.85] };
 for (const id of IDS) {

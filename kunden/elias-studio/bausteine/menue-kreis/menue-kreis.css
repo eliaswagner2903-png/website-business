@@ -33,13 +33,18 @@
   .js .blatt {
     position: fixed; z-index: 2; inset: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem;
     overflow-y: auto; overscroll-behavior: contain;
-    padding: calc(4.25rem + 2rem) 1.5rem calc(1.75rem + env(safe-area-inset-bottom, 0px)) 2.25rem;
+    padding: calc(4.25rem + 1.75rem) 1.5rem calc(1.75rem + env(safe-area-inset-bottom, 0px));
     color: var(--farbe-text);
+    /* Lichtkegel wie im Hero: warmes Licht fällt vom Menü-Knopf schräg ins Blatt (06.10.: ersetzt die Messskala am Rand) */
     background:
-      repeating-linear-gradient(180deg, color-mix(in srgb, var(--farbe-text) 32%, transparent) 0 1px, transparent 1px 1.1rem) left .9rem top 0 / .55rem 100% no-repeat,
-      radial-gradient(120% 55% at 100% 0%, color-mix(in srgb, var(--blau-tief) 60%, transparent), transparent 62%),
-      radial-gradient(90% 40% at 0% 100%, color-mix(in srgb, var(--blau-tief) 36%, transparent), transparent 70%),
+      radial-gradient(70% 48% at var(--kx, 100%) 0%, color-mix(in srgb, var(--farbe-licht) 13%, transparent), transparent 70%),
+      conic-gradient(from 200deg at var(--kx, 100%) -2rem, transparent 0deg, color-mix(in srgb, var(--farbe-licht) 6%, transparent) 14deg, transparent 34deg),
+      radial-gradient(90% 40% at 0% 100%, color-mix(in srgb, var(--blau-tief) 34%, transparent), transparent 70%),
       linear-gradient(var(--farbe-grund), var(--farbe-grund));
+    /* Inhalt läuft beim Scrollen im Blatt nicht unter Marke und Knopf durch (06.10.: „Leistungen“ lag über dem Logo):
+       der Kopfstreifen bleibt frei, darunter blendet der Inhalt weich ein */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0 4.4rem, black 5.6rem);
+    mask-image: linear-gradient(to bottom, transparent 0 4.4rem, black 5.6rem);
     clip-path: circle(0 at var(--kx, 100%) var(--ky, 2.2rem)); visibility: hidden;
     transition: clip-path .45s var(--kurve-schliessen), visibility 0s linear .45s;
   }
@@ -51,23 +56,29 @@
     content: "[OQ]"; position: absolute; inset: auto -.5rem -2.2rem auto; font: 400 11rem/1 var(--schrift-display);
     color: color-mix(in srgb, var(--farbe-text) 6%, transparent); pointer-events: none; letter-spacing: -.03em;
   }
-  .js .blatt ul { counter-reset: nav; list-style: none; margin: 0; padding: 0; flex-direction: column; align-items: stretch; gap: 0; }
-  .js .blatt li { counter-increment: nav; border-top: 1px solid var(--farbe-linie); }
-  .js .blatt li:last-child { border-top: 0; padding-block-start: 1.5rem; counter-increment: none; }
+  .js .blatt ul { list-style: none; margin: 0; padding: 0; flex-direction: column; align-items: stretch; gap: 0; }
+  /* Trennlinie als Lichtkante: Messing links, verläuft nach rechts ins Dunkel */
+  .js .blatt li { position: relative; }
+  .js .blatt li:not(:last-child)::after {
+    content: ""; position: absolute; inset: auto 0 0; block-size: 1px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 45%, transparent), color-mix(in srgb, var(--farbe-text) 10%, transparent) 55%, transparent);
+  }
+  .js .blatt li:last-child { padding-block-start: 1.75rem; }
   .js .blatt li a:not(.knopf) {
-    position: static; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto; align-items: center; min-height: 4.5rem; padding: .7rem .25rem;
-    font: 400 clamp(2.5rem, 11.5vw, 3.4rem)/1 var(--schrift-display); letter-spacing: -.02em; color: var(--farbe-text);
-    background: none; inset: auto; border-radius: 0;
+    position: static; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name zeichen" "zusatz zeichen"; align-items: center;
+    column-gap: 1rem; row-gap: .35rem; min-height: 5rem; padding: 1rem .15rem;
+    color: var(--farbe-text); background: none; inset: auto; border-radius: 0; text-decoration: none;
   }
-  .js .blatt li a:not(.knopf)::before {
-    content: counter(nav, decimal-leading-zero); font: 500 .8125rem/1 var(--schrift-text); letter-spacing: .14em; color: var(--farbe-akzent);
+  .js .blatt .nav-name { grid-area: name; font: 400 clamp(2.4rem, 11vw, 3.2rem)/.95 var(--schrift-display); letter-spacing: -.02em; }
+  .js .blatt .nav-zusatz { display: block; grid-area: zusatz; font: 400 .9375rem/1.3 var(--schrift-text); color: var(--farbe-leise); }
+  .js .blatt li a:not(.knopf)::after {   /* Pfeil im Haarring, kippt beim Antippen nach rechts */
+    content: "→"; grid-area: zeichen; position: static; inset: auto; display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem;
+    border-radius: 50%; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 40%, transparent); background: none; transform: none;
+    font: 400 1.125rem/1 var(--schrift-text); color: var(--farbe-akzent);
+    transition: transform var(--tempo-kurz) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard);
   }
-  .js .blatt li a:not(.knopf)::after {
-    content: "→"; position: static; inset: auto; background: none; transform: none; block-size: auto;
-    font: 400 1.5rem/1 var(--schrift-text); color: var(--farbe-akzent); opacity: .75; transition: transform var(--tempo-kurz) var(--kurve-standard);
-  }
-  .js .blatt li a:not(.knopf):active::after { transform: translateX(.35rem); }
-  .js .blatt a[aria-current="location"] { color: var(--farbe-akzent); }
+  .js .blatt li a:not(.knopf):active::after { transform: translateX(.3rem); background: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
+  .js .blatt a[aria-current="location"] .nav-name { font-style: italic; color: var(--farbe-akzent); }
   .js .blatt .knopf { inline-size: 100%; min-height: 56px; }
   .js .blatt-fuss { position: relative; z-index: 1; display: grid; gap: .15rem; padding-block-start: 1rem; border-top: 1px solid var(--farbe-linie); font-size: 1rem; }
   .js .blatt .blatt-fuss a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); font: 400 1.35rem/1.2 var(--schrift-text); }
