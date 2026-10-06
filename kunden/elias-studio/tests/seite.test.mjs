@@ -53,7 +53,7 @@ test('Preise: nur die von Elias gesetzten Beträge (1.490 €, 75 €), markiert
   assert.match(start, new RegExp(`${re(markiert(S.pruefen.preis_website))}>ab 1\\.490`), 'Website-Preis: markierte Angabe');
 });
 
-test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {
+test('Arbeiten: gezeigte Musterseiten (nur fiktive Marken), Vorschaubilder und Messwerte vorhanden', () => {
   for (const a of S.arbeiten) {
     assert.match(start, new RegExp(`id="arbeit-${a.id}"`), `${a.id}: fehlt`);
     for (const art of ['desktop', 'handy']) {
@@ -64,9 +64,14 @@ test('Arbeiten: fünf Musterseiten (nur fiktive Marken), Vorschaubilder und Mess
       }
     }
     if (a.werte) assert.ok(a.werte.perf >= 95 && a.werte.kb > 0, `${a.id}: Messwerte fehlen`);
-    else assert.equal(a.id, 'klarwerk', `${a.id}: Messwerte fehlen (nur Klarwerk ist unvermessen)`);
+    else assert.fail(`${a.id}: Messwerte fehlen (gezeigte Arbeiten sind nachgemessen)`);
   }
-  for (const n of ['hell', 'laut', 'edel', 'glut', 'klarwerk']) assert.match(start, new RegExp(`id="arbeit-${n}"[\\s\\S]*?Musterseite[ ·<]`), `${n}: nicht als Musterseite benannt`);
+  for (const a of S.arbeiten) assert.match(start, new RegExp(`id="arbeit-${a.id}"[\\s\\S]*?Musterseite[ ·<]`), `${a.id}: nicht als Musterseite benannt`);
+  // Reihenfolge (Elias 06.10.): nicht mit dem hellen, kontrastreichen Lotlinie beginnen; ruhende Arbeiten stehen nicht auf der Seite
+  assert.notEqual(S.arbeiten[0].id, 'hell', 'Die Arbeiten beginnen mit Lotlinie');
+  const reihe = [...start.matchAll(/<article class="werk werk--(\w+)"/g)].map((m) => m[1]);
+  assert.deepEqual(reihe, S.arbeiten.map((a) => a.id), 'Reihenfolge auf der Seite weicht von seite.json ab');
+  for (const a of S.arbeiten_ruhend || []) assert.doesNotMatch(start, new RegExp(`id="arbeit-${a.id}"`), `${a.id}: ruhend, aber gezeigt`);
   // Nur fiktive Firmen: keine echten Namen, Orte oder Telefonnummern aus Kundenprojekten, weder im Text noch in Dateinamen
   const echt = /urfa|sofrasi|\bOSG\b|ümit|uemit|hairstyle|mühlbach|7161/i;
   for (const [f, t] of seiten) assert.doesNotMatch(t, echt, `${f}: echter Firmenbezug`);
@@ -184,7 +189,7 @@ test('Leistungen als Bento: sechs Karten mit Schaubild (Dekor), echter Text im H
   assert.equal(karten.length, 6, 'sechs Leistungskarten');
   for (const [, id, inhalt] of karten) {
     assert.match(inhalt, new RegExp(`<div class="mini mini--${id}" aria-hidden="true">`), `${id}: Schaubild nicht aria-hidden`);
-    assert.match(inhalt, /<div class="leist-text"><h3>[^<]+<\/h3><p>[^<]+<\/p><\/div>/, `${id}: Text fehlt`);
+    assert.match(inhalt, /<div class="leist-text"><p class="leist-kurz">[^<]+<\/p><h3>[^<]+<\/h3><p>[^<]+<\/p><\/div>/, `${id}: Text fehlt`);
     assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, `${id}: Bild oder Versprechen im Schaubild`);
   }
   for (const k of S.leistungen.karten) assert.ok(sek.includes(`<h3>${k.titel.replace(/&/g, '&amp;')}</h3>`), `${k.id}: Titel fehlt`);
@@ -199,4 +204,17 @@ test('Arbeiten: Entscheidungssatz je Arbeit, neu formuliert und markiert', () =>
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
     assert.ok(werk.includes(`<p class="werk-entscheidung" ${markiert(S.pruefen.entscheidung)}>`), `${a.id}: Entscheidungssatz nicht markiert`);
   }
+});
+
+test('Menü ohne Messskala, Leistungsnamen ohne Klammer-Kürzel, Wahlleistungen beschrieben', () => {
+  const menue = readFileSync(join(WURZEL, 'bausteine/menue-kreis/menue-kreis.css'), 'utf8');
+  assert.doesNotMatch(menue, /repeating-linear-gradient|counter\(nav/, 'Messskala oder Nummern im Handy-Menü');
+  for (const [, , z] of S.nav) assert.ok(z, 'Menüeintrag ohne Zusatzzeile');
+  for (const k of S.leistungen.karten) {
+    assert.doesNotMatch(k.titel, /\(/, `${k.id}: Titel mit Klammer-Kürzel`);
+    assert.ok(k.kurz, `${k.id}: Etikett fehlt`);
+  }
+  const wahl = start.match(/<ul class="bet-wahl"[\s\S]*?<\/ul>/)[0];
+  assert.equal((wahl.match(/<li><strong>[^<]+<\/strong><span>[^<]+<\/span><\/li>/g) || []).length, S.betreuung.abo.wahl.length, 'Wahlleistung ohne Beschreibung');
+  assert.match(wahl, new RegExp(re(markiert(S.pruefen.wahl))), 'Beschreibungen der Wahlleistungen nicht markiert');
 });

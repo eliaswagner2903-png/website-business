@@ -22,66 +22,15 @@
     "domain": "Domain festlegen (Canonical, Sitemap, SEITE_URL)",
     "ablauf": "Ablauf aus dem Business-Plan abgeleitet – Elias prüft Schritte und Wortlaut",
     "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen",
-    "leistungen": "Leistungstexte aus Elias’ Wunsch (04.10.: neue Seiten, alte erneuern, SEO, GEO) und dem Qualitätssystem abgeleitet – Elias prüft Wortlaut und Umfang",
-    "entscheidung": "Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt"
+    "leistungen": "Leistungstexte und Namen aus Elias’ Wunsch (04.10. und 06.10.: „Suchmaschinenoptimiert“ statt „Suchmaschinen (SEO)“) abgeleitet – Elias prüft Wortlaut und Umfang",
+    "entscheidung": "Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt",
+    "wahl": "Kurzbeschreibungen der Wahlleistungen aus wissen/preismodell/modell.mjs und wartung/PAKETE.md abgeleitet – Elias prüft, ob sie so stimmen"
   },
-  "messung": "Gemessen am 29.09.2026: Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
+  "messung": "Gemessen am 29.09.2026 (NORVAK am 06.10.2026): Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
     {
-      "id": "hell",
-      "nr": "01",
-      "name": "Lotlinie",
-      "branche": "Physiotherapie",
-      "entscheidung": "Wer Schmerzen hat, sucht am Handy und ruft dort an, wo der Termin am schnellsten klar ist.",
-      "art": "Musterseite",
-      "art_lang": "Musterseite",
-      "satz": "Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
-      "punkte": [
-        "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
-        "Termin online oder per Telefon, feste Leiste auf dem Handy",
-        "Vier Seiten: Start, Leistungen, Praxis & Team, Termin"
-      ],
-      "leitmotiv": "Lot und Messpunkte",
-      "alt_desktop": "Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel.",
-      "alt_handy": "Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten.",
-      "werte": {
-        "perf": 99,
-        "a11y": 100,
-        "bp": 100,
-        "seo": 100,
-        "kb": 122
-      },
-      "link": "https://claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X"
-    },
-    {
-      "id": "laut",
-      "nr": "02",
-      "name": "Zwischenbild",
-      "branche": "Studio für Motion-Design",
-      "entscheidung": "Wer ein Motion-Studio sucht, will in Sekunden sehen, dass es Bewegung beherrscht.",
-      "art": "Musterseite",
-      "art_lang": "Musterseite",
-      "satz": "Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.",
-      "punkte": [
-        "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
-        "Drei Projektseiten mit weichem Seitenwechsel",
-        "Kräftige Typografie, Bewegung nur mit Zweck"
-      ],
-      "leitmotiv": "Zeitleiste und Keyframes",
-      "alt_desktop": "Startseite von Zwischenbild am Computer: riesige Überschrift „Wir bringen Logos das Laufen bei.“, das Wort „Laufen“ auf orangem Grund, darunter eine Zeitleiste mit Keyframes.",
-      "alt_handy": "Startseite von Zwischenbild auf dem Handy mit Timecode, großer Überschrift und den Knöpfen „Projekt anfragen“ und „Arbeiten ansehen“.",
-      "werte": {
-        "perf": 99,
-        "a11y": 100,
-        "bp": 100,
-        "seo": 100,
-        "kb": 112
-      },
-      "link": "https://claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu"
-    },
-    {
       "id": "edel",
-      "nr": "03",
+      "nr": "01",
       "name": "Lindgrund",
       "branche": "Uhrmacherei",
       "entscheidung": "Wer eine Uhr von Hand regulieren lässt, will vorher sehen, wie genau gearbeitet wird.",
@@ -106,8 +55,34 @@
       "link": "https://claude.ai/artifact/VanDW6vpaVBg4vuzmX5EgP"
     },
     {
+      "id": "norvak",
+      "name": "NORVAK",
+      "branche": "Präzisionswerkzeuge",
+      "entscheidung": "Einkäufer und Anwendungstechniker wollen in Sekunden wissen, welches Werkzeug zu ihrem Werkstoff passt.",
+      "art": "Musterseite",
+      "art_lang": "Musterseite, fiktive Firma",
+      "satz": "Ein Werkzeugfinder führt in zwei Schritten von der Bearbeitung zur passenden Serie, ohne Anmeldung.",
+      "punkte": [
+        "Werkzeugfinder: Bearbeitung und Werkstoff wählen, die passenden Serien erscheinen sofort",
+        "Dunkler Einstieg mit Werkzeugbild, Kennzahlen und Zertifikaten auf einen Blick",
+        "Sieben Seiten mit Produkten, Branchenlösungen, Service und Karriere"
+      ],
+      "leitmotiv": "Schneide und Werkstoff",
+      "alt_desktop": "Startseite von NORVAK am Computer: dunkler Grund, große Überschrift „Werkzeuge für Gewinde, Bohrung und Kontur.“ neben einem Schaftfräser im Streiflicht, darunter Kennzahlen und der Werkzeugfinder.",
+      "alt_handy": "Startseite von NORVAK auf dem Handy mit Überschrift, den Knöpfen „Werkzeug finden“ und „Anwendungsberatung anfragen“ und dem Werkzeugbild.",
+      "werte": {
+        "perf": 96,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 138
+      },
+      "link": "https://claude.ai/artifact/Fsqu6D63SxNHwWi1VcLbHC",
+      "nr": "02"
+    },
+    {
       "id": "glut",
-      "nr": "04",
+      "nr": "03",
       "name": "ZEYTIN & GLUT",
       "branche": "Restaurant",
       "entscheidung": "Gäste entscheiden oft unterwegs, wo sie essen – Karte, Weg und Telefon müssen sofort da sein.",
@@ -132,8 +107,209 @@
       "link": "https://claude.ai/artifact/8xVkoHDVM7bDgowvTWxdak"
     },
     {
+      "id": "laut",
+      "nr": "04",
+      "name": "Zwischenbild",
+      "branche": "Studio für Motion-Design",
+      "entscheidung": "Wer ein Motion-Studio sucht, will in Sekunden sehen, dass es Bewegung beherrscht.",
+      "art": "Musterseite",
+      "art_lang": "Musterseite",
+      "satz": "Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.",
+      "punkte": [
+        "Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm",
+        "Drei Projektseiten mit weichem Seitenwechsel",
+        "Kräftige Typografie, Bewegung nur mit Zweck"
+      ],
+      "leitmotiv": "Zeitleiste und Keyframes",
+      "alt_desktop": "Startseite von Zwischenbild am Computer: riesige Überschrift „Wir bringen Logos das Laufen bei.“, das Wort „Laufen“ auf orangem Grund, darunter eine Zeitleiste mit Keyframes.",
+      "alt_handy": "Startseite von Zwischenbild auf dem Handy mit Timecode, großer Überschrift und den Knöpfen „Projekt anfragen“ und „Arbeiten ansehen“.",
+      "werte": {
+        "perf": 99,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 112
+      },
+      "link": "https://claude.ai/artifact/PNsQwB1akhuiLaAEQ9fQxu"
+    }
+  ],
+  "betreuung": {
+    "seite": {
+      "titel": "Die Website",
+      "preis_art": "einmalig",
+      "text": "Ihre fertige Seite mit Gestaltung, Bildern und Technik, bereit für den Start.",
+      "enthalten": [
+        "Gestaltung mit eigenem Leitmotiv",
+        "Für das Handy gebaut",
+        "Ohne Tracking und Cookie-Banner",
+        "Vor der Übergabe nachgemessen"
+      ]
+    },
+    "abo": {
+      "titel": "Betreuung nach Wahl",
+      "preis_art": "monatlich, freiwillig",
+      "text": "Ich halte Ihre Seite online, prüfe sie regelmäßig und melde mich, wenn etwas auffällt. Dazu wählen Sie, was ich zusätzlich übernehme.",
+      "wahl": [
+        [
+          "Kundenfragen beantworten",
+          "Ich beantworte Anfragen, die über Ihre Seite hereinkommen."
+        ],
+        [
+          "Inhalte ändern",
+          "Neue Angebote, Zeiten oder Bilder pflege ich für Sie ein."
+        ],
+        [
+          "Termine und Zahlungen",
+          "Buchungen und Online-Zahlungen laufen zuverlässig."
+        ],
+        [
+          "Tiefenprüfung",
+          "Gründliche Prüfung von Sicherheit, Technik und Tempo."
+        ],
+        [
+          "Neue Visuals",
+          "Frische Bilder, etwa für Saison oder Aktionen."
+        ],
+        [
+          "Schnelle Hilfe bei Störung",
+          "Fällt etwas aus, kümmere ich mich vorrangig darum."
+        ]
+      ],
+      "hinweis": "Grundbetreuung ab 75 € im Monat. Gewählte Zusatzleistungen und Serverkosten kommen dazu."
+    },
+    "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
+  },
+  "hero": {
+    "lead": "Websites für Praxen, Werkstätten und Restaurants: schnell auf dem Handy, klar im Aufbau, mit eigenem Charakter. Im Lichtkegel sehen Sie Ausschnitte meiner Arbeiten."
+  },
+  "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Alle sind für das Handy gebaut und vor der Übergabe nachgemessen.",
+  "ablauf": {
+    "ueber": "Ablauf",
+    "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
+    "schritte": [
+      {
+        "titel": "Gespräch",
+        "text": "Sie erzählen von Ihrem Betrieb, Ihren Kunden und davon, was die Seite leisten soll."
+      },
+      {
+        "titel": "Vorschlag",
+        "text": "Daraus entsteht ein Entwurf mit eigenem Leitmotiv. Den Preis nenne ich Ihnen persönlich."
+      },
+      {
+        "titel": "Bau und Messung",
+        "text": "Ich baue die Seite und messe sie vor der Übergabe nach: Tempo, Barrierefreiheit und Sicherheit."
+      },
+      {
+        "titel": "Start",
+        "text": "Ihre Seite geht online. Auf Wunsch betreue ich sie danach im Monatsabo weiter."
+      }
+    ]
+  },
+  "fragen": {
+    "ueber": "Fragen",
+    "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
+    "liste": [
+      [
+        "Können Sie auch meine bestehende Seite erneuern?",
+        "Ja. Ich erneuere Gestaltung und Technik, übernehme Ihre guten Texte und Bilder und richte Weiterleitungen ein, damit alte Links weiter funktionieren. Danach mache ich die Seite fit für Suchmaschinen und KI-Assistenten."
+      ],
+      [
+        "Brauche ich einen Cookie-Banner?",
+        "Nein. Meine Seiten setzen keine Cookies, laden keine fremden Skripte und verzichten auf Tracking. Auch die Schriften liegen auf dem eigenen Server."
+      ],
+      [
+        "Was kostet eine Website?",
+        "Eine Seite beginnt bei 1.490 €. Den genauen Preis nenne ich Ihnen nach dem ersten Gespräch, er hängt vom Umfang ab."
+      ],
+      [
+        "Wie schnell lädt die Seite?",
+        "Ich messe mit Lighthouse auf dem Handy, das Ziel sind mindestens 95 von 100 Punkten. Die Werte meiner Musterseiten stehen jeweils bei den Arbeiten."
+      ],
+      [
+        "Muss ich die Betreuung buchen?",
+        "Nein. Die fertige Seite bezahlen Sie einmal, die Betreuung ist freiwillig. Sie beginnt bei 75 € im Monat, gewählte Zusatzleistungen und Serverkosten kommen dazu."
+      ],
+      [
+        "Was gehört zur Betreuung?",
+        "Ich halte die Seite online, prüfe sie regelmäßig und melde mich, wenn etwas auffällt. Dazu wählen Sie, was ich übernehme, etwa Inhalte ändern oder Kundenfragen beantworten."
+      ]
+    ]
+  },
+  "kontakt": {
+    "text": "Ein paar Sätze zu Ihrem Betrieb genügen. Ich melde mich mit einem ersten Vorschlag."
+  },
+  "preis_website_anzeige": "ab 1.490 €",
+  "preis_abo_anzeige": "ab 75 € pro Monat",
+  "leistungen": {
+    "kopf": "Eine neue Seite ist nur der Anfang. Ich erneuere auch bestehende Seiten und sorge dafür, dass Suchmaschinen und KI-Assistenten verstehen, was Sie anbieten.",
+    "karten": [
+      {
+        "id": "neu",
+        "kurz": "Neubau",
+        "titel": "Neue Website nach Maß",
+        "text": "Von Grund auf für Ihren Betrieb gestaltet, mit eigenem Leitmotiv, schnell auf dem Handy und ohne Tracking."
+      },
+      {
+        "id": "alt",
+        "kurz": "Relaunch",
+        "titel": "Bestehende Seite erneuern",
+        "text": "Ihre Seite bekommt neue Gestaltung und Technik. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass kein alter Link ins Leere führt."
+      },
+      {
+        "id": "seo",
+        "kurz": "SEO",
+        "titel": "Suchmaschinenoptimiert",
+        "text": "Saubere Technik, klare Seitentitel, gute Struktur und Ihre Angaben vor Ort (Local SEO): So versteht Google, was Sie anbieten und wo. Eine bestimmte Platzierung kann niemand seriös zusagen."
+      },
+      {
+        "id": "geo",
+        "kurz": "GEO",
+        "titel": "Für KI-Assistenten lesbar",
+        "text": "Klare Antworten und strukturierte Daten, damit ChatGPT, Claude oder Perplexity Ihre Angaben richtig lesen und als Quelle nennen können. Ob eine KI Sie empfiehlt, entscheidet sie selbst."
+      },
+      {
+        "id": "tempo",
+        "kurz": "Performance",
+        "titel": "Schnell und barrierefrei",
+        "text": "Gemessen mit Lighthouse auf dem Handy, Ziel sind mindestens 95 von 100 Punkten. Per Tastatur bedienbar und gut lesbar nach WCAG AA."
+      },
+      {
+        "id": "sicher",
+        "kurz": "Datenschutz",
+        "titel": "Sicher und datensparsam",
+        "text": "Keine Cookies, keine fremden Skripte, Schriften vom eigenen Server und gesicherte Formulare. Zahlungen laufen ausschließlich über Stripe."
+      }
+    ],
+    "hinweis": "id: wählt das kleine Schaubild (nur Dekor, aria-hidden) und den Platz im Raster in bauen.mjs; kurz: kleines Etikett über dem Titel (Fachbegriff)"
+  },
+  "arbeiten_ruhend": [
+    {
+      "id": "hell",
+      "name": "Lotlinie",
+      "branche": "Physiotherapie",
+      "entscheidung": "Wer Schmerzen hat, sucht am Handy und ruft dort an, wo der Termin am schnellsten klar ist.",
+      "art": "Musterseite",
+      "art_lang": "Musterseite",
+      "satz": "Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.",
+      "punkte": [
+        "Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet",
+        "Termin online oder per Telefon, feste Leiste auf dem Handy",
+        "Vier Seiten: Start, Leistungen, Praxis & Team, Termin"
+      ],
+      "leitmotiv": "Lot und Messpunkte",
+      "alt_desktop": "Startseite von Lotlinie am Computer: große Überschrift „Physiotherapie, die zuerst hinschaut.“ neben einer Strichzeichnung eines Menschen mit Lot und Messpunkten an Ohr, Schulter, Hüfte, Knie und Knöchel.",
+      "alt_handy": "Startseite von Lotlinie auf dem Handy mit Knopf „Termin online buchen“ und fester Leiste unten.",
+      "werte": {
+        "perf": 99,
+        "a11y": 100,
+        "bp": 100,
+        "seo": 100,
+        "kb": 122
+      },
+      "link": "https://claude.ai/artifact/GYQVaC7TgP8Z2fAjCtfy4X"
+    },
+    {
       "id": "klarwerk",
-      "nr": "05",
       "name": "Klarwerk",
       "branche": "Gebäudereinigung",
       "entscheidung": "Hausverwaltungen vergleichen Leistungen, Einsatzgebiet und wie schnell ein Angebot kommt.",
@@ -151,127 +327,27 @@
       "link": "https://claude.ai/artifact/8TY9ZnGE7qzPHCXkGmGFKW"
     }
   ],
-  "betreuung": {
-    "seite": {
-      "titel": "Die Seite",
-      "text": "Einmalig: die fertige Seite mit Gestaltung, Bildern und Technik.",
-      "enthalten": [
-        "Gestaltung für Ihren Betrieb",
-        "Für das Handy gebaut",
-        "Ohne Tracking und Cookies",
-        "Vor der Übergabe nachgemessen"
-      ]
-    },
-    "abo": {
-      "titel": "Betreuung nach Wahl",
-      "text": "Optional, monatlich. Ich halte die Seite online und prüfe sie regelmäßig. Sie wählen, was ich zusätzlich übernehme.",
-      "wahl": [
-        "Kundenfragen beantworten",
-        "Inhalte ändern",
-        "Termine und Zahlungen betreuen",
-        "Tiefenprüfung",
-        "Neue Visuals",
-        "Schnelle Antwort bei Störung"
-      ],
-      "hinweis": "Die Betreuung ist freiwillig. Den Umfang bestimmen Sie nach Wunsch. Ab 75 € im Monat, gewählte Zusatzleistungen und Serverkosten kommen dazu."
-    },
-    "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
-  },
-  "hero": {
-    "lead": "Websites für Praxen, Werkstätten und Restaurants, die man nicht wegklickt. Im Lichtkegel: echte Arbeiten."
-  },
-  "arbeiten_kopf": "Fünf Musterseiten für fünf Branchen. Jede hat ein eigenes Leitmotiv. Vier wurden nachgemessen, die fünfte ist eine fiktive Vorschau-Fassung. Alle laufen auf dem Handy flüssig.",
-  "ablauf": {
-    "ueber": "Ablauf",
-    "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
-    "schritte": [
-      {
-        "titel": "Gespräch",
-        "text": "Sie erzählen von Ihrem Betrieb und davon, was Ihnen an einer Seite wichtig ist."
-      },
-      {
-        "titel": "Vorschlag",
-        "text": "Daraus entsteht ein Vorschlag mit eigenem Leitmotiv. Den Preis nenne ich Ihnen persönlich."
-      },
-      {
-        "titel": "Bau und Messung",
-        "text": "Die Seite wird gebaut und vor der Übergabe nachgemessen: Tempo, Barrierefreiheit, Sicherheit."
-      },
-      {
-        "titel": "Start",
-        "text": "Die Seite geht online. Auf Wunsch bleibe ich dran und betreue sie im Monats-Abo."
-      }
-    ]
-  },
-  "fragen": {
-    "ueber": "Fragen",
-    "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
-    "liste": [
-      [
-        "Können Sie auch meine bestehende Seite erneuern?",
-        "Ja. Ich erneuere Gestaltung und Technik, übernehme Ihre guten Texte und Bilder und richte Weiterleitungen ein, damit alte Adressen weiter funktionieren. Danach optimiere ich die Seite für Suchmaschinen (SEO) und für KI-Suche (GEO)."
-      ],
-      [
-        "Brauche ich einen Cookie-Banner?",
-        "Nein. Die Seiten setzen keine Cookies, laden keine fremden Skripte und nutzen kein Tracking. Die Schriften liegen auf dem eigenen Server."
-      ],
-      [
-        "Was kostet eine Seite?",
-        "Eine Seite beginnt bei 1.490 €. Den genauen Preis nenne ich Ihnen nach dem ersten Gespräch, er hängt vom Umfang Ihrer Seite ab."
-      ],
-      [
-        "Wie schnell ist die Seite?",
-        "Gemessen wird mit Lighthouse auf dem Handy, Ziel sind mindestens 95 Punkte. Die Werte meiner Musterseiten stehen bei den Arbeiten."
-      ],
-      [
-        "Muss ich die Betreuung buchen?",
-        "Nein. Die fertige Seite bekommen Sie einmalig, die Betreuung ist freiwillig. Was ich übernehme, richten wir nach Ihrem Wunsch aus. Die Betreuung beginnt bei 75 € im Monat, gewählte Zusatzleistungen und die Serverkosten kommen dazu."
-      ],
-      [
-        "Was gehört zur Betreuung?",
-        "Ich halte die Seite online, prüfe sie regelmäßig und melde mich, wenn etwas auffällt. Dazu wählen Sie, was ich übernehme, etwa Inhalte ändern oder Kundenfragen beantworten."
-      ]
-    ]
-  },
-  "kontakt": {
-    "text": "Ein paar Sätze reichen. Ich melde mich mit einem Vorschlag."
-  },
-  "preis_website_anzeige": "ab 1.490 €",
-  "preis_abo_anzeige": "ab 75 € pro Monat",
-  "leistungen": {
-    "kopf": "Neue Seiten sind nur ein Teil. Ich erneuere auch bestehende Seiten und sorge dafür, dass Suchmaschinen und KI-Assistenten Ihre Seite gut verstehen.",
-    "karten": [
-      {
-        "id": "neu",
-        "titel": "Neue Seite",
-        "text": "Von Grund auf gestaltet für Ihren Betrieb, schnell auf dem Handy und ohne Tracking."
-      },
-      {
-        "id": "alt",
-        "titel": "Alte Seite erneuern",
-        "text": "Ihre bestehende Seite bekommt Gestaltung und Technik neu. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass keine alte Adresse ins Leere läuft."
-      },
-      {
-        "id": "seo",
-        "titel": "Suchmaschinen (SEO)",
-        "text": "Saubere Technik, klare Seitentitel, gute Struktur und Angaben zu Ihrem Ort (Local SEO), damit Google Ihre Seite richtig versteht. Eine bestimmte Platzierung kann niemand zusagen."
-      },
-      {
-        "id": "geo",
-        "titel": "KI-Suche (GEO)",
-        "text": "Inhalte so aufgebaut, dass Assistenten wie ChatGPT, Claude oder Perplexity sie lesen und nennen können: klare Antworten und strukturierte Daten. Ob eine KI Sie empfiehlt, entscheidet die KI."
-      },
-      {
-        "id": "tempo",
-        "titel": "Tempo und Barrierefreiheit",
-        "text": "Gemessen mit Lighthouse auf dem Handy, Ziel mindestens 95 Punkte. Bedienbar per Tastatur und gut lesbar nach WCAG AA."
-      },
-      {
-        "id": "sicher",
-        "titel": "Sicherheit und Datenschutz",
-        "text": "Keine Cookies und keine fremden Skripte, Schriften vom eigenen Server, gesicherte Formulare. Zahlungen laufen nur über Stripe."
-      }
+  "arbeiten_hinweis": "arbeiten: gezeigt, in dieser Reihenfolge (Elias 06.10.: nicht mit dem hellen, kontrastreichen Lotlinie beginnen; die dunklen, warmen Arbeiten passen am besten zur Graphit-Seite). arbeiten_ruhend: gebaut, aber derzeit nicht gezeigt – zum Zeigen zurück nach arbeiten verschieben.",
+  "nav": [
+    [
+      "#leistungen",
+      "Leistungen",
+      "Was ich für Sie baue"
     ],
-    "hinweis": "id: wählt das kleine Schaubild (nur Dekor, aria-hidden) und den Platz im Raster in bauen.mjs"
-  }
+    [
+      "#arbeiten",
+      "Arbeiten",
+      "Musterseiten ansehen"
+    ],
+    [
+      "#betreuung",
+      "Preise",
+      "Website und Betreuung"
+    ],
+    [
+      "#kontakt",
+      "Kontakt",
+      "Projekt besprechen"
+    ]
+  ]
 }

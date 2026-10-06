@@ -14,6 +14,9 @@ const ALLE = [['hell', 'showcase/hell/public'], ['laut', 'showcase/laut/public']
 // Klarwerk (fiktive Fassung der Merys-Clean-Seite, nur fiktive Marke!): Ordner mit der umhüllten Vorschau-Datei als index.html,
 // gebaut nach kunden/merysclean/fiktiv/README.md. Aufruf: KLARWERK_ORDNER=/pfad node aufnahmen.mjs klarwerk
 if (process.env.KLARWERK_ORDNER) ALLE.push(['klarwerk', process.env.KLARWERK_ORDNER]);
+// NORVAK (fiktive Fassung der OSG-Studie, nur fiktive Marke!): public/ einer Kopie, gebaut nach kunden/osg-germany/fiktiv/README.md
+// (umbauen.py + bauen.mjs, ohne artifact.py). Aufruf: NORVAK_ORDNER=/pfad/public node aufnahmen.mjs norvak
+if (process.env.NORVAK_ORDNER) ALLE.push(['norvak', process.env.NORVAK_ORDNER]);
 // Optional nur bestimmte Arbeiten aufnehmen: node aufnahmen.mjs klarwerk
 const NUR = process.argv.slice(2);
 const QUELLEN = NUR.length ? ALLE.filter(([id]) => NUR.includes(id)) : ALLE;
