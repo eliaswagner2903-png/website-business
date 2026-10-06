@@ -162,6 +162,27 @@ Gegenwert rund 277 US-Dollar (kein Rechnungsbetrag). Für dieses Projekt liegen 
 Was daraus folgt: Der Baukasten ist eine Investition von mehreren Tagen, die sich über jede Kundenseite verteilt.
 Im Preis steckt deshalb nicht nur die Bauzeit, sondern auch dieses Können (Konzept A/B nach Wert, nicht nach Minuten).
 
+### Zeitleiste: jede Station mit Datum
+
+Quelle: Auftragslog (`ops/auftraege.jsonl`, A-001 bis A-093), Git-Historie und Sitzungslisten. Alle Daten 2026.
+
+| Datum | Was geschah | Aufträge |
+|---|---|---|
+| 25.09. | Start: erste echte Betriebsseite, Variante dunkel | A-001 |
+| 26.09. | Zweite Variante (hell); Wettbewerb von drei Varianten beginnt | A-002, A-003 |
+| 27.09. | Claude-Setup (5 Agents, Hooks, MCPs), Fernspäherkommando; Seite C des Wettbewerbs in einem Tag zur Meisterseite (02:33 bis 18:17 Uhr) | A-004 bis A-006 |
+| 28.09. | Business-Repo mit Vorlage und Baukasten, Fronten 1–4 (Starter mit Sicherheit und Zahlung, Hosting, Wartung, Recht), grober Plan, Trainingsplan Stufe 1–5, drei Musterseiten, Fremdprüfung | A-007 bis A-035 |
+| 29.09. | Higgsfield-Visualtest, Generalprobe (38 Minuten), eigene Portfolio-Seite, Notizen zu OQ gesichert, Preisformeln und Konfigurator-Ablauf, Plan komplett neu, Video-Auswertung, Qualitätssystem begonnen | A-036 bis A-051 |
+| 30.09. | Qualitätssystem (125 Regeln), Firmen-Neubau mit Jury (8 Seiten, rund 10 Stunden, 63,75 → 75,75), Plan Stand 30.09. und Lagebericht, Weg zum ersten Kunden, Agency-Agents, YouTube-Lernsystem, OQ-Seite neu | A-052 bis A-068 |
+| 01.10. | Arbeitssystem auf Englisch, Preisstrategie „Masse statt Seitenpreis“, erste echte Kundenseite begonnen, Vorstellungsmappe, Preisliste | A-069 bis A-075 |
+| 02.10. | Designüberarbeitung der echten Kundenseite (Jury 9+), Nachtrag N003 | A-076 bis A-080 |
+| 03.10. | OQ-Seite: fiktive Fassung der Kundenseite als fünfte Arbeit | A-081 |
+| 04.10. | OQ-Seite: Name OQ, Ort Eislingen, Preise (Seite ab 1.490 €, Betreuung ab 75 €), Leistungsabschnitt; Nachtrag N004 | A-082 bis A-085 |
+| 05.10. | Betreuung ab 75 € für alle, Hero Lichtkegel, Konfigurator entfernt, Farbwelt Graphit, Leistungen als Bento, Referenzauswertung | A-086 bis A-090 |
+| 06.10. | Menü, Texte, Musterseiten der OQ-Seite; Seite C des Wettbewerbs in der Endfassung; Plan Stand 06.10. und Nachtrag N006 | A-091 bis A-093 |
+
+Alles, was im Plan als „neu“ steht, trägt seine Daten aus dieser Tabelle; „seit 30.09.“ ist nur der Abstand zum letzten Plan, nicht der Beginn.
+
 ### Bestand
 
 | Bereich | Ergebnis |
