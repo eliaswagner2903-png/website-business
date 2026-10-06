@@ -80,7 +80,33 @@
     addEventListener('resize', setze);
   }
 
+  // Schaubilder (Leistungen, Ablauf): spielen einmal, sobald sie im Bild sind. Ohne Beobachter oder bei
+  // „Bewegung reduzieren“ bleibt die Klasse mini-js weg – dann gilt der ruhige Endzustand aus dem CSS.
+  function minis() {
+    const els = [...document.querySelectorAll('.mini')];
+    if (!els.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.documentElement.classList.add('mini-js');
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) if (e.isIntersecting) { e.target.classList.add('mini--an'); io.unobserve(e.target); }
+    }, { threshold: 0.35 });
+    els.forEach((el) => io.observe(el));
+  }
+
+  // Leistungskarten: ein weicher Lichtfleck folgt dem Zeiger (nur Maus; Position per setProperty, CSP bleibt streng)
+  function kartenLicht() {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    for (const k of document.querySelectorAll('.leist')) {
+      k.addEventListener('pointermove', (e) => {
+        const r = k.getBoundingClientRect();
+        k.style.setProperty('--_mx', `${Math.round(e.clientX - r.left)}px`);
+        k.style.setProperty('--_my', `${Math.round(e.clientY - r.top)}px`);
+      });
+    }
+  }
+
   function start() {
+    minis();
+    kartenLicht();
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');
     pruefen();
     addEventListener('hashchange', pruefen);

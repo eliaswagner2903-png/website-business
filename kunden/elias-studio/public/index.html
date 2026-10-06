@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0a0b0d">
+<meta name="theme-color" content="#1c1a17">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
@@ -81,13 +81,78 @@
       <h2 id="t-leistungen" class="einblenden">Mehr als eine <em>neue Seite</em>.</h2>
       <p class="einblenden">Neue Seiten sind nur ein Teil. Ich erneuere auch bestehende Seiten und sorge dafür, dass Suchmaschinen und KI-Assistenten Ihre Seite gut verstehen.</p>
     </div>
-    <ul class="leist-raster">
-      <li class="bet-karte einblenden"><h3>Neue Seite</h3><p>Von Grund auf gestaltet für Ihren Betrieb, schnell auf dem Handy und ohne Tracking.</p></li>
-      <li class="bet-karte einblenden"><h3>Alte Seite erneuern</h3><p>Ihre bestehende Seite bekommt Gestaltung und Technik neu. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass keine alte Adresse ins Leere läuft.</p></li>
-      <li class="bet-karte einblenden"><h3>Suchmaschinen (SEO)</h3><p>Saubere Technik, klare Seitentitel, gute Struktur und Angaben zu Ihrem Ort (Local SEO), damit Google Ihre Seite richtig versteht. Eine bestimmte Platzierung kann niemand zusagen.</p></li>
-      <li class="bet-karte einblenden"><h3>KI-Suche (GEO)</h3><p>Inhalte so aufgebaut, dass Assistenten wie ChatGPT, Claude oder Perplexity sie lesen und nennen können: klare Antworten und strukturierte Daten. Ob eine KI Sie empfiehlt, entscheidet die KI.</p></li>
-      <li class="bet-karte einblenden"><h3>Tempo und Barrierefreiheit</h3><p>Gemessen mit Lighthouse auf dem Handy, Ziel mindestens 95 Punkte. Bedienbar per Tastatur und gut lesbar nach WCAG AA.</p></li>
-      <li class="bet-karte einblenden"><h3>Sicherheit und Datenschutz</h3><p>Keine Cookies und keine fremden Skripte, Schriften vom eigenen Server, gesicherte Formulare. Zahlungen laufen nur über Stripe.</p></li>
+    <ul class="bento">
+      <li class="leist leist--neu einblenden">
+        <div class="mini mini--neu" aria-hidden="true">
+      <div class="mn-fenster">
+        <div class="mn-leiste"><span class="mn-punkte"></span><span class="mn-adresse">ihr-betrieb.de</span></div>
+        <div class="mn-seite">
+          <span class="mn-raster"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="mn-nav"><b></b><i></i><i></i><i></i></span>
+          <span class="mn-links">
+            <span class="mn-spec">H1 · Instrument Serif</span>
+            <span class="mn-titel">Ihr Betrieb,<br>Ihr <em>Leitmotiv</em>.</span>
+            <span class="mn-zeilen"><i></i><i></i></span>
+            <span class="mn-knopf-zeile"><span class="mn-knopf">Termin anfragen</span><span class="mn-mass">44 px</span></span>
+          </span>
+          <span class="mn-bild"><svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMax slice" focusable="false"><circle class="strich" pathLength="1" cx="80" cy="52" r="14"/><path class="strich" pathLength="1" d="M0 96 C 26 70, 46 70, 66 86 S 104 92, 120 70"/><path class="strich" pathLength="1" d="M0 112 C 30 96, 60 100, 120 92"/></svg></span>
+        </div>
+      </div>
+        </div>
+        <div class="leist-text"><h3>Neue Seite</h3><p>Von Grund auf gestaltet für Ihren Betrieb, schnell auf dem Handy und ohne Tracking.</p></div>
+      </li>
+      <li class="leist leist--alt einblenden">
+        <div class="mini mini--alt" aria-hidden="true">
+      <span class="ma-kopf"><span>alte Adresse</span><span>neue Adresse</span></span>
+      <span class="ma-zeile"><span class="ma-von">/angebot.php</span><span class="ma-pfeil"></span><span class="ma-nach">/angebot</span><span class="ma-code">301</span></span>
+      <span class="ma-zeile"><span class="ma-von">/team.html</span><span class="ma-pfeil"></span><span class="ma-nach">/team</span><span class="ma-code">301</span></span>
+      <span class="ma-zeile"><span class="ma-von">/kontakt.php</span><span class="ma-pfeil"></span><span class="ma-nach">/kontakt</span><span class="ma-code">301</span></span>
+      <span class="ma-fuss"><i class="haken"></i>Keine Adresse läuft ins Leere</span>
+        </div>
+        <div class="leist-text"><h3>Alte Seite erneuern</h3><p>Ihre bestehende Seite bekommt Gestaltung und Technik neu. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass keine alte Adresse ins Leere läuft.</p></div>
+      </li>
+      <li class="leist leist--seo einblenden">
+        <div class="mini mini--seo" aria-hidden="true">
+      <span class="ms-suche"><span class="ms-lupe"></span><span class="ms-anfrage">Physiotherapie in der Nähe</span></span>
+      <span class="ms-treffer">
+        <span class="ms-quelle"><b></b>ihr-betrieb.de › leistungen</span>
+        <span class="ms-titel">Ihr Betrieb – Leistungen und Termine</span>
+        <span class="ms-text">Öffnungszeiten, Anfahrt und Leistungen auf einen Blick.</span>
+        <span class="ms-chips"><i>Ort</i><i>Öffnungszeiten</i><i>Telefon</i></span>
+      </span>
+        </div>
+        <div class="leist-text"><h3>Suchmaschinen (SEO)</h3><p>Saubere Technik, klare Seitentitel, gute Struktur und Angaben zu Ihrem Ort (Local SEO), damit Google Ihre Seite richtig versteht. Eine bestimmte Platzierung kann niemand zusagen.</p></div>
+      </li>
+      <li class="leist leist--geo einblenden">
+        <div class="mini mini--geo" aria-hidden="true">
+      <span class="mg-code"><span><b>"@type"</b>: "Physiotherapy",</span><span><b>"openingHours"</b>: "Sa 09:00-12:00"</span></span>
+      <span class="mg-frage">Hat die Praxis samstags geöffnet?</span>
+      <span class="mg-stapel">
+        <span class="mg-tippt"><i></i><i></i><i></i></span>
+        <span class="mg-antwort"><span class="mg-funke"></span><span>Ja, samstags von 9 bis 12 Uhr – so steht es auf der Website der Praxis.</span><span class="mg-quelle">Quelle: ihr-betrieb.de</span></span>
+      </span>
+        </div>
+        <div class="leist-text"><h3>KI-Suche (GEO)</h3><p>Inhalte so aufgebaut, dass Assistenten wie ChatGPT, Claude oder Perplexity sie lesen und nennen können: klare Antworten und strukturierte Daten. Ob eine KI Sie empfiehlt, entscheidet die KI.</p></div>
+      </li>
+      <li class="leist leist--tempo einblenden">
+        <div class="mini mini--tempo" aria-hidden="true">
+      <span class="mt-ring"><svg viewBox="0 0 80 80" focusable="false"><circle class="mt-bahn" cx="40" cy="40" r="34"/><circle class="mt-wert" pathLength="100" cx="40" cy="40" r="34"/></svg><span class="mt-zahl">95<small>+</small></span></span>
+      <span class="mt-titel"><span class="mt-taste">Tab</span>durch die Seite</span>
+      <span class="mt-reihe"><i>Start</i><i>Leistungen</i><i>Kontakt</i><span class="mt-fokus"></span></span>
+      <span class="mt-checks"><i><i class="haken"></i>Tastatur</i><i><i class="haken"></i>Kontrast AA</i><i><i class="haken"></i>Alt-Texte</i></span>
+        </div>
+        <div class="leist-text"><h3>Tempo und Barrierefreiheit</h3><p>Gemessen mit Lighthouse auf dem Handy, Ziel mindestens 95 Punkte. Bedienbar per Tastatur und gut lesbar nach WCAG AA.</p></div>
+      </li>
+      <li class="leist leist--sicher einblenden">
+        <div class="mini mini--sicher" aria-hidden="true">
+      <span class="mz-status"><b></b>HTTP 200 · Antwort-Header</span>
+      <span class="mz-zeile"><b>content-security-policy</b><span>default-src 'self'</span><i class="haken"></i></span>
+      <span class="mz-zeile"><b>strict-transport-security</b><span>max-age=31536000</span><i class="haken"></i></span>
+      <span class="mz-zeile"><b>x-frame-options</b><span>DENY</span><i class="haken"></i></span>
+      <span class="mz-null"><span><b>0</b>Cookies</span><span><b>0</b>fremde Skripte</span></span>
+        </div>
+        <div class="leist-text"><h3>Sicherheit und Datenschutz</h3><p>Keine Cookies und keine fremden Skripte, Schriften vom eigenen Server, gesicherte Formulare. Zahlungen laufen nur über Stripe.</p></div>
+      </li>
     </ul>
   </div>
 </section>
@@ -119,6 +184,7 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>01</span> <span class="werk-art">Musterseite · Lot und Messpunkte</span></p>
       <h3 id="w-hell">Lotlinie</h3>
+      <p class="werk-entscheidung" data-pruefen="Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt">Wer Schmerzen hat, sucht am Handy und ruft dort an, wo der Termin am schnellsten klar ist.</p>
       <p class="werk-satz">Das Lot vom Ohr bis zum Knöchel zieht sich als Linie durch die ganze Seite.</p>
       <ul class="werk-punkte">
         <li>Befund am Lot als Strichzeichnung, die sich beim Laden zeichnet</li>
@@ -146,6 +212,7 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>02</span> <span class="werk-art">Musterseite · Zeitleiste und Keyframes</span></p>
       <h3 id="w-laut">Zwischenbild</h3>
+      <p class="werk-entscheidung" data-pruefen="Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt">Wer ein Motion-Studio sucht, will in Sekunden sehen, dass es Bewegung beherrscht.</p>
       <p class="werk-satz">Die Seite selbst ist eine Zeitleiste mit Keyframes und Timecode.</p>
       <ul class="werk-punkte">
         <li>Zeitleiste mit Keyframes als Leitmotiv im ersten Bildschirm</li>
@@ -173,6 +240,7 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>03</span> <span class="werk-art">Musterseite · Zifferblatt und Minutenteilung</span></p>
       <h3 id="w-edel">Lindgrund</h3>
+      <p class="werk-entscheidung" data-pruefen="Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt">Wer eine Uhr von Hand regulieren lässt, will vorher sehen, wie genau gearbeitet wird.</p>
       <p class="werk-satz">Die Uhr steht als 3D-Modell im ersten Bildschirm und dreht sich mit.</p>
       <ul class="werk-punkte">
         <li>3D-Uhr im Browser, erst Standbild, dann Szene – pausiert außerhalb des Bildschirms</li>
@@ -200,6 +268,7 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>04</span> <span class="werk-art">Musterseite · Platte im Ring und Olivenzweig</span></p>
       <h3 id="w-glut">ZEYTIN &amp; GLUT</h3>
+      <p class="werk-entscheidung" data-pruefen="Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt">Gäste entscheiden oft unterwegs, wo sie essen – Karte, Weg und Telefon müssen sofort da sein.</p>
       <p class="werk-satz">Die Gerichte stehen wie Platten im Ring, die Speisekarte ist durchsuchbar.</p>
       <ul class="werk-punkte">
         <li>Speisekarte als HTML mit Suche</li>
@@ -227,6 +296,7 @@
     <div class="werk-schild">
       <p class="werk-nr"><span>05</span> <span class="werk-art">Musterseite, fiktive Firma · Naht und Aufnäher</span></p>
       <h3 id="w-klarwerk">Klarwerk</h3>
+      <p class="werk-entscheidung" data-pruefen="Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt">Hausverwaltungen vergleichen Leistungen, Einsatzgebiet und wie schnell ein Angebot kommt.</p>
       <p class="werk-satz">Die Nahtlinie und der Aufnäher der Arbeitskleidung ziehen sich als Zeichen durch die Seite.</p>
       <ul class="werk-punkte">
         <li>Leistungen als Liste, das passende Bild wischt beim Zeigen herein</li>
@@ -248,10 +318,10 @@
       <h2 id="t-ablauf" class="einblenden">Von der ersten Idee bis zur <em>fertigen Seite</em>.</h2>
     </div>
     <ol class="schritte">
-      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">01</span><h3>Gespräch</h3><p>Sie erzählen von Ihrem Betrieb und davon, was Ihnen an einer Seite wichtig ist.</p></li>
-      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">02</span><h3>Vorschlag</h3><p>Daraus entsteht ein Vorschlag mit eigenem Leitmotiv. Den Preis nenne ich Ihnen persönlich.</p></li>
-      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">03</span><h3>Bau und Messung</h3><p>Die Seite wird gebaut und vor der Übergabe nachgemessen: Tempo, Barrierefreiheit, Sicherheit.</p></li>
-      <li class="schritt einblenden"><span class="schritt-zahl" aria-hidden="true">04</span><h3>Start</h3><p>Die Seite geht online. Auf Wunsch bleibe ich dran und betreue sie im Monats-Abo.</p></li>
+      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">01</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false"><path class="strich" pathLength="1" d="M10 14h52a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H30l-10 9v-9h-2a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8Z"/><path class="strich" pathLength="1" d="M78 30h24a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8h-2v8l-9-8H78a8 8 0 0 1-8-8"/><circle class="punkt" cx="28" cy="31" r="2.6"/><circle class="punkt" cx="40" cy="31" r="2.6"/><circle class="punkt" cx="52" cy="31" r="2.6"/></svg></span><h3>Gespräch</h3><p>Sie erzählen von Ihrem Betrieb und davon, was Ihnen an einer Seite wichtig ist.</p></li>
+      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">02</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false"><path class="strich" pathLength="1" d="M30 6h46l14 14v48H30Z"/><path class="strich" pathLength="1" d="M76 6v14h14"/><path class="strich" pathLength="1" d="M40 32h34M40 42h40M40 52h24"/><circle class="punkt punkt--gross" cx="98" cy="58" r="9"/><circle class="strich" pathLength="1" cx="108" cy="46" r="7"/></svg></span><h3>Vorschlag</h3><p>Daraus entsteht ein Vorschlag mit eigenem Leitmotiv. Den Preis nenne ich Ihnen persönlich.</p></li>
+      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">03</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false"><path class="strich" pathLength="1" d="M8 10h104v56H8Z"/><path class="strich" pathLength="1" d="M8 20h104"/><path class="strich" pathLength="1" d="M38 56a22 22 0 0 1 44 0"/><path class="strich strich--akzent" pathLength="1" d="M60 56 75 41"/><circle class="punkt" cx="60" cy="56" r="3"/></svg></span><h3>Bau und Messung</h3><p>Die Seite wird gebaut und vor der Übergabe nachgemessen: Tempo, Barrierefreiheit, Sicherheit.</p></li>
+      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">04</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false"><path class="strich" pathLength="1" d="M10 30h86a10 10 0 0 1 0 20H10a10 10 0 0 1 0-20Z"/><path class="strich" pathLength="1" d="M17 41h8v6h-8Zm1.5 0v-3a2.5 2.5 0 0 1 5 0v3"/><path class="strich" pathLength="1" d="M34 40h44"/><circle class="punkt punkt--gut" cx="102" cy="18" r="4"/><path class="strich" pathLength="1" d="M93 9a13 13 0 0 1 18 0M89 4a19 19 0 0 1 26 0"/></svg></span><h3>Start</h3><p>Die Seite geht online. Auf Wunsch bleibe ich dran und betreue sie im Monats-Abo.</p></li>
     </ol>
   </div>
 </section>

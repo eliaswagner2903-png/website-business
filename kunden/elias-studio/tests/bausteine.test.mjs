@@ -31,7 +31,7 @@ test('Baustein-Demos: keine Inline-Stile, Inline-Skripte nur per Hash, nichts Fr
 });
 
 test('Stil- und Baustein-CSS nutzen nur Marken-Variablen (keine Farbwerte, keine fremden Variablen)', () => {
-  const erlaubt = /^--(_[a-z-]+|kx|ky|kr|licht-(x|y)|blau-tief|werk-(hell|laut|edel|glut|klarwerk)|zeichen-(grund|strich)|v-[a-z]+|farbe-(grund|flaeche|text|leise|linie|akzent|auf-akzent|fehler)|schrift-(display|text)|radius-(klein|gross)|tempo-(kurz|mittel|lang)|kurve-(standard|sanft|schliessen)|abstand-abschnitt)$/;
+  const erlaubt = /^--(_[a-z-]+|kx|ky|kr|licht-(x|y)|blau-tief|werk-(hell|laut|edel|glut|klarwerk)|zeichen-(grund|strich)|v-[a-z]+|farbe-(grund|flaeche|flaeche-hoch|text|leise|linie|akzent|auf-akzent|fehler|gut|licht|ring|glanz)|schatten-(karte|hoch)|held-schleier|schrift-(display|text|code)|radius-(klein|karte|gross)|tempo-(kurz|mittel|lang)|kurve-(standard|sanft|schliessen|weich|schwung)|abstand-abschnitt)$/;
   const dateien = [join(WURZEL, 'public/css/stil.css'), ...readdirSync(BAU).map((d) => join(BAU, d, `${d}.css`)).filter(existsSync)];
   for (const f of dateien) {
     const t = readFileSync(f, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
