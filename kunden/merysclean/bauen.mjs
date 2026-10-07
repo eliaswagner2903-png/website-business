@@ -346,14 +346,14 @@ function karte(id = 'karte') {
   const LAGE = { n: ['middle', 0, -12, 'auto'], s: ['middle', 0, 13, 'hanging'], o: ['start', 12, 0, 'central'], w: ['end', -12, 0, 'central'],
     no: ['start', 8, -10, 'auto'], sw: ['end', -8, 10, 'hanging'] };
   const wege = K.orte.filter((o) => !o.sitz).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.16, my = (sy + y) / 2 - (x - sx) * 0.16; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
-  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}"><circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
-  return `<figure class="karte"${pr(K.pruefen)}>
+  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="22"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  return `<div class="karte"${pr(K.pruefen)}><figure class="karte-feld">
       <svg class="karte-svg" viewBox="0 0 800 730" role="img" aria-label="Schematische Karte des Einsatzgebiets: Firmensitz Eislingen/Fils in der Mitte, Orte von Stuttgart im Westen bis Ulm im Südosten und Schwäbisch Hall im Norden">
         <g class="karte-wege">${wege}</g>
         ${punkte}
       </svg>
       <figcaption>Schematisch, nicht maßstäblich. Firmensitz grün hervorgehoben.</figcaption>
-    </figure>`;
+    </figure></div>`;
 }
 const gebietText = () => `<div class="gebiet-gruppen">
 ${S.karte.gruppen.map((g) => `      <div class="gebiet-gruppe"><h3>${esc(g.titel)}</h3><p>${g.orte.map((o) => esc(o)).join(', ')}${g.titel === 'Filstal' ? `, <span${pr(S.karte.ohne_karte[0].pruefen)}>${esc(S.karte.ohne_karte[0].name)}</span>` : ''}</p></div>`).join('\n')}

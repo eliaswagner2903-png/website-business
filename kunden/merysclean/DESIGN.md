@@ -103,6 +103,10 @@ sind „genäht“: helle Fläche mit leichtem Verlauf, feiner Rand, innen eine 
 zeigen das Bild im schwarzen Passepartout und unten „Mehr erfahren“ mit schwarzem Pfeilknopf. Chips und Weiterleitungen tragen
 die Naht als Innenlinie.
 
+**Karte Einsatzgebiet (seit A-099):** Schwarzer Stoff statt weißer Fläche: Piqué-Punkte, leichter grüner Schein um den Sitz, Wege als
+grüne Strichelnaht, Orte als helle Knöpfe, der Firmensitz als grüner Aufnäher mit pulsierendem Nahtring (nur bei erlaubter
+Bewegung). Die Karte steht im schwarzen Rahmen mit grüner Naht und versetztem Nahtumriss wie Teamfoto und Leistungsbogen.
+
 **Leistungen am Handy (seit A-097):** Kein mitlaufendes Wechselbild mehr (wechselte beim Wischen zu oft und zu schnell). Jede
 Leistung ist eine genähte Karte mit eigenem festen Bild im schwarzen Rahmen, der Aufnäher sitzt auf dem Bild. Das Wechselbild
 mit schwarzem Band bleibt nur am Computer (ab 64rem). Dort steht der Bogen in einem schwarzen Rahmen mit grüner Naht und

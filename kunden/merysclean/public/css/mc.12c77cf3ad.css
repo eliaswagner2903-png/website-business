@@ -680,21 +680,34 @@ main { isolation: isolate; }
 
 /* ---------- Karte Einsatzgebiet ---------- */
 .gebiet-in { display: grid; gap: 2.5rem; align-items: center; }
-.karte { padding: clamp(1rem, .6rem + 1.4vw, 1.75rem); }
+.karte { padding: 12px; background: var(--farbe-schwarz); border: 0; border-radius: 34px; overflow: visible; box-shadow: 0 36px 60px -38px color-mix(in srgb, var(--farbe-schwarz) 95%, transparent); }
+.karte::before { content: ""; position: absolute; inset: 0; z-index: -1; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 75%, transparent); border-radius: inherit; translate: .85rem .85rem; pointer-events: none; }
+.karte::after { inset: 5px; border: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 75%, transparent); border-radius: 29px; z-index: 2; }
+/* Karte als schwarzer Stoff im Rahmen: Piqué-Punkte, Wege als grüne Naht, Orte als helle Knöpfe, der Firmensitz als Aufnäher mit Ring */
+.karte-feld {
+  position: relative; padding: clamp(1rem, .6rem + 1.4vw, 1.75rem); color: var(--farbe-flaeche); border-radius: 22px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 62% 52%, color-mix(in srgb, var(--farbe-akzent) 14%, transparent), transparent 70%),
+    radial-gradient(circle, color-mix(in srgb, var(--farbe-flaeche) 9%, transparent) .7px, transparent 1.2px) 0 0 / 7px 7px,
+    var(--farbe-schwarz-hoch);
+}
 .karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 800 / 730; max-width: none; overflow: visible; }
-.karte-wege path { fill: none; stroke: var(--farbe-linie); stroke-width: 2; stroke-dasharray: 2 7; stroke-linecap: round; }
-.ort circle { fill: var(--farbe-schwarz); stroke: var(--farbe-flaeche); stroke-width: 3; }
-.ort text { font: 500 26px var(--schrift-text); fill: var(--farbe-text); paint-order: stroke; stroke: var(--farbe-flaeche); stroke-width: 6px; stroke-linejoin: round; }
+.karte-wege path { fill: none; stroke: var(--farbe-akzent); stroke-opacity: .7; stroke-width: 2; stroke-dasharray: 9 8; stroke-linecap: round; }
+.ort circle { fill: var(--farbe-flaeche); stroke: var(--farbe-schwarz); stroke-width: 3; }
+.ort text { font: 500 26px var(--schrift-text); fill: var(--farbe-flaeche); paint-order: stroke; stroke: var(--farbe-schwarz); stroke-width: 6px; stroke-linejoin: round; }
 .ort--klein text { display: none; }
 @media (max-width: 39.99rem) { .ort--klein { display: none; } }
 .ort--sitz circle { fill: var(--farbe-akzent); stroke: var(--farbe-schwarz); stroke-width: 5; }
+.ort--sitz .ort-ring { fill: none; stroke: var(--farbe-akzent); stroke-width: 2; stroke-dasharray: 5 5; }
+@media (prefers-reduced-motion: no-preference) { .ort--sitz .ort-ring { transform-box: fill-box; transform-origin: center; animation: sitz-puls 3.4s var(--kurve-sanft) infinite; } }
+@keyframes sitz-puls { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.25; opacity: .45; } }
 .ort--sitz text { font-weight: 700; font-size: 30px; }
 @media (min-width: 40rem) {
   .ort text { font-size: 20px; stroke-width: 5px; }
   .ort--klein text { display: inline; }
   .ort--sitz text { font-size: 23px; }
 }
-.karte figcaption { margin-top: .5rem; font-size: .9rem; color: var(--farbe-leise); text-align: center; }
+.karte-feld figcaption { margin-top: .5rem; font-size: .9rem; color: var(--farbe-leise-hell); text-align: center; }
 .gebiet-text h2 + p { margin-top: 1rem; }
 @media (min-width: 64rem) { .gebiet-start .gebiet-in { align-items: start; } }
 .gebiet-gruppen { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
