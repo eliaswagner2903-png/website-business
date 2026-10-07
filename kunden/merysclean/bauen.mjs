@@ -285,7 +285,8 @@ ${S.ablauf.map((s, i) => `      <li class="schritt einblenden">${zeichen(ABLAUF_
 </section>`;
 
 const garantie = () => `<section class="abschnitt garantie" aria-labelledby="garantie-titel">
-  <div class="huelle garantie-in">
+  <div class="huelle">
+  <div class="garantie-in">
     <div class="garantie-siegel einblenden"><div class="medaille" data-kippen><p class="siegel">${zeichen('schild')}<span class="siegel-zahl">100&nbsp;%</span><span class="siegel-wort">Zufriedenheit garantiert</span></p><span class="medaille-glanz" aria-hidden="true"></span></div></div>
     <div class="garantie-text einblenden">
       ${ueber('Zufriedenheits&shy;garantie')}
@@ -294,9 +295,10 @@ const garantie = () => `<section class="abschnitt garantie" aria-labelledby="gar
       <p class="garantie-tel">Reklamation am Telefon: <a href="${TEL_A}">${TEL}</a></p>
     </div>
   </div>
+  </div>
 </section>`;
 
-const faq = (eintraege, titel = 'Häufige Fragen', id = 'fragen') => `<section class="abschnitt faq" aria-labelledby="${id}-titel">
+const faq = (eintraege, titel = 'Häufige Fragen', id = 'fragen') => `<section class="abschnitt faq koeper" aria-labelledby="${id}-titel">
   <div class="huelle faq-in">
     <div class="abschnitt-kopf einblenden">
       ${ueber('Fragen und Antworten')}
@@ -344,14 +346,14 @@ function karte(id = 'karte') {
   const LAGE = { n: ['middle', 0, -12, 'auto'], s: ['middle', 0, 13, 'hanging'], o: ['start', 12, 0, 'central'], w: ['end', -12, 0, 'central'],
     no: ['start', 8, -10, 'auto'], sw: ['end', -8, 10, 'hanging'] };
   const wege = K.orte.filter((o) => !o.sitz).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.16, my = (sy + y) / 2 - (x - sx) * 0.16; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
-  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}"><circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
-  return `<figure class="karte"${pr(K.pruefen)}>
+  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="22"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  return `<div class="karte"${pr(K.pruefen)}><figure class="karte-feld">
       <svg class="karte-svg" viewBox="0 0 800 730" role="img" aria-label="Schematische Karte des Einsatzgebiets: Firmensitz Eislingen/Fils in der Mitte, Orte von Stuttgart im Westen bis Ulm im Südosten und Schwäbisch Hall im Norden">
         <g class="karte-wege">${wege}</g>
         ${punkte}
       </svg>
       <figcaption>Schematisch, nicht maßstäblich. Firmensitz grün hervorgehoben.</figcaption>
-    </figure>`;
+    </figure></div>`;
 }
 const gebietText = () => `<div class="gebiet-gruppen">
 ${S.karte.gruppen.map((g) => `      <div class="gebiet-gruppe"><h3>${esc(g.titel)}</h3><p>${g.orte.map((o) => esc(o)).join(', ')}${g.titel === 'Filstal' ? `, <span${pr(S.karte.ohne_karte[0].pruefen)}>${esc(S.karte.ohne_karte[0].name)}</span>` : ''}</p></div>`).join('\n')}
@@ -420,7 +422,7 @@ ${zusagen()}
   </div>
 </section>
 
-<section class="abschnitt leistungen-start" aria-labelledby="leistungen-titel">
+<section class="abschnitt leistungen-start koeper" aria-labelledby="leistungen-titel">
   <div class="huelle">
     <div class="abschnitt-kopf einblenden">
       ${ueber('Leistungen')}
@@ -429,7 +431,7 @@ ${zusagen()}
     </div>
     <div class="leistungen-raster">
       <ul class="leistung-zeilen">
-${LEI.map((l, i) => `        <li class="einblenden${i === 0 ? ' ist-aktiv' : ''}"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
+${LEI.map((l, i) => `        <li class="einblenden${i === 0 ? ' ist-aktiv' : ''}"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<div class="leistung-foto" aria-hidden="true"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '6rem')}${zeichen(l.id, 'patch--klein')}</div><span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
       </ul>
       <div class="leistungen-bilder" aria-hidden="true">
 ${LEI.map((l, i) => `        <figure class="leistungen-bild${i === 0 ? ' ist-aktiv' : ''}"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 64rem) 30rem, 96vw')}<span class="leistungen-bild-name">${esc(l.name)}</span></figure>`).join('\n')}
@@ -443,7 +445,7 @@ ${ablauf()}
 
 ${garantie()}
 
-<section class="abschnitt team-start" aria-labelledby="team-titel">
+<section class="abschnitt team-start koeper" aria-labelledby="team-titel">
   <div class="huelle">
     <div class="team-kopf einblenden">
       ${ueber('Wer zu Ihnen kommt')}
@@ -523,7 +525,7 @@ ${LEI.map((l, i) => `      <li class="leistung-karte">
   </div>
 </section>
 
-<section class="abschnitt weitere" aria-labelledby="weitere-titel">
+<section class="abschnitt weitere koeper" aria-labelledby="weitere-titel">
   <div class="huelle weitere-in">
     <div>
       ${ueber('Auf Anfrage')}
@@ -554,7 +556,7 @@ for (const l of LEI) {
 
 ${zusagen(' vertrauen--seite')}
 
-<section class="abschnitt fuer-wen" aria-labelledby="wen-titel">
+<section class="abschnitt fuer-wen koeper" aria-labelledby="wen-titel">
   <div class="huelle fuer-wen-in">
     <div class="abschnitt-kopf einblenden">
       ${ueber('Für wen')}
@@ -570,7 +572,7 @@ ${ablauf()}
 
 ${faq(l.faq, `Fragen zur ${esc(l.name)}`)}
 
-<section class="abschnitt andere" aria-labelledby="andere-titel">
+<section class="abschnitt andere koeper" aria-labelledby="andere-titel">
   <div class="huelle">
     <h2 id="andere-titel" class="h3-gross">Weitere Leistungen</h2>
     <ul class="andere-liste">
@@ -614,7 +616,7 @@ ${anfrageBand()}`;
 {
   const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen, bildFrei: true })}
 
-<section class="abschnitt ueber-text" aria-labelledby="mehr-titel">
+<section class="abschnitt ueber-text koeper" aria-labelledby="mehr-titel">
   <div class="huelle ueber-text-in einblenden">
     ${ueber('Mehr als nur ein Reinigungsunternehmen')}
     <h2 id="mehr-titel">Ein Ansprechpartner, <span class="akzent-wort">feste</span> Kräfte, klare Absprachen</h2>
@@ -635,7 +637,7 @@ ${anfrageBand()}`;
   </div>
 </section>
 
-<section class="abschnitt gruende" aria-labelledby="gruende-titel">
+<section class="abschnitt gruende koeper" aria-labelledby="gruende-titel">
   <div class="huelle">
     <div class="abschnitt-kopf einblenden">
       ${ueber('Warum Merys Clean')}

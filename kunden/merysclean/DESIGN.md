@@ -95,6 +95,23 @@ und einem versetzten Nahtumriss dahinter; Etikett „Unser Team“ am unteren Ra
 der Rahmen mit dem Zeiger (höchstens 5°). Über uns und Kontakt nutzen dasselbe Foto im gleichen Rahmen. Bewusst nicht das
 hochgerechnete Higgsfield-Bild: dort sind die Logos auf den Hemden verfälscht.
 
+**Stoffbahnen und genähte Karten (seit A-097):** Helle Abschnitte wechseln zwischen Piqué (Grund) und Köper (`--farbe-leinen`,
+feine Schrägrippen, Klasse `.koeper`): Leistungen und Team auf der Startseite, FAQ, Für wen, Weitere Leistungen, Text und Gründe
+auf Über uns. Jede Köper-Bahn hat oben und unten eine grüne Strichelnaht über die ganze Breite und einen leisen Faden
+(`img/deko-faden.svg`). Alle hellen Karten (Leistungskarten, Wegweiser, FAQ, Für-wen-Liste, Gründe, Garantie, Karte, Kontakt)
+sind „genäht“: helle Fläche mit leichtem Verlauf, feiner Rand, innen eine grüne Strichelnaht, weicher Schatten. Leistungskarten
+zeigen das Bild im schwarzen Passepartout und unten „Mehr erfahren“ mit schwarzem Pfeilknopf. Chips und Weiterleitungen tragen
+die Naht als Innenlinie.
+
+**Karte Einsatzgebiet (seit A-099):** Schwarzer Stoff statt weißer Fläche: Piqué-Punkte, leichter grüner Schein um den Sitz, Wege als
+grüne Strichelnaht, Orte als helle Knöpfe, der Firmensitz als grüner Aufnäher mit pulsierendem Nahtring (nur bei erlaubter
+Bewegung). Die Karte steht im schwarzen Rahmen mit grüner Naht und versetztem Nahtumriss wie Teamfoto und Leistungsbogen.
+
+**Leistungen am Handy (seit A-097):** Kein mitlaufendes Wechselbild mehr (wechselte beim Wischen zu oft und zu schnell). Jede
+Leistung ist eine genähte Karte mit eigenem festen Bild im schwarzen Rahmen, der Aufnäher sitzt auf dem Bild. Das Wechselbild
+mit schwarzem Band bleibt nur am Computer (ab 64rem). Dort steht der Bogen in einem schwarzen Rahmen mit grüner Naht und
+versetztem Nahtumriss wie Porträts und Teamfoto; die Bilder wischen innerhalb des stehenden Rahmens.
+
 **Menü:** Computer: Leiste mit Zeiten, Adresse, WhatsApp, E-Mail über dem schwarzen Kopf; „Leistungen“ öffnet ein breites
 Panel mit allen Leistungen samt Aufnäher und einer schwarzen Karte „kostenlose Besichtigung“. Handy: schwarzes Blatt von
 unten mit Naht, Leistungen mit Aufnähern, unten Angebot, Anrufen, WhatsApp, E-Mail, Bürozeiten.
