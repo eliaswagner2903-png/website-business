@@ -122,3 +122,20 @@ test('fehlerSeite escaped die Meldung und den Rückweg', async () => {
   assert.doesNotMatch(html, /<img|<script/);
   assert.ok(html.includes('href="/&quot;&gt;&lt;script&gt;"'));
 });
+
+test('Kontakt: mit KV-Bindung höchstens 5 Nachrichten pro IP und Stunde, danach 429', async () => {
+  const speicher = new Map();
+  const env = { ...ENV, RESEND_API_KEY: 're_x', KONTAKT_AN: 'info@beispiel.de', KONTAKT_VON: 'web@beispiel.de',
+    KONTAKT_LIMIT: { get: async (k) => speicher.get(k) ?? null, put: async (k, v) => { speicher.set(k, v); } } };
+  let mails = 0;
+  globalThis.fetch = async () => { mails++; return new Response('{}', { status: 200 }); };
+  const senden = (ip) => {
+    const a = formAnfrage('https://x/api/kontakt', { name: 'Anna', email: 'anna@beispiel.de', nachricht: 'Hallo, bitte Rückruf.' });
+    a.headers.set('CF-Connecting-IP', ip);
+    return kontakt({ request: a, env });
+  };
+  for (let i = 0; i < 5; i++) assert.equal((await senden('203.0.113.7')).status, 303);
+  assert.equal((await senden('203.0.113.7')).status, 429);
+  assert.equal((await senden('203.0.113.8')).status, 303, 'andere IP bleibt frei');
+  assert.equal(mails, 6, 'beim Limit wird keine Mail verschickt');
+});

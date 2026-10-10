@@ -4,6 +4,7 @@
 //
 //   RESEND_API_KEY (Secret), KONTAKT_AN (Empfänger), KONTAKT_VON (verifizierte Absenderadresse)
 //   TURNSTILE_SECRET (Secret, optional – wenn gesetzt, ist Turnstile Pflicht)
+//   KONTAKT_LIMIT (KV-Bindung, optional – wenn gebunden, höchstens 5 Nachrichten pro IP und Stunde)
 import { weiter, fehler, fehlerSeite, seitenUrl, gleicheHerkunft } from '../_lib/antwort.js';
 
 // Wohin „Zurück zum Formular“ führt und welche Klassen die Fehlerseite bekommt (Anker des Formulars auf der Seite).
@@ -33,6 +34,18 @@ async function turnstileOk(env, token, ip) {
   return (await r.json().catch(() => ({}))).success === true;
 }
 
+const LIMIT_PRO_STUNDE = 5;
+
+// Bremse pro IP über eine KV-Bindung. Ohne Bindung gibt es keine Bremse (dann Turnstile und Cloudflare-Regel nutzen, siehe hosting/CLOUDFLARE.md).
+async function limitErreicht(env, ip) {
+  if (!env.KONTAKT_LIMIT || !ip) return false;
+  const schluessel = `kontakt:${ip}:${Math.floor(Date.now() / 3600000)}`;
+  const bisher = Number(await env.KONTAKT_LIMIT.get(schluessel)) || 0;
+  if (bisher >= LIMIT_PRO_STUNDE) return true;
+  await env.KONTAKT_LIMIT.put(schluessel, String(bisher + 1), { expirationTtl: 7200 });
+  return false;
+}
+
 export async function onRequestPost({ request, env }) {
   let basis;
   try { basis = seitenUrl(env); } catch (e) { return fehler(e.message, 500); }
@@ -46,6 +59,9 @@ export async function onRequestPost({ request, env }) {
 
   if (!(await turnstileOk(env, form.get('cf-turnstile-response'), request.headers.get('CF-Connecting-IP')))) {
     return zeige('Die Sicherheitsprüfung ist fehlgeschlagen. Bitte die Seite neu laden.', 400);
+  }
+  if (await limitErreicht(env, request.headers.get('CF-Connecting-IP'))) {
+    return zeige('Es wurden zu viele Nachrichten in kurzer Zeit gesendet. Bitte später erneut versuchen.', 429);
   }
   if (!env.RESEND_API_KEY || !env.KONTAKT_AN || !env.KONTAKT_VON) return zeige('Der Versand ist noch nicht eingerichtet.', 503);
 

@@ -87,6 +87,7 @@ Deploy agents only when it pays off (parallel subtasks, a separate context saves
 | `/pruefen` | Complete quality check of a site |
 | `/abnahme` | Quality gate against the order: global + ordered services, fix errors, re-check, only then "done" |
 | `/sicherheit` | Security check before launch |
+| `/seiten-check` | Outside check of the running own site (25 checks) + source-code check (15 checks); only own/ordered sites |
 | `/aufklaerung <url>` | Deploy the Fernspäherkommando on a site |
 | `/referenz` | Evaluate a reconnaissance report, feed patterns into the system, reference list |
 | `/wartung` | Care run for all customer sites |
