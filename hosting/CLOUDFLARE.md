@@ -34,6 +34,7 @@ Variablen (Settings → Variables and Secrets), für **Production** und **Previe
 | `STRIPE_WEBHOOK_SECRET` | Secret | `whsec_…` vom Webhook-Endpunkt `https://www.kunde.de/api/stripe-webhook` |
 | `RESEND_API_KEY`, `KONTAKT_AN`, `KONTAKT_VON` | Secret/Text | Kontaktformular |
 | `TURNSTILE_SECRET` | Secret | optional, dann Widget + CSP-Eintrag ergänzen |
+| `KONTAKT_LIMIT` | KV-Bindung | optional, bremst das Kontaktformular auf 5 Nachrichten pro IP und Stunde. Angelegt mit `npx wrangler kv namespace create KONTAKT_LIMIT`, dann im Pages-Projekt unter Bindings eintragen |
 
 ## Domain
 
@@ -70,3 +71,7 @@ Nie einen globalen API-Key hinterlegen, immer einen Token mit genau den nötigen
 Pages und Functions: kostenlose Stufe mit Tageslimit für Function-Aufrufe, reicht für normale Kundenseiten.
 Workers Paid ab ca. 5 US-$/Monat für das ganze Konto, wenn Limits erreicht werden. Domain ca. 10–20 €/Jahr.
 Resend: kostenlose Stufe für wenige tausend Mails im Monat. Stripe: nur Gebühren pro Zahlung.
+
+## Kostendeckel für Mailversand
+
+Vor dem Go-Live (nur der Besitzer kann das): in Resend das Tageslimit setzen, und in Cloudflare unter Sicherheit → WAF eine Rate-Limiting-Regel für `/api/kontakt` anlegen (z. B. 10 Anfragen pro Minute pro IP). Turnstile und `KONTAKT_LIMIT` sind die Bremse im Code, Resend-Limit und WAF-Regel sind der harte Deckel.
