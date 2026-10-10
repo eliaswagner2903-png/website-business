@@ -152,4 +152,4 @@ Untergrenze, nicht dieses Skript.
 - Nur die eigenen Seiten (Elias' Seite `kunden/elias-studio`) und Kundenseiten **mit Auftrag des Kunden**. Nie gegen Interessenten-Seiten.
 - Vor dem Go-Live einer Kundenseite zusammen mit `/sicherheit` laufen lassen. Lokal: `node werkzeuge/gzserver.mjs 8097 kunden/<slug>/public`, dann das Skript gegen `http://127.0.0.1:8097`.
 - Lokal (HTTP) sind Pruefung 7 (HTTPS), 8 (HSTS) und 16 (Zertifikat) erwartbar rot: der Testserver entfernt HSTS bewusst. Erst gegen die echte Adresse zaehlen sie.
-- Bekannte Fehlalarme (Stand 10.10.2026, Lauf gegen `kunden/elias-studio`): Pruefung 23 erkennt nur das Wort "honeypot", nicht das Feld `firma_url`; Pruefung 21 zaehlt auch einfache Links (`<a href>`) als Verbindung. Vor dem Melden im Quelltext gegenpruefen.
+- Fehlalarme vom 10.10.2026 (Honigtopf-Feld `firma_url`, einfache Links als Verbindung) sind im Skript behoben. Auch sonst Treffer vor dem Melden im Quelltext gegenpruefen.

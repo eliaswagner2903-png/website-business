@@ -510,7 +510,7 @@ def pruefe_formulare(basis, html):
     if not formulare:
         befund("ok", 23, "Kein Formular auf der Startseite", "", "", "")
         return
-    schutz = bool(re.search(r"(?i)(recaptcha|hcaptcha|turnstile|honeypot|csrf|"
+    schutz = bool(re.search(r"(?i)(recaptcha|hcaptcha|turnstile|honeypot|honigtopf|honig|csrf|"
                             r"friendlycaptcha|altcha)", html))
     ohne_post = [f for f in formulare if "post" not in f.lower()]
     hinweise = []
@@ -603,7 +603,9 @@ BEKANNTE_DRITTE = {
 def pruefe_datenspuren(basis, html):
     eigen = urllib.parse.urlparse(basis).netloc
     fremde = set()
-    for m in re.finditer(r'(?:src|href)=["\']([^"\']+)["\']', html):
+    # Nur Tags, die beim Aufruf etwas nachladen; einfache Links (<a href>) bauen keine Verbindung auf.
+    for m in re.finditer(r'<(?:script|img|iframe|source|video|audio|embed|link(?![^>]*rel=["\'](?:canonical|alternate|author|license|me)))\b[^>]*?\b(?:src|href)=["\']([^"\']+)["\']',
+                         html, re.I):
         ziel = m.group(1)
         if ziel.startswith("//"):
             ziel = "https:" + ziel

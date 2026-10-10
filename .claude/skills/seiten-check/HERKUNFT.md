@@ -64,3 +64,7 @@ Kostendeckel-Block sowie die Datenspuren-Pruefung erweitert.
 09.09.2026 gegen `https://titusharmann.com`: 25 Pruefungen gelaufen, 7 Befunde,
 davon 0 kritisch, 2 hoch (HSTS und CSP fehlen), 3 mittel, 2 niedrig. Laufzeit
 unter einer Minute.
+
+## Aenderungen am Original
+
+10.10.2026 (Pruefung 21 und 23): einfache Links, canonical/alternate-Links zaehlen nicht mehr als Verbindung; Honigtopf-Felder (`honig`, `honigtopf`) gelten als Schutz.
