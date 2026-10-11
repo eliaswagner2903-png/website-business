@@ -50,7 +50,13 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 /* ---------- Kopfzeile ---------- */
 .kopf {
   position: sticky; top: 0; z-index: 20;
-  background: color-mix(in srgb, var(--farbe-grund) 88%, transparent); border-bottom: 1px solid var(--farbe-linie);
+  border-bottom: 1px solid var(--farbe-linie);
+}
+/* Unschärfe auf einer eigenen Ebene: backdrop-filter direkt am Kopf würde das feste Handy-Menü (position: fixed)
+   in den Kopfstreifen sperren, das Menü war dann unsichtbar (Elias, 11.10.) */
+.kopf::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: color-mix(in srgb, var(--farbe-grund) 88%, transparent);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .kopf-in { display: flex; align-items: center; justify-content: space-between; gap: .25rem 1rem; min-height: 4.5rem; flex-wrap: wrap; }
@@ -79,6 +85,9 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
   .nav .knopf { margin-inline-start: 0; }
   .blatt-schleier { background: color-mix(in srgb, var(--farbe-grund) 70%, transparent); }
   .js .kopf .blatt { border-radius: 0; }
+  /* Menüeinträge: Pfeil ohne Kreis, passend zu den übrigen Zeichen (Elias, 11.10.: keine Kreise mit Pfeil/Dreieck) */
+  .js .blatt li a:not(.knopf)::after { border: 0; border-radius: 0; inline-size: auto; block-size: auto; font-size: 1.5rem; }
+  .js .blatt li a:not(.knopf):active::after { background: none; color: var(--farbe-akzent); }
 }
 @media (min-width: 48rem) and (max-width: 63.99rem) { .nav a:not(.knopf) { padding-inline: .45rem; font-size: .9375rem; } }
 
@@ -203,36 +212,28 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
   mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 82%, transparent);
 }
 .kurs { position: relative; }
-.kurs-linie { position: absolute; display: none; pointer-events: none; }
-.kurs-linie path { fill: none; stroke: var(--farbe-akzent); stroke-width: 1.6; stroke-dasharray: .006 .008; vector-effect: non-scaling-stroke; }
-.schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.25rem; position: relative; }
+.schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.75rem; position: relative; }
 .schritt { position: relative; display: grid; gap: .7rem; align-content: start; min-width: 0; }
 .schritt p { color: var(--farbe-leise); font-size: 1.0625rem; }
-.boje {
-  display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border-radius: 50%; margin-block-end: .5rem;
-  font: 500 1.6rem/1 var(--schrift-display); color: var(--farbe-akzent); background: var(--farbe-grund);
-  border: 1px solid var(--farbe-akzent); box-shadow: 0 0 0 .4rem var(--farbe-grund), 0 0 0 calc(.4rem + 1px) color-mix(in srgb, var(--farbe-akzent) 30%, transparent);
+/* Etappe: große Ziffer im Logbuch-Stil, daneben eine Messinglinie bis zur nächsten Etappe */
+.etappe { display: flex; align-items: center; gap: 1rem; margin-block-end: .4rem; }
+.etappe-nr { font: italic 500 clamp(2.6rem, 2rem + 1.6vw, 3.4rem)/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: lining-nums; letter-spacing: .02em; }
+.etappe-linie { position: relative; flex: 1; block-size: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 60%, transparent), color-mix(in srgb, var(--farbe-akzent) 8%, transparent)); }
+.etappe-linie::before { /* Rautenmarke am Anfang der Linie */
+  content: ""; position: absolute; inset: 50% auto auto 0; inline-size: .45rem; block-size: .45rem; translate: 0 -50%; rotate: 45deg; background: var(--farbe-akzent);
 }
-/* Handy: Kurslinie senkrecht links, Schritte untereinander */
-@media (max-width: 63.99rem) {
-  .schritte::before { content: ""; position: absolute; inset: 1.75rem auto 1.75rem 1.75rem; inline-size: 0; border-inline-start: 1.5px dashed color-mix(in srgb, var(--farbe-akzent) 70%, transparent); }
-  .schritt { grid-template-columns: 3.5rem minmax(0, 1fr); column-gap: 1.25rem; }
-  .schritt .boje { grid-row: span 2; margin: 0; }
-}
-/* Computer: Kurslinie schwingt waagerecht durch die vier Bojen */
+.schritt:last-child .etappe-linie { background: linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 60%, transparent), transparent 70%); }
 @media (min-width: 64rem) {
   .schritte { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3rem; }
-  .kurs-linie { display: block; inset: -1.9rem 0 auto; inline-size: 100%; block-size: 7.5rem; }
-  .boje { margin-block-end: 1.5rem; }
+  .etappe-linie { margin-inline-end: -3rem; }
+  .schritt:last-child .etappe-linie { margin-inline-end: 0; }
 }
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) {
-    .kurs-linie path { stroke-dasharray: 1; animation: kurs-zeichnen linear both; animation-timeline: view(); animation-range: entry 30% cover 55%; }
-    .boje { animation: boje-an linear both; animation-timeline: view(); animation-range: entry 60% cover 40%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .etappe-linie { transform-origin: left; animation: etappe-linie linear both; animation-timeline: view(); animation-range: entry 40% cover 45%; }
   }
 }
-@keyframes kurs-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes boje-an { from { color: var(--farbe-leise); border-color: var(--farbe-linie); } }
+@keyframes etappe-linie { from { transform: scaleX(0); } }
 
 /* =====================================================================
    LOGBUCH: Arbeiten mit Reitern
@@ -319,25 +320,27 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .werk-werte dt { color: var(--farbe-leise); }
 .werk-werte dd { margin: 0; color: var(--farbe-text); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .werk-link { margin-block-start: .25rem; }
-.oeffnen { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-weight: 500; letter-spacing: .03em; }
+.werk-link .oeffnen { min-height: 50px; padding-inline: 1.4rem; }
 
 /* =====================================================================
    ZWISCHENBILD: Kompass im Lampenlicht
    ===================================================================== */
 .zwischenbild { position: relative; isolation: isolate; display: grid; min-block-size: clamp(26rem, 60vw, 44rem); align-items: end; overflow: hidden; }
-.zwischenbild-bild { position: absolute; inset: 0; z-index: -1; }
+.zwischenbild-bild { position: absolute; inset: 0; z-index: -1;
+  -webkit-mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 72%, transparent);
+  mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 72%, transparent); }
 .zwischenbild-bild img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 60% 50%; }
 .zwischenbild-bild::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, var(--farbe-grund) 0%, transparent 22%, transparent 55%, var(--farbe-grund) 100%),
     linear-gradient(90deg, color-mix(in srgb, var(--farbe-grund) 82%, transparent) 0%, color-mix(in srgb, var(--farbe-grund) 40%, transparent) 45%, transparent 70%);
 }
 /* Handy: Bild als Band, der Satz steht darunter auf Dunkel (über dem hellen Kartenpapier wäre er schwer lesbar) */
 @media (max-width: 47.99rem) {
   .zwischenbild { display: block; min-block-size: 0; }
-  .zwischenbild-bild { position: relative; block-size: 17rem; }
-  .zwischenbild-in { margin-block-start: -4rem; padding-block-start: 0; }
+  .zwischenbild-bild { position: relative; block-size: 18rem; }
+  .zwischenbild-bild::after { display: none; }
+  .zwischenbild-in { margin-block-start: -2.5rem; padding-block-start: 0; }
 }
 .zwischenbild-in { display: grid; gap: 1.25rem; padding-block: 4rem clamp(3rem, 2rem + 3vw, 5rem); }
 .zwischenbild-satz { max-width: 22ch; font: 500 clamp(2rem, 1.3rem + 2.6vw, 3.6rem)/1.08 var(--schrift-display); letter-spacing: -.01em; text-wrap: balance; }
@@ -377,20 +380,33 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .fragen-raster { display: grid; gap: 2.5rem 5rem; }
 @media (min-width: 64rem) { .fragen-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } .fragen-kopf { position: sticky; top: 7rem; } }
 .fragen-kopf { display: grid; gap: 1.25rem; align-content: start; }
-.fragen-liste { display: grid; border-top: 1px solid var(--farbe-linie); }
-.frage { border-bottom: 1px solid var(--farbe-linie); }
+.fragen-hinweis { color: var(--farbe-leise); font-size: 1.0625rem; max-width: 30ch; }
+.fragen-hinweis a { color: var(--farbe-akzent); text-underline-offset: .2em; }
+.fragen-liste { display: grid; gap: .75rem; }
+.frage {
+  background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-karte);
+  transition: border-color var(--tempo-mittel) var(--kurve-standard), background-color var(--tempo-mittel) var(--kurve-standard);
+}
+.frage[open] { background: var(--farbe-flaeche-hoch); border-color: color-mix(in srgb, var(--farbe-akzent) 45%, transparent); }
 .frage summary {
-  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 4.25rem; padding-block: 1.1rem;
-  font: 500 clamp(1.4rem, 1.2rem + .6vw, 1.7rem)/1.25 var(--schrift-display); cursor: pointer; list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 4.25rem; padding: 1.1rem 1.4rem;
+  font: 500 clamp(1.35rem, 1.2rem + .5vw, 1.6rem)/1.25 var(--schrift-display); cursor: pointer; list-style: none;
 }
 .frage summary::-webkit-details-marker { display: none; }
-.frage-zeichen { position: relative; flex: none; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent); transition: transform var(--tempo-mittel) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard); }
-.frage-zeichen::before { /* Kompassnadel: zeigt nach rechts, beim Öffnen nach unten */
-  content: ""; position: absolute; inset: 50% auto auto 50%; inline-size: .9rem; block-size: .9rem; margin: -.45rem 0 0 -.6rem;
-  background: var(--farbe-akzent); clip-path: polygon(0 50%, 100% 0, 70% 50%, 100% 100%); transform: rotate(180deg);
+/* Zeichen: schlichtes Plus aus zwei Messinglinien, wird beim Öffnen zum Minus */
+.frage-zeichen { position: relative; flex: none; inline-size: 1.1rem; block-size: 1.1rem; }
+.frage-zeichen::before, .frage-zeichen::after {
+  content: ""; position: absolute; inset: 50% 0 auto; block-size: 1.5px; margin-block-start: -.75px; background: var(--farbe-akzent);
+  transition: transform var(--tempo-mittel) var(--kurve-standard);
 }
-.frage[open] .frage-zeichen { transform: rotate(90deg); background: color-mix(in srgb, var(--farbe-akzent) 14%, transparent); }
-.frage p { padding: 0 0 1.5rem; color: var(--farbe-leise); font-size: 1.0625rem; line-height: 1.65; max-width: 58ch; }
+.frage-zeichen::after { transform: rotate(90deg); }
+.frage[open] .frage-zeichen::after { transform: rotate(0deg); }
+@media (hover: hover) and (pointer: fine) {
+  .frage:hover { border-color: color-mix(in srgb, var(--farbe-akzent) 35%, transparent); }
+  .frage summary:hover .frage-text { color: var(--farbe-akzent); }
+}
+.frage-text { transition: color var(--tempo-kurz) var(--kurve-standard); }
+.frage p { margin-inline: 1.4rem; padding: 1rem 0 1.4rem; border-top: 1px solid var(--farbe-linie); color: var(--farbe-leise); font-size: 1.0625rem; line-height: 1.65; max-width: 58ch; }
 @media (prefers-reduced-motion: no-preference) { .frage[open] p { animation: frage-auf .5s var(--kurve-standard); } }
 @keyframes frage-auf { from { opacity: 0; transform: translateY(-.4rem); } }
 

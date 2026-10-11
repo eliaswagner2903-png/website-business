@@ -253,7 +253,7 @@ const held = `<section class="held" aria-labelledby="titel">
     </div>
     <div class="held-fuss">
       <p class="held-zeile">${esc(H.unterzeile)}</p>
-      <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 6.5v11l9-5.5z"/></svg></span>${esc(V.knopf)}</button>
+      <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 32 22" focusable="false"><rect class="rahmen" x=".75" y=".75" width="30.5" height="20.5" rx="2"/><path class="dreieck" d="M13 6.5v9l7.5-4.5z"/></svg></span><span class="film-knopf-text">${esc(V.knopf)}</span></button>
     </div>
   </div>
 </section>`;
@@ -297,9 +297,8 @@ const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t
       <h2 id="t-ablauf" class="einblenden">${AB.titel}</h2>
     </div>
     <div class="kurs">
-      <svg class="kurs-linie" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 60C80 20 170 20 250 60S420 100 500 60 670 20 750 60 920 100 1000 60"/></svg>
       <ol class="schritte">
-${AB.schritte.map((st, i) => `        <li class="schritt einblenden"><span class="boje" aria-hidden="true">${i + 1}</span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
+${AB.schritte.map((st, i) => `        <li class="schritt einblenden"><span class="etappe" aria-hidden="true"><span class="etappe-nr">${String(i + 1).padStart(2, '0')}</span><span class="etappe-linie"></span></span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
       </ol>
     </div>
   </div>
@@ -314,7 +313,7 @@ const messung = (w) => `
       </dl>`;
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>Seite ansehen ${raus}<span class="unsichtbar"> – ${esc(a.name)} (öffnet in neuem Tab)</span></a></p>`
+    ? `<p class="werk-link"><a class="knopf zweit oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>Ganze Seite öffnen ${raus}<span class="unsichtbar"> – ${esc(a.name)} (öffnet in neuem Tab)</span></a></p>`
     : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
@@ -403,9 +402,10 @@ const fragen = `<section class="abschnitt fragen" id="fragen" aria-labelledby="t
     <div class="fragen-kopf">
       ${ueber(esc(FR.ueber))}
       <h2 id="t-fragen" class="einblenden">${FR.titel}</h2>
+      <p class="fragen-hinweis">Ihre Frage ist nicht dabei? <a href="#kontakt">Schreiben Sie mir</a>, ich antworte persönlich.</p>
     </div>
     <div class="fragen-liste">
-${FR.liste.map(([q, a]) => `      <details class="frage"><summary>${esc(q)}<span class="frage-zeichen" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`).join('\n')}
+${FR.liste.map(([q, a]) => `      <details class="frage"><summary><span class="frage-text">${esc(q)}</span><span class="frage-zeichen" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`).join('\n')}
     </div>
   </div>
 </section>`;

@@ -186,9 +186,9 @@ test('Leistungen als Plaketten: sechs Karten mit Instrument (Dekor), Fachbegriff
     assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, 'Bild oder Versprechen');
   }
   for (const k of S.leistungen.karten) assert.ok(sek.includes(`<h3>${k.titel.replace(/&/g, '&amp;')}</h3>`), `${k.id}: Titel fehlt`);
-  // Ablauf: Bojen und Kurslinie sind Dekor, die Schritte echter Text
-  assert.equal((start.match(/<span class="boje" aria-hidden="true">/g) || []).length, S.ablauf.schritte.length);
-  assert.match(start, /<svg class="kurs-linie"[^>]*aria-hidden="true" focusable="false">/);
+  // Ablauf: Etappen-Ziffern sind Dekor (die Liste zählt selbst), die Schritte echter Text
+  assert.equal((start.match(/<span class="etappe" aria-hidden="true">/g) || []).length, S.ablauf.schritte.length);
+  assert.doesNotMatch(start, /class="boje"|class="kurs-linie"/, 'alte Bojen');
 });
 
 test('Arbeiten: Entscheidungssatz je Arbeit, neu formuliert und markiert', () => {

@@ -32,17 +32,21 @@
 
 /* ---------- Knopf „Vorstellung ansehen“ ---------- */
 .film-knopf {
-  display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; padding: .25rem .5rem .25rem 0; border: 0; background: none;
-  color: var(--farbe-text); font: 450 1rem/1.2 var(--schrift-text); cursor: pointer;
+  display: inline-flex; align-items: center; gap: .8rem; min-height: 48px; padding: .55rem 1.1rem .55rem .8rem;
+  border: 1px solid var(--farbe-linie); border-radius: var(--radius-gross); background: color-mix(in srgb, var(--farbe-grund) 40%, transparent);
+  color: var(--farbe-text); font: 500 .975rem/1.2 var(--schrift-text); letter-spacing: .03em; cursor: pointer;
+  transition: border-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard);
 }
-.film-knopf-zeichen {
-  display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%;
-  border: 1px solid var(--farbe-akzent); transition: background-color var(--tempo-mittel) var(--kurve-standard), transform var(--tempo-mittel) var(--kurve-weich);
+/* Zeichen: kleine Leinwand mit Dreieck, kein Kreis (Elias, 11.10.) */
+.film-knopf-zeichen { display: block; line-height: 0; }
+.film-knopf-zeichen svg { inline-size: 1.75rem; block-size: auto; }
+.film-knopf-zeichen .rahmen { fill: none; stroke: var(--farbe-akzent); stroke-width: 1.5; }
+.film-knopf-zeichen .dreieck { fill: var(--farbe-akzent); transition: transform var(--tempo-mittel) var(--kurve-weich); transform-origin: 16px 11px; }
+@media (hover: hover) and (pointer: fine) {
+  .film-knopf:hover { border-color: var(--farbe-akzent); color: var(--farbe-akzent); }
+  .film-knopf:hover .film-knopf-zeichen .dreieck { transform: scale(1.18); }
 }
-.film-knopf-zeichen svg { inline-size: 1.1rem; block-size: 1.1rem; fill: var(--farbe-akzent); transition: fill var(--tempo-kurz) var(--kurve-standard); translate: 1px 0; }
-.film-knopf:hover .film-knopf-zeichen { background: var(--farbe-akzent); transform: scale(1.06); }
-.film-knopf:hover .film-knopf-zeichen svg { fill: var(--farbe-auf-akzent); }
-.film-knopf:active .film-knopf-zeichen { transform: scale(.96); }
+.film-knopf:active { transform: scale(.98); }
 
 /* ---------- Vorstellung: Überblendung ---------- */
 .intro { display: none; position: fixed; inset: 0; z-index: 100; color: var(--farbe-text); }
