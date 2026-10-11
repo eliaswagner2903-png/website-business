@@ -1,7 +1,7 @@
 // Baut alle Seiten der Portfolio-Seite:   node bauen.mjs      
 // Inhalte stehen NUR in inhalt/seite.json. HTML in public/ nicht von Hand ändern.
 // Alles Persönliche (Studioname, Nachname, Ort, Telefon, E-Mail, Foto, Preise, Rechtstexte) ist Platzhalter mit data-pruefen.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 const S = JSON.parse(readFileSync(new URL('./inhalt/seite.json', import.meta.url), 'utf8'));
 const OUT = new URL('./public/', import.meta.url);
@@ -17,8 +17,33 @@ const TELZ = (html, leer = '') => (S.telefon_link ? html : leer);
 const STUDIO = `<span class="platzhalter-wort"${pr(P.studio)}>${esc(S.studio)}</span>`;
 const pfeil = '<span class="pfeil" aria-hidden="true">→</span>';
 const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
-// Einziges Inline-Skript (CSP-Hash in public/_headers, Test prüft ihn): Klasse js setzen. Die Seite ist durchgehend dunkel, kein Schema-Schalter.
+// Inline-Skripte (CSP-Hashes in public/_headers, Test prüft sie): (1) Klasse js setzen, auf jeder Seite. Die Seite ist durchgehend dunkel, kein Schema-Schalter.
+// (2) nur Startseite: Klasse intro-offen setzen, wenn die Vorstellung beim ersten Besuch laufen soll (noch nicht gesehen, kein Anker in der Adresse,
+// nicht bei „Bewegung reduzieren“ oder „Daten sparen“; ?intro=1 erzwingt sie). So steht sie vor dem ersten Bild und die Seite blitzt nicht auf.
+// Der Speicher-Schlüssel steht auch in js/vorstellung.js.
 const KOPF_SKRIPT = "document.documentElement.classList.add('js')";
+const INTRO_SKRIPT = "try{var d=document.documentElement,w=location.search.indexOf('intro=1')>-1;if(w||(!localStorage.getItem('seitenkapitaen-vorstellung')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!(navigator.connection&&navigator.connection.saveData)))d.classList.add('intro-offen')}catch(e){}";
+
+// ---------- Seitenkapitän: Kompass (Marke), Kompassrose (Hero, Vorstellung) ----------
+// Alles Dekor (aria-hidden), reine Linien in currentColor/Messing. Nichts Verspieltes: keine Anker, keine Piraten, ein Kompass und eine Route.
+const KOMPASS_MARKE = '<svg class="marke-kompass" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="mk-ring" cx="16" cy="16" r="13.6"/><path class="mk-stern" d="M16 2.6 18.5 13.5 29.4 16 18.5 18.5 16 29.4 13.5 18.5 2.6 16 13.5 13.5Z"/><path class="mk-nord" d="M16 2.6 18.5 13.5 16 16 13.5 13.5Z"/></svg>';
+function kompassRose(klasse = '', { route = false } = {}) {
+  const r = (x) => Math.round(x * 100) / 100;
+  let ticks = '';
+  for (let i = 0; i < 72; i++) {
+    const w = (i * 5 * Math.PI) / 180, lang = i % 18 === 0 ? 26 : i % 9 === 0 ? 16 : i % 3 === 0 ? 9 : 5;
+    ticks += `M${r(300 + Math.sin(w) * (232 - lang))} ${r(300 - Math.cos(w) * (232 - lang))}L${r(300 + Math.sin(w) * 232)} ${r(300 - Math.cos(w) * 232)}`;
+  }
+  const spitze = (w, l, b) => { const a = (w * Math.PI) / 180, q = a + Math.PI / 2; return `M${r(300 + Math.sin(a) * l)} ${r(300 - Math.cos(a) * l)}L${r(300 + Math.sin(q) * b)} ${r(300 - Math.cos(q) * b)}L300 300L${r(300 - Math.sin(q) * b)} ${r(300 + Math.cos(q) * b)}Z`; };
+  const haupt = [0, 90, 180, 270].map((w) => spitze(w, w % 180 ? 150 : 205, 17)).join('');
+  const neben = [45, 135, 225, 315].map((w) => spitze(w, 108, 11)).join('');
+  return `<svg class="kompass${klasse ? ` ${klasse}` : ''}" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g class="k-aussen"><circle class="k-ring" cx="300" cy="300" r="244"/><circle class="k-ring k-ring--fein" cx="300" cy="300" r="232"/><path class="k-ticks" d="${ticks}"/></g>
+    <g class="k-innen"><circle class="k-ring k-ring--fein" cx="300" cy="300" r="118"/><path class="k-neben" d="${neben}"/><path class="k-haupt" d="${haupt}"/><path class="k-nord" d="${spitze(0, 205, 17)}"/><circle class="k-nabe" cx="300" cy="300" r="5"/></g>${route ? `
+    <g class="route"><path class="route-linie" pathLength="1" d="M490 -150C440 -40 480 50 440 130S330 240 300 300"/><g class="route-punkte"><circle cx="458" cy="58" r="5"/><circle cx="392" cy="184" r="5"/></g></g>` : ''}
+  </svg>`;
+}
+
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
   haus: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7v8.5h-5.5V14h-5v5.5H4z"/></svg>',
@@ -39,6 +64,35 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
   const laden = lazy ? ' loading="lazy" decoding="async"' : prio ? ' decoding="async" fetchpriority="high"' : ' decoding="async"';
   return `<picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/medien/arbeit-${a.id}-${art}-lang-${b0}.webp" srcset="${set('webp')}" sizes="${sizes}" width="${b0}" height="${m.h(b0)}" alt="${text}"${laden}></picture>`;
 }
+
+// ---------- Vorstellung (Unternehmensvideo): Überblendung beim ersten Besuch, danach per Knopf ----------
+// Modus „film“: sobald public/medien/vorstellung/film.mp4 oder film.webm liegt (dazu poster.webp, optional untertitel.vtt) – einfach Dateien tauschen
+// und node bauen.mjs ausführen. Modus „platzhalter“: animierte Titelsequenz aus Linien (Kompass, Route, Name), bis das echte Video da ist.
+const V = S.vorstellung;
+const VD = new URL('./public/medien/vorstellung/', import.meta.url);
+const hatDatei = (n) => existsSync(new URL(n, VD));
+const FILM = hatDatei('film.mp4') || hatDatei('film.webm');
+const VP = '/medien/vorstellung';
+const vorstellung = `<div class="intro" id="vorstellung" role="dialog" aria-modal="true" aria-label="Vorstellung von ${esc(S.studio)}" data-modus="${FILM ? 'film' : 'platzhalter'}" data-dauer="${V.platzhalter_dauer}">
+  <div class="intro-grund">
+${FILM
+    ? `    <video class="intro-film" playsinline muted preload="none"${hatDatei('poster.webp') ? ` poster="${VP}/poster.webp"` : ''}>
+${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm">\n` : ''}${hatDatei('film.mp4') ? `      <source src="${VP}/film.mp4" type="video/mp4">\n` : ''}${hatDatei('untertitel.vtt') ? `      <track kind="captions" src="${VP}/untertitel.vtt" srclang="de" label="Deutsch" default>\n` : ''}    </video>`
+    : `    <div class="intro-buehne" aria-hidden="true">
+      <svg class="intro-netz" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" focusable="false"><path class="netz-linie" pathLength="1" d="M0 150H1000M0 300H1000M0 450H1000M250 0V600M500 0V600M750 0V600"/><path class="netz-bogen" pathLength="1" d="M-20 520C220 400 420 470 620 330S900 120 1020 140"/></svg>
+      ${kompassRose('intro-rose')}
+    </div>`}
+  </div>
+${FILM ? '' : `  <div class="intro-mitte">
+    <p class="intro-marke" aria-hidden="true">${KOMPASS_MARKE}<span>${esc(S.studio)}</span></p>
+    <p class="intro-zeile">Gebaut. Gemessen. Betreut.</p>
+  </div>
+`}  <div class="intro-leiste">
+${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-ton" type="button" aria-pressed="false" hidden>Ton an</button>
+    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
+  </div>
+  <span class="intro-fortschritt" aria-hidden="true"></span>
+</div>`;
 
 // ---------- Navigation ----------
 // Einträge stehen in inhalt/seite.json (nav: Anker, Name, Zusatzzeile). Die Zusatzzeile erscheint nur im Handy-Blatt.
@@ -74,16 +128,18 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
+<link rel="stylesheet" href="/css/kapitaen.css">
 <script>${KOPF_SKRIPT}</script>
+${start ? `<script>${INTRO_SKRIPT}</script>\n` : ''}
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${start ? '<script src="/js/held.js" defer></script>' : ''}
+${start ? '<script src="/js/held.js" defer></script>\n<script src="/js/vorstellung.js" defer></script>' : ''}
 </head>
 <body${start ? ' class="seite-start"' : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
-<header class="kopf">
+${start ? vorstellung + '\n' : ''}<header class="kopf">
   <div class="huelle kopf-in">
-    <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
+    <a class="marke" href="/">${KOMPASS_MARKE}<span class="marke-name"${pr(P.studio)}>${esc(S.studio)}</span><span class="unsichtbar"> – zur Startseite</span></a>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -106,12 +162,12 @@ ${inhalt}
 <footer class="fuss">
   <div class="huelle">
     <div class="fuss-band">
-      <p class="fuss-frage">Ihre Seite beginnt mit <em>einem Gespräch</em>.</p>
+      <p class="fuss-frage">Ihr Kurs beginnt mit <em>einem Gespräch</em>.</p>
       <a class="knopf" href="${h('#kontakt')}">Projekt anfragen ${pfeil}</a>
     </div>
     <div class="fuss-raster">
       <div class="fuss-marke">
-        <p class="fuss-name"><span aria-hidden="true">[</span><span${pr(P.studio)}>${esc(S.studio)}</span><span aria-hidden="true">]</span></p>
+        <p class="fuss-name">${KOMPASS_MARKE}<span${pr(P.studio)}>${esc(S.studio)}</span></p>
         <p>Websites mit Betreuung für Praxen, Werkstätten, Restaurants und Studios.</p>
       </div>
       <div>
@@ -119,7 +175,7 @@ ${inhalt}
         <ul class="fuss-liste">
           <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
           ${TELZ(`<li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
-          <li><span${pr(P.ort)}>${esc(S.ort)}</span></li>
+          <li><span${pr(P.ort)}>Heimathafen ${esc(S.ort)}</span><span class="fuss-koordinaten">48°41′ N · 9°42′ O</span></li>
         </ul>
       </div>
       <div>
@@ -128,6 +184,7 @@ ${inhalt}
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
           <li><a href="${h('#betreuung')}">Preise und Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
+          <li><a href="/?intro=1" data-vorstellung-oeffnen>${esc(V.knopf)}</a></li>
         </ul>
       </div>
     </div>
@@ -165,19 +222,21 @@ const mosaikBild = (id) => {
   return `<picture><source media="(min-width: 48rem)" type="image/avif" srcset="${d('avif')}" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="${d('webp')}" width="560" height="1190"><source type="image/avif" srcset="${h('avif')}" width="200" height="1483"><img src="${h('webp')}" width="200" height="1483" alt="" decoding="async"></picture>`;
 };
 const held = `<section class="held" aria-labelledby="titel">
+  <div class="held-karte" aria-hidden="true">${kompassRose('', { route: true })}</div>
   <div class="held-mosaik" aria-hidden="true">
     <div class="held-raster">
 ${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).join('\n')}
     </div>
   </div>
   <div class="huelle held-in">
-    ${ueber('Websites für Betriebe')}
+    ${ueber('Websites auf Kurs gebracht')}
     <h1 id="titel"><span>Gebaut.</span> <span>Gemessen.</span> <span>Betreut.</span></h1>
     <div class="held-fuss">
       <p class="held-satz">${esc(S.hero.lead)}</p>
       <div class="aktionen held-aktionen">
         <a class="knopf knopf--arbeiten" href="#arbeiten">Arbeiten ansehen <span class="knopf-bilder" aria-hidden="true">${MOSAIK.map(([id]) => `<i class="knopf-bild knopf-bild--${id}"></i>`).join('')}</span></a>
         <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+        <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 6.5v11l9-5.5z"/></svg></span>${esc(V.knopf)}</button>
       </div>
     </div>
     <p class="held-hinweis nur-js" aria-hidden="true">Zeiger bewegen, das Licht folgt</p>

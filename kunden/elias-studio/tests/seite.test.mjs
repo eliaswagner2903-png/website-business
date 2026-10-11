@@ -157,8 +157,8 @@ test('Hero „Lichtkegel“: kein Film mehr, Kegel nur per Skript und CSS, still
 });
 
 test('Kein Schema-Schalter: Vorgabe „Graphit“, die Schemata „mitternacht“ und „kalk“ gibt es nur für Vorschauen', () => {
-  for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|localStorage|aria-pressed|data-schema=/, `${f}: Rest des Schemaschalters`);
-  for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema|localStorage/, `${d}: Rest des Schemaschalters`);
+  for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|data-schema=/, `${f}: Rest des Schemaschalters`);
+  for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema/, `${d}: Rest des Schemaschalters`);
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.match(marke, /--farbe-grund: #1c1a17;/, 'Vorgabe ist nicht „Graphit“');
   assert.doesNotMatch(marke, /#0a0b0d/, 'altes Fast-Schwarz in marke.css');
@@ -217,4 +217,30 @@ test('Menü ohne Messskala, Leistungsnamen ohne Klammer-Kürzel, Wahlleistungen 
   const wahl = start.match(/<ul class="bet-wahl"[\s\S]*?<\/ul>/)[0];
   assert.equal((wahl.match(/<li><strong>[^<]+<\/strong><span>[^<]+<\/span><\/li>/g) || []).length, S.betreuung.abo.wahl.length, 'Wahlleistung ohne Beschreibung');
   assert.match(wahl, new RegExp(re(markiert(S.pruefen.wahl))), 'Beschreibungen der Wahlleistungen nicht markiert');
+});
+
+test('Marke Seitenkapitän: Name, Domain und Mail stehen durchgehend, nichts vom alten Arbeitstitel', () => {
+  for (const [f, tx] of seiten) {
+    assert.match(tx, /Seitenkapitän/, `${f}: Name fehlt`);
+    assert.doesNotMatch(tx, /\[OQ\]|>OQ<|\bOQ\b|WEBWERKSTATT/, `${f}: alter Name`);
+    assert.doesNotMatch(tx, /Wagner/, `${f}: Nachname gehört höchstens ins Impressum`);
+  }
+  assert.match(start, /hallo@seitenkapitaen\.de/);
+  assert.match(start, /rel="canonical" href="https:\/\/www\.seitenkapitaen\.de\/"/);
+  assert.doesNotMatch(readFileSync(join(PUB, 'css/bausteine.css'), 'utf8'), /\[OQ\]/, 'Wasserzeichen im Menü');
+});
+
+test('Vorstellung: Überblendung nur auf der Startseite, Zeitgeber/Platzhalter oder Film, Knöpfe, Merken im Kopf-Skript', () => {
+  assert.match(start, /<div class="intro intro--spielt"|<div class="intro"/);
+  assert.match(start, /id="vorstellung" role="dialog" aria-modal="true"/);
+  assert.match(start, /class="intro-weiter"/, 'Überspringen fehlt');
+  assert.match(start, /data-vorstellung-oeffnen/, 'Knopf zum erneuten Ansehen fehlt');
+  assert.match(start, /seitenkapitaen-vorstellung/, 'Erstbesuch-Prüfung fehlt');
+  assert.match(start, /<script src="\/js\/vorstellung\.js" defer>/);
+  assert.match(readFileSync(join(PUB, 'js/vorstellung.js'), 'utf8'), /seitenkapitaen-vorstellung/, 'Speicher-Schlüssel in Kopf-Skript und Skript müssen gleich sein');
+  for (const [f, tx] of seiten) if (f !== 'index.html') assert.doesNotMatch(tx, /id="vorstellung"|vorstellung\.js/, `${f}: Vorstellung nur auf der Startseite`);
+  // Film-Modus nur, wenn die Dateien da sind; Platzhalter-Modus sonst
+  const film = existsSync(join(PUB, 'medien/vorstellung/film.mp4')) || existsSync(join(PUB, 'medien/vorstellung/film.webm'));
+  assert.match(start, new RegExp(`data-modus="${film ? 'film' : 'platzhalter'}"`));
+  if (film) assert.match(start, /<video class="intro-film"[^>]*\bmuted\b[^>]*\bplaysinline\b|<video class="intro-film"[^>]*\bplaysinline\b[^>]*\bmuted\b/);
 });

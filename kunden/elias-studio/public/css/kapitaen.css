@@ -1,0 +1,154 @@
+/* =====================================================================
+   SEITENKAPITÄN – Marke, Hero-Karte und Vorstellung (Rebrand 11.10.).
+   Leitmotiv: erwachsen, dunkel, filmisch, Seefahrt als leiser Unterton (Kompass, Seekarte, Route) – nie verspielt:
+   keine Anker, keine Piraten, keine Schnörkel. Nur Linien in Messing auf Graphit. Farben und Schriften kommen aus marke.css.
+   Die Vorstellung (#vorstellung) liegt als Überblendung über der Startseite: erster Besuch automatisch, danach nur per Knopf.
+   Zustände an <html>: intro-offen = läuft (Seite gesperrt, Hero wartet) · intro-geht = blendet in die Seite über.
+   ===================================================================== */
+
+/* ---------- Marke: Kompass + Name ---------- */
+.marke { gap: .6rem; }
+.marke-kompass { inline-size: 1.75rem; block-size: 1.75rem; flex: none; overflow: visible; }
+.mk-ring { fill: none; stroke: var(--farbe-akzent); stroke-width: 1.1; }
+.mk-stern { fill: color-mix(in srgb, var(--farbe-akzent) 14%, transparent); stroke: var(--farbe-akzent); stroke-width: 1; stroke-linejoin: round; }
+.mk-nord { fill: var(--farbe-akzent); }
+.marke-name { letter-spacing: -.005em; }
+@media (max-width: 29.99rem) { .marke { font-size: 1.4rem; gap: .5rem; } .marke-kompass { inline-size: 1.55rem; block-size: 1.55rem; } }
+.fuss-name { display: flex; align-items: center; gap: .85rem; }
+.fuss-name .marke-kompass { inline-size: .9em; block-size: .9em; }
+
+/* ---------- Kompassrose (Linien in currentColor) ---------- */
+.kompass { display: block; overflow: visible; color: var(--farbe-akzent); }
+.k-ring, .k-ticks, .k-neben, .k-haupt { fill: none; stroke: currentColor; stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.k-ring--fein { stroke-opacity: .45; }
+.k-ticks { stroke-opacity: .7; }
+.k-neben { stroke-opacity: .5; }
+.k-haupt { fill: color-mix(in srgb, currentColor 7%, transparent); }
+.k-nord { fill: currentColor; fill-opacity: .6; stroke: currentColor; stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.k-nabe { fill: currentColor; }
+.k-aussen, .k-innen { transform-box: view-box; transform-origin: 50% 50%; }
+
+/* ---------- Hero: Seekarte hinter dem Lichtkegel ---------- */
+.held-in { position: relative; z-index: 1; }
+.held-karte { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.held-karte .kompass {
+  position: absolute; inset-block-start: 50%; inset-inline-end: -9rem; inline-size: clamp(24rem, 30rem + 10vw, 46rem);
+  translate: 0 -50%; opacity: .2;
+}
+.route-linie { fill: none; stroke: var(--farbe-akzent); stroke-width: 1.2; stroke-opacity: .9; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.route-punkte circle { fill: var(--farbe-grund); stroke: var(--farbe-akzent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.fuss-koordinaten { display: block; font: 400 .8125rem/1.5 var(--schrift-code); letter-spacing: .04em; color: var(--farbe-leise); font-variant-numeric: tabular-nums; }
+@media (min-width: 48rem) { .held-karte .kompass { inset-inline-end: -4vw; opacity: .24; } }
+@media (prefers-reduced-motion: no-preference) {
+  .held-karte .k-aussen { animation: k-einlauf 3.2s var(--kurve-weich) .2s backwards; }
+  .held-karte .kompass { animation: k-ein 1.8s var(--kurve-sanft) .1s backwards; }
+  .route-linie { stroke-dasharray: 1; animation: linie-zeichnen 3.2s var(--kurve-sanft) .6s backwards; }
+  .route-punkte circle { animation: punkt-ein .6s var(--kurve-standard) backwards; }
+  .route-punkte circle:nth-child(1) { animation-delay: 1.4s; }
+  .route-punkte circle:nth-child(2) { animation-delay: 2.4s; }
+  /* Solange die Vorstellung läuft, wartet der Hero (angehalten auf dem Anfangsbild); danach läuft er weich an */
+  html.intro-offen .held-in > *, html.intro-offen .held-karte *, html.intro-offen .held-karte .kompass { animation-play-state: paused; }
+  html.intro-geht .held-in > * { animation-delay: .5s; }
+  html.intro-geht .held-in > :nth-child(2) { animation-delay: .6s; }
+  html.intro-geht .held-in > :nth-child(3) { animation-delay: .7s; }
+  html.intro-geht .held-in > :nth-child(4) { animation-delay: .8s; }
+}
+@keyframes k-einlauf { from { transform: rotate(-32deg); } }
+@keyframes k-ein { from { opacity: 0; } }
+@keyframes linie-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes punkt-ein { from { opacity: 0; transform: scale(.4); } }
+.route-punkte circle { transform-box: fill-box; transform-origin: 50% 50%; }
+
+/* ---------- Knopf „Vorstellung ansehen“ ---------- */
+.film-knopf {
+  display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; padding: .25rem .5rem .25rem 0; border: 0; background: none;
+  color: var(--farbe-text); font: 450 1rem/1.2 var(--schrift-text); cursor: pointer;
+}
+.film-knopf-zeichen {
+  display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%;
+  border: 1px solid var(--farbe-akzent); transition: background-color var(--tempo-mittel) var(--kurve-standard), transform var(--tempo-mittel) var(--kurve-weich);
+}
+.film-knopf-zeichen svg { inline-size: 1.1rem; block-size: 1.1rem; fill: var(--farbe-akzent); transition: fill var(--tempo-kurz) var(--kurve-standard); translate: 1px 0; }
+.film-knopf:hover .film-knopf-zeichen { background: var(--farbe-akzent); transform: scale(1.06); }
+.film-knopf:hover .film-knopf-zeichen svg { fill: var(--farbe-auf-akzent); }
+.film-knopf:active .film-knopf-zeichen { transform: scale(.96); }
+@media (max-width: 29.99rem) { .held-aktionen .film-knopf { flex: 1 1 100%; justify-content: center; } }
+.fuss-liste a[data-vorstellung-oeffnen] { cursor: pointer; }
+
+/* ---------- Vorstellung: Überblendung ---------- */
+.intro { display: none; position: fixed; inset: 0; z-index: 100; color: var(--farbe-text); }
+html.intro-offen .intro, html.intro-geht .intro { display: block; }
+.intro[hidden] { display: none !important; }
+html.intro-offen, html.intro-geht { overflow: hidden; scrollbar-gutter: stable; }
+html.intro-geht .intro { pointer-events: none; }
+.intro-grund {
+  position: absolute; inset: 0; overflow: hidden; background: var(--farbe-grund);
+  background-image: radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--farbe-licht) 9%, transparent), transparent 62%);
+}
+.intro-grund::after { /* Vignette: Ränder dunkler, wie ein Titelbild im Kino */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 46%, transparent 48%, color-mix(in srgb, var(--farbe-grund) 85%, transparent) 100%);
+}
+.intro-film { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: contain; background: var(--farbe-grund); }
+.intro-buehne { position: absolute; inset: 0; }
+.intro-netz { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+.netz-linie, .netz-bogen { fill: none; stroke: var(--farbe-akzent); vector-effect: non-scaling-stroke; }
+.netz-linie { stroke-width: 1; stroke-opacity: .16; }
+.netz-bogen { stroke-width: 1.4; stroke-opacity: .55; stroke-linecap: round; }
+.intro-rose {
+  position: absolute; inset-inline-start: 50%; inset-block-start: 41%; inline-size: min(78vmin, 44rem); translate: -50% -50%; opacity: .62;
+}
+.intro-mitte {
+  position: absolute; inset-inline: 0; inset-block-end: clamp(7rem, 17%, 11rem); display: grid; justify-items: center; gap: 1rem; padding-inline: 1.25rem; text-align: center;
+}
+.intro-marke {
+  display: inline-flex; align-items: center; gap: .9rem; max-inline-size: none; margin: 0;
+  font: 400 clamp(2.6rem, 1.4rem + 5.4vw, 5.6rem)/1 var(--schrift-display); letter-spacing: -.01em; white-space: nowrap;
+  text-shadow: 0 0 .5em var(--farbe-grund), 0 .05em .6em var(--farbe-grund); transform-origin: 0 0;
+}
+.intro-marke .marke-kompass { inline-size: .82em; block-size: .82em; }
+.intro-zeile { margin: 0; max-inline-size: none; font-size: .8125rem; letter-spacing: .32em; text-transform: uppercase; color: var(--farbe-leise); padding-inline-start: .32em; }
+.intro-leiste {
+  position: absolute; inset-inline: 0; inset-block-end: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .75rem 1rem;
+  padding: 1rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+}
+.intro-hinweis { margin: 0; margin-inline-end: auto; max-inline-size: 22rem; font-size: .8125rem; line-height: 1.4; color: var(--farbe-leise); }
+.intro-ton, .intro-weiter {
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 1.15rem; border-radius: var(--radius-gross);
+  border: 1px solid color-mix(in srgb, var(--farbe-text) 38%, transparent); background: color-mix(in srgb, var(--farbe-grund) 62%, transparent);
+  color: var(--farbe-text); font: 450 .95rem/1 var(--schrift-text); cursor: pointer;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: background-color var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard);
+}
+.intro-ton:hover, .intro-weiter:hover { background: color-mix(in srgb, var(--farbe-text) 14%, transparent); border-color: var(--farbe-akzent); }
+.intro-fortschritt {
+  position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 2px; background: var(--farbe-akzent); transform-origin: 0 50%;
+  transform: scaleX(var(--fortschritt, 0));
+}
+.intro[data-modus="platzhalter"] .intro-fortschritt { transform: none; }
+
+/* Ablauf der Titelsequenz (nur Platzhalter-Modus): Netz zeichnet sich, Kompass dreht ein, Name erscheint, dann die Zeile.
+   Grundzustand = Endbild (ohne Bewegung steht gleich das fertige Bild). */
+@media (prefers-reduced-motion: no-preference) {
+  .intro--spielt .netz-linie { stroke-dasharray: 1; animation: linie-zeichnen 2.6s var(--kurve-sanft) backwards; }
+  .intro--spielt .netz-bogen { stroke-dasharray: 1; animation: linie-zeichnen 3.4s var(--kurve-sanft) .5s backwards; }
+  .intro--spielt .intro-rose { animation: rose-ein 2.4s var(--kurve-weich) .3s backwards; }
+  .intro--spielt .intro-rose .k-aussen { animation: k-einlauf 3.6s var(--kurve-weich) .3s backwards; }
+  .intro--spielt .intro-marke { animation: marke-ein 1.5s var(--kurve-weich) 2.2s backwards; }
+  .intro--spielt .intro-zeile { animation: zeile-ein 1.6s var(--kurve-weich) 3.5s backwards; }
+  .intro--spielt .intro-leiste { animation: leiste-ein 1s var(--kurve-standard) 1s backwards; }
+  .intro--spielt[data-modus="platzhalter"] .intro-fortschritt { animation: zeit var(--intro-dauer, 7s) linear forwards; }
+  /* Übergang in die Seite: Hintergrund und Bedienung blenden aus, der Name wandert (js) an seinen Platz in der Kopfzeile */
+  html.intro-geht .intro-grund { opacity: 0; transform: scale(1.035); transition: opacity 1.25s var(--kurve-sanft) .1s, transform 1.5s var(--kurve-weich); }
+  html.intro-geht .intro-leiste, html.intro-geht .intro-zeile, html.intro-geht .intro-fortschritt { opacity: 0; transition: opacity .45s var(--kurve-standard); }
+}
+@keyframes rose-ein { from { opacity: 0; scale: .9; } }
+@keyframes marke-ein { from { opacity: 0; transform: translateY(.9rem); filter: blur(8px); } }
+@keyframes zeile-ein { from { opacity: 0; letter-spacing: .5em; } }
+@keyframes leiste-ein { from { opacity: 0; } }
+@keyframes zeit { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { html.intro-geht .intro-grund, html.intro-geht .intro-mitte, html.intro-geht .intro-leiste { opacity: 0; } }
+
+/* Notausgang: Startet das Skript nicht (kein data-bereit), gibt die Überblendung die Seite nach 8 s von selbst frei */
+html.intro-offen .intro:not([data-bereit]) { animation: intro-notaus 0s linear 8s forwards; }
+@keyframes intro-notaus { to { visibility: hidden; pointer-events: none; } }

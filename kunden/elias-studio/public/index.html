@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OQ – Websites für Praxen und Betriebe</title>
+<title>Seitenkapitän – Websites für Praxen und Betriebe</title>
 <meta name="description" content="Suchmaschinenoptimierte, schnelle Websites ohne Tracking, auf Wunsch betreut. Musterseiten: Uhrmacherei, Präzisionswerkzeuge, Restaurant, Studio für Motion-Design.">
-<link rel="canonical" href="https://www.beispiel.de/">
+<link rel="canonical" href="https://www.seitenkapitaen.de/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
-<meta property="og:title" content="OQ – Websites für Praxen und Betriebe">
+<meta property="og:title" content="Seitenkapitän – Websites für Praxen und Betriebe">
 <meta property="og:description" content="Suchmaschinenoptimierte, schnelle Websites ohne Tracking, auf Wunsch betreut. Musterseiten: Uhrmacherei, Präzisionswerkzeuge, Restaurant, Studio für Motion-Design.">
-<meta property="og:url" content="https://www.beispiel.de/">
-<meta property="og:image" content="https://www.beispiel.de/medien/og-startseite.jpg">
+<meta property="og:url" content="https://www.seitenkapitaen.de/">
+<meta property="og:image" content="https://www.seitenkapitaen.de/medien/og-startseite.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
@@ -24,16 +24,41 @@
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
+<link rel="stylesheet" href="/css/kapitaen.css">
 <script>document.documentElement.classList.add('js')</script>
+<script>try{var d=document.documentElement,w=location.search.indexOf('intro=1')>-1;if(w||(!localStorage.getItem('seitenkapitaen-vorstellung')&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!(navigator.connection&&navigator.connection.saveData)))d.classList.add('intro-offen')}catch(e){}</script>
+
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
 <script src="/js/held.js" defer></script>
+<script src="/js/vorstellung.js" defer></script>
 </head>
 <body class="seite-start">
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+<div class="intro" id="vorstellung" role="dialog" aria-modal="true" aria-label="Vorstellung von Seitenkapitän" data-modus="platzhalter" data-dauer="7">
+  <div class="intro-grund">
+    <div class="intro-buehne" aria-hidden="true">
+      <svg class="intro-netz" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" focusable="false"><path class="netz-linie" pathLength="1" d="M0 150H1000M0 300H1000M0 450H1000M250 0V600M500 0V600M750 0V600"/><path class="netz-bogen" pathLength="1" d="M-20 520C220 400 420 470 620 330S900 120 1020 140"/></svg>
+      <svg class="kompass intro-rose" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g class="k-aussen"><circle class="k-ring" cx="300" cy="300" r="244"/><circle class="k-ring k-ring--fein" cx="300" cy="300" r="232"/><path class="k-ticks" d="M300 94L300 68M319.78 73.86L320.22 68.88M339.42 76.45L340.29 71.52M357.72 84.6L360.05 75.91M377.64 86.69L379.35 81.99M395.93 94.27L398.05 89.74M411.5 106.88L416 99.08M430.2 114.05L433.07 109.96M445.91 126.11L449.13 122.28M452.74 147.26L464.05 135.95M473.89 154.09L477.72 150.87M485.95 169.8L490.04 166.93M493.12 188.5L500.92 184M505.73 204.07L510.26 201.95M513.31 222.36L518.01 220.65M515.4 242.28L524.09 239.95M523.55 260.58L528.48 259.71M526.14 280.22L531.12 279.78M506 300L532 300M526.14 319.78L531.12 320.22M523.55 339.42L528.48 340.29M515.4 357.72L524.09 360.05M513.31 377.64L518.01 379.35M505.73 395.93L510.26 398.05M493.12 411.5L500.92 416M485.95 430.2L490.04 433.07M473.89 445.91L477.72 449.13M452.74 452.74L464.05 464.05M445.91 473.89L449.13 477.72M430.2 485.95L433.07 490.04M411.5 493.12L416 500.92M395.93 505.73L398.05 510.26M377.64 513.31L379.35 518.01M357.72 515.4L360.05 524.09M339.42 523.55L340.29 528.48M319.78 526.14L320.22 531.12M300 506L300 532M280.22 526.14L279.78 531.12M260.58 523.55L259.71 528.48M242.28 515.4L239.95 524.09M222.36 513.31L220.65 518.01M204.07 505.73L201.95 510.26M188.5 493.12L184 500.92M169.8 485.95L166.93 490.04M154.09 473.89L150.87 477.72M147.26 452.74L135.95 464.05M126.11 445.91L122.28 449.13M114.05 430.2L109.96 433.07M106.88 411.5L99.08 416M94.27 395.93L89.74 398.05M86.69 377.64L81.99 379.35M84.6 357.72L75.91 360.05M76.45 339.42L71.52 340.29M73.86 319.78L68.88 320.22M94 300L68 300M73.86 280.22L68.88 279.78M76.45 260.58L71.52 259.71M84.6 242.28L75.91 239.95M86.69 222.36L81.99 220.65M94.27 204.07L89.74 201.95M106.88 188.5L99.08 184M114.05 169.8L109.96 166.93M126.11 154.09L122.28 150.87M147.26 147.26L135.95 135.95M154.09 126.11L150.87 122.28M169.8 114.05L166.93 109.96M188.5 106.88L184 99.08M204.07 94.27L201.95 89.74M222.36 86.69L220.65 81.99M242.28 84.6L239.95 75.91M260.58 76.45L259.71 71.52M280.22 73.86L279.78 68.88"/></g>
+    <g class="k-innen"><circle class="k-ring k-ring--fein" cx="300" cy="300" r="118"/><path class="k-neben" d="M376.37 223.63L307.78 307.78L300 300L292.22 292.22ZM376.37 376.37L292.22 307.78L300 300L307.78 292.22ZM223.63 376.37L292.22 292.22L300 300L307.78 307.78ZM223.63 223.63L307.78 292.22L300 300L292.22 307.78Z"/><path class="k-haupt" d="M300 95L317 300L300 300L283 300ZM450 300L300 317L300 300L300 283ZM300 505L283 300L300 300L317 300ZM150 300L300 283L300 300L300 317Z"/><path class="k-nord" d="M300 95L317 300L300 300L283 300Z"/><circle class="k-nabe" cx="300" cy="300" r="5"/></g>
+  </svg>
+    </div>
+  </div>
+  <div class="intro-mitte">
+    <p class="intro-marke" aria-hidden="true"><svg class="marke-kompass" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="mk-ring" cx="16" cy="16" r="13.6"/><path class="mk-stern" d="M16 2.6 18.5 13.5 29.4 16 18.5 18.5 16 29.4 13.5 18.5 2.6 16 13.5 13.5Z"/><path class="mk-nord" d="M16 2.6 18.5 13.5 16 16 13.5 13.5Z"/></svg><span>Seitenkapitän</span></p>
+    <p class="intro-zeile">Gebaut. Gemessen. Betreut.</p>
+  </div>
+  <div class="intro-leiste">
+    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>
+    <button class="intro-ton" type="button" aria-pressed="false" hidden>Ton an</button>
+    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
+  </div>
+  <span class="intro-fortschritt" aria-hidden="true"></span>
+</div>
 <header class="kopf">
   <div class="huelle kopf-in">
-    <a class="marke" href="/"><span class="marke-klammer" aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span class="marke-klammer" aria-hidden="true">]</span><span class="unsichtbar"> – zur Startseite</span></a>
+    <a class="marke" href="/"><svg class="marke-kompass" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="mk-ring" cx="16" cy="16" r="13.6"/><path class="mk-stern" d="M16 2.6 18.5 13.5 29.4 16 18.5 18.5 16 29.4 13.5 18.5 2.6 16 13.5 13.5Z"/><path class="mk-nord" d="M16 2.6 18.5 13.5 16 16 13.5 13.5Z"/></svg><span class="marke-name" data-pruefen="Name Seitenkapitän am 11.10. von Elias entschieden – Markenrecherche (DPMA/TMview) und Domainkauf stehen noch aus">Seitenkapitän</span><span class="unsichtbar"> – zur Startseite</span></a>
     <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
@@ -45,7 +70,7 @@
       </ul>
       <div class="blatt-fuss">
         <p class="blatt-fuss-titel">Direkt erreichbar</p>
-        <a href="mailto:hallo@beispiel.de" data-pruefen="E-Mail-Adresse von Elias eintragen">hallo@beispiel.de</a>
+        <a href="mailto:hallo@seitenkapitaen.de" data-pruefen="Postfach hallo@seitenkapitaen.de erst nach Domainkauf und Weiterleitung aktiv">hallo@seitenkapitaen.de</a>
       </div>
     </nav>
   </div>
@@ -53,6 +78,11 @@
 
 <main id="inhalt">
 <section class="held" aria-labelledby="titel">
+  <div class="held-karte" aria-hidden="true"><svg class="kompass" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g class="k-aussen"><circle class="k-ring" cx="300" cy="300" r="244"/><circle class="k-ring k-ring--fein" cx="300" cy="300" r="232"/><path class="k-ticks" d="M300 94L300 68M319.78 73.86L320.22 68.88M339.42 76.45L340.29 71.52M357.72 84.6L360.05 75.91M377.64 86.69L379.35 81.99M395.93 94.27L398.05 89.74M411.5 106.88L416 99.08M430.2 114.05L433.07 109.96M445.91 126.11L449.13 122.28M452.74 147.26L464.05 135.95M473.89 154.09L477.72 150.87M485.95 169.8L490.04 166.93M493.12 188.5L500.92 184M505.73 204.07L510.26 201.95M513.31 222.36L518.01 220.65M515.4 242.28L524.09 239.95M523.55 260.58L528.48 259.71M526.14 280.22L531.12 279.78M506 300L532 300M526.14 319.78L531.12 320.22M523.55 339.42L528.48 340.29M515.4 357.72L524.09 360.05M513.31 377.64L518.01 379.35M505.73 395.93L510.26 398.05M493.12 411.5L500.92 416M485.95 430.2L490.04 433.07M473.89 445.91L477.72 449.13M452.74 452.74L464.05 464.05M445.91 473.89L449.13 477.72M430.2 485.95L433.07 490.04M411.5 493.12L416 500.92M395.93 505.73L398.05 510.26M377.64 513.31L379.35 518.01M357.72 515.4L360.05 524.09M339.42 523.55L340.29 528.48M319.78 526.14L320.22 531.12M300 506L300 532M280.22 526.14L279.78 531.12M260.58 523.55L259.71 528.48M242.28 515.4L239.95 524.09M222.36 513.31L220.65 518.01M204.07 505.73L201.95 510.26M188.5 493.12L184 500.92M169.8 485.95L166.93 490.04M154.09 473.89L150.87 477.72M147.26 452.74L135.95 464.05M126.11 445.91L122.28 449.13M114.05 430.2L109.96 433.07M106.88 411.5L99.08 416M94.27 395.93L89.74 398.05M86.69 377.64L81.99 379.35M84.6 357.72L75.91 360.05M76.45 339.42L71.52 340.29M73.86 319.78L68.88 320.22M94 300L68 300M73.86 280.22L68.88 279.78M76.45 260.58L71.52 259.71M84.6 242.28L75.91 239.95M86.69 222.36L81.99 220.65M94.27 204.07L89.74 201.95M106.88 188.5L99.08 184M114.05 169.8L109.96 166.93M126.11 154.09L122.28 150.87M147.26 147.26L135.95 135.95M154.09 126.11L150.87 122.28M169.8 114.05L166.93 109.96M188.5 106.88L184 99.08M204.07 94.27L201.95 89.74M222.36 86.69L220.65 81.99M242.28 84.6L239.95 75.91M260.58 76.45L259.71 71.52M280.22 73.86L279.78 68.88"/></g>
+    <g class="k-innen"><circle class="k-ring k-ring--fein" cx="300" cy="300" r="118"/><path class="k-neben" d="M376.37 223.63L307.78 307.78L300 300L292.22 292.22ZM376.37 376.37L292.22 307.78L300 300L307.78 292.22ZM223.63 376.37L292.22 292.22L300 300L307.78 307.78ZM223.63 223.63L307.78 292.22L300 300L292.22 307.78Z"/><path class="k-haupt" d="M300 95L317 300L300 300L283 300ZM450 300L300 317L300 300L300 283ZM300 505L283 300L300 300L317 300ZM150 300L300 283L300 300L300 317Z"/><path class="k-nord" d="M300 95L317 300L300 300L283 300Z"/><circle class="k-nabe" cx="300" cy="300" r="5"/></g>
+    <g class="route"><path class="route-linie" pathLength="1" d="M490 -150C440 -40 480 50 440 130S330 240 300 300"/><g class="route-punkte"><circle cx="458" cy="58" r="5"/><circle cx="392" cy="184" r="5"/></g></g>
+  </svg></div>
   <div class="held-mosaik" aria-hidden="true">
     <div class="held-raster">
       <div><picture><source media="(min-width: 48rem)" type="image/avif" srcset="/medien/mosaik-edel-desktop.avif" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="/medien/mosaik-edel-desktop.webp" width="560" height="1190"><source type="image/avif" srcset="/medien/mosaik-edel-handy.avif" width="200" height="1483"><img src="/medien/mosaik-edel-handy.webp" width="200" height="1483" alt="" decoding="async"></picture></div>
@@ -61,13 +91,14 @@
     </div>
   </div>
   <div class="huelle held-in">
-    <p class="ueberzeile">Websites für Betriebe</p>
+    <p class="ueberzeile">Websites auf Kurs gebracht</p>
     <h1 id="titel"><span>Gebaut.</span> <span>Gemessen.</span> <span>Betreut.</span></h1>
     <div class="held-fuss">
       <p class="held-satz">Websites für Praxen, Werkstätten und Restaurants: schnell auf dem Handy, klar im Aufbau, mit eigenem Charakter. Im Lichtkegel sehen Sie Ausschnitte meiner Arbeiten.</p>
       <div class="aktionen held-aktionen">
         <a class="knopf knopf--arbeiten" href="#arbeiten">Arbeiten ansehen <span class="knopf-bilder" aria-hidden="true"><i class="knopf-bild knopf-bild--edel"></i><i class="knopf-bild knopf-bild--glut"></i><i class="knopf-bild knopf-bild--norvak"></i></span></a>
         <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
+        <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 6.5v11l9-5.5z"/></svg></span>Vorstellung ansehen</button>
       </div>
     </div>
     <p class="held-hinweis nur-js" aria-hidden="true">Zeiger bewegen, das Licht folgt</p>
@@ -296,7 +327,7 @@
 <section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf" data-pruefen="Ablauf aus dem Business-Plan abgeleitet – Elias prüft Schritte und Wortlaut">
   <div class="huelle">
     <div class="kopfzeile">
-      <p class="ueberzeile">Ablauf</p>
+      <p class="ueberzeile">Der Kurs</p>
       <h2 id="t-ablauf" class="einblenden">Von der ersten Idee bis zur <em>fertigen Seite</em>.</h2>
     </div>
     <ol class="schritte">
@@ -372,7 +403,7 @@
       <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
       <p class="einblenden">Ein paar Sätze zu Ihrem Betrieb genügen. Ich melde mich mit einem ersten Vorschlag.</p>
       <ul class="wege">
-        <li><span class="wege-art">E-Mail</span><a href="mailto:hallo@beispiel.de" data-pruefen="E-Mail-Adresse von Elias eintragen">hallo@beispiel.de</a></li>
+        <li><span class="wege-art">E-Mail</span><a href="mailto:hallo@seitenkapitaen.de" data-pruefen="Postfach hallo@seitenkapitaen.de erst nach Domainkauf und Weiterleitung aktiv">hallo@seitenkapitaen.de</a></li>
         <li><span class="wege-art">Ort</span><span>Eislingen</span></li>
       </ul>
     </div>
@@ -393,19 +424,19 @@
 <footer class="fuss">
   <div class="huelle">
     <div class="fuss-band">
-      <p class="fuss-frage">Ihre Seite beginnt mit <em>einem Gespräch</em>.</p>
+      <p class="fuss-frage">Ihr Kurs beginnt mit <em>einem Gespräch</em>.</p>
       <a class="knopf" href="#kontakt">Projekt anfragen <span class="pfeil" aria-hidden="true">→</span></a>
     </div>
     <div class="fuss-raster">
       <div class="fuss-marke">
-        <p class="fuss-name"><span aria-hidden="true">[</span><span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span><span aria-hidden="true">]</span></p>
+        <p class="fuss-name"><svg class="marke-kompass" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="mk-ring" cx="16" cy="16" r="13.6"/><path class="mk-stern" d="M16 2.6 18.5 13.5 29.4 16 18.5 18.5 16 29.4 13.5 18.5 2.6 16 13.5 13.5Z"/><path class="mk-nord" d="M16 2.6 18.5 13.5 16 16 13.5 13.5Z"/></svg><span data-pruefen="Name Seitenkapitän am 11.10. von Elias entschieden – Markenrecherche (DPMA/TMview) und Domainkauf stehen noch aus">Seitenkapitän</span></p>
         <p>Websites mit Betreuung für Praxen, Werkstätten, Restaurants und Studios.</p>
       </div>
       <div>
         <h2 class="fuss-titel">Kontakt</h2>
         <ul class="fuss-liste">
-          <li><a href="mailto:hallo@beispiel.de" data-pruefen="E-Mail-Adresse von Elias eintragen">hallo@beispiel.de</a></li>
-          <li><span>Eislingen</span></li>
+          <li><a href="mailto:hallo@seitenkapitaen.de" data-pruefen="Postfach hallo@seitenkapitaen.de erst nach Domainkauf und Weiterleitung aktiv">hallo@seitenkapitaen.de</a></li>
+          <li><span>Heimathafen Eislingen</span><span class="fuss-koordinaten">48°41′ N · 9°42′ O</span></li>
         </ul>
       </div>
       <div>
@@ -414,11 +445,12 @@
           <li><a href="#arbeiten">Arbeiten</a></li>
           <li><a href="#betreuung">Preise und Betreuung</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="/?intro=1" data-vorstellung-oeffnen>Vorstellung ansehen</a></li>
         </ul>
       </div>
     </div>
     <div class="fuss-unten">
-      <p>© 2026 <span data-pruefen="Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen">OQ</span></p>
+      <p>© 2026 <span data-pruefen="Name Seitenkapitän am 11.10. von Elias entschieden – Markenrecherche (DPMA/TMview) und Domainkauf stehen noch aus">Seitenkapitän</span></p>
       <ul class="fuss-rechts">
         <li><a href="/impressum.html">Impressum</a></li>
         <li><a href="/datenschutz.html">Datenschutz</a></li>

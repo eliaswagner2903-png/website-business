@@ -1,18 +1,23 @@
 {
   "hinweis": "Alle Inhalte der Portfolio-Seite stehen hier. Seiten neu bauen: node bauen.mjs. Alles Persönliche ist Platzhalter mit Prüf-Grund (pruefen) – Elias füllt es aus.",
-  "basis": "https://www.beispiel.de",
-  "studio": "OQ",
+  "basis": "https://www.seitenkapitaen.de",
+  "studio": "Seitenkapitän",
   "inhaber": "Elias Wagner",
   "ort": "Eislingen",
+  "vorstellung": {
+    "hinweis": "Vorstellungsvideo: Dateien in public/medien/vorstellung/ ablegen (film.mp4, film.webm, poster.webp, optional untertitel.vtt) und node bauen.mjs ausführen. Ohne Dateien läuft die Platzhalter-Sequenz. Anleitung: VORSTELLUNG.md",
+    "platzhalter_dauer": 7,
+    "knopf": "Vorstellung ansehen"
+  },
   "telefon_anzeige": "",
   "telefon_link": "",
-  "email": "hallo@beispiel.de",
+  "email": "hallo@seitenkapitaen.de",
   "pruefen": {
-    "studio": "Arbeitstitel OQ (aus Elias’ Notizen: „könnte Markenname werden“) – endgültigen Namen bestätigen",
+    "studio": "Name Seitenkapitän am 11.10. von Elias entschieden – Markenrecherche (DPMA/TMview) und Domainkauf stehen noch aus",
     "nachname": "",
     "ort": "",
     "telefon": "",
-    "email": "E-Mail-Adresse von Elias eintragen",
+    "email": "Postfach hallo@seitenkapitaen.de erst nach Domainkauf und Weiterleitung aktiv",
     "foto": "Foto von Elias liefern (kein Stockfoto)",
     "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
     "preis_website": "Preis ab 1.490 € von Elias am 04.10. gesetzt – vor Livegang bestätigen (Pilot-/Marktpreis, wissen/preismodell)",
@@ -204,7 +209,7 @@
   },
   "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Jede wurde vor der Übergabe nachgemessen.",
   "ablauf": {
-    "ueber": "Ablauf",
+    "ueber": "Der Kurs",
     "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
     "schritte": [
       {
