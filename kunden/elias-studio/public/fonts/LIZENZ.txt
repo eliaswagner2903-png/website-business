@@ -1,4 +1,11 @@
-Instrument Serif (Instrument, Rodrigo Fuenzalida/Jordan Egstad) und Geist (Vercel): SIL Open Font License 1.1.
+Alle Schriften: SIL Open Font License 1.1. Lizenztext: https://openfontlicense.org
+
+Im Einsatz (Umbau Seitenkapitän, 11.10.2026):
+Cormorant Garamond (Christian Thalmann, Catharsis Fonts) und Jost (Owen Earl, indestructible type*).
+Quelle: npm @fontsource/cormorant-garamond 5.3.0 (latin, 500 normal und kursiv) und @fontsource/jost 5.3.0 (latin, 400 und 500),
+unverändert übernommen, je Schnitt EINE Datei.
+
+Nicht mehr verwendet (bleiben bis zu Elias’ Freigabe zum Löschen liegen):
+Instrument Serif (Instrument, Rodrigo Fuenzalida/Jordan Egstad) und Geist (Vercel).
 Quelle: npm @fontsource/instrument-serif (400 normal/kursiv) und @fontsource-variable/geist (wght 100–900), latin,
 mit fontTools (pyftsubset) auf Latin-1 + Satzzeichen + Pfeile beschnitten, je Schnitt EINE Datei.
-Lizenztext: https://openfontlicense.org

@@ -1,5 +1,5 @@
 // Seitenskript der Portfolio-Seite. Die Seite funktioniert vollständig ohne JavaScript.
-// Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), der Lichtkegel im Hero aus js/held.js.
+// Menü, Einblenden und Seitenwechsel kommen aus js/bausteine.js (erzeugt von bausteine/einbauen.mjs), die Vorstellung aus js/vorstellung.js.
 (() => {
   // Bühne: Reiter nach dem WAI-Muster „Tabs“ (Pfeiltasten, Pos1/Ende), Anker #arbeit-… öffnet den passenden Reiter
   function buehne() {
@@ -80,28 +80,17 @@
     addEventListener('resize', setze);
   }
 
-  // Schaubilder (Leistungen, Ablauf): spielen einmal, sobald sie im Bild sind. Ohne Beobachter oder bei
-  // „Bewegung reduzieren“ bleibt die Klasse mini-js weg – dann gilt der ruhige Endzustand aus dem CSS.
-  function minis() {
-    const els = [...document.querySelectorAll('.mini')];
-    if (!els.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.documentElement.classList.add('mini-js');
-    const io = new IntersectionObserver((eintraege) => {
-      for (const e of eintraege) if (e.isIntersecting) { e.target.classList.add('mini--an'); io.unobserve(e.target); }
-    }, { threshold: 0.35 });
-    els.forEach((el) => io.observe(el));
-  }
-
-  // Leistungskarten: ein weicher Lichtfleck folgt dem Zeiger (nur Maus; Position per setProperty, CSP bleibt streng)
-  function kartenLicht() {
-    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    for (const k of document.querySelectorAll('.leist')) {
-      k.addEventListener('pointermove', (e) => {
-        const r = k.getBoundingClientRect();
-        k.style.setProperty('--_mx', `${Math.round(e.clientX - r.left)}px`);
-        k.style.setProperty('--_my', `${Math.round(e.clientY - r.top)}px`);
-      });
-    }
+  // Feste Kontaktleiste auf dem Handy: blendet aus, solange der Kontaktabschnitt im Bild ist (dort steht das Formular)
+  function handyLeiste() {
+    const leiste = document.querySelector('.handy-leiste');
+    const kontakt = document.getElementById('kontakt');
+    if (!leiste || !kontakt || !('IntersectionObserver' in window)) return;
+    // Ab dem Kontaktteil bis zum Seitenende weg: Kontakt im Bild oder schon darüber hinaus gescrollt
+    new IntersectionObserver(([e]) => {
+      const weg = e.isIntersecting || e.boundingClientRect.top < 0;
+      leiste.classList.toggle('handy-leiste--weg', weg);
+      leiste.inert = weg;
+    }, { rootMargin: '0px 0px -30% 0px' }).observe(kontakt);
   }
 
   // Gerätebilder der Arbeiten: Die lange Aufnahme rollt erst, wenn die Arbeit im Bild ist, und beginnt dann oben.
@@ -118,8 +107,7 @@
 
   function start() {
     werkeImBild();
-    minis();
-    kartenLicht();
+    handyLeiste();
     const pruefen = () => document.documentElement.classList.toggle('pruefmodus', location.hash === '#pruefen');
     pruefen();
     addEventListener('hashchange', pruefen);
