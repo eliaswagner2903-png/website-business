@@ -1,0 +1,61 @@
+const fs = require('fs');
+const OUT='frames'; const SH=0, NS=1; const W=1440,H=900,DSF=1.5,FPS=60,DT=1000/FPS; const clicks=[];
+(async () => {
+  const p = { mouse:{move:async()=>{},down:async()=>{},up:async()=>{}}, keyboard:{type:async()=>{}},
+    evaluate: async(f,a)=>0, $$eval: async()=>[0,0,0,0,0,0] };
+  const cdp=null;
+  let n = 0, mx = 980, my = 620; const marks = [];
+  const mark = (name) => { marks.push({ name, frame: n }); };
+  const frame = async () => { n++; };
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const wait = async ms => { for (let i = 0; i < Math.round(ms / DT); i++) await frame(); };
+  const scrollTo = async (y, ms = 1000) => { const y0 = await p.evaluate(() => scrollY); const k = Math.round(ms / DT);
+    for (let i = 1; i <= k; i++) { await p.evaluate(v => window.scrollTo(0, v), y0 + (y - y0) * ease(i / k)); await frame(); } };
+  const topOf = s => p.evaluate(s => { const e = document.querySelector(s); return e ? Math.round(e.getBoundingClientRect().top + scrollY) : 0; }, s);
+  const go = async (s, off = 60, ms = 1000) => scrollTo(Math.max(0, (await topOf(s)) - off), ms);
+  const move = async (x, y, ms = 600) => { const x0 = mx, y0 = my, k = Math.round(ms / DT);
+    for (let i = 1; i <= k; i++) { const e = ease(i / k); mx = x0 + (x - x0) * e; my = y0 + (y - y0) * e; await p.mouse.move(mx, my); await frame(); } };
+  const centre = async s => ({x:1,y:1}) || p.evaluate(s => { const e = typeof s === 'string' ? document.querySelector(s) : s; if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }, s);
+  const moveTo = async (s, ms = 600) => { const c = await centre(s); if (c) await move(c.x, c.y, ms); return c; };
+  const click = async (s, rest = 350) => { const c = await moveTo(s, 550); if (!c) { console.log('miss', s); return; } await wait(rest);
+    clicks.push(n); await p.mouse.down(); await frame(); await p.mouse.up(); await frame(); };
+  const type = async (txt, perChar = 55) => { for (const ch of txt) { await p.keyboard.type(ch); await wait(perChar); } };
+
+  await p.mouse.move(mx, my);
+  mark('hero'); await wait(2200);
+  await move(520, 360, 1100); await move(1150, 300, 1100); await move(820, 520, 900);
+  await moveTo('.knopf--arbeiten', 700); await wait(700);
+  mark('menu'); await moveTo('#nav li:nth-child(1) a', 650); await wait(450); await moveTo('#nav li:nth-child(2) a', 400); await wait(450);
+  await moveTo('#nav li:nth-child(3) a', 400); await wait(350); await move(1100, 640, 500);
+  mark('leistungen'); await go('#leistungen', 70, 1100); await wait(1300);
+  const leist = await p.$$eval('.leist', es => es.map(e => Math.round(e.getBoundingClientRect().top + scrollY)));
+  await scrollTo(leist[0] - 110, 900); await wait(1300);
+  await moveTo('.leist:nth-child(3)', 600); await wait(300);
+  await scrollTo(leist[2] - 110, 900); await wait(1200);
+  await scrollTo(leist[4] - 110, 900); await moveTo('.leist:nth-child(5)', 500); await wait(1000);
+  mark('arbeiten'); await go('#arbeiten', 20, 1100); await wait(900);
+  await scrollTo((await topOf('.reiter')) - 60, 700); await wait(400);
+  await moveTo('.werk--edel .werk-bild', 600); await wait(900);
+  mark('tabs');
+  for (const id of ['norvak', 'laut', 'glut']) { await click('#reiter-' + id, 300); await wait(1450); }
+  await moveTo('.werk--glut .werk-werte', 600); await wait(300);
+  await scrollTo((await topOf('.werk--glut .werk-schild')) - 100, 900); await wait(1100);
+  mark('ablauf'); await move(1250, 700, 400); await go('#ablauf', 60, 1100); await wait(1900);
+  mark('preise'); await go('#betreuung', 40, 1100); await wait(1200);
+  await scrollTo((await topOf('.bet-karte')) - 60, 800); await moveTo('#b-abo', 600); await wait(1100);
+  mark('fragen'); await go('#fragen', 40, 1100); await wait(400);
+  await scrollTo((await topOf('.fragen-liste')) - 120, 500);
+  await click('.frage:nth-child(3) summary', 300); await wait(1500);
+  await click('.frage:nth-child(1) summary', 250); await wait(1400);
+  mark('kontakt'); await go('#kontakt', 40, 1100); await wait(600);
+  await scrollTo((await topOf('#kontaktformular')) - 140, 600);
+  await click('#k-name', 200); await type('Anna Beispiel', 45);
+  await click('#k-email', 150); await type('anna@praxis-beispiel.de', 35);
+  await click('#k-nachricht', 150); await type('Wir brauchen eine neue Seite für unsere Praxis.', 32); await wait(500);
+  await moveTo('#kontaktformular button[type=submit]', 600); await wait(900);
+  mark('fuss'); await scrollTo(await p.evaluate(() => document.documentElement.scrollHeight), 1100); await wait(1400);
+  mark('oben'); await move(1200, 700, 300); await scrollTo(0, 1600); await wait(1200);
+  mark('ende');
+  console.log(JSON.stringify({fps:FPS,frames:n,marks,clicks}));
+  
+})().catch(e => { console.error(e); process.exit(1); });
