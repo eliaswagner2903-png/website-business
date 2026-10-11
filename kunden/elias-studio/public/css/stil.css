@@ -1,291 +1,461 @@
 /* =====================================================================
-   STIL – Portfolio [Studioname]. Nutzt nur die Variablen aus marke.css.
-   Leitmotiv „Galeriewand“: Arbeiten hängen wie gerahmte Drucke mit Schnittmarken und Werkschild;
-   die Registermarke (Kreis mit Kreuz) markiert die Schritte im Ablauf. Die Seite tritt zurück.
-   Keine Farbwerte, Schriftnamen oder Tempi hier eintragen – sonst bricht das Umschalten der Marke.
+   STIL – Seitenkapitän, Stil 1 „Nachtschiff“ (Umbau 11.10.2026). Nutzt nur die Variablen aus marke.css.
+   Eine ruhige Überfahrt in Kapiteln: Kajüte → An Bord → Der Kurs → Logbuch → Kompass → Die Fahrt → Vor der Abfahrt → Im Hafen.
+   Gestaltungsregeln: viel Dunkel, wenige Elemente pro Bildschirm, Messing nur für Linien, Knöpfe und das eine Wort,
+   große ruhige Serifen-Überschriften, Fließtext hell auf Dunkel. Bewegung langsam, nur transform/opacity/clip-path.
+   Keine Farbwerte, Schriftnamen oder Tempi hier eintragen (Test: tests/bausteine.test.mjs).
    ===================================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-padding-top: 5.5rem; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; font-synthesis: none; }
+html { scroll-padding-top: 5.5rem; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; font-synthesis: none; scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--farbe-grund); color: var(--farbe-text);
-  font: 400 1.0625rem/1.65 var(--schrift-text); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+  font: 400 1.125rem/1.7 var(--schrift-text); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
 }
 img, video, svg { max-width: 100%; height: auto; display: block; }
 picture { display: block; }
-figure { margin: 0; }
 .unsichtbar { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 [hidden] { display: none !important; }
+html:not(.js) .nur-js { display: none !important; }
 a, button, summary { -webkit-tap-highlight-color: transparent; }
 ::selection { background: var(--farbe-akzent); color: var(--farbe-auf-akzent); }
 
 h1, h2, h3 {
-  font-family: var(--schrift-display); font-weight: 400; line-height: 1.02; letter-spacing: -.012em;
-  text-wrap: balance; margin: 0; overflow-wrap: break-word; hyphens: auto;
+  font-family: var(--schrift-display); font-weight: 500; line-height: 1.04; letter-spacing: -.01em;
+  text-wrap: balance; margin: 0; overflow-wrap: break-word; hyphens: manual;
 }
-h1 { font-size: clamp(2.7rem, 1.3rem + 3.6vw, 4.75rem); line-height: 1; letter-spacing: -.02em; }
-h2 { font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.6rem); }
-h3 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); line-height: 1.08; }
+h1 { font-size: clamp(3rem, 1.6rem + 5vw, 6rem); line-height: .98; letter-spacing: -.02em; }
+h2 { font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem); }
+h3 { font-size: clamp(1.6rem, 1.35rem + .9vw, 2.15rem); line-height: 1.1; }
 h1 em, h2 em { font-style: italic; color: var(--farbe-akzent); }
 p { margin: 0; max-width: 62ch; text-wrap: pretty; }
 a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-thickness: 1px; }
-:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; border-radius: 3px; }
+:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; border-radius: var(--radius-klein); }
 .ic { inline-size: 1.15em; block-size: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
 
-.huelle { width: min(100% - 2.5rem, 80rem); margin-inline: auto; }
+.huelle { width: min(100% - 2.5rem, 78rem); margin-inline: auto; }
 .sprung {
-  position: absolute; left: 1rem; top: -5rem; z-index: 30; padding: .75rem 1.1rem;
+  position: absolute; left: 1rem; top: -5rem; z-index: 120; padding: .75rem 1.1rem;
   background: var(--farbe-akzent); color: var(--farbe-auf-akzent); border-radius: var(--radius-klein);
 }
 .sprung:focus { top: 1rem; }
 
-/* Überzeile: klein, gesperrt, mit Haarlinie. Wörter mit ß nicht versalieren (FEHLER 6). */
+/* Überzeile: klein, gesperrt, Messinglinie davor */
 .ueberzeile {
-  display: flex; align-items: center; gap: .8rem;
-  font: 500 .78rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise);
+  display: flex; align-items: center; gap: .9rem;
+  font: 500 .8125rem/1.4 var(--schrift-text); letter-spacing: .24em; text-transform: uppercase; color: var(--farbe-akzent);
 }
-.ueberzeile::before { content: ""; flex: none; inline-size: 2rem; block-size: 1px; background: currentColor; }
+.ueberzeile::before { content: ""; flex: none; inline-size: 2.5rem; block-size: 1px; background: currentColor; }
 
-/* ---------- Schnittmarken: vier Ecken außerhalb eines Rahmens ---------- */
-.marken { position: relative; }
-.marken::after {
-  --_l: 10px;
-  content: ""; position: absolute; inset: -9px; pointer-events: none;
-  background:
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) top left / var(--_l) 1px,
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) top left / 1px var(--_l),
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) top right / var(--_l) 1px,
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) top right / 1px var(--_l),
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) bottom left / var(--_l) 1px,
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) bottom left / 1px var(--_l),
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) bottom right / var(--_l) 1px,
-    linear-gradient(var(--farbe-leise), var(--farbe-leise)) bottom right / 1px var(--_l);
-  background-repeat: no-repeat;
+/* ---------- Kopfzeile ---------- */
+.kopf {
+  position: sticky; top: 0; z-index: 20;
+  border-bottom: 1px solid var(--farbe-linie);
 }
-
-/* ---------- Kopfzeile: ohne JS ist die Navigation eine sichtbare Zeile ---------- */
-.kopf { position: sticky; top: 0; z-index: 20; background: var(--farbe-grund); border-bottom: 1px solid var(--farbe-linie); }
-.kopf-in { display: flex; align-items: center; justify-content: space-between; gap: .25rem 1rem; min-height: 4.25rem; flex-wrap: wrap; }
+/* Unschärfe auf einer eigenen Ebene: backdrop-filter direkt am Kopf würde das feste Handy-Menü (position: fixed)
+   in den Kopfstreifen sperren, das Menü war dann unsichtbar (Elias, 11.10.) */
+.kopf::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: color-mix(in srgb, var(--farbe-grund) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.kopf-in { display: flex; align-items: center; justify-content: space-between; gap: .25rem 1rem; min-height: 4.5rem; flex-wrap: wrap; }
 .marke {
-  display: inline-flex; align-items: center; min-height: 44px; min-inline-size: 44px; padding-block: .55rem;
-  font: 400 1.6rem/1 var(--schrift-display); letter-spacing: -.01em; color: var(--farbe-text); text-decoration: none;
+  display: inline-flex; align-items: center; gap: .65rem; min-height: 44px; min-inline-size: 44px; padding-block: .55rem;
+  font: 500 1.65rem/1 var(--schrift-display); letter-spacing: .01em; color: var(--farbe-text); text-decoration: none;
 }
-.marke-klammer { color: var(--farbe-akzent); }
+.nav { order: 1; margin-inline-start: auto; }
+.menue-knopf { display: none; order: 3; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .1rem; }
 .nav a:not(.knopf) {
-  position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: .65rem;
-  color: var(--farbe-text); text-decoration: none; font-weight: 450; font-size: 1rem;
+  position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: .7rem;
+  color: var(--farbe-text); text-decoration: none; font-size: 1rem; letter-spacing: .02em;
 }
-.nav .knopf { min-height: 44px; padding-block: .45rem; padding-inline: 1.15rem; margin-inline-start: .5rem; font-size: .95rem; }
-.menue-knopf { display: none; }
+.nav-zusatz { display: none; }
+.nav .knopf { min-height: 44px; padding-block: .45rem; padding-inline: 1.1rem; margin-inline-start: .6rem; font-size: .95rem; }
+@media (min-width: 48rem) {
+  .nav a:not(.knopf)::after {
+    content: ""; position: absolute; inset: auto .7rem .55rem; block-size: 1px; background: var(--farbe-akzent);
+    transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-standard);
+  }
+  .nav a:not(.knopf):hover::after, .nav a[aria-current="location"]::after { transform: scaleX(1); }
+  .nav a[aria-current="location"] { color: var(--farbe-akzent); }
+}
+@media (max-width: 47.99rem) {
+  .nav .knopf { margin-inline-start: 0; }
+  .blatt-schleier { background: color-mix(in srgb, var(--farbe-grund) 70%, transparent); }
+  .js .kopf .blatt { border-radius: 0; }
+  /* Menüeinträge: Pfeil ohne Kreis, passend zu den übrigen Zeichen (Elias, 11.10.: keine Kreise mit Pfeil/Dreieck) */
+  .js .blatt li a:not(.knopf)::after { border: 0; border-radius: 0; inline-size: auto; block-size: auto; font-size: 1.5rem; }
+  .js .blatt li a:not(.knopf):active::after { background: none; color: var(--farbe-akzent); }
+}
+@media (min-width: 48rem) and (max-width: 63.99rem) { .nav a:not(.knopf) { padding-inline: .45rem; font-size: .9375rem; } }
 
-/* ---------- Knöpfe ---------- */
+/* ---------- Knöpfe: Messing, scharf geschnitten ---------- */
 .knopf {
-  display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 52px; padding: .8rem 1.55rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: .65rem; min-height: 54px; padding: .85rem 1.6rem;
   border: 1px solid var(--farbe-akzent); border-radius: var(--radius-gross); background: var(--farbe-akzent);
-  color: var(--farbe-auf-akzent); font: 500 1rem/1.2 var(--schrift-text); text-decoration: none; cursor: pointer;
-  transition: transform var(--tempo-kurz) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard);
+  color: var(--farbe-auf-akzent); font: 500 1rem/1.2 var(--schrift-text); letter-spacing: .04em; text-decoration: none; cursor: pointer;
+  transition: transform var(--tempo-kurz) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard), box-shadow var(--tempo-mittel) var(--kurve-standard);
 }
-.knopf.zweit { background: none; color: var(--farbe-text); border-color: var(--farbe-text); }
+.knopf.zweit { background: color-mix(in srgb, var(--farbe-grund) 40%, transparent); color: var(--farbe-text); border-color: color-mix(in srgb, var(--farbe-text) 55%, transparent); }
 .knopf .pfeil { display: inline-block; transition: transform var(--tempo-kurz) var(--kurve-standard); }
 @media (hover: hover) and (pointer: fine) {
-  .knopf:hover { transform: translateY(-2px); }
+  .knopf:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -14px color-mix(in srgb, var(--farbe-licht) 55%, transparent); }
   .knopf:hover .pfeil { transform: translateX(3px); }
-  .knopf.zweit:hover { background: var(--farbe-text); color: var(--farbe-grund); }
+  .knopf.zweit:hover { border-color: var(--farbe-akzent); color: var(--farbe-akzent); box-shadow: none; }
 }
 .knopf:active { transform: scale(.98); }
 .knopf:disabled { cursor: progress; background: var(--farbe-leise); border-color: var(--farbe-leise); color: var(--farbe-grund); transform: none; }
-.aktionen { display: flex; flex-wrap: wrap; gap: .75rem; }
+.aktionen { display: flex; flex-wrap: wrap; gap: .85rem; }
 
 /* ---------- Abschnitte ---------- */
-.abschnitt { padding-block: var(--abstand-abschnitt); }
-.abschnitt + .abschnitt { padding-block-start: 0; }
-.kopfzeile { display: grid; gap: 1.25rem 4rem; margin-block-end: clamp(3rem, 2rem + 3vw, 5.5rem); }
-.kopfzeile h2 { max-width: 16ch; }
-.kopfzeile > p:not(.ueberzeile) { color: var(--farbe-leise); font-size: 1.125rem; }
+.abschnitt { position: relative; padding-block: calc(var(--abstand-abschnitt) * .62); }
+.kopfzeile { display: grid; gap: 1.4rem 4rem; margin-block-end: clamp(3rem, 2rem + 3vw, 5.5rem); }
+.kopfzeile h2 { max-width: 15ch; }
+.kopfzeile > p:not(.ueberzeile) { color: var(--farbe-leise); font-size: 1.1875rem; }
 @media (min-width: 64rem) {
   .kopfzeile { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
   .kopfzeile .ueberzeile { grid-column: 1 / -1; }
 }
+/* Kapitelwechsel: eine feine Messinglinie, die zur Mitte hin aufglimmt */
+.abschnitt + .abschnitt::before, .zwischenbild + .abschnitt::before {
+  content: ""; position: absolute; inset: 0 0 auto; block-size: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--farbe-akzent) 40%, transparent), transparent);
+}
 
-/* ---------- Rahmen: Browser-Fenster und Handy ---------- */
-.rahmen { display: block; background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); }
-.rahmen img { inline-size: 100%; }
-.rahmen--handy {
-  --_r: clamp(8px, 1.4vw, 16px);
-  border-radius: var(--_r); padding: 0;
-  box-shadow: 0 1.5rem 2.5rem -1.8rem color-mix(in srgb, var(--blau-tief) 80%, transparent);
-}
-.rahmen--handy img { border-radius: calc(var(--_r) - 1px); }
-.rahmen--desktop {
-  border-radius: var(--radius-klein);
-  box-shadow: 0 2.5rem 4rem -3rem color-mix(in srgb, var(--blau-tief) 80%, transparent);
-}
-.rahmen--desktop img { border-radius: 0 0 var(--radius-klein) var(--radius-klein); }
-.rahmen-leiste {
-  display: flex; align-items: center; gap: .75rem; block-size: 1.9rem; padding-inline: .75rem;
-  border-bottom: 1px solid var(--farbe-linie); font-size: .72rem; color: var(--farbe-leise); letter-spacing: .02em;
-}
-.rahmen-punkte {
-  inline-size: 2.1rem; block-size: .45rem; flex: none;
-  background: radial-gradient(circle, var(--farbe-linie) 0 .22rem, transparent .23rem) 0 0 / .7rem .45rem repeat-x;
-}
-.rahmen-adresse { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* =====================================================================
+   HERO „Kajüte“
+   ===================================================================== */
+.held { position: relative; isolation: isolate; overflow: hidden; display: grid; }
+.held-bild { position: relative; z-index: -2; }
+.held-bild img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.held-in { position: relative; display: grid; gap: 1.5rem; align-content: end; }
+.held h1 { max-width: 11ch; }
+.held-satz { font-size: clamp(1.125rem, 1.05rem + .35vw, 1.3rem); line-height: 1.6; color: var(--farbe-text); max-width: 34ch; }
+.held-aktionen { margin-block-start: .5rem; }
+.held-fuss { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-block-start: .5rem; }
+.held-zeile { font: italic 500 1.3rem/1.2 var(--schrift-display); color: var(--farbe-leise); letter-spacing: .02em; }
 
-/* ---------- Arbeiten: bildschirmfüllend, im Gerät läuft die echte Seite durch ---------- */
-.werke { display: grid; gap: clamp(6rem, 3rem + 8vw, 11rem); }
+/* Handy: Bild als Band oben (Lampe und Karte), Text darunter auf Dunkel; Name und Botschaft sofort sichtbar */
+@media (max-width: 47.99rem) {
+  .held-bild { block-size: min(62svh, 34rem); }
+  .held-bild img { object-position: 60% 78%; }
+  .held-bild::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--farbe-grund) 30%, transparent) 0%, transparent 30%, color-mix(in srgb, var(--farbe-grund) 70%, transparent) 75%, var(--farbe-grund) 100%); }
+  .held-in { margin-block-start: -9rem; padding-block-end: 3.5rem; }
+  .held-aktionen .knopf { flex: 1 1 100%; }
+}
+/* Computer: Bild füllt den ersten Bildschirm, Text steht links im Dunkel der Kajüte */
+@media (min-width: 48rem) {
+  .held { min-block-size: clamp(38rem, 100svh - 4.5rem, 64rem); }
+  .held-bild { position: absolute; inset: 0; }
+  .held-bild img { object-position: 72% 50%; }
+  .held-bild::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--farbe-grund) 0%, color-mix(in srgb, var(--farbe-grund) var(--held-schleier), transparent) 32%, transparent 62%),
+      linear-gradient(0deg, var(--farbe-grund) 0%, transparent 26%);
+  }
+  .held-in { padding-block: clamp(5rem, 3rem + 6vw, 9rem) clamp(3.5rem, 2rem + 4vw, 6rem); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Ankommen: das Bild atmet von leicht vergrößert auf ruhig, die Texte steigen nacheinander auf */
+  .held-bild img { animation: held-bild 2.6s var(--kurve-weich) backwards; }
+  .held-in > * { animation: held-text 1.1s var(--kurve-weich) backwards; }
+  .held-in > :nth-child(1) { animation-delay: .25s; }
+  .held-in > :nth-child(2) { animation-delay: .35s; }
+  .held-in > :nth-child(3) { animation-delay: .5s; }
+  .held-in > :nth-child(4) { animation-delay: .62s; }
+  .held-in > :nth-child(5) { animation-delay: .74s; }
+  /* Solange die Vorstellung läuft, wartet der Hero; danach läuft er weich an */
+  html.intro-offen .held-in > *, html.intro-offen .held-bild img { animation-play-state: paused; }
+}
+@keyframes held-bild { from { opacity: .2; transform: scale(1.06); } }
+@keyframes held-text { from { opacity: 0; transform: translateY(14px); } }
+
+/* =====================================================================
+   AN BORD: Leistungen als Messingplaketten
+   ===================================================================== */
+.plaketten { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); }
+.plakette {
+  position: relative; display: grid; gap: .9rem; align-content: start; min-width: 0;
+  padding: clamp(1.6rem, 1.2rem + 1.2vw, 2.4rem);
+  background: linear-gradient(160deg, var(--farbe-flaeche-hoch), var(--farbe-flaeche) 70%);
+  border-radius: var(--radius-karte); box-shadow: var(--schatten-karte);
+  transition: box-shadow var(--tempo-mittel) var(--kurve-standard), transform var(--tempo-mittel) var(--kurve-standard);
+}
+.plakette::before { /* zweite, feine Gravurlinie innen */
+  content: ""; position: absolute; inset: .5rem; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 12%, transparent); border-radius: var(--radius-klein); pointer-events: none;
+}
+.plakette h3 { font-size: clamp(1.65rem, 1.4rem + .8vw, 2.05rem); }
+.plakette p { color: var(--farbe-leise); font-size: 1.0625rem; }
+.plakette .fachwort { margin-block-start: auto; padding-block-start: .4rem; font-size: .8125rem; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--farbe-akzent) 85%, var(--farbe-text)); }
+.instrument { inline-size: 3.25rem; block-size: 3.25rem; margin-block-end: .4rem; fill: none; stroke: var(--farbe-akzent); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.instrument .fein { stroke-opacity: .55; }
+.instrument .voll { fill: var(--farbe-akzent); }
+@media (hover: hover) and (pointer: fine) {
+  .plakette:hover { box-shadow: var(--schatten-hoch); transform: translateY(-3px); }
+}
+
+/* =====================================================================
+   DER KURS: Seekarte, vier Bojen, eine Kurslinie
+   ===================================================================== */
+.ablauf { overflow: hidden; isolation: isolate; }
+.seekarte { /* Tiefenlinien und Gradnetz, nur Dekor */
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .9;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 30%, color-mix(in srgb, var(--blau-tief) 55%, transparent), transparent 70%),
+    repeating-radial-gradient(ellipse at 85% 110%, transparent 0 46px, color-mix(in srgb, var(--farbe-text) 6%, transparent) 46px 47px),
+    linear-gradient(90deg, color-mix(in srgb, var(--farbe-text) 4%, transparent) 1px, transparent 1px) 0 0 / 8rem 8rem,
+    linear-gradient(0deg, color-mix(in srgb, var(--farbe-text) 4%, transparent) 1px, transparent 1px) 0 0 / 8rem 8rem;
+  -webkit-mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 82%, transparent);
+  mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 82%, transparent);
+}
+.kurs { position: relative; }
+.schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.75rem; position: relative; }
+.schritt { position: relative; display: grid; gap: .7rem; align-content: start; min-width: 0; }
+.schritt p { color: var(--farbe-leise); font-size: 1.0625rem; }
+/* Etappe: große Ziffer im Logbuch-Stil, daneben eine Messinglinie bis zur nächsten Etappe */
+.etappe { display: flex; align-items: center; gap: 1rem; margin-block-end: .4rem; }
+.etappe-nr { font: italic 500 clamp(2.6rem, 2rem + 1.6vw, 3.4rem)/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: lining-nums; letter-spacing: .02em; }
+.etappe-linie { position: relative; flex: 1; block-size: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 60%, transparent), color-mix(in srgb, var(--farbe-akzent) 8%, transparent)); }
+.etappe-linie::before { /* Rautenmarke am Anfang der Linie */
+  content: ""; position: absolute; inset: 50% auto auto 0; inline-size: .45rem; block-size: .45rem; translate: 0 -50%; rotate: 45deg; background: var(--farbe-akzent);
+}
+.schritt:last-child .etappe-linie { background: linear-gradient(90deg, color-mix(in srgb, var(--farbe-akzent) 60%, transparent), transparent 70%); }
+@media (min-width: 64rem) {
+  .schritte { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3rem; }
+  .etappe-linie { margin-inline-end: -3rem; }
+  .schritt:last-child .etappe-linie { margin-inline-end: 0; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .etappe-linie { transform-origin: left; animation: etappe-linie linear both; animation-timeline: view(); animation-range: entry 40% cover 45%; }
+  }
+}
+@keyframes etappe-linie { from { transform: scaleX(0); } }
+
+/* =====================================================================
+   LOGBUCH: Arbeiten mit Reitern
+   ===================================================================== */
+.buehne-reiter {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(10.5rem, 1fr); gap: 0 .5rem;
+  margin-block-end: clamp(2.5rem, 2rem + 2vw, 4rem); border-bottom: 1px solid var(--farbe-linie);
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, var(--farbe-grund) 85%, transparent); mask-image: linear-gradient(90deg, var(--farbe-grund) 85%, transparent);
+}
+@media (min-width: 48rem) { .buehne-reiter { -webkit-mask-image: none; mask-image: none; } }
+.reiter {
+  position: relative; display: grid; gap: .3rem; align-content: start; min-height: 44px; padding: 1rem .25rem 1.2rem;
+  border: 0; background: none; color: var(--farbe-leise); font: inherit; text-align: start; cursor: pointer; scroll-snap-align: start;
+  transition: color var(--tempo-kurz) var(--kurve-standard);
+}
+.reiter::after {
+  content: ""; position: absolute; inset: auto 0 -1px; block-size: 2px; background: var(--farbe-akzent);
+  transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-standard);
+}
+.reiter-name { font: 500 clamp(1.5rem, 1.25rem + .8vw, 2rem)/1.05 var(--schrift-display); color: var(--farbe-text); }
+.reiter-branche { font-size: .9375rem; }
+.reiter[aria-selected="true"] { color: var(--farbe-text); }
+.reiter[aria-selected="true"] .reiter-name { color: var(--farbe-akzent); }
+.reiter[aria-selected="true"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .reiter:hover { color: var(--farbe-text); } }
+.buehne--aktiv .werk[hidden] { display: none !important; }
+
+.werke { display: grid; gap: clamp(6rem, 3rem + 8vw, 10rem); }
 .werk { display: grid; gap: 3rem 4rem; align-items: center; }
 .werk-bild { position: relative; min-width: 0; }
-/* Fenster: feste Höhe, die lange Aufnahme rollt darin (Containerhöhe in cqh für die Endposition) */
+.rahmen { display: block; background: var(--farbe-flaeche); }
+.rahmen--desktop { border: 1px solid color-mix(in srgb, var(--farbe-akzent) 35%, var(--farbe-linie)); border-radius: var(--radius-karte); box-shadow: 0 40px 80px -40px var(--farbe-grund), 0 0 90px -30px color-mix(in srgb, var(--farbe-licht) 22%, transparent); }
+.rahmen-leiste { display: flex; align-items: center; gap: .75rem; block-size: 1.9rem; padding-inline: .75rem; border-bottom: 1px solid var(--farbe-linie); font-size: .72rem; color: var(--farbe-leise); letter-spacing: .04em; }
+.rahmen-punkte { inline-size: 2.1rem; block-size: .45rem; flex: none; background: radial-gradient(circle, var(--farbe-linie) 0 .22rem, transparent .23rem) 0 0 / .7rem .45rem repeat-x; }
+.rahmen-adresse { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.rahmen--handy { --_r: 1.6rem; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 35%, var(--farbe-linie)); border-radius: var(--_r); padding: .4rem; background: var(--farbe-grund); box-shadow: 0 30px 60px -30px var(--farbe-grund); }
+/* Fenster: feste Höhe, die lange Aufnahme rollt darin */
 .fenster { position: relative; overflow: hidden; container-type: size; }
 .fenster picture, .fenster img { display: block; inline-size: 100%; block-size: auto; }
-.rahmen--desktop .fenster { block-size: clamp(20rem, 100svh - 17rem, 46rem); border-radius: 0 0 var(--radius-klein) var(--radius-klein); }
-.rahmen--handy .fenster { aspect-ratio: 390 / 844; border-radius: calc(var(--_r) - 1px); }
-.rahmen .fenster img { border-radius: 0; }
+.rahmen--desktop .fenster { block-size: clamp(20rem, 100svh - 18rem, 44rem); border-radius: 0 0 var(--radius-karte) var(--radius-karte); }
+.rahmen--handy .fenster { aspect-ratio: 390 / 844; border-radius: calc(var(--_r) - .4rem); }
 @media (prefers-reduced-motion: no-preference) {
   .fenster img { animation: seite-rollen 46s cubic-bezier(.3, .2, .55, 1) infinite alternate; will-change: transform; }
-  /* Mit JS läuft die Aufnahme erst, wenn die Arbeit im Bild ist, und beginnt dann oben (06.10.: sonst kam man unten auf der Seite an) */
   .js .werk:not(.werk--im-bild) .fenster img { animation: none; }
   .rahmen--handy .fenster img { animation-duration: 38s; }
   .werk-bild:hover .fenster img, .werk-bild:focus-within .fenster img { animation-play-state: paused; }
+  .werk--rein .werk-bild { animation: werk-bild-auf .9s var(--kurve-weich) backwards; }
+  .werk--rein .werk-schild > * { animation: werk-text-auf .7s var(--kurve-standard) backwards; }
+  .werk--rein .werk-schild > :nth-child(2) { animation-delay: .05s; }
+  .werk--rein .werk-schild > :nth-child(3) { animation-delay: .1s; }
+  .werk--rein .werk-schild > :nth-child(n+4) { animation-delay: .15s; }
 }
-/* Kein Halt am Anfang (06.10.: sonst wirkt die Vorschau wie ein Standbild); unten kurz verweilen */
 @keyframes seite-rollen { 0% { transform: translateY(0); } 94%, 100% { transform: translateY(calc(-100% + 100cqh)); } }
+@keyframes werk-bild-auf { from { opacity: 0; clip-path: inset(6% 6% 6% 6%); } }
+@keyframes werk-text-auf { from { opacity: 0; transform: translateY(.6rem); } }
 .werk-bild .rahmen--desktop { display: none; }
-.werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; --_r: 1.6rem; padding: .45rem; background: var(--farbe-grund); }
+.werk-bild .rahmen--handy { inline-size: min(17rem, 72vw); margin-inline: auto; }
 @media (min-width: 48rem) {
   .werk-bild { margin-inline-end: 2rem; }
   .werk-bild .rahmen--desktop { display: block; }
-  .werk-bild .rahmen--handy { position: absolute; inline-size: 25%; min-inline-size: 9rem; inset: auto -2rem -2.5rem auto; margin: 0; --_r: clamp(1rem, 1.6vw, 1.5rem); padding: .3rem; }
+  .werk-bild .rahmen--handy { position: absolute; inline-size: 24%; min-inline-size: 9rem; inset: auto -2rem -2.5rem auto; margin: 0; --_r: clamp(1rem, 1.6vw, 1.5rem); padding: .3rem; }
 }
+@media (min-width: 64rem) { .werk { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); } .werk-bild { margin-inline-end: 3rem; } }
+.werk-bild-link { position: absolute; inset: 0; z-index: 3; display: grid; place-items: end center; padding-block-end: 1.5rem; cursor: pointer; text-decoration: none; }
+.werk-bild-hinweis {
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .6rem 1.2rem; border-radius: var(--radius-gross);
+  font: 500 .9375rem/1 var(--schrift-text); color: var(--farbe-auf-akzent); background: var(--farbe-akzent);
+  visibility: hidden; transform: translateY(.5rem); transition: transform var(--tempo-mittel) var(--kurve-standard), visibility 0s linear var(--tempo-mittel);
+}
+@media (hover: hover) and (pointer: fine) { .werk-bild-link:hover .werk-bild-hinweis { visibility: visible; transform: none; transition-delay: 0s; } }
+
 .werk-schild { display: grid; gap: 1rem; align-content: start; min-width: 0; }
-.werk-nr { display: flex; gap: .75rem; align-items: baseline; flex-wrap: wrap; font-size: .9375rem; color: var(--farbe-leise); }
-.werk-nr > span:first-child { font: 400 1.35rem/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: tabular-nums; }
-.werk-schild h3 { font-size: clamp(2.3rem, 1.5rem + 2.6vw, 3.6rem); }
-.werk-branche { font-size: .9375rem; color: var(--farbe-leise); }
-.werk-satz { font-size: 1.125rem; line-height: 1.55; }
-.werk-werte {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .9rem 1.25rem; margin: .75rem 0 0;
-  padding-block: 1.1rem; border-block: 1px solid var(--farbe-linie);
+.werk-nr { font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--farbe-leise); }
+.werk-nr > span:first-child { color: var(--farbe-akzent); }
+.werk-schild h3 { font-size: clamp(2.3rem, 1.6rem + 2.2vw, 3.4rem); }
+.werk-entscheidung { font: italic 500 1.35rem/1.35 var(--schrift-display); color: var(--farbe-text); padding-inline-start: 1rem; border-inline-start: 1px solid var(--farbe-akzent); }
+.werk-satz { font-size: 1.0625rem; color: var(--farbe-leise); }
+.werk-punkte { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; font-size: 1rem; color: var(--farbe-leise); }
+.werk-punkte li { display: grid; grid-template-columns: .9rem minmax(0, 1fr); gap: .6rem; }
+.werk-punkte li::before { content: ""; inline-size: .45rem; block-size: .45rem; margin-block-start: .65rem; transform: rotate(45deg); border: 1px solid var(--farbe-akzent); }
+.werk-werte { display: grid; gap: .1rem; margin: .5rem 0 0; padding-block: .9rem; border-block: 1px solid var(--farbe-linie); }
+.werk-werte div { display: flex; justify-content: space-between; gap: 1rem; font-size: .9375rem; }
+.werk-werte dt { color: var(--farbe-leise); }
+.werk-werte dd { margin: 0; color: var(--farbe-text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.werk-link { margin-block-start: .25rem; }
+/* „Seite ansehen“ als breite Messing-Karte: Name groß, Pfeil in eigenem Feld (Elias, 11.10.: Knopf komplett verbessern) */
+.oeffnen {
+  display: flex; align-items: stretch; justify-content: space-between; inline-size: 100%; max-inline-size: 26rem; min-height: 4.5rem;
+  border: 1px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent); border-radius: var(--radius-gross);
+  background: linear-gradient(100deg, color-mix(in srgb, var(--farbe-akzent) 10%, var(--farbe-flaeche)), var(--farbe-flaeche) 70%);
+  color: var(--farbe-text); text-decoration: none; overflow: hidden;
+  transition: border-color var(--tempo-kurz) var(--kurve-standard), box-shadow var(--tempo-mittel) var(--kurve-standard), transform var(--tempo-kurz) var(--kurve-standard);
 }
-.werk-werte-titel { margin-block-start: .75rem; font-size: .8125rem; color: var(--farbe-leise); }
-.werk-werte-titel + .werk-werte { margin-block-start: 0; }
-.werk-werte div { min-width: 0; }
-.werk-werte dt { font-size: .875rem; line-height: 1.3; color: var(--farbe-leise); white-space: nowrap; }
-.werk-werte dd { margin: .2rem 0 0; font: 400 1.75rem/1 var(--schrift-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.werk-link { font-size: .9375rem; color: var(--farbe-leise); }
-.messhinweis { margin-block-start: clamp(4rem, 3rem + 3vw, 6rem); font-size: .875rem; color: var(--farbe-leise); max-width: 70ch; }
-@media (min-width: 64rem) {
-  .werk { grid-template-columns: minmax(0, 9fr) minmax(0, 3.6fr); }
-  .werk-bild { margin-inline-end: 3rem; }
+.oeffnen-text { display: grid; align-content: center; gap: .2rem; padding: .75rem 1.25rem; min-width: 0; }
+.oeffnen-klein { font: 500 .75rem/1.3 var(--schrift-text); letter-spacing: .2em; text-transform: uppercase; color: var(--farbe-akzent); }
+.oeffnen-gross { font: 500 1.45rem/1.15 var(--schrift-display); }
+.oeffnen-zeichen { display: grid; place-items: center; flex: none; inline-size: 4.25rem; background: var(--farbe-akzent); }
+.oeffnen-zeichen svg { inline-size: 1.4rem; block-size: 1.4rem; fill: none; stroke: var(--farbe-auf-akzent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--tempo-mittel) var(--kurve-weich); }
+@media (hover: hover) and (pointer: fine) {
+  .oeffnen:hover { border-color: var(--farbe-akzent); transform: translateY(-2px); box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--farbe-licht) 50%, transparent); }
+  .oeffnen:hover .oeffnen-zeichen svg { transform: translate(3px, -3px); }
 }
+.oeffnen:active { transform: scale(.99); }
 
-/* ---------- Leistungen: Maßstäbe statt Kartenreihe ---------- */
-.mass-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 clamp(2rem, 1rem + 4vw, 6rem); }
-.mass { display: grid; gap: .6rem; align-content: start; padding-block: 1.75rem 2.5rem; border-top: 1px solid var(--farbe-linie); min-width: 0; }
-.mass-wert { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
-.mass-zahl { font: 400 clamp(2.9rem, 2.2rem + 2.4vw, 4.4rem)/1 var(--schrift-display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.mass-einheit { font-size: .875rem; color: var(--farbe-leise); }
-.mass h3 { font-family: var(--schrift-text); font-weight: 550; font-size: 1.125rem; letter-spacing: 0; line-height: 1.35; margin-block-start: .6rem; }
-.mass > p:last-child { color: var(--farbe-leise); }
-@media (min-width: 48rem) { .mass-liste { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 76rem) { .mass-liste { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.preiszeile {
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem 3rem;
-  margin-block-start: 1.5rem; padding-block: 1.5rem; border-block: 1px solid var(--farbe-text);
-}
-.preiszeile > p:first-child { color: var(--farbe-leise); }
-.preis { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
-.preis-titel { font-size: .875rem; color: var(--farbe-leise); }
-.preis-wert { font: 400 clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem)/1.1 var(--schrift-display); }
-
-/* ---------- Betreuung: dunkle Tafel (Text- und Grundfarbe getauscht) ---------- */
-.tafel {
-  --_leise: color-mix(in srgb, var(--farbe-grund) 72%, var(--farbe-text));
-  --_linie: color-mix(in srgb, var(--farbe-grund) 22%, var(--farbe-text));
-  background: var(--farbe-text); color: var(--farbe-grund); border-radius: calc(var(--radius-klein) * 2);
-  padding: clamp(1.75rem, 1rem + 5vw, 6rem) clamp(1.25rem, .5rem + 5vw, 6rem);
-}
-.tafel .ueberzeile, .tafel .kopfzeile > p:not(.ueberzeile) { color: var(--_leise); }
-.tafel h2 em { color: var(--farbe-grund); }
-.tafel :focus-visible { outline-color: var(--farbe-grund); }
-.pakete-tabelle { overflow-x: auto; }
-.pakete-tabelle table { inline-size: 100%; border-collapse: collapse; font-size: 1rem; }
-.pakete-tabelle th, .pakete-tabelle td { padding: .95rem 1rem; border-bottom: 1px solid var(--_linie); text-align: start; vertical-align: top; }
-.pakete-tabelle thead th { font: 400 2rem/1 var(--schrift-display); padding-block-end: 1.25rem; border-bottom-color: var(--farbe-grund); }
-.pakete-tabelle tbody th { font-weight: 400; color: var(--_leise); inline-size: 40%; }
-.pakete-tabelle td { inline-size: 20%; }
-.ja { font-size: 1.1rem; }
-.nein { color: var(--_leise); }
-.preis-reihe th, .preis-reihe td { border-bottom: 0; padding-block-start: 1.4rem; }
-.preis-reihe td { font: 400 1.5rem/1.1 var(--schrift-display); }
-.pakete-karten { display: grid; gap: 2.5rem; }
-.paket { display: grid; gap: .9rem; padding-block-start: 1.25rem; border-top: 1px solid var(--farbe-grund); }
-.paket h3 { font-size: 2.2rem; }
-.paket--alle h3 { font-size: 1.6rem; }
-.paket ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; color: var(--_leise); }
-.paket strong { font-weight: 500; color: var(--farbe-grund); }
-.paket-preis { font: 400 1.4rem/1.2 var(--schrift-display); }
-@media (max-width: 55.99rem) { .pakete-tabelle { display: none; } }
-@media (min-width: 56rem) { .pakete-karten { display: none; } }
-
-
-/* ---------- Ablauf: vier Schritte mit Registermarke ---------- */
-.schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: schritt; }
-.schritt { position: relative; display: grid; gap: .7rem; align-content: start; padding: 0 0 2.75rem 2.75rem; border-left: 1px solid var(--farbe-linie); min-width: 0; }
-.schritt:last-child { border-left-color: transparent; padding-block-end: 0; }
-.schritt-marke {
-  position: absolute; inset: 0 auto auto -.8rem; inline-size: 1.6rem; block-size: 1.6rem; border-radius: 50%;
+/* =====================================================================
+   ZWISCHENBILD: Kompass im Lampenlicht
+   ===================================================================== */
+.zwischenbild { position: relative; isolation: isolate; display: grid; min-block-size: clamp(26rem, 60vw, 44rem); align-items: end; overflow: hidden; }
+.zwischenbild-bild { position: absolute; inset: 0; z-index: -1;
+  -webkit-mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 72%, transparent);
+  mask-image: linear-gradient(180deg, transparent, var(--farbe-grund) 18%, var(--farbe-grund) 72%, transparent); }
+.zwischenbild-bild img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 60% 50%; }
+.zwischenbild-bild::after {
+  content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(var(--farbe-text), var(--farbe-text)) center / 100% 1px no-repeat,
-    linear-gradient(var(--farbe-text), var(--farbe-text)) center / 1px 100% no-repeat,
-    radial-gradient(circle, var(--farbe-grund) 0 .42rem, var(--farbe-text) .42rem calc(.42rem + 1px), var(--farbe-grund) calc(.42rem + 1px));
+    linear-gradient(90deg, color-mix(in srgb, var(--farbe-grund) 82%, transparent) 0%, color-mix(in srgb, var(--farbe-grund) 40%, transparent) 45%, transparent 70%);
 }
-.schritt-nr { font-size: .8125rem; letter-spacing: .12em; text-transform: uppercase; color: var(--farbe-leise); }
-.schritt h3 { font-size: clamp(1.9rem, 1.5rem + 1.3vw, 2.6rem); }
-.schritt > p:last-child { color: var(--farbe-leise); }
-@media (min-width: 64rem) {
-  .schritte { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; }
-  .schritt, .schritt:last-child { padding: 2.75rem 0 0; border-left: 0; border-top: 1px solid var(--farbe-linie); }
-  .schritt-marke { inset: -.8rem auto auto 0; }
+/* Handy: Bild als Band, der Satz steht darunter auf Dunkel (über dem hellen Kartenpapier wäre er schwer lesbar) */
+@media (max-width: 47.99rem) {
+  .zwischenbild { display: block; min-block-size: 0; }
+  .zwischenbild-bild { position: relative; block-size: 18rem; }
+  .zwischenbild-bild::after { display: none; }
+  .zwischenbild-in { margin-block-start: -2.5rem; padding-block-start: 0; }
 }
+.zwischenbild-in { display: grid; gap: 1.25rem; padding-block: 4rem clamp(3rem, 2rem + 3vw, 5rem); }
+.zwischenbild-satz { max-width: 22ch; font: 500 clamp(2rem, 1.3rem + 2.6vw, 3.6rem)/1.08 var(--schrift-display); letter-spacing: -.01em; text-wrap: balance; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .zwischenbild-bild img { animation: zwischenbild-gleiten linear both; animation-timeline: view(); }
+  }
+}
+@keyframes zwischenbild-gleiten { from { transform: scale(1.12) translateY(-3%); } to { transform: scale(1.02) translateY(3%); } }
 
-/* ---------- Über mich ---------- */
-.ueber-raster { display: grid; gap: 3.5rem; align-items: center; }
-.ueber-foto {
-  display: grid; place-items: center; aspect-ratio: 4 / 5; inline-size: min(62%, 21rem); margin-inline: 9px;
-  background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-klein);
+/* =====================================================================
+   DIE FAHRT: Preise als zwei Plaketten
+   ===================================================================== */
+.bet-paar { display: grid; gap: 1.5rem; }
+@media (min-width: 64rem) { .bet-paar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; } }
+.bet-karte {
+  position: relative; display: grid; gap: 1.1rem; align-content: start; min-width: 0; padding: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  background: linear-gradient(165deg, var(--farbe-flaeche-hoch), var(--farbe-flaeche) 75%); border-radius: var(--radius-karte); box-shadow: var(--schatten-karte);
 }
-.ueber-foto-leer { font-size: .875rem; color: var(--farbe-leise); }
-.ueber-text { display: grid; gap: 1.4rem; min-width: 0; }
-.ueber-text > p:not(.ueberzeile) { font-size: 1.125rem; }
-.platzhalter-text { color: var(--farbe-leise); font-style: italic; }
-@media (min-width: 64rem) { .ueber-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6rem; } .ueber-foto { inline-size: auto; max-inline-size: 21rem; } }
+.bet-karte::before { content: ""; position: absolute; inset: .5rem; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 12%, transparent); border-radius: var(--radius-klein); pointer-events: none; }
+.bet-karte--abo { background: linear-gradient(165deg, color-mix(in srgb, var(--blau-tief) 55%, var(--farbe-flaeche-hoch)), var(--farbe-flaeche) 75%); }
+.bet-karte > p:not(.preis):not(.bet-wahl-titel):not(.bet-hinweis) { color: var(--farbe-leise); }
+.preis { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1rem; padding-block-end: 1.1rem; border-bottom: 1px solid color-mix(in srgb, var(--farbe-akzent) 35%, transparent); }
+.preis-wert { font: 500 clamp(2.2rem, 1.6rem + 2.4vw, 3.6rem)/1 var(--schrift-display); color: var(--farbe-akzent); font-variant-numeric: lining-nums; }
+.preis-titel { font-size: .875rem; letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise); }
+.bet-liste, .bet-wahl { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.bet-liste li, .bet-wahl li { display: grid; gap: .1rem; padding-block: .75rem; border-bottom: 1px solid var(--farbe-linie); }
+.bet-liste li:last-child, .bet-wahl li:last-child { border-bottom: 0; }
+.bet-liste strong, .bet-wahl strong { font-weight: 500; }
+.bet-liste span, .bet-wahl span { color: var(--farbe-leise); font-size: 1rem; }
+.bet-wahl-titel { font-size: .8125rem; letter-spacing: .2em; text-transform: uppercase; color: var(--farbe-akzent); margin-block-start: .5rem; }
+.bet-hinweis { font-size: .9375rem; color: var(--farbe-leise); }
 
-/* ---------- Kontakt ---------- */
+/* =====================================================================
+   VOR DER ABFAHRT: Fragen
+   ===================================================================== */
+.fragen-raster { display: grid; gap: 2.5rem 5rem; }
+@media (min-width: 64rem) { .fragen-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } .fragen-kopf { position: sticky; top: 7rem; } }
+.fragen-kopf { display: grid; gap: 1.25rem; align-content: start; }
+.fragen-hinweis { color: var(--farbe-leise); font-size: 1.0625rem; max-width: 30ch; }
+.fragen-hinweis a { color: var(--farbe-akzent); text-underline-offset: .2em; }
+.fragen-liste { display: grid; gap: .75rem; }
+.frage {
+  background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: var(--radius-karte);
+  transition: border-color var(--tempo-mittel) var(--kurve-standard), background-color var(--tempo-mittel) var(--kurve-standard);
+}
+.frage[open] { background: var(--farbe-flaeche-hoch); border-color: color-mix(in srgb, var(--farbe-akzent) 45%, transparent); }
+.frage summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 4.25rem; padding: 1.1rem 1.4rem;
+  font: 500 clamp(1.35rem, 1.2rem + .5vw, 1.6rem)/1.25 var(--schrift-display); cursor: pointer; list-style: none;
+}
+.frage summary::-webkit-details-marker { display: none; }
+/* Zeichen: schlichtes Plus aus zwei Messinglinien, wird beim Öffnen zum Minus */
+.frage-zeichen { position: relative; flex: none; inline-size: 1.1rem; block-size: 1.1rem; }
+.frage-zeichen::before, .frage-zeichen::after {
+  content: ""; position: absolute; inset: 50% 0 auto; block-size: 1.5px; margin-block-start: -.75px; background: var(--farbe-akzent);
+  transition: transform var(--tempo-mittel) var(--kurve-standard);
+}
+.frage-zeichen::after { transform: rotate(90deg); }
+.frage[open] .frage-zeichen::after { transform: rotate(0deg); }
+@media (hover: hover) and (pointer: fine) {
+  .frage:hover { border-color: color-mix(in srgb, var(--farbe-akzent) 35%, transparent); }
+  .frage summary:hover .frage-text { color: var(--farbe-akzent); }
+}
+.frage-text { transition: color var(--tempo-kurz) var(--kurve-standard); }
+.frage p { margin-inline: 1.4rem; padding: 1rem 0 1.4rem; border-top: 1px solid var(--farbe-linie); color: var(--farbe-leise); font-size: 1.0625rem; line-height: 1.65; max-width: 58ch; }
+@media (prefers-reduced-motion: no-preference) { .frage[open] p { animation: frage-auf .5s var(--kurve-standard); } }
+@keyframes frage-auf { from { opacity: 0; transform: translateY(-.4rem); } }
+
+/* =====================================================================
+   IM HAFEN: Kontakt
+   ===================================================================== */
+.kontakt { padding-block-start: 0; isolation: isolate; }
+.kontakt-bild { position: relative; z-index: -1; block-size: clamp(16rem, 38vw, 30rem); margin-block-end: clamp(-12rem, -12vw, -5rem); }
+.kontakt-bild img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 70% 55%; }
+.kontakt-bild::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--farbe-grund) 0%, transparent 22%, transparent 45%, var(--farbe-grund) 100%); }
 .kontakt-raster { display: grid; gap: 3rem; }
 .kontakt-text { display: grid; gap: 1.4rem; align-content: start; min-width: 0; }
-.kontakt-text > p:not(.ueberzeile) { color: var(--farbe-leise); font-size: 1.125rem; }
+.kontakt-text > p:not(.ueberzeile) { color: var(--farbe-leise); font-size: 1.1875rem; }
 .wege { list-style: none; margin: .75rem 0 0; padding: 0; border-top: 1px solid var(--farbe-linie); }
-.wege li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 3.5rem; padding-block: .3rem; border-bottom: 1px solid var(--farbe-linie); }
-.wege-art { color: var(--farbe-leise); font-size: .9375rem; }
+.wege li { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 3.5rem; padding-block: .3rem; border-bottom: 1px solid var(--farbe-linie); }
+.wege-art { color: var(--farbe-leise); font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; }
 .wege a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); overflow-wrap: anywhere; }
-.kontakt-form { min-width: 0; padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); border-radius: calc(var(--radius-klein) * 2); }
+.kontakt-form { min-width: 0; padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); background: color-mix(in srgb, var(--farbe-flaeche) 92%, transparent); border-radius: var(--radius-karte); box-shadow: var(--schatten-karte); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 @media (min-width: 64rem) { .kontakt-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 6rem; } }
 
 .formular { display: grid; gap: 1.2rem; }
 .formular label { display: grid; gap: .45rem; font-weight: 500; }
 .formular input, .formular textarea {
-  inline-size: 100%; min-height: 52px; padding: .8rem 1rem; font: 400 1rem/1.4 var(--schrift-text);
-  color: var(--farbe-text); background: var(--farbe-grund); border: 1px solid var(--farbe-leise); border-radius: var(--radius-klein);
+  inline-size: 100%; min-height: 54px; padding: .8rem 1rem; font: 400 1.0625rem/1.4 var(--schrift-text);
+  color: var(--farbe-text); background: var(--farbe-grund); border: 1px solid color-mix(in srgb, var(--farbe-leise) 70%, transparent); border-radius: var(--radius-klein);
   transition: border-color var(--tempo-kurz) var(--kurve-standard);
 }
 .formular textarea { min-height: 9rem; resize: vertical; }
 .formular input:focus-visible, .formular textarea:focus-visible { outline-offset: 0; border-color: var(--farbe-akzent); }
 @media (hover: hover) and (pointer: fine) { .formular input:hover, .formular textarea:hover { border-color: var(--farbe-text); } }
-/* Fehlerzustand erst nach der ersten Eingabe (:user-invalid), mit Text statt nur Farbe */
 .formular label:has(:user-invalid) input, .formular label:has(:user-invalid) textarea { border-color: var(--farbe-text); border-width: 2px; }
-html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfen"; font-weight: 450; font-size: .9375rem; }
+html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfen"; font-weight: 400; font-size: .9375rem; }
 .formular label:has([aria-invalid]) :is(input, textarea) { border-color: var(--farbe-fehler); border-width: 2px; }
 .feld-fehler { font-weight: 500; font-size: .9375rem; color: var(--farbe-fehler); }
 .feld-fehler:empty { display: none; }
@@ -294,17 +464,41 @@ html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfe
 .hinweis { font-size: 1rem; color: var(--farbe-leise); }
 @media (min-width: 30rem) { .formular .knopf { inline-size: auto; } }
 
-/* ---------- Fuß ---------- */
-.fuss { padding-block: clamp(3.5rem, 2rem + 4vw, 6rem) 8rem; border-top: 1px dashed var(--farbe-akzent); } /* Naht statt Haarlinie (Klarwerk-Erkenntnis) */
-.fuss-raster { display: grid; gap: 2.5rem; }
-.fuss-name { font: 400 2.4rem/1 var(--schrift-display); margin-block-end: .75rem; }
-.fuss-name > span[aria-hidden] { color: var(--farbe-akzent); }
+/* =====================================================================
+   FUSS
+   ===================================================================== */
+.fuss { position: relative; isolation: isolate; padding-block: clamp(3.5rem, 2rem + 4vw, 6rem) 2rem; border-top: 1px solid color-mix(in srgb, var(--farbe-akzent) 30%, var(--farbe-linie)); }
+.fuss::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60rem 22rem at 50% 0, color-mix(in srgb, var(--blau-tief) 40%, transparent), transparent 72%); }
+.fuss-band { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.75rem 3rem; padding-block-end: clamp(2.5rem, 2rem + 3vw, 4.5rem); border-bottom: 1px solid var(--farbe-linie); }
+.fuss-frage { max-inline-size: 16ch; font: 500 clamp(2.5rem, 1.4rem + 4.4vw, 5rem)/1 var(--schrift-display); letter-spacing: -.02em; text-wrap: balance; }
+.fuss-frage em { color: var(--farbe-akzent); font-style: italic; }
+.fuss-raster { display: grid; gap: 2.5rem; padding-block: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+.fuss-name { display: flex; align-items: center; gap: .85rem; font: 500 clamp(2.4rem, 2rem + 1.6vw, 3.4rem)/1 var(--schrift-display); margin-block-end: .75rem; }
 .fuss-marke > p:last-child { color: var(--farbe-leise); max-width: 34ch; }
-.fuss-titel { font: 500 .78rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise); margin-block-end: .5rem; }
+.fuss-titel { font: 500 .8125rem/1.4 var(--schrift-text); letter-spacing: .2em; text-transform: uppercase; color: var(--farbe-akzent); margin-block-end: .5rem; }
 .fuss-liste { list-style: none; margin: 0; padding: 0; }
 .fuss-liste a, .fuss-liste span { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); }
-.fuss-hinweis { grid-column: 1 / -1; padding-block-start: 1.5rem; border-top: 1px solid var(--farbe-linie); font-size: .875rem; color: var(--farbe-leise); max-width: none; }
-@media (min-width: 48rem) { .fuss-raster { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); } .fuss { padding-block-end: 3rem; } }
+.fuss-liste a[data-vorstellung-oeffnen] { cursor: pointer; }
+@media (min-width: 48rem) { .fuss-raster { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); } }
+.fuss-unten { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 2rem; padding-block-start: 1.25rem; border-top: 1px solid var(--farbe-linie); font-size: .9375rem; color: var(--farbe-leise); }
+.fuss-rechts { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; }
+.fuss-rechts a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); }
+
+/* ---------- Feste Kontaktleiste auf dem Handy (Startseite); blendet aus, wenn der Kontakt im Bild ist ---------- */
+.handy-leiste { display: none; }
+@media (max-width: 47.99rem) {
+  .handy-leiste {
+    position: fixed; inset: auto 0 0; z-index: 15; display: flex; gap: .6rem;
+    padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom, 0px));
+    background: color-mix(in srgb, var(--farbe-grund) 92%, transparent); border-top: 1px solid var(--farbe-linie);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: transform var(--tempo-mittel) var(--kurve-standard);
+  }
+  .handy-leiste .knopf { flex: 1 1 auto; min-height: 48px; padding-block: .6rem; }
+  .handy-leiste .knopf.zweit { flex: 0 0 auto; }
+  .handy-leiste--weg { transform: translateY(110%); }
+  .seite-start .fuss { padding-block-end: 6.5rem; }
+}
 
 /* ---------- Unterseiten ---------- */
 .einfach { display: grid; gap: 1.5rem; padding-block: var(--abstand-abschnitt); }
@@ -312,780 +506,27 @@ html:not(.js) .formular label:has(:user-invalid)::after { content: "Bitte prüfe
 .einfach h1 { font-size: clamp(2.6rem, 1.5rem + 4vw, 4.8rem); }
 .einfach ul { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: .4rem; }
 .platzhalter { display: grid; gap: 1rem; padding: 1.5rem; border: 1px dashed var(--farbe-leise); border-radius: var(--radius-klein); max-width: 70ch; }
-
-
-@media (max-width: 47.99rem) { .nav .knopf { margin-inline-start: 0; } }
-/* Menü-Schleier aus der Grundfarbe (FEHLER A-037: sonst grau im dunklen Schema) */
-@media (max-width: 47.99rem) {
-  .blatt-schleier { background: color-mix(in srgb, var(--farbe-text) 36%, transparent); }
-  /* Pillen-Radius (999px) würde das Blatt zum Kreis machen */
-  .js .kopf .blatt { border-radius: calc(var(--radius-klein) * 3) calc(var(--radius-klein) * 3) 0 0; }
-}
-
-/* =====================================================================
-   A-047 Überarbeitung: Bühne der Arbeiten, Ablauf-Linie. Hero „Lichtkegel“ steht weiter unten (A-0xx, 2026-10-05).
-   ===================================================================== */
-html:not(.js) .nur-js { display: none !important; }
-
-/* ---------- Kopf: Reihenfolge ---------- */
-.nav { order: 1; margin-inline-start: auto; }
-.menue-knopf { order: 3; }
-
-/* ---------- Bühne der Arbeiten: Reiter ---------- */
-.buehne-reiter {
-  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(10.5rem, 1fr); gap: 0 .5rem;
-  margin-block-end: clamp(2.5rem, 2rem + 2vw, 4rem); border-bottom: 1px solid var(--farbe-linie);
-  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-}
-.reiter {
-  position: relative; display: grid; gap: .3rem; align-content: start; min-height: 44px; padding: 1rem .25rem 1.2rem;
-  border: 0; background: none; color: var(--farbe-leise); font: inherit; text-align: start; cursor: pointer; scroll-snap-align: start;
-  transition: color var(--tempo-kurz) var(--kurve-standard);
-}
-.reiter::after {
-  content: ""; position: absolute; inset: auto 0 -1px; block-size: 2px; background: var(--farbe-text);
-  transform: scaleX(0); transform-origin: left; transition: transform var(--tempo-mittel) var(--kurve-standard);
-}
-.reiter-nr { display: inline-flex; align-items: center; gap: .5rem; font-size: .8125rem; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
-.reiter-nr::before { content: ""; inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--farbe-linie); transition: background-color var(--tempo-kurz) var(--kurve-standard); }
-.reiter[aria-selected="true"] .reiter-nr::before { background: var(--farbe-akzent); }
-.reiter--hell { --_werk: var(--werk-hell); }
-.reiter--laut { --_werk: var(--werk-laut); }
-.reiter--edel { --_werk: var(--werk-edel); }
-.reiter--glut { --_werk: var(--werk-glut); }
-.reiter--klarwerk { --_werk: var(--werk-klarwerk); }
-.reiter-name { font: 400 clamp(1.5rem, 1.2rem + .9vw, 2rem)/1.05 var(--schrift-display); color: var(--farbe-text); }
-.reiter-branche { font-size: .9375rem; }
-.reiter[aria-selected="true"] { color: var(--farbe-text); }
-.reiter[aria-selected="true"]::after { transform: scaleX(1); }
-@media (hover: hover) and (pointer: fine) { .reiter:hover { color: var(--farbe-text); } }
-.buehne--aktiv .werk[hidden] { display: none !important; }
-@media (prefers-reduced-motion: no-preference) {
-  .werk--rein .werk-bild { animation: werk-bild-auf .7s var(--kurve-sanft) backwards; }
-  .werk--rein .werk-schild > * { animation: werk-text-auf .6s var(--kurve-standard) backwards; }
-  .werk--rein .werk-schild > :nth-child(2) { animation-delay: .04s; }
-  .werk--rein .werk-schild > :nth-child(3) { animation-delay: .08s; }
-  .werk--rein .werk-schild > :nth-child(n+4) { animation-delay: .12s; }
-}
-@keyframes werk-bild-auf { from { opacity: 0; transform: translateY(1.25rem); } }
-@keyframes werk-text-auf { from { opacity: 0; transform: translateY(.6rem); } }
-.werk-link { display: grid; gap: .6rem; justify-items: start; margin-block-start: .5rem; }
-.werk-link--offen { font-size: .9375rem; color: var(--farbe-leise); }
-
-
-/* ---------- Ablauf: Linie zeichnet sich beim Hineinscrollen (nur mit Scroll-Timeline, sonst steht sie) ---------- */
-@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .schritte { position: relative; }
-    .schritte::before {
-      content: ""; position: absolute; inset: 0 0 auto; block-size: 1px; background: var(--farbe-text); transform-origin: left;
-      animation: linie-zeichnen linear both; animation-timeline: view(); animation-range: entry 30% cover 50%;
-    }
-  }
-}
-@keyframes linie-zeichnen { from { transform: scaleX(0); } }
+.wegweiser { display: grid; gap: 1rem; padding-block-start: 2rem; border-top: 1px solid color-mix(in srgb, var(--farbe-akzent) 35%, var(--farbe-linie)); }
+.wegweiser-titel { font: 500 clamp(1.6rem, 1.3rem + 1vw, 2.1rem)/1.1 var(--schrift-display); }
+.wegweiser-titel em { font-style: italic; color: var(--farbe-akzent); }
+.wegweiser ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.wegweiser a { display: flex; align-items: center; gap: .9rem; min-height: 44px; padding: .8rem 1rem; color: var(--farbe-text); text-decoration: none; background: var(--farbe-flaeche); border-radius: var(--radius-karte); box-shadow: var(--schatten-karte); transition: box-shadow var(--tempo-kurz) var(--kurve-standard); }
+.wegweiser-zeichen { display: grid; place-items: center; flex: none; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background: var(--zeichen-grund); color: var(--zeichen-strich); }
+.wegweiser-zeichen .ic { inline-size: 1.3rem; block-size: 1.3rem; }
+.wegweiser-text { display: grid; gap: .1rem; min-width: 0; }
+.wegweiser-text span { color: var(--farbe-leise); font-size: .9375rem; }
+.wegweiser a:hover, .wegweiser a:focus-visible { box-shadow: var(--schatten-hoch); }
 
 /* Prüfmodus: seite.html#pruefen zeigt alle unbestätigten Angaben */
 .pruefmodus [data-pruefen] { outline: 2px dashed currentColor; outline-offset: 3px; }
 .pruefmodus [data-pruefen]::before {
   content: "prüfen: " attr(data-pruefen); display: block; position: static; transform: none; margin-block-end: .25rem;
-  font: 600 .8rem/1.3 var(--schrift-text); letter-spacing: 0; text-transform: none; font-style: normal; color: var(--farbe-text);
+  font: 500 .8rem/1.3 var(--schrift-text); letter-spacing: 0; text-transform: none; font-style: normal; color: var(--farbe-text);
   background: var(--farbe-flaeche); border: 1px dashed currentColor; padding: .2rem .4rem;
 }
 
 /* „Bewegung reduzieren“: alles statisch, auch per Skript ausgelöste Übergänge */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; scroll-behavior: auto !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; }
 }
-
-/* ---------- Überarbeitung 2026-09-30: wenig Text, Betreuung nach Wahl ---------- */
-.werk--hell { --_werk: var(--werk-hell); } .werk--laut { --_werk: var(--werk-laut); } .werk--edel { --_werk: var(--werk-edel); } .werk--glut { --_werk: var(--werk-glut); } .werk--klarwerk { --_werk: var(--werk-klarwerk); }
-
-.bet-paar { display: grid; gap: 1.25rem; }
-@media (min-width: 52rem) { .bet-paar { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 2rem; } }
-.bet-karte { display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border: 1px solid var(--farbe-linie); border-radius: calc(var(--radius-klein) * 2); background: var(--farbe-flaeche); }
-.bet-karte h3 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
-.bet-karte--abo { background: var(--farbe-text); color: var(--farbe-grund); --_leise: color-mix(in srgb, var(--farbe-grund) 75%, var(--farbe-text)); }
-.bet-karte--abo .bet-hinweis { color: var(--_leise); }
-.bet-wahl { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
-.bet-wahl li { padding: .45rem .95rem; border: 1px solid color-mix(in srgb, var(--farbe-grund) 40%, transparent); border-radius: var(--radius-gross); font-size: .9375rem; }
-.bet-hinweis { font-size: .9375rem; }
-.bet-karte .preis { margin-block-start: auto; padding-block-start: .5rem; }
-.kopfzeile + .bet-paar { margin-block-start: 0; }
-
-/* ---------- Hero „Lichtkegel“ (Variante C): dunkles Atelier, Arbeiten als Mosaik, ein Lichtkegel macht sie sichtbar ----------
-   Ohne JS und bei „Bewegung reduzieren“ steht der Kegel still an --licht-x/--licht-y (Vorgabe unten). Mit JS folgt er dem
-   Zeiger (Maus) oder wandert von selbst (Touch, Zeiger ruht). Die Maske liegt auf einem ungedrehten Rahmen, damit die
-   Koordinaten des Zeigers stimmen. Die Überschrift ist der LCP: reiner Text, die Bilder sind Dekor (alt="", aria-hidden). */
-.held {
-  --licht-x: 60%; --licht-y: 45%; --_licht: clamp(15rem, 11rem + 16vw, 24rem);
-  position: relative; isolation: isolate; overflow: hidden; display: grid; align-content: center;
-  min-block-size: max(34rem, calc(100svh - 4.25rem));
-  padding-block: clamp(3.5rem, 2rem + 6vw, 6rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
-  background: var(--farbe-grund);
-}
-@media (hover: hover) and (pointer: fine) { .held { cursor: crosshair; } }
-.held-mosaik { /* black in der Maske = nur Deckkraft, keine Farbe */
-  position: absolute; inset: 0; z-index: -2;
-  -webkit-mask-image: radial-gradient(var(--_licht) var(--_licht) at var(--licht-x) var(--licht-y), black 0 30%, color-mix(in srgb, black 9%, transparent) 70%);
-  mask-image: radial-gradient(var(--_licht) var(--_licht) at var(--licht-x) var(--licht-y), black 0 30%, color-mix(in srgb, black 9%, transparent) 70%);
-}
-.held-raster {
-  position: absolute; inset: -4rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.75rem, .4rem + 1.4vw, 1.4rem);
-  transform: rotate(-6deg) scale(1.15); transform-origin: 50% 40%;
-}
-.held-raster > div { min-width: 0; }
-.held-raster > div:nth-child(2) { margin-block-start: -9rem; }
-.held-raster img { inline-size: 100%; block-size: auto; border-radius: .5rem; }
-.held::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(calc(var(--_licht) * .9) calc(var(--_licht) * .9) at var(--licht-x) var(--licht-y), color-mix(in srgb, var(--farbe-licht) 9%, transparent), transparent 70%),
-    linear-gradient(0deg, color-mix(in srgb, var(--farbe-grund) 92%, transparent) 0, color-mix(in srgb, var(--farbe-grund) 70%, transparent) 30%, transparent 58%),
-    color-mix(in srgb, var(--farbe-grund) var(--held-schleier), transparent);
-}
-.held-in { display: grid; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
-.held .ueberzeile { color: var(--farbe-text); }
-.held .ueberzeile::before { background: var(--farbe-akzent); }
-.held h1 {
-  max-inline-size: none; font-size: clamp(4.2rem, 1rem + 10vw, 11.5rem); line-height: .88; letter-spacing: -.035em;
-  text-shadow: 0 0 .35em color-mix(in srgb, var(--farbe-grund) 85%, transparent), 0 .04em .5em color-mix(in srgb, var(--farbe-grund) 70%, transparent);
-}
-.held h1 span { display: block; }
-.held h1 span:nth-child(2) { padding-inline-start: 12vw; font-style: italic; color: var(--farbe-akzent); }
-.held h1 span:nth-child(3) { padding-inline-start: 4vw; }
-.held-fuss { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem 3rem; margin-block-start: clamp(.75rem, .5rem + 1.5vw, 2rem); }
-.held-satz { max-inline-size: 30rem; font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); line-height: 1.55; color: var(--farbe-text); text-shadow: 0 1px 12px var(--farbe-grund); }
-.held-hinweis { display: none; font-size: .8125rem; letter-spacing: .18em; text-transform: uppercase; color: var(--farbe-leise); }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .held-hinweis { display: block; } }
-@media (max-width: 29.99rem) { .held-aktionen { inline-size: 100%; } .held-aktionen .knopf { flex: 1 1 100%; } }
-@media (prefers-reduced-motion: no-preference) {
-  .held-in > * { animation: hero-auf .8s var(--kurve-standard) backwards; }
-  .held-in > :nth-child(2) { animation-delay: .08s; }
-  .held-in > :nth-child(3) { animation-delay: .16s; }
-  .held-in > :nth-child(4) { animation-delay: .24s; }
-}
-@keyframes hero-auf { from { opacity: 0; transform: translateY(1.2rem); } }
-
-/* ---------- Feinschliff nach Prüfung 2026-09-30 ---------- */
-/* Reiterleisten auf dem Handy: Kante blendet aus, damit man sieht, dass es weitergeht */
-@media (max-width: 63.99rem) {
-  .buehne-reiter { mask-image: linear-gradient(90deg, black 0, black calc(100% - 2.5rem), transparent); }
-}
-.bet-liste { display: grid; gap: .6rem; margin: .25rem 0 0; padding: 0; list-style: none; }
-.bet-liste li { display: flex; gap: .7rem; align-items: baseline; }
-.bet-liste li::before { content: ""; flex: none; inline-size: .8rem; block-size: .45rem; border: solid var(--farbe-akzent); border-width: 0 0 2px 2px; transform: translateY(-.2rem) rotate(-45deg); }
-
-/* =====================================================================
-   Runde 2 (2026-10-01): Schrift, Boxen, Knöpfe, Menü, Fuß, Hintergründe
-   Ziel: nichts sieht „weiß und unbearbeitet“ aus – jede Fläche hat Tiefe, Licht in Waldgrün und eine ruhige Kante.
-   ===================================================================== */
-
-/* ---------- Schrift ---------- */
-body { font-size: 1.0625rem; line-height: 1.62; font-feature-settings: "kern", "liga", "calt"; }
-@media (min-width: 48rem) { body { font-size: 1.125rem; } }
-h2 { font-size: clamp(2.6rem, 1.4rem + 3.9vw, 5rem); line-height: .98; letter-spacing: -.022em; }
-h3 { letter-spacing: -.01em; }
-.ueberzeile { font-size: .8125rem; letter-spacing: .18em; }
-.ueberzeile::before { inline-size: 2.4rem; background: linear-gradient(90deg, var(--farbe-akzent), currentColor); }
-.kopfzeile > p:not(.ueberzeile) { font-size: clamp(1.125rem, 1.05rem + .35vw, 1.3125rem); line-height: 1.55; max-inline-size: 36ch; }
-p { max-width: 64ch; }
-.einfach p, .einfach li { font-size: 1.125rem; }
-
-/* ---------- Abschnitte: Licht statt Fläche, Bänder als Materialwechsel ---------- */
-.abschnitt, .abschnitt + .abschnitt { padding-block: calc(var(--abstand-abschnitt) / 2); position: relative; isolation: isolate; }
-.abschnitt::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(46rem 24rem at var(--_gx, 88%) 0, color-mix(in srgb, var(--blau-tief) 24%, transparent), transparent 72%);
-}
-.arbeiten { --_gx: 12%; }
-.fragen {
-  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--farbe-flaeche) 62%, transparent) 14%, color-mix(in srgb, var(--farbe-flaeche) 62%, transparent) 86%, transparent);
-}
-.fragen { --_gx: 8%; }
-.kontakt { --_gx: 92%; }
-
-/* ---------- Boxen: eine Sprache – grünlich getönte Fläche, Haarkante, Licht von oben ---------- */
-.bet-karte, .kontakt-form, .frage, .ablauf .schritt, .werk-werte {
-  --_kr: calc(var(--radius-klein) * 3);
-  background: linear-gradient(160deg, color-mix(in srgb, var(--blau-tief) 16%, var(--farbe-flaeche-hoch)) 0, var(--farbe-flaeche) 70%);
-  border: 0; border-radius: var(--_kr);
-  box-shadow: inset 0 1px 0 var(--farbe-glanz), var(--schatten-karte);
-}
-.kontakt-form { padding: clamp(1.5rem, 1rem + 2.4vw, 3rem); }
-.formular input, .formular textarea {
-  background: color-mix(in srgb, var(--farbe-grund) 78%, transparent); border-color: color-mix(in srgb, var(--farbe-akzent) 30%, var(--farbe-linie)); border-radius: calc(var(--radius-klein) * 2);
-}
-.formular input:focus-visible, .formular textarea:focus-visible { box-shadow: 0 0 0 4px color-mix(in srgb, var(--farbe-akzent) 24%, transparent); }
-.wege { border-top-color: color-mix(in srgb, var(--farbe-akzent) 25%, var(--farbe-linie)); }
-.wege li { border-bottom-color: color-mix(in srgb, var(--farbe-akzent) 18%, var(--farbe-linie)); }
-
-/* Betreuung: die Wahl-Karte leuchtet grün statt hell zu kippen */
-.bet-karte--abo {
-  background: linear-gradient(150deg, color-mix(in srgb, var(--blau-tief) 40%, var(--farbe-flaeche-hoch)) 0, color-mix(in srgb, var(--blau-tief) 12%, var(--farbe-flaeche)) 78%);
-  color: var(--farbe-text);
-  box-shadow: inset 0 1px 0 var(--farbe-glanz), var(--schatten-hoch);
-}
-.bet-karte--abo .bet-hinweis { color: var(--farbe-leise); }
-.bet-wahl li { border-color: color-mix(in srgb, var(--farbe-text) 28%, transparent); background: color-mix(in srgb, var(--farbe-grund) 35%, transparent); }
-.bet-karte > p:not(.preis) { max-inline-size: 38ch; }
-.bet-karte .preis { align-self: stretch; padding-block-start: 1.1rem; margin-block-start: auto; border-top: 1px solid color-mix(in srgb, var(--farbe-text) 16%, transparent); }
-
-/* ---------- Arbeiten: Werte als Zahlenband, Punkte als Liste ---------- */
-.werk-art { color: var(--farbe-leise); }
-.werk-punkte { display: grid; gap: .55rem; margin: .25rem 0 0; padding: 0; list-style: none; color: var(--farbe-leise); font-size: 1rem; line-height: 1.45; }
-.werk-punkte li { display: flex; gap: .7rem; align-items: baseline; }
-.werk-punkte li::before { content: ""; flex: none; inline-size: .7rem; block-size: .4rem; border: solid var(--farbe-akzent); border-width: 0 0 2px 2px; transform: translateY(-.15rem) rotate(-45deg); }
-.werk-werte-titel { margin-block-start: 1rem; font-size: .8125rem; letter-spacing: .14em; text-transform: uppercase; }
-.werk-werte { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0; padding: .9rem .25rem; border-radius: calc(var(--radius-klein) * 2); }
-.werk-werte div { padding-inline: .6rem; text-align: center; border-inline-start: 1px solid color-mix(in srgb, var(--farbe-akzent) 22%, var(--farbe-linie)); }
-.werk-werte div:first-child { border-inline-start: 0; }
-.werk-werte dt { font-size: .75rem; letter-spacing: .02em; white-space: normal; line-height: 1.25; order: 2; }
-.werk-werte div { display: flex; flex-direction: column; gap: .3rem; }
-.werk-werte dd { font-size: clamp(1.7rem, 1.4rem + 1vw, 2.2rem); color: var(--farbe-akzent); margin: 0; }
-.werk-link { margin-block-start: 1rem; }
-.werk-satz { font-size: clamp(1.125rem, 1.05rem + .4vw, 1.3125rem); }
-.reiter-nr::before { inline-size: .6rem; block-size: .6rem; }
-
-/* ---------- Ablauf ---------- */
-.ablauf .schritte { display: grid; gap: 1.1rem; margin: 0; padding: 0; list-style: none; }
-@media (min-width: 40rem) { .ablauf .schritte { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 64rem) { .ablauf .schritte { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; } }
-.ablauf .schritt, .ablauf .schritt:last-child {
-  position: relative; display: grid; gap: .7rem; align-content: start; padding: 1.5rem 1.4rem 1.7rem; border-left: 1px solid color-mix(in srgb, var(--farbe-akzent) 24%, var(--farbe-linie)); border-top: 1px solid color-mix(in srgb, var(--farbe-akzent) 24%, var(--farbe-linie));
-}
-.schritt-zahl { font: 400 3.4rem/1 var(--schrift-display); color: var(--farbe-akzent); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.ablauf .schritt h3 { font-size: clamp(1.7rem, 1.45rem + .8vw, 2.1rem); }
-.ablauf .schritt p { color: var(--farbe-leise); font-size: 1rem; line-height: 1.55; }
-@media (min-width: 64rem) { .ablauf .schritt:not(:last-child)::after { content: ""; position: absolute; inset: 2.2rem -1.25rem auto auto; inline-size: 1.25rem; block-size: 1px; background: color-mix(in srgb, var(--farbe-akzent) 55%, transparent); } }
-
-/* ---------- Fragen ---------- */
-.fragen-raster { display: grid; gap: 2.5rem 5rem; }
-@media (min-width: 64rem) { .fragen-raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } .fragen-kopf { position: sticky; top: 7rem; } }
-.fragen-kopf { display: grid; gap: 1.25rem; align-content: start; }
-.fragen-liste { display: grid; gap: .75rem; }
-.frage { padding: 0; overflow: clip; transition: border-color var(--tempo-kurz) var(--kurve-standard); }
-.frage[open] { border-color: var(--farbe-akzent); }
-.frage summary {
-  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; min-height: 4rem; padding: 1.05rem 1.35rem;
-  font: 500 clamp(1.0625rem, 1rem + .3vw, 1.1875rem)/1.35 var(--schrift-text); cursor: pointer; list-style: none;
-}
-.frage summary::-webkit-details-marker { display: none; }
-.frage summary:focus-visible { outline-offset: -3px; border-radius: var(--_kr); }
-.frage-zeichen { position: relative; flex: none; inline-size: 1.9rem; block-size: 1.9rem; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent); transition: background-color var(--tempo-kurz) var(--kurve-standard), transform var(--tempo-mittel) var(--kurve-standard); }
-.frage-zeichen::before, .frage-zeichen::after { content: ""; position: absolute; inset: 50% auto auto 50%; inline-size: .75rem; block-size: 1.5px; margin: -.75px 0 0 -.375rem; background: var(--farbe-akzent); transition: transform var(--tempo-mittel) var(--kurve-standard), background-color var(--tempo-kurz) var(--kurve-standard); }
-.frage-zeichen::after { transform: rotate(90deg); }
-.frage[open] .frage-zeichen { background: var(--farbe-akzent); transform: rotate(180deg); }
-.frage[open] .frage-zeichen::before, .frage[open] .frage-zeichen::after { background: var(--farbe-auf-akzent); }
-.frage[open] .frage-zeichen::after { transform: rotate(0); }
-.frage p { padding: 0 1.35rem 1.4rem; color: var(--farbe-leise); font-size: 1.0625rem; line-height: 1.6; max-width: 58ch; }
-@media (prefers-reduced-motion: no-preference) { .frage[open] p { animation: frage-auf .5s var(--kurve-standard); } }
-@keyframes frage-auf { from { opacity: 0; transform: translateY(-.4rem); } }
-
-/* ---------- Knöpfe: Hauptknopf warmes Weiß (Schrift dunkel), zweiter Knopf transparent mit Rand; Pfeil im Kreis, Glanz beim Darüberfahren ---------- */
-.knopf {
-  position: relative; overflow: hidden; isolation: isolate; gap: .75rem; min-height: 48px; padding: .85rem 1.65rem; font-weight: 550; letter-spacing: .01em;
-  background: var(--farbe-text); border-color: var(--farbe-text); color: var(--farbe-grund);
-  box-shadow: 0 .9rem 2rem -1.2rem var(--farbe-akzent);
-}
-.knopf::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 36%, color-mix(in srgb, var(--farbe-akzent) 55%, transparent) 50%, transparent 64%);
-  transform: translateX(-130%); transition: transform .8s var(--kurve-standard);
-}
-.knopf .pfeil {
-  display: inline-grid; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; margin-inline: .1rem -.7rem; border-radius: 50%;
-  background: color-mix(in srgb, currentColor 12%, transparent); font-size: 1rem; line-height: 1;
-}
-.knopf.zweit {
-  background: transparent; border-color: color-mix(in srgb, var(--farbe-text) 38%, transparent); color: var(--farbe-text); box-shadow: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  .knopf:hover::before { transform: translateX(130%); }
-  .knopf:hover { box-shadow: 0 1.1rem 2.4rem -1rem var(--farbe-akzent); }
-  .knopf:hover .pfeil { transform: translateX(3px); background: color-mix(in srgb, currentColor 20%, transparent); }
-  .knopf.zweit:hover { background: color-mix(in srgb, var(--farbe-text) 10%, transparent); color: var(--farbe-text); border-color: var(--farbe-text); box-shadow: none; }
-}
-.knopf:disabled::before { display: none; }
-.nav .knopf { padding-block: .4rem; padding-inline: 1.1rem .5rem; }
-.nav .knopf .pfeil { inline-size: 1.5rem; block-size: 1.5rem; margin-inline: .1rem 0; }
-
-/* ---------- Menü am Computer: eine Marke gleitet zum Eintrag, der gerade gelesen oder berührt wird ---------- */
-.nav-marke { display: none; }
-@media (min-width: 48rem) {
-  .nav { position: relative; }
-  .nav a:not(.knopf) { z-index: 1; transition: color var(--tempo-kurz) var(--kurve-standard); }
-  .nav-marke {
-    display: block; position: absolute; inset-block-start: 50%; inset-inline-start: 0; z-index: 0; block-size: 2.5rem; margin-block-start: -1.25rem;
-    inline-size: var(--_b, 0px); border-radius: var(--radius-gross); pointer-events: none; opacity: 0; transform: translateX(var(--_x, 0px));
-    background: color-mix(in srgb, var(--farbe-akzent) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 34%, transparent);
-    transition: transform .5s var(--kurve-standard), inline-size .5s var(--kurve-standard), opacity .3s var(--kurve-standard);
-  }
-  .nav-marke--an { opacity: 1; }
-  .nav a[aria-current="location"]:not(.knopf) { color: var(--farbe-akzent); }
-}
-
-/* ---------- Fuß: großer Abschluss, dann ruhige Spalten ---------- */
-.fuss { position: relative; isolation: isolate; border-top: 0; padding-block: clamp(3rem, 2rem + 4vw, 6rem) 2rem; }
-.fuss::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60rem 22rem at 50% 0, color-mix(in srgb, var(--blau-tief) 36%, transparent), transparent 72%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--farbe-flaeche) 70%, transparent)); }
-.fuss-band { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.75rem 3rem; padding-block-end: clamp(2.5rem, 2rem + 3vw, 4.5rem); border-bottom: 1px solid color-mix(in srgb, var(--farbe-akzent) 26%, var(--farbe-linie)); }
-.fuss-frage { max-inline-size: 16ch; font: 400 clamp(2.5rem, 1.4rem + 4.4vw, 5rem)/.98 var(--schrift-display); letter-spacing: -.025em; text-wrap: balance; }
-.fuss-frage em { color: var(--farbe-akzent); font-style: italic; }
-.fuss-band .knopf { min-height: 60px; padding-inline: 2rem .75rem; font-size: 1.0625rem; }
-.fuss-raster { padding-block: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
-.fuss-name { font-size: clamp(3rem, 2.4rem + 2vw, 4.2rem); }
-.fuss-unten { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 2rem; padding-block-start: 1.25rem; border-top: 1px solid var(--farbe-linie); font-size: .9375rem; color: var(--farbe-leise); }
-.fuss-unten p { margin: 0; }
-.fuss-rechts { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; }
-.fuss-rechts a { display: inline-flex; align-items: center; min-height: 44px; color: var(--farbe-text); }
-
-/* ---------- Wegweiser (Unterseiten): weißes Zeichen im Rand, Nahtlinie; Erkenntnis aus der Klarwerk-Arbeit ---------- */
-.wegweiser { display: grid; gap: 1rem; padding-block-start: 2rem; border-top: 1px dashed var(--farbe-akzent); }
-.wegweiser-titel { font: 400 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.1 var(--schrift-display); }
-.wegweiser ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
-.wegweiser a { display: flex; align-items: center; gap: .9rem; min-height: 44px; padding: .8rem 1rem; color: var(--farbe-text); text-decoration: none; background: var(--farbe-flaeche); border: 1px dashed var(--farbe-leise); border-radius: calc(var(--radius-klein) * 2); transition: border-color var(--tempo-kurz) var(--kurve-standard); }
-.wegweiser-zeichen { display: grid; place-items: center; flex: none; inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background: var(--zeichen-grund); color: var(--zeichen-strich); border: 1.5px solid var(--farbe-akzent); }
-.wegweiser-zeichen .ic { inline-size: 1.3rem; block-size: 1.3rem; }
-.wegweiser-text { display: grid; gap: .1rem; min-width: 0; }
-.wegweiser-text span { color: var(--farbe-leise); font-size: .9375rem; }
-.wegweiser a:hover, .wegweiser a:focus-visible { border-color: var(--farbe-akzent); }
-
-
-/* =====================================================================
-   Runde 3 (2026-10-05): Farbwelt „Mitternacht“, Leistungen als Bento mit kleinen Schaubildern,
-   Ablauf mit Linienzeichnungen, Entscheidungssatz bei den Arbeiten, Kartenhandwerk (Haarring + tiefer, weicher Schatten).
-   ===================================================================== */
-
-/* ---------- Kartenhandwerk: Fragen, Ablauf, Formular ohne harte Kanten ---------- */
-.ablauf .schritt, .ablauf .schritt:last-child { border: 0; }
-.frage { transition: box-shadow var(--tempo-mittel) var(--kurve-weich); }
-.frage[open] { box-shadow: inset 0 1px 0 var(--farbe-glanz), 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 45%, transparent), var(--schatten-karte); }
-.kontakt-form { --_kr: var(--radius-karte); }
-.formular input, .formular textarea { background: color-mix(in srgb, var(--farbe-grund) 70%, transparent); }
-.knopf { transition: transform var(--tempo-mittel) var(--kurve-weich), background-color var(--tempo-kurz) var(--kurve-standard), color var(--tempo-kurz) var(--kurve-standard); }
-
-/* ---------- Leistungen: Bento ----------
-   Handy: eine Spalte. Ab 40rem: zwei Spalten. Ab 64rem: sechs Spalten in drei verschränkten Reihen
-   (groß | klein, klein | groß, groß | klein) – keine gleichförmige Kartenreihe. */
-.bento { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(.9rem, .6rem + .8vw, 1.35rem); grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 40rem) {
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "neu neu" "alt seo" "tempo tempo" "geo sicher"; }
-  .leist--neu { grid-area: neu; } .leist--alt { grid-area: alt; } .leist--seo { grid-area: seo; }
-  .leist--geo { grid-area: geo; } .leist--tempo { grid-area: tempo; } .leist--sicher { grid-area: sicher; }
-}
-@media (min-width: 64rem) {
-  .bento {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-areas: "neu neu neu neu alt alt" "seo seo tempo tempo tempo tempo" "sicher sicher sicher sicher geo geo";
-  }
-}
-.leist {
-  --_kr: var(--radius-karte);
-  position: relative; isolation: isolate; container-type: inline-size; min-width: 0;
-  display: flex; flex-direction: column; gap: clamp(1.25rem, 1rem + 1vw, 1.75rem);
-  padding: clamp(1.1rem, .8rem + 1vw, 1.6rem);
-  background: linear-gradient(165deg, color-mix(in srgb, var(--blau-tief) 13%, var(--farbe-flaeche-hoch)) 0, var(--farbe-flaeche) 78%);
-  border-radius: var(--_kr); box-shadow: inset 0 1px 0 var(--farbe-glanz), var(--schatten-karte);
-  transition: transform .6s var(--kurve-weich);
-}
-.leist--neu { background: radial-gradient(70% 60% at 100% 0, color-mix(in srgb, var(--blau-tief) 26%, transparent), transparent 70%), linear-gradient(165deg, color-mix(in srgb, var(--blau-tief) 13%, var(--farbe-flaeche-hoch)) 0, var(--farbe-flaeche) 78%); }
-.leist-text { display: grid; gap: .55rem; margin-block-start: auto; min-width: 0; }
-.leist-text h3 { font-size: clamp(1.65rem, 1.4rem + .8vw, 2.1rem); line-height: 1.04; }
-.leist-text p { color: var(--farbe-leise); font-size: 1.0625rem; line-height: 1.55; max-inline-size: 46ch; }
-.leist--neu .leist-text h3 { font-size: clamp(2.1rem, 1.5rem + 1.9vw, 3.2rem); }
-@media (min-width: 40rem) {
-  .leist--tempo { flex-direction: row; align-items: stretch; }
-  .leist--tempo .leist-text { order: -1; flex: 0 0 38%; }
-  .leist--tempo .mini { flex: 1; }
-}
-@media (min-width: 64rem) {
-  .leist--sicher { flex-direction: row; align-items: stretch; }
-  .leist--sicher .leist-text { flex: 0 0 38%; }
-  .leist--sicher .mini { flex: 1; }
-  .leist--neu .leist-text { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: end; gap: 2rem; }
-}
-/* Licht folgt dem Zeiger über die Karte – das Leitmotiv des Heros im Kleinen (Position per Skript, sonst oben mittig) */
-@media (hover: hover) and (pointer: fine) {
-  .leist::after {
-    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0;
-    background: radial-gradient(26rem circle at var(--_mx, 50%) var(--_my, 0%), color-mix(in srgb, var(--farbe-licht) 9%, transparent), transparent 62%);
-    transition: opacity .7s var(--kurve-weich);
-  }
-  .leist:hover::after { opacity: 1; }
-  .leist:hover { transform: translateY(-3px); }
-}
-
-/* ---------- Schaubilder: gemeinsame Teile ---------- */
-.mini { position: relative; display: block; min-width: 0; font: 400 .8125rem/1.4 var(--schrift-text); color: var(--farbe-leise); -webkit-user-select: none; user-select: none; }
-.mini--alt, .mini--seo, .mini--geo, .mini--tempo, .mini--sicher {
-  padding: clamp(.75rem, .6rem + .6vw, 1.1rem); border-radius: calc(var(--radius-karte) - .45rem);
-  background: color-mix(in srgb, var(--farbe-grund) 62%, transparent); box-shadow: inset 0 0 0 .5px var(--farbe-ring);
-}
-.haken {
-  display: inline-block; flex: none; inline-size: .62rem; block-size: .34rem; margin-inline: .1rem .15rem;
-  border: solid var(--farbe-gut); border-width: 0 0 1.75px 1.75px; transform: translateY(-.12rem) rotate(-45deg);
-}
-/* kein vector-effect: Chrome bricht damit die Strichlänge (pathLength) */
-.strich { fill: none; stroke: var(--farbe-akzent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.mn-bild .strich { stroke-width: 1; }
-
-/* Breite Karten: die Fläche des Schaubilds ist eine Arbeitsfläche mit feinem Punktraster */
-.mini--tempo, .mini--sicher { background: radial-gradient(circle, color-mix(in srgb, var(--farbe-akzent) 16%, transparent) 0 1px, transparent 1.5px) 0 0 / 14px 14px, color-mix(in srgb, var(--farbe-grund) 62%, transparent); }
-/* Breite Karten auf dem Computer: Inhalt des Schaubilds mittig, damit oben keine leere Fläche bleibt */
-@media (min-width: 40rem) { .leist--tempo .mini, .leist--sicher .mini { display: flex; flex-direction: column; justify-content: center; } }
-
-/* Neue Seite: ein Entwurf baut sich im Raster auf – Spalten, Navigation, Titel, Bild, Knopf mit Maß */
-.mini--neu { flex: 1; display: flex; }
-.mn-fenster {
-  flex: 1; display: flex; flex-direction: column; min-block-size: clamp(14rem, 10rem + 10vw, 19rem); overflow: hidden;
-  border-radius: calc(var(--radius-karte) - .45rem); background: var(--farbe-grund); box-shadow: inset 0 0 0 .5px var(--farbe-ring), var(--schatten-karte);
-}
-.mn-leiste { display: flex; align-items: center; gap: .75rem; padding: .55rem .8rem; border-bottom: 1px solid var(--farbe-linie); }
-.mn-punkte { flex: none; inline-size: 2.2rem; block-size: .5rem; background: radial-gradient(circle, var(--farbe-linie) 0 .24rem, transparent .25rem) 0 0 / .75rem .5rem repeat-x; }
-.mn-adresse { flex: 0 1 15rem; margin-inline: auto; padding: .12rem .9rem; border-radius: var(--radius-gross); background: var(--farbe-flaeche); font-size: .75rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mn-seite { position: relative; flex: 1; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: clamp(.8rem, 3cqi, 1.6rem) clamp(.8rem, 3cqi, 1.75rem); padding: clamp(.8rem, 3cqi, 1.6rem); }
-.mn-raster { position: absolute; inset: 0 clamp(.8rem, 3cqi, 1.6rem); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(.4rem, 2cqi, 1rem); opacity: .5; pointer-events: none; }
-.mn-raster i { background: color-mix(in srgb, var(--farbe-akzent) 6%, transparent); box-shadow: inset .5px 0 0 color-mix(in srgb, var(--farbe-akzent) 16%, transparent), inset -.5px 0 0 color-mix(in srgb, var(--farbe-akzent) 16%, transparent); transform-origin: top; }
-.mn-nav { position: relative; grid-column: 1 / -1; display: flex; align-items: center; gap: .6rem; }
-.mn-nav b { inline-size: 1.5rem; block-size: .6rem; margin-inline-end: auto; border-radius: 2px; background: var(--farbe-text); }
-.mn-nav i { inline-size: clamp(1.2rem, 6cqi, 2.4rem); block-size: .3rem; border-radius: var(--radius-gross); background: var(--farbe-linie); }
-.mn-links { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: clamp(.55rem, 2cqi, 1rem); min-width: 0; }
-.mn-spec { padding: .1rem .5rem; border-radius: .3rem; font: .75rem/1.5 var(--schrift-code); color: var(--farbe-akzent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 45%, transparent); white-space: nowrap; transform-origin: left bottom; }
-.mn-titel { font: 400 clamp(1.35rem, 7.4cqi, 3.4rem)/.95 var(--schrift-display); letter-spacing: -.02em; color: var(--farbe-text); }
-.mn-titel em { color: var(--farbe-akzent); }
-.mn-zeilen { display: grid; gap: .45rem; inline-size: 100%; }
-.mn-zeilen i { block-size: .32rem; border-radius: var(--radius-gross); background: var(--farbe-linie); transform-origin: left; }
-.mn-zeilen i:last-child { inline-size: 68%; }
-.mn-knopf-zeile { display: flex; align-items: center; gap: .55rem; }
-.mn-knopf { padding: .45rem .95rem; border-radius: var(--radius-gross); background: var(--farbe-text); color: var(--farbe-grund); font-size: .75rem; font-weight: 600; white-space: nowrap; }
-.mn-mass { display: flex; align-items: center; gap: .3rem; font: .75rem/1 var(--schrift-code); color: var(--farbe-akzent); white-space: nowrap; }
-.mn-mass::before { content: ""; inline-size: .35rem; block-size: 1.9rem; border: solid currentColor; border-width: 1px 1px 1px 0; }
-.mn-bild { position: relative; min-block-size: 7rem; overflow: hidden; border-radius: .7rem; background: linear-gradient(170deg, color-mix(in srgb, var(--blau-tief) 50%, var(--farbe-flaeche)), var(--farbe-flaeche) 85%); box-shadow: inset 0 0 0 .5px var(--farbe-ring); }
-.mn-bild svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
-@container (max-width: 26rem) {
-  .mn-seite { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 5.5rem; }
-  .mn-mass { display: none; }
-}
-
-/* Alte Seite erneuern: alte Adressen werden weitergeleitet (301) */
-.mini--alt { display: grid; gap: .45rem; font: .75rem/1.4 var(--schrift-code); }
-.ma-kopf { display: grid; grid-template-columns: 12ch minmax(1rem, 1fr) 8ch auto; gap: .5rem; padding-inline: .6rem; white-space: nowrap; font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .08em; text-transform: uppercase; }
-.ma-zeile { display: grid; grid-template-columns: 12ch minmax(1rem, 1fr) 8ch auto; align-items: center; gap: .5rem; min-width: 0; padding: .45rem .6rem; border-radius: .55rem; background: var(--farbe-flaeche); white-space: nowrap; }
-.ma-von { color: var(--farbe-leise); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--farbe-leise) 70%, transparent); }
-.ma-pfeil { position: relative; flex: 1; min-inline-size: 1rem; block-size: 1px; background: var(--farbe-akzent); transform-origin: left; }
-.ma-pfeil::after { content: ""; position: absolute; inset: -3px -1px auto auto; inline-size: 6px; block-size: 6px; border: solid var(--farbe-akzent); border-width: 1px 1px 0 0; transform: rotate(45deg); }
-.ma-nach { color: var(--farbe-text); }
-.ma-code { flex: none; padding: .05rem .45rem; border-radius: var(--radius-gross); background: color-mix(in srgb, var(--farbe-gut) 16%, transparent); color: var(--farbe-gut); font-weight: 600; }
-.ma-fuss { display: flex; align-items: center; gap: .45rem; margin-block-start: .25rem; font: 500 .8125rem/1.4 var(--schrift-text); color: var(--farbe-text); }
-.ma-kopf span:last-child { grid-column: 3 / -1; }
-@container (max-width: 19rem) { .ma-code { display: none; } }
-
-/* Suchmaschinen: eine Suche, ein sauberer Treffer mit Ort und Öffnungszeiten (keine Platzierung gezeigt) */
-.mini--seo { display: grid; gap: .8rem; align-content: start; }
-.ms-suche { display: flex; align-items: center; gap: .55rem; padding: .5rem .85rem; border-radius: var(--radius-gross); background: var(--farbe-flaeche-hoch); box-shadow: inset 0 0 0 .5px var(--farbe-ring); color: var(--farbe-text); white-space: nowrap; overflow: hidden; }
-.ms-lupe { position: relative; flex: none; inline-size: .7rem; block-size: .7rem; border: 1.5px solid var(--farbe-leise); border-radius: 50%; }
-.ms-lupe::after { content: ""; position: absolute; inset: auto -.3rem -.3rem auto; inline-size: .35rem; block-size: 1.5px; background: var(--farbe-leise); transform: rotate(45deg); }
-.ms-anfrage { overflow: hidden; text-overflow: ellipsis; }
-.ms-treffer { display: grid; gap: .2rem; padding-inline: .35rem; }
-.ms-quelle { display: flex; align-items: center; gap: .45rem; font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ms-quelle b { flex: none; inline-size: .95rem; block-size: .95rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--farbe-akzent), var(--blau-tief)); }
-.ms-titel { font-size: 1rem; line-height: 1.3; color: var(--farbe-akzent); }
-.ms-text { line-height: 1.45; }
-.ms-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-block-start: .4rem; }
-.ms-chips i { font-style: normal; font-size: .75rem; padding: .1rem .55rem; border-radius: var(--radius-gross); color: var(--farbe-text); box-shadow: inset 0 0 0 1px var(--farbe-linie); }
-
-/* KI-Suche: strukturierte Daten → eine KI-Antwort, die die Quelle nennt */
-.mini--geo { flex: 1; display: flex; flex-direction: column; gap: .7rem; }
-.mg-code { display: grid; padding: .6rem .75rem; border-radius: .6rem; background: var(--farbe-flaeche); font: .75rem/1.65 var(--schrift-code); white-space: nowrap; overflow: hidden; }
-.mg-code span { overflow: hidden; text-overflow: ellipsis; }
-.mg-code b { font-weight: 400; color: var(--farbe-akzent); }
-.mg-frage { align-self: flex-end; max-inline-size: 86%; margin-block-start: auto; padding: .55rem .85rem; border-radius: 1rem 1rem .3rem 1rem; background: var(--farbe-text); color: var(--farbe-grund); }
-.mg-stapel { display: grid; }
-.mg-stapel > * { grid-area: 1 / 1; }
-.mg-tippt { align-self: start; justify-self: start; display: flex; gap: .3rem; padding: .7rem .8rem; border-radius: 1rem; background: var(--farbe-flaeche-hoch); visibility: hidden; }
-.mg-tippt i { inline-size: .38rem; block-size: .38rem; border-radius: 50%; background: var(--farbe-leise); }
-.mg-antwort { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .5rem .6rem; padding: .7rem .85rem; border-radius: 1rem 1rem 1rem .3rem; background: var(--farbe-flaeche-hoch); box-shadow: inset 0 0 0 .5px var(--farbe-ring); color: var(--farbe-text); }
-.mg-funke { inline-size: .85rem; block-size: .85rem; margin-block-start: .2rem; background: var(--farbe-akzent); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
-.mg-quelle { grid-column: 2; justify-self: start; padding: .1rem .6rem; border-radius: var(--radius-gross); background: color-mix(in srgb, var(--farbe-akzent) 14%, transparent); color: var(--farbe-akzent); font-size: .75rem; }
-
-/* Tempo und Barrierefreiheit: Ring „95+“ und ein Fokusrahmen, der per Tab weiterspringt */
-.mini--tempo { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "ring titel" "ring reihe" "ring checks"; align-content: center; gap: .75rem clamp(1rem, 4cqi, 2rem); }
-.mt-ring { grid-area: ring; position: relative; display: grid; place-items: center; inline-size: clamp(5.5rem, 4.5rem + 3cqi, 7rem); aspect-ratio: 1; align-self: center; }
-.mt-ring svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; transform: rotate(-90deg); }
-.mt-bahn, .mt-wert { fill: none; stroke-width: 5; }
-.mt-bahn { stroke: var(--farbe-linie); }
-.mt-wert { stroke: var(--farbe-gut); stroke-linecap: round; stroke-dasharray: 96 100; stroke-dashoffset: 0; }
-.mt-zahl { font: 400 clamp(1.8rem, 1.5rem + 1cqi, 2.3rem)/1 var(--schrift-display); color: var(--farbe-text); font-variant-numeric: tabular-nums; }
-.mt-zahl small { font-size: .55em; color: var(--farbe-gut); }
-.mt-titel { grid-area: titel; display: flex; align-items: center; gap: .5rem; }
-.mt-taste { padding: .08rem .5rem .12rem; border-radius: .35rem; background: var(--farbe-flaeche-hoch); box-shadow: inset 0 -2px 0 var(--farbe-linie), inset 0 0 0 .5px var(--farbe-ring); font: .75rem/1.4 var(--schrift-code); color: var(--farbe-text); }
-.mt-reihe { grid-area: reihe; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
-.mt-reihe i { padding: .38rem .3rem; border-radius: var(--radius-gross); background: var(--farbe-flaeche); font-style: normal; font-size: .75rem; text-align: center; color: var(--farbe-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mt-fokus { position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: calc((100% - .8rem) / 3); border-radius: var(--radius-gross); box-shadow: 0 0 0 2px var(--farbe-akzent), 0 0 0 5px color-mix(in srgb, var(--farbe-akzent) 22%, transparent); transform: translateX(calc(200% + .8rem)); }
-.mt-checks { grid-area: checks; display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
-.mt-checks i { display: inline-flex; align-items: center; gap: .35rem; font-style: normal; color: var(--farbe-text); }
-@container (max-width: 25rem) { .mini--tempo { grid-template-areas: "ring titel" "reihe reihe" "checks checks"; } .mt-ring { inline-size: 4.75rem; } }
-
-/* Sicherheit und Datenschutz: echte Antwort-Header dieser Seiten, dazu zweimal null */
-.mini--sicher { display: grid; gap: .45rem; align-content: center; font: .75rem/1.45 var(--schrift-code); }
-.mz-status { display: flex; align-items: center; gap: .5rem; margin-block-end: .15rem; font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .08em; text-transform: uppercase; }
-.mz-status b { inline-size: .45rem; block-size: .45rem; border-radius: 50%; background: var(--farbe-gut); box-shadow: 0 0 0 3px color-mix(in srgb, var(--farbe-gut) 22%, transparent); }
-.mz-zeile { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: .75rem; align-items: center; padding: .42rem .65rem; border-radius: .5rem; background: var(--farbe-flaeche); }
-.mz-zeile b { grid-column: 1; font-weight: 400; color: var(--farbe-akzent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mz-zeile span { grid-column: 1; color: var(--farbe-text); overflow-wrap: anywhere; }
-.mz-zeile .haken { grid-column: 2; grid-row: 1 / span 2; }
-.mz-null { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; margin-block-start: .35rem; font: .8125rem/1.3 var(--schrift-text); }
-.mz-null span { display: inline-flex; align-items: baseline; gap: .4rem; }
-.mz-null b { font: 400 2.1rem/1 var(--schrift-display); color: var(--farbe-text); }
-@container (min-width: 44rem) { .mz-zeile { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto; } .mz-zeile span { grid-column: 2; } .mz-zeile .haken { grid-column: 3; grid-row: 1; } }
-
-/* ---------- Ablauf: Kopf mit Zahl und Linienzeichnung ---------- */
-.schritt-kopf { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-block-end: .35rem; }
-.schritt-bild { flex: none; inline-size: clamp(6.5rem, 5rem + 4vw, 8rem); block-size: auto; overflow: visible; }
-.schritt-bild .strich { stroke: color-mix(in srgb, var(--farbe-text) 62%, transparent); }
-.schritt-bild .strich--akzent { stroke: var(--farbe-akzent); stroke-width: 2; }
-.punkt { fill: var(--farbe-akzent); }
-.punkt--gross { fill: color-mix(in srgb, var(--farbe-akzent) 40%, transparent); }
-.punkt--gut { fill: var(--farbe-gut); }
-
-/* ---------- Arbeiten: Entscheidungssatz aus Kundensicht, in der Farbe der Arbeit angerissen ---------- */
-.werk-entscheidung {
-  position: relative; padding-inline-start: 1.1rem; max-inline-size: 34ch;
-  font: italic 400 clamp(1.3rem, 1.15rem + .5vw, 1.6rem)/1.25 var(--schrift-display); color: var(--farbe-text);
-}
-.werk-entscheidung::before { content: ""; position: absolute; inset: .18em auto .18em 0; inline-size: 2px; border-radius: 2px; background: var(--_werk, var(--farbe-akzent)); }
-.werk-entscheidung + .werk-satz { color: var(--farbe-leise); font-size: 1.0625rem; }
-
-/* ---------- Schaubilder in Bewegung: nur mit Skript (Klasse mini-js), nur ohne „Bewegung reduzieren“,
-   einmal, sobald sie im Bild sind (.mini--an). Bis dahin pausiert die Animation auf ihrem ersten Bild.
-   Ohne Skript oder bei reduzierter Bewegung gilt der Endzustand aus den Regeln oben. ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  .mini-js .mini:not(.mini--an) * { animation-play-state: paused; }
-  .mini-js .strich { stroke-dasharray: 1; animation: mini-zeichnen 1.5s var(--kurve-sanft) .2s both; }
-  .mini-js .punkt { animation: mini-pop .6s var(--kurve-schwung) 1.1s both; transform-box: fill-box; transform-origin: center; }
-
-  /* Neue Seite */
-  .mini-js .mn-raster { animation: mn-raster-ruhe 2.6s linear both; }
-  .mini-js .mn-raster i { animation: mini-hoch .9s var(--kurve-weich) both; }
-  .mini-js .mn-raster i:nth-child(2) { animation-delay: .06s; } .mini-js .mn-raster i:nth-child(3) { animation-delay: .12s; }
-  .mini-js .mn-raster i:nth-child(4) { animation-delay: .18s; } .mini-js .mn-raster i:nth-child(5) { animation-delay: .24s; }
-  .mini-js .mn-raster i:nth-child(6) { animation-delay: .3s; }
-  .mini-js .mn-nav { animation: mini-auf .7s var(--kurve-weich) .35s both; }
-  .mini-js .mn-spec { animation: mini-pop .6s var(--kurve-schwung) 1.5s both; }
-  .mini-js .mn-titel { animation: mini-wisch 1s var(--kurve-weich) .55s both; }
-  .mini-js .mn-zeilen i { animation: mini-breit .8s var(--kurve-weich) .95s both; }
-  .mini-js .mn-zeilen i + i { animation-delay: 1.05s; }
-  .mini-js .mn-bild { animation: mini-vorhang 1.1s var(--kurve-weich) .7s both; }
-  .mini-js .mn-bild .strich { animation-delay: 1.2s; }
-  .mini-js .mn-knopf { animation: mini-pop .6s var(--kurve-schwung) 1.75s both; }
-  .mini-js .mn-mass { animation: mini-auf .6s var(--kurve-weich) 2.1s both; }
-
-  /* Alte Seite erneuern */
-  .mini-js .ma-zeile { animation: mini-auf .6s var(--kurve-weich) both; }
-  .mini-js .ma-zeile:nth-of-type(3) { animation-delay: .12s; } .mini-js .ma-zeile:nth-of-type(4) { animation-delay: .24s; }
-  .mini-js .ma-von { animation: ma-streichen .5s linear both; }
-  .mini-js .ma-pfeil { animation: mini-breit .6s var(--kurve-weich) both; }
-  .mini-js .ma-code { animation: mini-pop .5s var(--kurve-schwung) both; }
-  .mini-js .ma-zeile:nth-of-type(2) .ma-von { animation-delay: .5s; } .mini-js .ma-zeile:nth-of-type(2) .ma-pfeil { animation-delay: .7s; } .mini-js .ma-zeile:nth-of-type(2) .ma-code { animation-delay: 1.1s; }
-  .mini-js .ma-zeile:nth-of-type(3) .ma-von { animation-delay: .8s; } .mini-js .ma-zeile:nth-of-type(3) .ma-pfeil { animation-delay: 1s; } .mini-js .ma-zeile:nth-of-type(3) .ma-code { animation-delay: 1.4s; }
-  .mini-js .ma-zeile:nth-of-type(4) .ma-von { animation-delay: 1.1s; } .mini-js .ma-zeile:nth-of-type(4) .ma-pfeil { animation-delay: 1.3s; } .mini-js .ma-zeile:nth-of-type(4) .ma-code { animation-delay: 1.7s; }
-  .mini-js .ma-fuss { animation: mini-auf .6s var(--kurve-weich) 2s both; }
-
-  /* Suchmaschinen */
-  .mini-js .ms-anfrage { animation: mini-tippen 1.3s steps(26, end) .3s both; }
-  .mini-js .ms-treffer { animation: mini-auf .8s var(--kurve-weich) 1.8s both; }
-  .mini-js .ms-chips i { animation: mini-pop .5s var(--kurve-schwung) 2.4s both; }
-  .mini-js .ms-chips i:nth-child(2) { animation-delay: 2.5s; } .mini-js .ms-chips i:nth-child(3) { animation-delay: 2.6s; }
-
-  /* KI-Suche */
-  .mini-js .mg-code span { animation: mini-wisch .7s var(--kurve-weich) .2s both; }
-  .mini-js .mg-code span + span { animation-delay: .45s; }
-  .mini-js .mg-frage { animation: mini-auf .6s var(--kurve-weich) 1s both; transform-origin: right bottom; }
-  .mini-js .mg-tippt { animation: mg-tippt 1.3s linear 1.5s both; }
-  .mini-js .mg-tippt i { animation: mg-punkt .6s var(--kurve-sanft) 1.5s 2 alternate both; }
-  .mini-js .mg-tippt i:nth-child(2) { animation-delay: 1.65s; } .mini-js .mg-tippt i:nth-child(3) { animation-delay: 1.8s; }
-  .mini-js .mg-antwort { animation: mini-auf .7s var(--kurve-weich) 2.75s both; transform-origin: left bottom; }
-  .mini-js .mg-quelle { animation: mini-pop .6s var(--kurve-schwung) 3.3s both; }
-
-  /* Tempo und Barrierefreiheit */
-  .mini-js .mt-wert { animation: mt-ring 1.6s var(--kurve-weich) .2s both; }
-  .mini-js .mt-zahl { animation: mini-auf .7s var(--kurve-weich) .9s both; }
-  .mini-js .mt-fokus { animation: mt-fokus 2.4s var(--kurve-weich) .6s both; }
-  .mini-js .mt-checks .haken { animation: haken-auf .45s var(--kurve-schwung) both; }
-  .mini-js .mt-checks i:nth-child(1) .haken { animation-delay: 1.2s; } .mini-js .mt-checks i:nth-child(2) .haken { animation-delay: 1.9s; } .mini-js .mt-checks i:nth-child(3) .haken { animation-delay: 2.6s; }
-
-  /* Sicherheit */
-  .mini-js .mz-zeile { animation: mini-wisch .7s var(--kurve-weich) both; }
-  .mini-js .mz-zeile:nth-of-type(2) { animation-delay: .25s; } .mini-js .mz-zeile:nth-of-type(3) { animation-delay: .5s; } .mini-js .mz-zeile:nth-of-type(4) { animation-delay: .75s; }
-  .mini-js .mz-zeile .haken { animation: haken-auf .45s var(--kurve-schwung) both; }
-  .mini-js .mz-zeile:nth-of-type(2) .haken { animation-delay: .85s; } .mini-js .mz-zeile:nth-of-type(3) .haken { animation-delay: 1.1s; } .mini-js .mz-zeile:nth-of-type(4) .haken { animation-delay: 1.35s; }
-  .mini-js .mz-null span { animation: mini-auf .7s var(--kurve-weich) 1.6s both; }
-  .mini-js .mz-null span + span { animation-delay: 1.75s; }
-
-  /* Ablauf: Zeichnungen nacheinander */
-  .mini-js .schritt:nth-child(2) .schritt-bild .strich { animation-delay: .35s; }
-  .mini-js .schritt:nth-child(3) .schritt-bild .strich { animation-delay: .5s; }
-  .mini-js .schritt:nth-child(4) .schritt-bild .strich { animation-delay: .65s; }
-}
-@keyframes mini-zeichnen { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes mini-auf { from { opacity: 0; transform: translateY(.6rem); } }
-@keyframes mini-pop { from { opacity: 0; transform: scale(.55); } }
-@keyframes mini-wisch { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
-@keyframes mini-tippen { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
-@keyframes mini-vorhang { from { clip-path: inset(100% 0 0 0 round .7rem); } to { clip-path: inset(0 round .7rem); } }
-@keyframes mini-breit { from { transform: scaleX(0); } }
-@keyframes mini-hoch { from { transform: scaleY(0); } }
-@keyframes mn-raster-ruhe { 0%, 65% { opacity: 1; } }
-@keyframes ma-streichen { from { text-decoration-color: transparent; color: var(--farbe-text); } }
-@keyframes mg-tippt { 0% { visibility: visible; opacity: 0; } 12%, 85% { visibility: visible; opacity: 1; } 100% { visibility: hidden; opacity: 0; } }
-@keyframes mg-punkt { to { transform: translateY(-3px); opacity: .5; } }
-@keyframes mt-ring { from { stroke-dashoffset: 96; } }
-@keyframes mt-fokus { 0% { opacity: 0; transform: translateX(0); } 10%, 30% { opacity: 1; transform: translateX(0); } 42%, 62% { transform: translateX(calc(100% + .4rem)); } 74%, 100% { transform: translateX(calc(200% + .8rem)); } }
-@keyframes haken-auf { from { opacity: 0; transform: translateY(-.12rem) rotate(-45deg) scale(.3); } }
-
-/* Ablauf: die alte Zeichenlinie über den Karten entfällt (Karten tragen jetzt eigene Zeichnungen); Messwerte trennen statt überlaufen */
-.ablauf .schritte::before { content: none; }
-.werk-werte dt { hyphens: auto; overflow-wrap: break-word; }
-@container (min-width: 44rem) {
-  .mt-ring { inline-size: 8.5rem; }
-  .mt-zahl { font-size: 3rem; }
-  .mz-null b { font-size: 3.2rem; }
-  .mz-null { gap: .25rem 2rem; margin-block-start: .75rem; }
-}
-
-/* =====================================================================
-   Runde 4 (2026-10-06, A-091): Menü ohne Messskala, Lichtlinie statt Pille, Knöpfe und Seitenlinks hochwertiger,
-   Fachbegriff als Etikett über den Leistungen, Preiskarten mit Preisschild und beschriebenen Wahlleistungen (mobil eine Spalte).
-   ===================================================================== */
-.werk--norvak, .reiter--norvak { --_werk: var(--werk-norvak); }
-
-/* ---------- Menü: Zusatzzeile nur im Handy-Blatt ---------- */
-.nav-zusatz { display: none; }
-.nav-name { display: inline; }
-
-/* ---------- Menü am Computer: eine Lichtlinie gleitet unter den Eintrag, darüber ein Hauch Licht ---------- */
-@media (min-width: 48rem) {
-  .nav-marke {
-    inset-block: auto .2rem; margin-block-start: 0; block-size: 2px; border-radius: 2px;
-    background: linear-gradient(90deg, transparent, var(--farbe-akzent) 22% 78%, transparent);
-    box-shadow: 0 0 .9rem color-mix(in srgb, var(--farbe-akzent) 55%, transparent);
-  }
-  .nav-marke::before {
-    content: ""; position: absolute; inset: -2rem -15% 0; pointer-events: none;
-    background: radial-gradient(50% 100% at 50% 100%, color-mix(in srgb, var(--farbe-licht) 12%, transparent), transparent 75%);
-  }
-  .nav a:not(.knopf) { color: color-mix(in srgb, var(--farbe-text) 82%, var(--farbe-leise)); }
-  .nav a:not(.knopf):hover, .nav a[aria-current="location"]:not(.knopf) { color: var(--farbe-text); }
-}
-
-/* ---------- Hauptknopf „Arbeiten ansehen“: drei kleine Ausschnitte der Arbeiten statt Pfeil, fächern beim Darüberfahren auf ---------- */
-.knopf--arbeiten { padding-inline-end: .55rem; }
-.knopf-bilder { display: inline-flex; align-items: center; margin-inline-start: .35rem; }
-.knopf-bild {
-  inline-size: 2.1rem; block-size: 2.1rem; border-radius: 50%; margin-inline-start: -.7rem;
-  background: var(--farbe-grund) var(--_bx, 50%) var(--_by, 0%) / 300% auto no-repeat;
-  box-shadow: 0 0 0 2px var(--farbe-text), 0 .3rem .7rem -.3rem var(--farbe-grund);
-  transition: transform var(--tempo-mittel) var(--kurve-schwung);
-}
-.knopf-bild:first-child { margin-inline-start: 0; }
-.knopf-bild--edel { --_bx: 46%; --_by: 23%; } .knopf-bild--glut { --_bx: 50%; --_by: 15%; } .knopf-bild--norvak { --_bx: 82%; --_by: 4%; }
-.knopf-bild--edel { background-image: url("/medien/mosaik-edel-handy.webp"); background-image: image-set(url("/medien/mosaik-edel-handy.avif") type("image/avif"), url("/medien/mosaik-edel-handy.webp") type("image/webp")); }
-.knopf-bild--norvak { background-image: url("/medien/mosaik-norvak-handy.webp"); background-image: image-set(url("/medien/mosaik-norvak-handy.avif") type("image/avif"), url("/medien/mosaik-norvak-handy.webp") type("image/webp")); }
-.knopf-bild--glut { background-image: url("/medien/mosaik-glut-handy.webp"); background-image: image-set(url("/medien/mosaik-glut-handy.avif") type("image/avif"), url("/medien/mosaik-glut-handy.webp") type("image/webp")); }
-@media (hover: hover) and (pointer: fine) {
-  .knopf--arbeiten:hover .knopf-bild:nth-child(1) { transform: translateX(-.35rem) rotate(-6deg); }
-  .knopf--arbeiten:hover .knopf-bild:nth-child(3) { transform: translateX(.35rem) rotate(6deg); }
-}
-@media (max-width: 29.99rem) { .held-aktionen .knopf--arbeiten { justify-content: space-between; padding-inline-start: 1.65rem; } }
-
-/* ---------- Direkter Link zur Musterseite: Etikett „Live-Vorschau“ mit Puls, Name, Pfeil im Messingkreis ---------- */
-.werk-link { margin-block-start: 1.25rem; }
-.oeffnen {
-  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
-  inline-size: min(100%, 22rem); min-height: 4.25rem; padding: .65rem .65rem .65rem 1.5rem; border-radius: var(--radius-gross);
-  color: var(--farbe-text); text-decoration: none;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--blau-tief) 24%, var(--farbe-flaeche-hoch)) 0, var(--farbe-flaeche) 80%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 36%, transparent), inset 0 1px 0 var(--farbe-glanz), var(--schatten-karte);
-  transition: box-shadow var(--tempo-mittel) var(--kurve-standard);
-}
-.oeffnen::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--farbe-licht) 16%, transparent) 50%, transparent 65%);
-  transform: translateX(-120%); transition: transform .9s var(--kurve-standard);
-}
-.oeffnen-text { display: grid; gap: .2rem; min-width: 0; }
-.oeffnen-art { display: inline-flex; align-items: center; gap: .5rem; font: 500 .75rem/1.2 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent); }
-.oeffnen-art::before { content: ""; inline-size: .45rem; block-size: .45rem; border-radius: 50%; background: var(--farbe-gut); box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--farbe-gut) 22%, transparent); }
-.oeffnen-name { font: 400 1.5rem/1.1 var(--schrift-display); letter-spacing: -.01em; }
-.oeffnen-zeichen {
-  display: grid; place-items: center; flex: none; inline-size: 2.9rem; block-size: 2.9rem; border-radius: 50%;
-  background: var(--farbe-akzent); color: var(--farbe-auf-akzent); transition: transform var(--tempo-mittel) var(--kurve-schwung);
-}
-.oeffnen-zeichen svg { inline-size: 1.15rem; block-size: 1.15rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.oeffnen:focus-visible { outline: 2px solid var(--farbe-akzent); outline-offset: 3px; }
-@media (hover: hover) and (pointer: fine) {
-  .oeffnen:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--farbe-akzent) 70%, transparent), inset 0 1px 0 var(--farbe-glanz), var(--schatten-hoch); }
-  .oeffnen:hover::before { transform: translateX(120%); }
-  .oeffnen:hover .oeffnen-zeichen { transform: rotate(45deg); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .oeffnen-art::before { animation: live-puls 2.4s var(--kurve-weich) infinite; }
-}
-@keyframes live-puls { 50% { box-shadow: 0 0 0 .38rem color-mix(in srgb, var(--farbe-gut) 0%, transparent); } }
-
-/* Das Gerätebild selbst öffnet die Seite (Maus/Touch); Tastatur und Vorleser nutzen den Link daneben */
-.werk-bild-link { position: absolute; inset: 0; z-index: 3; display: grid; place-items: end center; padding-block-end: 1.5rem; border-radius: calc(var(--radius-klein) * 3); cursor: pointer; text-decoration: none; }
-.werk-bild-hinweis {
-  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .6rem 1.2rem; border-radius: var(--radius-gross);
-  font: 550 .9375rem/1 var(--schrift-text); color: var(--farbe-grund); background: var(--farbe-text);
-  box-shadow: 0 1rem 2rem -1rem var(--farbe-grund); visibility: hidden; transform: translateY(.5rem) scale(.96);
-  transition: transform var(--tempo-mittel) var(--kurve-standard), visibility 0s linear var(--tempo-mittel);
-}
-@media (hover: hover) and (pointer: fine) {
-  .werk-bild-link:hover .werk-bild-hinweis { visibility: visible; transform: none; transition-delay: 0s; }
-}
-
-/* ---------- Leistungen: Fachbegriff als kleines Etikett über dem Titel ---------- */
-.leist-text .leist-kurz {
-  display: inline-flex; align-items: center; gap: .55rem; margin: 0; max-inline-size: none;
-  font: 500 .75rem/1.2 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent);
-}
-.leist-text .leist-kurz::before { content: ""; inline-size: 1.25rem; block-size: 1px; background: currentColor; }
-.leist-text h3 { hyphens: manual; text-wrap: balance; }
-
-/* ---------- Preise und Betreuung: Preisschild oben im Fuß, Wahlleistungen als beschriebene Liste ---------- */
-.bet-karte { container-type: inline-size; }
-.bet-wahl-titel { margin: .5rem 0 0; font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise); }
-.bet-wahl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 1.75rem; margin: 0; padding: 0; list-style: none; }
-@container (min-width: 34rem) { .bet-wahl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.bet-wahl li {
-  position: relative; display: grid; gap: .2rem; padding: .85rem 0 .85rem 2.1rem; font-size: 1rem;
-  border: 0; border-top: 1px solid color-mix(in srgb, var(--farbe-text) 12%, transparent); border-radius: 0; background: none;
-}
-.bet-wahl li::before {
-  content: "+"; position: absolute; inset: .95rem auto auto 0; display: grid; place-items: center; inline-size: 1.35rem; block-size: 1.35rem;
-  border-radius: 50%; border: 1px solid color-mix(in srgb, var(--farbe-akzent) 55%, transparent); color: var(--farbe-akzent); font: 400 1rem/1 var(--schrift-text);
-}
-.bet-wahl strong { font-weight: 550; line-height: 1.35; }
-.bet-wahl span { font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }
-.bet-hinweis { margin-block-start: .25rem; }
-.bet-karte .preis { flex-direction: column; align-items: flex-start; gap: .4rem; padding-block-start: 1.25rem; }
-.preis-titel { font: 500 .75rem/1.4 var(--schrift-text); letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-akzent); }
-.bet-karte .preis-wert { font-size: clamp(2.2rem, 1.7rem + 1.8vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
-@media (max-width: 29.99rem) {
-  .bet-karte { padding: 1.4rem 1.25rem 1.5rem; }
-  .bet-karte h3 { font-size: 2rem; }
-}
-@media (min-width: 64rem) {
-  .leist--neu .leist-text { row-gap: .55rem; }
-  .leist--neu .leist-text .leist-kurz { grid-column: 1; grid-row: 1; }
-  .leist--neu .leist-text h3 { grid-column: 1; grid-row: 2; }
-  .leist--neu .leist-text > p:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
-}
-
-/* Preiskarte Website: Vorteile mit Kurzbeschreibung (06.10.) */
-.bet-liste { gap: .85rem; }
-.bet-liste li { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .7rem; align-items: start; }
-.bet-liste strong, .bet-liste span { grid-column: 2; }
-.bet-liste li::before { grid-row: 1 / 3; margin-block-start: .45rem; transform: rotate(-45deg); }
-.bet-liste strong { display: block; font-weight: 550; line-height: 1.35; }
-.bet-liste span { display: block; font-size: .9375rem; line-height: 1.45; color: var(--farbe-leise); }

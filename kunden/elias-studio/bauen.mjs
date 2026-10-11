@@ -73,12 +73,15 @@ const VD = new URL('./public/medien/vorstellung/', import.meta.url);
 const hatDatei = (n) => existsSync(new URL(n, VD));
 const FILM = hatDatei('film.mp4') || hatDatei('film.webm');
 const VP = '/medien/vorstellung';
+// Platzhalter: dieselbe Kajüte wie im Hero (gleiche Dateien, schon im Speicher). Beim Schließen liegt darunter genau dieses Bild – kein Bruch.
+const introBild = () => `<picture class="intro-bild" aria-hidden="true"><source media="(min-width: 48rem)" type="image/avif" srcset="/medien/kapitaen-kajuete-quer-1280.avif 1280w, /medien/kapitaen-kajuete-quer-1920.avif 1920w, /medien/kapitaen-kajuete-quer-2560.avif 2560w" sizes="100vw"><source media="(min-width: 48rem)" type="image/webp" srcset="/medien/kapitaen-kajuete-quer-1280.webp 1280w, /medien/kapitaen-kajuete-quer-1920.webp 1920w, /medien/kapitaen-kajuete-quer-2560.webp 2560w" sizes="100vw"><source type="image/avif" srcset="/medien/kapitaen-kajuete-hoch-720.avif 720w, /medien/kapitaen-kajuete-hoch-1080.avif 1080w" sizes="100vw"><img src="/medien/kapitaen-kajuete-hoch-720.webp" srcset="/medien/kapitaen-kajuete-hoch-720.webp 720w, /medien/kapitaen-kajuete-hoch-1080.webp 1080w" sizes="100vw" width="720" height="1273" alt="" decoding="async"></picture>`;
 const vorstellung = `<div class="intro" id="vorstellung" role="dialog" aria-modal="true" aria-label="Vorstellung von ${esc(S.studio)}" data-modus="${FILM ? 'film' : 'platzhalter'}" data-dauer="${V.platzhalter_dauer}">
   <div class="intro-grund">
 ${FILM
     ? `    <video class="intro-film" playsinline muted preload="none"${hatDatei('poster.webp') ? ` poster="${VP}/poster.webp"` : ''}>
 ${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm">\n` : ''}${hatDatei('film.mp4') ? `      <source src="${VP}/film.mp4" type="video/mp4">\n` : ''}${hatDatei('untertitel.vtt') ? `      <track kind="captions" src="${VP}/untertitel.vtt" srclang="de" label="Deutsch" default>\n` : ''}    </video>`
-    : `    <div class="intro-buehne" aria-hidden="true">
+    : `    ${introBild()}
+    <div class="intro-buehne" aria-hidden="true">
       <svg class="intro-netz" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" focusable="false"><path class="netz-linie" pathLength="1" d="M0 150H1000M0 300H1000M0 450H1000M250 0V600M500 0V600M750 0V600"/><path class="netz-bogen" pathLength="1" d="M-20 520C220 400 420 470 620 330S900 120 1020 140"/></svg>
       ${kompassRose('intro-rose')}
     </div>`}
@@ -118,13 +121,12 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 <meta property="og:image" content="${S.basis}/medien/og-startseite.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="„Gebaut. Gemessen. Betreut.“ in großer Schrift auf dunklem Grund, ein Lichtkegel macht Ausschnitte der Arbeiten sichtbar">
+<meta property="og:image:alt" content="Kajüte eines Segelschiffs bei Nacht: Öllampe, Messingkompass und Seekarte auf dem Kartentisch, dahinter das Meer im Mondlicht">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1c1a17">
+<meta name="theme-color" content="#0f1011">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/instrument-serif-kursiv.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/marke.css">
 <link rel="stylesheet" href="/css/stil.css">
 <link rel="stylesheet" href="/css/bausteine.css">
@@ -133,7 +135,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
 ${start ? `<script>${INTRO_SKRIPT}</script>\n` : ''}
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${start ? '<script src="/js/held.js" defer></script>\n<script src="/js/vorstellung.js" defer></script>' : ''}
+${start ? '<script src="/js/vorstellung.js" defer></script>' : ''}
 </head>
 <body${start ? ' class="seite-start"' : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
@@ -144,7 +146,7 @@ ${start ? vorstellung + '\n' : ''}<header class="kopf">
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
 ${nav}
-        <li><a class="knopf" href="${h('#kontakt')}">Projekt anfragen ${pfeil}</a></li>
+        <li><a class="knopf" href="${h('#kontakt')}">Projekt besprechen ${pfeil}</a></li>
       </ul>
       <div class="blatt-fuss">
         <p class="blatt-fuss-titel">Direkt erreichbar</p>
@@ -158,12 +160,12 @@ ${nav}
 <main id="inhalt">
 ${inhalt}
 </main>
-
+${start ? `<div class="handy-leiste nur-handy"><a class="knopf" href="#kontakt">Projekt besprechen ${pfeil}</a><a class="knopf zweit" href="mailto:${S.email}"${pr(P.email)}>E-Mail</a></div>\n` : ''}
 <footer class="fuss">
   <div class="huelle">
     <div class="fuss-band">
       <p class="fuss-frage">Ihr Kurs beginnt mit <em>einem Gespräch</em>.</p>
-      <a class="knopf" href="${h('#kontakt')}">Projekt anfragen ${pfeil}</a>
+      <a class="knopf" href="${h('#kontakt')}">Projekt besprechen ${pfeil}</a>
     </div>
     <div class="fuss-raster">
       <div class="fuss-marke">
@@ -175,12 +177,13 @@ ${inhalt}
         <ul class="fuss-liste">
           <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
           ${TELZ(`<li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
-          <li><span${pr(P.ort)}>Heimathafen ${esc(S.ort)}</span><span class="fuss-koordinaten">48°41′ N · 9°42′ O</span></li>
+          <li><span${pr(P.ort)}>Heimathafen ${esc(S.ort)}</span></li>
         </ul>
       </div>
       <div>
         <h2 class="fuss-titel">Seite</h2>
         <ul class="fuss-liste">
+          <li><a href="${h('#leistungen')}">Leistungen</a></li>
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
           <li><a href="${h('#betreuung')}">Preise und Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
@@ -206,87 +209,143 @@ ${inhalt}
 }
 
 // =====================================================================
-// Startseite
+// Startseite – Stil 1 „Nachtschiff“ (Umbau 11.10.2026 nach Drehbuch /mnt/project-files/seitenkapitaen/drehbuch-seitenumbau.md)
+// Eine ruhige Überfahrt: Kajüte (Hero) → An Bord (Leistungen) → Der Kurs (Ablauf) → Logbuch (Arbeiten) → Kompass (Zwischenbild)
+// → Die Fahrt (Preise) → Vor der Abfahrt (Fragen) → Im Hafen (Kontakt). Das Seefahrt-Thema gibt nur Stimmung; jede Überschrift sagt
+// in einfachen Worten, worum es geht. Bilder: Higgsfield (node bilder.mjs), Instrumente und Seekarte: SVG/CSS.
 // =====================================================================
 const A = S.arbeiten; // gezeigt, in dieser Reihenfolge; S.arbeiten_ruhend wird nicht gebaut
 const ANZAHL = ['Null', 'Eine', 'Zwei', 'Drei', 'Vier', 'Fünf', 'Sechs', 'Sieben'][A.length] || String(A.length);
 const ueber = (text, k = '') => `<p class="ueberzeile${k ? ` ${k}` : ''}">${text}</p>`;
+const W = pr(P.wortlaut); // neue Überschriften (Umbau 11.10.) sind Vorschläge
 
-// ---------- Hero „Lichtkegel“ (Variante C, Elias 05.10.): Mosaik aus den Arbeiten, ein Lichtkegel macht sie sichtbar ----------
-// Die H1 ist reiner Text (LCP). Das Mosaik ist Dekor (alt="", aria-hidden): je Spalte eine lange Aufnahme (Handy: Handy-Aufnahme 200 px,
-// ab 48rem Desktop-Aufnahme 560 px, jeweils AVIF mit WebP-Rückfall, klein erzeugt mit node mosaik.mjs). Ohne JS und bei „Bewegung reduzieren“ steht der Kegel still (js/held.js).
-const MOSAIK = [['edel'], ['glut'], ['norvak']]; // die dunklen, warmen Arbeiten passen ins Atelier (06.10.)
-const mosaikBild = (id) => {
-  const d = (typ) => `/medien/mosaik-${id}-desktop.${typ}`;
-  const h = (typ) => `/medien/mosaik-${id}-handy.${typ}`;
-  return `<picture><source media="(min-width: 48rem)" type="image/avif" srcset="${d('avif')}" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="${d('webp')}" width="560" height="1190"><source type="image/avif" srcset="${h('avif')}" width="200" height="1483"><img src="${h('webp')}" width="200" height="1483" alt="" decoding="async"></picture>`;
+// ---------- Bilder: AVIF mit WebP-Rückfall, Breiten wie in bilder.mjs ----------
+const BILD = {
+  'kajuete-quer': [[1280, 1920, 2560], 1280, 724],
+  'kajuete-hoch': [[720, 1080], 720, 1273],
+  kompass: [[960, 1600], 960, 543],
+  hafen: [[960, 1600], 960, 543],
 };
+const satz = (name, typ) => BILD[name][0].map((b) => `/medien/kapitaen-${name}-${b}.${typ} ${b}w`).join(', ');
+const quelle = (name, media = '') => {
+  const [, w, h] = BILD[name];
+  const m = media ? ` media="${media}"` : '';
+  return `<source${m} type="image/avif" srcset="${satz(name, 'avif')}" sizes="100vw" width="${w}" height="${h}"><source${m} type="image/webp" srcset="${satz(name, 'webp')}" sizes="100vw" width="${w}" height="${h}">`;
+};
+const bild = (name, { klasse, alt = '', prio = false } = {}) => {
+  const [, w, h] = BILD[name];
+  const laden = prio ? ' fetchpriority="high" decoding="async"' : ' loading="lazy" decoding="async"';
+  return `<picture class="${klasse}">${quelle(name)}<img src="/medien/kapitaen-${name}-${w}.webp" width="${w}" height="${h}" alt="${esc(alt)}"${laden}></picture>`;
+};
+
+// ---------- Hero „Kajüte“: das Bild ist der erste Eindruck (LCP), die Botschaft steht als Text daneben ----------
+// Computer: Kajüte quer, Text links im Dunkel. Handy: Kajüte hoch als Band oben, Text darunter. Bild ist Stimmung, kein Inhalt (alt="").
+const H = S.hero;
 const held = `<section class="held" aria-labelledby="titel">
-  <div class="held-karte" aria-hidden="true">${kompassRose('', { route: true })}</div>
-  <div class="held-mosaik" aria-hidden="true">
-    <div class="held-raster">
-${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).join('\n')}
-    </div>
-  </div>
+  <picture class="held-bild">${quelle('kajuete-quer', '(min-width: 48rem)')}${quelle('kajuete-hoch')}<img src="/medien/kapitaen-kajuete-hoch-720.webp" width="720" height="1273" alt="" fetchpriority="high" decoding="async"></picture>
   <div class="huelle held-in">
-    ${ueber('Websites auf Kurs gebracht')}
-    <h1 id="titel"><span>Gebaut.</span> <span>Gemessen.</span> <span>Betreut.</span></h1>
-    <div class="held-fuss">
-      <p class="held-satz">${esc(S.hero.lead)}</p>
-      <div class="aktionen held-aktionen">
-        <a class="knopf knopf--arbeiten" href="#arbeiten">Arbeiten ansehen <span class="knopf-bilder" aria-hidden="true">${MOSAIK.map(([id]) => `<i class="knopf-bild knopf-bild--${id}"></i>`).join('')}</span></a>
-        <a class="knopf zweit" href="#kontakt">Projekt anfragen</a>
-        <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 6.5v11l9-5.5z"/></svg></span>${esc(V.knopf)}</button>
-      </div>
+    ${ueber(esc(H.dach))}
+    <h1 id="titel"${W}>${H.titel}</h1>
+    <p class="held-satz">${esc(H.lead)}</p>
+    <div class="aktionen held-aktionen">
+      <a class="knopf" href="#kontakt">Projekt besprechen ${pfeil}</a>
+      <a class="knopf zweit" href="#arbeiten">Arbeiten ansehen</a>
     </div>
-    <p class="held-hinweis nur-js" aria-hidden="true">Zeiger bewegen, das Licht folgt</p>
+    <div class="held-fuss">
+      <p class="held-zeile">${esc(H.unterzeile)}</p>
+      <button class="film-knopf nur-js" type="button" data-vorstellung-oeffnen aria-controls="vorstellung"><span class="film-knopf-zeichen" aria-hidden="true"><svg viewBox="0 0 32 22" focusable="false"><rect class="rahmen" x=".75" y=".75" width="30.5" height="20.5" rx="2"/><path class="dreieck" d="M13 6.5v9l7.5-4.5z"/></svg></span><span class="film-knopf-text">${esc(V.knopf)}</span></button>
+    </div>
   </div>
 </section>`;
 
-// ---------- Arbeiten: Bühne mit Reitern (ohne JS stehen alle fünf untereinander) ----------
-const WERTE = [['perf', 'Tempo'], ['a11y', 'Barriere&shy;frei'], ['bp', 'Technik'], ['seo', 'SEO']]; // Lighthouse: Performance, Accessibility, Best Practices, SEO
+// ---------- Leistungen „An Bord“: sechs Messingplaketten, je ein Instrument als feine Strichzeichnung (Dekor) ----------
+const INSTRUMENT = {
+  neu: '<circle cx="24" cy="24" r="19"/><circle cx="24" cy="24" r="15.5" class="fein"/><path d="M24 6.5 27 21 41.5 24 27 27 24 41.5 21 27 6.5 24 21 21Z"/><path d="M24 6.5 27 21 24 24 21 21Z" class="voll"/>',
+  alt: '<circle cx="24" cy="7.5" r="2.6"/><path d="M22.6 9.8 13 42M25.4 9.8 35 42"/><path d="M14.6 31.5c6.2 3.6 12.6 3.6 18.8 0" class="fein"/>',
+  seo: '<path d="M7 31.5 33.5 19.6l2.6 5.8L9.6 37.3Z"/><path d="m33.5 19.6 6.6-3 2.6 5.8-6.6 3"/><path d="m21 32-5.5 11.5M21 32l5.5 11.5" class="fein"/>',
+  geo: '<path d="M24 13c-5.5-3.8-12.5-4.3-18-2.3v26c5.5-2 12.5-1.5 18 2.3 5.5-3.8 12.5-4.3 18-2.3v-26c-5.5-2-12.5-1.5-18 2.3Z"/><path d="M24 13v26"/><path d="M10 17.5c3.3-.8 6.6-.5 10 .9M10 23.5c3.3-.8 6.6-.5 10 .9M28 18.4c3.4-1.4 6.7-1.7 10-.9" class="fein"/>',
+  tempo: '<path d="M13 6.5h22M13 41.5h22"/><path d="M16 6.5c0 10.5 16 11 16 17.5S16 31 16 41.5M32 6.5c0 10.5-16 11-16 17.5s16 7 16 17.5"/><path d="M19.5 38.5c1.6-3 7.4-3 9 0Z" class="voll"/>',
+  sicher: '<path d="M13 21.5h22v19H13Z"/><path d="M17.5 21.5v-5.5a6.5 6.5 0 0 1 13 0v5.5"/><path d="M24 28v5.5" class="fein"/><circle cx="24" cy="28" r="1.8" class="voll"/>',
+};
+const L = S.leistungen;
+const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
+  <div class="huelle">
+    <div class="kopfzeile">
+      ${ueber(esc(L.ueber))}
+      <h2 id="t-leistungen" class="einblenden"${W}>${L.titel}</h2>
+      <p class="einblenden">${esc(L.kopf)}</p>
+    </div>
+    <ul class="plaketten">
+${L.karten.map((k) => `      <li class="plakette einblenden">
+        <svg class="instrument" viewBox="0 0 48 48" aria-hidden="true" focusable="false">${INSTRUMENT[k.id]}</svg>
+        <h3>${esc(k.titel)}</h3>
+        <p>${esc(k.text)}</p>
+        <p class="fachwort">Fachbegriff: ${esc(k.kurz)}</p>
+      </li>`).join('\n')}
+    </ul>
+  </div>
+</section>`;
+
+// ---------- Ablauf „Der Kurs“: vier Bojen auf einer Seekarte, verbunden durch die Kurslinie ----------
+// Karte und Linie sind Dekor (CSS/SVG). Die Linie zeichnet sich beim Scrollen (Scroll-Timeline), sonst steht sie fertig da.
+const AB = S.ablauf;
+const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf"${pr(P.ablauf)}>
+  <div class="seekarte" aria-hidden="true"></div>
+  <div class="huelle">
+    <div class="kopfzeile">
+      ${ueber(esc(AB.ueber))}
+      <h2 id="t-ablauf" class="einblenden">${AB.titel}</h2>
+    </div>
+    <div class="kurs">
+      <ol class="schritte">
+${AB.schritte.map((st, i) => `        <li class="schritt einblenden"><span class="etappe" aria-hidden="true"><span class="etappe-nr">${String(i + 1).padStart(2, '0')}</span><span class="etappe-linie"></span></span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
+      </ol>
+    </div>
+  </div>
+</section>`;
+
+// ---------- Arbeiten „Aus dem Logbuch“: Reiter mit den Musterseiten (ohne JS stehen alle untereinander) ----------
+const messung = (w) => `
+      <dl class="werk-werte">
+        <div><dt>Tempo auf dem Handy</dt><dd>${w.perf} von 100</dd></div>
+        <div><dt>Barrierefreiheit</dt><dd>${w.a11y} von 100</dd></div>
+        <div><dt>Gewicht der Startseite</dt><dd>${w.kb} KB</dd></div>
+      </dl>`;
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-art">Live-Vorschau</span><span class="oeffnen-name">${esc(a.name)} öffnen</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><span class="unsichtbar"> (öffnet in neuem Tab)</span></a></p>`
+    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live im Browser</span><span class="oeffnen-gross">${esc(a.name)} ansehen</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span class="unsichtbar"> (öffnet in neuem Tab)</span></a></p>`
     : '';
-  const w = a.werte;
-  const werte = w ? `
-      <p class="werk-werte-titel">Lighthouse mobil, gemessen</p>
-      <dl class="werk-werte">
-${WERTE.map(([k, t]) => `        <div><dt>${t}</dt><dd>${w[k]}</dd></div>`).join('\n')}
-      </dl>` : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
       ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Seite öffnen ${raus}</span></a>` : ''}
-      <div class="rahmen rahmen--desktop marken">
+      <div class="rahmen rahmen--desktop">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(a.name.toLowerCase())} · ${esc(a.art.toLowerCase())}</span></span>
-        <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 64vw, 1px')}</div>
+        <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 58vw, 1px')}</div>
       </div>
       <div class="rahmen rahmen--handy"><div class="fenster">${aufnahme(a, 'handy', '(min-width: 64rem) 200px, (min-width: 48rem) 26vw, 72vw')}</div></div>
     </div>
     <div class="werk-schild">
-      <p class="werk-nr"><span>${a.nr}</span> <span class="werk-art">${esc(a.art_lang)} · ${esc(a.leitmotiv)}</span></p>
+      <p class="werk-nr"><span>Eintrag ${a.nr}</span> · <span class="werk-art">${esc(a.art_lang)} · ${esc(a.branche)}</span></p>
       <h3 id="w-${a.id}">${esc(a.name)}</h3>
       ${a.entscheidung ? `<p class="werk-entscheidung"${pr(P.entscheidung)}>${esc(a.entscheidung)}</p>` : ''}
       <p class="werk-satz">${esc(a.satz)}</p>
       <ul class="werk-punkte">
 ${a.punkte.map((t) => `        <li>${esc(t)}</li>`).join('\n')}
-      </ul>${werte}
+      </ul>${a.werte ? messung(a.werte) : ''}
       ${link}
     </div>
   </article>`;
 };
-
 const arbeiten = `<section class="abschnitt arbeiten" id="arbeiten" aria-labelledby="t-arbeiten">
   <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Arbeiten')}
-      <h2 id="t-arbeiten" class="einblenden">${ANZAHL} Betriebe, ${ANZAHL.toLowerCase()} <em>Welten</em>.</h2>
+      ${ueber(esc(S.arbeiten_ueber))}
+      <h2 id="t-arbeiten" class="einblenden"${W}>${S.arbeiten_titel.replace('{n}', ANZAHL).replace('{n_klein}', ANZAHL.toLowerCase())}</h2>
       <p class="einblenden">${esc(S.arbeiten_kopf)}</p>
     </div>
     <div class="buehne">
       <div class="buehne-reiter nur-js" role="tablist" aria-label="Arbeit wählen">
-${A.map((a, i) => `        <button class="reiter reiter--${a.id}" type="button" role="tab" id="reiter-${a.id}" aria-controls="arbeit-${a.id}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><span class="reiter-nr">${a.nr}</span><span class="reiter-name">${esc(a.name)}</span><span class="reiter-branche">${esc(a.branche)}</span></button>`).join('\n')}
+${A.map((a, i) => `        <button class="reiter reiter--${a.id}" type="button" role="tab" id="reiter-${a.id}" aria-controls="arbeit-${a.id}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><span class="reiter-name">${esc(a.name)}</span><span class="reiter-branche">${esc(a.branche)}</span></button>`).join('\n')}
       </div>
       <div class="werke">
 ${A.map(werk).join('\n')}
@@ -295,88 +354,36 @@ ${A.map(werk).join('\n')}
   </div>
 </section>`;
 
-// ---------- Leistungen: Bento mit sechs kleinen Schaubildern (Runde 3, 2026-10-05) ----------
-// Jede Karte zeigt in einem handgebauten Schaubild, was die Leistung tut (HTML/CSS, kein Bild, kein Icon-Satz).
-// Die Schaubilder sind Dekor (aria-hidden), der echte Text steht daneben im HTML. Ohne JS und bei „Bewegung reduzieren“
-// zeigen sie ihren Endzustand; mit JS spielen sie einmal, sobald sie im Bild sind (js/seite.js → .mini--an).
-// Beispielinhalte (ihr-betrieb.de, Adressen, Fragen) sind erkennbar Muster, keine Aussagen über echte Betriebe.
-const haken = '<i class="haken"></i>';
-const MINI = {
-  neu: `<div class="mn-fenster">
-        <div class="mn-leiste"><span class="mn-punkte"></span><span class="mn-adresse">ihr-betrieb.de</span></div>
-        <div class="mn-seite">
-          <span class="mn-raster">${'<i></i>'.repeat(6)}</span>
-          <span class="mn-nav"><b></b><i></i><i></i><i></i></span>
-          <span class="mn-links">
-            <span class="mn-spec">H1 · Instrument Serif</span>
-            <span class="mn-titel">Ihr Betrieb,<br>Ihr <em>Leitmotiv</em>.</span>
-            <span class="mn-zeilen"><i></i><i></i></span>
-            <span class="mn-knopf-zeile"><span class="mn-knopf">Termin anfragen</span><span class="mn-mass">44 px</span></span>
-          </span>
-          <span class="mn-bild"><svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMax slice" focusable="false"><circle class="strich" pathLength="1" cx="80" cy="52" r="14"/><path class="strich" pathLength="1" d="M0 96 C 26 70, 46 70, 66 86 S 104 92, 120 70"/><path class="strich" pathLength="1" d="M0 112 C 30 96, 60 100, 120 92"/></svg></span>
-        </div>
-      </div>`,
-  alt: `<span class="ma-kopf"><span>alte Adresse</span><span>neue Adresse</span></span>
-      ${[['/angebot.php', '/angebot'], ['/team.html', '/team'], ['/kontakt.php', '/kontakt']].map(([v, n]) => `<span class="ma-zeile"><span class="ma-von">${v}</span><span class="ma-pfeil"></span><span class="ma-nach">${n}</span><span class="ma-code">301</span></span>`).join('\n      ')}
-      <span class="ma-fuss">${haken}Keine Adresse läuft ins Leere</span>`,
-  seo: `<span class="ms-suche"><span class="ms-lupe"></span><span class="ms-anfrage">Physiotherapie in der Nähe</span></span>
-      <span class="ms-treffer">
-        <span class="ms-quelle"><b></b>ihr-betrieb.de › leistungen</span>
-        <span class="ms-titel">Ihr Betrieb – Leistungen und Termine</span>
-        <span class="ms-text">Öffnungszeiten, Anfahrt und Leistungen auf einen Blick.</span>
-        <span class="ms-chips"><i>Ort</i><i>Öffnungszeiten</i><i>Telefon</i></span>
-      </span>`,
-  geo: `<span class="mg-code"><span><b>"@type"</b>: "Physiotherapy",</span><span><b>"openingHours"</b>: "Sa 09:00-12:00"</span></span>
-      <span class="mg-frage">Hat die Praxis samstags geöffnet?</span>
-      <span class="mg-stapel">
-        <span class="mg-tippt"><i></i><i></i><i></i></span>
-        <span class="mg-antwort"><span class="mg-funke"></span><span>Ja, samstags von 9 bis 12 Uhr – so steht es auf der Website der Praxis.</span><span class="mg-quelle">Quelle: ihr-betrieb.de</span></span>
-      </span>`,
-  tempo: `<span class="mt-ring"><svg viewBox="0 0 80 80" focusable="false"><circle class="mt-bahn" cx="40" cy="40" r="34"/><circle class="mt-wert" pathLength="100" cx="40" cy="40" r="34"/></svg><span class="mt-zahl">95<small>+</small></span></span>
-      <span class="mt-titel"><span class="mt-taste">Tab</span>durch die Seite</span>
-      <span class="mt-reihe"><i>Start</i><i>Leistungen</i><i>Kontakt</i><span class="mt-fokus"></span></span>
-      <span class="mt-checks"><i>${haken}Tastatur</i><i>${haken}Kontrast AA</i><i>${haken}Alt-Texte</i></span>`,
-  sicher: `<span class="mz-status"><b></b>HTTP 200 · Antwort-Header</span>
-      ${[['content-security-policy', "default-src 'self'"], ['strict-transport-security', 'max-age=31536000'], ['x-frame-options', 'DENY']].map(([k, v]) => `<span class="mz-zeile"><b>${k}</b><span>${esc(v)}</span>${haken}</span>`).join('\n      ')}
-      <span class="mz-null"><span><b>0</b>Cookies</span><span><b>0</b>fremde Skripte</span></span>`,
-};
-const L = S.leistungen;
-const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
-  <div class="huelle">
-    <div class="kopfzeile">
-      ${ueber('Leistungen')}
-      <h2 id="t-leistungen" class="einblenden">Mehr als eine <em>neue Seite</em>.</h2>
-      <p class="einblenden">${esc(L.kopf)}</p>
-    </div>
-    <ul class="bento">
-${L.karten.map((k) => `      <li class="leist leist--${k.id} einblenden">
-        <div class="mini mini--${k.id}" aria-hidden="true">
-      ${MINI[k.id]}
-        </div>
-        <div class="leist-text"><p class="leist-kurz">${esc(k.kurz)}</p><h3>${esc(k.titel)}</h3><p>${esc(k.text)}</p></div>
-      </li>`).join('\n')}
-    </ul>
+// ---------- Zwischenbild „Kompass“: ein ruhiger Filmmoment zwischen Arbeiten und Preisen ----------
+const ZB = S.zwischenbild;
+const zwischenbild = `<section class="zwischenbild" aria-label="Unser Versprechen">
+  ${bild('kompass', { klasse: 'zwischenbild-bild' })}
+  <div class="huelle zwischenbild-in">
+    ${ueber(esc(ZB.ueber))}
+    <p class="zwischenbild-satz einblenden"${W}>${esc(ZB.satz)}</p>
   </div>
 </section>`;
 
+// ---------- Preise „Die Fahrt“: zwei Messingplaketten, der Preis steht oben ----------
 const B = S.betreuung;
 const betreuung = `<section class="abschnitt betreuung" id="betreuung" aria-labelledby="t-betreuung">
   <div class="huelle">
     <div class="kopfzeile">
-      ${ueber('Preise und Betreuung')}
-      <h2 id="t-betreuung" class="einblenden">Die Seite einmal. Die Betreuung <em>nach Wahl</em>.</h2>
+      ${ueber(esc(B.ueber))}
+      <h2 id="t-betreuung" class="einblenden"${W}>${B.titel}</h2>
       <p class="einblenden">${esc(B.kopf)}</p>
     </div>
     <div class="bet-paar">
       <section class="bet-karte einblenden" aria-labelledby="b-seite">
+        <p class="preis"><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span><span class="preis-titel">${esc(B.seite.preis_art)}</span></p>
         <h3 id="b-seite">${esc(B.seite.titel)}</h3>
         <p>${esc(B.seite.text)}</p>
         <ul class="bet-liste">
 ${(B.seite.enthalten || []).map(([n, t]) => `          <li><strong>${esc(n)}</strong><span>${esc(t)}</span></li>`).join('\n')}
         </ul>
-        <p class="preis"><span class="preis-titel">${esc(B.seite.preis_art)}</span><span class="preis-wert"${pr(P.preis_website)}>${esc(S.preis_website_anzeige)}</span></p>
       </section>
       <section class="bet-karte bet-karte--abo einblenden" aria-labelledby="b-abo">
+        <p class="preis"><span class="preis-wert"${pr(P.preis_abo)}>${esc(S.preis_abo_anzeige)}</span><span class="preis-titel">${esc(B.abo.preis_art)}</span></p>
         <h3 id="b-abo">${esc(B.abo.titel)}</h3>
         <p>${esc(B.abo.text)}</p>
         <p class="bet-wahl-titel">Zusätzlich wählbar</p>
@@ -384,33 +391,8 @@ ${(B.seite.enthalten || []).map(([n, t]) => `          <li><strong>${esc(n)}</st
 ${B.abo.wahl.map(([n, t]) => `          <li><strong>${esc(n)}</strong><span>${esc(t)}</span></li>`).join('\n')}
         </ul>
         <p class="bet-hinweis">${esc(B.abo.hinweis)}</p>
-        <p class="preis"><span class="preis-titel">${esc(B.abo.preis_art)}</span><span class="preis-wert"${pr(P.preis_abo)}>${esc(S.preis_abo_anzeige)}</span></p>
       </section>
     </div>
-  </div>
-</section>`;
-
-const AB = S.ablauf;
-// Ablauf: je Schritt eine Linienzeichnung (Dekor), die sich einmal zeichnet, wenn sie ins Bild kommt; statisch ohne JS/Bewegung.
-const ZEICHNUNG = [
-  // Gespräch: zwei Sprechblasen
-  '<path class="strich" pathLength="1" d="M10 14h52a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H30l-10 9v-9h-2a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8Z"/><path class="strich" pathLength="1" d="M78 30h24a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8h-2v8l-9-8H78a8 8 0 0 1-8-8"/><circle class="punkt" cx="28" cy="31" r="2.6"/><circle class="punkt" cx="40" cy="31" r="2.6"/><circle class="punkt" cx="52" cy="31" r="2.6"/>',
-  // Vorschlag: Blatt mit Zeilen und Farbmuster des Leitmotivs
-  '<path class="strich" pathLength="1" d="M30 6h46l14 14v48H30Z"/><path class="strich" pathLength="1" d="M76 6v14h14"/><path class="strich" pathLength="1" d="M40 32h34M40 42h40M40 52h24"/><circle class="punkt punkt--gross" cx="98" cy="58" r="9"/><circle class="strich" pathLength="1" cx="108" cy="46" r="7"/>',
-  // Bau und Messung: Fenster mit Messbogen
-  '<path class="strich" pathLength="1" d="M8 10h104v56H8Z"/><path class="strich" pathLength="1" d="M8 20h104"/><path class="strich" pathLength="1" d="M38 56a22 22 0 0 1 44 0"/><path class="strich strich--akzent" pathLength="1" d="M60 56 75 41"/><circle class="punkt" cx="60" cy="56" r="3"/>',
-  // Start: Adresszeile mit Schloss, Signal „online“
-  '<path class="strich" pathLength="1" d="M10 30h86a10 10 0 0 1 0 20H10a10 10 0 0 1 0-20Z"/><path class="strich" pathLength="1" d="M17 41h8v6h-8Zm1.5 0v-3a2.5 2.5 0 0 1 5 0v3"/><path class="strich" pathLength="1" d="M34 40h44"/><circle class="punkt punkt--gut" cx="102" cy="18" r="4"/><path class="strich" pathLength="1" d="M93 9a13 13 0 0 1 18 0M89 4a19 19 0 0 1 26 0"/>',
-];
-const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t-ablauf"${pr(P.ablauf)}>
-  <div class="huelle">
-    <div class="kopfzeile">
-      ${ueber(AB.ueber)}
-      <h2 id="t-ablauf" class="einblenden">${AB.titel}</h2>
-    </div>
-    <ol class="schritte">
-${AB.schritte.map((st, i) => `      <li class="schritt einblenden"><span class="schritt-kopf" aria-hidden="true"><span class="schritt-zahl">${String(i + 1).padStart(2, '0')}</span><svg class="schritt-bild mini" viewBox="0 0 120 72" focusable="false">${ZEICHNUNG[i] || ''}</svg></span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
-    </ol>
   </div>
 </section>`;
 
@@ -418,25 +400,29 @@ const FR = S.fragen;
 const fragen = `<section class="abschnitt fragen" id="fragen" aria-labelledby="t-fragen"${pr(P.fragen)}>
   <div class="huelle fragen-raster">
     <div class="fragen-kopf">
-      ${ueber(FR.ueber)}
+      ${ueber(esc(FR.ueber))}
       <h2 id="t-fragen" class="einblenden">${FR.titel}</h2>
+      <p class="fragen-hinweis">Ihre Frage ist nicht dabei? <a href="#kontakt">Schreiben Sie mir</a>, ich antworte persönlich.</p>
     </div>
     <div class="fragen-liste">
-${FR.liste.map(([q, a]) => `      <details class="frage"><summary>${esc(q)}<span class="frage-zeichen" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`).join('\n')}
+${FR.liste.map(([q, a]) => `      <details class="frage"><summary><span class="frage-text">${esc(q)}</span><span class="frage-zeichen" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`).join('\n')}
     </div>
   </div>
 </section>`;
 
+// ---------- Kontakt „Im Hafen“: Hafen zur blauen Stunde als Band, darunter das Formular ----------
+const K = S.kontakt;
 const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby="t-kontakt">
+  ${bild('hafen', { klasse: 'kontakt-bild' })}
   <div class="huelle kontakt-raster">
     <div class="kontakt-text">
-      ${ueber('Kontakt')}
-      <h2 id="t-kontakt" class="einblenden">Erzählen Sie mir von Ihrem <em>Betrieb</em>.</h2>
-      <p class="einblenden">${esc(S.kontakt.text)}</p>
+      ${ueber(esc(K.ueber))}
+      <h2 id="t-kontakt" class="einblenden">${K.titel}</h2>
+      <p class="einblenden">${esc(K.text)}</p>
       <ul class="wege">
         <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
         ${TELZ(`<li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
-        <li><span class="wege-art">Ort</span><span${pr(P.ort)}>${esc(S.ort)}</span></li>
+        <li><span class="wege-art">Heimathafen</span><span${pr(P.ort)}>${esc(S.ort)}</span></li>
       </ul>
     </div>
     <div class="kontakt-form"${pr(P.formular)}>
@@ -454,8 +440,8 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
 
 seite('index.html', {
   titel: `${S.studio} – Websites für Praxen und Betriebe`,
-  beschreibung: `Suchmaschinenoptimierte, schnelle Websites ohne Tracking, auf Wunsch betreut. Musterseiten: ${A.map((a) => a.branche).join(', ')}.`,
-  inhalt: [held, leistungen, arbeiten, ablauf, betreuung, fragen, kontakt].join('\n\n'),
+  beschreibung: `Schnelle, klar aufgebaute Websites für Praxen, Werkstätten und Restaurants, ohne Tracking und auf Wunsch betreut. Musterseiten: ${A.map((a) => a.branche).join(', ')}.`,
+  inhalt: [held, leistungen, ablauf, arbeiten, zwischenbild, betreuung, fragen, kontakt].join('\n\n'),
   start: true,
 });
 

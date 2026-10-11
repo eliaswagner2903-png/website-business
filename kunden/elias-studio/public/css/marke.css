@@ -1,88 +1,71 @@
 /* =====================================================================
-   MARKE – [Studioname], Portfolio von Elias. Die ganze Marke steht nur hier.
-   stil.css und bausteine.css lesen nur diese Variablen (Test: tests/bausteine.test.mjs).
-   Farbwelt „Graphit“ (2026-10-06, Runde 3): Elias fand das fast reine Schwarz mit hellem Text zu hart und wählte aus drei Entwürfen B.
-   Darum: warmes Dunkelgrau statt Schwarz, Flächen in drei Höhen (grund → flaeche → flaeche-hoch), weiches Elfenbein als
-   Schrift statt Weiß, EIN Lichtakzent (Messing) für Links, Fokus und das eine Wort, ein ruhiges Grün nur für Zustände
-   („erledigt“, Häkchen in den kleinen Schaubildern), tiefes Blau nur für Lichtflächen und Verläufe.
-   Drei Schemata zum Vergleich (Meisterstandard P4, gleiche Rollen, kein Schalter auf der Seite):
-     <html>                           B „Graphit“ (Vorgabe, Elias 06.10.) – warmes Dunkelgrau, Messinglicht
-     <html data-schema="mitternacht"> A „Mitternacht“ – kühles Tintenblau, Periwinkle
-     <html data-schema="kalk">      C „Kalk“     – heller Kalkputz, Tintenblau als Akzent
-   Bauen mit Schema: SCHEMA=mitternacht node bauen.mjs (nur für Vorschauen, nie so ausliefern).
-   Kontrast (WCAG 2.x, gemessen mit scratch kontrast.mjs; Fließtext ≥ 4,5 : 1):
-     A  text/grund 13,4 · text/flaeche 12,3 · text/hoch 11,0 · leise/grund 7,5 · leise/flaeche 6,8 · leise/hoch 6,1
-        akzent/grund 10,0 · akzent/hoch 8,2 · gut/hoch 9,0 · auf-akzent/akzent 10,0 · Knopf grund/text 13,4 · fehler/flaeche 8,2
-     B  text/grund 13,7 · text/hoch 11,5 · leise/grund 7,2 · leise/hoch 6,0 · akzent/grund 10,2 · gut/hoch 8,7 · Knopf 13,7
-     C  text/grund 14,0 · text/hoch 16,4 · leise/grund 5,9 · leise/flaeche 6,4 · akzent/grund 6,9 · gut/flaeche 5,2
-        auf-akzent/akzent 7,5 · fehler/flaeche 5,7
-     Alle: leise auf den Kartenverläufen (≤ 40 % Tiefenfarbe) ≥ 5,2 · gut/grund in C 4,8 (nur Marken, kein Fließtext)
+   MARKE – Seitenkapitän. Die ganze Marke steht nur hier; stil.css, kapitaen.css und bausteine.css lesen nur diese Variablen
+   (Test: tests/bausteine.test.mjs).
+   Stil 1 „Nachtschiff“ (Elias, 11.10.2026: „erwachsener“): Kajüte bei Nacht, Lampenlicht, Messing, Seekarte.
+   Ein dunkles Design, kein Schalter. Fast-Schwarz mit warmem Stich statt Graphit, Pergament statt Weiß als Schrift,
+   EIN Akzent (Messing) für Linien, Knöpfe, Fokus und das eine Wort; Lampenlicht nur als Schein; Stahlblau nur für Flächen.
+   Kontrast (WCAG 2.x, tests/seite.test.mjs rechnet nach; Fließtext ≥ 4,5 : 1, angestrebt ≥ 7 : 1):
+     text/grund 14,7 · text/flaeche 13,8 · text/hoch 12,8 · leise/grund 7,4 · leise/hoch 6,5
+     akzent/grund 7,1 · akzent/hoch 6,2 · auf-akzent/akzent 7,1 · fehler/flaeche 8,9
    ===================================================================== */
 
-/* ---------- Schriften: je Schnitt EINE Datei (Latin-1), lokal, SIL OFL ----------
-   Instrument Serif (Titel, normal + kursiv für das eine hervorgehobene Wort) und Geist (Text, variabel 100–900).
-   Quelle: npm @fontsource/instrument-serif, @fontsource-variable/geist; beschnitten mit
-     pyftsubset <woff2> --unicodes="U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212,U+2215,U+FEFF,U+FFFD" \
-       --layout-features='*' --flavor=woff2
-   Zusammen 67 KB. Wechsel: Dateinamen hier und die Preloads in bauen.mjs anpassen, Ersatz-Maße neu messen. */
+/* ---------- Schriften: je Schnitt EINE Datei (latin), lokal, SIL OFL (fonts/LIZENZ.txt) ----------
+   Cormorant Garamond 500 (Titel, normal + kursiv für das eine Wort) und Jost 400/500 (Text). Zusammen 67 KB. */
 @font-face {
-  font-family: "Instrument Serif";
+  font-family: "Cormorant Garamond";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/cormorant-garamond.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic; font-weight: 500; font-display: swap;
+  src: url("../fonts/cormorant-garamond-kursiv.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Jost";
   font-style: normal; font-weight: 400; font-display: swap;
-  src: url("../fonts/instrument-serif.woff2") format("woff2");
+  src: url("../fonts/jost.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Instrument Serif";
-  font-style: italic; font-weight: 400; font-display: swap;
-  src: url("../fonts/instrument-serif-kursiv.woff2") format("woff2");
+  font-family: "Jost";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/jost-mittel.woff2") format("woff2");
 }
+/* Ersatzschriften mit angepassten Maßen, damit der Text beim Tausch kaum springt (CLS ≈ 0) */
 @font-face {
-  font-family: "Geist";
-  font-style: normal; font-weight: 100 900; font-display: swap;
-  src: url("../fonts/geist.woff2") format("woff2");
-}
-/* Ersatzschriften, gemessen mit fontTools gegen Liberation (= Times/Arial metrisch): Breite eines Mustersatzes,
-   hhea-Maße ÷ size-adjust. Der Text springt beim Tausch kaum (CLS ≈ 0). */
-@font-face {
-  font-family: "Instrument Serif Ersatz";
+  font-family: "Cormorant Ersatz";
   src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
-  size-adjust: 82%; ascent-override: 120.7%; descent-override: 37.8%; line-gap-override: 0%;
+  size-adjust: 88%; ascent-override: 105%; descent-override: 32%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: "Instrument Serif Ersatz";
-  font-style: italic;
-  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic");
-  size-adjust: 86.1%; ascent-override: 115%; descent-override: 36%; line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Geist Ersatz";
+  font-family: "Jost Ersatz";
   src: local("Arial"), local("ArialMT"), local("Liberation Sans");
-  size-adjust: 104.9%; ascent-override: 95.8%; descent-override: 28.1%; line-gap-override: 0%;
+  size-adjust: 96%; ascent-override: 110%; descent-override: 36%; line-gap-override: 0%;
 }
 
-/* ---------- B „Graphit“ (Vorgabe, von Elias am 06.10. gewählt) ---------- */
 :root {
-  /* Farben: 6 Rollen + Höhe, Zustand, Schrift auf dem Akzent */
-  --farbe-grund: #1c1a17;        /* warmes Dunkelgrau statt Schwarz */
-  --farbe-flaeche: #24211d;      /* Bänder, Felder, Blatt */
-  --farbe-flaeche-hoch: #2c2924; /* Karten, gehoben */
-  --farbe-text: #ebe4d6;         /* warmes Elfenbein, gedämpft; auch Hauptknopf */
-  --farbe-leise: #afa695;        /* Nebentext */
-  --farbe-linie: #3a352e;        /* Haarlinien */
-  --farbe-akzent: #e6c18a;       /* Lichtakzent: Links, Fokus, Überzeilen, ein Wort */
-  --farbe-auf-akzent: #1c1a17;
-  --farbe-gut: #a8d4a0;          /* Zustand „erledigt“ – nur Häkchen und Marken in Schaubildern */
-  --farbe-fehler: #f2a48c;       /* Fehlermeldungen im Formular */
-  --farbe-licht: #ffd9a0;        /* Schein des Lichtkegels im Hero (nur als Hauch) */
-  --blau-tief: #6b4423;          /* Tiefenfarbe: Flächen und Verläufe, nie als Textfarbe */
+  /* Farben */
+  --farbe-grund: #0f1011;        /* Kajüte bei Nacht, warmes Fast-Schwarz */
+  --farbe-flaeche: #15171a;      /* Bänder, Felder */
+  --farbe-flaeche-hoch: #1c1f22; /* Plaketten, Karten */
+  --farbe-text: #ebe1cc;         /* Pergament */
+  --farbe-leise: #aaa18e;        /* Nebentext */
+  --farbe-linie: #2a2c2e;        /* Haarlinien */
+  --farbe-akzent: #c9954a;       /* Messing: Linien, Knöpfe, Fokus, das eine Wort */
+  --farbe-auf-akzent: #0f1011;
+  --farbe-gut: #a9c99a;          /* Zustand „erledigt“ */
+  --farbe-fehler: #f0a48c;       /* Fehlermeldungen im Formular */
+  --farbe-licht: #f2b866;        /* Lampenschein, nur als Hauch */
+  --blau-tief: #1d3140;          /* Stahlblau der See: Flächen und Verläufe, nie Text */
 
-  /* Handwerk der Karten: Haarring 0,5 px + weicher, tiefer Schatten; Glanzkante oben */
-  --farbe-ring: rgba(230, 193, 138, .16);
-  --farbe-glanz: rgba(235, 228, 214, .07);
-  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(10, 8, 5, .4), 0 28px 48px -28px rgba(10, 8, 5, .9);
-  --schatten-hoch: 0 0 0 .5px rgba(230, 193, 138, .3), 0 2px 6px rgba(10, 8, 5, .4), 0 34px 60px -26px rgba(10, 8, 5, .95);
-  --held-schleier: 50%;          /* Deckkraft des Schleiers über dem Mosaik */
+  /* Handwerk: Messing-Haarkante + tiefer, weicher Schatten */
+  --farbe-ring: rgba(201, 149, 74, .22);
+  --farbe-glanz: rgba(235, 225, 204, .06);
+  --schatten-karte: 0 0 0 1px var(--farbe-ring), 0 30px 60px -36px rgba(0, 0, 0, .9);
+  --schatten-hoch: 0 0 0 1px rgba(201, 149, 74, .45), 0 36px 70px -34px rgba(0, 0, 0, .95);
+  --held-schleier: 72%;
 
-  /* Farben der fünf Arbeiten (aus deren marke.css) – nur für Reiter-Linien und Punkte */
+  /* Farben der Arbeiten (aus deren marke.css) – nur für Reiter-Linien */
   --werk-hell: #a4462a;
   --werk-laut: #ff4a1c;
   --werk-edel: #d4b37c;
@@ -90,78 +73,32 @@
   --werk-klarwerk: #5fba46;
   --werk-norvak: #6b9fe0;
 
-  /* Wegweiser-Zeichen: helle Scheibe mit dunklem Symbol */
-  --zeichen-grund: #ebe4d6;
-  --zeichen-strich: #1c1a17;
+  /* Wegweiser-Zeichen (Unterseiten) */
+  --zeichen-grund: #c9954a;
+  --zeichen-strich: #0f1011;
 
-  /* Schriften (Code: nur Systemschrift, kein Download) */
-  --schrift-display: "Instrument Serif", "Instrument Serif Ersatz", "Times New Roman", serif;
-  --schrift-text: "Geist", "Geist Ersatz", Arial, sans-serif;
-  --schrift-code: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Liberation Mono", Menlo, Consolas, monospace;
+  /* Schriften */
+  --schrift-display: "Cormorant Garamond", "Cormorant Ersatz", "Times New Roman", serif;
+  --schrift-text: "Jost", "Jost Ersatz", Arial, sans-serif;
+  --schrift-code: ui-monospace, "SF Mono", "Cascadia Mono", "Liberation Mono", Menlo, Consolas, monospace;
 
-  /* Formen: Karten weich gerundet, Knöpfe als Pille */
-  --radius-klein: 6px;
-  --radius-karte: 1.375rem;
-  --radius-gross: 999px;
+  /* Formen: Messing ist hart geschnitten, nur Knöpfe leicht gerundet */
+  --radius-klein: 2px;
+  --radius-karte: 4px;
+  --radius-gross: 3px;
 
-  /* Bewegung (Werte aus wissen/DESIGN-WISSEN.md; weich/schwung nach Referenz Space Rocket) */
+  /* Bewegung: langsam, wie Licht, das atmet */
   --tempo-kurz: .3s;
-  --tempo-mittel: .42s;
-  --tempo-lang: .9s;
+  --tempo-mittel: .5s;
+  --tempo-lang: 1.1s;
   --kurve-standard: cubic-bezier(.2, .8, .2, 1);
   --kurve-sanft: cubic-bezier(.45, .05, .25, 1);
   --kurve-schliessen: cubic-bezier(.5, 0, .75, 0);
-  --kurve-weich: cubic-bezier(.16, 1, .3, 1);      /* langes, ruhiges Auslaufen */
-  --kurve-schwung: cubic-bezier(.34, 1.42, .64, 1); /* leichtes Überschwingen für kleine Marken */
+  --kurve-weich: cubic-bezier(.16, 1, .3, 1);
+  --kurve-schwung: cubic-bezier(.34, 1.42, .64, 1);
 
   /* Rhythmus */
-  --abstand-abschnitt: clamp(5rem, 3rem + 7vw, 10rem);
+  --abstand-abschnitt: clamp(6rem, 3rem + 8vw, 11rem);
 
   color-scheme: dark;
-}
-
-/* ---------- A „Mitternacht“: kühles Tintenblau, Periwinkle (Alternative) ---------- */
-:root[data-schema="mitternacht"] {
-  --farbe-grund: #131826;
-  --farbe-flaeche: #1a2032;
-  --farbe-flaeche-hoch: #212842;
-  --farbe-text: #e4e0d6;
-  --farbe-leise: #a2a8ba;
-  --farbe-linie: #2b3249;
-  --farbe-akzent: #b3bfff;
-  --farbe-auf-akzent: #131826;
-  --farbe-gut: #9bd9b4;
-  --farbe-fehler: #f4a58f;
-  --farbe-licht: #c9d1ff;
-  --blau-tief: #3446c4;
-  --farbe-ring: rgba(179, 191, 255, .16);
-  --farbe-glanz: rgba(228, 224, 214, .07);
-  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(5, 8, 20, .35), 0 28px 48px -28px rgba(5, 8, 20, .85);
-  --schatten-hoch: 0 0 0 .5px rgba(179, 191, 255, .3), 0 2px 6px rgba(5, 8, 20, .35), 0 34px 60px -26px rgba(5, 8, 20, .95);
-  --zeichen-grund: #e4e0d6;
-  --zeichen-strich: #131826;
-}
-
-/* ---------- C „Kalk“: heller Kalkputz, Tintenblau – die Seite bei Tageslicht ---------- */
-:root[data-schema="kalk"] {
-  --farbe-grund: #f1ede5;
-  --farbe-flaeche: #faf7f1;
-  --farbe-flaeche-hoch: #ffffff;
-  --farbe-text: #1b1f2d;
-  --farbe-leise: #555a69;
-  --farbe-linie: #ddd6c9;
-  --farbe-akzent: #3442b8;
-  --farbe-auf-akzent: #faf7f1;
-  --farbe-gut: #2c7550;
-  --farbe-fehler: #b0391c;
-  --farbe-licht: #fff6dc;
-  --blau-tief: #c3c9f6;
-  --farbe-ring: rgba(27, 31, 45, .1);
-  --farbe-glanz: rgba(255, 255, 255, .8);
-  --schatten-karte: 0 0 0 .5px var(--farbe-ring), 0 1px 2px rgba(27, 34, 70, .05), 0 22px 40px -22px rgba(27, 34, 70, .28);
-  --schatten-hoch: 0 0 0 .5px rgba(27, 31, 45, .14), 0 2px 6px rgba(27, 34, 70, .06), 0 26px 46px -18px rgba(27, 34, 70, .34);
-  --held-schleier: 62%;
-  --zeichen-grund: #1b1f2d;
-  --zeichen-strich: #faf7f1;
-  color-scheme: light;
 }

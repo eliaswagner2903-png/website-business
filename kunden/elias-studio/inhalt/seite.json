@@ -29,7 +29,8 @@
     "fragen": "Antworten aus Business-Plan und Qualitätsregeln abgeleitet – Elias prüft, ob sie so stimmen",
     "leistungen": "Leistungstexte und Namen aus Elias’ Wunsch (04.10. und 06.10.: „Suchmaschinenoptimiert“ statt „Suchmaschinen (SEO)“) abgeleitet – Elias prüft Wortlaut und Umfang",
     "entscheidung": "Entscheidungssatz aus Kundensicht neu formuliert (Muster aus der Referenz-Auswertung) – Elias prüft, ob er für die Branche stimmt",
-    "wahl": "Kurzbeschreibungen der Wahlleistungen aus wissen/preismodell/modell.mjs und wartung/PAKETE.md abgeleitet – Elias prüft, ob sie so stimmen"
+    "wahl": "Kurzbeschreibungen der Wahlleistungen aus wissen/preismodell/modell.mjs und wartung/PAKETE.md abgeleitet – Elias prüft, ob sie so stimmen",
+    "wortlaut": "Überschriften und Texte beim Umbau am 11.10. in einfache Worte gefasst – Elias prüft den Wortlaut"
   },
   "messung": "Gemessen am 29.09.2026 (NORVAK am 06.10.2026): Lighthouse mobil, Mittel aus 3 Läufen, mit Kompression.",
   "arbeiten": [
@@ -145,7 +146,7 @@
       "text": "Ihre fertige Seite mit Gestaltung, Bildern und Technik, bereit für den Start.",
       "enthalten": [
         [
-          "Suchmaschinenoptimiert",
+          "Bei Google gut lesbar",
           "Saubere Struktur, Titel und strukturierte Daten, damit Google Sie auch in Ihrer Region richtig einordnet."
         ],
         [
@@ -154,7 +155,7 @@
         ],
         [
           "Spürbar schnell",
-          "Jede Seite wird vor dem Start mit Lighthouse nachgemessen."
+          "Jede Seite wird vor dem Start auf dem Handy nachgemessen."
         ],
         [
           "Barrierefrei",
@@ -202,10 +203,15 @@
       ],
       "hinweis": "Grundbetreuung ab 75 € im Monat. Gewählte Zusatzleistungen und Serverkosten kommen dazu."
     },
-    "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen."
+    "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen.",
+    "ueber": "Die Fahrt",
+    "titel": "Die Seite einmal. Die Betreuung, <em>wenn Sie wollen</em>."
   },
   "hero": {
-    "lead": "Websites für Praxen, Werkstätten und Restaurants: schnell auf dem Handy, klar im Aufbau, mit eigenem Charakter. Im Lichtkegel sehen Sie Ausschnitte meiner Arbeiten."
+    "dach": "Websites für Praxen, Werkstätten und Restaurants",
+    "titel": "Ihre Website. <em>Klar auf Kurs.</em>",
+    "lead": "Ich baue Websites, die auf dem Handy schnell laden, klar aufgebaut sind und zu Ihrem Betrieb passen. Auf Wunsch kümmere ich mich danach auch um sie.",
+    "unterzeile": "Gebaut. Gemessen. Betreut."
   },
   "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Jede wurde vor der Übergabe nachgemessen.",
   "ablauf": {
@@ -231,7 +237,7 @@
     ]
   },
   "fragen": {
-    "ueber": "Fragen",
+    "ueber": "Vor der Abfahrt",
     "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
     "liste": [
       [
@@ -248,7 +254,7 @@
       ],
       [
         "Wie schnell lädt die Seite?",
-        "Ich messe mit Lighthouse auf dem Handy, das Ziel sind mindestens 95 von 100 Punkten. Die Werte meiner Musterseiten stehen jeweils bei den Arbeiten."
+        "Ich messe jede Seite vor dem Start auf dem Handy nach (mit Lighthouse von Google), das Ziel sind mindestens 95 von 100 Punkten. Die Werte meiner Musterseiten stehen jeweils bei den Arbeiten."
       ],
       [
         "Muss ich die Betreuung buchen?",
@@ -261,51 +267,55 @@
     ]
   },
   "kontakt": {
-    "text": "Ein paar Sätze zu Ihrem Betrieb genügen. Ich melde mich mit einem ersten Vorschlag."
+    "text": "Ein paar Sätze zu Ihrem Betrieb genügen. Ich melde mich mit einem ersten Vorschlag.",
+    "ueber": "Im Hafen",
+    "titel": "Erzählen Sie mir von Ihrem <em>Betrieb</em>."
   },
   "preis_website_anzeige": "ab 1.490 €",
   "preis_abo_anzeige": "ab 75 € pro Monat",
   "leistungen": {
-    "kopf": "Eine neue Seite ist nur der Anfang. Ich erneuere auch bestehende Seiten und sorge dafür, dass Suchmaschinen und KI-Assistenten verstehen, was Sie anbieten.",
+    "kopf": "Eine neue Seite ist nur der Anfang. Ich erneuere auch bestehende Seiten und sorge dafür, dass Google und KI-Assistenten verstehen, was Sie anbieten.",
     "karten": [
       {
         "id": "neu",
         "kurz": "Neubau",
         "titel": "Neue Website nach Maß",
-        "text": "Von Grund auf für Ihren Betrieb gestaltet, mit eigenem Leitmotiv, schnell auf dem Handy und ohne Tracking."
+        "text": "Von Grund auf für Ihren Betrieb gestaltet: schnell auf dem Handy, mit eigenem Charakter und ohne Tracking."
       },
       {
         "id": "alt",
         "kurz": "Relaunch",
         "titel": "Bestehende Seite erneuern",
-        "text": "Ihre Seite bekommt neue Gestaltung und Technik. Gute Texte, Bilder und Ihre Adresse bleiben, Weiterleitungen sorgen dafür, dass kein alter Link ins Leere führt."
+        "text": "Neue Gestaltung und Technik. Ihre guten Texte, Bilder und Ihre Adresse bleiben, alte Links führen weiter ans Ziel."
       },
       {
         "id": "seo",
-        "kurz": "SEO",
-        "titel": "Suchmaschinenoptimiert",
-        "text": "Saubere Technik, klare Seitentitel, gute Struktur und Ihre Angaben vor Ort (Local SEO): So versteht Google, was Sie anbieten und wo. Eine bestimmte Platzierung kann niemand seriös zusagen."
+        "kurz": "SEO und Local SEO",
+        "titel": "Bei Google richtig verstanden",
+        "text": "Klare Seitentitel, saubere Struktur und Ihre Angaben vor Ort: So versteht Google, was Sie anbieten und wo. Eine bestimmte Platzierung kann niemand seriös zusagen."
       },
       {
         "id": "geo",
         "kurz": "GEO",
         "titel": "Für KI-Assistenten lesbar",
-        "text": "Klare Antworten und strukturierte Daten, damit ChatGPT, Claude oder Perplexity Ihre Angaben richtig lesen und als Quelle nennen können. Ob eine KI Sie empfiehlt, entscheidet sie selbst."
+        "text": "Klare Antworten und Firmendaten, die ChatGPT, Claude oder Perplexity richtig lesen und als Quelle nennen können. Ob eine KI Sie empfiehlt, entscheidet sie selbst."
       },
       {
         "id": "tempo",
-        "kurz": "Performance",
-        "titel": "Schnell und barrierefrei",
-        "text": "Gemessen mit Lighthouse auf dem Handy, Ziel sind mindestens 95 von 100 Punkten. Per Tastatur bedienbar und gut lesbar nach WCAG AA."
+        "kurz": "Performance und Barrierefreiheit",
+        "titel": "Schnell und für alle bedienbar",
+        "text": "Jede Seite wird vor dem Start auf dem Handy nachgemessen, Ziel sind mindestens 95 von 100 Punkten. Auch per Tastatur und Vorleseprogramm bedienbar."
       },
       {
         "id": "sicher",
-        "kurz": "Datenschutz",
-        "titel": "Sicher und datensparsam",
-        "text": "Keine Cookies, keine fremden Skripte, Schriften vom eigenen Server und gesicherte Formulare. Zahlungen laufen ausschließlich über Stripe."
+        "kurz": "Datenschutz und Sicherheit",
+        "titel": "Sicher, ohne Cookie-Banner",
+        "text": "Keine Cookies, keine fremden Skripte, gesicherte Formulare. Zahlungen laufen ausschließlich über Stripe."
       }
     ],
-    "hinweis": "id: wählt das kleine Schaubild (nur Dekor, aria-hidden) und den Platz im Raster in bauen.mjs; kurz: kleines Etikett über dem Titel (Fachbegriff)"
+    "hinweis": "id: wählt das Instrument (Strichzeichnung, nur Dekor, aria-hidden) in bauen.mjs; kurz: Fachbegriff, steht klein unter dem Text",
+    "ueber": "An Bord",
+    "titel": "Was ich für Sie <em>baue</em>."
   },
   "arbeiten_ruhend": [
     {
@@ -360,6 +370,11 @@
       "Was ich für Sie baue"
     ],
     [
+      "#ablauf",
+      "Ablauf",
+      "So läuft es ab"
+    ],
+    [
       "#arbeiten",
       "Arbeiten",
       "Musterseiten ansehen"
@@ -374,5 +389,12 @@
       "Kontakt",
       "Projekt besprechen"
     ]
-  ]
+  ],
+  "arbeiten_ueber": "Aus dem Logbuch",
+  "arbeiten_titel": "{n} Betriebe, {n_klein} eigene <em>Ideen</em>.",
+  "zwischenbild": {
+    "ueber": "Gebaut. Gemessen. Betreut.",
+    "satz": "Jede Seite wird vor dem Start nachgemessen: Tempo, Barrierefreiheit und Sicherheit.",
+    "alt": ""
+  }
 }

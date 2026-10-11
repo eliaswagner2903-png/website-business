@@ -80,16 +80,15 @@ test('Arbeiten: gezeigte Musterseiten (nur fiktive Marken), Vorschaubilder und M
   assert.doesNotMatch(JSON.stringify(S.arbeiten), /eislingen/i, 'Eislingen in den Arbeiten');
   assert.deepEqual(readdirSync(join(PUB, 'medien')).filter((f) => echt.test(f)), [], 'echter Firmenname in Dateinamen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
-  // Erster Bildschirm ist der Hero „Lichtkegel“: die H1 (reiner Text) ist das LCP-Element, das Mosaik ist Dekor und darf ihr nie
-  // Bandbreite mit Vorrang nehmen (kein fetchpriority="high", nur Bilder mit alt="" in einem aria-hidden-Rahmen).
+  // Erster Bildschirm ist der Hero „Kajüte“ (Umbau 11.10.): das Bild ist das LCP-Element (fetchpriority="high"), Stimmung ohne Inhalt (alt=""),
+  // die Botschaft steht als Text daneben. Kein Mosaik fremder Seiten mehr (Elias 11.10.).
   const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
-  assert.match(held, /<h1 id="titel"><span>Gebaut\.<\/span> <span>Gemessen\.<\/span> <span>Betreut\.<\/span><\/h1>/, 'H1 nicht im Hero');
-  assert.match(held, /<div class="held-mosaik" aria-hidden="true">/, 'Mosaik nicht aria-hidden');
-  assert.doesNotMatch(held, /fetchpriority/, 'Mosaikbild mit Vorrang');
-  for (const [img] of held.matchAll(/<img [^>]*>/g)) assert.match(img, /alt="" decoding="async"/, `Mosaikbild ohne alt="" oder decoding: ${img}`);
-  assert.ok(held.match(/<img /g).length <= 3, 'Mosaik zu groß (höchstens drei Bilder)');
-  assert.match(held, /href="#arbeiten">Arbeiten ansehen/, 'Hauptknopf fehlt');
-  assert.match(held, /class="knopf zweit" href="#kontakt">Projekt anfragen/, 'zweiter Knopf fehlt');
+  assert.match(held, /<h1 id="titel"[^>]*>Ihre Website\. <em>Klar auf Kurs\.<\/em><\/h1>/, 'H1 nicht im Hero');
+  assert.doesNotMatch(held, /held-mosaik|mosaik-/, 'Mosaik im Hero');
+  assert.equal((held.match(/fetchpriority="high"/g) || []).length, 1, 'Hero-Bild ohne Vorrang');
+  assert.match(held, /<img src="\/medien\/kapitaen-kajuete-hoch-720\.webp" width="720" height="1273" alt="" fetchpriority="high"/);
+  assert.match(held, /class="knopf" href="#kontakt">Projekt besprechen/, 'Hauptknopf fehlt');
+  assert.match(held, /class="knopf zweit" href="#arbeiten">Arbeiten ansehen/, 'zweiter Knopf fehlt');
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, alle mit Vorschau-Link
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
@@ -104,7 +103,7 @@ test('Formular: Honigtopf, POST an die eigene Function, Datenschutz-Hinweis', ()
   assert.match(readFileSync(join(WURZEL, 'functions/api/kontakt.js'), 'utf8'), /zurueck: '\/#kontakt'/);
 });
 
-test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts Fremdes, zweites Schema (P4)', () => {
+test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts Fremdes', () => {
   for (const [f, t] of seiten) {
     const pre = [...t.matchAll(/<link rel="preload"[^>]*as="font"[^>]*>/g)].map((m) => m[0]);
     assert.ok(pre.length <= 3, `${f}: ${pre.length} Schrift-Preloads`);
@@ -114,8 +113,8 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  for (const s of ['mitternacht', 'kalk']) assert.match(marke, new RegExp(`\\[data-schema="${s}"\\]`), `Schema ${s} fehlt (P4)`);
-  assert.doesNotMatch(marke, /kobalt/, 'altes Testschema kobalt');
+  assert.match(marke, /cormorant-garamond\.woff2/);
+  assert.match(marke, /jost\.woff2/);
 });
 
 test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {
@@ -142,60 +141,54 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
   assert.doesNotMatch(start, /href="#konfigurator"/);
 });
 
-test('Hero „Lichtkegel“: kein Film mehr, Kegel nur per Skript und CSS, still ohne JS und bei reduzierter Bewegung', () => {
-  assert.doesNotMatch(start, /<video|kino|tisch-(film|anfang|ende)|werkbank-/, 'Rest des alten Kino-Heros');
-  assert.doesNotMatch(readFileSync(join(PUB, '_headers'), 'utf8'), /media-src 'self' blob:/, 'blob: für den Film nicht mehr nötig');
-  assert.match(start, /<script src="\/js\/held\.js" defer><\/script>/);
-  const js = readFileSync(join(PUB, 'js/held.js'), 'utf8');
-  assert.match(js, /prefers-reduced-motion: reduce/, 'held.js ignoriert „Bewegung reduzieren“ nicht');
-  assert.match(js, /style\.setProperty\('--licht-x'/, 'Lichtposition nicht per setProperty');
-  assert.doesNotMatch(js, /\.style\.(cssText|left|top|transform)|setAttribute\('style'|innerHTML/, 'held.js schreibt Inline-Stil am HTML vorbei');
+test('Hero „Kajüte“: Bilder vorhanden und leicht, kein Lichtkegel-Skript mehr, Hero wartet auf die Vorstellung', () => {
+  assert.doesNotMatch(start, /<video|held\.js|held-mosaik|held-karte/, 'Rest des alten Heros');
+  const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
+  for (const [, src] of held.matchAll(/(\/medien\/kapitaen-[^" ,]+)/g)) {
+    assert.ok(existsSync(join(PUB, src)), `${src} fehlt`);
+    // Ladezeit-Regeln (Drehbuch): Hero mobil ≤ 120 KB, Computer ≤ 220 KB
+    assert.ok(statSync(join(PUB, src)).size < (/hoch/.test(src) ? 120 : 220) * 1024, `${src} zu groß`);
+  }
   const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8');
-  assert.match(css, /\.held \{\s*--licht-x: 60%; --licht-y: 45%;/, 'feste Vorgabe des Kegels fehlt (Stand ohne JS)');
-  // Mosaikbilder vorhanden und klein (Zeitkonto des ersten Bildschirms)
-  for (const [, src] of start.match(/<section class="held"[\s\S]*?<\/section>/)[0].matchAll(/srcset="(\/medien\/[^" ]+)"/g)) assert.ok(statSync(join(PUB, src)).size < 40 * 1024, `${src} zu groß fürs Mosaik`);
+  assert.match(css, /html\.intro-offen \.held-in > \*, html\.intro-offen \.held-bild img \{ animation-play-state: paused; \}/, 'Hero läuft unter der Vorstellung los');
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
-test('Kein Schema-Schalter: Vorgabe „Graphit“, die Schemata „mitternacht“ und „kalk“ gibt es nur für Vorschauen', () => {
+test('Ein Design (Stil 1 „Nachtschiff“), kein Schema-Schalter, Vorschaubild vorhanden', () => {
   for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|data-schema=/, `${f}: Rest des Schemaschalters`);
-  for (const d of ['js/seite.js', 'js/bausteine.js', 'css/stil.css', 'css/bausteine.css']) assert.doesNotMatch(readFileSync(join(PUB, d), 'utf8'), /schema-knopf|schema-zeichen|oq-schema/, `${d}: Rest des Schemaschalters`);
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
-  assert.match(marke, /--farbe-grund: #1c1a17;/, 'Vorgabe ist nicht „Graphit“');
-  assert.doesNotMatch(marke, /#0a0b0d/, 'altes Fast-Schwarz in marke.css');
-  assert.doesNotMatch(marke, /data-schema="licht"|--gruen-|--kino-|--muster-/, 'alte Farbwelt in marke.css');
-  assert.match(start, /<meta name="theme-color" content="#1c1a17">/);
+  assert.match(marke, /--farbe-grund: #0f1011;/, 'Vorgabe ist nicht „Nachtschiff“');
+  assert.match(marke, /--farbe-akzent: #c9954a;/, 'Akzent ist nicht Messing');
+  assert.doesNotMatch(marke, /data-schema=/, 'alte Schemata in marke.css');
+  assert.match(start, /<meta name="theme-color" content="#0f1011">/);
   assert.ok(existsSync(join(PUB, 'medien/og-startseite.jpg')), 'og:image fehlt');
   for (const [f, t] of seiten) assert.match(t, /og:image" content="[^"]*\/medien\/og-startseite\.jpg"/, `${f}: og:image`);
 });
 
-test('Kontrast WCAG AA in allen drei Schemata (Text, Nebentext, Akzent, Knöpfe ≥ 4,5 : 1)', () => {
+test('Kontrast WCAG AA (Text, Nebentext, Akzent, Knöpfe ≥ 4,5 : 1)', () => {
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
-  const block = (sel) => Object.fromEntries([...marke.match(new RegExp(`${re(sel)} \\{([^}]*)\\}`))[1].matchAll(/--(farbe-[\w-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
+  const f = Object.fromEntries([...marke.match(/:root \{([^}]*)\}/)[1].matchAll(/--(farbe-[\w-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
   const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
   const hell = (h) => { const n = parseInt(h.slice(1), 16); return 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255); };
   const k = (a, b) => { const [x, y] = [hell(a), hell(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
-  const vorgabe = block(':root');
-  for (const [name, sel] of [['graphit', null], ['mitternacht', ':root[data-schema="mitternacht"]'], ['kalk', ':root[data-schema="kalk"]']]) {
-    const f = { ...vorgabe, ...(sel ? block(sel) : {}) };
-    const paare = [['text', 'grund'], ['text', 'flaeche'], ['text', 'flaeche-hoch'], ['leise', 'grund'], ['leise', 'flaeche'], ['leise', 'flaeche-hoch'],
-      ['akzent', 'grund'], ['akzent', 'flaeche-hoch'], ['auf-akzent', 'akzent'], ['grund', 'text'], ['fehler', 'flaeche']];
-    for (const [v, h] of paare) assert.ok(k(f[`farbe-${v}`], f[`farbe-${h}`]) >= 4.5, `${name}: ${v} auf ${h} nur ${k(f[`farbe-${v}`], f[`farbe-${h}`]).toFixed(2)} : 1`);
-  }
+  const paare = [['text', 'grund'], ['text', 'flaeche'], ['text', 'flaeche-hoch'], ['leise', 'grund'], ['leise', 'flaeche'], ['leise', 'flaeche-hoch'],
+    ['akzent', 'grund'], ['akzent', 'flaeche-hoch'], ['auf-akzent', 'akzent'], ['grund', 'text'], ['fehler', 'flaeche']];
+  for (const [v, h] of paare) assert.ok(k(f[`farbe-${v}`], f[`farbe-${h}`]) >= 4.5, `${v} auf ${h} nur ${k(f[`farbe-${v}`], f[`farbe-${h}`]).toFixed(2)} : 1`);
 });
 
-test('Leistungen als Bento: sechs Karten mit Schaubild (Dekor), echter Text im HTML, keine Platzierungsversprechen', () => {
+test('Leistungen als Plaketten: sechs Karten mit Instrument (Dekor), Fachbegriff klein, keine Platzierungsversprechen', () => {
   const sek = start.match(/<section class="abschnitt leistungen"[\s\S]*?<\/section>/)[0];
-  const karten = [...sek.matchAll(/<li class="leist leist--(\w+) einblenden">([\s\S]*?)<\/li>\n/g)];
+  const karten = [...sek.matchAll(/<li class="plakette einblenden">([\s\S]*?)<\/li>\n/g)];
   assert.equal(karten.length, 6, 'sechs Leistungskarten');
-  for (const [, id, inhalt] of karten) {
-    assert.match(inhalt, new RegExp(`<div class="mini mini--${id}" aria-hidden="true">`), `${id}: Schaubild nicht aria-hidden`);
-    assert.match(inhalt, /<div class="leist-text"><p class="leist-kurz">[^<]+<\/p><h3>[^<]+<\/h3><p>[^<]+<\/p><\/div>/, `${id}: Text fehlt`);
-    assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, `${id}: Bild oder Versprechen im Schaubild`);
+  for (const [, inhalt] of karten) {
+    assert.match(inhalt, /<svg class="instrument" viewBox="0 0 48 48" aria-hidden="true" focusable="false">/, 'Instrument nicht aria-hidden');
+    assert.match(inhalt, /<h3>[^<]+<\/h3>\s*<p>[^<]+<\/p>\s*<p class="fachwort">Fachbegriff: [^<]+<\/p>/, 'Text fehlt');
+    assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, 'Bild oder Versprechen');
   }
   for (const k of S.leistungen.karten) assert.ok(sek.includes(`<h3>${k.titel.replace(/&/g, '&amp;')}</h3>`), `${k.id}: Titel fehlt`);
-  // Ablauf: Zeichnungen sind Dekor
-  for (const [svg] of start.matchAll(/<svg class="schritt-bild[^>]*>/g)) assert.match(svg, /focusable="false"/);
-  assert.match(start, /<span class="schritt-kopf" aria-hidden="true">/);
+  // Ablauf: Etappen-Ziffern sind Dekor (die Liste zählt selbst), die Schritte echter Text
+  assert.equal((start.match(/<span class="etappe" aria-hidden="true">/g) || []).length, S.ablauf.schritte.length);
+  assert.doesNotMatch(start, /class="boje"|class="kurs-linie"/, 'alte Bojen');
 });
 
 test('Arbeiten: Entscheidungssatz je Arbeit, neu formuliert und markiert', () => {
