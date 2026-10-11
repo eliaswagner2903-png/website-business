@@ -27,7 +27,7 @@ const INTRO_SKRIPT = "try{var d=document.documentElement,w=location.search.index
 // ---------- Seitenkapitän: Kompass (Marke), Kompassrose (Hero, Vorstellung) ----------
 // Alles Dekor (aria-hidden), reine Linien in currentColor/Messing. Nichts Verspieltes: keine Anker, keine Piraten, ein Kompass und eine Route.
 const KOMPASS_MARKE = '<svg class="marke-kompass" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="mk-ring" cx="16" cy="16" r="13.6"/><path class="mk-stern" d="M16 2.6 18.5 13.5 29.4 16 18.5 18.5 16 29.4 13.5 18.5 2.6 16 13.5 13.5Z"/><path class="mk-nord" d="M16 2.6 18.5 13.5 16 16 13.5 13.5Z"/></svg>';
-function kompassRose(klasse = '') {
+function kompassRose(klasse = '', { route = false } = {}) {
   const r = (x) => Math.round(x * 100) / 100;
   let ticks = '';
   for (let i = 0; i < 72; i++) {
@@ -39,11 +39,10 @@ function kompassRose(klasse = '') {
   const neben = [45, 135, 225, 315].map((w) => spitze(w, 108, 11)).join('');
   return `<svg class="kompass${klasse ? ` ${klasse}` : ''}" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
     <g class="k-aussen"><circle class="k-ring" cx="300" cy="300" r="244"/><circle class="k-ring k-ring--fein" cx="300" cy="300" r="232"/><path class="k-ticks" d="${ticks}"/></g>
-    <g class="k-innen"><circle class="k-ring k-ring--fein" cx="300" cy="300" r="118"/><path class="k-neben" d="${neben}"/><path class="k-haupt" d="${haupt}"/><path class="k-nord" d="${spitze(0, 205, 17)}"/><circle class="k-nabe" cx="300" cy="300" r="5"/></g>
+    <g class="k-innen"><circle class="k-ring k-ring--fein" cx="300" cy="300" r="118"/><path class="k-neben" d="${neben}"/><path class="k-haupt" d="${haupt}"/><path class="k-nord" d="${spitze(0, 205, 17)}"/><circle class="k-nabe" cx="300" cy="300" r="5"/></g>${route ? `
+    <g class="route"><path class="route-linie" pathLength="1" d="M490 -150C440 -40 480 50 440 130S330 240 300 300"/><g class="route-punkte"><circle cx="458" cy="58" r="5"/><circle cx="392" cy="184" r="5"/></g></g>` : ''}
   </svg>`;
 }
-// Route: eine Linie mit Wegpunkten, wie auf einer Seekarte (Dekor im Hero)
-const ROUTE = '<svg class="route" viewBox="0 0 900 420" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice"><path class="route-linie" pathLength="1" d="M20 380C170 352 220 250 340 262S520 340 600 226 760 110 880 60"/><g class="route-punkte"><circle cx="20" cy="380" r="5"/><circle cx="340" cy="262" r="5"/><circle cx="600" cy="226" r="5"/><circle class="route-ziel" cx="880" cy="60" r="7"/></g></svg>';
 
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
@@ -176,7 +175,7 @@ ${inhalt}
         <ul class="fuss-liste">
           <li><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
           ${TELZ(`<li><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
-          <li><span${pr(P.ort)}>${esc(S.ort)}</span></li>
+          <li><span${pr(P.ort)}>Heimathafen ${esc(S.ort)}</span><span class="fuss-koordinaten">48°41′ N · 9°42′ O</span></li>
         </ul>
       </div>
       <div>
@@ -223,7 +222,7 @@ const mosaikBild = (id) => {
   return `<picture><source media="(min-width: 48rem)" type="image/avif" srcset="${d('avif')}" width="560" height="1190"><source media="(min-width: 48rem)" type="image/webp" srcset="${d('webp')}" width="560" height="1190"><source type="image/avif" srcset="${h('avif')}" width="200" height="1483"><img src="${h('webp')}" width="200" height="1483" alt="" decoding="async"></picture>`;
 };
 const held = `<section class="held" aria-labelledby="titel">
-  <div class="held-karte" aria-hidden="true">${kompassRose()}${ROUTE}</div>
+  <div class="held-karte" aria-hidden="true">${kompassRose('', { route: true })}</div>
   <div class="held-mosaik" aria-hidden="true">
     <div class="held-raster">
 ${MOSAIK.map((spalte) => `      <div>${spalte.map(mosaikBild).join('')}</div>`).join('\n')}
