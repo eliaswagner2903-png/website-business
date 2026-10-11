@@ -31,7 +31,7 @@ Lessons (why v1 stuttered):
 
 ElevenLabs "Commercial Voice – Confident, Warm & Persuasive" (Axaki7xNO0GjrRrnO2GF), eleven_v4, flow GmebMb8ZWLeQmTpO2k8L:
 1. Ihr Betrieb ist einzigartig. Ihre Website sollte es auch sein.
-2. Ich baue Websites mit Charakter. Schnell auf dem Handy. Klar im Aufbau. Und gefunden – bei Google und bei KI.
+2. Ich baue Websites mit Charakter. Schnell auf dem Handy. Klar im Aufbau. Damit Kunden Sie finden: bei Google und in ChatGPT. (round 3: this sentence re-spoken and spliced in)
 3. Für die Uhrmacherei. Für den Werkzeugbau. Fürs Restaurant. Fürs Studio.
 4. Neu gebaut oder erneuert. Einmal bezahlt. Betreuung, wenn Sie möchten.
 5. Ihre neue Website beginnt mit einem Gespräch. Ich freue mich auf Sie.

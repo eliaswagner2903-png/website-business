@@ -20,21 +20,21 @@ const MUSIC: string | null = null; // set once the ElevenLabs track exists
 // ---------------- timeline (film frames) ----------------
 const VO = [
   { file: "n1.wav", at: 18 },   // Ihr Betrieb ist einzigartig. Ihre Website sollte es auch sein.
-  { file: "n2.wav", at: 300 },  // Ich baue Websites mit Charakter. Schnell auf dem Handy. Klar im Aufbau. Und gefunden ...
-  { file: "n3.wav", at: 800 },  // Für die Uhrmacherei. Für den Werkzeugbau. Fürs Restaurant. Fürs Studio.
+  { file: "n2.wav", at: 300 },  // Ich baue Websites mit Charakter. Schnell auf dem Handy. Klar im Aufbau. Damit Kunden Sie finden: bei Google und in ChatGPT.
+  { file: "n3.wav", at: 814 },  // Für die Uhrmacherei. Für den Werkzeugbau. Fürs Restaurant. Fürs Studio.
   { file: "n4.wav", at: 1140 }, // Neu gebaut oder erneuert. Einmal bezahlt. Betreuung, wenn Sie möchten.
   { file: "n5.wav", at: 1650 }, // Ihre neue Website beginnt mit einem Gespräch. Ich freue mich auf Sie.
 ];
 const T = {
-  hero: 282, phone: 448, lei: 524, show: 800, preise: 1130, kontakt: 1470, outro: 1640, end: 1980,
+  hero: 282, phone: 448, lei: 524, show: 814, preise: 1144, kontakt: 1470, outro: 1640, end: 1980,
 };
 export const TOTAL = T.end;
 const SHOW = [
   // cut just before "Für ...", the label reads along with the voice (WORDS.s1..s4)
-  { key: "edel", name: "Lindgrund", say: "s1", at: 800 },
-  { key: "norvak", name: "NORVAK", say: "s2", at: 893 },
-  { key: "glut", name: "ZEYTIN & GLUT", say: "s3", at: 974 },
-  { key: "laut", name: "Zwischenbild", say: "s4", at: 1042 },
+  { key: "edel", name: "Lindgrund", say: "s1", at: 814 },
+  { key: "norvak", name: "NORVAK", say: "s2", at: 907 },
+  { key: "glut", name: "ZEYTIN & GLUT", say: "s3", at: 988 },
+  { key: "laut", name: "Zwischenbild", say: "s4", at: 1056 },
 ];
 const showAt = (f: number) => { let i = 0; for (let k = 0; k < SHOW.length; k++) if (f >= SHOW[k].at) i = k; return i; };
 // what the window shows: a frame of the desktop capture or a showcase page
