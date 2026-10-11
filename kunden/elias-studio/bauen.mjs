@@ -313,7 +313,7 @@ const messung = (w) => `
       </dl>`;
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="knopf zweit oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}>Ganze Seite öffnen ${raus}<span class="unsichtbar"> – ${esc(a.name)} (öffnet in neuem Tab)</span></a></p>`
+    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live im Browser</span><span class="oeffnen-gross">${esc(a.name)} ansehen</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span class="unsichtbar"> (öffnet in neuem Tab)</span></a></p>`
     : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
