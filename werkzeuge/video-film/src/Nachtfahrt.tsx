@@ -489,9 +489,11 @@ const Untertitel: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
             <p style={{ margin: 0, textAlign: "center", fontFamily: "Jost", fontWeight: 400, fontSize: gr, lineHeight: 1.28, letterSpacing: "0.005em", textShadow: "0 2px 14px rgba(0,0,0,0.75)" }}>
               {W.slice(t.a, t.b + 1).map((w, k) => {
                 const i = t.a + k, s = ws(i), e = we(i);
-                const h = glatt(s - 2, s + 3, f) * (1 - glatt(e, e + 9, f));
-                const c = mischen(PERG, MESSING, h);
-                return <React.Fragment key={i}>{br === i && <br />}<span style={{ color: rgba(c, 0.7 + 0.3 * h) }}>{w.w}</span>{k < t.b - t.a && br !== i + 1 ? " " : ""}</React.Fragment>;
+                // Elias 13.10.: gelesene Wörter bleiben in der Kontrastfarbe der Seite (Messing), das gesprochene leuchtet voll
+                const gelesen = glatt(s - 2, s + 3, f);
+                const jetzt = gelesen * (1 - glatt(e, e + 9, f));
+                const c = mischen(PERG, MESSING, gelesen);
+                return <React.Fragment key={i}>{br === i && <br />}<span style={{ color: rgba(c, 0.7 + 0.15 * gelesen + 0.15 * jetzt) }}>{w.w}</span>{k < t.b - t.a && br !== i + 1 ? " " : ""}</React.Fragment>;
               })}
             </p>
           </div>

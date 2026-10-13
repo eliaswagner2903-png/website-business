@@ -88,7 +88,7 @@ ${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm"
   </div>
 ${FILM ? '' : `  <div class="intro-mitte">
     <p class="intro-marke" aria-hidden="true">${KOMPASS_MARKE}<span>${esc(S.studio)}</span></p>
-    <p class="intro-zeile">Gebaut. Gemessen. Betreut.</p>
+    <p class="intro-zeile">${esc(S.hero.unterzeile)}</p>
   </div>
 `}  <div class="intro-leiste">
 ${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-ton" type="button" aria-pressed="false" hidden>Ton an</button>
@@ -185,7 +185,7 @@ ${start ? `<div class="handy-leiste nur-handy"><a class="knopf" href="#kontakt">
         <ul class="fuss-liste">
           <li><a href="${h('#leistungen')}">Leistungen</a></li>
           <li><a href="${h('#arbeiten')}">Arbeiten</a></li>
-          <li><a href="${h('#betreuung')}">Preise und Betreuung</a></li>
+          <li><a href="${h('#betreuung')}">Website und Betreuung</a></li>
           <li><a href="${h('#kontakt')}">Kontakt</a></li>
           <li><a href="/?intro=1" data-vorstellung-oeffnen>${esc(V.knopf)}</a></li>
         </ul>
