@@ -81,19 +81,21 @@ html.intro-geht .intro { pointer-events: none; }
 }
 .intro-marke .marke-kompass { inline-size: .82em; block-size: .82em; }
 .intro-zeile { margin: 0; max-inline-size: none; font-size: .8125rem; letter-spacing: .32em; text-transform: uppercase; color: var(--farbe-leise); padding-inline-start: .32em; }
-.intro-leiste {
-  position: absolute; inset-inline: 0; inset-block-end: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .75rem 1rem;
-  padding: 1rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+.intro-leiste { /* oben rechts und klein: unten stehen die Untertitel des Films */
+  position: absolute; inset-inline: 0; inset-block-start: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .5rem;
+  padding: calc(.6rem + env(safe-area-inset-top)) .75rem .6rem; pointer-events: none;
 }
+.intro-leiste > * { pointer-events: auto; }
 .intro-hinweis { margin: 0; margin-inline-end: auto; max-inline-size: 22rem; font-size: .8125rem; line-height: 1.4; color: var(--farbe-leise); }
-.intro-ton, .intro-weiter {
-  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 1.15rem; border-radius: var(--radius-gross);
-  border: 1px solid color-mix(in srgb, var(--farbe-text) 38%, transparent); background: color-mix(in srgb, var(--farbe-grund) 62%, transparent);
-  color: var(--farbe-text); font: 450 .95rem/1 var(--schrift-text); cursor: pointer;
+.intro-weiter {
+  position: relative; display: inline-flex; align-items: center; gap: .35rem; min-height: 32px; padding: .3rem .75rem; border-radius: var(--radius-gross);
+  border: 1px solid color-mix(in srgb, var(--farbe-text) 30%, transparent); background: color-mix(in srgb, var(--farbe-grund) 55%, transparent);
+  color: var(--farbe-text); font: 450 .78rem/1 var(--schrift-text); cursor: pointer; opacity: .85;
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-  transition: background-color var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard);
+  transition: background-color var(--tempo-kurz) var(--kurve-standard), border-color var(--tempo-kurz) var(--kurve-standard), opacity var(--tempo-kurz) var(--kurve-standard);
 }
-.intro-ton:hover, .intro-weiter:hover { background: color-mix(in srgb, var(--farbe-text) 14%, transparent); border-color: var(--farbe-akzent); }
+.intro-weiter::after { content: ""; position: absolute; inset: -6px; } /* Tippfläche bleibt mindestens 44 px hoch */
+.intro-weiter:hover { opacity: 1; background: color-mix(in srgb, var(--farbe-text) 14%, transparent); border-color: var(--farbe-akzent); }
 .intro-fortschritt {
   position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 2px; background: var(--farbe-akzent); transform-origin: 0 50%;
   transform: scaleX(var(--fortschritt, 0));

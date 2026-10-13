@@ -92,8 +92,7 @@ ${FILM ? '' : `  <div class="intro-mitte">
     <p class="intro-zeile">${esc(S.hero.unterzeile)}</p>
   </div>
 `}  <div class="intro-leiste">
-${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-ton" type="button" aria-pressed="false" hidden>Ton an</button>
-    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
+${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
   </div>
   <span class="intro-fortschritt" aria-hidden="true"></span>
 </div>`;
