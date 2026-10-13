@@ -1,0 +1,182 @@
+{
+ "dauer": 3600,
+ "seekarte": {
+  "zuenden": 30,
+  "erst": 36,
+  "kurs": 86,
+  "dann": 173,
+  "fahrt": 198,
+  "weg": 282,
+  "ende": 296
+ },
+ "T": {
+  "seekarteEnde": 296,
+  "matchStart": 300,
+  "matchEnde": 338,
+  "seiteEin": [
+   334,
+   354
+  ],
+  "driftAb": 356,
+  "heroWort": [
+   342,
+   348,
+   363,
+   383,
+   416
+  ],
+  "heroAus": 560,
+  "scroll3": 511,
+  "blende3": [
+   511,
+   541
+  ],
+  "blende3b": [
+   688,
+   702
+  ],
+  "blende4": [
+   982,
+   1006
+  ],
+  "blende4b": [
+   1184,
+   1200
+  ],
+  "blatt5": [
+   1277,
+   1301
+  ],
+  "musterEin": [
+   1259,
+   1277
+  ],
+  "reiter": {
+   "edel": 1301,
+   "norvak": 1372,
+   "glut": 1474,
+   "laut": 1524
+  },
+  "blende6": [
+   1784,
+   1808
+  ],
+  "musterAus": [
+   1784,
+   1802
+  ],
+  "pendel": [
+   1810,
+   1984
+  ],
+  "haken": [
+   2049,
+   2098,
+   2186,
+   2248
+  ],
+  "glocke": 2291,
+  "fensterAus": [
+   2289,
+   2317
+  ],
+  "merk": [
+   2323,
+   2371,
+   2426
+  ],
+  "merksatzAus": [
+   2478,
+   2509
+  ],
+  "kiel": [
+   2538,
+   2703
+  ],
+  "liste": [
+   2720,
+   2765,
+   2806,
+   2875,
+   2993
+  ],
+  "listeAus": [
+   3050,
+   3068
+  ],
+  "partner": 3212,
+  "laterneAus": [
+   3338,
+   3358
+  ],
+  "fensterBEin": [
+   3360,
+   3384
+  ],
+  "markeEin": [
+   3388,
+   3408
+  ],
+  "knopfEin": [
+   3454,
+   3474
+  ],
+  "ring": [
+   3476,
+   3532
+  ],
+  "blende10": [
+   3532,
+   3568
+  ],
+  "kuehlen": [
+   3532,
+   3582
+  ],
+  "steht": 3587,
+  "glanz": [
+   661,
+   721,
+   801
+  ],
+  "etappe": [
+   1022,
+   1152,
+   1206,
+   1239
+  ]
+ },
+ "ereignisse": {
+  "zuenden": 36,
+  "kursrose": 86,
+  "kartenriss": 198,
+  "landung": 338,
+  "glanz_handy": 661,
+  "glanz_aufgebaut": 721,
+  "glanz_google": 801,
+  "etappe1": 1022,
+  "etappe2": 1152,
+  "etappe3": 1206,
+  "etappe4": 1239,
+  "blatt": 1288,
+  "reiter_norvak": 1372,
+  "reiter_glut": 1474,
+  "reiter_laut": 1524,
+  "nadel_steht": 1984,
+  "haken1": 2049,
+  "haken2": 2098,
+  "haken3": 2186,
+  "haken4": 2248,
+  "glocke": 2291,
+  "stempel1": 2323,
+  "stempel2": 2371,
+  "stempel3": 2426,
+  "liste1": 2720,
+  "liste2": 2765,
+  "liste3": 2806,
+  "liste4": 2875,
+  "liste5": 2993,
+  "partner": 3212,
+  "ring_zu": 3532
+ }
+}

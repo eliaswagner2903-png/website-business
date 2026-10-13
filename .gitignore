@@ -7,3 +7,7 @@ werkzeuge/ausgabe/
 .DS_Store
 showcase/edel/werkzeug/roh/
 showcase/*/package-lock.json
+# Seekarte-Masken: werden von werkzeuge/video-film/seekarte/texturen.py neu erzeugt
+werkzeuge/video-film/public/seekarte/*.png
+# Nachtfahrt: Aufnahmen, Standbilder, Ton (groß, liegen im scratchpad/Projektordner)
+werkzeuge/video-film/public/nachtfahrt/

@@ -1,5 +1,7 @@
 # OQ promo film (Remotion)
 
+> **Method for every promo film: see [PLAYBOOK.md](PLAYBOOK.md)** (steps, rules, checks, costs).
+
 Promo video of Elias' own site (order A-109, 2026-10-11). Code only; media (voice, sound effects, rendered films)
 lives in `/mnt/project-files/videos/oq-eigene-seite/` and `/mnt/project-files/werkzeuge/video/oq-film/`.
 
@@ -49,3 +51,57 @@ ffmpeg (sidechain ducking under the voice), no re-render needed.
 - Sound effects: a different ElevenLabs effect per moment (`public/sfx3/`, FLAC copies in the project folder), each
   started early by its measured peak time so the peak lands on the cut. Needs `desk3/`, `phone3/`, `desk3.json`,
   `phone3.json` in `public/`.
+
+## Seitenkapitän „Nachtfahrt“: Eröffnung Seekarte (2026-10-12)
+
+`src/Seekarte.tsx`: compositions `Seekarte169` (1920x1080) and `Seekarte916` (1080x1920), 400 frames @ 60 fps, 0 credits.
+Time marks exported as `SEEKARTE` (ignite 42, „Erst“ 47, „Kurs“ 148, „Dann“ 226, „Fahrt“ 290, chart gone 384, end 400)
+plus `kajueteSkala(f)` for the cut. Spec: `seitenkapitaen/video/03-regie.md` §4.
+- Textures are precomputed once with a fixed seed: `python3 seekarte/texturen.py` → `public/seekarte/` (paper+ink WebP,
+  burn mask m 16 bit, gradient/fray, geometry JSON). Cabin images b1/b2 are copied there too.
+- Render without the old film's capture assets via the separate entry `src/index-seekarte.ts`:
+  `npx remotion still src/index-seekarte.ts Seekarte169 out.png --frame=150 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
+- Flicker check: `python3 seekarte/flimmern.py clip.mp4` (frame diffs, A-B-A metric, jump list).
+- Lessons: keep every layer mounted and every filter set from frame 0 (switching a filter, blend layer or SVG on later
+  re-samples the whole chart → visible jump); x264 keyframes (every 250 frames) show up as small whole-frame diffs.
+
+## Seitenkapitän „Nachtfahrt“: Werbefilm (2026-10-13)
+
+`src/Nachtfahrt.tsx` (+ `src/nachtfahrt/daten.ts`): compositions `Nachtfahrt169` (1920x1080) and `Nachtfahrt916` (1080x1920),
+3030 frames @ 60 fps (50.5 s), one timeline; opens with `Seekarte` unchanged. Separate entry `src/index-nachtfahrt.ts`.
+- Needs in `public/nachtfahrt/` (git-ignored): `D-A.mp4`, `P-A.mp4` + `*.rects.json` (frame-exact captures), stills
+  `{D,P}-{A,B,C}-0.webp` (frame 0 of each capture, lossless), `hafen.webp` (b4 master), `woerter.json`, `ton.wav`, `schriften/`.
+- Captures are shown frame-exact via `<Freeze frame={src}><OffthreadVideo/></Freeze>`: every film frame maps to one capture
+  frame (holds = repeated identical frames, tab clicks land exactly on the spoken word).
+- Stills for checking: `node aufnahme/stills.mjs Nachtfahrt169 <dir> 400 760 1469`; flicker check of the finished film:
+  `python3 aufnahme/film-pruefung.py film.mp4 <planned cut frames>`.
+- Render with `NACHTFAHRT=1 npx remotion render src/index-nachtfahrt.ts Nachtfahrt169 out.mp4 --codec=h264 --crf=16
+  --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=192k --x264-preset=slow`, then remux
+  with `-movflags +faststart`. `NACHTFAHRT=1` sets a long GOP (keyint 3600, `remotion.config.ts`): the default keyframe
+  every 250 frames showed as a small full-frame jump in the dark noise. Without `--color-space=bt709` the output is yuvj420p.
+
+## Seitenkapitän „Nachtfahrt“: Runde 2 (2026-10-13)
+
+New voice (take C, "Rauchiger Kapitän"), tighter cut, 60.0 s (3600 frames), new captures, peak-aligned sound.
+Pipeline (run in `scratchpad/video`, scripts in `ton/`, comments German):
+1. `stimmschnitt2.py` – cuts take C (pauses shortened per `06-dramaturgie.md` §7, speech never sped up) → `stimme2-final/`
+   (`stimme.wav`, `woerter.json`). Word onsets are re-detected from the audio (`wortbeginn.py`): the forced alignment
+   was up to 0.35 s off behind the v3 audio tags.
+2. `zeitleiste2.py` – derives every picture time and event frame from the words → `src/nachtfahrt/zeitleiste2.json`.
+   `daten.ts` and `Seekarte.tsx` read it; so does the sound. One source of truth: change words → rerun 2–4.
+3. `geraeusche2.py` – SFX: the loudest point of each processed clip (2 ms smoothed) sits exactly on its event frame;
+   beds fade softly → `mix2/sfx.wav` + `mix2/sfx-ereignisse.wav` (events only, for checking).
+4. `endmix2.py musik2/musik2-A.mp3` – music cut on beats (two-bar jump before the end), ducking, -14 LUFS / -1 dBTP → `mix2/ton.wav`
+   (copy to `public/nachtfahrt/ton2.wav`).
+5. `synchronpruefung.py mix2/sfx-ereignisse.wav mix2/ton.wav film.mp4 out.json` – event peak vs frame plus the global
+   offset of the rendered film's audio (12 correlation windows). Tolerance 1 frame.
+6. Remotion's AAC track carries 2048 samples of encoder priming without an edit list → audio +42.7 ms late. Fix losslessly
+   after the render (edit list, no re-encode), then re-run step 5 (expect offset 0.00 ms):
+   `ffmpeg -i film.mp4 -itsoffset -0.0426667 -i film.mp4 -map 0:v -map 1:a -c copy -movflags +faststart fix.mp4`
+7. Review copies under 15 MB for 60 s: 2-pass x264 1750k + AAC 160k (2100k gives about 17 MB).
+- Captures round 2 live in `public/nachtfahrt/r2/` (`D-A.mp4`, `P-A.mp4`, rects, `{D,P}-{A,B,C}-0.webp`), same frame
+  marks as round 1; P-B sits 76 css-px higher (compass needle overlay moved 190 video px, clipped to below the header).
+- New overlays: check line (L6, four ticks land on their words), "Gebaut. Geprüft. Gepflegt." stamped on the words,
+  service line (L8, "Hosting · Wartung · Pflege · Änderungen · und vieles mehr"). Seekarte: lamp flicker removed,
+  brightness filter always set; 16:9 first subtitle moved left off the scale bar.
+- Render as above with `Nachtfahrt169`/`Nachtfahrt916`, `--jpeg-quality=100`, outputs `film/nachtfahrt2-*.mp4`.
