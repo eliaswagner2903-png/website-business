@@ -167,29 +167,33 @@ const SHOTS = {
   'D-C': { W: 1600, H: 900, DSF: 1.25, phone: false, run: async (c) => {
     await c.jump((await c.topOf('#t-kontakt')) - 170, 1.0); c.mark('kontakt'); await c.wait(9.0 + 1); c.mark('ende');
   } },
+  // Runde 3 (Elias 13.10. abends): feste Seiten-UI gehört nicht in den Film. Die Handy-Leiste unten ist immer ausgeblendet,
+  // die Kopfleiste nach dem Hero (Umschalten in den verworfenen Bildern eines Sprungs). Jedes Thema steht mittig und ganz im Bild
+  // (sichtbar 0–580 css-px, Mitte 290). Bildzahlen, Dauern und Marken wie Runde 2, damit der Schnitt unverändert bleibt.
   'P-A': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    const pl = (n) => c.topOf(`.plaketten .plakette:nth-child(${n})`);
-    const KOPF = 96; // Kopfleiste ist 73 px hoch und liegt fest über der Seite: Plakette 23 px darunter (Regie: -24 gerechnet ohne Kopfleiste)
+    const mitte = async (von, bis) => { const a = await c.topOf(von), b = await c.bottomOf(bis || von); return a - (580 - (b - a)) / 2; };
+    const pl = (n) => `.plaketten .plakette:nth-child(${n})`;
     c.mark('hero'); await c.wait(7.0 + 1);
-    // Regie: Scroll 1297 px in 1,6 s. Regel Handy: Strecken > 900 px nicht scrollen -> Sprung (Lampenblende im Schnitt)
-    await c.jump((await pl(1)) - KOPF, 0.5); c.mark('lei'); await c.wait(1.6 + 1);
-    await c.scrollTo((await pl(3)) - KOPF, 2.0); c.mark('lei3'); await c.wait(1.0 + 1);
-    c.mark('lei2'); await c.scrollTo((await pl(4)) - KOPF, 1.4); await c.wait(1.5 + 1);
-    await c.jump((await c.topOf('.schritte .schritt:nth-child(1)')) - 110, 0.5); c.mark('ablauf'); await c.wait(0.8 + 1);
-    const s4 = (await c.topOf('.schritte .schritt:nth-child(4)')) + 190 - 400;
-    await c.scrollTo(s4, 4.4); c.mark('ablauf4'); await c.wait(1.0 + 1);
-    // arbeiten: Label „Musterseite ·“ auf y 360
-    const lab = await c.topOf('#arbeit-edel .werk-art');
-    await c.jump(lab - 360, 0.5); c.mark('arbeiten'); c.mark('tab-edel'); await c.wait(1.5 + 1);
+    await c.kopf(false);
+    await c.jump(await mitte(pl(1)), 0.5); c.mark('lei'); await c.wait(1.6 + 1);
+    await c.scrollTo(await mitte(pl(3)), 2.0); c.mark('lei3'); await c.wait(1.0 + 1);
+    c.mark('lei2'); await c.scrollTo(await mitte(pl(4)), 1.4); await c.wait(1.5 + 1);
+    { const a = await c.topOf('#t-ablauf'), b = await c.bottomOf('.schritte .schritt:nth-child(2)'); console.log('    Ablauf-Spanne', Math.round(b - a)); await c.jump(b - a <= 560 ? a - (580 - (b - a)) / 2 : a - 12, 0.5); } c.mark('ablauf'); await c.wait(0.8 + 1);
+    await c.scrollTo(await mitte('.schritte .schritt:nth-child(3)', '.schritte .schritt:nth-child(4)'), 4.4); c.mark('ablauf4'); await c.wait(1.0 + 1);
+    // arbeiten: Gerätebild (Musterseite) mittig und ganz im Bild
+    await c.jump(await mitte('#arbeit-edel .werk-bild'), 0.5); c.mark('arbeiten'); c.mark('tab-edel'); await c.wait(1.5 + 1);
     for (const t of ['norvak', 'glut', 'laut']) { await c.clickScript('#reiter-' + t, 'tab-' + t); await c.wait((t === 'laut' ? 3.5 : 1.5) + 1); }
     c.mark('ende');
   } },
   'P-B': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    await c.jump((await c.topOf('.zwischenbild')) + 54, 1.0); c.mark('zw'); await c.wait(7.0 + 1); c.mark('ende'); // Runde 2: Kompass-Satz ist länger, 76 px weiter, damit er über der Handy-Leiste steht
+    // Kompassbild, Überzeile „Gebaut. Geprüft. Gepflegt.“ und Satz zusammen mittig (561 px)
+    await c.kopf(false);
+    const a = await c.topOf('.zwischenbild-bild img'), b = await c.bottomOf('.zwischenbild-satz');
+    await c.jump(a - (580 - (b - a)) / 2, 1.0); c.mark('zw'); await c.wait(7.0 + 1); c.mark('ende');
   } },
   'P-C': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    // Regie: #t-kontakt -80; dann läge die Überzeile „Im Hafen“ unter der Kopfleiste (73 px): Überzeile bei y=96
-    await c.jump((await c.topOf('.kontakt-text .ueberzeile')) - 96, 1.0); c.mark('kontakt'); await c.wait(9.0 + 1); c.mark('ende');
+    await c.kopf(false);
+    await c.jump((await c.topOf('.kontakt-text .ueberzeile')) - 40, 1.0); c.mark('kontakt'); await c.wait(9.0 + 1); c.mark('ende');
   } },
 };
 
@@ -223,6 +227,7 @@ async function aufnahme(browser, id) {
   await p.evaluate(() => window.scrollTo(0, 0));
   await p.waitForTimeout(500);
   await dbg('vor settle');
+  if (S.phone) await p.addStyleTag({ content: '.handy-leiste{display:none!important}.film-ohne-kopf .kopf{visibility:hidden!important}' });
   await p.evaluate(() => window.__settle());
   await dbg('nach settle');
   const now = await p.evaluate(() => Date.now());
@@ -284,7 +289,10 @@ async function aufnahme(browser, id) {
       if (Math.abs(dy) > 1) { console.log('    Label-Nachführung', dy.toFixed(1), 'px'); await setY((await curY()) + dy); } }
     await frame();
   };
-  const c = { p, mark, wait, topOf, scrollTo, scrollBy, jump, click, clickScript, frame };
+  const bottomOf = (s) => p.evaluate((s) => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().bottom + scrollY + (window.__res || 0) : NaN; }, s);
+  // Kopfleiste ein/aus (nur in verworfenen Bildern eines Sprungs umschalten)
+  const kopf = (an) => p.evaluate((an) => document.documentElement.classList.toggle('film-ohne-kopf', !an), an);
+  const c = { p, mark, wait, topOf, bottomOf, kopf, scrollTo, scrollBy, jump, click, clickScript, frame };
   try {
     await S.run(c);
   } finally {

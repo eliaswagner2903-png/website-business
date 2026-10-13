@@ -60,11 +60,12 @@ const Aufnahme: React.FC<{ q: Q; src: number; w: number }> = ({ q, src, w }) => 
 const CssEbene: React.FC<{ q: Q; w: number; children: React.ReactNode }> = ({ q, w, children }) => (
   <div style={{ position: "absolute", left: 0, top: 0, width: AUF[q].cw, height: AUF[q].ch, transform: `scale(${w / AUF[q].cw})`, transformOrigin: "0 0" }}>{children}</div>
 );
-// Zuschnitt zwischen Kopfleiste (73 px) und Fußleiste (Handy, 510 px), damit nichts über der Seiten-UI liegt
+// Zuschnitt unter der Kopfleiste (73 px), damit nichts über der Seiten-UI liegt. Handy Runde 3: Kopf- und Fußleiste sind nach
+// dem Hero ausgeblendet (aufnahme/cap4.js), dort gilt die ganze Höhe.
 const Zwischen: React.FC<{ q: Q; children: React.ReactNode }> = ({ q, children }) => {
-  const y1 = q === "D" ? AUF.D.ch : 510.2;
-  return <div style={{ position: "absolute", left: 0, top: 73, width: AUF[q].cw, height: y1 - 73, overflow: "hidden" }}>
-    <div style={{ position: "absolute", left: 0, top: -73, width: AUF[q].cw, height: AUF[q].ch }}>{children}</div>
+  const y0 = q === "D" ? 73 : 0, y1 = AUF[q].ch;
+  return <div style={{ position: "absolute", left: 0, top: y0, width: AUF[q].cw, height: y1 - y0, overflow: "hidden" }}>
+    <div style={{ position: "absolute", left: 0, top: -y0, width: AUF[q].cw, height: AUF[q].ch }}>{children}</div>
   </div>;
 };
 
@@ -144,8 +145,8 @@ const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; ab
 // Geometrie in Videopixeln der Zwischenbild-Aufnahme: Drehpunkt, Ausrichtung im Kreisraum (y / 0,68 = Perspektive)
 const NADEL: Record<Q, { p: [number, number]; phi: number; len: number; b: number; ell: number }> = {
   D: { p: [1375, 584], phi: -58.97, len: 388, b: 24, ell: 0.68 },
-  // Handy Runde 2: P-B sitzt 76 css-px höher (längerer Kompass-Satz) → Kompass 190 Videopixel höher (gemessen 188)
-  P: { p: [690, 245], phi: -59.77, len: 238, b: 15, ell: 0.68 },
+  // Handy Runde 3: P-B zeigt Kompass, Überzeile und Satz mittig (Ziel 67,5 css-px höher als Runde 2) → Kompass 168,75 Videopixel tiefer
+  P: { p: [690, 413.75], phi: -59.77, len: 238, b: 15, ell: 0.68 },
 };
 const pendel = (f: number) => {
   const [a, b] = T.pendel, A = 24;
@@ -167,7 +168,7 @@ const Nadel: React.FC<{ q: Q; f: number }> = ({ q, f }) => {
   return (
     <svg viewBox={`0 0 ${AUF[q].vw} ${AUF[q].vh}`} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", overflow: "visible" }}>
       {/* nur zwischen Kopfleiste (73 css-px) und Handy-Fußleiste (510 css-px): die Nadel liegt nie über der Seiten-UI */}
-      <defs><clipPath id={`nk${q}`}><rect x={0} y={73 * AUF[q].vw / AUF[q].cw} width={AUF[q].vw} height={(q === "D" ? AUF.D.ch : 510) * AUF[q].vw / AUF[q].cw - 73 * AUF[q].vw / AUF[q].cw} /></clipPath></defs>
+      <defs><clipPath id={`nk${q}`}><rect x={0} y={(q === "D" ? 73 : 0) * AUF[q].vw / AUF[q].cw} width={AUF[q].vw} height={(AUF[q].ch - (q === "D" ? 73 : 0)) * AUF[q].vw / AUF[q].cw} /></clipPath></defs>
       <g clipPath={`url(#nk${q})`}><g transform={tr} opacity={sichtbar}>
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke="#ffcf87" strokeWidth={6 * s} strokeLinejoin="round" opacity={0.25} vectorEffect="non-scaling-stroke" style={{ filter: "blur(3px)" }} />
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke={C.messing} strokeWidth={2.2 * s} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
