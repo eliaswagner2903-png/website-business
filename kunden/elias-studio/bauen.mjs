@@ -66,6 +66,7 @@ function aufnahme(a, art, sizes, { lazy = true, prio = false } = {}) {
 }
 
 // ---------- Vorstellung (Unternehmensvideo): Überblendung beim ersten Besuch, danach per Knopf ----------
+// Untertitel sind im Film eingebrannt; die VTT-Spur ist nur zuschaltbar (nicht default), sonst stehen sie doppelt da (Elias 13.10.).
 // Modus „film“: sobald public/medien/vorstellung/film.mp4 oder film.webm liegt (dazu poster.webp, optional untertitel.vtt) – einfach Dateien tauschen
 // und node bauen.mjs ausführen. Modus „platzhalter“: animierte Titelsequenz aus Linien (Kompass, Route, Name), bis das echte Video da ist.
 const V = S.vorstellung;
@@ -79,7 +80,7 @@ const vorstellung = `<div class="intro" id="vorstellung" role="dialog" aria-moda
   <div class="intro-grund">
 ${FILM
     ? `    <video class="intro-film" playsinline muted preload="none"${hatDatei('film-hoch.mp4') ? ` data-hoch="${VP}/film-hoch.mp4"${hatDatei('poster-hoch.webp') ? ` data-poster-hoch="${VP}/poster-hoch.webp"` : ''}` : ''}${hatDatei('poster.webp') ? ` poster="${VP}/poster.webp"` : ''}>
-${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm">\n` : ''}${hatDatei('film.mp4') ? `      <source src="${VP}/film.mp4" type="video/mp4">\n` : ''}${hatDatei('untertitel.vtt') ? `      <track kind="captions" src="${VP}/untertitel.vtt" srclang="de" label="Deutsch" default>\n` : ''}    </video>`
+${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm">\n` : ''}${hatDatei('film.mp4') ? `      <source src="${VP}/film.mp4" type="video/mp4">\n` : ''}${hatDatei('untertitel.vtt') ? `      <track kind="captions" src="${VP}/untertitel.vtt" srclang="de" label="Deutsch">\n` : ''}    </video>`
     : `    ${introBild()}
     <div class="intro-buehne" aria-hidden="true">
       <svg class="intro-netz" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" focusable="false"><path class="netz-linie" pathLength="1" d="M0 150H1000M0 300H1000M0 450H1000M250 0V600M500 0V600M750 0V600"/><path class="netz-bogen" pathLength="1" d="M-20 520C220 400 420 470 620 330S900 120 1020 140"/></svg>
@@ -91,8 +92,7 @@ ${FILM ? '' : `  <div class="intro-mitte">
     <p class="intro-zeile">${esc(S.hero.unterzeile)}</p>
   </div>
 `}  <div class="intro-leiste">
-${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-ton" type="button" aria-pressed="false" hidden>Ton an</button>
-    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
+${FILM ? '' : '    <p class="intro-hinweis">Platzhalter: Hier läuft später das Vorstellungsvideo.</p>\n'}    <button class="intro-weiter" type="button">Überspringen <span aria-hidden="true">→</span></button>
   </div>
   <span class="intro-fortschritt" aria-hidden="true"></span>
 </div>`;

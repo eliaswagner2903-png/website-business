@@ -1,7 +1,7 @@
 // Vorstellung (Unternehmensvideo): erster Besuch = Überblendung über der Startseite, danach nur per Knopf („Vorstellung ansehen“).
 // Der Zustand „läuft“ (Klasse intro-offen an <html>) wird bei der Erstbesuch-Prüfung schon im Kopf gesetzt (Inline-Skript, CSP-Hash), damit die
 // Seite nicht aufblitzt. Dieses Skript übernimmt dann: Merken, Bedienung, Ton, Überspringen und den weichen Übergang in die Seite.
-// Zwei Modi (steht im HTML, data-modus): „film“ = echtes Video (stumm, Ton per Knopf) · „platzhalter“ = animierte Titelsequenz mit Zeitgeber.
+// Zwei Modi (steht im HTML, data-modus): „film“ = echtes Video (Ton gleich an; sperrt der Browser, läuft er stumm und der Ton kommt bei der ersten Bedienung; kein Tonknopf, Lautstärke regelt das Gerät) · „platzhalter“ = animierte Titelsequenz mit Zeitgeber.
 // Alle Werte setzt das Skript per Eigenschaft (style.setProperty, Web Animations) – kein Inline-Stil im HTML, die CSP bleibt streng.
 (() => {
   const SCHLUESSEL = 'seitenkapitaen-vorstellung'; // gleicher Schlüssel wie im Kopf-Skript (bauen.mjs, INTRO_SKRIPT)
@@ -11,7 +11,6 @@
   const ruhig = matchMedia('(prefers-reduced-motion: reduce)');
   const film = intro.querySelector('.intro-film');
   const weiter = intro.querySelector('.intro-weiter');
-  const ton = intro.querySelector('.intro-ton');
   const marke = intro.querySelector('.intro-marke');
   const modusFilm = intro.dataset.modus === 'film' && film;
 
@@ -78,8 +77,7 @@
     weiter.focus({ preventScroll: true });
 
     if (modusFilm) {
-      ton.hidden = false;
-      film.muted = true; ton.setAttribute('aria-pressed', 'false'); ton.textContent = 'Ton an';
+      setzeTon(false);
       // Hochformat (Handy): 9:16-Fassung statt Letterbox, einmalig umschalten
       if (film.dataset.hoch && !film.dataset.hochGesetzt && matchMedia('(orientation: portrait)').matches) {
         film.querySelectorAll('source').forEach((q) => q.remove());
@@ -91,7 +89,9 @@
       film.currentTime = 0;
       // Lädt das Video nicht an (zu langsam, Fehler), gehört die Seite sofort dem Besucher
       haengt = setTimeout(schliesse, 6000);
-      film.play().catch(schliesse);
+      // Ton gleich mit: der Browser erlaubt es nach einem Klick (Knopf „Vorstellung ansehen“) oder bei bekannten Besuchern.
+      // Sperrt er es (erster Besuch ohne Klick), läuft der Film stumm los und der Ton schaltet sich beim ersten Tippen, Klicken oder Tastendruck zu.
+      film.play().catch(() => { setzeTon(true); return film.play(); }).catch(schliesse);
     } else {
       const sek = Number(intro.dataset.dauer) || 7;
       intro.style.setProperty('--intro-dauer', `${sek}s`);
@@ -99,12 +99,10 @@
     }
   }
 
+  const setzeTon = (stumm) => { film.muted = stumm; };
+  const tonBeiBedienung = () => { if (offen && !schliesst && film.muted) setzeTon(false); }; // erste Bedienung nach stummem Start schaltet den Ton zu
   weiter.addEventListener('click', schliesse);
-  ton.addEventListener('click', () => {
-    film.muted = !film.muted;
-    ton.setAttribute('aria-pressed', String(!film.muted));
-    ton.textContent = film.muted ? 'Ton an' : 'Ton aus';
-  });
+  if (modusFilm) for (const ev of ['click', 'keydown', 'touchend']) document.addEventListener(ev, tonBeiBedienung, true);
   if (film) {
     film.addEventListener('playing', () => clearTimeout(haengt));
     film.addEventListener('ended', schliesse);

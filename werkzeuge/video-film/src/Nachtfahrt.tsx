@@ -60,11 +60,12 @@ const Aufnahme: React.FC<{ q: Q; src: number; w: number }> = ({ q, src, w }) => 
 const CssEbene: React.FC<{ q: Q; w: number; children: React.ReactNode }> = ({ q, w, children }) => (
   <div style={{ position: "absolute", left: 0, top: 0, width: AUF[q].cw, height: AUF[q].ch, transform: `scale(${w / AUF[q].cw})`, transformOrigin: "0 0" }}>{children}</div>
 );
-// Zuschnitt zwischen Kopfleiste (73 px) und Fußleiste (Handy, 510 px), damit nichts über der Seiten-UI liegt
+// Zuschnitt unter der Kopfleiste (73 px), damit nichts über der Seiten-UI liegt. Handy Runde 3: Kopf- und Fußleiste sind nach
+// dem Hero ausgeblendet (aufnahme/cap4.js), dort gilt die ganze Höhe.
 const Zwischen: React.FC<{ q: Q; children: React.ReactNode }> = ({ q, children }) => {
-  const y1 = q === "D" ? AUF.D.ch : 510.2;
-  return <div style={{ position: "absolute", left: 0, top: 73, width: AUF[q].cw, height: y1 - 73, overflow: "hidden" }}>
-    <div style={{ position: "absolute", left: 0, top: -73, width: AUF[q].cw, height: AUF[q].ch }}>{children}</div>
+  const y0 = q === "D" ? 73 : 0, y1 = AUF[q].ch;
+  return <div style={{ position: "absolute", left: 0, top: y0, width: AUF[q].cw, height: y1 - y0, overflow: "hidden" }}>
+    <div style={{ position: "absolute", left: 0, top: -y0, width: AUF[q].cw, height: AUF[q].ch }}>{children}</div>
   </div>;
 };
 
@@ -144,8 +145,8 @@ const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; ab
 // Geometrie in Videopixeln der Zwischenbild-Aufnahme: Drehpunkt, Ausrichtung im Kreisraum (y / 0,68 = Perspektive)
 const NADEL: Record<Q, { p: [number, number]; phi: number; len: number; b: number; ell: number }> = {
   D: { p: [1375, 584], phi: -58.97, len: 388, b: 24, ell: 0.68 },
-  // Handy Runde 2: P-B sitzt 76 css-px höher (längerer Kompass-Satz) → Kompass 190 Videopixel höher (gemessen 188)
-  P: { p: [690, 245], phi: -59.77, len: 238, b: 15, ell: 0.68 },
+  // Handy Runde 3: P-B zeigt Kompass, Überzeile und Satz mittig (Ziel 67,5 css-px höher als Runde 2) → Kompass 168,75 Videopixel tiefer
+  P: { p: [690, 413.75], phi: -59.77, len: 238, b: 15, ell: 0.68 },
 };
 const pendel = (f: number) => {
   const [a, b] = T.pendel, A = 24;
@@ -167,7 +168,7 @@ const Nadel: React.FC<{ q: Q; f: number }> = ({ q, f }) => {
   return (
     <svg viewBox={`0 0 ${AUF[q].vw} ${AUF[q].vh}`} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", overflow: "visible" }}>
       {/* nur zwischen Kopfleiste (73 css-px) und Handy-Fußleiste (510 css-px): die Nadel liegt nie über der Seiten-UI */}
-      <defs><clipPath id={`nk${q}`}><rect x={0} y={73 * AUF[q].vw / AUF[q].cw} width={AUF[q].vw} height={(q === "D" ? AUF.D.ch : 510) * AUF[q].vw / AUF[q].cw - 73 * AUF[q].vw / AUF[q].cw} /></clipPath></defs>
+      <defs><clipPath id={`nk${q}`}><rect x={0} y={(q === "D" ? 73 : 0) * AUF[q].vw / AUF[q].cw} width={AUF[q].vw} height={(AUF[q].ch - (q === "D" ? 73 : 0)) * AUF[q].vw / AUF[q].cw} /></clipPath></defs>
       <g clipPath={`url(#nk${q})`}><g transform={tr} opacity={sichtbar}>
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke="#ffcf87" strokeWidth={6 * s} strokeLinejoin="round" opacity={0.25} vectorEffect="non-scaling-stroke" style={{ filter: "blur(3px)" }} />
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke={C.messing} strokeWidth={2.2 * s} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
@@ -282,9 +283,10 @@ const Musterseite: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   const op = rampe(f, T.musterEin) * (1 - rampe(f, T.musterAus));
   if (op <= 0) return null;
   const R5 = T.reiter, wechsel = [R5.edel, R5.norvak, R5.glut, R5.laut];
-  const v = fmt === "916", gr = v ? 26 : 23;
+  const v = fmt === "916", gr = v ? 30 : 23;
   return (
-    <div style={{ position: "absolute", left: 0, top: v ? -62 : -48, display: "flex", alignItems: "center", gap: 16, opacity: dk(op), whiteSpace: "nowrap" }}>
+    <div style={{ position: "absolute", left: 0, top: v ? hoehe("P", LAY["916"].A.w) + 22 : -48, width: v ? LAY["916"].A.w : undefined, justifyContent: v ? "center" : undefined,
+      display: "flex", alignItems: "center", gap: 16, opacity: dk(op), whiteSpace: "nowrap" }}>
       <span style={{ display: "inline-block", width: 44, height: 1.5, background: C.messing }} />
       <span style={{ fontFamily: "Jost", fontWeight: 500, fontSize: gr, letterSpacing: "0.24em", color: C.messing, textTransform: "uppercase" }}>Musterseite</span>
       <span style={{ position: "relative", display: "inline-block", width: gr * 3.2, height: gr * 1.4 }}>
@@ -299,13 +301,14 @@ const Musterseite: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
 };
 
 // Seitenfenster: 14 px Radius, weicher Schatten; die Kamera bewegt nur das ganze Fenster
-const Fenster: React.FC<{ q: Q; box: { x: number; y: number; w: number }; op: number; skala: number; neig: number; children: React.ReactNode; aussen?: React.ReactNode }> = ({ q, box, op, skala, neig, children, aussen }) => {
-  const h = hoehe(q, box.w);
+// Hochformat (voll): randloser Handybildschirm über die ganze Breite, ohne Rahmen und Schatten; Zoom nur von oben Mitte
+const Fenster: React.FC<{ q: Q; box: { x: number; y: number; w: number }; op: number; skala: number; neig: number; voll?: boolean; children: React.ReactNode; aussen?: React.ReactNode }> = ({ q, box, op, skala, neig, voll, children, aussen }) => {
+  const h = hoehe(q, box.w), r = voll ? 0 : 14;
   return (
-    <div style={{ position: "absolute", left: box.x, top: box.y, width: box.w, height: h, opacity: dk(op), transform: `scale(${skala.toFixed(6)}) rotate(${neig.toFixed(5)}deg)`, transformOrigin: "50% 50%" }}>
-      <div style={{ position: "absolute", inset: 0, borderRadius: 14, boxShadow: "0 40px 110px rgba(0,0,0,0.62), 0 8px 24px rgba(0,0,0,0.4)" }} />
-      <div style={{ position: "absolute", inset: 0, borderRadius: 14, overflow: "hidden", background: "#0e0f10" }}>{children}</div>
-      <div style={{ position: "absolute", inset: 0, borderRadius: 14, boxShadow: "inset 0 0 0 1px rgba(235,225,204,0.08)" }} />
+    <div style={{ position: "absolute", left: box.x, top: box.y, width: box.w, height: h, opacity: dk(op), transform: `scale(${skala.toFixed(6)}) rotate(${neig.toFixed(5)}deg)`, transformOrigin: voll ? "50% 0%" : "50% 50%" }}>
+      {!voll && <div style={{ position: "absolute", inset: 0, borderRadius: r, boxShadow: "0 40px 110px rgba(0,0,0,0.62), 0 8px 24px rgba(0,0,0,0.4)" }} />}
+      <div style={{ position: "absolute", inset: 0, borderRadius: r, overflow: "hidden", background: "#0e0f10" }}>{children}</div>
+      {!voll && <div style={{ position: "absolute", inset: 0, borderRadius: r, boxShadow: "inset 0 0 0 1px rgba(235,225,204,0.08)" }} />}
       {aussen}
     </div>
   );
@@ -352,7 +355,7 @@ const MERK = [wi("Gebaut."), wi("Geprüft."), wi("Gepflegt.")];
 const Merksatz: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   if (f < T.fensterAus[0] || f > T.merksatzAus[1] + 1) return null;
   const v = fmt === "916", aus = 1 - sinRampe(f, T.merksatzAus);
-  const gr = v ? 136 : 118;
+  const gr = v ? 150 : 118;
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", flexDirection: v ? "column" : "row", gap: v ? 18 : 86, paddingBottom: v ? 300 : 40, opacity: dk(aus) }}>
       {MERK.map((i, n) => {
@@ -505,7 +508,7 @@ const Haken: React.FC<{ t: number; f: number; gr: number }> = ({ t, f, gr }) => 
 };
 
 const Pruefzeile: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
-  const v = fmt === "916", gr = v ? 58 : 52;
+  const v = fmt === "916", gr = v ? 68 : 52;
   const reihen = v ? [[0, 1], [2, 3]] : [[0, 1, 2, 3]];
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: v ? 10 : 0 }}>
@@ -527,7 +530,7 @@ const Pruefzeile: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
 };
 
 const Leistungszeile: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
-  const v = fmt === "916", gr = v ? 58 : 54;
+  const v = fmt === "916", gr = v ? 66 : 54;
   const reihen = v ? [[0, 1, 2], [3, 4]] : [[0, 1, 2, 3, 4]];
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: v ? 6 : 0 }}>
@@ -568,7 +571,7 @@ const Untertitel: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
         const br = t.br[fmt];
         const gr = L.band.size * (t.dezent ? 0.88 : 1);
         // Beat 1 (16:9): Untertitel nach links unten, der Maßstabsbalken der Seekarte liegt unter der Bildmitte
-        const versatz = fmt === "916" ? -60 : t.dezent ? -400 : 0;
+        const versatz = fmt === "916" ? 0 : t.dezent ? -400 : 0;
         return (
           <div key={n} style={{ position: "absolute", left: (L.W - L.band.maxW) / 2 + versatz, top: L.band.top, width: L.band.maxW, height: L.band.bottom - L.band.top,
             display: "flex", alignItems: "center", justifyContent: "center", opacity: dk(op), textShadow: "0 2px 14px rgba(0,0,0,0.75)" }}>
@@ -597,7 +600,9 @@ export const Nachtfahrt: React.FC<{ fmt: Fmt }> = ({ fmt }) => {
   const f = useCurrentFrame();
   const L: Lay = LAY[fmt], q = qVon(fmt);
   const opA = rampe(f, T.seiteEin) * (1 - sinRampe(f, T.fensterAus));
-  const d = f >= T.seekarteEnde ? driftA(f) : { skala: 1, neig: 0 };
+  const voll = fmt === "916";
+  const d0 = f >= T.seekarteEnde ? driftA(f) : { skala: 1, neig: 0 };
+  const d = voll ? { skala: d0.skala, neig: 0 } : d0;
   const opB = sinRampe(f, T.fensterBEin);
   const uB = interpolate(f, [T.fensterBEin[0], T.steht], [0, 1], clamp);
   const skB = 1 + 0.01 * (0.5 - 0.5 * Math.cos(Math.PI * uB));
@@ -608,7 +613,7 @@ export const Nachtfahrt: React.FC<{ fmt: Fmt }> = ({ fmt }) => {
       <Sequence durationInFrames={SEEKARTE.ende + 6} layout="none"><Seekarte fmt={fmt} /></Sequence>
       <Kajuetenmatch fmt={fmt} f={f} />
       {f >= T.seiteEin[0] - 1 && f <= T.fensterAus[1] + 1 && (
-        <Fenster q={q} box={L.A} op={opA} skala={d.skala} neig={d.neig} aussen={<Musterseite fmt={fmt} f={f} />}>
+        <Fenster q={q} box={L.A} op={opA} skala={d.skala} neig={d.neig} voll={voll} aussen={<Musterseite fmt={fmt} f={f} />}>
           <Fensterinhalt q={q} f={f} w={L.A.w} liste={ANSICHTEN[q]} />
           <Blattkante f={f} w={L.A.w} h={hA} />
         </Fenster>
@@ -617,9 +622,11 @@ export const Nachtfahrt: React.FC<{ fmt: Fmt }> = ({ fmt }) => {
       <Laterne fmt={fmt} f={f} />
       {f >= T.fensterBEin[0] - 1 && (
         <>
-          <Fenster q={q} box={L.B} op={opB} skala={skB} neig={0}>
+          <Fenster q={q} box={L.B} op={opB} skala={skB} neig={0} voll={voll}>
             {f <= T.blende10[1] + 1 && <Img src={nf(`${AUFN}${q}-C-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: f > T.blende10[1] ? 0 : dk(1) }} />}
             {f >= T.blende10[0] - 1 && <Img src={nf(`${AUFN}${q}-A-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: dk(sinRampe(f, T.blende10)) }} />}
+            {/* Hochformat: Abdunklung unten, damit Wortmarke und Knopf auf dem randlosen Bildschirm lesbar stehen */}
+            {voll && <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "80%", background: "linear-gradient(180deg, rgba(13,11,8,0) 0%, rgba(13,11,8,0.94) 20%, rgba(13,11,8,0.985) 32%, rgba(13,11,8,0.985) 100%)", opacity: dk(sinRampe(f, T.markeEin)) }} />}
           </Fenster>
           <Wortmarke fmt={fmt} f={f} />
           <Knopf fmt={fmt} f={f} />
