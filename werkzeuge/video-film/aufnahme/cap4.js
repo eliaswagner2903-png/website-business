@@ -1,5 +1,5 @@
 // Frame-genaue Aufnahme v4 für das Werbevideo „Nachtfahrt“ (Regie 03-regie.md, Abschnitt 3). Basis: cap3.js.
-// Aufruf: node cap4.js [ID ...]   (ID = D-A D-B D-C P-A P-B P-C, ohne Angabe alle nacheinander)
+// Aufruf: node cap4.js [ID ...]   (ID = D-A D-B D-C P-A P-B P-C, ohne Angabe alle nacheinander in EINEM Browser)
 // Umgebung: URL (Standard http://localhost:8123/), TMP (Einzelbilder, Scratch), META (Ziel für <ID>.marks.json / <ID>.rects.json).
 //
 // Grundsätze (gegen Ruckeln/Flimmern):
@@ -12,7 +12,8 @@
 //  - Bilder eager + decode, Schriften geladen; vor dem Start einmal die ganze Seite durchgescrollt (alle Schriften/Bilder warm),
 //    danach alle endlichen Animationen auf Endstand (Hero steht fertig).
 //  - Ein Screenshot pro Bild (page.screenshot, JPEG q95, Pixel = CSS-Pixel x DSF). Kein Mauszeiger im Bild, Klicks mit Messingring.
-//  - Wächter: erscheint #betreuung (Preise) im Viewport, bricht die Aufnahme ab.
+//  - Wächter: erscheint der Inhalt von #betreuung (Preise, `#betreuung .huelle`) im Viewport, bricht die Aufnahme ab.
+//    (Der obere Innenabstand des Abschnitts, ca. 109 px Desktop / 60 px Handy, ohne Text darf am Bildrand sichtbar sein: Regie-Mitte der Kompass-Einstellung.)
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs');
 const path = require('path');
@@ -70,16 +71,48 @@ const INIT = `(() => {
     L.x += (L.tx - L.x) * .12; L.y += (L.ty - L.y) * .12;
     h.style.setProperty('--licht-x', L.x.toFixed(1) + 'px'); h.style.setProperty('--licht-y', L.y.toFixed(1) + 'px'); };
   // Vor dem Start: endliche Animationen auf Endstand, unendliche am aktuellen Stand anhalten
-  window.__settle = () => { for (const a of document.getAnimations()) { if (a.timeline !== document.timeline) continue;
+  window.__settle = () => { syncSL(); for (const a of document.getAnimations()) { if (a.timeline !== document.timeline || SKIP.has(a)) continue;
       try { const et = a.effect.getComputedTiming().endTime; if (isFinite(et)) a.finish(); } catch (e) {}
       try { a.pause(); } catch (e) {} M.set(a, a.currentTime || 0); } settled = true; };
-  window.__adv = (dt) => { L.t += dt;
-    for (const a of document.getAnimations()) { if (a.timeline !== document.timeline) continue;
+  // Scroll-gebundene Animationen (view(): Einblenden, Linien, Kompass-Gleiten) laufen im Browser teils auf dem Compositor und
+  // flackern im Standbild zwischen zwei Werten (Compositor-/Hauptthread-Rundung, 1-Bild-Ausreißer). Darum je eine Spiegel-Animation auf der
+  // Dokument-Zeitleiste (pausiert, Stand = Fortschritt des Originals, den wir pro Bild vom Hauptthread lesen), die die Eigenschaft überlagert.
+  // Lösung: Original abbrechen, den Fortschritt über eine Sonde (gleiche Zeitleiste/Bereich, harmlose Eigenschaft) lesen und das Ergebnis
+  // pro Bild als feste Inline-Werte schreiben (commitStyles). Danach gibt es keine laufende Scroll-Animation mehr, die flackern könnte.
+  const SKIP = new WeakSet(), SLS = [];
+  const syncSL = () => {
+    for (const a of document.getAnimations()) {
+      if (a.timeline === document.timeline || SKIP.has(a)) continue;
+      const eff = a.effect, tgt = eff && eff.target; if (!tgt) continue;
+      const tm = eff.getTiming(), kf = eff.getKeyframes(), pseudo = eff.pseudoElement || undefined;
+      const pe = new KeyframeEffect(tgt, [{ '--sl-probe': '0' }, { '--sl-probe': '1' }], { fill: 'both' });
+      const probe = new Animation(pe, a.timeline);
+      try { probe.rangeStart = a.rangeStart; probe.rangeEnd = a.rangeEnd; } catch (e) {}
+      probe.play(); SKIP.add(probe); SKIP.add(a); SLS.push({ tgt, kf, pseudo, easing: tm.easing, pe });
+      a.cancel();
+    }
+    for (const m of SLS) {
+      if (!m.tgt.isConnected || m.pseudo) continue;
+      const p = m.pe.getComputedTiming().progress;
+      const w = m.tgt.animate(m.kf, { duration: 1000, fill: 'both', easing: m.easing }); SKIP.add(w); w.pause();
+      try { w.currentTime = (p == null ? 0 : p) * 1000; w.commitStyles(); } catch (e) {}
+      w.cancel();
+    }
+  };
+  window.__adv = (dt) => { L.t += dt; syncSL();
+    for (const a of document.getAnimations()) { if (a.timeline !== document.timeline || SKIP.has(a)) continue;
       if (!M.has(a)) { M.set(a, 0); try { a.pause(); } catch (e) {} }
       const t = M.get(a) + dt; M.set(a, t); try { a.currentTime = t; } catch (e) {} }
     light(); };
   document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.scrollBehavior = 'auto';
+    const st = document.createElement('style'); st.textContent = 'html{overflow-anchor:none}'; document.head.append(st); // Scrollanker aus: Seitenstand bleibt beim Reiterwechsel
+    // Teilpixel-Scroll: Chrome rastet window.scrollTo auf ganze CSS-Pixel (Ruckeln bei langsamer Fahrt). Ganzzahlanteil per scrollTo,
+    // der Rest per translate3d auf main/footer (Kopfleiste und feste Leiste bleiben stehen). Ebenen von Anfang an fest eingerichtet.
+    for (const e of document.querySelectorAll('main, footer')) { e.style.willChange = 'transform'; e.style.transform = 'translate3d(0,0,0)'; }
+    window.__res = 0;
+    window.__scroll = (y) => { const f = Math.floor(y), r = y - f; window.scrollTo({ top: f, behavior: 'instant' }); window.__res = r;
+      for (const e of document.querySelectorAll('main, footer')) e.style.transform = 'translate3d(0,' + (-r).toFixed(3) + 'px,0)'; };
     for (const i of document.images) { i.loading = 'eager'; i.decoding = 'sync'; }
     const r = document.createElement('div'); r.id = '__r';
     r.style.cssText = 'position:fixed;z-index:2147483646;pointer-events:none;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid rgba(232,196,120,.9);opacity:0;left:-99px;top:-99px';
@@ -91,7 +124,11 @@ const INIT = `(() => {
   const DEFS = ${JSON.stringify(RECT_DEFS)};
   const rc = (e) => { if (!e) return null; const rs = e.getClientRects(); if (!rs.length) return null; const r = e.getBoundingClientRect();
     if (!r.width && !r.height) return null; return [+r.left.toFixed(1), +r.top.toFixed(1), +r.width.toFixed(1), +r.height.toFixed(1)]; };
+  window.__euro = null;
   window.__probe = () => {
+    if (!window.__euro) window.__euro = [...document.querySelectorAll('body *')].filter((e) => !e.closest('script,style,noscript,header,nav') &&
+      [...e.childNodes].some((n) => n.nodeType === 3 && /€/.test(n.data)));
+    const euro = window.__euro.some((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight; });
     const out = {};
     for (const [k, sel] of Object.entries(DEFS)) {
       if (sel.startsWith('all:')) { [...document.querySelectorAll(sel.slice(4))].forEach((e, i) => { out[k + '.' + (i + 1)] = rc(e); }); }
@@ -101,8 +138,8 @@ const INIT = `(() => {
     if (h1) { const w = document.createTreeWalker(h1, NodeFilter.SHOW_TEXT); let n, i = 0;
       while ((n = w.nextNode())) { for (const m of n.data.matchAll(/\\S+/g)) { const g = document.createRange(); g.setStart(n, m.index); g.setEnd(n, m.index + m[0].length);
         const b = g.getBoundingClientRect(); out['titel.wort.' + (++i)] = b.width ? [+b.left.toFixed(1), +b.top.toFixed(1), +b.width.toFixed(1), +b.height.toFixed(1)] : null; } } }
-    const bt = document.getElementById('betreuung'); const bb = bt ? bt.getBoundingClientRect() : null;
-    return { y: scrollY, bet: bb ? [bb.top, bb.bottom] : null, intro: document.documentElement.classList.contains('intro-offen') || !document.getElementById('vorstellung')?.hidden,
+    const bt = document.querySelector('#betreuung .huelle') || document.getElementById('betreuung'); const bb = bt ? bt.getBoundingClientRect() : null;
+    return { y: scrollY + (window.__res || 0), euro, bet: bb ? [bb.top, bb.bottom] : null, intro: /intro-(offen|geht)/.test(document.documentElement.className) || (document.getElementById('vorstellung') && getComputedStyle(document.getElementById('vorstellung')).display !== 'none'),
       h: innerHeight, w: innerWidth, dpr: devicePixelRatio, r: out };
   };
 })();`;
@@ -114,7 +151,8 @@ const SHOTS = {
     const { p } = c;
     c.mark('hero'); await c.wait(7.0 + 1);
     // lei: erste Plakette
-    c.mark('lei'); await c.scrollTo((await c.topOf('.plakette')) - 40, 1.4); await c.wait(2.0 + 1);
+    // Regie: -40 in 1,4 s. Kopfleiste (73 px) läge über Reihe 1, Strecke 1227 px in 1,4 s = 877 px/s > 650 (Regel Desktop): Reihe 1 bei y=86, 2,0 s
+    c.mark('lei'); await c.scrollTo((await c.topOf('.plakette')) - 86, 2.0); await c.wait(2.0 + 1);
     c.mark('lei2'); await c.scrollBy(330, 2.2); await c.wait(1.2 + 1);
     c.mark('ablauf'); await c.scrollTo((await c.topOf('#ablauf')) - 40, 1.4); await c.wait(6.0 + 1);
     c.mark('arbeiten'); await c.scrollTo((await c.topOf('#reiter-edel')) - 70, 1.8); c.mark('tab-edel'); await c.wait(1.5 + 1);
@@ -131,29 +169,27 @@ const SHOTS = {
   } },
   'P-A': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
     const pl = (n) => c.topOf(`.plaketten .plakette:nth-child(${n})`);
+    const KOPF = 96; // Kopfleiste ist 73 px hoch und liegt fest über der Seite: Plakette 23 px darunter (Regie: -24 gerechnet ohne Kopfleiste)
     c.mark('hero'); await c.wait(7.0 + 1);
-    c.mark('lei'); await c.scrollTo((await pl(1)) - 24, 1.6); await c.wait(1.6 + 1);
-    await c.scrollTo((await pl(3)) - 24, 2.0); c.mark('lei3'); await c.wait(1.0 + 1);
-    c.mark('lei2'); await c.scrollTo((await pl(4)) - 24, 1.4); await c.wait(1.5 + 1);
+    // Regie: Scroll 1297 px in 1,6 s. Regel Handy: Strecken > 900 px nicht scrollen -> Sprung (Lampenblende im Schnitt)
+    await c.jump((await pl(1)) - KOPF, 0.5); c.mark('lei'); await c.wait(1.6 + 1);
+    await c.scrollTo((await pl(3)) - KOPF, 2.0); c.mark('lei3'); await c.wait(1.0 + 1);
+    c.mark('lei2'); await c.scrollTo((await pl(4)) - KOPF, 1.4); await c.wait(1.5 + 1);
     await c.jump((await c.topOf('.schritte .schritt:nth-child(1)')) - 110, 0.5); c.mark('ablauf'); await c.wait(0.8 + 1);
     const s4 = (await c.topOf('.schritte .schritt:nth-child(4)')) + 190 - 400;
     await c.scrollTo(s4, 4.4); c.mark('ablauf4'); await c.wait(1.0 + 1);
     // arbeiten: Label „Musterseite ·“ auf y 360
     const lab = await c.topOf('#arbeit-edel .werk-art');
     await c.jump(lab - 360, 0.5); c.mark('arbeiten'); c.mark('tab-edel'); await c.wait(1.5 + 1);
-    for (const t of ['norvak', 'glut', 'laut']) { await c.clickScript('#reiter-' + t, 'tab-' + t, `#arbeit-${t} .werk-art`, 360); await c.wait((t === 'laut' ? 3.5 : 1.5) + 1); }
+    for (const t of ['norvak', 'glut', 'laut']) { await c.clickScript('#reiter-' + t, 'tab-' + t); await c.wait((t === 'laut' ? 3.5 : 1.5) + 1); }
     c.mark('ende');
   } },
   'P-B': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
     await c.jump((await c.topOf('.zwischenbild')) - 22, 1.0); c.mark('zw'); await c.wait(7.0 + 1); c.mark('ende');
   } },
   'P-C': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    await c.jump((await c.topOf('#t-kontakt')) - 80, 1.0); c.mark('kontakt'); await c.wait(9.0 + 1); c.mark('ende');
-  } },
-  // Zusatz (nicht in der Regie): Handy, Kontakt-Abschnitt gerade noch nicht erreicht, feste Leiste „Projekt besprechen“ ist da
-  'P-D': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    const y = (await c.topOf('#kontakt')) - Number(process.env.LEISTE_Y || 440);
-    await c.jump(y, 1.0); c.mark('leiste'); await c.wait(4.0 + 1); c.mark('ende');
+    // Regie: #t-kontakt -80; dann läge die Überzeile „Im Hafen“ unter der Kopfleiste (73 px): Überzeile bei y=96
+    await c.jump((await c.topOf('.kontakt-text .ueberzeile')) - 96, 1.0); c.mark('kontakt'); await c.wait(9.0 + 1); c.mark('ende');
   } },
 };
 
@@ -171,17 +207,27 @@ async function aufnahme(browser, id) {
   // Vorlauf in Echtzeit: Bilder eager, ganze Seite einmal durchscrollen (Schriften, Bilder, Beobachter), Reiter durchschalten, zurück an den Anfang
   await p.evaluate(async () => { await document.fonts.ready; });
   await p.waitForFunction(() => [...document.images].every((i) => i.complete), null, { timeout: 30000 }).catch(() => {});
+  const dbg = async () => {};
   const total = await p.evaluate(() => document.documentElement.scrollHeight);
+  await dbg('geladen');
   for (let y = 0; y <= total; y += S.H * 0.6) { await p.evaluate((v) => window.scrollTo(0, v), y); await p.waitForTimeout(120); }
+  await dbg('nach scroll');
   for (const t of ['norvak', 'glut', 'laut', 'edel']) { await p.evaluate((t) => { document.getElementById('reiter-' + t).click(); }, t); await p.waitForTimeout(250); }
   await p.evaluate(async () => { await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await document.fonts.ready; });
+  // Rückweg in Schritten nach oben: die feste Handy-Leiste (IntersectionObserver auf #kontakt) braucht den Durchgang, sonst bleibt sie nach einem Sprung vom Seitenende ausgeblendet
+  for (let y = total; y > 0; y -= S.H * 0.6) { await p.evaluate((v) => window.scrollTo(0, v), y); await p.waitForTimeout(120); }
   await p.evaluate(() => { for (const e of document.querySelectorAll('.werk--rein')) e.classList.remove('werk--rein'); window.scrollTo(0, 0); });
+  await dbg('nach rueckscroll');
   await p.waitForTimeout(2500);
+  await dbg('nach 2.5s');
   await p.evaluate(() => window.scrollTo(0, 0));
   await p.waitForTimeout(500);
+  await dbg('vor settle');
   await p.evaluate(() => window.__settle());
+  await dbg('nach settle');
   const now = await p.evaluate(() => Date.now());
   await p.clock.pauseAt(new Date(now + 5000));
+  await dbg('nach pause');
   console.log(id, 'Seite', total, 'px hoch; Fehler im Vorlauf:', errors.length);
 
   let n = 0; const marks = [], events = []; const scrollLog = [];
@@ -195,6 +241,7 @@ async function aufnahme(browser, id) {
     await p.clock.runFor(DT);
     info = await p.evaluate((dt) => { window.__adv(dt); return window.__probe(); }, DT);
     if (info.intro) throw new Error('Overlay/Intro sichtbar (Frame ' + n + ')');
+    if (info.euro) throw new Error('Wächter: Eurobetrag im Bild bei Frame ' + n);
     if (info.bet && info.bet[1] > 0 && info.bet[0] < info.h) throw new Error('Wächter: #betreuung (Preise) im Bild bei Frame ' + n + ' (top ' + info.bet[0].toFixed(0) + ', scroll ' + info.y.toFixed(0) + ')');
     if (!save) { await p.screenshot({ type: 'jpeg', quality: 20 }); return; }
     for (const [k, v] of Object.entries(info.r)) {
@@ -205,16 +252,17 @@ async function aufnahme(browser, id) {
     fs.writeFileSync(path.join(out, String(n).padStart(5, '0') + '.jpg'), buf); n++;
   };
   const wait = async (sec) => { const k = Math.round(sec * FPS); for (let i = 0; i < k; i++) await frame(); };
-  const topOf = (s) => p.evaluate((s) => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().top + scrollY : NaN; }, s);
-  const setY = (v) => p.evaluate((v) => window.scrollTo({ top: v, behavior: 'instant' }), v);
+  const topOf = (s) => p.evaluate((s) => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().top + scrollY + (window.__res || 0) : NaN; }, s);
+  const setY = (v) => p.evaluate((v) => window.__scroll(v), v);
+  const curY = () => p.evaluate(() => scrollY + (window.__res || 0));
   const scrollTo = async (y, sec) => {
-    const y0 = await p.evaluate(() => scrollY); const k = Math.round(sec * FPS);
+    const y0 = await curY(); const k = Math.round(sec * FPS);
     console.log(`    Scroll ${y0.toFixed(0)} -> ${y.toFixed(0)} = ${(y - y0).toFixed(0)} px in ${sec} s (Ø ${((y - y0) / sec).toFixed(0)} px/s)`);
     scrollLog.push({ frame: n, von: +y0.toFixed(1), nach: +y.toFixed(1), sek: sec, schnitt_px_s: +((y - y0) / sec).toFixed(1) });
     event('scroll', { von: y0, nach: y, dauer: k });
     for (let i = 1; i <= k; i++) { await setY(y0 + (y - y0) * sine(i / k)); await frame(); }
   };
-  const scrollBy = async (dy, sec) => scrollTo((await p.evaluate(() => scrollY)) + dy, sec);
+  const scrollBy = async (dy, sec) => scrollTo((await curY()) + dy, sec);
   // Sprung: Position setzen, Einschwingzeit verwerfen (Bilder werden aufgenommen, aber nicht gespeichert)
   const jump = async (y, discard) => {
     console.log(`    Sprung -> ${y.toFixed(0)}, ${discard} s Einschwingen verworfen`);
@@ -233,7 +281,7 @@ async function aufnahme(browser, id) {
     mark(name); event('tab', { ziel: s });
     await p.evaluate((s) => document.querySelector(s).click(), s);
     if (labelSel) { await frame(false); const dy = await p.evaluate(([sel, ly]) => { const e = document.querySelector(sel); return e ? e.getBoundingClientRect().top - ly : 0; }, [labelSel, labelY]);
-      if (Math.abs(dy) > 1) { console.log('    Label-Nachführung', dy.toFixed(1), 'px'); await setY((await p.evaluate(() => scrollY)) + dy); } }
+      if (Math.abs(dy) > 1) { console.log('    Label-Nachführung', dy.toFixed(1), 'px'); await setY((await curY()) + dy); } }
     await frame();
   };
   const c = { p, mark, wait, topOf, scrollTo, scrollBy, jump, click, clickScript, frame };

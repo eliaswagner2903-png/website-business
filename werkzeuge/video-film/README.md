@@ -49,3 +49,16 @@ ffmpeg (sidechain ducking under the voice), no re-render needed.
 - Sound effects: a different ElevenLabs effect per moment (`public/sfx3/`, FLAC copies in the project folder), each
   started early by its measured peak time so the peak lands on the cut. Needs `desk3/`, `phone3/`, `desk3.json`,
   `phone3.json` in `public/`.
+
+## Seitenkapitän „Nachtfahrt“: Eröffnung Seekarte (2026-10-12)
+
+`src/Seekarte.tsx`: compositions `Seekarte169` (1920x1080) and `Seekarte916` (1080x1920), 400 frames @ 60 fps, 0 credits.
+Time marks exported as `SEEKARTE` (ignite 42, „Erst“ 47, „Kurs“ 148, „Dann“ 226, „Fahrt“ 290, chart gone 384, end 400)
+plus `kajueteSkala(f)` for the cut. Spec: `seitenkapitaen/video/03-regie.md` §4.
+- Textures are precomputed once with a fixed seed: `python3 seekarte/texturen.py` → `public/seekarte/` (paper+ink WebP,
+  burn mask m 16 bit, gradient/fray, geometry JSON). Cabin images b1/b2 are copied there too.
+- Render without the old film's capture assets via the separate entry `src/index-seekarte.ts`:
+  `npx remotion still src/index-seekarte.ts Seekarte169 out.png --frame=150 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
+- Flicker check: `python3 seekarte/flimmern.py clip.mp4` (frame diffs, A-B-A metric, jump list).
+- Lessons: keep every layer mounted and every filter set from frame 0 (switching a filter, blend layer or SVG on later
+  re-samples the whole chart → visible jump); x264 keyframes (every 250 frames) show up as small whole-frame diffs.
