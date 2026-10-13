@@ -90,6 +90,10 @@ final hit on the CTA). Cut on beats, duck under the voice (sidechain), dip 3 kHz
 
 ## 8. Cut and animation (Remotion)
 - Site shown as a "window" on dark blurred cabin light; camera moves the whole window (<= 2 % scale, <= 0.4 deg tilt).
+- 9:16 is its OWN phone film, never the desktop layout shrunk (Elias 13.10. evening: "looks like the computer version put on the
+  phone, everything too small"): phone capture full-bleed across the whole width, no frame/shadow/tilt, captions in the strip
+  below at >= 64 px, overlays and end card sized up, end card on a darkened full screen. Burned-in captions -> the site's
+  <track> must not be `default` (else captions show twice).
 - Captures through `<Freeze frame={src}><OffthreadVideo/></Freeze>` so every film frame maps to one capture frame; tab
   clicks land on the spoken word.
 - Keep every layer mounted and every filter set from frame 0, change only opacity; switching a filter/layer later makes
