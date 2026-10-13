@@ -62,3 +62,18 @@ plus `kajueteSkala(f)` for the cut. Spec: `seitenkapitaen/video/03-regie.md` §4
 - Flicker check: `python3 seekarte/flimmern.py clip.mp4` (frame diffs, A-B-A metric, jump list).
 - Lessons: keep every layer mounted and every filter set from frame 0 (switching a filter, blend layer or SVG on later
   re-samples the whole chart → visible jump); x264 keyframes (every 250 frames) show up as small whole-frame diffs.
+
+## Seitenkapitän „Nachtfahrt“: Werbefilm (2026-10-13)
+
+`src/Nachtfahrt.tsx` (+ `src/nachtfahrt/daten.ts`): compositions `Nachtfahrt169` (1920x1080) and `Nachtfahrt916` (1080x1920),
+3030 frames @ 60 fps (50.5 s), one timeline; opens with `Seekarte` unchanged. Separate entry `src/index-nachtfahrt.ts`.
+- Needs in `public/nachtfahrt/` (git-ignored): `D-A.mp4`, `P-A.mp4` + `*.rects.json` (frame-exact captures), stills
+  `{D,P}-{A,B,C}-0.webp` (frame 0 of each capture, lossless), `hafen.webp` (b4 master), `woerter.json`, `ton.wav`, `schriften/`.
+- Captures are shown frame-exact via `<Freeze frame={src}><OffthreadVideo/></Freeze>`: every film frame maps to one capture
+  frame (holds = repeated identical frames, tab clicks land exactly on the spoken word).
+- Stills for checking: `node aufnahme/stills.mjs Nachtfahrt169 <dir> 400 760 1469`; flicker check of the finished film:
+  `python3 aufnahme/film-pruefung.py film.mp4 <planned cut frames>`.
+- Render with `NACHTFAHRT=1 npx remotion render src/index-nachtfahrt.ts Nachtfahrt169 out.mp4 --codec=h264 --crf=16
+  --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=192k --x264-preset=slow`, then remux
+  with `-movflags +faststart`. `NACHTFAHRT=1` sets a long GOP (keyint 3600, `remotion.config.ts`): the default keyframe
+  every 250 frames showed as a small full-frame jump in the dark noise. Without `--color-space=bt709` the output is yuvj420p.

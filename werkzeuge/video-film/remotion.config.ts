@@ -19,3 +19,12 @@ Config.overrideWebpackConfig((config) => {
     },
   };
 });
+
+// „Nachtfahrt“: Schlüsselbilder (alle 250 F) zeigten sich als kleiner Ganzbild-Sprung im Rauschen.
+// Nur mit NACHTFAHRT=1: nur ein Schlüsselbild am Anfang (+ echte Szenenwechsel), keyint 3600, andere Filme unverändert.
+Config.overrideFfmpegCommand(({ args }) => {
+  if (process.env.NACHTFAHRT !== "1") return args;
+  const i = args.indexOf("-crf");
+  if (i < 0) return args;
+  return [...args.slice(0, i), "-x264-params", "keyint=3600:min-keyint=60", ...args.slice(i)];
+});
