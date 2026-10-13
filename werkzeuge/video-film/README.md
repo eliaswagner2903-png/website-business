@@ -1,5 +1,7 @@
 # OQ promo film (Remotion)
 
+> **Method for every promo film: see [PLAYBOOK.md](PLAYBOOK.md)** (steps, rules, checks, costs).
+
 Promo video of Elias' own site (order A-109, 2026-10-11). Code only; media (voice, sound effects, rendered films)
 lives in `/mnt/project-files/videos/oq-eigene-seite/` and `/mnt/project-files/werkzeuge/video/oq-film/`.
 
