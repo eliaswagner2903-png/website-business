@@ -77,3 +77,25 @@ plus `kajueteSkala(f)` for the cut. Spec: `seitenkapitaen/video/03-regie.md` §4
   --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=192k --x264-preset=slow`, then remux
   with `-movflags +faststart`. `NACHTFAHRT=1` sets a long GOP (keyint 3600, `remotion.config.ts`): the default keyframe
   every 250 frames showed as a small full-frame jump in the dark noise. Without `--color-space=bt709` the output is yuvj420p.
+
+## Seitenkapitän „Nachtfahrt“: Runde 2 (2026-10-13)
+
+New voice (take C, "Rauchiger Kapitän"), tighter cut, 60.0 s (3600 frames), new captures, peak-aligned sound.
+Pipeline (run in `scratchpad/video`, scripts in `ton/`, comments German):
+1. `stimmschnitt2.py` – cuts take C (pauses shortened per `06-dramaturgie.md` §7, speech never sped up) → `stimme2-final/`
+   (`stimme.wav`, `woerter.json`). Word onsets are re-detected from the audio (`wortbeginn.py`): the forced alignment
+   was up to 0.35 s off behind the v3 audio tags.
+2. `zeitleiste2.py` – derives every picture time and event frame from the words → `src/nachtfahrt/zeitleiste2.json`.
+   `daten.ts` and `Seekarte.tsx` read it; so does the sound. One source of truth: change words → rerun 2–4.
+3. `geraeusche2.py` – SFX: the loudest point of each processed clip (2 ms smoothed) sits exactly on its event frame;
+   beds fade softly → `mix2/sfx.wav` + `mix2/sfx-ereignisse.wav` (events only, for checking).
+4. `endmix2.py musik2/musik2-A.mp3` – music cut on beats (two-bar jump before the end), ducking, -14 LUFS / -1 dBTP → `mix2/ton.wav`
+   (copy to `public/nachtfahrt/ton2.wav`).
+5. `synchronpruefung.py mix2/sfx-ereignisse.wav mix2/ton.wav film.mp4 out.json` – event peak vs frame plus the global
+   offset of the rendered film's audio (12 correlation windows). Tolerance 1 frame.
+- Captures round 2 live in `public/nachtfahrt/r2/` (`D-A.mp4`, `P-A.mp4`, rects, `{D,P}-{A,B,C}-0.webp`), same frame
+  marks as round 1; P-B sits 76 css-px higher (compass needle overlay moved 190 video px, clipped to below the header).
+- New overlays: check line (L6, four ticks land on their words), "Gebaut. Geprüft. Gepflegt." stamped on the words,
+  service line (L8, "Hosting · Wartung · Pflege · Änderungen · und vieles mehr"). Seekarte: lamp flicker removed,
+  brightness filter always set; 16:9 first subtitle moved left off the scale bar.
+- Render as above with `Nachtfahrt169`/`Nachtfahrt916`, `--jpeg-quality=100`, outputs `film/nachtfahrt2-*.mp4`.

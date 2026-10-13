@@ -14,6 +14,8 @@ import {
 // pro Moment, Bewegungen beginnen auf betonten Wörtern oder in Pausen.
 
 const nf = (p: string) => staticFile(`nachtfahrt/${p}`);
+// Seitenaufnahmen Runde 2 (neue Seitentexte, scratchpad/aufnahme-r2): gleiche Bildzahlen und Marken wie Runde 1
+const AUFN = "r2/";
 // Tonspur Runde 2: Endmischung (ton2.wav, ton/endmix2.py); solange sie fehlt, nur die Stimme
 const TON = "ton2.wav";
 // Deckkraft nie genau 1: Chrome wechselt sonst beim Erreichen von 1 den Compositing-Weg (Ebene wird neu abgetastet → Sprung)
@@ -50,7 +52,7 @@ const Kajuete: React.FC<{ fmt: Fmt }> = ({ fmt }) => (
 // ---------------- Aufnahme: genau ein Bild der Aufnahme (Freeze = framegenaue Zeitzuordnung) ----------------
 const Aufnahme: React.FC<{ q: Q; src: number; w: number }> = ({ q, src, w }) => (
   <Freeze frame={src}>
-    <OffthreadVideo src={nf(`${q}-A.mp4`)} muted style={{ position: "absolute", left: 0, top: 0, width: w, height: hoehe(q, w), display: "block" }} />
+    <OffthreadVideo src={nf(`${AUFN}${q}-A.mp4`)} muted style={{ position: "absolute", left: 0, top: 0, width: w, height: hoehe(q, w), display: "block" }} />
   </Freeze>
 );
 
@@ -142,7 +144,8 @@ const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; ab
 // Geometrie in Videopixeln der Zwischenbild-Aufnahme: Drehpunkt, Ausrichtung im Kreisraum (y / 0,68 = Perspektive)
 const NADEL: Record<Q, { p: [number, number]; phi: number; len: number; b: number; ell: number }> = {
   D: { p: [1375, 584], phi: -58.97, len: 388, b: 24, ell: 0.68 },
-  P: { p: [690, 435], phi: -59.77, len: 238, b: 15, ell: 0.68 },
+  // Handy Runde 2: P-B sitzt 76 css-px höher (längerer Kompass-Satz) → Kompass 190 Videopixel höher (gemessen 188)
+  P: { p: [690, 245], phi: -59.77, len: 238, b: 15, ell: 0.68 },
 };
 const pendel = (f: number) => {
   const [a, b] = T.pendel, A = 24;
@@ -163,12 +166,15 @@ const Nadel: React.FC<{ q: Q; f: number }> = ({ q, f }) => {
   const s = q === "D" ? 1 : 0.62;
   return (
     <svg viewBox={`0 0 ${AUF[q].vw} ${AUF[q].vh}`} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", overflow: "visible" }}>
-      <g transform={tr} opacity={sichtbar}>
+      {/* nur zwischen Kopfleiste (73 css-px) und Handy-Fußleiste (510 css-px): die Nadel liegt nie über der Seiten-UI */}
+      <defs><clipPath id={`nk${q}`}><rect x={0} y={73 * AUF[q].vw / AUF[q].cw} width={AUF[q].vw} height={(q === "D" ? AUF.D.ch : 510) * AUF[q].vw / AUF[q].cw - 73 * AUF[q].vw / AUF[q].cw} /></clipPath></defs>
+      <g clipPath={`url(#nk${q})`}><g transform={tr} opacity={sichtbar}>
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke="#ffcf87" strokeWidth={6 * s} strokeLinejoin="round" opacity={0.25} vectorEffect="non-scaling-stroke" style={{ filter: "blur(3px)" }} />
         <polygon points={`${L},0 0,${B} ${-L},0 0,${-B}`} fill="none" stroke={C.messing} strokeWidth={2.2 * s} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         <line x1={0} y1={0} x2={L} y2={0} stroke="#ffd9a0" strokeWidth={1.2 * s} opacity={0.8} vectorEffect="non-scaling-stroke" />
-      </g>
-      <Glutpunkt x={tip[0]} y={tip[1]} s={1.4 * s} hell={funke} id={`nf${q}`} />
+      </g></g>
+      {/* Glockenfunke an der Nadelspitze; Handy: Spitze liegt unter der Kopfleiste → Funke am Drehpunkt */}
+      <Glutpunkt x={q === "D" ? tip[0] : N.p[0]} y={q === "D" ? tip[1] : N.p[1]} s={1.4 * s} hell={funke} id={`nf${q}`} />
     </svg>
   );
 };
@@ -217,7 +223,7 @@ const ANSICHTEN: Record<Q, Ansicht[]> = {
     { key: "ablauf", ein: T.blende4, bis: T.blatt5[1], inhalt: (f) => ({ video: lauf(f, T.blende4[0], 1130, 1130, 1547) }),
       ueber: (f, src) => { const g = glutD(src); return <Zwischen q="D"><Glutlinie {...g} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 6]} f={f} s={1} id="d" /></Zwischen>; } },
     { key: "reiter", ein: T.blatt5, bis: T.blende6[1], wisch: true, inhalt: (f) => ({ video: reiterSrc("D", f) }) },
-    { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: "D-B-0.webp" }), ueber: (f) => <Nadel q="D" f={f} /> },
+    { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: `${AUFN}D-B-0.webp` }), ueber: (f) => <Nadel q="D" f={f} /> },
   ],
   P: [
     { key: "hero", ein: [T.seekarteEnde, T.seekarteEnde], bis: T.blende3[1], inhalt: (f) => ({ video: lauf(f, T.seekarteEnde, 298, 298, 479) }), ueber: (f, src) => <Halbdunkel q="P" src={src} f={f} /> },
@@ -233,7 +239,7 @@ const ANSICHTEN: Record<Q, Ansicht[]> = {
     { key: "ablaufB", ein: T.blende4b, bis: T.blatt5[1], inhalt: () => ({ video: P_ABLAUF_B }),
       ueber: (f, src) => <Zwischen q="P"><Glutlinie {...glutP(src)} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 6]} f={f} s={0.5} id="pb" /></Zwischen> },
     { key: "reiter", ein: T.blatt5, bis: T.blende6[1], wisch: true, inhalt: (f) => ({ video: reiterSrc("P", f) }) },
-    { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: "P-B-0.webp" }), ueber: (f) => <Nadel q="P" f={f} /> },
+    { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: `${AUFN}P-B-0.webp` }), ueber: (f) => <Nadel q="P" f={f} /> },
   ],
 };
 
@@ -612,8 +618,8 @@ export const Nachtfahrt: React.FC<{ fmt: Fmt }> = ({ fmt }) => {
       {f >= T.fensterBEin[0] - 1 && (
         <>
           <Fenster q={q} box={L.B} op={opB} skala={skB} neig={0}>
-            {f <= T.blende10[1] + 1 && <Img src={nf(`${q}-C-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: f > T.blende10[1] ? 0 : dk(1) }} />}
-            {f >= T.blende10[0] - 1 && <Img src={nf(`${q}-A-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: dk(sinRampe(f, T.blende10)) }} />}
+            {f <= T.blende10[1] + 1 && <Img src={nf(`${AUFN}${q}-C-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: f > T.blende10[1] ? 0 : dk(1) }} />}
+            {f >= T.blende10[0] - 1 && <Img src={nf(`${AUFN}${q}-A-0.webp`)} style={{ position: "absolute", left: 0, top: 0, width: L.B.w, height: hoehe(q, L.B.w), opacity: dk(sinRampe(f, T.blende10)) }} />}
           </Fenster>
           <Wortmarke fmt={fmt} f={f} />
           <Knopf fmt={fmt} f={f} />

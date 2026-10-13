@@ -5,8 +5,8 @@
 import { Easing } from "remotion";
 import woerter from "../../public/nachtfahrt/woerter2.json";
 import Z from "./zeitleiste2.json";
-import rectsD from "../../public/nachtfahrt/D-A.rects.json";
-import rectsP from "../../public/nachtfahrt/P-A.rects.json";
+import rectsD from "../../public/nachtfahrt/r2/D-A.rects.json";
+import rectsP from "../../public/nachtfahrt/r2/P-A.rects.json";
 
 export const FPS = 60;
 export const DAUER = Z.dauer; // 60,0 s
@@ -142,9 +142,10 @@ export const EV = Z.ereignisse;
 /** Quellbild (Frame der Aufnahme) für einen Filmframe: a + (f - f0), begrenzt */
 export const lauf = (f: number, f0: number, a: number, lo: number, hi: number) => Math.round(Math.min(hi, Math.max(lo, a + (f - f0))));
 
-// Handy Ablauf, Ansicht B: Bild der Fahrt 1218–1482, in dem 03 und 04 zwischen Kopf- und Fußleiste stehen (scrollY ≈ 4030)
+// Handy Ablauf, Ansicht B: Bild der Fahrt 1218–1482, in dem 03 und 04 zwischen Kopf- und Fußleiste stehen
+// (Runde 1 scrollY ≈ 4030; Runde 2 liegt der Ablauf 29 px höher → 4001)
 export const P_ABLAUF_B = (() => {
   let best = 1218, d = 1e9;
-  for (let i = 1218; i <= 1482; i++) { const x = Math.abs(scrollY("P", i) - 4030); if (x < d) { d = x; best = i; } }
+  for (let i = 1218; i <= 1482; i++) { const x = Math.abs(scrollY("P", i) - 4001); if (x < d) { d = x; best = i; } }
   return best;
 })();
