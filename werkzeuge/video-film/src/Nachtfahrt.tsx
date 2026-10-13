@@ -5,15 +5,17 @@ import {
 import { getLength, getPointAtLength } from "@remotion/paths";
 import { Seekarte, SEEKARTE } from "./Seekarte";
 import {
-  AUF, C, DAUER, FPS, Fmt, LAY, Lay, P_ABLAUF_B, Q, R, T, TAFELN, W, clamp, glatt, hoehe, kamera, lauf, qVon, rect, scrollY, we, ws, zug,
+  AUF, C, DAUER, FPS, Fmt, LAY, Lay, P_ABLAUF_B, Q, R, T, TAFELN, Tafel, W, clamp, glatt, hoehe, kamera, lauf, qVon, rect, scrollY, we, wi, ws, zug,
 } from "./nachtfahrt/daten";
 
-// Werbefilm „Nachtfahrt“ (Seitenkapitän), 50,5 s, 16:9 und 9:16 auf einer Zeitleiste.
+// Werbefilm „Nachtfahrt“ (Seitenkapitän), Runde 2: 60,0 s, 16:9 und 9:16 auf einer Zeitleiste (Stimme Take C).
 // Regeln: nichts flimmert (jeder Frame ist eine reine Funktion der Framenummer, Filter/Masken ab dem Einhängen
 // fest gesetzt, Deckkraft statt Umschalten), die Seite wird nie angeschnitten oder hineingezoomt, nur eine Bewegung
 // pro Moment, Bewegungen beginnen auf betonten Wörtern oder in Pausen.
 
 const nf = (p: string) => staticFile(`nachtfahrt/${p}`);
+// Tonspur Runde 2: Endmischung (ton2.wav, ton/endmix2.py); solange sie fehlt, nur die Stimme
+const TON = "ton2.wav";
 // Deckkraft nie genau 1: Chrome wechselt sonst beim Erreichen von 1 den Compositing-Weg (Ebene wird neu abgetastet → Sprung)
 const dk = (x: number) => Math.min(0.995, Math.max(0, x));
 const rampe = (f: number, [a, b]: [number, number]) => interpolate(f, [a, b], [0, 1], clamp);
@@ -67,9 +69,9 @@ const Zwischen: React.FC<{ q: Q; children: React.ReactNode }> = ({ q, children }
 // ================= Catches =================
 
 // Beat 2: Hero-Titel Wort für Wort aus dem Halbdunkel, im Takt der Stimme
-const HERO_WORT_T = [450, 456, ws(8), ws(9), ws(10)]; // „Ihre Website.“ sobald das Fenster steht, dann „Klar“ „auf“ „Kurs.“ exakt
+const HERO_WORT_T = T.heroWort; // „Ihre Website.“ sobald das Fenster steht, dann „Klar“ „auf“ „Kurs.“ exakt
 const Halbdunkel: React.FC<{ q: Q; src: number; f: number }> = ({ q, src, f }) => {
-  if (f > 560) return null;
+  if (f > T.heroAus) return null;
   return <>{HERO_WORT_T.map((t, i) => {
     const r = rect(q, `titel.wort.${i + 1}`, src);
     if (!r) return null;
@@ -80,11 +82,11 @@ const Halbdunkel: React.FC<{ q: Q; src: number; f: number }> = ({ q, src, f }) =
   })}</>;
 };
 
-// Beat 3: Glanzstreif (45°, 0,5 s) über die passende Messingplakette
+// Beat 3: Glanzstreif (45°, 0,5 s) über die passende Messingplakette; t = Ereignisframe = Streif in der Mitte
 const Glanz: React.FC<{ r: R; t: number; f: number; rund?: number }> = ({ r, t, f, rund = 6 }) => {
-  if (f < t - 2 || f > t + 44) return null;
-  const u = interpolate(f, [t, t + 30], [0, 1], { ...clamp, easing: Easing.inOut(Easing.sin) });
-  const rand = Math.sin(Math.PI * interpolate(f, [t, t + 40], [0, 1], clamp));
+  if (f < t - 17 || f > t + 29) return null;
+  const u = interpolate(f, [t - 15, t + 15], [0, 1], { ...clamp, easing: Easing.inOut(Easing.sin) });
+  const rand = Math.sin(Math.PI * interpolate(f, [t - 15, t + 25], [0, 1], clamp));
   const bw = Math.max(90, r[2] * 0.42);
   return (
     <div style={{ position: "absolute", left: r[0], top: r[1], width: r[2], height: r[3], overflow: "hidden", borderRadius: rund,
@@ -109,7 +111,7 @@ const Glutpunkt: React.FC<{ x: number; y: number; s: number; hell: number; id: s
 );
 
 // Beat 4: Rückruf der Glutlinie – Messinglinie läuft 01→04, jede Nummer glimmt auf ihrem Wort
-const ETAPPE_T = [ws(29), ws(34), ws(35), ws(37)]; // „erzählen“, „entwerfe“, „baue“, „messe“
+const ETAPPE_T = T.etappe; // Glühen am stärksten (= Ereignisframe): „erzählen“, „entwerfe“, „baue“, „prüfe“
 const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; abfahrt: number[]; f: number; s: number; id: string }> = ({ pts, nrs, abfahrt, f, s, id }) => {
   // Kopfposition: steht auf Stopp i, fährt ab abfahrt[i] und erreicht Stopp i+1 genau auf dessen Wort
   let kopf = pts[0], erreicht = 0;
@@ -118,7 +120,7 @@ const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; ab
     if (f > abfahrt[i]) { const u = zug(Math.min(1, (f - abfahrt[i]) / (ETAPPE_T[i + 1] - abfahrt[i]))); kopf = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u]; }
     break;
   }
-  const zuend = glatt(ETAPPE_T[0] - 8, ETAPPE_T[0] + 2, f);
+  const zuend = glatt(ETAPPE_T[0] - 14, ETAPPE_T[0] - 4, f);
   const kuehl = interpolate(f, [ETAPPE_T[3] + 20, ETAPPE_T[3] + 70], [1, 0.35], clamp);
   const d = [pts[0], ...pts.slice(1, erreicht + 1), kopf].map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(2)},${p[1].toFixed(2)}`).join("");
   return (
@@ -126,7 +128,7 @@ const Glutlinie: React.FC<{ pts: [number, number][]; nrs: [number, number][]; ab
       <defs><radialGradient id={`ng${id}`}><stop offset="0" stopColor="#ffb347" stopOpacity={0.55} /><stop offset="0.5" stopColor="#c9954a" stopOpacity={0.18} /><stop offset="1" stopColor="#c9954a" stopOpacity={0} /></radialGradient></defs>
       {nrs.map((n, i) => {
         const t = ETAPPE_T[i];
-        const g = f < t - 1 ? 0 : interpolate(f, [t - 1, t + 5, t + 60], [0, 1, 0.42], clamp);
+        const g = f < t - 7 ? 0 : interpolate(f, [t - 7, t, t + 55], [0, 1, 0.42], clamp);
         return <circle key={i} cx={n[0]} cy={n[1]} r={58 * s} fill={`url(#ng${id})`} opacity={g * zuend} style={{ mixBlendMode: "screen" }} />;
       })}
       <path d={d} fill="none" stroke="#ff9a3a" strokeWidth={5 * s} strokeLinecap="round" opacity={0.22 * zuend} style={{ filter: `blur(${3 * s}px)` }} />
@@ -202,33 +204,34 @@ const glutP = (src: number) => {
 
 const ANSICHTEN: Record<Q, Ansicht[]> = {
   D: [
-    { key: "hero", ein: [400, 400], bis: T.blende4[1], inhalt: (f) => ({ video: lauf(f, 400, 298, 298, 779) }),
+    // Scrollfahrt hero → lei (Aufnahme ab Marke lei 480) beginnt auf „Werkstätten“
+    { key: "hero", ein: [T.seekarteEnde, T.seekarteEnde], bis: T.blende4[1], inhalt: (f) => ({ video: lauf(f, T.scroll3, 480, 298, 779) }),
       ueber: (f, src) => <>
         <Halbdunkel q="D" src={src} f={f} />
         <Zwischen q="D">
-          <Glanz r={rect("D", "plakette.5", src)!} t={ws(19)} f={f} />
-          <Glanz r={rect("D", "plakette.1", src)!} t={ws(21)} f={f} />
-          <Glanz r={rect("D", "plakette.3", src)!} t={ws(23)} f={f} />
+          <Glanz r={rect("D", "plakette.5", src)!} t={T.glanz[0]} f={f} />
+          <Glanz r={rect("D", "plakette.1", src)!} t={T.glanz[1]} f={f} />
+          <Glanz r={rect("D", "plakette.3", src)!} t={T.glanz[2]} f={f} />
         </Zwischen>
       </> },
     { key: "ablauf", ein: T.blende4, bis: T.blatt5[1], inhalt: (f) => ({ video: lauf(f, T.blende4[0], 1130, 1130, 1547) }),
-      ueber: (f, src) => { const g = glutD(src); return <Zwischen q="D"><Glutlinie {...g} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 8]} f={f} s={1} id="d" /></Zwischen>; } },
+      ueber: (f, src) => { const g = glutD(src); return <Zwischen q="D"><Glutlinie {...g} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 6]} f={f} s={1} id="d" /></Zwischen>; } },
     { key: "reiter", ein: T.blatt5, bis: T.blende6[1], wisch: true, inhalt: (f) => ({ video: reiterSrc("D", f) }) },
     { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: "D-B-0.webp" }), ueber: (f) => <Nadel q="D" f={f} /> },
   ],
   P: [
-    { key: "hero", ein: [400, 400], bis: T.blende3[1], inhalt: (f) => ({ video: lauf(f, 400, 298, 298, 479) }), ueber: (f, src) => <Halbdunkel q="P" src={src} f={f} /> },
+    { key: "hero", ein: [T.seekarteEnde, T.seekarteEnde], bis: T.blende3[1], inhalt: (f) => ({ video: lauf(f, T.seekarteEnde, 298, 298, 479) }), ueber: (f, src) => <Halbdunkel q="P" src={src} f={f} /> },
     { key: "lei", ein: T.blende3, bis: T.blende3b[1], inhalt: (f) => ({ video: lauf(f, T.blende3[0], 482, 482, 635) }),
-      ueber: (f, src) => <Zwischen q="P"><Glanz r={rect("P", "plakette.1", src)!} t={ws(19)} f={f} /></Zwischen> },
+      ueber: (f, src) => <Zwischen q="P"><Glanz r={rect("P", "plakette.1", src)!} t={T.glanz[0]} f={f} /></Zwischen> },
     { key: "lei3", ein: T.blende3b, bis: T.blende4[1], inhalt: (f) => ({ video: lauf(f, T.blende3b[0], 760, 760, 875) }),
       ueber: (f, src) => <Zwischen q="P">
-        <Glanz r={rect("P", "plakette.3", src)!} t={ws(21)} f={f} />
-        <Glanz r={rect("P", "plakette.h3.3", src)!.map((v, i) => (i === 0 ? v - 8 : i === 1 ? v - 6 : i === 2 ? v + 16 : v + 12)) as R} t={ws(23)} f={f} rund={4} />
+        <Glanz r={rect("P", "plakette.3", src)!} t={T.glanz[1]} f={f} />
+        <Glanz r={rect("P", "plakette.h3.3", src)!.map((v, i) => (i === 0 ? v - 8 : i === 1 ? v - 6 : i === 2 ? v + 16 : v + 12)) as R} t={T.glanz[2]} f={f} rund={4} />
       </Zwischen> },
     { key: "ablaufA", ein: T.blende4, bis: T.blende4b[1], inhalt: (f) => ({ video: lauf(f, T.blende4[0], 1112, 1112, 1217) }),
-      ueber: (f, src) => <Zwischen q="P"><Glutlinie {...glutP(src)} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, 1231]} f={f} s={0.5} id="pa" /></Zwischen> },
+      ueber: (f, src) => <Zwischen q="P"><Glutlinie {...glutP(src)} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 6]} f={f} s={0.5} id="pa" /></Zwischen> },
     { key: "ablaufB", ein: T.blende4b, bis: T.blatt5[1], inhalt: () => ({ video: P_ABLAUF_B }),
-      ueber: (f, src) => <Zwischen q="P"><Glutlinie {...glutP(src)} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, 1231]} f={f} s={0.5} id="pb" /></Zwischen> },
+      ueber: (f, src) => <Zwischen q="P"><Glutlinie {...glutP(src)} abfahrt={[ETAPPE_T[0] + 10, ETAPPE_T[1] + 10, ETAPPE_T[2] + 6]} f={f} s={0.5} id="pb" /></Zwischen> },
     { key: "reiter", ein: T.blatt5, bis: T.blende6[1], wisch: true, inhalt: (f) => ({ video: reiterSrc("P", f) }) },
     { key: "kompass", ein: T.blende6, bis: 99999, inhalt: () => ({ bild: "P-B-0.webp" }), ueber: (f) => <Nadel q="P" f={f} /> },
   ],
@@ -270,7 +273,7 @@ const Blattkante: React.FC<{ f: number; w: number; h: number }> = ({ f, w, h }) 
 
 // Beat 5: „Musterseite“ in jedem Bild lesbar (das Seitenlabel ist im Desktop nur ≈ 13 px)
 const Musterseite: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
-  const op = rampe(f, [1356, 1374]) * (1 - rampe(f, [1878, 1896]));
+  const op = rampe(f, T.musterEin) * (1 - rampe(f, T.musterAus));
   if (op <= 0) return null;
   const R5 = T.reiter, wechsel = [R5.edel, R5.norvak, R5.glut, R5.laut];
   const v = fmt === "916", gr = v ? 26 : 23;
@@ -337,22 +340,24 @@ const Kajuetenmatch: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   );
 };
 
-// ---------------- Beat 7: Merksatz – drei eingeprägte Messinglettern, je ein Lichtfunke ----------------
-const MERK = [56, 57, 58];
+// ---------------- Beat 7: Merksatz „Gebaut. Geprüft. Gepflegt.“ – drei eingeprägte Messinglettern ----------------
+// Jedes Wort wird auf seinen Wortbeginn eingeprägt: Aufsetzen endet genau im Ereignisframe (= Stempel-Peak), dann Lichtfunke
+const MERK = [wi("Gebaut."), wi("Geprüft."), wi("Gepflegt.")];
 const Merksatz: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
-  if (f < 2190 || f > T.merksatzAus[1] + 1) return null;
+  if (f < T.fensterAus[0] || f > T.merksatzAus[1] + 1) return null;
   const v = fmt === "916", aus = 1 - sinRampe(f, T.merksatzAus);
   const gr = v ? 136 : 118;
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", flexDirection: v ? "column" : "row", gap: v ? 18 : 86, paddingBottom: v ? 300 : 40, opacity: dk(aus) }}>
       {MERK.map((i, n) => {
-        const t = ws(i);
-        const da = interpolate(f, [t - 4, t + 16], [0, 1], { ...clamp, easing: Easing.out(Easing.quad) });
+        const t = T.merk[n];
+        const da = interpolate(f, [t - 8, t - 1], [0, 1], { ...clamp, easing: Easing.out(Easing.quad) });
+        const sitz = interpolate(f, [t - 8, t], [1.07, 1], { ...clamp, easing: Easing.in(Easing.quad) }); // setzt auf wie ein Stempel
         const funke = interpolate(f, [t, t + 40], [0, 1], { ...clamp, easing: Easing.inOut(Easing.sin) });
         const letzt = n === 2;
         const glimm = letzt ? interpolate(f, [t + 30, t + 70], [0, 0.85], { ...clamp, easing: Easing.inOut(Easing.sin) }) : 0;
         return (
-          <div key={i} style={{ position: "relative", opacity: dk(da) }}>
+          <div key={i} style={{ position: "relative", opacity: dk(da), transform: `scale(${sitz.toFixed(5)})` }}>
             <div style={{ position: "absolute", inset: "-40% -18%", background: "radial-gradient(ellipse 50% 50% at 50% 55%, rgba(255,170,80,0.32), rgba(201,149,74,0) 70%)", opacity: glimm }} />
             <div style={{ position: "relative", filter: "drop-shadow(0 3px 1px rgba(0,0,0,0.75)) drop-shadow(0 -1px 0 rgba(255,236,200,0.22))" }}>
               <span style={{ display: "block", fontFamily: "Cormorant", fontWeight: 500, fontSize: gr, lineHeight: 1.05, letterSpacing: "0.01em", color: "transparent",
@@ -373,7 +378,7 @@ const LATERNE: Record<Fmt, { kiel: string; a: [number, number]; b0: number; b1: 
   "169": { kiel: "M1276.8,1293.6 C1209.6,1008 991.2,806.4 873.6,732.5", a: [2405, 600], b0: 2405 - 420, b1: 2405 - 150, r: 120, flamme: [2405, 588] },
   "916": { kiel: "M1999,1084 C1968,910 1872,823 1777,784", a: [2405, 600], b0: 2405 - 330, b1: 2405 - 120, r: 95, flamme: [2405, 588] },
 };
-const KIEL_T: [number, number] = [ws(61), we(68) + 6]; // ab „Start“ bis „wollen.“
+const KIEL_T = T.kiel; // ab „Start?“ bis „Bord.“
 const Laterne: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   if (f < T.merksatzAus[0] - 1 || f > T.laterneAus[1] + 1) return null;
   const L = LAY[fmt], G = LATERNE[fmt];
@@ -384,13 +389,13 @@ const Laterne: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   if (fmt === "169") { w = L.W; h = (w * HAFEN.h) / HAFEN.w; z = 1.34 + 0.06 * kamera(u); u0 = 0.985 - 1 / z; v0 = 0.343 - (0.42 * L.H) / (h * z); }
   else { w = L.W / 0.318; h = (w * HAFEN.h) / HAFEN.w; z = 1.0 + 0.04 * kamera(u); u0 = 0.897 - 760 / (w * z); v0 = Math.max(0, 0.343 - 690 / (h * z)); }
   const tx = -u0 * w * z, ty = -v0 * h * z;
-  const atem = 0.1 + 0.06 * Math.sin((2 * Math.PI * (f - 2380)) / 120); // Flamme atmet, 2 s
+  const atem = 0.1 + 0.06 * Math.sin((2 * Math.PI * (f - T.merksatzAus[0])) / 120); // Flamme atmet, 2 s
   const len = getLength(G.kiel);
   const p = interpolate(f, KIEL_T, [0, 1], { ...clamp, easing: zug });
   const kopf = getPointAtLength(G.kiel, Math.max(0.01, p * len))!;
   const kopfHell = interpolate(f, [KIEL_T[0] - 4, KIEL_T[0] + 4], [0, 1], clamp) * interpolate(p, [0.6, 1], [1, 0], clamp);
   const linie = interpolate(f, [KIEL_T[1], KIEL_T[1] + 90], [1, 0.55], clamp);
-  const tP = ws(70);
+  const tP = T.partner; // „Partnerschaft“
   const kreis = interpolate(f, [tP - 2, tP + 20], [0, 1], { ...clamp, easing: Easing.out(Easing.quad) });
   const bx = interpolate(f, [tP, tP + 50], [G.b0, G.b1], { ...clamp, easing: zug });
   const sk = fmt === "169" ? 1 : 0.85; // Linienstärken in Bildpixeln
@@ -471,11 +476,84 @@ const Knopf: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
 };
 
 // ---------------- Untertitel: wortgleich, mitlesend ----------------
+// Zwei Tafeln sind Einblendungen in Cormorant statt wörtlicher Untertitel (Runde 2):
+//  „pruef“ (L6): Prüfzeile – vier Häkchen setzen sich je auf ihr Wort (Ereignisframe = Häkchen sitzt = Geräusch-Peak)
+//  „leist“ (L8): Leistungszeile „Hosting · Wartung · Pflege · Änderungen · und vieles mehr“, jedes Glied auf sein Wort
+const PRUEF = ["Tempo", "Barrierefreiheit", "Datenschutz", "Sicherheit"];
+const LEIST = ["Hosting", "Wartung", "Pflege", "Änderungen", "und vieles mehr"];
+
+const Haken: React.FC<{ t: number; f: number; gr: number }> = ({ t, f, gr }) => {
+  // Kreis + Haken: Strich zieht in 7 Frames und sitzt genau auf t, dann ein kurzer Lichtring
+  const zug = interpolate(f, [t - 7, t], [0, 1], { ...clamp, easing: Easing.out(Easing.quad) });
+  const da = interpolate(f, [t - 9, t - 3], [0.35, 1], clamp);
+  const ring = interpolate(f, [t, t + 20], [0, 1], clamp);
+  const d = gr * 0.78;
+  return (
+    <svg width={d} height={d} viewBox="0 0 40 40" style={{ overflow: "visible", flex: "none", marginRight: gr * 0.26, transform: `translateY(${(gr * 0.04).toFixed(2)}px)` }}>
+      <circle cx={20} cy={20} r={18} fill={rgba(MESSING, 0.16 * zug)} stroke={rgba(MESSING, da)} strokeWidth={2} />
+      <circle cx={20} cy={20} r={18 + 14 * ring} fill="none" stroke={rgba(KERN, 0.55 * (1 - ring) * (ring > 0 ? 1 : 0))} strokeWidth={1.5} />
+      <path d="M11.5,20.5 L17.5,26.5 L29,14" fill="none" stroke={rgba(mischen(MESSING, KERN, 0.35 * (1 - ring)), 1)} strokeWidth={3.2}
+        strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={`${zug.toFixed(4)} 2`} />
+    </svg>
+  );
+};
+
+const Pruefzeile: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
+  const v = fmt === "916", gr = v ? 58 : 52;
+  const reihen = v ? [[0, 1], [2, 3]] : [[0, 1, 2, 3]];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: v ? 10 : 0 }}>
+      {reihen.map((r, k) => (
+        <div key={k} style={{ display: "flex", alignItems: "center", gap: v ? 40 : 46 }}>
+          {r.map((i) => {
+            const t = T.haken[i], an = glatt(t - 3, t + 3, f);
+            return (
+              <span key={i} style={{ display: "inline-flex", alignItems: "center" }}>
+                <Haken t={t} f={f} gr={gr} />
+                <span style={{ fontFamily: "Cormorant", fontWeight: 500, fontSize: gr, lineHeight: 1.1, color: rgba(mischen(PERG, MESSING, an), 0.72 + 0.28 * an) }}>{PRUEF[i]}</span>
+              </span>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Leistungszeile: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
+  const v = fmt === "916", gr = v ? 58 : 54;
+  const reihen = v ? [[0, 1, 2], [3, 4]] : [[0, 1, 2, 3, 4]];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: v ? 6 : 0 }}>
+      {reihen.map((r, k) => (
+        <div key={k} style={{ display: "flex", alignItems: "baseline", whiteSpace: "nowrap" }}>
+          {r.map((i, j) => {
+            // Glied erscheint auf seinem Wort: hebt sich 10 px, Ereignisframe t = voll da, kurzer Messingschimmer
+            const t = T.liste[i];
+            const da = interpolate(f, [t - 6, t], [0, 1], { ...clamp, easing: Easing.out(Easing.quad) });
+            const glanz = interpolate(f, [t, t + 30], [1, 0], clamp) * (f >= t - 6 ? 1 : 0);
+            const punkt = i > 0 && j > 0 ? da : 0;
+            const letzt = i === 4;
+            return (
+              <React.Fragment key={i}>
+                {(i > 0 && (j > 0 || !v)) && <span style={{ color: rgba(MESSING, dk(punkt)), fontFamily: "Cormorant", fontSize: gr, margin: `0 ${(gr * 0.36).toFixed(1)}px` }}>·</span>}
+                <span style={{ fontFamily: "Cormorant", fontWeight: 500, fontStyle: letzt ? "italic" : "normal", fontSize: gr, lineHeight: 1.12, opacity: dk(da),
+                  transform: `translateY(${(10 * (1 - da)).toFixed(3)}px)`, display: "inline-block",
+                  color: rgba(mischen(letzt ? MESSING : PERG, KERN, 0.5 * glanz), 1) }}>{LEIST[i]}</span>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Untertitel: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
   const L = LAY[fmt];
   return (
     <>
-      {TAFELN.map((t, n) => {
+      {TAFELN.map((t: Tafel, n) => {
         const ein = ws(t.a) - 12;
         const naechst = TAFELN[n + 1] ? ws(TAFELN[n + 1].a) - 12 : 1e9;
         const aus = Math.min(we(t.b) + 24, naechst);
@@ -483,19 +561,23 @@ const Untertitel: React.FC<{ fmt: Fmt; f: number }> = ({ fmt, f }) => {
         const op = interpolate(f, [ein, ein + 15, aus - 12, aus], [0, 1, 1, 0], clamp) * (t.dezent ? 0.72 : 1);
         const br = t.br[fmt];
         const gr = L.band.size * (t.dezent ? 0.88 : 1);
+        // Beat 1 (16:9): Untertitel nach links unten, der Maßstabsbalken der Seekarte liegt unter der Bildmitte
+        const versatz = fmt === "916" ? -60 : t.dezent ? -400 : 0;
         return (
-          <div key={n} style={{ position: "absolute", left: (L.W - L.band.maxW) / 2 - (fmt === "916" ? 60 : 0), top: L.band.top, width: L.band.maxW, height: L.band.bottom - L.band.top,
-            display: "flex", alignItems: "center", justifyContent: "center", opacity: dk(op) }}>
-            <p style={{ margin: 0, textAlign: "center", fontFamily: "Jost", fontWeight: 400, fontSize: gr, lineHeight: 1.28, letterSpacing: "0.005em", textShadow: "0 2px 14px rgba(0,0,0,0.75)" }}>
-              {W.slice(t.a, t.b + 1).map((w, k) => {
-                const i = t.a + k, s = ws(i), e = we(i);
-                // Elias 13.10.: gelesene Wörter bleiben in der Kontrastfarbe der Seite (Messing), das gesprochene leuchtet voll
-                const gelesen = glatt(s - 2, s + 3, f);
-                const jetzt = gelesen * (1 - glatt(e, e + 9, f));
-                const c = mischen(PERG, MESSING, gelesen);
-                return <React.Fragment key={i}>{br === i && <br />}<span style={{ color: rgba(c, 0.7 + 0.15 * gelesen + 0.15 * jetzt) }}>{w.w}</span>{k < t.b - t.a && br !== i + 1 ? " " : ""}</React.Fragment>;
-              })}
-            </p>
+          <div key={n} style={{ position: "absolute", left: (L.W - L.band.maxW) / 2 + versatz, top: L.band.top, width: L.band.maxW, height: L.band.bottom - L.band.top,
+            display: "flex", alignItems: "center", justifyContent: "center", opacity: dk(op), textShadow: "0 2px 14px rgba(0,0,0,0.75)" }}>
+            {t.art === "pruef" ? <Pruefzeile fmt={fmt} f={f} /> : t.art === "leist" ? <Leistungszeile fmt={fmt} f={f} /> : (
+              <p style={{ margin: 0, textAlign: "center", fontFamily: "Jost", fontWeight: 400, fontSize: gr, lineHeight: 1.28, letterSpacing: "0.005em" }}>
+                {W.slice(t.a, t.b + 1).map((w, k) => {
+                  const i = t.a + k, s = ws(i), e = we(i);
+                  // Elias 13.10.: gelesene Wörter bleiben in der Kontrastfarbe der Seite (Messing), das gesprochene leuchtet voll
+                  const gelesen = glatt(s - 2, s + 3, f);
+                  const jetzt = gelesen * (1 - glatt(e, e + 9, f));
+                  const c = mischen(PERG, MESSING, gelesen);
+                  return <React.Fragment key={i}>{br === i && <br />}<span style={{ color: rgba(c, 0.7 + 0.15 * gelesen + 0.15 * jetzt) }}>{w.w}</span>{k < t.b - t.a && br !== i + 1 ? " " : ""}</React.Fragment>;
+                })}
+              </p>
+            )}
           </div>
         );
       })}
@@ -538,7 +620,7 @@ export const Nachtfahrt: React.FC<{ fmt: Fmt }> = ({ fmt }) => {
         </>
       )}
       <Untertitel fmt={fmt} f={f} />
-      <Audio src={nf("ton.wav")} />
+      <Audio src={nf(TON)} />
     </AbsoluteFill>
   );
 };

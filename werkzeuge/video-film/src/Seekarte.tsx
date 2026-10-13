@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Composition, Easing, Img, continueRender, delayRender, interpolate, staticFile, useCurrentFrame } from "remotion";
 import geo169 from "../public/seekarte/geo-169.json";
 import geo916 from "../public/seekarte/geo-916.json";
+import Z from "./nachtfahrt/zeitleiste2.json";
 
 // Eröffnung „Nachtfahrt“ (Seitenkapitän): die brennende Seekarte, prozedural, 0 Credits.
 // Vorgaben: video/03-regie.md §4, Zeiten nach der echten Stimme (06-dramaturgie.md §6), 60 fps.
@@ -9,15 +10,16 @@ import geo916 from "../public/seekarte/geo-916.json";
 // jeder Frame ist eine reine Funktion der Framenummer (kein Zufall, kein Zustand zwischen Frames).
 
 export const FPS = 60;
-/** Zeitmarken in Frames (Stimme ist fest, Bild folgt ihr). Für den Schnitt exportiert. */
+/** Zeitmarken in Frames (Stimme ist fest, Bild folgt ihr). Für den Schnitt exportiert.
+ *  Runde 2 (13.10.): aus nachtfahrt/zeitleiste2.json (ton/zeitleiste2.py, Wortzeiten Take C) – straffer Auftakt. */
 export const SEEKARTE = {
-  zuenden: 42, // Glutpunkt zündet (≈ 0,7 s)
-  erst: 47, // „Erst“ 0,78 s: Glutpunkt beginnt zu ziehen
-  kurs: 148, // „Kurs“ 2,46 s: Glutpunkt erreicht die Kompassrose, Aufglüh-Puls
-  dann: 226, // „Dann“ 3,77 s
-  fahrt: 290, // „Fahrt“ 4,83 s: Karte öffnet sich entlang der Linie
-  weg: 384, // ≈ 6,4 s: Karte ganz weg
-  ende: 400, // Szene endet auf dem Kajütenbild, danach Schnitt auf den Hero
+  zuenden: Z.seekarte.zuenden, // Glutpunkt zündet
+  erst: Z.seekarte.erst, // Glutpunkt beginnt zu ziehen (kurz vor „Erst“)
+  kurs: Z.seekarte.kurs, // „Kurs“: Glutpunkt erreicht die Kompassrose, Aufglüh-Puls
+  dann: Z.seekarte.dann, // „Dann“
+  fahrt: Z.seekarte.fahrt, // „Fahrt!“: Karte öffnet sich entlang der Linie
+  weg: Z.seekarte.weg, // Karte ganz weg
+  ende: Z.seekarte.ende, // Szene endet auf dem Kajütenbild, danach Flug ins Seitenfenster
 } as const;
 export const SEEKARTE_DAUER = SEEKARTE.ende;
 /** Kajütenbild am Szenenende: Skalierung 1,00, keine Belichtungsänderung → der Schnitt kann nahtlos übernehmen. */
@@ -230,7 +232,7 @@ const Glut: React.FC<{ fmt: Format; f: number }> = ({ fmt, f }) => {
     return { a: s.a, b, h, c, w };
   });
   const d = (p: { a: number[]; b: number[] }) => `M${p.a[0].toFixed(2)},${p.a[1].toFixed(2)}L${p.b[0].toFixed(2)},${p.b[1].toFixed(2)}`;
-  const nachglut = interpolate(f, [SEEKARTE.kurs - 8, SEEKARTE.kurs + 6, SEEKARTE.kurs + 120, SEEKARTE.fahrt - 14, SEEKARTE.fahrt + 2], [0, 1, 0.42, 0.38, 0.8], clamp) * aus;
+  const nachglut = interpolate(f, [SEEKARTE.kurs - 8, SEEKARTE.kurs + 6, Math.min(SEEKARTE.kurs + 120, SEEKARTE.fahrt - 30), SEEKARTE.fahrt - 14, SEEKARTE.fahrt + 2], [0, 1, 0.42, 0.38, 0.8], clamp) * aus;
   const box = { position: "absolute" as const, left: -g.P, top: -g.P, width: g.CW, height: g.CH, overflow: "visible" as const };
   return (
     <>
@@ -283,10 +285,10 @@ export const Seekarte: React.FC<{ fmt: Format }> = ({ fmt }) => {
   // Kamera: kaum merkliches Heranrücken an die Rose bis die Karte weg ist
   const zoom = interpolate(f, [0, SEEKARTE.weg], [1, 1.025], { ...clamp, easing: kamera });
   const ox = ((g.rose[0] - g.P) / g.W) * 100, oy = ((g.rose[1] - g.P) / g.H) * 100;
-  // Aufblenden aus #0d0b08, Lampe flackert einmal sanft. Deckkraft nie genau 0: sonst wechselt Chrome den
-  // Compositing-Weg und tastet die ganze Karte neu ab (messbarer Sprung)
+  // Aufblenden aus #0d0b08. Deckkraft nie genau 0: sonst wechselt Chrome den Compositing-Weg und tastet die ganze
+  // Karte neu ab (messbarer Sprung). Runde 2: kein Lampenflackern mehr (wirkte als Helligkeitspumpen).
   const schwarz = interpolate(f, [0, 18], [1, 0], { ...clamp, easing: Easing.inOut(Easing.sin) });
-  const flacker = f >= 18 && f < 48 ? Math.sin(((f - 18) / 30) * Math.PI) ** 2 * 0.05 : 0;
+  const flacker = 0;
   // Kajüte: 1,08 → 1,00, Lampenlicht flutet (+≈0,3 Belichtung) und ist am Szenenende wieder neutral
   const flut = interpolate(f, [SEEKARTE.fahrt + 10, SEEKARTE.fahrt + 60, SEEKARTE.ende], [0, 1, 0], { ...clamp, easing: Easing.inOut(Easing.sin) });
   const [lx, ly] = LAMPE_BILD[fmt];
@@ -294,7 +296,7 @@ export const Seekarte: React.FC<{ fmt: Format }> = ({ fmt }) => {
     <AbsoluteFill style={{ background: "#0d0b08", overflow: "hidden" }}>
       {f >= SEEKARTE.fahrt - 2 && (
         <AbsoluteFill style={{ transform: `scale(${kajueteSkala(f)})`, transformOrigin: `${lx * 100}% ${ly * 100}%` }}>
-          <Img src={staticFile(BILD[fmt])} style={{ width: "100%", height: "100%", objectFit: "cover", filter: flut > 0 ? `brightness(${1 + 0.23 * flut})` : undefined }} />
+          <Img src={staticFile(BILD[fmt])} style={{ width: "100%", height: "100%", objectFit: "cover", filter: `brightness(${(1 + 0.23 * flut).toFixed(5)})` /* Filter immer gesetzt: Zuschalten tastet neu ab */ }} />
           <AbsoluteFill style={{ background: `radial-gradient(ellipse 60% 70% at ${lx * 100}% ${ly * 100}%, rgba(255,214,150,${0.2 * flut}), rgba(255,190,110,0) 70%)`, mixBlendMode: "screen" }} />
         </AbsoluteFill>
       )}
