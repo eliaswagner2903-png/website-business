@@ -117,12 +117,13 @@ export const LAY: Record<Fmt, Lay> = {
   },
   "916": {
     W: 1080, H: 1920,
-    A: { x: 150, y: 230, w: 780 },
-    B: { x: 220, y: 150, w: 640 },
-    // 9:16: unten 300 px und rechts 120 px frei (Plattform-UI)
-    band: { top: 1428, bottom: 1612, size: 54, maxW: 880 },
-    marke: { x: 60, y: 1146, w: 960, align: "center", groesse: 60 },
-    knopf: { x: 320, y: 1262, w: 440, h: 84, schrift: 31 },
+    // Elias 13.10. abends: Hochformat als eigener Handyfilm, nicht der Computerfilm im Rahmen. Der Handybildschirm
+    // füllt die ganze Breite (randlos, ohne Fenster), Untertitel im Streifen darunter.
+    A: { x: 0, y: 0, w: 1080 },
+    B: { x: 0, y: 0, w: 1080 },
+    band: { top: 1672, bottom: 1900, size: 64, maxW: 1040 },
+    marke: { x: 40, y: 1170, w: 1000, align: "center", groesse: 80 },
+    knopf: { x: 260, y: 1316, w: 560, h: 108, schrift: 39 },
   },
 };
 /** Fensterhöhe zur Breite (Seitenverhältnis der Aufnahme) */
