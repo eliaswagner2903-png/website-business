@@ -141,7 +141,7 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
 });
 
 test('Hero „Kajüte“: Bilder vorhanden und leicht, kein Lichtkegel-Skript mehr, Hero wartet auf die Vorstellung', () => {
-  assert.doesNotMatch(start, /<video|held\.js|held-mosaik|held-karte/, 'Rest des alten Heros');
+  assert.doesNotMatch(start.replace(/<div class="intro" id="vorstellung"[\s\S]*?<\/video>/, ''), /<video|held\.js|held-mosaik|held-karte/, 'Rest des alten Heros (das Vorstellungsvideo im Intro ist erlaubt)');
   const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
   for (const [, src] of held.matchAll(/(\/medien\/kapitaen-[^" ,]+)/g)) {
     assert.ok(existsSync(join(PUB, src)), `${src} fehlt`);

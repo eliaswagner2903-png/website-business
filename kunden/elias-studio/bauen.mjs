@@ -78,7 +78,7 @@ const introBild = () => `<picture class="intro-bild" aria-hidden="true"><source 
 const vorstellung = `<div class="intro" id="vorstellung" role="dialog" aria-modal="true" aria-label="Vorstellung von ${esc(S.studio)}" data-modus="${FILM ? 'film' : 'platzhalter'}" data-dauer="${V.platzhalter_dauer}">
   <div class="intro-grund">
 ${FILM
-    ? `    <video class="intro-film" playsinline muted preload="none"${hatDatei('poster.webp') ? ` poster="${VP}/poster.webp"` : ''}>
+    ? `    <video class="intro-film" playsinline muted preload="none"${hatDatei('film-hoch.mp4') ? ` data-hoch="${VP}/film-hoch.mp4"${hatDatei('poster-hoch.webp') ? ` data-poster-hoch="${VP}/poster-hoch.webp"` : ''}` : ''}${hatDatei('poster.webp') ? ` poster="${VP}/poster.webp"` : ''}>
 ${hatDatei('film.webm') ? `      <source src="${VP}/film.webm" type="video/webm">\n` : ''}${hatDatei('film.mp4') ? `      <source src="${VP}/film.mp4" type="video/mp4">\n` : ''}${hatDatei('untertitel.vtt') ? `      <track kind="captions" src="${VP}/untertitel.vtt" srclang="de" label="Deutsch" default>\n` : ''}    </video>`
     : `    ${introBild()}
     <div class="intro-buehne" aria-hidden="true">

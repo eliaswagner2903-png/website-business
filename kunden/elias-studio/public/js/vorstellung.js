@@ -80,6 +80,14 @@
     if (modusFilm) {
       ton.hidden = false;
       film.muted = true; ton.setAttribute('aria-pressed', 'false'); ton.textContent = 'Ton an';
+      // Hochformat (Handy): 9:16-Fassung statt Letterbox, einmalig umschalten
+      if (film.dataset.hoch && !film.dataset.hochGesetzt && matchMedia('(orientation: portrait)').matches) {
+        film.querySelectorAll('source').forEach((q) => q.remove());
+        film.src = film.dataset.hoch;
+        if (film.dataset.posterHoch) film.poster = film.dataset.posterHoch;
+        film.dataset.hochGesetzt = '1';
+        film.load();
+      }
       film.currentTime = 0;
       // Lädt das Video nicht an (zu langsam, Fehler), gehört die Seite sofort dem Besucher
       haengt = setTimeout(schliesse, 6000);

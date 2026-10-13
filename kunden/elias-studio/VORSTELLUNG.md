@@ -10,6 +10,7 @@ Aktuell läuft eine **Platzhalter-Titelsequenz** (Linien, Kompass, Name, ca. 7 s
 1. Dateien nach `public/medien/vorstellung/` legen: `film.mp4` (H.264) und `film.webm` (VP9), `poster.webp`, optional `untertitel.vtt`.
 2. `node bauen.mjs` – ist eine Datei da, wechselt die Seite selbst vom Platzhalter auf den Film.
 3. Videoregeln: stumm startfähig (Ton läuft erst nach Klick), 16:9, möglichst 30–60 s, ≤ 8 MB. Letztes Bild ruhig, am besten der Schriftzug:
+   Eingebaut 13.10.: film.mp4 (1920x1080, 9 MB), film-hoch.mp4 (9:16, 720x1280, 5 MB, Handy im Hochformat), Poster beider Formate, untertitel.vtt; WebM bewusst weggelassen (Speicher), bei nicht abspielbarem Format schließt die Vorstellung selbst.
    das Video blendet dann weich in die Seite über (Hintergrund blendet aus, Hero läuft an). Untertitel für Barrierefreiheit mitliefern.
 4. Produktion: `werkzeuge/video/README.md` (Remotion-Pipeline, Bildaufnahme, Stimme). Musik erst nach freigegebenem Schnitt.
 
