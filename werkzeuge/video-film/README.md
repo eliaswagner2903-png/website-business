@@ -93,6 +93,10 @@ Pipeline (run in `scratchpad/video`, scripts in `ton/`, comments German):
    (copy to `public/nachtfahrt/ton2.wav`).
 5. `synchronpruefung.py mix2/sfx-ereignisse.wav mix2/ton.wav film.mp4 out.json` – event peak vs frame plus the global
    offset of the rendered film's audio (12 correlation windows). Tolerance 1 frame.
+6. Remotion's AAC track carries 2048 samples of encoder priming without an edit list → audio +42.7 ms late. Fix losslessly
+   after the render (edit list, no re-encode), then re-run step 5 (expect offset 0.00 ms):
+   `ffmpeg -i film.mp4 -itsoffset -0.0426667 -i film.mp4 -map 0:v -map 1:a -c copy -movflags +faststart fix.mp4`
+7. Review copies under 15 MB for 60 s: 2-pass x264 1750k + AAC 160k (2100k gives about 17 MB).
 - Captures round 2 live in `public/nachtfahrt/r2/` (`D-A.mp4`, `P-A.mp4`, rects, `{D,P}-{A,B,C}-0.webp`), same frame
   marks as round 1; P-B sits 76 css-px higher (compass needle overlay moved 190 video px, clipped to below the header).
 - New overlays: check line (L6, four ticks land on their words), "Gebaut. Geprüft. Gepflegt." stamped on the words,
