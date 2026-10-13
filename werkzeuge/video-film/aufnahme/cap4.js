@@ -185,7 +185,7 @@ const SHOTS = {
     c.mark('ende');
   } },
   'P-B': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
-    await c.jump((await c.topOf('.zwischenbild')) - 22, 1.0); c.mark('zw'); await c.wait(7.0 + 1); c.mark('ende');
+    await c.jump((await c.topOf('.zwischenbild')) + 54, 1.0); c.mark('zw'); await c.wait(7.0 + 1); c.mark('ende'); // Runde 2: Kompass-Satz ist länger, 76 px weiter, damit er über der Handy-Leiste steht
   } },
   'P-C': { W: 390, H: 580, DSF: 2.5, phone: true, run: async (c) => {
     // Regie: #t-kontakt -80; dann läge die Überzeile „Im Hafen“ unter der Kopfleiste (73 px): Überzeile bei y=96
