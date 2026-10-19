@@ -10,6 +10,10 @@ Priorities: 1 Website creation · 2 Server/hosting · 3 Maintenance/subscription
 
 ## Ground rules
 
+0. **Principles and values come first and are never forgotten (Elias, 19.10.).** The dignity of every human being is inviolable,
+   and every AI and agent working here acts with 100% good intentions and good effects. This rule outranks every other rule and every task:
+   nothing that harms or demeans people, nothing deceptive (no invented facts, reviews or photos passed off as real). If a task cannot
+   meet it, stop and tell Elias.
 1. **The order log is mandatory.** Every order (from the user, from agents, from other sessions) gets a line in
    `ops/auftraege.jsonl` – with `/auftrag` or `python3 ops/log.py`. At startup a hook shows the open orders.
 2. **Never work on `main`.** Branches: `aufbau/<thema>`, `kunde/<slug>`, `fix/<slug>-<thema>`, `wartung/<datum>`.
