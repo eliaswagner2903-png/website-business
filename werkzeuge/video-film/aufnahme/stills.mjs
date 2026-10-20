@@ -1,9 +1,10 @@
-// Standbilder einzelner Frames der „Nachtfahrt“ (ein Bundle, ein Browser): node aufnahme/stills.mjs <Komposition> <ausgabeOrdner> f1 f2 ...
+// Standbilder einzelner Frames (ein Bundle, ein Browser): node aufnahme/stills.mjs <Komposition> <ausgabeOrdner> f1 f2 ...
+// Einstieg: ENTRY (Standard src/index-nachtfahrt.ts), z. B. ENTRY=src/index-uyghur.ts für den Uyghur-Haus-Film
 import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition, openBrowser } from "@remotion/renderer";
 import path from "path";
 const [komp, aus, ...frames] = process.argv.slice(2);
-const serveUrl = process.env.BUNDLE || await bundle({ entryPoint: path.resolve("src/index-nachtfahrt.ts") });
+const serveUrl = process.env.BUNDLE || await bundle({ entryPoint: path.resolve(process.env.ENTRY || "src/index-nachtfahrt.ts") });
 const browser = await openBrowser("chrome", { browserExecutable: "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell" });
 const composition = await selectComposition({ serveUrl, id: komp, puppeteerInstance: browser });
 for (const f of frames) {

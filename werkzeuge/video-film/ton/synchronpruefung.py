@@ -8,7 +8,11 @@
 # Aufruf: python3 synchronpruefung.py mix2/sfx-ereignisse.wav mix2/ton.wav [film.mp4] [ausgabe.json]
 import json, os, subprocess, sys, numpy as np
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-EV = json.load(open(os.path.join(REPO, 'src/nachtfahrt/zeitleiste2.json')))['ereignisse']
+# ZEITLEISTE=<pfad> wählt einen anderen Film (Uyghur: src/uyghur/zeitleiste.json, Ereignisse des Handyfilms = gemeinsame Tonspur);
+# FLAECHIG=a,b nennt Ereignisse ohne Spitze (Rieseln, Rauschen), die nur gelistet, nicht bewertet werden.
+Z = json.load(open(os.environ.get('ZEITLEISTE') or os.path.join(REPO, 'src/nachtfahrt/zeitleiste2.json')))
+EV = Z['ereignisse'] if 'ereignisse' in Z else Z['formate']['P']['ereignisse']
+FLAECHIG = set(filter(None, os.environ.get('FLAECHIG', '').split(',')))
 SR = 48000
 def lade(p):
     roh = subprocess.run(['ffmpeg', '-v', 'error', '-i', p, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
@@ -31,8 +35,9 @@ print(f"{'Ereignis':16s} {'Frame':>5s} {'Zeit s':>7s} {'Peak':>9s} {'gesamt':>9s
 for name, fr in sorted(EV.items(), key=lambda x: x[1]):
     t = fr / 60; i = int(round(t * SR)); w = int(0.15 * SR)
     p = (np.argmax(glatt(sfx[i - w:i + w])) - w) / SR; ges = p + versatz
-    maxab = max(maxab, abs(ges)); ok = bool(abs(ges) <= 1 / 60)
+    ok = bool(abs(ges) <= 1 / 60) or name in FLAECHIG
+    if name not in FLAECHIG: maxab = max(maxab, abs(ges))
     zeilen.append({'ereignis': name, 'frame': fr, 'zeit_s': round(t, 3), 'peak_abw_ms': round(p * 1000, 1), 'gesamt_ms': round(ges * 1000, 1), 'ok': ok})
-    print(f"{name:16s} {fr:5d} {t:7.3f} {p * 1000:+8.1f}ms {ges * 1000:+8.1f}ms {'ok' if ok else 'ABWEICHUNG'}")
+    print(f"{name:16s} {fr:5d} {t:7.3f} {p * 1000:+8.1f}ms {ges * 1000:+8.1f}ms {'flächig' if name in FLAECHIG else 'ok' if ok else 'ABWEICHUNG'}")
 print(f'max. Abweichung {maxab * 1000:.1f} ms, {sum(z["ok"] for z in zeilen)}/{len(zeilen)} innerhalb 1 Frame')
 if aus: json.dump({'film_versatz_ms': round(versatz * 1000, 2), 'max_abweichung_ms': round(maxab * 1000, 1), 'ereignisse': zeilen}, open(aus, 'w'), ensure_ascii=False, indent=1)

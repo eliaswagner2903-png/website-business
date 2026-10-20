@@ -11,3 +11,5 @@ showcase/*/package-lock.json
 werkzeuge/video-film/public/seekarte/*.png
 # Nachtfahrt: Aufnahmen, Standbilder, Ton (groß, liegen im scratchpad/Projektordner)
 werkzeuge/video-film/public/nachtfahrt/
+werkzeuge/video-film/public/uyghur/
+__pycache__/
