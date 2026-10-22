@@ -95,3 +95,16 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
   background: var(--dunkel-grund); color: var(--dunkel-text);
 }
 .plakette:nth-child(even) h3 { color: var(--dunkel-text); }
+
+/* ---------- Linien-Icons: klein, eine Strichstärke, nur Dekor (aria-hidden) ---------- */
+.sym { flex: none; inline-size: 1.75rem; block-size: 1.75rem; fill: none; stroke: var(--farbe-akzent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.sym--schritt { inline-size: 1.5rem; block-size: 1.5rem; margin-block-end: -.2rem; }
+.sym--klein { inline-size: 1.1rem; block-size: 1.1rem; }
+.plakette-kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.wege-art { display: inline-flex; align-items: center; gap: .5rem; }
+/* Preislisten: kleines Häkchen statt reiner Trennlinie */
+.bet-liste li { position: relative; padding-inline-start: 1.75rem; }
+.bet-liste li::before {
+  content: ""; position: absolute; inset: 1.05rem auto auto .1rem; inline-size: .5rem; block-size: .9rem; rotate: 45deg; translate: 0 -.45rem;
+  border: solid var(--farbe-licht); border-width: 0 2px 2px 0;
+}

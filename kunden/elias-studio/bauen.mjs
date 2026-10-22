@@ -23,6 +23,23 @@ const KOPF_SKRIPT = "document.documentElement.classList.add('js')";
 // ---------- Wortmarke (Logo C): WAGNER fett, SEITEN fein und kursiv, eine Zeile tiefer; das Eselsohr ist die einzige Farbfläche ----------
 const WORTMARKE = '<span class="wz" aria-hidden="true"><span class="wz-wagner">Wagner</span><span class="wz-seiten">Seiten</span></span>';
 
+// ---------- Linien-Icons (Dekor, aria-hidden): ruhig, eine Strichstärke, Farbe folgt dem Akzent ----------
+const SYM = {
+  neu: '<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9.5h16M12 12.5v4M10 14.5h4"/>',
+  alt: '<path d="M19 8a7.5 7.5 0 0 0-13-1.5M5 4v3h3M5 16a7.5 7.5 0 0 0 13 1.5M19 20v-3h-3"/>',
+  seo: '<circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/>',
+  geo: '<path d="M5 6.5h14v9H12l-4 3.5v-3.5H5z"/><path d="M9 10h6M9 12.5h3.5"/>',
+  tempo: '<path d="M5 17a8 8 0 1 1 14 0"/><path d="m12 13 3.5-4.5"/><circle cx="12" cy="13.5" r="1"/>',
+  sicher: '<path d="M12 3.5 5 6v5.5c0 4.2 2.8 7.2 7 9 4.2-1.8 7-4.8 7-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
+  gespraech: '<path d="M4.5 6h11v7h-6l-3 2.5V13h-2z"/><path d="M17.5 9.5H20v7h-1.5v2L16 16.5h-4"/>',
+  vorschlag: '<path d="M6 4h8l4 4v12H6z"/><path d="M14 4v4h4M9 13h6M9 16h4"/>',
+  pruefung: '<path d="M9 4.5h6v2H9z"/><path d="M7 5.5H5.5V20h13V5.5H17"/><path d="m9 13 2 2 4-4"/>',
+  start: '<path d="M6 20V4"/><path d="M6 5h11l-2.5 3.5L17 12H6"/>',
+  mail: '<rect x="3.5" y="6" width="17" height="12" rx="1.5"/><path d="m4 7 8 6 8-6"/>',
+  ort: '<path d="M12 20.5s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="12" cy="10.5" r="2"/>',
+};
+const sym = (n, k = '') => `<svg class="sym${k ? ` ${k}` : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${SYM[n]}</svg>`;
+
 const ICON = {
   tel: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5h2.6l1.4 4.2-2 1.5a12 12 0 0 0 6.2 6.2l1.5-2 4.2 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
   haus: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7v8.5h-5.5V14h-5v5.5H4z"/></svg>',
@@ -201,7 +218,7 @@ const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-l
     </div>
     <ul class="plaketten">
 ${L.karten.map((k, i) => `      <li class="plakette einblenden">
-        <p class="plakette-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</p>
+        <div class="plakette-kopf">${sym(k.id)}<p class="plakette-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</p></div>
         <h3>${esc(k.titel)}</h3>
         <p>${esc(k.text)}</p>
         <p class="fachwort">Fachbegriff: ${esc(k.kurz)}</p>
@@ -220,7 +237,7 @@ const ablauf = `<section class="abschnitt ablauf" id="ablauf" aria-labelledby="t
     </div>
     <div class="kurs">
       <ol class="schritte">
-${AB.schritte.map((st, i) => `        <li class="schritt einblenden"><span class="etappe" aria-hidden="true"><span class="etappe-nr">${String(i + 1).padStart(2, '0')}</span><span class="etappe-linie"></span></span><h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
+${AB.schritte.map((st, i) => `        <li class="schritt einblenden"><span class="etappe" aria-hidden="true"><span class="etappe-nr">${String(i + 1).padStart(2, '0')}</span><span class="etappe-linie"></span></span>${sym(['gespraech', 'vorschlag', 'pruefung', 'start'][i], 'sym--schritt')}<h3>${esc(st.titel)}</h3><p>${esc(st.text)}</p></li>`).join('\n')}
       </ol>
     </div>
   </div>
@@ -331,9 +348,9 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
       <h2 id="t-kontakt" class="einblenden">${K.titel}</h2>
       <p class="einblenden">${esc(K.text)}</p>
       <ul class="wege">
-        <li><span class="wege-art">E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
+        <li><span class="wege-art">${sym('mail', 'sym--klein')}E-Mail</span><a href="mailto:${S.email}"${pr(P.email)}>${S.email}</a></li>
         ${TELZ(`<li><span class="wege-art">Telefon</span><a href="${TEL_A}"${pr(P.telefon)}>${TEL}</a></li>`)}
-        <li><span class="wege-art">Ort</span><span${pr(P.ort)}>${esc(S.ort)}</span></li>
+        <li><span class="wege-art">${sym('ort', 'sym--klein')}Ort</span><span${pr(P.ort)}>${esc(S.ort)}</span></li>
       </ul>
     </div>
     <div class="kontakt-form"${pr(P.formular)}>
