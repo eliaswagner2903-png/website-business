@@ -15,8 +15,8 @@ const TEL_A = `tel:${S.telefon_link}`;
 // Ohne Telefonnummer (Elias, 04.10.) entfallen alle Telefonzeilen
 const TELZ = (html, leer = '') => (S.telefon_link ? html : leer);
 const STUDIO = `<span class="platzhalter-wort"${pr(P.studio)}>${esc(S.studio)}</span>`;
-const pfeil = '<span class="pfeil" aria-hidden="true">→</span>';
-const raus = '<span class="pfeil" aria-hidden="true">↗</span>';
+const pfeil = '';
+const raus = '';
 // Inline-Skript (CSP-Hash in public/_headers, Test prüft ihn): Klasse js setzen, auf jeder Seite. Die Seite ist durchgehend hell, kein Schema-Schalter.
 const KOPF_SKRIPT = "document.documentElement.classList.add('js')";
 
@@ -108,7 +108,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}<link rel="canonica
     <nav class="nav blatt" id="nav" aria-label="Hauptnavigation">
       <ul>
 ${nav}
-        <li><a class="knopf" href="${h('#kontakt')}">Projekt besprechen ${pfeil}</a></li>
+        <li><a class="knopf" href="${h('#kontakt')}">Projekt besprechen</a></li>
       </ul>
       <div class="blatt-fuss">
         <p class="blatt-fuss-titel">Direkt erreichbar</p>
@@ -122,12 +122,12 @@ ${nav}
 <main id="inhalt">
 ${inhalt}
 </main>
-${start ? `<div class="handy-leiste nur-handy"><a class="knopf" href="#kontakt">Projekt besprechen ${pfeil}</a><a class="knopf zweit" href="mailto:${S.email}"${pr(P.email)}>E-Mail</a></div>\n` : ''}
+${start ? `<div class="handy-leiste nur-handy"><a class="knopf" href="#kontakt">Projekt besprechen</a><a class="knopf zweit" href="mailto:${S.email}"${pr(P.email)}>E-Mail</a></div>\n` : ''}
 <footer class="fuss">
   <div class="huelle">
     <div class="fuss-band">
       <p class="fuss-frage">Ihre Seite beginnt mit <em>einem Gespräch</em>.</p>
-      <a class="knopf" href="${h('#kontakt')}">Projekt besprechen ${pfeil}</a>
+      <a class="knopf" href="${h('#kontakt')}">Projekt besprechen</a>
     </div>
     <div class="fuss-raster">
       <div class="fuss-marke">
@@ -196,7 +196,7 @@ const held = `<section class="held" aria-labelledby="titel">
       <p class="held-claim"${W}>${H.titel}</p>
       <p class="held-satz">${esc(H.lead)}</p>
       <div class="aktionen held-aktionen">
-        <a class="knopf" href="#kontakt">Projekt besprechen ${pfeil}</a>
+        <a class="knopf" href="#kontakt">Projekt besprechen</a>
         <a class="knopf zweit" href="#arbeiten">Arbeiten ansehen</a>
       </div>
       <p class="held-zeile">${esc(H.unterzeile)}</p>
@@ -259,11 +259,11 @@ const messung = (w) => `
       </dl>`;
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live ansehen</span><span class="oeffnen-gross">${esc(a.name)} betreten</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span class="unsichtbar"> (öffnet die Musterseite)</span></a></p>`
+    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live ansehen</span><span class="oeffnen-gross">${esc(a.name)} betreten</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6"/></svg></span><span class="unsichtbar"> (öffnet die Musterseite)</span></a></p>`
     : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
-      ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Betreten ${raus}</span></a>` : ''}
+      ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Betreten</span></a>` : ''}
       <div class="rahmen rahmen--desktop">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(a.name.toLowerCase())} · ${esc(a.art.toLowerCase())}</span></span>
         <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 58vw, 1px')}</div>
@@ -367,7 +367,7 @@ const kontakt = `<section class="abschnitt kontakt" id="kontakt" aria-labelledby
         <label>Worum geht es? <textarea id="k-nachricht" name="nachricht" required minlength="5" maxlength="5000"></textarea></label>
         <div class="honig" aria-hidden="true"><label>Nicht ausfüllen <input id="k-url" name="firma_url" type="text" tabindex="-1" autocomplete="off"></label></div>
         <p class="hinweis">Ich verwende Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz.html">Datenschutz</a>.</p>
-        <p><button class="knopf" type="submit">Nachricht senden ${pfeil}</button></p>
+        <p><button class="knopf" type="submit">Nachricht senden</button></p>
       </form>
     </div>
   </div>

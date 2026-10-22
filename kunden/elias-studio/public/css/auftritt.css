@@ -134,3 +134,35 @@ html.portal-an main { transform: scale(1.04); filter: blur(3px); transition: tra
 /* ---------- Leistungskarten mit Bild oder kurzem Clip (Higgsfield) ---------- */
 .plakette-bild { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-klein, 4px); background: var(--farbe-flaeche); margin-block-end: .25rem; }
 .plakette-bild img, .plakette-bild video { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* ---------- Handy-Menü: kleine Karte unter dem Kopf, schiebt sich sanft ein, die Seite dahinter wird unscharf (Elias, 22.10.) ---------- */
+@media (max-width: 47.99rem) {
+  .js .kopf nav.blatt {
+    inset: auto; top: 4.25rem; right: .75rem; inline-size: min(19rem, calc(100vw - 1.5rem)); max-block-size: calc(100dvh - 5.5rem);
+    padding: .5rem; gap: .35rem; border: 1px solid var(--farbe-linie); border-radius: 1rem; background: var(--farbe-flaeche-hoch);
+    box-shadow: 0 28px 60px -24px color-mix(in srgb, var(--farbe-text) 55%, transparent);
+    -webkit-mask-image: none; mask-image: none; clip-path: none; opacity: 0; transform: translateY(-.75rem) scale(.97); transform-origin: top right;
+    transition: opacity .3s var(--kurve-standard), transform .4s var(--kurve-weich), visibility 0s linear .4s;
+  }
+  .js .kopf nav.blatt--offen { opacity: 1; transform: none; clip-path: none; transition: opacity .3s var(--kurve-standard), transform .45s var(--kurve-weich), visibility 0s; }
+  .js .kopf nav.blatt::after { content: none; }
+  .js .kopf nav.blatt li:not(:last-child)::after, .js .kopf nav.blatt li a:not(.knopf)::after { content: none; }
+  .js .kopf nav.blatt li:last-child { padding-block-start: .35rem; }
+  .js .kopf nav.blatt li a:not(.knopf) { grid-template-columns: 1fr; grid-template-areas: "name"; min-height: 3rem; padding: .5rem .85rem; border-radius: .6rem; }
+  .js .kopf nav.blatt li a:not(.knopf):hover, .js .kopf nav.blatt li a:not(.knopf):active { background: var(--farbe-flaeche); }
+  .js .kopf nav.blatt .nav-name { font: 500 1.0625rem/1.2 var(--schrift-text); letter-spacing: 0; }
+  .js .kopf nav.blatt .nav-zusatz { display: none; }
+  .js .kopf nav.blatt .knopf { min-height: 48px; }
+  .js .kopf nav.blatt .blatt-fuss { padding: .6rem .85rem .35rem; }
+  .js .kopf nav.blatt .blatt-fuss a { min-height: 40px; font-size: 1rem; }
+  .js .kopf nav.blatt--offen li, .js .kopf nav.blatt--offen .blatt-fuss { animation: none; }
+  .blatt-schleier { display: none; }
+  /* Hintergrund: leicht abgedunkelt und unscharf; der Kopf liegt darüber */
+  html.menue-offen::before {
+    content: ""; position: fixed; inset: 0; z-index: 15; pointer-events: none;
+    background: color-mix(in srgb, var(--farbe-text) 16%, transparent); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+    animation: menue-schleier .35s var(--kurve-standard) backwards;
+  }
+}
+@keyframes menue-schleier { from { opacity: 0; } }
+html.menue-offen .handy-leiste { opacity: 0; pointer-events: none; transition: opacity .25s var(--kurve-standard); }

@@ -140,6 +140,14 @@
     }, { threshold: 0.35 });
     for (const v of videos) io.observe(v);
   }
+  // Handy-Menü: Antippen neben der Karte schließt es
+  function menueSchliessen() {
+    document.addEventListener('click', (e) => {
+      if (!document.documentElement.classList.contains('menue-offen') || e.target.closest('.nav, .menue-knopf, .marke')) return;
+      const knopf = document.querySelector('.menue-knopf');
+      if (knopf) knopf.click();
+    });
+  }
   function start() {
     werkeImBild();
     handyLeiste();
@@ -150,6 +158,7 @@
     buehne();
     teleport();
     clips();
+    menueSchliessen();
     // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
     const meldung = (f) => {
       const v = f.validity;

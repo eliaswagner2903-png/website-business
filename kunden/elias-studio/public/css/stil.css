@@ -268,7 +268,7 @@ a { color: var(--farbe-akzent); text-underline-offset: .22em; text-decoration-th
 .oeffnen-zeichen svg { inline-size: 1.4rem; block-size: 1.4rem; fill: none; stroke: var(--farbe-auf-akzent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--tempo-mittel) var(--kurve-weich); }
 @media (hover: hover) and (pointer: fine) {
   .oeffnen:hover { border-color: var(--farbe-akzent); transform: translateY(-2px); box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--farbe-licht) 50%, transparent); }
-  .oeffnen:hover .oeffnen-zeichen svg { transform: translate(3px, -3px); }
+  .oeffnen:hover .oeffnen-zeichen svg { transform: scale(1.18); }
 }
 .oeffnen:active { transform: scale(.99); }
 
