@@ -112,8 +112,8 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  assert.match(marke, /archivo\.woff2/);
-  assert.match(marke, /newsreader-kursiv\.woff2/);
+  assert.match(marke, /inter\.woff2/);
+  assert.match(marke, /inter-kursiv\.woff2/);
 });
 
 test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {

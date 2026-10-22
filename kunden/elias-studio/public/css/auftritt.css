@@ -4,12 +4,12 @@
    ===================================================================== */
 
 /* ---------- Schrift: Überschriften fett, die Stimme kursiv ---------- */
-h1, h2, h3 { font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
 h1 { font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem); line-height: 1; }
 h2 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.5rem); }
 h3 { font-size: clamp(1.3rem, 1.2rem + .5vw, 1.65rem); line-height: 1.15; }
 h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
-  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; font-size: 1.07em; letter-spacing: -.01em; color: var(--farbe-akzent);
+  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; letter-spacing: -.01em; color: var(--farbe-akzent);
 }
 .kopfzeile h2 { max-width: 18ch; }
 .held-zeile, .werk-entscheidung, .etappe-nr {
@@ -22,15 +22,15 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
 .reiter-name { font-size: clamp(1.15rem, 1.05rem + .5vw, 1.45rem); }
 .preis-wert { font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.7rem); }
 .frage summary { font-size: clamp(1.1rem, 1.05rem + .3vw, 1.3rem); font-weight: 600; }
-.fuss-frage { font-weight: 800; font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem); letter-spacing: -.03em; }
+.fuss-frage { font-weight: 700; font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem); letter-spacing: -.03em; }
 .ueberzeile::before { background: var(--farbe-licht); }
 
 /* ---------- Wortmarke (Logo C) ----------
    WAGNER fett, eine feine grüne Linie darunter, SEITEN kursiv eine Zeile tiefer und nach rechts; das Eselsohr (Logo-Grün) sitzt am Ende. */
 .wz { --wz: 1.45rem; display: inline-grid; font-size: var(--wz); line-height: 1; color: var(--farbe-text); }
-.wz-wagner { position: relative; font: 800 1em/1 var(--schrift-display); letter-spacing: -.03em; padding-block-end: .22em; }
+.wz-wagner { position: relative; font: 700 1em/1 var(--schrift-display); letter-spacing: -.03em; padding-block-end: .22em; }
 .wz-wagner::after { content: ""; position: absolute; inset: auto auto 0 0; inline-size: 1.9em; block-size: max(1.5px, .045em); background: var(--farbe-licht); }
-.wz-seiten { position: relative; justify-self: start; margin-inline-start: 1.05em; padding-inline-end: .45em; font: 400 .95em/1.05 var(--schrift-kursiv); font-style: italic; letter-spacing: -.01em; }
+.wz-seiten { position: relative; justify-self: start; margin-inline-start: 1.05em; padding-inline-end: .45em; font: 400 .95em/1.05 var(--schrift-kursiv); font-style: italic; letter-spacing: -.02em; }
 .wz-seiten::after {
   content: ""; position: absolute; inset: auto 0 .12em auto; inline-size: .26em; block-size: .26em; background: var(--farbe-licht);
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
@@ -48,7 +48,7 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
 .held-in { display: grid; gap: 1.35rem; align-content: center; justify-items: start; min-width: 0; }
 .held h1 { max-width: none; margin-block: .35rem .1rem; }
 .held-claim { font: 600 clamp(1.25rem, 1.1rem + .8vw, 1.7rem)/1.25 var(--schrift-display); letter-spacing: -.01em; }
-.held-claim em { font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; font-size: 1.1em; color: var(--farbe-akzent); }
+.held-claim em { font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; color: var(--farbe-akzent); }
 .held-satz { max-width: 38ch; font-size: 1.125rem; color: var(--farbe-leise); }
 .held-aktionen { margin-block-start: .4rem; }
 .held-zeile { font-size: 1.3rem; color: var(--farbe-leise); }
@@ -87,3 +87,11 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
 .kontakt .kontakt-form { background: var(--dunkel-flaeche); border: 1px solid var(--dunkel-linie); }
 .kontakt ::selection { background: var(--dunkel-akzent); color: var(--dunkel-auf-akzent); }
 .kontakt a:not(.knopf) { color: var(--dunkel-text); }
+
+/* ---------- Karten im Wechsel: Grüngrau und Anthrazit (Elias, 22.10.: Kästen 1 und 4) ----------
+   Anthrazit-Karten stellen die Farben in sich um, wie der Kontaktblock; Text und Zähler folgen den Variablen. */
+.plakette:nth-child(even) {
+  --farbe-text: var(--dunkel-text); --farbe-leise: var(--dunkel-leise); --farbe-akzent: var(--dunkel-akzent);
+  background: var(--dunkel-grund); color: var(--dunkel-text);
+}
+.plakette:nth-child(even) h3 { color: var(--dunkel-text); }

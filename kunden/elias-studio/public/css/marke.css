@@ -8,28 +8,23 @@
      auf-akzent/akzent 6,1 · fehler/flaeche 5,5 · dunkel: text 12,7 · leise 8,0 · akzent 7,4
    ===================================================================== */
 
-/* ---------- Schriften: je Familie EINE variable Datei (latin), lokal, SIL OFL (fonts/LIZENZ.txt) ----------
-   Archivo (Überschriften fett, Text normal) und Newsreader Kursiv (die Stimme: ein Halbsatz je Abschnitt). Zusammen 99 KB. */
+/* ---------- Schriften: Inter, je Stil EINE variable Datei (latin), lokal, SIL OFL (fonts/LIZENZ.txt) ----------
+   Überschriften Inter 700, Text Inter 400, die Stimme (ein Halbsatz je Abschnitt) Inter Kursiv. Zusammen 100 KB. */
 @font-face {
-  font-family: "Archivo";
+  font-family: "Inter";
   font-style: normal; font-weight: 100 900; font-display: swap;
-  src: url("../fonts/archivo.woff2") format("woff2");
+  src: url("../fonts/inter.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Newsreader";
-  font-style: italic; font-weight: 200 800; font-display: swap;
-  src: url("../fonts/newsreader-kursiv.woff2") format("woff2");
+  font-family: "Inter";
+  font-style: italic; font-weight: 100 900; font-display: swap;
+  src: url("../fonts/inter-kursiv.woff2") format("woff2");
 }
-/* Ersatzschriften mit angepassten Maßen, damit der Text beim Tausch kaum springt (CLS ≈ 0) */
+/* Ersatzschrift mit angepassten Maßen, damit der Text beim Tausch kaum springt (CLS ≈ 0) */
 @font-face {
-  font-family: "Archivo Ersatz";
+  font-family: "Inter Ersatz";
   src: local("Arial"), local("ArialMT"), local("Liberation Sans");
-  size-adjust: 103%; ascent-override: 92%; descent-override: 22%; line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Newsreader Ersatz";
-  src: local("Times New Roman"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif");
-  font-style: italic; size-adjust: 98%; ascent-override: 92%; descent-override: 26%; line-gap-override: 0%;
+  size-adjust: 107%; ascent-override: 90%; descent-override: 22%; line-gap-override: 0%;
 }
 
 :root {
@@ -75,9 +70,9 @@
   --zeichen-strich: #ffffff;
 
   /* Schriften */
-  --schrift-display: "Archivo", "Archivo Ersatz", Arial, sans-serif;
-  --schrift-text: "Archivo", "Archivo Ersatz", Arial, sans-serif;
-  --schrift-kursiv: "Newsreader", "Newsreader Ersatz", "Times New Roman", serif;
+  --schrift-display: "Inter", "Inter Ersatz", Arial, sans-serif;
+  --schrift-text: "Inter", "Inter Ersatz", Arial, sans-serif;
+  --schrift-kursiv: "Inter", "Inter Ersatz", Arial, sans-serif;
   --schrift-code: ui-monospace, "SF Mono", "Cascadia Mono", "Liberation Mono", Menlo, Consolas, monospace;
 
   /* Formen: scharf geschnitten, nur Knöpfe leicht gerundet */
