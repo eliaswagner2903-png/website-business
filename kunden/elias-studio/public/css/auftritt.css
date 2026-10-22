@@ -130,3 +130,7 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
 html.portal-an .portal { clip-path: circle(150vmax at var(--x, 50%) var(--y, 50%)); pointer-events: auto; transition: clip-path .75s cubic-bezier(.7, 0, .25, 1); }
 html.portal-an main { transform: scale(1.04); filter: blur(3px); transition: transform .75s var(--kurve-sanft), filter .75s var(--kurve-sanft); }
 @media (prefers-reduced-motion: reduce) { .portal { display: none; } }
+
+/* ---------- Leistungskarten mit Bild oder kurzem Clip (Higgsfield) ---------- */
+.plakette-bild { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-klein, 4px); background: var(--farbe-flaeche); margin-block-end: .25rem; }
+.plakette-bild img, .plakette-bild video { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }

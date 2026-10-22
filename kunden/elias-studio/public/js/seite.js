@@ -128,6 +128,18 @@
     }
     addEventListener('pageshow', (e) => { if (e.persisted) document.documentElement.classList.remove('portal-an'); });
   }
+  // Leistungskarten: Clips laufen nur, solange sie sichtbar sind, und nie bei „Bewegung reduzieren“ (dann bleibt das Standbild)
+  function clips() {
+    const videos = document.querySelectorAll('.plakette-bild video');
+    if (!videos.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) {
+        if (e.isIntersecting) e.target.play().catch(() => {});
+        else e.target.pause();
+      }
+    }, { threshold: 0.35 });
+    for (const v of videos) io.observe(v);
+  }
   function start() {
     werkeImBild();
     handyLeiste();
@@ -137,6 +149,7 @@
     menueMarke();
     buehne();
     teleport();
+    clips();
     // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
     const meldung = (f) => {
       const v = f.validity;

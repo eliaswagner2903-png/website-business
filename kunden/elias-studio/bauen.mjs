@@ -209,6 +209,12 @@ ${schau}
 
 // ---------- Leistungen: sechs Karten, nummeriert nach ihrer Reihenfolge ----------
 const L = S.leistungen;
+// Bilder der Leistungskarten (Higgsfield, 22.10.): vier mit kurzem Clip (Standbild bis zum Start, ohne Bewegung auch ohne JavaScript), zwei als Standbild
+const LEISTUNG_CLIP = new Set(['neu', 'seo', 'geo', 'tempo']);
+const leistungBild = (id) => `<div class="plakette-bild" aria-hidden="true">${LEISTUNG_CLIP.has(id)
+  ? `<video muted loop playsinline preload="none" poster="/medien/leistung-${id}.webp" width="720" height="540"><source src="/medien/leistung-${id}.mp4" type="video/mp4"></video>`
+  : `<img src="/medien/leistung-${id}.webp" alt="" width="720" height="540" loading="lazy">`}</div>`;
+
 const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-labelledby="t-leistungen"${pr(P.leistungen)}>
   <div class="huelle">
     <div class="kopfzeile">
@@ -218,6 +224,7 @@ const leistungen = `<section class="abschnitt leistungen" id="leistungen" aria-l
     </div>
     <ul class="plaketten">
 ${L.karten.map((k, i) => `      <li class="plakette einblenden">
+        ${leistungBild(k.id)}
         <div class="plakette-kopf">${sym(k.id)}<p class="plakette-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</p></div>
         <h3>${esc(k.titel)}</h3>
         <p>${esc(k.text)}</p>

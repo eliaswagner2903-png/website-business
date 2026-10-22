@@ -141,7 +141,7 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
 });
 
 test('Hero: Wortmarke und drei Musterseiten, keine alten Bilder, Vorstellung und Seefahrt-Rest sind weg', () => {
-  assert.doesNotMatch(start, /<video|held\.js|held-mosaik|held-karte|id="vorstellung"|vorstellung\.js|kompass|kapitaen-|Seekarte|Kajüte/i, 'Rest des alten Auftritts');
+  assert.doesNotMatch(start.replace(/<video[^>]*>[\s\S]*?<\/video>/g, ''), /<video|held\.js|held-mosaik|held-karte|id="vorstellung"|vorstellung\.js|kompass|kapitaen-|Seekarte|Kajüte/i, 'Rest des alten Auftritts');
   const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
   for (const [, src] of held.matchAll(/(\/medien\/arbeit-[^" ,]+)/g)) {
     assert.ok(existsSync(join(PUB, src)), `${src} fehlt`);
@@ -182,7 +182,8 @@ test('Leistungen als Karten: sechs, nummeriert, Fachbegriff klein, keine Platzie
   for (const [, inhalt] of karten) {
     assert.match(inhalt, /<p class="plakette-nr" aria-hidden="true">0\d<\/p>/, 'Nummer fehlt');
     assert.match(inhalt, /<h3>[^<]+<\/h3>\s*<p>[^<]+<\/p>\s*<p class="fachwort">Fachbegriff: [^<]+<\/p>/, 'Text fehlt');
-    assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, 'Bild oder Versprechen');
+    assert.match(inhalt, /<div class="plakette-bild" aria-hidden="true"><(?:img|video) /, 'Karte ohne Bild oder Clip');
+    assert.doesNotMatch(inhalt, /Platz 1|#1\b|Top-?Platzierung|garantiert/i, 'Bild oder Versprechen');
   }
   for (const k of S.leistungen.karten) assert.ok(sek.includes(`<h3>${k.titel.replace(/&/g, '&amp;')}</h3>`), `${k.id}: Titel fehlt`);
   // Ablauf: Etappen-Ziffern sind Dekor (die Liste zählt selbst), die Schritte echter Text
