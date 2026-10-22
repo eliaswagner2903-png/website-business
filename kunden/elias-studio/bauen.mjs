@@ -185,7 +185,7 @@ const held = `<section class="held" aria-labelledby="titel">
       </div>
       <p class="held-zeile">${esc(H.unterzeile)}</p>
     </div>
-    <div class="held-schau" aria-label="Drei Musterseiten in verschiedenen Stilen">
+    <div class="held-schau" role="group" aria-label="Drei Musterseiten in verschiedenen Stilen">
 ${schau}
     </div>
   </div>
