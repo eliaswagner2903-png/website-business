@@ -209,8 +209,8 @@ ${schau}
 
 // ---------- Leistungen: sechs Karten, nummeriert nach ihrer Reihenfolge ----------
 const L = S.leistungen;
-// Bilder der Leistungskarten (Higgsfield, 22.10.): fünf mit kurzem Clip (Standbild bis zum Start, ohne Bewegung auch ohne JavaScript), eins als Standbild
-const LEISTUNG_CLIP = new Set(['neu', 'alt', 'seo', 'geo', 'tempo']);
+// Bilder der Leistungskarten (Higgsfield, 22.10.): alle sechs mit kurzem Clip (Standbild bis zum Start, ohne Bewegung auch ohne JavaScript)
+const LEISTUNG_CLIP = new Set(['neu', 'alt', 'seo', 'geo', 'tempo', 'sicher']);
 const leistungBild = (id) => `<div class="plakette-bild" aria-hidden="true">${LEISTUNG_CLIP.has(id)
   ? `<video muted loop playsinline preload="none" poster="/medien/leistung-${id}.webp" width="720" height="540"><source src="/medien/leistung-${id}.mp4" type="video/mp4"></video>`
   : `<img src="/medien/leistung-${id}.webp" alt="" width="720" height="540" loading="lazy">`}</div>`;
