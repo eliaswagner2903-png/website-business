@@ -91,7 +91,7 @@ test('Arbeiten: gezeigte Musterseiten (nur fiktive Marken), Vorschaubilder und M
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, alle mit Vorschau-Link
   for (const a of S.arbeiten) {
     const werk = start.match(new RegExp(`<article class="werk werk--${a.id}"[\\s\\S]*?</article>`))[0];
-    assert.match(werk, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" ${re(markiert(S.pruefen.link))}`), `${a.id}: Link fehlt`);
+    assert.match(werk, new RegExp(`href="${re(a.link)}" target="_blank" rel="noopener" data-teleport ${re(markiert(S.pruefen.link))}`), `${a.id}: Link fehlt`);
   }
 });
 

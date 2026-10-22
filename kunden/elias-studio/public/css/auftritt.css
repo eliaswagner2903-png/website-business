@@ -108,3 +108,25 @@ h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
   content: ""; position: absolute; inset: 1.05rem auto auto .1rem; inline-size: .5rem; block-size: .9rem; rotate: 45deg; translate: 0 -.45rem;
   border: solid var(--farbe-licht); border-width: 0 2px 2px 0;
 }
+
+/* ---------- Buttons zu den Musterseiten: ruhiger Glanz, pulsierender Pfeil, Teleport-Übergang ---------- */
+.oeffnen { position: relative; isolation: isolate; }
+.oeffnen::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; transform: translateX(-120%);
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--farbe-licht) 24%, transparent) 50%, transparent 65%);
+}
+.oeffnen-gross { font-size: 1.3rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .oeffnen::after { animation: oeffnen-glanz 4.5s var(--kurve-sanft) 1.2s infinite; }
+  .oeffnen-zeichen { animation: oeffnen-puls 2.8s ease-out infinite; }
+}
+@keyframes oeffnen-glanz { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+@keyframes oeffnen-puls { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--farbe-licht) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 .9rem transparent; } }
+.portal {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--dunkel-akzent) 0, var(--dunkel-grund) 16%, var(--dunkel-grund) 100%);
+  clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
+}
+html.portal-an .portal { clip-path: circle(150vmax at var(--x, 50%) var(--y, 50%)); pointer-events: auto; transition: clip-path .75s cubic-bezier(.7, 0, .25, 1); }
+html.portal-an main { transform: scale(1.04); filter: blur(3px); transition: transform .75s var(--kurve-sanft), filter .75s var(--kurve-sanft); }
+@media (prefers-reduced-motion: reduce) { .portal { display: none; } }

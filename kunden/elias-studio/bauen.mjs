@@ -252,11 +252,11 @@ const messung = (w) => `
       </dl>`;
 const werk = (a) => {
   const link = a.link
-    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener"${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live im Browser</span><span class="oeffnen-gross">${esc(a.name)} ansehen</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span class="unsichtbar"> (öffnet in neuem Tab)</span></a></p>`
+    ? `<p class="werk-link"><a class="oeffnen" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport${pr(P.link)}><span class="oeffnen-text"><span class="oeffnen-klein">Live ansehen</span><span class="oeffnen-gross">${esc(a.name)} betreten</span></span><span class="oeffnen-zeichen" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span class="unsichtbar"> (öffnet die Musterseite)</span></a></p>`
     : '';
   return `  <article class="werk werk--${a.id}" id="arbeit-${a.id}" aria-labelledby="w-${a.id}" data-reiter="${a.id}">
     <div class="werk-bild">
-      ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Seite öffnen ${raus}</span></a>` : ''}
+      ${a.link ? `<a class="werk-bild-link" href="${esc(a.link)}" target="_blank" rel="noopener" data-teleport tabindex="-1" aria-hidden="true"><span class="werk-bild-hinweis">Betreten ${raus}</span></a>` : ''}
       <div class="rahmen rahmen--desktop">
         <span class="rahmen-leiste" aria-hidden="true"><span class="rahmen-punkte"></span><span class="rahmen-adresse">${esc(a.name.toLowerCase())} · ${esc(a.art.toLowerCase())}</span></span>
         <div class="fenster">${aufnahme(a, 'desktop', '(min-width: 64rem) 58vw, 1px')}</div>
