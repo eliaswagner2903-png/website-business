@@ -1,0 +1,168 @@
+/* =====================================================================
+   WAGNER SEITEN – Auftritt: Wortmarke (Logo C), Hero mit Musterseiten, Schrift-Stimme, dunkler Kontaktblock.
+   Farben und Schriften kommen aus marke.css. Stil „Edel“ (22.10.2026): ruhig, viel Creme, ein Grün, ein Anthrazit-Block.
+   ===================================================================== */
+
+/* ---------- Schrift: Überschriften fett, die Stimme kursiv ---------- */
+h1, h2, h3 { font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+h1 { font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem); line-height: 1; }
+h2 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.5rem); }
+h3 { font-size: clamp(1.3rem, 1.2rem + .5vw, 1.65rem); line-height: 1.15; }
+h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
+  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; letter-spacing: -.01em; color: var(--farbe-akzent);
+}
+.kopfzeile h2 { max-width: 18ch; }
+.held-zeile, .werk-entscheidung, .etappe-nr {
+  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400;
+}
+.etappe-nr { font-size: clamp(2.4rem, 1.9rem + 1.4vw, 3.2rem); }
+.werk-entscheidung { font-size: 1.3rem; }
+.werk-schild h3 { font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.8rem); }
+.oeffnen-gross, .reiter-name, .frage summary, .preis-wert, .wegweiser-titel { font-family: var(--schrift-display); font-weight: 700; }
+.reiter-name { font-size: clamp(1.15rem, 1.05rem + .5vw, 1.45rem); }
+.preis-wert { font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.7rem); }
+.frage summary { font-size: clamp(1.1rem, 1.05rem + .3vw, 1.3rem); font-weight: 600; }
+.fuss-frage { font-weight: 700; font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem); letter-spacing: -.03em; }
+.ueberzeile::before { background: var(--farbe-licht); }
+
+/* ---------- Wortmarke (Logo C) ----------
+   WAGNER fett, eine feine grüne Linie darunter, SEITEN kursiv eine Zeile tiefer und nach rechts; das Eselsohr (Logo-Grün) sitzt am Ende. */
+.wz { --wz: 1.45rem; display: inline-grid; font-size: var(--wz); line-height: 1; color: var(--farbe-text); }
+.wz-wagner { position: relative; font: 700 1em/1 var(--schrift-display); letter-spacing: -.03em; padding-block-end: .22em; }
+.wz-wagner::after { content: ""; position: absolute; inset: auto auto 0 0; inline-size: 1.9em; block-size: max(1.5px, .045em); background: var(--farbe-licht); }
+.wz-seiten { position: relative; justify-self: start; margin-inline-start: 1.05em; padding-inline-end: .45em; font: 400 .95em/1.05 var(--schrift-kursiv); font-style: italic; letter-spacing: -.02em; }
+.wz-seiten::after {
+  content: ""; position: absolute; inset: auto 0 .12em auto; inline-size: .26em; block-size: .26em; background: var(--farbe-licht);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.wz--gross { --wz: clamp(3.6rem, 1.6rem + 9vw, 7.5rem); }
+.marke { gap: 0; }
+.marke .wz { --wz: 1.2rem; }
+@media (max-width: 29.99rem) { .marke .wz { --wz: 1.1rem; } }
+.fuss-name { display: block; margin-block-end: .9rem; }
+.fuss-name .wz { --wz: clamp(2.2rem, 1.8rem + 1.4vw, 3rem); }
+
+/* ---------- Hero: Name und drei Musterseiten ---------- */
+.held { padding-block: clamp(2.5rem, 1.5rem + 4vw, 5.5rem) clamp(3.5rem, 2rem + 5vw, 7rem); overflow: hidden; }
+.held-raster { display: grid; gap: clamp(2.5rem, 2rem + 3vw, 4.5rem); align-items: center; }
+.held-in { display: grid; gap: 1.35rem; align-content: center; justify-items: start; min-width: 0; }
+.held h1 { max-width: none; margin-block: .35rem .1rem; }
+.held-claim { font: 600 clamp(1.25rem, 1.1rem + .8vw, 1.7rem)/1.25 var(--schrift-display); letter-spacing: -.01em; }
+.held-claim em { font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; color: var(--farbe-akzent); }
+.held-satz { max-width: 38ch; font-size: 1.125rem; color: var(--farbe-leise); }
+.held-aktionen { margin-block-start: .4rem; }
+.held-zeile { font-size: 1.3rem; color: var(--farbe-leise); }
+@media (max-width: 47.99rem) { .held-aktionen .knopf { flex: 1 1 100%; } }
+@media (min-width: 64rem) { .held-raster { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+
+.held-schau { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.6rem, .3rem + 1.6vw, 1.6rem); align-items: start; min-width: 0; }
+.schau { margin: 0; display: grid; gap: .7rem; min-width: 0; }
+.schau .rahmen--handy { --_r: clamp(.9rem, .5rem + 1.6vw, 1.6rem); padding: clamp(.2rem, .1rem + .4vw, .4rem); box-shadow: var(--schatten-karte); border-color: var(--farbe-linie); background: var(--farbe-flaeche-hoch); }
+.schau--2 { margin-block-start: clamp(1.5rem, 1rem + 3vw, 3.5rem); }
+.schau--3 { margin-block-start: clamp(.75rem, .5rem + 1.5vw, 1.75rem); }
+.schau figcaption { display: grid; gap: .1rem; font-size: .8125rem; line-height: 1.3; color: var(--farbe-leise); }
+.schau figcaption strong { font-weight: 700; font-size: .9375rem; color: var(--farbe-text); overflow-wrap: anywhere; }
+@media (max-width: 29.99rem) { .schau figcaption span { display: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .held-in > * { animation: held-text 1s var(--kurve-weich) backwards; }
+  .held-in > :nth-child(2) { animation-delay: .1s; } .held-in > :nth-child(3) { animation-delay: .2s; } .held-in > :nth-child(4) { animation-delay: .3s; } .held-in > :nth-child(5) { animation-delay: .4s; }
+  .schau { animation: held-text 1.1s var(--kurve-weich) backwards; }
+  .schau--1 { animation-delay: .25s; } .schau--2 { animation-delay: .4s; } .schau--3 { animation-delay: .55s; }
+}
+@keyframes held-text { from { opacity: 0; transform: translateY(14px); } }
+
+/* ---------- Leistungen und Ablauf ---------- */
+.plakette-nr { font: 600 .8125rem/1 var(--schrift-text); letter-spacing: .2em; color: var(--farbe-akzent); }
+.abschnitt { padding-block: calc(var(--abstand-abschnitt) * .7); }
+
+/* ---------- Kontakt: der einzige dunkle Block (Anthrazit) ----------
+   Die Farben werden im Block selbst umgestellt, alle Bausteine (Formular, Wege, Knöpfe) folgen den Variablen. */
+.kontakt {
+  --farbe-grund: var(--dunkel-grund); --farbe-flaeche: var(--dunkel-flaeche); --farbe-flaeche-hoch: var(--dunkel-flaeche);
+  --farbe-text: var(--dunkel-text); --farbe-leise: var(--dunkel-leise); --farbe-linie: var(--dunkel-linie);
+  --farbe-akzent: var(--dunkel-akzent); --farbe-auf-akzent: var(--dunkel-auf-akzent); --farbe-licht: var(--dunkel-akzent);
+  background: var(--farbe-grund); color: var(--farbe-text); padding-block: calc(var(--abstand-abschnitt) * .7);
+}
+.kontakt::before { display: none; }
+.kontakt .kontakt-form { background: var(--dunkel-flaeche); border: 1px solid var(--dunkel-linie); }
+.kontakt ::selection { background: var(--dunkel-akzent); color: var(--dunkel-auf-akzent); }
+.kontakt a:not(.knopf) { color: var(--dunkel-text); }
+
+/* ---------- Karten im Wechsel: Grüngrau und Anthrazit (Elias, 22.10.: Kästen 1 und 4) ----------
+   Anthrazit-Karten stellen die Farben in sich um, wie der Kontaktblock; Text und Zähler folgen den Variablen. */
+.plakette:nth-child(even) {
+  --farbe-text: var(--dunkel-text); --farbe-leise: var(--dunkel-leise); --farbe-akzent: var(--dunkel-akzent);
+  background: var(--dunkel-grund); color: var(--dunkel-text);
+}
+.plakette:nth-child(even) h3 { color: var(--dunkel-text); }
+
+/* ---------- Linien-Icons: klein, eine Strichstärke, nur Dekor (aria-hidden) ---------- */
+.sym { flex: none; inline-size: 1.75rem; block-size: 1.75rem; fill: none; stroke: var(--farbe-akzent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.sym--schritt { inline-size: 1.5rem; block-size: 1.5rem; margin-block-end: -.2rem; }
+.sym--klein { inline-size: 1.1rem; block-size: 1.1rem; }
+.plakette-kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.wege-art { display: inline-flex; align-items: center; gap: .5rem; }
+/* Preislisten: kleines Häkchen statt reiner Trennlinie */
+.bet-liste li { position: relative; padding-inline-start: 1.75rem; }
+.bet-liste li::before {
+  content: ""; position: absolute; inset: 1.05rem auto auto .1rem; inline-size: .5rem; block-size: .9rem; rotate: 45deg; translate: 0 -.45rem;
+  border: solid var(--farbe-licht); border-width: 0 2px 2px 0;
+}
+
+/* ---------- Buttons zu den Musterseiten: ruhiger Glanz, pulsierender Pfeil, Teleport-Übergang ---------- */
+.oeffnen { position: relative; isolation: isolate; }
+.oeffnen::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; transform: translateX(-120%);
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--farbe-licht) 24%, transparent) 50%, transparent 65%);
+}
+.oeffnen-gross { font-size: 1.3rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .oeffnen::after { animation: oeffnen-glanz 4.5s var(--kurve-sanft) 1.2s infinite; }
+  .oeffnen-zeichen { animation: oeffnen-puls 2.8s ease-out infinite; }
+}
+@keyframes oeffnen-glanz { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+@keyframes oeffnen-puls { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--farbe-licht) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 .9rem transparent; } }
+.portal {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--dunkel-akzent) 0, var(--dunkel-grund) 16%, var(--dunkel-grund) 100%);
+  clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
+}
+html.portal-an .portal { clip-path: circle(150vmax at var(--x, 50%) var(--y, 50%)); pointer-events: auto; transition: clip-path .75s cubic-bezier(.7, 0, .25, 1); }
+html.portal-an main { transform: scale(1.04); filter: blur(3px); transition: transform .75s var(--kurve-sanft), filter .75s var(--kurve-sanft); }
+@media (prefers-reduced-motion: reduce) { .portal { display: none; } }
+
+/* ---------- Leistungskarten mit Bild oder kurzem Clip (Higgsfield) ---------- */
+.plakette-bild { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-klein, 4px); background: var(--farbe-flaeche); margin-block-end: .25rem; }
+.plakette-bild img, .plakette-bild video { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* ---------- Handy-Menü: kleine Karte unter dem Kopf, schiebt sich sanft ein, die Seite dahinter wird unscharf (Elias, 22.10.) ---------- */
+@media (max-width: 47.99rem) {
+  .js .kopf nav.blatt {
+    inset: auto; top: 4.25rem; right: .75rem; inline-size: min(19rem, calc(100vw - 1.5rem)); max-block-size: calc(100dvh - 5.5rem);
+    padding: .5rem; gap: .35rem; border: 1px solid var(--farbe-linie); border-radius: 1rem; background: var(--farbe-flaeche-hoch);
+    box-shadow: 0 28px 60px -24px color-mix(in srgb, var(--farbe-text) 55%, transparent);
+    -webkit-mask-image: none; mask-image: none; clip-path: none; opacity: 0; transform: translateY(-.75rem) scale(.97); transform-origin: top right;
+    transition: opacity .3s var(--kurve-standard), transform .4s var(--kurve-weich), visibility 0s linear .4s;
+  }
+  .js .kopf nav.blatt--offen { opacity: 1; transform: none; clip-path: none; transition: opacity .3s var(--kurve-standard), transform .45s var(--kurve-weich), visibility 0s; }
+  .js .kopf nav.blatt::after { content: none; }
+  .js .kopf nav.blatt li:not(:last-child)::after, .js .kopf nav.blatt li a:not(.knopf)::after { content: none; }
+  .js .kopf nav.blatt li:last-child { padding-block-start: .35rem; }
+  .js .kopf nav.blatt li a:not(.knopf) { grid-template-columns: 1fr; grid-template-areas: "name"; min-height: 3rem; padding: .5rem .85rem; border-radius: .6rem; }
+  .js .kopf nav.blatt li a:not(.knopf):hover, .js .kopf nav.blatt li a:not(.knopf):active { background: var(--farbe-flaeche); }
+  .js .kopf nav.blatt .nav-name { font: 500 1.0625rem/1.2 var(--schrift-text); letter-spacing: 0; }
+  .js .kopf nav.blatt .nav-zusatz { display: none; }
+  .js .kopf nav.blatt .knopf { min-height: 48px; }
+  .js .kopf nav.blatt .blatt-fuss { padding: .6rem .85rem .35rem; }
+  .js .kopf nav.blatt .blatt-fuss a { min-height: 40px; font-size: 1rem; }
+  .js .kopf nav.blatt--offen li, .js .kopf nav.blatt--offen .blatt-fuss { animation: none; }
+  .blatt-schleier { display: none; }
+  /* Hintergrund: leicht abgedunkelt und unscharf; der Kopf liegt darüber */
+  html.menue-offen::before {
+    content: ""; position: fixed; inset: 0; z-index: 15; pointer-events: none;
+    background: color-mix(in srgb, var(--farbe-text) 16%, transparent); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+    animation: menue-schleier .35s var(--kurve-standard) backwards;
+  }
+}
+@keyframes menue-schleier { from { opacity: 0; } }
+html.menue-offen .handy-leiste { opacity: 0; pointer-events: none; transition: opacity .25s var(--kurve-standard); }

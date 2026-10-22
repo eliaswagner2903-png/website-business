@@ -105,6 +105,49 @@
     els.forEach((el) => io.observe(el));
   }
 
+  // Teleport: „betreten“ öffnet die Musterseite mit einem Kreis-Übergang aus der Klickstelle. Mit Strg/Cmd-Klick oder „Bewegung reduzieren“
+  // bleibt es das normale Öffnen im neuen Tab. Kommt man mit „Zurück“ wieder, wird der Übergang zurückgesetzt.
+  function teleport() {
+    const links = document.querySelectorAll('a[data-teleport]');
+    if (!links.length) return;
+    const portal = document.createElement('div');
+    portal.className = 'portal';
+    portal.setAttribute('aria-hidden', 'true');
+    document.body.append(portal);
+    const ruhig = matchMedia('(prefers-reduced-motion: reduce)');
+    for (const a of links) {
+      a.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || ruhig.matches) return;
+        e.preventDefault();
+        const r = a.getBoundingClientRect();
+        portal.style.setProperty('--x', `${e.clientX || r.left + r.width / 2}px`);
+        portal.style.setProperty('--y', `${e.clientY || r.top + r.height / 2}px`);
+        document.documentElement.classList.add('portal-an');
+        setTimeout(() => location.assign(a.href), 750);
+      });
+    }
+    addEventListener('pageshow', (e) => { if (e.persisted) document.documentElement.classList.remove('portal-an'); });
+  }
+  // Leistungskarten: Clips laufen nur, solange sie sichtbar sind, und nie bei „Bewegung reduzieren“ (dann bleibt das Standbild)
+  function clips() {
+    const videos = document.querySelectorAll('.plakette-bild video');
+    if (!videos.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((eintraege) => {
+      for (const e of eintraege) {
+        if (e.isIntersecting) e.target.play().catch(() => {});
+        else e.target.pause();
+      }
+    }, { threshold: 0.35 });
+    for (const v of videos) io.observe(v);
+  }
+  // Handy-Menü: Antippen neben der Karte schließt es
+  function menueSchliessen() {
+    document.addEventListener('click', (e) => {
+      if (!document.documentElement.classList.contains('menue-offen') || e.target.closest('.nav, .menue-knopf, .marke')) return;
+      const knopf = document.querySelector('.menue-knopf');
+      if (knopf) knopf.click();
+    });
+  }
   function start() {
     werkeImBild();
     handyLeiste();
@@ -113,6 +156,9 @@
     addEventListener('hashchange', pruefen);
     menueMarke();
     buehne();
+    teleport();
+    clips();
+    menueSchliessen();
     // Formular: eigene deutsche Meldungen je Feld (statt Browser-Sprechblase), dann doppelte Klicks verhindern
     const meldung = (f) => {
       const v = f.validity;
