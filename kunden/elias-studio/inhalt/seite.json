@@ -1,23 +1,18 @@
 {
   "hinweis": "Alle Inhalte der Portfolio-Seite stehen hier. Seiten neu bauen: node bauen.mjs. Alles Persönliche ist Platzhalter mit Prüf-Grund (pruefen) – Elias füllt es aus.",
-  "basis": "https://www.seitenkapitaen.de",
-  "studio": "Seitenkapitän",
+  "basis": "https://www.wagnerseiten.de",
+  "studio": "Wagner Seiten",
   "inhaber": "Elias Wagner",
   "ort": "Eislingen",
-  "vorstellung": {
-    "hinweis": "Vorstellungsvideo: Dateien in public/medien/vorstellung/ ablegen (film.mp4, film.webm, poster.webp, optional untertitel.vtt) und node bauen.mjs ausführen. Ohne Dateien läuft die Platzhalter-Sequenz. Anleitung: VORSTELLUNG.md",
-    "platzhalter_dauer": 7,
-    "knopf": "Vorstellung ansehen"
-  },
   "telefon_anzeige": "",
   "telefon_link": "",
-  "email": "hallo@seitenkapitaen.de",
+  "email": "hallo@wagnerseiten.de",
   "pruefen": {
-    "studio": "Name Seitenkapitän am 11.10. von Elias entschieden – Markenrecherche (DPMA/TMview) und Domainkauf stehen noch aus",
+    "studio": "Name Wagner Seiten am 22.10. von Elias entschieden – Domain wagnerseiten.de ist laut Registerabfrage frei, aber noch nicht gekauft; Markenrecherche (DPMA/TMview/EUIPO) von Hand ausstehend",
     "nachname": "",
     "ort": "",
     "telefon": "",
-    "email": "Postfach hallo@seitenkapitaen.de erst nach Domainkauf und Weiterleitung aktiv",
+    "email": "Postfach hallo@wagnerseiten.de erst nach Domainkauf und Weiterleitung aktiv",
     "foto": "Foto von Elias liefern (kein Stockfoto)",
     "ueber": "Text über Elias: Werdegang, warum Websites, was ihn antreibt – von Elias selbst",
     "preis_website": "Kein Betrag auf der Seite (Elias 13.10.): der Festpreis entsteht im Gespräch – Wortlaut prüfen",
@@ -204,18 +199,18 @@
       "hinweis": "Hosting, Wartung, Pflege, Änderungen und vieles mehr: Sie wählen, was ich übernehme. Den Monatspreis legen wir gemeinsam fest."
     },
     "kopf": "Die Seite bezahlen Sie einmal. Die Betreuung ist freiwillig und wächst mit Ihren Wünschen.",
-    "ueber": "Die Fahrt",
-    "titel": "Die Seite einmal. Die Betreuung, <em>wenn Sie wollen</em>."
+    "titel": "Die Seite einmal. Die Betreuung, <em>wenn Sie wollen</em>.",
+    "ueber": "Preise"
   },
   "hero": {
     "dach": "Websites für Praxen, Werkstätten und Restaurants",
-    "titel": "Ihre Website. <em>Klar auf Kurs.</em>",
+    "titel": "Ihre Seite, <em>ruhig gemacht</em>.",
     "lead": "Ich baue Websites, die auf dem Handy schnell laden, klar aufgebaut sind und zu Ihrem Betrieb passen. Auf Wunsch kümmere ich mich danach auch um sie.",
     "unterzeile": "Gebaut. Geprüft. Gepflegt."
   },
   "arbeiten_kopf": "Vom Uhrmacher bis zum Werkzeughersteller: Jede Seite folgt einer eigenen Idee, die aus dem Betrieb kommt. Jede hat vor der Übergabe alle Prüfungen bestanden.",
   "ablauf": {
-    "ueber": "Der Kurs",
+    "ueber": "Ablauf",
     "titel": "Von der ersten Idee bis zur <em>fertigen Seite</em>.",
     "schritte": [
       {
@@ -232,12 +227,12 @@
       },
       {
         "titel": "Start",
-        "text": "Ihre Seite geht online. Auf Wunsch bleibe ich danach an Bord: Hosting, Wartung, Pflege und vieles mehr."
+        "text": "Ihre Seite geht online. Auf Wunsch bleibe ich danach an Ihrer Seite: Hosting, Wartung, Pflege und vieles mehr."
       }
     ]
   },
   "fragen": {
-    "ueber": "Vor der Abfahrt",
+    "ueber": "Fragen",
     "titel": "Was Betriebe <em>vorab</em> wissen wollen.",
     "liste": [
       [
@@ -268,7 +263,7 @@
   },
   "kontakt": {
     "text": "Ein paar Sätze zu Ihrem Betrieb genügen. Ich melde mich mit einem ersten Vorschlag.",
-    "ueber": "Im Hafen",
+    "ueber": "Kontakt",
     "titel": "Erzählen Sie mir von Ihrem <em>Betrieb</em>."
   },
   "preis_website_anzeige": "Festpreis nach dem Gespräch",
@@ -313,8 +308,8 @@
         "text": "Keine Cookies, keine fremden Skripte, gesicherte Formulare. Zahlungen laufen ausschließlich über Stripe."
       }
     ],
-    "hinweis": "id: wählt das Instrument (Strichzeichnung, nur Dekor, aria-hidden) in bauen.mjs; kurz: Fachbegriff, steht klein unter dem Text",
-    "ueber": "An Bord",
+    "hinweis": "id: wählt die Nummer der Karte in bauen.mjs; kurz: Fachbegriff, steht klein unter dem Text",
+    "ueber": "Leistungen",
     "titel": "Was ich für Sie <em>baue</em>."
   },
   "arbeiten_ruhend": [
@@ -390,11 +385,6 @@
       "Projekt besprechen"
     ]
   ],
-  "arbeiten_ueber": "Aus dem Logbuch",
-  "arbeiten_titel": "{n} Betriebe, {n_klein} eigene <em>Ideen</em>.",
-  "zwischenbild": {
-    "ueber": "Gebaut. Geprüft. Gepflegt.",
-    "satz": "Keine Seite geht online, bevor sie jede Prüfung besteht: Tempo, Barrierefreiheit, Datenschutz und Sicherheit.",
-    "alt": ""
-  }
+  "arbeiten_ueber": "Arbeiten",
+  "arbeiten_titel": "{n} Betriebe, {n_klein} eigene <em>Ideen</em>."
 }

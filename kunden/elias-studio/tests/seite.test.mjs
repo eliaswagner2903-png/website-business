@@ -79,13 +79,13 @@ test('Arbeiten: gezeigte Musterseiten (nur fiktive Marken), Vorschaubilder und M
   assert.doesNotMatch(JSON.stringify(S.arbeiten), /eislingen/i, 'Eislingen in den Arbeiten');
   assert.deepEqual(readdirSync(join(PUB, 'medien')).filter((f) => echt.test(f)), [], 'echter Firmenname in Dateinamen');
   assert.match(start, /fetchpriority="high"|loading="lazy"/);
-  // Erster Bildschirm ist der Hero „Kajüte“ (Umbau 11.10.): das Bild ist das LCP-Element (fetchpriority="high"), Stimmung ohne Inhalt (alt=""),
-  // die Botschaft steht als Text daneben. Kein Mosaik fremder Seiten mehr (Elias 11.10.).
+  // Erster Bildschirm ist der Hero (Umbau 22.10.): Name als Wortmarke, drei Musterseiten als Handy-Bilder, das erste ist das LCP-Element.
   const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
-  assert.match(held, /<h1 id="titel"[^>]*>Ihre Website\. <em>Klar auf Kurs\.<\/em><\/h1>/, 'H1 nicht im Hero');
-  assert.doesNotMatch(held, /held-mosaik|mosaik-/, 'Mosaik im Hero');
+  assert.match(held, /<h1 id="titel"[^>]*><span class="wz wz--gross"><span class="wz-wagner">Wagner<\/span><span class="wz-seiten">Seiten<\/span><\/span><\/h1>/, 'H1 nicht im Hero');
+  assert.match(held, /<p class="held-claim"[^>]*>Ihre Seite, <em>ruhig gemacht<\/em>\.<\/p>/, 'Aussage fehlt');
+  assert.doesNotMatch(held, /held-mosaik|mosaik-|kapitaen-/, 'altes Hero-Bild');
+  assert.equal((held.match(/<figure class="schau /g) || []).length, 3, 'drei Musterseiten im Hero');
   assert.equal((held.match(/fetchpriority="high"/g) || []).length, 1, 'Hero-Bild ohne Vorrang');
-  assert.match(held, /<img src="\/medien\/kapitaen-kajuete-hoch-720\.webp" width="720" height="1273" alt="" fetchpriority="high"/);
   assert.match(held, /class="knopf" href="#kontakt">Projekt besprechen/, 'Hauptknopf fehlt');
   assert.match(held, /class="knopf zweit" href="#arbeiten">Arbeiten ansehen/, 'zweiter Knopf fehlt');
   // erste Arbeit auf der Bühne nicht lazy, Links nur zu den drei Musterseiten, alle mit Vorschau-Link
@@ -112,8 +112,8 @@ test('Schriften lokal: höchstens drei Vorlade-Dateien mit crossorigin, nichts F
   }
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
   assert.doesNotMatch(marke, /https?:\/\//);
-  assert.match(marke, /cormorant-garamond\.woff2/);
-  assert.match(marke, /jost\.woff2/);
+  assert.match(marke, /archivo\.woff2/);
+  assert.match(marke, /newsreader-kursiv\.woff2/);
 });
 
 test('Kein Stil-Konfigurator: Abschnitt, Auswahlfelder und Anker sind weg, Kontaktformular bleibt', async () => {
@@ -140,26 +140,26 @@ test('Kein Selbstbau und keine offene Preismechanik auf der Seite', () => {
   assert.doesNotMatch(start, /href="#konfigurator"/);
 });
 
-test('Hero „Kajüte“: Bilder vorhanden und leicht, kein Lichtkegel-Skript mehr, Hero wartet auf die Vorstellung', () => {
-  assert.doesNotMatch(start.replace(/<div class="intro" id="vorstellung"[\s\S]*?<\/video>/, ''), /<video|held\.js|held-mosaik|held-karte/, 'Rest des alten Heros (das Vorstellungsvideo im Intro ist erlaubt)');
+test('Hero: Wortmarke und drei Musterseiten, keine alten Bilder, Vorstellung und Seefahrt-Rest sind weg', () => {
+  assert.doesNotMatch(start, /<video|held\.js|held-mosaik|held-karte|id="vorstellung"|vorstellung\.js|kompass|kapitaen-|Seekarte|Kajüte/i, 'Rest des alten Auftritts');
   const held = start.match(/<section class="held"[\s\S]*?<\/section>/)[0];
-  for (const [, src] of held.matchAll(/(\/medien\/kapitaen-[^" ,]+)/g)) {
+  for (const [, src] of held.matchAll(/(\/medien\/arbeit-[^" ,]+)/g)) {
     assert.ok(existsSync(join(PUB, src)), `${src} fehlt`);
-    // Ladezeit-Regeln (Drehbuch): Hero mobil ≤ 120 KB, Computer ≤ 220 KB
-    assert.ok(statSync(join(PUB, src)).size < (/hoch/.test(src) ? 120 : 220) * 1024, `${src} zu groß`);
+    assert.ok(statSync(join(PUB, src)).size < 190 * 1024, `${src} zu groß`);
   }
-  const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8');
-  assert.match(css, /html\.intro-offen \.held-in > \*, html\.intro-offen \.held-bild img \{ animation-play-state: paused; \}/, 'Hero läuft unter der Vorstellung los');
+  assert.ok(!existsSync(join(PUB, 'js/vorstellung.js')) && !existsSync(join(PUB, 'css/kapitaen.css')), 'alte Dateien noch da');
+  const css = readFileSync(join(PUB, 'css/stil.css'), 'utf8') + readFileSync(join(PUB, 'css/auftritt.css'), 'utf8');
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
-test('Ein Design (Stil 1 „Nachtschiff“), kein Schema-Schalter, Vorschaubild vorhanden', () => {
+test('Ein Design (Stil „Edel“: Creme, Grün, Anthrazit), kein Schema-Schalter, Vorschaubild vorhanden', () => {
   for (const [f, t] of seiten) assert.doesNotMatch(t, /schema-knopf|oq-schema|data-schema=/, `${f}: Rest des Schemaschalters`);
   const marke = readFileSync(join(PUB, 'css/marke.css'), 'utf8');
-  assert.match(marke, /--farbe-grund: #0f1011;/, 'Vorgabe ist nicht „Nachtschiff“');
-  assert.match(marke, /--farbe-akzent: #c9954a;/, 'Akzent ist nicht Messing');
+  assert.match(marke, /--farbe-grund: #f4efe3;/, 'Grund ist nicht Creme');
+  assert.match(marke, /--farbe-akzent: #23703f;/, 'Akzent ist nicht Grün');
+  assert.match(marke, /--dunkel-grund: #26292d;/, 'Kontaktblock ist nicht Anthrazit');
   assert.doesNotMatch(marke, /data-schema=/, 'alte Schemata in marke.css');
-  assert.match(start, /<meta name="theme-color" content="#0f1011">/);
+  assert.match(start, /<meta name="theme-color" content="#f4efe3">/);
   assert.ok(existsSync(join(PUB, 'medien/og-startseite.jpg')), 'og:image fehlt');
   for (const [f, t] of seiten) assert.match(t, /og:image" content="[^"]*\/medien\/og-startseite\.jpg"/, `${f}: og:image`);
 });
@@ -175,12 +175,12 @@ test('Kontrast WCAG AA (Text, Nebentext, Akzent, Knöpfe ≥ 4,5 : 1)', () => {
   for (const [v, h] of paare) assert.ok(k(f[`farbe-${v}`], f[`farbe-${h}`]) >= 4.5, `${v} auf ${h} nur ${k(f[`farbe-${v}`], f[`farbe-${h}`]).toFixed(2)} : 1`);
 });
 
-test('Leistungen als Plaketten: sechs Karten mit Instrument (Dekor), Fachbegriff klein, keine Platzierungsversprechen', () => {
+test('Leistungen als Karten: sechs, nummeriert, Fachbegriff klein, keine Platzierungsversprechen', () => {
   const sek = start.match(/<section class="abschnitt leistungen"[\s\S]*?<\/section>/)[0];
   const karten = [...sek.matchAll(/<li class="plakette einblenden">([\s\S]*?)<\/li>\n/g)];
   assert.equal(karten.length, 6, 'sechs Leistungskarten');
   for (const [, inhalt] of karten) {
-    assert.match(inhalt, /<svg class="instrument" viewBox="0 0 48 48" aria-hidden="true" focusable="false">/, 'Instrument nicht aria-hidden');
+    assert.match(inhalt, /<p class="plakette-nr" aria-hidden="true">0\d<\/p>/, 'Nummer fehlt');
     assert.match(inhalt, /<h3>[^<]+<\/h3>\s*<p>[^<]+<\/p>\s*<p class="fachwort">Fachbegriff: [^<]+<\/p>/, 'Text fehlt');
     assert.doesNotMatch(inhalt, /<img |Platz 1|#1\b|Top-?Platzierung|garantiert/i, 'Bild oder Versprechen');
   }
@@ -211,28 +211,16 @@ test('Menü ohne Messskala, Leistungsnamen ohne Klammer-Kürzel, Wahlleistungen 
   assert.match(wahl, new RegExp(re(markiert(S.pruefen.wahl))), 'Beschreibungen der Wahlleistungen nicht markiert');
 });
 
-test('Marke Seitenkapitän: Name, Domain und Mail stehen durchgehend, nichts vom alten Arbeitstitel', () => {
+test('Marke Wagner Seiten: Name, Domain und Mail stehen durchgehend, nichts vom alten Namen', () => {
   for (const [f, tx] of seiten) {
-    assert.match(tx, /Seitenkapitän/, `${f}: Name fehlt`);
-    assert.doesNotMatch(tx, /\[OQ\]|>OQ<|\bOQ\b|WEBWERKSTATT/, `${f}: alter Name`);
-    assert.doesNotMatch(tx, /Wagner/, `${f}: Nachname gehört höchstens ins Impressum`);
+    assert.match(tx, /Wagner Seiten|class="wz-wagner">Wagner/, `${f}: Name fehlt`);
+    assert.doesNotMatch(tx, /\[OQ\]|>OQ<|\bOQ\b|WEBWERKSTATT|Seitenkapit|seitenkapitaen/i, `${f}: alter Name`);
   }
-  assert.match(start, /hallo@seitenkapitaen\.de/);
-  assert.match(start, /rel="canonical" href="https:\/\/www\.seitenkapitaen\.de\/"/);
+  assert.match(start, /hallo@wagnerseiten\.de/);
+  assert.match(start, /rel="canonical" href="https:\/\/www\.wagnerseiten\.de\/"/);
   assert.doesNotMatch(readFileSync(join(PUB, 'css/bausteine.css'), 'utf8'), /\[OQ\]/, 'Wasserzeichen im Menü');
 });
 
-test('Vorstellung: Überblendung nur auf der Startseite, Zeitgeber/Platzhalter oder Film, Knöpfe, Merken im Kopf-Skript', () => {
-  assert.match(start, /<div class="intro intro--spielt"|<div class="intro"/);
-  assert.match(start, /id="vorstellung" role="dialog" aria-modal="true"/);
-  assert.match(start, /class="intro-weiter"/, 'Überspringen fehlt');
-  assert.match(start, /data-vorstellung-oeffnen/, 'Knopf zum erneuten Ansehen fehlt');
-  assert.match(start, /seitenkapitaen-vorstellung/, 'Erstbesuch-Prüfung fehlt');
-  assert.match(start, /<script src="\/js\/vorstellung\.js" defer>/);
-  assert.match(readFileSync(join(PUB, 'js/vorstellung.js'), 'utf8'), /seitenkapitaen-vorstellung/, 'Speicher-Schlüssel in Kopf-Skript und Skript müssen gleich sein');
-  for (const [f, tx] of seiten) if (f !== 'index.html') assert.doesNotMatch(tx, /id="vorstellung"|vorstellung\.js/, `${f}: Vorstellung nur auf der Startseite`);
-  // Film-Modus nur, wenn die Dateien da sind; Platzhalter-Modus sonst
-  const film = existsSync(join(PUB, 'medien/vorstellung/film.mp4')) || existsSync(join(PUB, 'medien/vorstellung/film.webm'));
-  assert.match(start, new RegExp(`data-modus="${film ? 'film' : 'platzhalter'}"`));
-  if (film) assert.match(start, /<video class="intro-film"[^>]*\bmuted\b[^>]*\bplaysinline\b|<video class="intro-film"[^>]*\bplaysinline\b[^>]*\bmuted\b/);
+test('Keine Vorstellungs-Überblendung mehr (der alte Film zeigt den alten Auftritt)', () => {
+  for (const [f, tx] of seiten) assert.doesNotMatch(tx, /class="intro|data-vorstellung-oeffnen|intro-offen/, `${f}: Vorstellung noch da`);
 });

@@ -1,3 +1,5 @@
+> **Stand 22.10.2026:** Die Vorstellungs-Überblendung ist mit dem Umbau auf „Wagner Seiten“ entfernt (der alte Film zeigt den Seitenkapitän-Auftritt). Der alte Film liegt im Projektordner (`seitenkapitaen/video/film/`) als Vorher-Material für den Spot; der Seitenstand von vorher ist als Git-Tag `vor-wagner-seiten-2026-10-22` gesichert. Ein neuer Film wird später wieder eingebaut (Code: Git-Verlauf, Tag).
+
 # Vorstellungsvideo (Unternehmensvideo) tauschen
 
 Die Startseite zeigt beim **ersten Besuch** eine Vorstellung als Überblendung (stumm, Knopf „Ton an“, „Überspringen“, Esc). Danach nicht mehr

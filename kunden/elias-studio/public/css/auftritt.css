@@ -1,0 +1,89 @@
+/* =====================================================================
+   WAGNER SEITEN – Auftritt: Wortmarke (Logo C), Hero mit Musterseiten, Schrift-Stimme, dunkler Kontaktblock.
+   Farben und Schriften kommen aus marke.css. Stil „Edel“ (22.10.2026): ruhig, viel Creme, ein Grün, ein Anthrazit-Block.
+   ===================================================================== */
+
+/* ---------- Schrift: Überschriften fett, die Stimme kursiv ---------- */
+h1, h2, h3 { font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+h1 { font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem); line-height: 1; }
+h2 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.5rem); }
+h3 { font-size: clamp(1.3rem, 1.2rem + .5vw, 1.65rem); line-height: 1.15; }
+h1 em, h2 em, .fuss-frage em, .wegweiser-titel em {
+  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; font-size: 1.07em; letter-spacing: -.01em; color: var(--farbe-akzent);
+}
+.kopfzeile h2 { max-width: 18ch; }
+.held-zeile, .werk-entscheidung, .etappe-nr {
+  font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400;
+}
+.etappe-nr { font-size: clamp(2.4rem, 1.9rem + 1.4vw, 3.2rem); }
+.werk-entscheidung { font-size: 1.3rem; }
+.werk-schild h3 { font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.8rem); }
+.oeffnen-gross, .reiter-name, .frage summary, .preis-wert, .wegweiser-titel { font-family: var(--schrift-display); font-weight: 700; }
+.reiter-name { font-size: clamp(1.15rem, 1.05rem + .5vw, 1.45rem); }
+.preis-wert { font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.7rem); }
+.frage summary { font-size: clamp(1.1rem, 1.05rem + .3vw, 1.3rem); font-weight: 600; }
+.fuss-frage { font-weight: 800; font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem); letter-spacing: -.03em; }
+.ueberzeile::before { background: var(--farbe-licht); }
+
+/* ---------- Wortmarke (Logo C) ----------
+   WAGNER fett, eine feine grüne Linie darunter, SEITEN kursiv eine Zeile tiefer und nach rechts; das Eselsohr (Logo-Grün) sitzt am Ende. */
+.wz { --wz: 1.45rem; display: inline-grid; font-size: var(--wz); line-height: 1; color: var(--farbe-text); }
+.wz-wagner { position: relative; font: 800 1em/1 var(--schrift-display); letter-spacing: -.03em; padding-block-end: .22em; }
+.wz-wagner::after { content: ""; position: absolute; inset: auto auto 0 0; inline-size: 1.9em; block-size: max(1.5px, .045em); background: var(--farbe-licht); }
+.wz-seiten { position: relative; justify-self: start; margin-inline-start: 1.05em; padding-inline-end: .45em; font: 400 .95em/1.05 var(--schrift-kursiv); font-style: italic; letter-spacing: -.01em; }
+.wz-seiten::after {
+  content: ""; position: absolute; inset: auto 0 .12em auto; inline-size: .26em; block-size: .26em; background: var(--farbe-licht);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.wz--gross { --wz: clamp(3.6rem, 1.6rem + 9vw, 7.5rem); }
+.marke { gap: 0; }
+.marke .wz { --wz: 1.2rem; }
+@media (max-width: 29.99rem) { .marke .wz { --wz: 1.1rem; } }
+.fuss-name { display: block; margin-block-end: .9rem; }
+.fuss-name .wz { --wz: clamp(2.2rem, 1.8rem + 1.4vw, 3rem); }
+
+/* ---------- Hero: Name und drei Musterseiten ---------- */
+.held { padding-block: clamp(2.5rem, 1.5rem + 4vw, 5.5rem) clamp(3.5rem, 2rem + 5vw, 7rem); overflow: hidden; }
+.held-raster { display: grid; gap: clamp(2.5rem, 2rem + 3vw, 4.5rem); align-items: center; }
+.held-in { display: grid; gap: 1.35rem; align-content: center; justify-items: start; min-width: 0; }
+.held h1 { max-width: none; margin-block: .35rem .1rem; }
+.held-claim { font: 600 clamp(1.25rem, 1.1rem + .8vw, 1.7rem)/1.25 var(--schrift-display); letter-spacing: -.01em; }
+.held-claim em { font-family: var(--schrift-kursiv); font-style: italic; font-weight: 400; font-size: 1.1em; color: var(--farbe-akzent); }
+.held-satz { max-width: 38ch; font-size: 1.125rem; color: var(--farbe-leise); }
+.held-aktionen { margin-block-start: .4rem; }
+.held-zeile { font-size: 1.3rem; color: var(--farbe-leise); }
+@media (max-width: 47.99rem) { .held-aktionen .knopf { flex: 1 1 100%; } }
+@media (min-width: 64rem) { .held-raster { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+
+.held-schau { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.6rem, .3rem + 1.6vw, 1.6rem); align-items: start; min-width: 0; }
+.schau { margin: 0; display: grid; gap: .7rem; min-width: 0; }
+.schau .rahmen--handy { --_r: clamp(.9rem, .5rem + 1.6vw, 1.6rem); padding: clamp(.2rem, .1rem + .4vw, .4rem); box-shadow: var(--schatten-karte); border-color: var(--farbe-linie); background: var(--farbe-flaeche-hoch); }
+.schau--2 { margin-block-start: clamp(1.5rem, 1rem + 3vw, 3.5rem); }
+.schau--3 { margin-block-start: clamp(.75rem, .5rem + 1.5vw, 1.75rem); }
+.schau figcaption { display: grid; gap: .1rem; font-size: .8125rem; line-height: 1.3; color: var(--farbe-leise); }
+.schau figcaption strong { font-weight: 700; font-size: .9375rem; color: var(--farbe-text); overflow-wrap: anywhere; }
+@media (max-width: 29.99rem) { .schau figcaption span { display: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .held-in > * { animation: held-text 1s var(--kurve-weich) backwards; }
+  .held-in > :nth-child(2) { animation-delay: .1s; } .held-in > :nth-child(3) { animation-delay: .2s; } .held-in > :nth-child(4) { animation-delay: .3s; } .held-in > :nth-child(5) { animation-delay: .4s; }
+  .schau { animation: held-text 1.1s var(--kurve-weich) backwards; }
+  .schau--1 { animation-delay: .25s; } .schau--2 { animation-delay: .4s; } .schau--3 { animation-delay: .55s; }
+}
+@keyframes held-text { from { opacity: 0; transform: translateY(14px); } }
+
+/* ---------- Leistungen und Ablauf ---------- */
+.plakette-nr { font: 600 .8125rem/1 var(--schrift-text); letter-spacing: .2em; color: var(--farbe-akzent); }
+.abschnitt { padding-block: calc(var(--abstand-abschnitt) * .7); }
+
+/* ---------- Kontakt: der einzige dunkle Block (Anthrazit) ----------
+   Die Farben werden im Block selbst umgestellt, alle Bausteine (Formular, Wege, Knöpfe) folgen den Variablen. */
+.kontakt {
+  --farbe-grund: var(--dunkel-grund); --farbe-flaeche: var(--dunkel-flaeche); --farbe-flaeche-hoch: var(--dunkel-flaeche);
+  --farbe-text: var(--dunkel-text); --farbe-leise: var(--dunkel-leise); --farbe-linie: var(--dunkel-linie);
+  --farbe-akzent: var(--dunkel-akzent); --farbe-auf-akzent: var(--dunkel-auf-akzent); --farbe-licht: var(--dunkel-akzent);
+  background: var(--farbe-grund); color: var(--farbe-text); padding-block: calc(var(--abstand-abschnitt) * .7);
+}
+.kontakt::before { display: none; }
+.kontakt .kontakt-form { background: var(--dunkel-flaeche); border: 1px solid var(--dunkel-linie); }
+.kontakt ::selection { background: var(--dunkel-akzent); color: var(--dunkel-auf-akzent); }
+.kontakt a:not(.knopf) { color: var(--dunkel-text); }
