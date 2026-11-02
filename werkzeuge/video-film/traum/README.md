@@ -90,6 +90,31 @@ python3 werkzeuge/video-film/traum/kette-pruefen.py letztes-bild C04.mp4 werkzeu
 python3 werkzeuge/video-film/traum/kette-pruefen.py kontaktbogen C04.mp4 werkzeuge/ausgabe/C04-bogen.jpg --n 16
 ```
 
+## Storyboard-Seite
+
+`storyboard.py` baut aus Zeitleiste und Dokumenten eine Arbeitsseite (HTML-Fragment ohne doctype/html/head/body, wird
+später als privates Artifact veröffentlicht): Kopf mit Logline, Dauer, Bildrate, Anzahl, Credit-Schätzung (Logik aus
+`zeitleiste.py`) und zuletzt notiertem Guthaben (`00-grundlagen.md`) · Spannungskurve als SVG · Ablauf je Szene in
+6 Schritten · Master-Briefing · Szenen als Arbeitskarten (starten offen, damit die Seite ohne Klick vollständig lesbar
+ist; „Alle schließen“ klappt sie beim Arbeiten ein) mit ChatGPT-Karte, Clips (Prompt, Kosten) und Tonereignissen,
+jeweils mit Kopierknopf. IDs sind stabil und aus den Roh-IDs abgeleitet (`szene-S03`, `clip-C05`,
+`kopieren-karte-S03`, `kopieren-master`); fallen zwei Roh-IDs bei der Bereinigung zusammen, bekommt die spätere `-2`.
+
+Eingaben im Filmordner: `01-drehbuch.md` (erste Überschrift, Absatz „Logline …“), `02-chatgpt-briefing.md`
+(`## Master-Briefing` und `### Karte S03`), `03-higgsfield.md` (`### Clip C05`, Einstellzeilen als Liste), `04-ton.md`
+(`### Ton T07`) – je Abschnitt genau ein ` ```text `-Block; Text davor (Absätze und Listenzeilen) erscheint als
+Hinweis, beim Clip stehen die Listenzeilen als Einstellungen. Tiefere Zwischenüberschriften (`#### Einstellungen`)
+bleiben im Abschnitt. Fehlende Dateien oder IDs stehen auf der Seite als „noch nicht geschrieben“ und am Ende auf
+stderr (Clips ohne Higgsfield und Stille brauchen keinen Prompt). Eine vorhandene, aber kaputte Datei steht als
+„nicht lesbar“ mit Grund auf der Seite. Ist ein Szeneneintrag kaputt, zeigt die Seite Karten, Clips und Ton als
+Ersatzliste ohne Szenenzuordnung; ein Clip, dessen Start-Keyframe auf eine unbekannte Szene zeigt, wird nach Zeit
+zugeordnet. Alle Texte werden escaped; nur **fett**, *kursiv* und `code` werden umgesetzt. Ruft nichts Bezahltes auf.
+
+```
+python3 werkzeuge/video-film/traum/storyboard.py                      # → kunden/elias-studio/werbefilm-traum/storyboard.html
+python3 werkzeuge/video-film/traum/storyboard.py --film <ordner> --aus <datei>
+```
+
 ## Selbsttests
 
 ```
@@ -98,4 +123,8 @@ python3 -m unittest discover -s werkzeuge/video-film/traum -p 'test_*.py'
 
 `test_zeitleiste.py`: gültige Beispiel-Zeitleiste und gezielt kaputte Varianten. `test_kette.py`: erzeugt kleine
 Testclips mit ffmpeg in einem temporären Ordner (fortlaufend, Keyframe-Kette, Standbild, Sprung, Farbstich, leicht
-entsättigt) und prüft die Urteile.
+entsättigt) und prüft die Urteile. `test_storyboard.py`: Parser der Blöcke, Seitenvertrag des
+Fragments (kein Gerüst, Tokens auf `:root`, Kontrast der Tokens ≥ 4,5:1 in beiden Themen, keine externen Skripte,
+Escape, eindeutige und stabile IDs, Umbruch langer Wörter) und Robustheit (kaputte Szene, falscher Szenenverweis,
+kein gültiges JSON, Diagramm im viewBox); `beispiel_film()` legt einen Beispiel-Film an. Sichtprüfung zusätzlich im
+Browser bei 400 px: `scrollWidth` des body = Fensterbreite.
