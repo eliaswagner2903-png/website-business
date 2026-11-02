@@ -72,6 +72,7 @@ Never promise rankings or AI recommendations.
 |---|---|---|
 | `youtube-lernagent` | sonnet | Build knowledge from YouTube videos (`wissen/youtube/`) |
 | `visual-higgsfield` | sonnet | Generate visuals and integrate them in a performance-friendly way |
+| `kontinuitaet` | sonnet | Continuity of an AI film: check sketches, keyframes and clips against script and timeline (twins, suit, website share, 9:16, rules, seams) |
 | `security-auditor` | sonnet | Defensively audit our own code |
 | `wartungsoffizier` | haiku | Weekly care, reports |
 | Fernspäherkommando (`uffz-schnoerkel`, `osg-snats`, `gefr-gummihals`, `osg-fritte`, `hptgefr-duden`, `fw-gezi-golem`) | sonnet | External reconnaissance of a URL |
@@ -99,6 +100,7 @@ Deploy agents only when it pays off (parallel subtasks, a separate context saves
 | `/youtube-lernen` | Learn from a video, playlist, channel or topic → `wissen/youtube/` |
 | `/youtube-wissen` | Search learned material, compare it, apply it to a task (never load everything) |
 | `/nachtrag` | File new material as a dated addendum in the paper status report (registers A–H), never replace anything existing |
+| `/filmszene` | One scene of an AI film from sketch to clip: ChatGPT card, continuity check, Higgsfield only after OK, seams, last frame |
 
 ## Working with the user
 

@@ -19,5 +19,10 @@ case "$f" in
     case "$f" in */index.md|*/README.md|*/VORLAGE.md) exit 0;; esac
     out=$(python3 werkzeuge/youtube.py pruefen "$f" 2>&1) || { echo "YouTube knowledge file has defects (format: wissen/youtube/VORLAGE.md):" >&2; echo "$out" | grep -E '^MANGEL|^   -' >&2; exit 2; }
     exit 0;;
+  */werbefilm-*/zeitleiste.json)
+    # Werbefilm: Zeitleiste prüfen (Vertrag: Exit 0 ok, Exit 1 mit „MANGEL: …“); fehlt das Prüfskript, still.
+    z=werkzeuge/video-film/traum/zeitleiste.py; [ -f "$z" ] || exit 0
+    out=$(python3 "$z" pruefen "$f" 2>&1) || { echo "Zeitleiste $f hat Mängel (Prüfung: $z pruefen):" >&2; echo "$out" | grep -E '^MANGEL' >&2 || echo "$out" | tail -20 >&2; exit 2; }
+    exit 0;;
 esac
 exit 0
