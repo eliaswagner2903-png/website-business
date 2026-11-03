@@ -45,3 +45,13 @@ Ich habe keinen Zugang zu einem Postfach-Anbieter und kann selbst kein Postfach 
 1. Domain festlegen und registrieren (dann `hallo@<domain>`).
 2. Postfach wählen: Weiterleitung per Cloudflare Email Routing (kostenlos, an die private Adresse) oder ein Postfach beim Anbieter (z. B. Proton, Zoho, IONOS).
 3. Zugang zum Postfach hat nur Elias; für das Kontaktformular braucht es nur die Zieladresse und den Resend-Schlüssel als Cloudflare-Secret (nie im Repo).
+
+## Werbefilm „Traum“ (03.11., A-124)
+Überblick und Ablauf: `kunden/elias-studio/werbefilm-traum/README.md`. Zu tun für Elias:
+- [ ] **Eigenes Material drehen** (Drehbuch §10, ca. 1 Stunde, blaue Stunde einige Tage nach Vollmond, kein Gesicht, nichts Privates im Bild).
+- [ ] **ChatGPT-Skizzen** nach `02-chatgpt-briefing.md` erstellen und mit `/filmszene` zurückschicken.
+- [ ] **Haken-Test** mit 3–5 Unbeteiligten (Drehbuch §6, gratis, vor dem ersten Credit).
+- [ ] **Freigabe je Tor** (0–6) und je bezahltem Higgsfield-/ElevenLabs-Auftrag.
+- [ ] **Credits ggf. nachkaufen** (Kurzfassungen oder aufgebrauchte Reserve) – erst nach Abnahme des Hauptfilms.
+- [ ] **Entscheidungen 1–7** treffen (Drehbuch §11), vor allem Quellen der Seiten (5) und Bildrate (4) vor Tor 3.
+- [ ] **Ablageort der Originale** nennen und Download der Higgsfield-Dateien freigeben.
