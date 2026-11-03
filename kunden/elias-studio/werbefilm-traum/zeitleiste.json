@@ -1,0 +1,1268 @@
+{
+ "titel": "Vor dem Aufwachen",
+ "fassung": "Hauptfilm 16:9, Drehbuch 1 (Nachbesserung 03.11.2026)",
+ "bildrate": 60,
+ "formate": [
+  "16:9 1920x1080",
+  "9:16 1080x1920 (eigener Film, siehe Drehbuch §8)"
+ ],
+ "dauer_s": 85.0,
+ "faktoren": {
+  "szenenlaenge": 0.75,
+  "website_anteil": 1.75,
+  "atem": 1.333
+ },
+ "ebenen": [
+  {
+   "id": "L00",
+   "name": "Mond",
+   "welt": "Mondoberfläche, Erde am Himmel",
+   "musterseite": null,
+   "website_anteil": 0.0,
+   "atem_pro_min": 12.0,
+   "farbe": "Grau, Schwarz, Gold des Visiers"
+  },
+  {
+   "id": "L01",
+   "name": "Werkstatt",
+   "welt": "Tischlerei bei Nacht",
+   "musterseite": "Eiche & Span",
+   "website_anteil": 0.02,
+   "atem_pro_min": 16.0,
+   "farbe": "Nachtblau, warmes Lampenlicht, Eiche"
+  },
+  {
+   "id": "L02",
+   "name": "Praxis",
+   "welt": "Physiotherapie am Morgen",
+   "musterseite": "Lotlinie",
+   "website_anteil": 0.035,
+   "atem_pro_min": 21.3,
+   "farbe": "Weiß, helles Holz, Messing"
+  },
+  {
+   "id": "L03",
+   "name": "Restaurant",
+   "welt": "Grillrestaurant nach Feierabend",
+   "musterseite": "ZEYTIN & GLUT",
+   "website_anteil": 0.06,
+   "atem_pro_min": 28.4,
+   "farbe": "Warmes Schwarz, Glut-Orange, Oliv"
+  },
+  {
+   "id": "L04",
+   "name": "Kopfhörer I",
+   "welt": "schwarze Leere, schwebender Kopfhörer",
+   "musterseite": "Hörwerk",
+   "website_anteil": 0.1,
+   "atem_pro_min": 37.9,
+   "farbe": "Schwarz, Anthrazit, Messing"
+  },
+  {
+   "id": "L05",
+   "name": "Kopfhörer II",
+   "welt": "Fahrt durch die geöffnete Ohrschale",
+   "musterseite": "Hörwerk",
+   "website_anteil": 0.18,
+   "atem_pro_min": 50.6,
+   "farbe": "Messing, Silber, Leder"
+  },
+  {
+   "id": "L06",
+   "name": "Werkstatt als Seite",
+   "welt": "Tischlerei wird Seite",
+   "musterseite": "Eiche & Span",
+   "website_anteil": 0.32,
+   "atem_pro_min": 67.4,
+   "farbe": "Nachtblau, Eiche"
+  },
+  {
+   "id": "L07",
+   "name": "Praxis als Seite",
+   "welt": "Praxis wird Seite",
+   "musterseite": "Lotlinie",
+   "website_anteil": 0.56,
+   "atem_pro_min": 89.9,
+   "farbe": "Weiß"
+  },
+  {
+   "id": "L08",
+   "name": "Restaurant als Seite",
+   "welt": "Restaurant wird Seite",
+   "musterseite": "ZEYTIN & GLUT",
+   "website_anteil": 1.0,
+   "atem_pro_min": 119.8,
+   "farbe": "Schwarz, Glut"
+  },
+  {
+   "id": "L09",
+   "name": "Durchflug I",
+   "welt": "Seitenschacht, Ebenen",
+   "musterseite": "Blütenwerk Lilou, Zeit für Zimt, Lindgrund",
+   "website_anteil": 1.0,
+   "atem_pro_min": 159.8,
+   "farbe": "Eigenfarben der Seiten"
+  },
+  {
+   "id": "L10",
+   "name": "Durchflug II",
+   "welt": "Seitenschacht, schneller",
+   "musterseite": "Pulsraum, Nachtfalter, Salon Ambra",
+   "website_anteil": 1.0,
+   "atem_pro_min": 213.0,
+   "farbe": "Eigenfarben, dunkler"
+  },
+  {
+   "id": "L11",
+   "name": "Durchflug III",
+   "welt": "Seitenschacht, Blitze",
+   "musterseite": "Pixelhain Arcade, Hörwerk, Zwischenbild",
+   "website_anteil": 1.0,
+   "atem_pro_min": 284.0,
+   "farbe": "Eigenfarben, dunkel"
+  },
+  {
+   "id": "L12",
+   "name": "Sog",
+   "welt": "Visier in Visier, unendlich viele Ebenen",
+   "musterseite": null,
+   "website_anteil": 1.0,
+   "atem_pro_min": 379.0,
+   "farbe": "Gold, Schwarz"
+  },
+  {
+   "id": "L13",
+   "name": "Grund",
+   "welt": "Schwarz, ein Cursor",
+   "musterseite": null,
+   "website_anteil": 1.0,
+   "atem_pro_min": 0.0,
+   "farbe": "Schwarz, Creme"
+  },
+  {
+   "id": "W",
+   "name": "Wirklichkeit",
+   "welt": "Zimmer im Morgengrauen (echtes Material)",
+   "musterseite": "Wagner Seiten",
+   "website_anteil": 0.08,
+   "atem_pro_min": 8.0,
+   "farbe": "Morgenblau, Lampengold"
+  },
+  {
+   "id": "K",
+   "name": "Karte",
+   "welt": "Schlusskarte",
+   "musterseite": "Wagner Seiten",
+   "website_anteil": 1.0,
+   "atem_pro_min": 8.0,
+   "farbe": "Creme #f4efe3, Grün #23703f, Anthrazit #26292d"
+  }
+ ],
+ "szenen": [
+  {
+   "id": "S01",
+   "ebene": "L00",
+   "start_s": 0.0,
+   "dauer_s": 15.0,
+   "titel": "Mond: Luft holen",
+   "bild": "Blick aus dem Helm, die Erde pendelt kaum merklich wie eine Lampe (das erste Unmögliche, ab Bild 1), die Raste reißt das Bild an, Beschlag schluckt die Erde; Fahrt durchs Glas nach außen; der Astronaut sitzt auf dem Felsen und atmet zweimal sichtbar durch (Rucksack hebt sich, Ventilfahne); ein Stern blinkt im Cursortakt; die Erde hängt an einer Leitung",
+   "kamera": "Innensicht, Fahrt durch das Visier nach außen, Rückfahrt mit Steigen, dann Neigung nach oben zur Erde",
+   "uebergang_heraus": "N1 Kippbild K04: leuchtende Kugel an dünner Leitung im Dunkel, weiße Punkte = Erde an der Leitung / Glaskugel der Werkstattlampe, Staub im Licht",
+   "website_spur": "verborgen: Stern blinkt 0,5 s an/aus (Cursortakt, Remotion)",
+   "ton": "scharfes Einatmen und Raste in Bild 1, Funk „…hört mich jemand?“, drei Atemzüge (0,0 / 5,3 / 10,0), Leitmotiv dünn wie aus einem Kopfhörer, Brummen der Erde",
+   "zweck": "Haken, Held, Sehnsucht; Elias' Mond-Auftrag (Astronaut atmet durch); erstes Unmögliches ab Bild 1 (pendelnde Erde), aufgelöst bei 12 s",
+   "spannung": 0.3,
+   "musik": 1.0,
+   "fremdheit": 1.0,
+   "start_bild": 0,
+   "bilder": 900
+  },
+  {
+   "id": "S02",
+   "ebene": "L01",
+   "start_s": 15.0,
+   "dauer_s": 11.25,
+   "titel": "Werkstatt: das makellose Maß",
+   "bild": "Unter der Lampe eine Tischlerei bei Nacht; er sitzt auf einem Eichenklotz in der Pose vom Felsen; Späne statt Mondstaub; er streicht über ein Brett – die Späne fliegen rückwärts ins Holz zurück; Bleistiftmaß „18 cm“; ein fertiges Stück wartet auf Abholung; das Senklot pendelt von selbst und kommt über seiner Hand zur Ruhe",
+   "kamera": "Fahrt auf die Lampe, unter ihr hindurch, in der Clipmitte Neigung hinab; Mitgehen auf Augenhöhe; Neigung entlang der Lotschnur nach unten",
+   "uebergang_heraus": "N2 Kippbild K06: senkrechte Schnur mit Messinglot in Bildmitte, oben dunkle Eiche, unten schon helles Weiß",
+   "website_spur": "2 %: Maß „18 cm“ aus der Aufnahme von Eiche & Span als Graphit aufs Brett gesetzt (erst wenn die Kamera steht); Maserung in geraden Zeilen wie ein Textblock; Staub steht 0,5 s im Raster",
+   "ton": "Lampenbrummen, Dachbalken knackt, Handschuh raspelt über Eiche, Lotschnur knarzt; Motiv mit Klöpfel auf Holz",
+   "zweck": "Zielgruppe Werkstatt; erste Traumwelt fast wirklich",
+   "spannung": 0.4,
+   "musik": 1.2,
+   "fremdheit": 1.2,
+   "start_bild": 900,
+   "bilder": 675
+  },
+  {
+   "id": "S03",
+   "ebene": "L02",
+   "start_s": 26.25,
+   "dauer_s": 8.433333,
+   "titel": "Praxis: ins Lot gebracht",
+   "bild": "Das Lot setzt auf die Dielen; heller Behandlungsraum am Morgen, die Liege frisch bezogen für den ersten Termin; er steht ganz im Raum; eine Linie zeichnet sich durch ihn, Messpunkte an Ohr, Schulter, Hüfte, Knie, Knöchel – vier klingen, der fünfte bleibt stumm; sein Schatten richtet sich vor ihm auf, bevor er selbst es tut; er geht, die Kamera gleitet tief über die hellen Dielen",
+   "kamera": "Neigung kommt unten an, Rückfahrt mit Steigen bis K06b (ganze Figur), dann seitliches Gleiten tief über den Boden",
+   "uebergang_heraus": "N3 Kippbild K07: Dielen schräg von oben, Licht von links, sein Schatten rechts; Holzton zwischen hell und dunkel",
+   "website_spur": "3,5 %: die echte Zeichen-Animation der Lotlinie-Strichfigur als Licht im Raum; Messpunkte in der Form der Seite; Lichtstreifen im Spaltenraster der Seite",
+   "ton": "kleiner heller Raum, Papierrolle, Lot setzt auf („tock“), vier gläserne Töne; Funk „…ganz ruhig. Atmen.“",
+   "zweck": "Zielgruppe Praxis; zärtlichster Moment: im Anzug steckt ein Mensch",
+   "spannung": 0.6,
+   "musik": 1.5,
+   "fremdheit": 1.5,
+   "start_bild": 1575,
+   "bilder": 506
+  },
+  {
+   "id": "S04",
+   "ebene": "L03",
+   "start_s": 34.683333,
+   "dauer_s": 6.333333,
+   "titel": "Restaurant: das Glas am Visier",
+   "bild": "Die Dielen werden dunkel, Glut von links; Grillrestaurant nach Feierabend, Stühle hochgestellt; er sitzt an einem runden Tisch, weiße Teller im Kreis; er hebt ein Teeglas – es klingt gegen das Goldvisier, er kann nicht trinken; ein Fokusrahmen springt von Teller zu Teller; die Teller heben ab und kreisen um ihn wie Monde",
+   "kamera": "Gleiten setzt sich fort, Steigen in die Schräge; ab ≈ 37,0 s beginnt eine langsame Kreisfahrt um den Tisch, die ohne Halt durch K08 läuft und auf Tellerhöhe schneller wird",
+   "uebergang_heraus": "N4 Kippbild K09: gekippter Tellerrand als dünne goldene Ellipse im Fast-Schwarz = Messingring einer Ohrschale",
+   "website_spur": "6 %: Fokusrahmen (Tastaturbedienung) springt dreimal, Dampf zieht einen genauen Kreis wie die runden Bildrahmen der Seite",
+   "ton": "Glut knistert, Abzug brummt, „Ting“ des Glases am Visier, drei Fokus-Klicks, Teller klingen in den Tönen des Motivs; Funk „…wer spielt da?“",
+   "zweck": "Zielgruppe Restaurant; Sehnsucht wird körperlich; Physik bricht offen",
+   "spannung": 0.8,
+   "musik": 1.8,
+   "fremdheit": 1.8,
+   "start_bild": 2081,
+   "bilder": 380
+  },
+  {
+   "id": "S05",
+   "ebene": "L04",
+   "start_s": 41.016667,
+   "dauer_s": 4.75,
+   "titel": "Kopfhörer: die Quelle",
+   "bild": "Aus der Ellipse wird der Messingring einer Ohrschale; ein Kopfhörer schwebt in schwarzer Leere, ein Licht von oben links; die Melodie kommt aus ihm; sein Handschuh drückt das Messingschild „Aufbau ansehen“ (44,10); die vordere Ohrschale gleitet bis 46,52 entlang ihrer Achse auseinander; auf der Stirnfläche des Messingrings, der zur Kamera gleitet, die Gravur „Hör, was bleibt.“",
+   "kamera": "Kreisfahrt läuft aus in Dreiviertelansicht, Über-die-Schulter, sehr langsame Annäherung, die sich zur Achse hin dreht",
+   "uebergang_heraus": "innerhalb der Einstellung (eine Achse, ein Licht); weiter in S06",
+   "website_spur": "10 %: Gravur „Aufbau ansehen“ (lesbar ab 43,0) und „Hör, was bleibt.“ (lesbar 45,0–46,4) aus der Hörwerk-Seite, Haarlinien ohne Werte; ab 42,50 bis 60,00 Kennzeichen „Musterseite · Gezeigt: Musterseiten von Wagner Seiten“ (Remotion)",
+   "ton": "trockene Leere; Motiv mono und schmal aus dem Objekt; satter Klick des Schildes, Atem angehalten; fünf Löseklicks, mit jedem öffnet sich die Musik eine Schicht (bis 46,5)",
+   "zweck": "Wendepunkt in der Filmmitte; Entscheidung des Helden; ab hier ist die Simulation unübersehbar",
+   "spannung": 1.0,
+   "musik": 2.1,
+   "fremdheit": 2.1,
+   "start_bild": 2461,
+   "bilder": 285
+  },
+  {
+   "id": "S06",
+   "ebene": "L05",
+   "start_s": 45.766667,
+   "dauer_s": 3.566667,
+   "titel": "Kopfhörer: aufsetzen",
+   "bild": "Die Teile stehen in der Schwebe; ab 46,52 fährt die Kamera entlang der Achse hinein: knapp über der Deckelscheibe hinweg, durch den hohlen Messingring, durch das leere Gehäuse, dessen Innenwand das Raster der Seite als feine Rillen trägt; Ring und Deckel schließen sich hinter ihr; vor ihr die Staubkappe des Treibers",
+   "kamera": "bis 46,52 langsame Annäherung (Ende C10), dann Fahrt entlang der Achse (C11, KI-Clip), gleichmäßig, ohne Halt",
+   "uebergang_heraus": "N5 Kippbild K12: Staubkappe mit feinen konzentrischen Ringen = Jahresringe im Hirnholz einer Eiche",
+   "website_spur": "18 %: Gravur „Hör, was bleibt.“ bis 46,4 lesbar; Innenwand mit dem Spaltenraster der Seite als Rillen (nicht lesbar); Kennzeichen „Musterseite“ steht",
+   "ton": "Musik wird bei 48,40 von mono zu raumbreit, als Ring und Deckel sich hinter uns schließen",
+   "zweck": "Klammer: aufsetzen = tiefer träumen; Tor in die Seitenwelt",
+   "spannung": 1.3,
+   "musik": 2.6,
+   "fremdheit": 2.6,
+   "start_bild": 2746,
+   "bilder": 214
+  },
+  {
+   "id": "S07",
+   "ebene": "L06",
+   "start_s": 49.333333,
+   "dauer_s": 2.666667,
+   "titel": "Werkstatt als Seite",
+   "bild": "Durch die Mitte der Jahresringe hindurch: die Tischlerei im selben Bildausschnitt wie in S02 – aber flach wie ein Foto (K13); sie löst sich in Ebenen, die in die Tiefe auseinanderziehen, darunter die echte Seite Eiche & Span (K13b, lesbar 50,83–52,00): „Maßarbeit aus Holz.“, das Maß an seinem Platz",
+   "kamera": "Durchflug durch die Ringe (Remotion, 1,0 s), Ebenen ziehen auseinander (0,5 s), dann Browser-Kamera: zwei Rasten (51,20 / 51,60)",
+   "uebergang_heraus": "Durchflug durch die Ebenen der Seite in die nächste",
+   "website_spur": "32 %: echte Aufnahme Eiche & Span als Ebenen in der Tiefe der Werkstatt, Kennzeichen „Musterseite“",
+   "ton": "zwei Rasten, Seitenklang; Motiv mit Klöpfel, schneller",
+   "zweck": "rückwirkendes Aha: die Welten waren Seiten",
+   "spannung": 1.8,
+   "musik": 3.1,
+   "fremdheit": 3.1,
+   "start_bild": 2960,
+   "bilder": 160
+  },
+  {
+   "id": "S08",
+   "ebene": "L07",
+   "start_s": 52.0,
+   "dauer_s": 2.0,
+   "titel": "Praxis als Seite",
+   "bild": "Die Ebenen der Tischlerei fliegen vorbei; dahinter die Lotlinie-Seite als Wand des Behandlungsraums: „Physiotherapie, die zuerst hinschaut.“, die Strichfigur zeichnet sich 52,20–54,00 in Originaltempo – dieselbe Linie wie im Raum",
+   "kamera": "Durchflug, vier Rasten bis 52,40 (Einrasten mit Nachfedern), dann steht die Seite, während die Figur zeichnet",
+   "uebergang_heraus": "Durchflug durch die Ebenen",
+   "website_spur": "56 %: echte Aufnahme Lotlinie (aus dem Artifact, lot-zeichnen 1,8 s), Kennzeichen „Musterseite“",
+   "ton": "vier Rasten, gläserner Ton",
+   "zweck": "Rückruf Praxis",
+   "spannung": 2.4,
+   "musik": 3.8,
+   "fremdheit": 3.8,
+   "start_bild": 3120,
+   "bilder": 120
+  },
+  {
+   "id": "S09",
+   "ebene": "L08",
+   "start_s": 54.0,
+   "dauer_s": 1.5,
+   "titel": "Restaurant als Seite",
+   "bild": "ZEYTIN & GLUT: die Speisefotos in runden Rahmen – der Tellerkreis; der Fokusrahmen springt weiter",
+   "kamera": "Browser-Kamera: acht Rasten",
+   "uebergang_heraus": "Durchflug in den Seitenschacht",
+   "website_spur": "100 %: echte Aufnahme ZEYTIN & GLUT, Kennzeichen „Musterseite“",
+   "ton": "acht Rasten, Glutknistern als Klickrhythmus",
+   "zweck": "Rückruf Restaurant; alle drei Zielgruppen als Seiten",
+   "spannung": 3.2,
+   "musik": 4.6,
+   "fremdheit": 4.6,
+   "start_bild": 3240,
+   "bilder": 90
+  },
+  {
+   "id": "S10",
+   "ebene": "L09",
+   "start_s": 55.5,
+   "dauer_s": 1.133333,
+   "titel": "Durchflug I",
+   "bild": "Seitenschacht in den Eigenfarben, nach gemessener Helligkeit geordnet (vorläufig Blütenwerk Lilou, Zeit für Zimt, Lindgrund); der Astronaut klein in jeder Ebene, fallend (Freisteller aus eigenem Fall-Standbild)",
+   "kamera": "Durchflug durch Ebenen, Dauerscroll",
+   "uebergang_heraus": "Durchflug",
+   "website_spur": "Musterseiten als Ebenen, je ≥ 8 Bilder; Kennzeichen „Musterseite“ in der Bildecke (lesbar, steht seit 42,50)",
+   "ton": "Dauerscroll, Shepard-Anstieg, Atem wird Fallwind",
+   "zweck": "Steigerung, Vielfalt",
+   "spannung": 4.2,
+   "musik": 5.6,
+   "fremdheit": 5.6,
+   "start_bild": 3330,
+   "bilder": 68
+  },
+  {
+   "id": "S11",
+   "ebene": "L10",
+   "start_s": 56.633333,
+   "dauer_s": 0.85,
+   "titel": "Durchflug II",
+   "bild": "Pulsraum, Nachtfalter, Salon Ambra – schneller, nach Helligkeit geordnet",
+   "kamera": "Durchflug, schneller",
+   "uebergang_heraus": "Durchflug",
+   "website_spur": "Musterseiten als Ebenen, je ≥ 8 Bilder; Kennzeichen „Musterseite“ in der Bildecke (lesbar, steht seit 42,50)",
+   "ton": "Fallwind, Klickdichte",
+   "zweck": "Steigerung",
+   "spannung": 5.6,
+   "musik": 6.7,
+   "fremdheit": 6.7,
+   "start_bild": 3398,
+   "bilder": 51
+  },
+  {
+   "id": "S12",
+   "ebene": "L11",
+   "start_s": 57.483333,
+   "dauer_s": 0.633333,
+   "titel": "Durchflug III",
+   "bild": "Blitze: Pixelhain Arcade, Hörwerk, Zwischenbild (vorläufig, nach Helligkeit), der Astronaut klein, fallend",
+   "kamera": "Durchflug, am schnellsten",
+   "uebergang_heraus": "Sog",
+   "website_spur": "Musterseiten als Ebenen, je ≥ 8 Bilder; Kennzeichen „Musterseite“ in der Bildecke (lesbar, steht seit 42,50)",
+   "ton": "Fallwind, Dichte",
+   "zweck": "Steigerung bis zum Kollaps",
+   "spannung": 7.5,
+   "musik": 8.1,
+   "fremdheit": 8.1,
+   "start_bild": 3449,
+   "bilder": 38
+  },
+  {
+   "id": "S13",
+   "ebene": "L12",
+   "start_s": 58.116667,
+   "dauer_s": 1.883333,
+   "titel": "Sog: Visier in Visier",
+   "bild": "In jeder Seite steht er klein, sein Visier (K16, leere Spiegelfläche) spiegelt die nächste Seite, in der wieder ein Visier spiegelt – eingesetzt in Remotion; alles wird dunkler und läuft auf einen Punkt zu",
+   "kamera": "eine beschleunigte Fahrt in die Mitte",
+   "uebergang_heraus": "Punkt → Cursor",
+   "website_spur": "100 %: Spiegelungen echter Seiten (Remotion in der markierten Visierfläche), Kennzeichen bis 60,00",
+   "ton": "Dichte steigt weiter bis zum Abriss",
+   "zweck": "der Fall wird unendlich",
+   "spannung": 10.0,
+   "musik": 9.8,
+   "fremdheit": 9.8,
+   "start_bild": 3487,
+   "bilder": 113
+  },
+  {
+   "id": "S14",
+   "ebene": "L13",
+   "start_s": 60.0,
+   "dauer_s": 2.4,
+   "titel": "Der Cursor",
+   "bild": "Schwarz. Ein schmaler cremefarbener Cursor blinkt im Takt des Sterns. Kein Text. Bei 61,4 s ein goldener Saum am Rand: es ist das Innere des Visiers",
+   "kamera": "Stillstand, dann winzige Rückfahrt",
+   "uebergang_heraus": "Cursor wird zum Stern hinter dem Glas",
+   "website_spur": "eine leere Seite",
+   "ton": "harter Tonschnitt auf digitale Stille; ab 61,4 Raumton und Amsel, kaum hörbar",
+   "zweck": "Höhepunkt: alles stürzt in einen Punkt",
+   "spannung": 10.0,
+   "musik": 0.0,
+   "fremdheit": 10.0,
+   "start_bild": 3600,
+   "bilder": 144
+  },
+  {
+   "id": "S15",
+   "ebene": "W",
+   "start_s": 62.4,
+   "dauer_s": 3.0,
+   "titel": "Der Helm hebt sich",
+   "bild": "Innensicht wie in Bild 1; Klick des Verschlusses; der dunkle Helmrand wischt nach oben aus dem Bild, dahinter Morgenblau",
+   "kamera": "Innensicht; der Helm steht bis ≈ 63,5 s, dann hebt er sich mit weichem Anlauf und erreicht bei K19 0,6 Bildhöhen je Sekunde",
+   "uebergang_heraus": "Wischschnitt in der Verdeckung (kein Morph, offen benannt), Kippbild K19: dunkle ∩-Form im oberen Drittel = Unterkante des Helms / Bügel mit Polstern; Farbe und Korn beider Quellen angeglichen",
+   "website_spur": "–",
+   "ton": "Helmverschluss-Klick (lautestes Einzelgeräusch)",
+   "zweck": "Erwachen ohne Schnitt; kein Kopf, kein Gesicht",
+   "spannung": 6.0,
+   "musik": 1.0,
+   "fremdheit": 5.0,
+   "start_bild": 3744,
+   "bilder": 180
+  },
+  {
+   "id": "S16",
+   "ebene": "W",
+   "start_s": 65.4,
+   "dauer_s": 5.0,
+   "titel": "Erwachen: Kopfhörer ab",
+   "bild": "Echte Hände heben echte Kopfhörer ab, das Polster wischt in derselben Richtung nach oben; Blick aus den Augen ins Zimmer im Morgengrauen; langes Ausatmen; der Kopfhörer wird auf den Tisch gelegt",
+   "kamera": "echte Handkamera auf Augenhöhe („die Kamera trägt den Kopfhörer“)",
+   "uebergang_heraus": "ruhiges Weiterführen in S17",
+   "website_spur": "–",
+   "ton": "Funkfilter fällt weg, Klang öffnet sich in den Raum, Motiv blechern aus den Ohrschalen, langes Ausatmen, Amsel, Bügelklick",
+   "zweck": "Erlösung; Helm ab = Kopfhörer ab = zu Hause",
+   "spannung": 3.0,
+   "musik": 1.5,
+   "fremdheit": 0.5,
+   "start_bild": 3924,
+   "bilder": 300
+  },
+  {
+   "id": "S17",
+   "ebene": "W",
+   "start_s": 70.4,
+   "dauer_s": 7.0,
+   "titel": "Zimmer: alles, woraus er geträumt hat",
+   "bild": "Die runde Lampe am Kabel brennt noch, das kalte Teeglas, Holzdielen, der Mond im Fenster, der Laptop mit einer ruhigen Seite, ein Cursor blinkt im Takt des Sterns; die Hand liegt schon an der Maus, bevor die Kamera zum Laptop schwenkt; sie dreht das Mausrad eine Raste – dasselbe Klicken wie in Bild 1; Klick, der Portal-Kreis öffnet sich",
+   "kamera": "ruhige Handkamera: Lampe, langsamer Schwenk zum Fenster (72,0–73,8), weiter zum Laptop (74,0–75,6), endet frontal und ruhig vor dem Bildschirm",
+   "uebergang_heraus": "Portal-Kreis der eigenen Seite (0,75 s) auf dem Bildschirm, eingesetzt auf die vier Ecken; bewusste Ausnahme (Kreis statt Kamerafahrt), Entscheidung 7",
+   "website_spur": "≈ 8 %: die echte eigene Seite auf dem Laptop",
+   "ton": "Stimme ohne Filter „Jeder Betrieb ist eine eigene Welt. Seine Website ist die Tür hinein.“ (71,40), Klavier vier Töne und der fünfte (73,40), Raste (76,00), Klick (76,65)",
+   "zweck": "Traumrückstände; Ruhe als Markenversprechen",
+   "spannung": 2.0,
+   "musik": 2.0,
+   "fremdheit": 0.5,
+   "start_bild": 4224,
+   "bilder": 420
+  },
+  {
+   "id": "S18",
+   "ebene": "K",
+   "start_s": 77.4,
+   "dauer_s": 6.0,
+   "titel": "Schlusskarte",
+   "bild": "Creme. „Jede Welt beginnt mit einer Seite.“ · Wortmarke Wagner Seiten · Websites für Praxen, Werkstätten und Restaurants · Gebaut. Geprüft. Gepflegt. · Knopf „Projekt besprechen“ · Gezeigt: Musterseiten von Wagner Seiten",
+   "kamera": "steht, gesetzt",
+   "uebergang_heraus": "steht weiter (Ausklang)",
+   "website_spur": "die eigene Marke",
+   "ton": "Stimme „Jede Welt beginnt mit einer Seite.“ (77,60), drei Klaviertöne (81,00), weicher Klick am Knopf (82,40)",
+   "zweck": "Absender, eine Handlungsaufforderung",
+   "spannung": 1.5,
+   "musik": 1.5,
+   "fremdheit": 0.0,
+   "start_bild": 4644,
+   "bilder": 360
+  },
+  {
+   "id": "S19",
+   "ebene": "K",
+   "start_s": 83.4,
+   "dauer_s": 1.6,
+   "titel": "Ausklang: die Amsel",
+   "bild": "Die Karte steht",
+   "kamera": "steht",
+   "uebergang_heraus": "Ende",
+   "website_spur": "–",
+   "ton": "die Amsel pfeift die ersten Töne des Motivs",
+   "zweck": "einziger Wink, Grund für das zweite Ansehen",
+   "spannung": 1.0,
+   "musik": 0.5,
+   "fremdheit": 0.0,
+   "start_bild": 5004,
+   "bilder": 96
+  }
+ ],
+ "keyframes": [
+  {
+   "id": "K01",
+   "szene": "S01",
+   "zeit_s": 0.0,
+   "inhalt": "Bild 1: Blick aus dem Helm, Erde klein über dem Mondhorizont, Helmrand, goldener Saum, Beschlag von unten",
+   "zwilling_von": null
+  },
+  {
+   "id": "K02",
+   "szene": "S01",
+   "zeit_s": 5.0,
+   "inhalt": "Außen: Goldvisier nah, die Erde an derselben Stelle gespiegelt (Kamera ist durchs Glas nach außen gefahren)",
+   "zwilling_von": "K01"
+  },
+  {
+   "id": "K03",
+   "szene": "S01",
+   "zeit_s": 10.0,
+   "inhalt": "Astronaut sitzt im Profil auf dem Felsen, Kopf leicht gesenkt (er lauscht), Erde rechts oben, Brustkorb mitten im Einatmen (Tonwert v3_51.0s)",
+   "zwilling_von": null
+  },
+  {
+   "id": "K04",
+   "szene": "S02",
+   "zeit_s": 15.0,
+   "inhalt": "N1 Kippbild: leuchtende blau-weiße Kugel an dünner schwarzer Leitung vom oberen Rand, weiße Punkte ringsum = Erde / Glaskugel einer Pendelleuchte, Staub im Licht",
+   "zwilling_von": null
+  },
+  {
+   "id": "K05",
+   "szene": "S02",
+   "zeit_s": 20.0,
+   "inhalt": "Tischlerei bei Nacht, Totale unter der Lampe; er sitzt auf einem Eichenklotz in der Pose von K03, Licht von rechts oben",
+   "zwilling_von": "K03"
+  },
+  {
+   "id": "K06",
+   "szene": "S03",
+   "zeit_s": 26.25,
+   "inhalt": "N2 Kippbild: Schnur mit Messinglot in der Bildmitte, die Handfläche des Handschuhs knapp darunter, oben dunkle Eiche, unten helles Weiß, unten am Rand die Stiefelspitze",
+   "zwilling_von": null
+  },
+  {
+   "id": "K06b",
+   "szene": "S03",
+   "zeit_s": 30.5,
+   "inhalt": "Praxis: Astronaut ganz im Raum, aufrecht, Linie senkrecht durch ihn, Licht von links, helle Dielen (Bearbeitung von K05 für Pose und Anzug, Raum neu)",
+   "zwilling_von": null
+  },
+  {
+   "id": "K07",
+   "szene": "S04",
+   "zeit_s": 34.683333,
+   "inhalt": "N3 Kippbild: Dielen schräg von oben, Licht von links, Schatten rechts, Holzton zwischen hell und dunkel",
+   "zwilling_von": null
+  },
+  {
+   "id": "K08",
+   "szene": "S04",
+   "zeit_s": 37.85,
+   "inhalt": "Runder Tisch, Teller im Kreis, er hält das Teeglas am Visier, Glut hinten links; Kamera schon in leichter Kreisbewegung (Bewegungsrichtung nach rechts)",
+   "zwilling_von": null
+  },
+  {
+   "id": "K09",
+   "szene": "S05",
+   "zeit_s": 41.016667,
+   "inhalt": "N4 Kippbild: dünne goldene Ellipse im Fast-Schwarz = gekippter Tellerrand / Messingring der Ohrschale",
+   "zwilling_von": "K10"
+  },
+  {
+   "id": "K10",
+   "szene": "S05",
+   "zeit_s": 44.016667,
+   "inhalt": "Meisterbild: Kopfhörer geschlossen in Dreiviertelansicht, schwarze Leere, Licht oben links, Fingerspitze am Messingschild",
+   "zwilling_von": null
+  },
+  {
+   "id": "K11",
+   "szene": "S06",
+   "zeit_s": 46.516667,
+   "inhalt": "Bearbeitung von K10: vordere Ohrschale entlang ihrer Achse geöffnet (Deckel, Ring, Treiber, Polster, Stecker), engerer Ausschnitt; Ring und Gehäuse sichtbar hohl, Innenflächen leer und matt, Deckelscheibe unterhalb der Fahrtlinie",
+   "zwilling_von": "K10"
+  },
+  {
+   "id": "K12",
+   "szene": "S07",
+   "zeit_s": 49.333333,
+   "inhalt": "N5 Kippbild: Staubkappe des Treibers von vorn, nah, feine konzentrische Ringe = Jahresringe im Hirnholz einer Eiche (Bearbeitung eines Ausschnitts von K11)",
+   "zwilling_von": "K11"
+  },
+  {
+   "id": "K13",
+   "szene": "S07",
+   "zeit_s": 50.333333,
+   "inhalt": "Tischlerei im Ausschnitt von K05, als flaches Standbild (gratis, keine Erzeugung, keine eingesetzte Seite)",
+   "zwilling_von": "K05"
+  },
+  {
+   "id": "K13b",
+   "szene": "S07",
+   "zeit_s": 50.833333,
+   "inhalt": "Echte Seite Eiche & Span (Aufnahme): „Maßarbeit aus Holz.“, Maß „18 cm“, als Ebenen in der Tiefe; Kennzeichen „Musterseite“",
+   "zwilling_von": null
+  },
+  {
+   "id": "K14",
+   "szene": "S08",
+   "zeit_s": 54.0,
+   "inhalt": "Echte Seite Lotlinie, Strichfigur gezeichnet, Kennzeichen „Musterseite“",
+   "zwilling_von": null
+  },
+  {
+   "id": "K15",
+   "szene": "S09",
+   "zeit_s": 55.5,
+   "inhalt": "Echte Seite ZEYTIN & GLUT, runde Speisefotos, Kennzeichen „Musterseite“",
+   "zwilling_von": null
+  },
+  {
+   "id": "K16",
+   "szene": "S13",
+   "zeit_s": 58.116667,
+   "inhalt": "Goldvisier formatfüllend, Bearbeitung von K02, Spiegelfläche leer und neutral (gleichmäßiges Grau, Maske), Seiten setzt erst Remotion ein",
+   "zwilling_von": "K02"
+  },
+  {
+   "id": "K17",
+   "szene": "S14",
+   "zeit_s": 60.0,
+   "inhalt": "Schwarz, ein cremefarbener Cursor in der Mitte",
+   "zwilling_von": null
+  },
+  {
+   "id": "K18",
+   "szene": "S15",
+   "zeit_s": 62.4,
+   "inhalt": "Innensicht des Helms wie K01, durch das Glas Schwarz, in der Mitte ein winziger Lichtpunkt (der Cursor als Stern)",
+   "zwilling_von": "K01"
+  },
+  {
+   "id": "K19",
+   "szene": "S16",
+   "zeit_s": 65.4,
+   "inhalt": "Kippbild: dunkle ∩-Form im oberen Drittel, an beiden Rändern bis zur Bildmitte herabgezogen = Unterkante des Helms von innen / Bügel mit Polstern, darunter Morgenblau",
+   "zwilling_von": "K18"
+  },
+  {
+   "id": "K20",
+   "szene": "S17",
+   "zeit_s": 70.4,
+   "inhalt": "Echtes Zimmer im Morgengrauen: Tisch, Kopfhörer abgelegt, Lampe am Kabel, Fenster mit Mond, Laptop",
+   "zwilling_von": null
+  },
+  {
+   "id": "K21",
+   "szene": "S17",
+   "zeit_s": 76.65,
+   "inhalt": "Laptop frontal, Bildschirm füllt ≥ 60 % des Bildes, die eigene Seite (live), Hand an der Maus unten im Bild, Klickpunkt",
+   "zwilling_von": null
+  },
+  {
+   "id": "K22",
+   "szene": "S18",
+   "zeit_s": 77.4,
+   "inhalt": "Schlusskarte Creme, leer",
+   "zwilling_von": null
+  },
+  {
+   "id": "K23",
+   "szene": "S19",
+   "zeit_s": 83.4,
+   "inhalt": "Schlusskarte vollständig",
+   "zwilling_von": null
+  },
+  {
+   "id": "K24",
+   "szene": "S19",
+   "zeit_s": 85.0,
+   "inhalt": "Ende",
+   "zwilling_von": null
+  }
+ ],
+ "clips": [
+  {
+   "id": "C01",
+   "von": "K01",
+   "nach": "K02",
+   "dauer_s": 5,
+   "art": "welt",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Innensicht, Raste in Bild 1, dann Fahrt durch das Glas nach außen",
+   "morph": "Durchblick wird Spiegelung: die Erde bleibt an derselben Stelle",
+   "modus": "pro"
+  },
+  {
+   "id": "C02",
+   "von": "K02",
+   "nach": "K03",
+   "dauer_s": 5,
+   "art": "welt",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Rückfahrt mit leichtem Steigen bis zur Totale auf dem Felsen",
+   "morph": null,
+   "modus": "pro"
+  },
+  {
+   "id": "C03",
+   "von": "K03",
+   "nach": "K04",
+   "dauer_s": 5,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Steigen und Neigen nach oben, der Blick folgt ihm zur Erde",
+   "morph": "Erde → Kugel an der Leitung",
+   "modus": "pro"
+  },
+  {
+   "id": "C04",
+   "von": "K04",
+   "nach": "K05",
+   "dauer_s": 5,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Fahrt auf die Lampe, unter ihr hindurch, Neigung hinab in der Clipmitte",
+   "morph": "Leitungskugel → Pendelleuchte; Felsen → Eichenklotz; Mondstaub → Späne",
+   "modus": "pro"
+  },
+  {
+   "id": "C05",
+   "von": "K05",
+   "nach": "K06",
+   "dauer_s": 6,
+   "art": "welt",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Mitgehen auf Augenhöhe, dann Neigung entlang der Schnur nach unten",
+   "morph": "Eiche wird von unten weiß",
+   "modus": "pro"
+  },
+  {
+   "id": "C06a",
+   "von": "K06",
+   "nach": "K06b",
+   "dauer_s": 4,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Neigung kommt an, das Lot setzt auf, Rückfahrt mit Steigen bis zur ganzen Figur",
+   "morph": "Schnur → gezeichnete Linie, Eiche → weiße Praxis",
+   "modus": "pro"
+  },
+  {
+   "id": "C06b",
+   "von": "K06b",
+   "nach": "K07",
+   "dauer_s": 4,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "fast stehend, dann seitliches Gleiten tief über die Dielen",
+   "morph": "Praxis-Dielen → Kippbild K07",
+   "modus": "pro"
+  },
+  {
+   "id": "C07",
+   "von": "K07",
+   "nach": "K08",
+   "dauer_s": 3,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Gleiten setzt sich fort, Steigen in die Schräge zum Tisch, ab ≈ 37,0 s langsamer Beginn der Kreisfahrt, ohne Halt durch K08",
+   "morph": "Dielen werden dunkle Dielen, Licht bleibt links",
+   "modus": "pro"
+  },
+  {
+   "id": "C08",
+   "von": "K08",
+   "nach": "K09",
+   "dauer_s": 3,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Kreisfahrt läuft durch K08 weiter und wird auf Tellerhöhe schneller",
+   "morph": "Teller heben ab, Rand kippt zur goldenen Ellipse",
+   "modus": "pro"
+  },
+  {
+   "id": "C09",
+   "von": "K09",
+   "nach": "K10",
+   "dauer_s": 3,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Kreisfahrt läuft aus in Dreiviertelansicht",
+   "morph": "Ellipse → Messingring der Ohrschale; Glut → Leere",
+   "modus": "pro"
+  },
+  {
+   "id": "C10",
+   "von": "K10",
+   "nach": "K11",
+   "dauer_s": 3,
+   "art": "welt",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "sehr langsame Annäherung, die sich zur Achse hin dreht, kein Halt",
+   "morph": "Zerlegung der vorderen Ohrschale entlang ihrer Achse",
+   "modus": "pro"
+  },
+  {
+   "id": "C11",
+   "von": "K11",
+   "nach": "K12",
+   "dauer_s": 3,
+   "art": "welt",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Fahrt entlang der Achse knapp über der Deckelscheibe, durch den hohlen Ring und das leere Gehäuse bis vor die Staubkappe; Ring und Deckel schließen sich hinter der Kamera",
+   "morph": "Außenansicht → Innenraum der Ohrschale → Staubkappe (KI-Clip, nicht aus einem Standbild)",
+   "modus": "pro"
+  },
+  {
+   "id": "C12",
+   "von": "K12",
+   "nach": "K13",
+   "dauer_s": 1.0,
+   "art": "grafik",
+   "quelle": "remotion",
+   "modell": null,
+   "kamera": "Durchflug durch die Mitte der Ringe (K12 skaliert), K13 wächst aus der Mitte, Abbremsen in den alten Ausschnitt",
+   "morph": "Jahresringe → Tischlerei als flaches Bild"
+  },
+  {
+   "id": "C13",
+   "von": "K13",
+   "nach": "K13b",
+   "dauer_s": 0.5,
+   "art": "montage",
+   "quelle": "website-aufnahme",
+   "modell": null,
+   "kamera": "Ebenen ziehen in die Tiefe auseinander",
+   "morph": "flaches Tischlerei-Bild → Ebenen → Seite Eiche & Span"
+  },
+  {
+   "id": "C13b",
+   "von": "K13b",
+   "nach": "K14",
+   "dauer_s": 3.166667,
+   "art": "montage",
+   "quelle": "website-aufnahme",
+   "modell": null,
+   "kamera": "zwei Rasten auf Eiche & Span, Durchflug durch ihre Ebenen, vier Rasten auf Lotlinie, dann steht die Seite, die Figur zeichnet",
+   "morph": "Eiche & Span → Lotlinie"
+  },
+  {
+   "id": "C14",
+   "von": "K14",
+   "nach": "K15",
+   "dauer_s": 1.5,
+   "art": "montage",
+   "quelle": "website-aufnahme",
+   "modell": null,
+   "kamera": "Rasten ×8, Durchflug",
+   "morph": "Lotlinie → ZEYTIN & GLUT"
+  },
+  {
+   "id": "C15",
+   "von": "K15",
+   "nach": "K16",
+   "dauer_s": 2.616667,
+   "art": "montage",
+   "quelle": "website-aufnahme",
+   "modell": null,
+   "kamera": "Durchflug durch den Seitenschacht, beschleunigt",
+   "morph": "Musterseiten in Eigenfarben, Freisteller des Astronauten"
+  },
+  {
+   "id": "C16",
+   "von": "K16",
+   "nach": "K17",
+   "dauer_s": 1.883333,
+   "art": "montage",
+   "quelle": "remotion",
+   "modell": null,
+   "kamera": "beschleunigte Fahrt in die Mitte, Visier in Visier",
+   "morph": "Kreise in Kreisen → Punkt → Cursor"
+  },
+  {
+   "id": "C17",
+   "von": "K17",
+   "nach": "K18",
+   "dauer_s": 2.4,
+   "art": "grafik",
+   "quelle": "remotion",
+   "modell": null,
+   "kamera": "Stillstand, dann winzige Rückfahrt",
+   "morph": "Cursor → Stern hinter dem Glas"
+  },
+  {
+   "id": "C18",
+   "von": "K18",
+   "nach": "K19",
+   "dauer_s": 3,
+   "art": "morph",
+   "quelle": "higgsfield",
+   "modell": "kling_o3_flf",
+   "kamera": "Innensicht, Helm hebt sich nach oben weg, gleichmäßig",
+   "morph": "Helmrand → dunkler Bogen (Bildanschluss)",
+   "modus": "pro"
+  },
+  {
+   "id": "C19",
+   "von": "K19",
+   "nach": "K20",
+   "dauer_s": 5.0,
+   "art": "echt",
+   "quelle": "elias",
+   "modell": null,
+   "kamera": "Handkamera auf Augenhöhe, Polster wischt nach oben, ruhiges Weiterführen",
+   "morph": "dunkler Bogen → Kopfhörerpolster"
+  },
+  {
+   "id": "C20",
+   "von": "K20",
+   "nach": "K21",
+   "dauer_s": 6.25,
+   "art": "echt",
+   "quelle": "elias",
+   "modell": null,
+   "kamera": "ruhig: Lampe, Schwenk zum Fenster, weiter zum Laptop, endet frontal vor dem Bildschirm (Hand schon an der Maus)",
+   "morph": null
+  },
+  {
+   "id": "C21",
+   "von": "K21",
+   "nach": "K22",
+   "dauer_s": 0.75,
+   "art": "aufnahme",
+   "quelle": "website-aufnahme",
+   "modell": null,
+   "kamera": "Portal-Kreis der eigenen Seite, 0,75 s, cubic-bezier(.7, 0, .25, 1), auf den Bildschirm eingesetzt (vier Ecken verfolgt), dann bildfüllend",
+   "morph": "Bildschirm → Creme der Karte"
+  },
+  {
+   "id": "C22",
+   "von": "K22",
+   "nach": "K23",
+   "dauer_s": 6.0,
+   "art": "grafik",
+   "quelle": "remotion",
+   "modell": null,
+   "kamera": "steht, Elemente erscheinen nacheinander",
+   "morph": null
+  },
+  {
+   "id": "C23",
+   "von": "K23",
+   "nach": "K24",
+   "dauer_s": 1.6,
+   "art": "grafik",
+   "quelle": "remotion",
+   "modell": null,
+   "kamera": "steht",
+   "morph": null
+  }
+ ],
+ "ton": [
+  {
+   "id": "T01",
+   "zeit_s": 0.0,
+   "art": "atem",
+   "inhalt": "scharfes Einatmen im Helm, binaural, ganz nah",
+   "ereignis": "Bild 1, Raste"
+  },
+  {
+   "id": "T02",
+   "zeit_s": 0.0,
+   "art": "geraeusch",
+   "inhalt": "trockene Mausrad-Raste",
+   "ereignis": "das Bild sackt eine Raste ab"
+  },
+  {
+   "id": "T03",
+   "zeit_s": 0.4,
+   "art": "atem",
+   "inhalt": "Ausatmen, das Glas beschlägt",
+   "ereignis": "Beschlag schluckt die Erde"
+  },
+  {
+   "id": "T04",
+   "zeit_s": 2.15,
+   "art": "geraeusch",
+   "inhalt": "Funkknacken",
+   "ereignis": "Beschlag zieht sich zurück"
+  },
+  {
+   "id": "T05",
+   "zeit_s": 2.25,
+   "art": "stimme",
+   "inhalt": "„…hört mich jemand?“ (Erzählstimme mit Funkband, ohne Anrede)",
+   "ereignis": "Erde wieder sichtbar"
+  },
+  {
+   "id": "T06",
+   "zeit_s": 5.3,
+   "art": "atem",
+   "inhalt": "ruhiger Atemzug (Durchatmen 1), sichtbar: Schultern und Rucksack heben sich, feine Ventilfahne",
+   "ereignis": "Rückfahrt, Helm und Schultern im Bild"
+  },
+  {
+   "id": "T07",
+   "zeit_s": 10.0,
+   "art": "atem",
+   "inhalt": "ruhiger Atemzug (Durchatmen 2), sichtbar: Brustkorb hebt sich, Staub löst sich vom Knie",
+   "ereignis": "Totale auf dem Felsen (K03)"
+  },
+  {
+   "id": "T08",
+   "zeit_s": 8.5,
+   "art": "musik",
+   "inhalt": "Leitmotiv, vier Töne, Spieluhr, dünn wie aus einem Kopfhörer, offen",
+   "ereignis": "er neigt den Helm, lauscht"
+  },
+  {
+   "id": "T09",
+   "zeit_s": 12.0,
+   "art": "geraeusch",
+   "inhalt": "tiefes Brummen 50 Hz, die Erde summt wie eine Lampe",
+   "ereignis": "Leitung wird sichtbar"
+  },
+  {
+   "id": "T10",
+   "zeit_s": 15.0,
+   "art": "atem",
+   "inhalt": "erstes Einatmen der Werkstatt auf die Naht N1 (Ende des dritten Mond-Atemzugs)",
+   "ereignis": "K04"
+  },
+  {
+   "id": "T11",
+   "zeit_s": 19.0,
+   "art": "geraeusch",
+   "inhalt": "Handschuh raspelt über Eiche",
+   "ereignis": "Mondstaub auf Holz"
+  },
+  {
+   "id": "T12",
+   "zeit_s": 22.0,
+   "art": "geraeusch",
+   "inhalt": "Lotschnur knarzt, Lot pendelt mit feinem Luftzug",
+   "ereignis": "Lot pendelt von selbst"
+  },
+  {
+   "id": "T13",
+   "zeit_s": 26.25,
+   "art": "atem",
+   "inhalt": "erstes Einatmen der Praxis auf die Naht N2",
+   "ereignis": "K06"
+  },
+  {
+   "id": "T14",
+   "zeit_s": 28.5,
+   "art": "musik",
+   "inhalt": "vier gläserne Messpunkt-Töne = Motiv, der fünfte bleibt stumm",
+   "ereignis": "Messpunkte erscheinen"
+  },
+  {
+   "id": "T15",
+   "zeit_s": 30.0,
+   "art": "stimme",
+   "inhalt": "„…ganz ruhig. Atmen.“ (Funk, ohne Anrede)",
+   "ereignis": "er richtet sich auf"
+  },
+  {
+   "id": "T16",
+   "zeit_s": 34.683333,
+   "art": "atem",
+   "inhalt": "erstes Einatmen des Restaurants auf die Naht N3",
+   "ereignis": "K07"
+  },
+  {
+   "id": "T17",
+   "zeit_s": 36.0,
+   "art": "geraeusch",
+   "inhalt": "„Ting“: Teeglas am Goldvisier",
+   "ereignis": "Glas berührt das Visier"
+  },
+  {
+   "id": "T18",
+   "zeit_s": 37.0,
+   "art": "geraeusch",
+   "inhalt": "drei leise Fokus-Klicks",
+   "ereignis": "Fokusrahmen springt"
+  },
+  {
+   "id": "T19",
+   "zeit_s": 38.4,
+   "art": "stimme",
+   "inhalt": "„…wer spielt da?“ (Funk, ohne Anrede)",
+   "ereignis": "Teller heben ab"
+  },
+  {
+   "id": "T20",
+   "zeit_s": 41.016667,
+   "art": "atem",
+   "inhalt": "erstes Einatmen des Kopfhörers auf die Naht N4",
+   "ereignis": "K09"
+  },
+  {
+   "id": "T21",
+   "zeit_s": 44.1,
+   "art": "geraeusch",
+   "inhalt": "satter mechanischer Klick des Messingschilds, Atem angehalten",
+   "ereignis": "Schild gibt nach"
+  },
+  {
+   "id": "T22",
+   "zeit_s": 44.4,
+   "art": "geraeusch",
+   "inhalt": "fünf präzise Löseklicks im Abstand 0,15 s",
+   "ereignis": "Teile lösen sich"
+  },
+  {
+   "id": "T23",
+   "zeit_s": 44.4,
+   "art": "musik",
+   "inhalt": "Musik öffnet sich Schicht für Schicht bis 46,5: Höhen, Mitten, Raum, Bass, Luft",
+   "ereignis": "je gelöstes Teil"
+  },
+  {
+   "id": "T24",
+   "zeit_s": 48.4,
+   "art": "geraeusch",
+   "inhalt": "Ring und Deckel schließen sich hinter uns, Musik wird raumbreit",
+   "ereignis": "Teile schließen sich hinter der Kamera"
+  },
+  {
+   "id": "T25",
+   "zeit_s": 51.2,
+   "art": "geraeusch",
+   "inhalt": "zwei Rasten der Browser-Kamera (51,20 / 51,60)",
+   "ereignis": "Seite Eiche & Span (K13b)"
+  },
+  {
+   "id": "T26",
+   "zeit_s": 52.0,
+   "art": "geraeusch",
+   "inhalt": "vier Rasten",
+   "ereignis": "Praxis als Seite (vier Rasten bis 52,40)"
+  },
+  {
+   "id": "T27",
+   "zeit_s": 55.5,
+   "art": "musik",
+   "inhalt": "Dichte statt Lautstärke: Shepard-Anstieg, Dauerscroll, Atem als Fallwind",
+   "ereignis": "Durchflug"
+  },
+  {
+   "id": "T28",
+   "zeit_s": 60.0,
+   "art": "stille",
+   "inhalt": "harter Tonschnitt auf digitale Stille",
+   "ereignis": "Cursor"
+  },
+  {
+   "id": "T29",
+   "zeit_s": 61.4,
+   "art": "geraeusch",
+   "inhalt": "Raumton und Amsel aus der Stille, kaum hörbar",
+   "ereignis": "goldener Saum"
+  },
+  {
+   "id": "T30",
+   "zeit_s": 62.4,
+   "art": "geraeusch",
+   "inhalt": "Helmverschluss-Klick, trocken, metallisch",
+   "ereignis": "Helm hebt sich"
+  },
+  {
+   "id": "T31",
+   "zeit_s": 65.4,
+   "art": "geraeusch",
+   "inhalt": "Funkfilter fällt weg, Klang öffnet sich in den Raum, Motiv blechern aus den Ohrschalen",
+   "ereignis": "Kopfhörer ab"
+  },
+  {
+   "id": "T32",
+   "zeit_s": 65.6,
+   "art": "atem",
+   "inhalt": "langes Ausatmen (4 s)",
+   "ereignis": "Blick ins Zimmer"
+  },
+  {
+   "id": "T33",
+   "zeit_s": 69.0,
+   "art": "geraeusch",
+   "inhalt": "Bügelklick beim Ablegen",
+   "ereignis": "Kopfhörer auf dem Tisch"
+  },
+  {
+   "id": "T34",
+   "zeit_s": 71.4,
+   "art": "stimme",
+   "inhalt": "„Jeder Betrieb ist eine eigene Welt. Seine Website ist die Tür hinein.“ (ohne Filter, nah)",
+   "ereignis": "Lampe, dann Schwenk zum Fenster"
+  },
+  {
+   "id": "T35",
+   "zeit_s": 73.4,
+   "art": "musik",
+   "inhalt": "Klavier: die vier Töne und der fünfte – zu Hause",
+   "ereignis": "Mond im Fenster"
+  },
+  {
+   "id": "T36",
+   "zeit_s": 76.0,
+   "art": "geraeusch",
+   "inhalt": "dieselbe Mausrad-Raste wie in Bild 1",
+   "ereignis": "Seite springt eine Raste"
+  },
+  {
+   "id": "T37",
+   "zeit_s": 76.65,
+   "art": "geraeusch",
+   "inhalt": "Klick",
+   "ereignis": "Portal-Kreis öffnet sich"
+  },
+  {
+   "id": "T38",
+   "zeit_s": 77.6,
+   "art": "stimme",
+   "inhalt": "„Jede Welt beginnt mit einer Seite.“",
+   "ereignis": "Satz auf der Karte"
+  },
+  {
+   "id": "T39",
+   "zeit_s": 81.0,
+   "art": "musik",
+   "inhalt": "drei leise Klaviertöne",
+   "ereignis": "Gebaut. Geprüft. Gepflegt."
+  },
+  {
+   "id": "T40",
+   "zeit_s": 82.4,
+   "art": "geraeusch",
+   "inhalt": "weicher Klick, Ring schließt sich",
+   "ereignis": "Knopf „Projekt besprechen“"
+  },
+  {
+   "id": "T41",
+   "zeit_s": 83.6,
+   "art": "geraeusch",
+   "inhalt": "Amsel pfeift die ersten Töne des Motivs",
+   "ereignis": "Ausklang"
+  }
+ ]
+}
