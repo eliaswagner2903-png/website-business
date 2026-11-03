@@ -11,8 +11,7 @@ story“**. Alles unter **„Mood and palette“** ist Stimmung, keine Vorschrif
 
 1. **Neuer ChatGPT-Chat** für den ganzen Film (ein Chat hält den roten Faden). Wird er lang oder driftet der Anzug: neuer Chat,
    Master-Briefing erneut, dazu die zuletzt freigegebenen Skizzen als Referenz.
-2. **Referenzbilder aus v3** zusammen mit dem Master-Briefing anhängen (4K-Originale in deinem Projektordner, kleine JPG-Fassungen
-   gibt Claude auf Zuruf heraus):
+2. **Referenzbilder aus v3** zusammen mit dem Master-Briefing anhängen (fertig zugeschnitten in `referenzen/`, Erklärung dort in der README; 4K-Originale in deinem Projektordner):
    - v3 bei **51,0 s** – Astronaut auf dem Felsen (Anzug, Tonwert, Ruhe). Die Landefähre darin gilt nicht.
    - v3 bei **48,2 s** – Goldvisier mit Erdspiegelung. Die erhobene Hand darin gilt nicht.
    - v3 bei **1,5 s** – Mondboden: **nur Körnung und Streiflicht; der Abdruck rechts gilt nicht** (Drehbuch S01: keine Spuren).
