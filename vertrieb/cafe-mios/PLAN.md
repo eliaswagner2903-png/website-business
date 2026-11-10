@@ -146,3 +146,6 @@ Wichtig: Das sind **Entwürfe zum Zeigen**. Zeiten und Preise stammen aus den Fl
 - Wir haben **keinen** Zugriff auf Insights, Followerzahl und Bio; die Analyse beruht auf Elias' Screenshots.
 - Alle Fotos sind niedrig aufgelöst (Screenshots). Für finale Beiträge: Originale.
 - Credits (Higgsfield/ElevenLabs): nicht nötig für dieses Paket, nur falls später Sprecher/Animation gewünscht, dann vorher fragen.
+
+## 12. Schaubilder und Animationen (Nachtrag 10.11.)
+ChatGPT-Beispielbilder („Das ist möglich", mit Hinweis „Beispielbild") plus fertige Beiträge: `schaubilder/fertig/`, Prompts: `schaubilder/PROMPTS-SCHAUBILDER.md`, Werkzeuge (Layout, Dampf/Licht-Animation ohne Credits): `schaubilder/werkzeuge/`. Videos (MP4, je ca. 5 MB) liegen im Projektordner `vertrieb/cafe-mios/schaubilder/animation/`. Das sind Beispiele für das Gespräch, keine Fotos vom Buffet des Cafés.
