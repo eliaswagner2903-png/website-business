@@ -116,7 +116,7 @@ Ausrüstung: iPhone 14 Pro Max, DJI Osmo Mobile 7P. Dreh **nach Absprache mit de
 - **Sauberkeit:** Teller, Schälchen und Tischdecke vor dem Dreh abwischen. Kein Wasserfleck, kein Krümel.
 - **Dateien:** Original auf iCloud/Computer sichern, Bearbeitung erst danach.
 
-## 8. Beispiel-Beiträge (diese Runde)
+## 8. Beispiel-Beiträge (diese Runde; ChatGPT-Prompts in `chatgpt-paket/PROMPTS.md`)
 
 Fünf Muster im neuen Look, gebaut aus den **eigenen** Fotos des Cafés (Gästefotos, die das Café bereits veröffentlicht hat), im Ordner `muster/`:
 - `feed-wochenende.webp` – Wochenend-Buffet-Ankündigung (Info-Beitrag)
