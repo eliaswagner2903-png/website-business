@@ -48,6 +48,7 @@
   --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */
   --farbe-schwarz: #121412;     /* Arbeitskleidung (Polo, Schürze): Kopf, dunkle Flächen, Aufnäher */
   --farbe-schwarz-hoch: #1e221e; /* erhabene Fläche auf Schwarz */
+  --farbe-wasser: #5fa6e0;      /* Flüsse auf der Karte (nur auf Dunkel) */
 
   --schrift-display: "Instrument Serif", "Serif Ersatz", Georgia, serif;
   --schrift-text: "Instrument Sans", "Sans Ersatz", Arial, sans-serif;

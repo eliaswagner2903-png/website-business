@@ -333,26 +333,41 @@ const anfrageBand = (titel = 'Kostenloses Angebot für Ihr Objekt', text = 'Erz�
   </div>
 </section>`;
 
-// ---------- Karte Einsatzgebiet (eigene SVG, Orte nach Koordinaten, schematisch) ----------
+// ---------- Karte Einsatzgebiet (eigene SVG, echte Geografie: Landkreise, Neckar, Fils, Rems, Donau, A 8; Orte nach Koordinaten) ----------
+// Kreisgrenzen und Neckar aus öffentlichen Geodaten (GADM / Natural Earth, vereinfacht, inhalt/geo.json); Fils, Rems, Donau und A 8
+// sind von Hand entlang der Orte gezeichnet (schematisch). Winkeltreue Projektion mit cos(Breite), nichts verzerrt.
+const GEO = JSON.parse(readFileSync(new URL('./inhalt/geo.json', import.meta.url), 'utf8'));
+const KARTE_W = 900, KARTE_H = 860, KARTE_S = 1500, KARTE_LON0 = 9.15, KARTE_LAT0 = 48.9;
+const kxy = ([lon, lat]) => [Math.round((lon - KARTE_LON0) * 0.659 * KARTE_S), Math.round((KARTE_LAT0 - lat) * KARTE_S)];
+const kpfad = (pts, zu = false) => `M${pts.map((p) => kxy(p).join(' ')).join('L')}${zu ? 'Z' : ''}`;
+const KARTE_FILS = [[9.64, 48.575], [9.71, 48.595], [9.77, 48.608], [9.83, 48.624], [9.781, 48.659], [9.757, 48.68], [9.706, 48.694], [9.652, 48.703], [9.59, 48.705], [9.524, 48.716], [9.419, 48.712]];
+const KARTE_REMS = [[10.0, 48.8], [9.9, 48.805], [9.798, 48.799], [9.7, 48.802], [9.62, 48.806], [9.527, 48.805], [9.47, 48.812], [9.4, 48.822], [9.32, 48.835], [9.29, 48.87]];
+const KARTE_DONAU = [[9.74, 48.285], [9.86, 48.34], [9.95, 48.39], [9.99, 48.402], [10.05, 48.425]];
+const KARTE_A8 = [[9.17, 48.725], [9.19, 48.69], [9.27, 48.67], [9.37, 48.66], [9.5, 48.642], [9.63, 48.652], [9.78, 48.58], [9.87, 48.49], [9.98, 48.41]];
+const KARTE_NAMEN = [['Landkreis Göppingen', 9.60, 48.605], ['Rems-Murr', 9.47, 48.85], ['Ostalbkreis', 9.93, 48.85], ['Alb-Donau', 9.62, 48.38], ['Esslingen', 9.33, 48.62], ['Schwäbische Alb', 9.78, 48.50]];
 function karte(id = 'karte') {
-  // Schematisch: Projektion um den Firmensitz mit Wurzel-Verzerrung (nahe Orte im Filstal bekommen Platz, ferne rücken heran).
   const K = S.karte; const sitz = K.orte.find((o) => o.sitz);
-  const xy = (o) => {
-    const dx = (o.lon - sitz.lon) * 0.659, dy = sitz.lat - o.lat; const r = Math.hypot(dx, dy); const f = r ? Math.sqrt(r) / r : 0;
-    return [Math.round((dx * f + 0.58) * 560 + 130), Math.round((dy * f + 0.65) * 560 + 50)];
-  };
+  const xy = (o) => kxy([o.lon, o.lat]);
   const [sx, sy] = xy(sitz);
-  // Lage der Beschriftung, unabhängig von der Schriftgröße (dominant-baseline statt fester Abstände)
-  const LAGE = { n: ['middle', 0, -12, 'auto'], s: ['middle', 0, 13, 'hanging'], o: ['start', 12, 0, 'central'], w: ['end', -12, 0, 'central'],
-    no: ['start', 8, -10, 'auto'], sw: ['end', -8, 10, 'hanging'] };
-  const wege = K.orte.filter((o) => !o.sitz).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.16, my = (sy + y) / 2 - (x - sx) * 0.16; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
-  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="22"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  const LAGE = { n: ['middle', 0, -14, 'auto'], s: ['middle', 0, 15, 'hanging'], o: ['start', 13, 0, 'central'], w: ['end', -13, 0, 'central'],
+    no: ['start', 9, -12, 'auto'], nw: ['end', -9, -12, 'auto'], sw: ['end', -9, 12, 'hanging'] };
+  const kreise = GEO.kreise.map((k) => `<path class="karte-kreis${k.name === 'Göppingen' ? ' karte-kreis--heim' : ''}" d="${k.rings.map((r) => kpfad(r, true)).join('')}"/>`).join('');
+  const wege = K.orte.filter((o) => !o.sitz && ['geislingen', 'ulm', 'stuttgart', 'gmuend'].includes(o.id)).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.12, my = (sy + y) / 2 - (x - sx) * 0.12; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
+  const namen = KARTE_NAMEN.map(([t, lon, lat]) => { const [x, y] = kxy([lon, lat]); return `<text x="${x}" y="${y}" text-anchor="middle">${esc(t)}</text>`; }).join('');
+  const [a8x, a8y] = kxy([9.42, 48.652]);
+  const punkte = K.orte.filter((o) => o.lat <= KARTE_LAT0).map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.id === 'stuttgart' ? 'no' : o.id === 'goeppingen' ? 'n' : o.id === 'gmuend' ? 'w' : o.sitz ? 'no' : o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="24"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 10 : 6.5}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  const [hx] = kxy([9.737, 49]);
   return `<div class="karte"${pr(K.pruefen)}><figure class="karte-feld">
-      <svg class="karte-svg" viewBox="0 0 800 730" role="img" aria-label="Schematische Karte des Einsatzgebiets: Firmensitz Eislingen/Fils in der Mitte, Orte von Stuttgart im Westen bis Ulm im Südosten und Schwäbisch Hall im Norden">
+      <svg class="karte-svg" viewBox="0 0 ${KARTE_W} ${KARTE_H}" role="img" aria-label="Karte des Einsatzgebiets mit Landkreisen, Neckar, Fils, Rems und Autobahn A 8: Firmensitz Eislingen/Fils im Filstal, Orte von Stuttgart im Westen bis Ulm im Südosten, Schwäbisch Hall liegt weiter im Norden">
+        <g class="karte-flaechen">${kreise}</g>
+        <g class="karte-namen" aria-hidden="true">${namen}</g>
+        <path class="karte-bahn" d="${kpfad(KARTE_A8)}"/><text class="karte-bahn-text" x="${a8x}" y="${a8y + 30}" text-anchor="middle" aria-hidden="true">A 8</text>
+        <g class="karte-fluesse"><path class="karte-fluss karte-fluss--gross" d="${kpfad(GEO.neckar)}"/><path class="karte-fluss karte-fluss--gross" d="${kpfad(KARTE_DONAU)}"/><path class="karte-fluss" d="${kpfad(KARTE_FILS)}"/><path class="karte-fluss" d="${kpfad(KARTE_REMS)}"/></g>
         <g class="karte-wege">${wege}</g>
         ${punkte}
+        <text class="karte-pfeil" x="${hx}" y="34" text-anchor="middle">↑ Richtung Schwäbisch Hall</text>
       </svg>
-      <figcaption>Schematisch, nicht maßstäblich. Firmensitz grün hervorgehoben.</figcaption>
+      <figcaption>Vereinfachte Karte mit Landkreisen, Neckar, Fils, Rems und A&nbsp;8, nicht maßstäblich genau. Firmensitz grün hervorgehoben.</figcaption>
     </figure></div>`;
 }
 const gebietText = () => `<div class="gebiet-gruppen">

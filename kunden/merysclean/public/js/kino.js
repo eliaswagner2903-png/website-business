@@ -21,7 +21,7 @@
       const t0 = performance.now() + 700;
       const intro = (jetzt) => {
         const t = klemm((jetzt - t0) / 1600);
-        heroIntro = (pin() ? 0.2 : 0.0) * weich(t);
+        heroIntro = (pin() ? 0.07 : 0.0) * weich(t);
         if (t < 1) requestAnimationFrame(intro);
         zeichnen();
       };
@@ -71,16 +71,16 @@
         if (pin()) {
           const r = hero.getBoundingClientRect();
           const gesamt = r.height - vh * 0.9;
-          heroP = klemm(-r.top / Math.max(1, gesamt) * 1.25);
+          heroP = klemm(-r.top / Math.max(1, gesamt) * 1.1);
         } else {
           // Handy: kein Festhalten, der Beschlag verschwindet, während das Foto ins Bild kommt
           const r = bild.getBoundingClientRect();
-          heroP = klemm((vh * 0.98 - r.top) / (r.height + vh * 0.2));
+          heroP = klemm((vh * 0.62 - r.top) / (r.height * 1.05));
         }
         const p = aktuellHero();
         hero.style.setProperty('--p', p.toFixed(4));
         if (griff) griff.setAttribute('aria-valuenow', Math.round(p * 100));
-        wurzel.classList.toggle('kh-fertig', p > 0.97);
+        if (p > 0.985) wurzel.classList.add('kh-fertig'); else if (p < 0.9) wurzel.classList.remove('kh-fertig');
       }
       if (tr && woerter.length) {
         const r = tr.getBoundingClientRect();
@@ -101,9 +101,12 @@
         k.style.filter = d < 1 ? `brightness(${(1 - 0.16 * (1 - d)).toFixed(3)})` : '';
       });
       if (hz && spur) {
+        const weg = Math.max(0, spur.scrollWidth - spur.parentElement.clientWidth + 32);
+        // Länge des Abschnitts folgt dem Weg der Spur: kein Leerlauf nach dem letzten Schritt
+        const hoehe = Math.round(vh + weg * 1.35 + 80);
+        if (Math.abs(hz.offsetHeight - hoehe) > 2) hz.style.height = `${hoehe}px`;
         const r = hz.getBoundingClientRect();
         const p = klemm(-r.top / Math.max(1, r.height - vh));
-        const weg = Math.max(0, spur.scrollWidth - spur.parentElement.clientWidth + 32);
         spur.style.setProperty('--hz-x', `${(-p * weg).toFixed(1)}px`);
         hz.style.setProperty('--p', p.toFixed(4));
       }
