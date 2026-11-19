@@ -2,6 +2,7 @@
 // Ohne dieses Skript oder bei „Bewegung reduzieren“ bleibt alles ruhig und vollständig sichtbar (kein html.kino).
 (() => {
   const start = () => {
+    if (window.__kinoAb) window.__kinoAb(); // erneuter Start (z. B. Vorschau-Router): alte Handler entfernen
     const wurzel = document.documentElement;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { initHelfer(); return; }
     wurzel.classList.add('kino');
@@ -20,7 +21,7 @@
       const t0 = performance.now() + 700;
       const intro = (jetzt) => {
         const t = klemm((jetzt - t0) / 1600);
-        heroIntro = (pin() ? 0.2 : 0.0) * weich(t);
+        heroIntro = (pin() ? 0.07 : 0.0) * weich(t);
         if (t < 1) requestAnimationFrame(intro);
         zeichnen();
       };
@@ -47,6 +48,19 @@
     }
     const aktuellHero = () => Math.max(heroP, heroIntro, heroZiehen);
 
+    // ---------- 1b. Unterseiten: Foto im Seitenkopf wird einmal freigewischt ----------
+    const skFotos = [...document.querySelectorAll('.seitenkopf-bild')].filter((f) => f.querySelector('.kh-nebel'));
+    if (skFotos.length) {
+      const sk0 = performance.now() + 450;
+      const skZug = (jetzt) => {
+        const t = klemm((jetzt - sk0) / 1500);
+        skFotos.forEach((f) => { f.style.setProperty('--p', weich(t).toFixed(4)); f.classList.toggle('fertig', t >= 1); });
+        if (t < 1) requestAnimationFrame(skZug);
+      };
+      skFotos.forEach((f) => f.style.setProperty('--p', '0'));
+      requestAnimationFrame(skZug);
+    }
+
     // ---------- 2. Haltungssatz ----------
     const tr = document.querySelector('.tr');
     const woerter = tr ? [...tr.querySelectorAll('.tr-text .w')] : [];
@@ -70,16 +84,16 @@
         if (pin()) {
           const r = hero.getBoundingClientRect();
           const gesamt = r.height - vh * 0.9;
-          heroP = klemm(-r.top / Math.max(1, gesamt) * 1.25);
+          heroP = klemm(-r.top / Math.max(1, gesamt) * 1.1);
         } else {
           // Handy: kein Festhalten, der Beschlag verschwindet, während das Foto ins Bild kommt
           const r = bild.getBoundingClientRect();
-          heroP = klemm((vh * 0.98 - r.top) / (r.height + vh * 0.2));
+          heroP = klemm((vh * 0.62 - r.top) / (r.height * 1.05));
         }
         const p = aktuellHero();
         hero.style.setProperty('--p', p.toFixed(4));
         if (griff) griff.setAttribute('aria-valuenow', Math.round(p * 100));
-        wurzel.classList.toggle('kh-fertig', p > 0.97);
+        if (p > 0.985) wurzel.classList.add('kh-fertig'); else if (p < 0.9) wurzel.classList.remove('kh-fertig');
       }
       if (tr && woerter.length) {
         const r = tr.getBoundingClientRect();
@@ -100,15 +114,28 @@
         k.style.filter = d < 1 ? `brightness(${(1 - 0.16 * (1 - d)).toFixed(3)})` : '';
       });
       if (hz && spur) {
+        // Weg aus der echten Lage des letzten Schritts (scrollWidth ist in iOS-Safari bei max-content unzuverlässig)
+        const pin = hz.firstElementChild;
+        const letzter = spur.lastElementChild;
+        const sr = spur.getBoundingClientRect();
+        const lr = letzter.getBoundingClientRect();
+        const rand = parseFloat(getComputedStyle(spur).paddingRight) || 0;
+        const weg = Math.max(0, Math.round(lr.right - sr.left + rand - spur.parentElement.clientWidth));
+        const kopf = parseFloat(getComputedStyle(pin).top) || 0;
+        const pinH = pin.offsetHeight;
+        // Länge des Abschnitts folgt dem Weg der Spur: kein Leerlauf nach dem letzten Schritt
+        const hoehe = Math.round(pinH + weg * 1.2 + 40);
+        if (Math.abs(hz.offsetHeight - hoehe) > 2) hz.style.height = `${hoehe}px`;
         const r = hz.getBoundingClientRect();
-        const p = klemm(-r.top / Math.max(1, r.height - vh));
-        const weg = Math.max(0, spur.scrollWidth - spur.parentElement.clientWidth + 32);
-        spur.style.setProperty('--hz-x', `${(-p * weg).toFixed(1)}px`);
+        const p = klemm((kopf - r.top) / Math.max(1, r.height - pinH));
+        // Letzter Schritt steht schon bei ca. 92 % des Balkens vollständig im Bild: kleiner Spielraum am Ende
+        spur.style.setProperty('--hz-x', `${(-klemm(p / 0.92) * weg).toFixed(1)}px`);
         hz.style.setProperty('--p', p.toFixed(4));
       }
     }
     addEventListener('scroll', zeichnen, { passive: true });
     addEventListener('resize', zeichnen);
+    window.__kinoAb = () => { removeEventListener('scroll', zeichnen); removeEventListener('resize', zeichnen); };
     zeichnen();
     initHelfer();
   };

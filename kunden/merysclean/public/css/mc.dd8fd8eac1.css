@@ -49,6 +49,7 @@
   --farbe-fehler: #b3261e;      /* Fehlermeldungen im Formular */
   --farbe-schwarz: #121412;     /* Arbeitskleidung (Polo, Schürze): Kopf, dunkle Flächen, Aufnäher */
   --farbe-schwarz-hoch: #1e221e; /* erhabene Fläche auf Schwarz */
+  --farbe-wasser: #5fa6e0;      /* Flüsse auf der Karte (nur auf Dunkel) */
 
   --schrift-display: "Instrument Serif", "Serif Ersatz", Georgia, serif;
   --schrift-text: "Instrument Sans", "Sans Ersatz", Arial, sans-serif;
@@ -691,21 +692,29 @@ main { isolation: isolate; }
     radial-gradient(circle, color-mix(in srgb, var(--farbe-flaeche) 9%, transparent) .7px, transparent 1.2px) 0 0 / 7px 7px,
     var(--farbe-schwarz-hoch);
 }
-.karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 800 / 730; max-width: none; overflow: visible; }
-.karte-wege path { fill: none; stroke: var(--farbe-akzent); stroke-opacity: .7; stroke-width: 2; stroke-dasharray: 9 8; stroke-linecap: round; }
+.karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 900 / 860; max-width: none; overflow: hidden; border-radius: 14px; }
+.karte-wege path { fill: none; stroke: var(--farbe-akzent); stroke-opacity: .55; stroke-width: 2; stroke-dasharray: 9 8; stroke-linecap: round; }
+.karte-kreis { fill: color-mix(in srgb, var(--farbe-flaeche) 5%, transparent); stroke: color-mix(in srgb, var(--farbe-flaeche) 38%, transparent); stroke-width: 1.5; stroke-dasharray: 7 6; stroke-linejoin: round; }
+.karte-kreis--heim { fill: color-mix(in srgb, var(--farbe-akzent) 20%, transparent); stroke: var(--farbe-akzent); stroke-dasharray: none; stroke-width: 2.5; }
+.karte-fluss { fill: none; stroke: var(--farbe-wasser); stroke-opacity: .85; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.karte-fluss--gross { stroke-width: 7; stroke-opacity: .7; }
+.karte-bahn { fill: none; stroke: color-mix(in srgb, var(--farbe-flaeche) 55%, transparent); stroke-width: 2.5; stroke-dasharray: 3 9; stroke-linecap: round; }
+.karte-bahn-text { font: 600 18px var(--schrift-text); fill: color-mix(in srgb, var(--farbe-flaeche) 60%, transparent); }
+.karte-namen text { font: 600 16px var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; fill: color-mix(in srgb, var(--farbe-flaeche) 38%, transparent); }
+.karte-pfeil { font: 500 19px var(--schrift-text); fill: var(--farbe-leise-hell); }
 .ort circle { fill: var(--farbe-flaeche); stroke: var(--farbe-schwarz); stroke-width: 3; }
-.ort text { font: 500 26px var(--schrift-text); fill: var(--farbe-flaeche); paint-order: stroke; stroke: var(--farbe-schwarz); stroke-width: 6px; stroke-linejoin: round; }
+.ort text { font: 500 25px var(--schrift-text); fill: var(--farbe-flaeche); paint-order: stroke; stroke: var(--farbe-schwarz); stroke-width: 6px; stroke-linejoin: round; }
 .ort--klein text { display: none; }
 @media (max-width: 39.99rem) { .ort--klein { display: none; } }
 .ort--sitz circle { fill: var(--farbe-akzent); stroke: var(--farbe-schwarz); stroke-width: 5; }
 .ort--sitz .ort-ring { fill: none; stroke: var(--farbe-akzent); stroke-width: 2; stroke-dasharray: 5 5; }
 @media (prefers-reduced-motion: no-preference) { .ort--sitz .ort-ring { transform-box: fill-box; transform-origin: center; animation: sitz-puls 3.4s var(--kurve-sanft) infinite; } }
 @keyframes sitz-puls { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.25; opacity: .45; } }
-.ort--sitz text { font-weight: 700; font-size: 30px; }
+.ort--sitz text { font-weight: 700; font-size: 27px; }
 @media (min-width: 40rem) {
-  .ort text { font-size: 20px; stroke-width: 5px; }
+  .ort text { font-size: 21px; stroke-width: 5px; }
   .ort--klein text { display: inline; }
-  .ort--sitz text { font-size: 23px; }
+  .ort--sitz text { font-size: 25px; }
 }
 .karte-feld figcaption { margin-top: .5rem; font-size: .9rem; color: var(--farbe-leise-hell); text-align: center; }
 .gebiet-text h2 + p { margin-top: 1rem; }
@@ -1115,7 +1124,7 @@ main { isolation: isolate; }
 .kh { background: var(--farbe-schwarz); color: var(--farbe-flaeche); position: relative; }
 .kh-stage { padding-block: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(2rem, 1.5rem + 3vw, 4rem); display: grid; gap: 1.75rem; align-items: center; }
 .kh-text { position: relative; z-index: 2; }
-.kh h1 { color: var(--farbe-flaeche); max-width: 15ch; font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5rem); line-height: .98; }
+.kh h1 { color: var(--farbe-flaeche); max-width: 16ch; hyphens: manual; font-size: clamp(2.3rem, 1.4rem + 3.7vw, 4.4rem); line-height: .98; }
 .kh h1 .kh-ort { color: var(--farbe-gruen-hell); }
 .kh .ueberzeile { color: var(--farbe-leise-hell); }
 .kh-lead { margin-top: 1.25rem; max-width: 36rem; color: var(--farbe-leise-hell); font-size: 1.1rem; }
@@ -1132,7 +1141,7 @@ main { isolation: isolate; }
   .kh-foto { aspect-ratio: 15 / 8.6; }
 }
 
-.kino .kh-nebel { display: block; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+.kino .kh-nebel { transform: translateZ(0); display: block; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   background: linear-gradient(180deg, rgba(236,241,238,.82), rgba(214,224,219,.9)), url("../img/nebel.svg") center / 100% 100% no-repeat;
   background-blend-mode: normal;
   -webkit-backdrop-filter: blur(16px) saturate(.7); backdrop-filter: blur(16px) saturate(.7);
@@ -1141,12 +1150,12 @@ main { isolation: isolate; }
           mask-image: linear-gradient(90deg, transparent calc(var(--kante) - 3%), #000 calc(var(--kante) + 0.4%));
 }
 .kino .kh-foto { overflow: hidden; }
-.kino .kh-naht { display: block; position: absolute; top: 0; bottom: 0; left: calc(var(--p, 0) * 100%); width: 0; z-index: 3; pointer-events: none; }
+.kino .kh-naht { will-change: left; display: block; position: absolute; top: 0; bottom: 0; left: calc(var(--p, 0) * 100%); width: 0; z-index: 3; pointer-events: none; }
 .kino .kh-naht::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 3px; background: linear-gradient(180deg, rgba(255,255,255,.2), #fff 12%, #fff 88%, rgba(255,255,255,.2)); box-shadow: 0 0 18px 4px rgba(95,186,70,.55), 0 0 2px rgba(255,255,255,.9); border-radius: 2px; }
 .kino .kh-naht[hidden] { display: none; }
 /* Abzieher-Griff: ziehbar (Zeiger) und per Pfeiltasten, wirkt auch am Handy */
 .kh-griff { display: none; }
-.kino .kh-griff { display: grid; place-items: center; position: absolute; z-index: 4; top: 50%; left: calc(var(--p, 0) * 100%); width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+.kino .kh-griff { will-change: left, opacity; backface-visibility: hidden; display: grid; place-items: center; position: absolute; z-index: 4; top: 50%; left: calc(var(--p, 0) * 100%); width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
   background: var(--farbe-gruen-hell); color: var(--farbe-schwarz); border: 2px solid #fff; cursor: ew-resize; touch-action: none; box-shadow: 0 6px 20px rgba(0,0,0,.35); transition: opacity .4s var(--kurve-standard), transform .2s; }
 .kino .kh-griff svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .kino .kh-griff:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
@@ -1221,10 +1230,27 @@ main { isolation: isolate; }
 .kino .hz-pin { position: sticky; top: var(--kopf-hoehe); height: calc(100svh - var(--kopf-hoehe)); overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
 .kino .hz-kopf { padding-top: 0; }
 .kino .hz-buehne { padding-block: clamp(1.5rem, 3vh, 2.5rem) 0; }
+.kino .hz-pin { padding-bottom: 1rem; }
 .kino .hz-spur { overflow: visible; scroll-snap-type: none; transform: translate3d(var(--hz-x, 0px), 0, 0); will-change: transform; width: max-content; }
 .kino .hz-schritt { flex-basis: min(80vw, 26rem); min-height: min(21rem, 44svh); }
 .kino .hz-weg { display: block; position: relative; height: 3px; margin: clamp(1.25rem, 3vh, 2.25rem) var(--hz-rand, 1.25rem) 0; background: rgba(255,255,255,.14); border-radius: 3px; overflow: hidden; }
 .kino .hz-weg::after { content: ""; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: var(--farbe-gruen-hell); box-shadow: 0 0 14px rgba(95,186,70,.8); }
+
+/* ---------- 6. Unterseiten im selben Stil (Relaunch 19.11.2026) ---------- */
+.seitenkopf { background: var(--farbe-schwarz); color: var(--farbe-flaeche); }
+.seitenkopf h1 { color: var(--farbe-flaeche); hyphens: manual; }
+.seitenkopf-lead { color: var(--farbe-leise-hell); }
+.seitenkopf .ueberzeile { color: var(--farbe-leise-hell); }
+.seitenkopf .knopf.zweit { color: var(--farbe-flaeche); border-color: color-mix(in srgb, var(--farbe-flaeche) 45%, transparent); }
+.seitenkopf .hinweis, .seitenkopf .wege-nr { color: var(--farbe-leise-hell); }
+.seitenkopf-fach { border: 1px solid rgba(255,255,255,.14); }
+.seitenkopf + .vertrauen { border-top: 1px solid rgba(255,255,255,.12); }
+.seitenkopf-bild .kh-nebel, .seitenkopf-bild .kh-naht { display: none; }
+.kino .seitenkopf-bild .kh-nebel { display: block; border-radius: var(--radius-gross); }
+.kino .seitenkopf-bild .kh-naht { display: block; }
+.kino .seitenkopf-bild.fertig .kh-naht { display: none; }
+.tr-text--mittel { font-size: clamp(1.7rem, 1.2rem + 2.2vw, 3rem); max-width: 30ch; margin-inline: 0; line-height: 1.18; }
+.ueber-text.tr .huelle { position: relative; z-index: 1; }
 
 /* ---------- 5. Anfrage-Helfer (ohne Preise) ---------- */
 .konf { background: var(--farbe-grund); }
