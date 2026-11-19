@@ -419,8 +419,8 @@ const KONF_OBJEKTE = [
         <i class="kh-naht" aria-hidden="true"></i>
         <button class="kh-griff" type="button" role="slider" aria-label="Beschlag abziehen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></button>
       </div>
-      <figcaption>Das Team von Merys Clean · feste Kräfte, ein Ansprechpartner</figcaption>
       <p class="kh-hinweis" aria-hidden="true">Ziehen oder scrollen: ein Zug, sauber</p>
+      <figcaption>Das Team von Merys Clean · feste Kräfte, ein Ansprechpartner</figcaption>
     </figure>
   </div>
 </section>
@@ -498,6 +498,7 @@ ${KONF_OBJEKTE.map(([n, l, o], i) => `            <label class="konf-chip"><inpu
 ${S.formular.rhythmen.map((r) => `            <label class="konf-chip"><input type="radio" name="rhythmus" value="${esc(r)}"${r === 'Wöchentlich' ? ' checked' : ''}><span>${esc(r)}</span></label>`).join('\n')}
           </div>
         </fieldset>
+        <button class="unsichtbar" type="submit">Weiter zur Anfrage</button>
       </form>
       <div class="konf-erg">
         <h3>Ihre Angaben, sofort im Formular</h3>
