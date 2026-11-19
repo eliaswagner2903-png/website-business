@@ -38,6 +38,15 @@
     const id = new URLSearchParams(location.search).get('leistung');
     const wahl = id && form.querySelector(`#leistung option[data-id="${CSS.escape(id)}"]`);
     if (wahl) wahl.selected = true;
+    // Weitere Vorgaben aus dem Anfrage-Helfer der Startseite (Objektart, Fläche, Rhythmus); nur bekannte Werte, nie ungeprüft einfügen
+    const q = new URLSearchParams(location.search);
+    for (const feld of ['objektart', 'rhythmus']) {
+      const sel = form.querySelector(`#${feld}`);
+      const w = q.get(feld);
+      if (sel && w) { const o = [...sel.options].find((x) => x.value === w || x.textContent === w); if (o) o.selected = true; }
+    }
+    const fl = q.get('flaeche');
+    if (fl && /^[0-9]{1,6}$/.test(fl)) form.querySelector('#flaeche').value = fl;
 
     form.noValidate = true; // eigene Meldungen statt Browser-Blasen (die Prüfung selbst bleibt die des Browsers)
     const fehlerAus = (feld) => {
