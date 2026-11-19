@@ -114,12 +114,20 @@
         k.style.filter = d < 1 ? `brightness(${(1 - 0.16 * (1 - d)).toFixed(3)})` : '';
       });
       if (hz && spur) {
-        const weg = Math.max(0, spur.scrollWidth - spur.parentElement.clientWidth + 32);
+        // Weg aus der echten Lage des letzten Schritts (scrollWidth ist in iOS-Safari bei max-content unzuverlässig)
+        const pin = hz.firstElementChild;
+        const letzter = spur.lastElementChild;
+        const sr = spur.getBoundingClientRect();
+        const lr = letzter.getBoundingClientRect();
+        const rand = parseFloat(getComputedStyle(spur).paddingRight) || 0;
+        const weg = Math.max(0, Math.round(lr.right - sr.left + rand - spur.parentElement.clientWidth));
+        const kopf = parseFloat(getComputedStyle(pin).top) || 0;
+        const pinH = pin.offsetHeight;
         // Länge des Abschnitts folgt dem Weg der Spur: kein Leerlauf nach dem letzten Schritt
-        const hoehe = Math.round(vh + weg * 1.35 + 80);
+        const hoehe = Math.round(pinH + weg * 1.2 + 40);
         if (Math.abs(hz.offsetHeight - hoehe) > 2) hz.style.height = `${hoehe}px`;
         const r = hz.getBoundingClientRect();
-        const p = klemm(-r.top / Math.max(1, r.height - vh));
+        const p = klemm((kopf - r.top) / Math.max(1, r.height - pinH));
         spur.style.setProperty('--hz-x', `${(-p * weg).toFixed(1)}px`);
         hz.style.setProperty('--p', p.toFixed(4));
       }
