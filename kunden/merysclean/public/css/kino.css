@@ -10,7 +10,7 @@
 .kh { background: var(--farbe-schwarz); color: var(--farbe-flaeche); position: relative; }
 .kh-stage { padding-block: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(2rem, 1.5rem + 3vw, 4rem); display: grid; gap: 1.75rem; align-items: center; }
 .kh-text { position: relative; z-index: 2; }
-.kh h1 { color: var(--farbe-flaeche); max-width: 15ch; font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5rem); line-height: .98; }
+.kh h1 { color: var(--farbe-flaeche); max-width: 16ch; hyphens: manual; font-size: clamp(2.3rem, 1.4rem + 3.7vw, 4.4rem); line-height: .98; }
 .kh h1 .kh-ort { color: var(--farbe-gruen-hell); }
 .kh .ueberzeile { color: var(--farbe-leise-hell); }
 .kh-lead { margin-top: 1.25rem; max-width: 36rem; color: var(--farbe-leise-hell); font-size: 1.1rem; }
