@@ -2,6 +2,7 @@
 // Ohne dieses Skript oder bei „Bewegung reduzieren“ bleibt alles ruhig und vollständig sichtbar (kein html.kino).
 (() => {
   const start = () => {
+    if (window.__kinoAb) window.__kinoAb(); // erneuter Start (z. B. Vorschau-Router): alte Handler entfernen
     const wurzel = document.documentElement;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { initHelfer(); return; }
     wurzel.classList.add('kino');
@@ -109,6 +110,7 @@
     }
     addEventListener('scroll', zeichnen, { passive: true });
     addEventListener('resize', zeichnen);
+    window.__kinoAb = () => { removeEventListener('scroll', zeichnen); removeEventListener('resize', zeichnen); };
     zeichnen();
     initHelfer();
   };

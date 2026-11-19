@@ -55,6 +55,7 @@ css = (Q / 'css' / css_name).read_text()
 css = re.sub(r'url\("\.\./fonts/([^"]+\.woff2)"\)',
              lambda m: 'url("data:font/woff2;base64,' + base64.b64encode((Q / 'fonts' / m.group(1)).read_bytes()).decode() + '")', css)
 css = css.replace('url("../medien/siegel-480.webp")', f'url("{daten_svg(Q / "medien" / "siegel.svg")}")')
+css = css.replace('url("../img/nebel.svg")', f'url("{daten_svg(Q / "img" / "nebel.svg")}")')
 css = css.replace('url("../img/deko-schwung.svg")', f'url("{daten_svg(Q / "img" / "deko-schwung.svg")}")')
 css += '''
 /* Musterseite-Hinweis (nur Vorschau) */
@@ -78,6 +79,7 @@ for name in SEITEN[1:]:
 # ---------- Skripte: Bausteine + Seite, angepasst an Hash-Adressen ----------
 js_b = (Q / 'js' / 'bausteine.js').read_text()
 js_s = (Q / 'js' / 'seite.js').read_text()
+js_k = (Q / 'js' / 'kino.js').read_text().replace("if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();", "window.fkKino = start; if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();")
 js_s = js_s.replace("new URLSearchParams(location.search).get('leistung')",
                     "new URLSearchParams(location.search || location.hash.split('?')[1] || '').get('leistung')")
 js_s, n = re.subn(r'function start\(\) \{ panel\(\); formular\(\); kippen\(\); leistungsbilder\(\); schnellleiste\(\); \}',
@@ -120,6 +122,7 @@ ROUTER = r'''
         setzeAktiv('');
       }
       if (window.fkFormular) window.fkFormular();
+      if (window.fkKino) window.fkKino();
       if (nutzer) {
         window.scrollTo(0, 0);
         main.setAttribute('tabindex', '-1');
@@ -147,7 +150,7 @@ koerper = koerper.replace('<a class="sprung" href="#inhalt">Zum Inhalt springen<
                           + f'\n<script>document.body.className = "{klasse0}";</script>', 1)
 assert hinweis in koerper, 'Sprunglink nicht gefunden'
 koerper = (koerper.strip() + '\n\n'
-           + '\n'.join(vorlagen) + f'\n<script>\n{js_b}\n{js_s}\n{ROUTER}</script>\n')
+           + '\n'.join(vorlagen) + f'\n<script>\n{js_b}\n{js_s}\n{js_k}\n{ROUTER}</script>\n')
 ergebnis = kopf_html.strip() + '\n' + koerper
 
 # ---------- Prüfen: keine echten Angaben, keine Dateiverweise ----------
