@@ -48,6 +48,19 @@
     }
     const aktuellHero = () => Math.max(heroP, heroIntro, heroZiehen);
 
+    // ---------- 1b. Unterseiten: Foto im Seitenkopf wird einmal freigewischt ----------
+    const skFotos = [...document.querySelectorAll('.seitenkopf-bild')].filter((f) => f.querySelector('.kh-nebel'));
+    if (skFotos.length) {
+      const sk0 = performance.now() + 450;
+      const skZug = (jetzt) => {
+        const t = klemm((jetzt - sk0) / 1500);
+        skFotos.forEach((f) => { f.style.setProperty('--p', weich(t).toFixed(4)); f.classList.toggle('fertig', t >= 1); });
+        if (t < 1) requestAnimationFrame(skZug);
+      };
+      skFotos.forEach((f) => f.style.setProperty('--p', '0'));
+      requestAnimationFrame(skZug);
+    }
+
     // ---------- 2. Haltungssatz ----------
     const tr = document.querySelector('.tr');
     const woerter = tr ? [...tr.querySelectorAll('.tr-text .w')] : [];

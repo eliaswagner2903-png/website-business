@@ -230,7 +230,8 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}${datei === '404.ht
 ${preload}<script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${klasse.includes('seite-start') ? '<script src="/js/kino.js" defer></script>\n' : ''}${ld}</head>
+<script src="/js/kino.js" defer></script>
+${ld}</head>
 <body${klasse ? ` class="${klasse}"` : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 ${kopfzeile(aktiv)}
@@ -271,16 +272,18 @@ ${S.zusagen.map((z, i) => `      <li${!klasse && IM_HELD.includes(i) ? ' class="
   </div>
 </section>`;
 
-const ablauf = (titel = 'So läuft es ab') => `<section class="abschnitt ablauf dunkel" aria-labelledby="ablauf-titel">
-  <div class="huelle">
-    <div class="abschnitt-kopf einblenden">
+const ablauf = (titel = 'Von der Anfrage bis zur festen Reinigung') => `<section class="hz" aria-labelledby="ablauf-titel">
+  <div class="hz-pin">
+    <div class="huelle hz-kopf">
       ${ueber('Ablauf', true)}
       <h2 id="ablauf-titel">${titel}</h2>
-      <p class="abschnitt-text">Von der ersten Anfrage bis zur festen Reinigung: Sie wissen vorher, was gereinigt wird und was es kostet.</p>
     </div>
-    <ol class="schritte">
-${S.ablauf.map((s, i) => `      <li class="schritt einblenden">${zeichen(ABLAUF_Z[i], 'patch--gross')}<h3>${esc(s.titel)}</h3><p>${esc(s.text)}</p></li>`).join('\n')}
-    </ol>
+    <div class="hz-buehne">
+      <ol class="hz-spur">
+${S.ablauf.map((st, i) => `        <li class="hz-schritt">${zeichen(ABLAUF_Z[i])}<p class="hz-nr">Schritt ${i + 1}</p><h3 class="hz-titel">${esc(st.titel)}</h3><p class="hz-text">${esc(st.text)}</p></li>`).join('\n')}
+      </ol>
+      <div class="hz-weg" aria-hidden="true"></div>
+    </div>
   </div>
 </section>`;
 
@@ -582,11 +585,11 @@ ${S.ablauf.slice(1, 4).map((a, i) => `        <li>${zeichen(ABLAUF_Z[i + 1], 'pa
 const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '', bildFrei = false, fach = '' }) => `<section class="seitenkopf${bildHtml || fach ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
     <div class="seitenkopf-text">
-      ${ueber(ueberText)}
+      ${ueber(ueberText, true)}
       <h1 id="titel">${h1}</h1>
       <p class="seitenkopf-lead">${lead}</p>
 ${extra ? `      ${extra}\n` : ''}    </div>
-${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--frei' : ''}"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
+${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--frei' : ''}"${pr(bildPruefen)}>${bildHtml}${bildFrei ? '' : '<div class="kh-nebel" aria-hidden="true"></div><i class="kh-naht" aria-hidden="true"></i>'}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
 </section>`;
 
 // ---------- Leistungen (Übersicht) ----------
@@ -596,14 +599,17 @@ ${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--
 <section class="abschnitt" aria-labelledby="alle-titel">
   <div class="huelle">
     <h2 id="alle-titel" class="unsichtbar">Alle Leistungen</h2>
-    <ul class="leistung-karten">
-${LEI.map((l, i) => `      <li class="leistung-karte">
-        <div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw', { lazy: i > 2 })}${zeichen(l.id)}</div>
-        <h3><a href="/${l.url}">${esc(l.name)}</a></h3>
-        <p>${esc(l.lead)}</p>
-        <p class="leistung-karte-mehr" aria-hidden="true">Mehr erfahren ${pfeil}</p>
-      </li>`).join('\n')}
-    </ul>
+    <ol class="stapel">
+${LEI.map((l, i) => `      <li><article class="stapel-karte">
+        <figure class="stapel-foto"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 52rem) 40rem, 96vw', { lazy: i > 0 })}${zeichen(l.id)}</figure>
+        <div class="stapel-text">
+          <p class="stapel-zaehler">${i + 1} von ${LEI.length}</p>
+          <h3 class="stapel-name">${esc(l.name)}</h3>
+          <p class="stapel-kurz">${esc(l.lead)}</p>
+          <a class="textlink" href="/${l.url}">Mehr zu ${esc(l.name)} ${pfeil}</a>
+        </div>
+      </article></li>`).join('\n')}
+    </ol>
   </div>
 </section>
 
@@ -698,11 +704,11 @@ ${anfrageBand()}`;
 {
   const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen, bildFrei: true })}
 
-<section class="abschnitt ueber-text koeper" aria-labelledby="mehr-titel">
+<section class="abschnitt ueber-text tr koeper" aria-labelledby="mehr-titel">
   <div class="huelle ueber-text-in einblenden">
     ${ueber('Mehr als nur ein Reinigungsunternehmen')}
     <h2 id="mehr-titel">Ein Ansprechpartner, <span class="akzent-wort">feste</span> Kräfte, klare Absprachen</h2>
-    <p class="gross-text"><span${pr(S.erfahrung.pruefen)}>${esc(S.erfahrung.text)}</span>: Darauf baut unser Reinigungsservice auf. Sie bekommen flexible Lösungen für Ihr Unternehmen oder Ihren Privathaushalt und einen persönlichen Ansprechpartner, der Sie über die gesamte Zeit betreut.</p>
+    <p class="tr-text tr-text--mittel"${pr(S.erfahrung.pruefen)}>${woerterSpans(`${S.erfahrung.text}: Darauf baut unser Reinigungsservice auf. Sie bekommen flexible Lösungen für Ihr Unternehmen oder Ihren Privathaushalt und einen persönlichen Ansprechpartner, der Sie über die gesamte Zeit betreut.`)}</p>
   </div>
 </section>
 
