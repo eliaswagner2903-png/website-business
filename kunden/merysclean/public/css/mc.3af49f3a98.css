@@ -1101,3 +1101,155 @@ main { isolation: isolate; }
 }
 @media (min-width: 64rem) { .blatt-schleier { display: none; } }
 @keyframes blatt-eintrag { from { opacity: 0; transform: translateY(14px); } }
+
+/* ===== kino.css ===== */
+/* =====================================================================
+   KINO – Bewegungs-Kapitel der Startseite (Relaunch 19.11.2026)
+   Leitidee: „Ein Zug. Sauber.“ – der Abzieher zieht den Beschlag vom Teamfoto.
+   Alles Bewegte hängt an html.kino (setzt kino.js nur ohne „Bewegung reduzieren“);
+   ohne JS oder mit reduzierter Bewegung stehen alle Kapitel ruhig und vollständig da.
+   Nur transform/opacity/mask, Fortschritt kommt als --p (0..1) vom Skript.
+   ===================================================================== */
+
+/* ---------- 1. Hero: Beschlag abziehen ---------- */
+.kh { background: var(--farbe-schwarz); color: var(--farbe-flaeche); position: relative; }
+.kh-stage { padding-block: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(2rem, 1.5rem + 3vw, 4rem); display: grid; gap: 1.75rem; align-items: center; }
+.kh-text { position: relative; z-index: 2; }
+.kh h1 { color: var(--farbe-flaeche); max-width: 15ch; font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5rem); line-height: .98; }
+.kh h1 .kh-ort { color: var(--farbe-gruen-hell); }
+.kh .ueberzeile { color: var(--farbe-leise-hell); }
+.kh-lead { margin-top: 1.25rem; max-width: 36rem; color: var(--farbe-leise-hell); font-size: 1.1rem; }
+.kh .wege { margin-top: 1.75rem; }
+.kh .knopf.zweit { color: var(--farbe-flaeche); border-color: color-mix(in srgb, var(--farbe-flaeche) 45%, transparent); }
+.kh-bild { position: relative; margin: 0; }
+.kh-foto { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius-gross); background: #9a9a9a; }
+.kh-foto picture, .kh-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kh-bild figcaption { margin-top: .6rem; color: var(--farbe-leise-hell); font-size: .85rem; }
+.kh-nebel, .kh-naht, .kh-hinweis { display: none; }
+
+@media (min-width: 64rem) {
+  .kh-stage { grid-template-columns: minmax(0, 4.6fr) minmax(0, 7.4fr); gap: clamp(2rem, 3vw, 3.5rem); }
+  .kh-foto { aspect-ratio: 15 / 8.6; }
+}
+
+.kino .kh-nebel { display: block; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(236,241,238,.82), rgba(214,224,219,.9)), url("../img/nebel.svg") center / 100% 100% no-repeat;
+  background-blend-mode: normal;
+  -webkit-backdrop-filter: blur(16px) saturate(.7); backdrop-filter: blur(16px) saturate(.7);
+  --kante: calc(var(--p, 0) * 102%);
+  -webkit-mask-image: linear-gradient(90deg, transparent calc(var(--kante) - 3%), #000 calc(var(--kante) + 0.4%));
+          mask-image: linear-gradient(90deg, transparent calc(var(--kante) - 3%), #000 calc(var(--kante) + 0.4%));
+}
+.kino .kh-foto { overflow: hidden; }
+.kino .kh-naht { display: block; position: absolute; top: 0; bottom: 0; left: calc(var(--p, 0) * 100%); width: 0; z-index: 3; pointer-events: none; }
+.kino .kh-naht::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 3px; background: linear-gradient(180deg, rgba(255,255,255,.2), #fff 12%, #fff 88%, rgba(255,255,255,.2)); box-shadow: 0 0 18px 4px rgba(95,186,70,.55), 0 0 2px rgba(255,255,255,.9); border-radius: 2px; }
+.kino .kh-naht[hidden] { display: none; }
+/* Abzieher-Griff: ziehbar (Zeiger) und per Pfeiltasten, wirkt auch am Handy */
+.kh-griff { display: none; }
+.kino .kh-griff { display: grid; place-items: center; position: absolute; z-index: 4; top: 50%; left: calc(var(--p, 0) * 100%); width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+  background: var(--farbe-gruen-hell); color: var(--farbe-schwarz); border: 2px solid #fff; cursor: ew-resize; touch-action: none; box-shadow: 0 6px 20px rgba(0,0,0,.35); transition: opacity .4s var(--kurve-standard), transform .2s; }
+.kino .kh-griff svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.kino .kh-griff:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.kino .kh-griff:active { transform: scale(1.06); }
+.kino.kh-fertig .kh-griff { opacity: 0; pointer-events: none; }
+.kino .kh-hinweis { display: block; margin: .9rem 0 0; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--farbe-leise-hell); transition: opacity .5s; }
+.kino.kh-fertig .kh-hinweis { opacity: 0; }
+
+/* Desktop: Bühne bleibt stehen, Scrollen zieht ab */
+@media (min-width: 64rem) {
+  .kino .kh { height: 235vh; }
+  .kino .kh-stage { position: sticky; top: var(--kopf-hoehe); min-height: calc(100svh - var(--kopf-hoehe)); align-content: center; padding-block: 1.5rem; }
+}
+
+/* ---------- 2. Haltungssatz: Wort für Wort ---------- */
+.tr { position: relative; overflow: hidden; }
+.tr-text { font-family: var(--schrift-display); font-size: clamp(2rem, 1.2rem + 3.6vw, 4.6rem); line-height: 1.12; max-width: 24ch; margin-inline: auto; text-wrap: balance; letter-spacing: -.005em; position: relative; z-index: 1; }
+.tr-text .w { transition: color .35s var(--kurve-standard); }
+.kino .tr-text .w { color: color-mix(in srgb, var(--farbe-text) 22%, transparent); }
+.kino .tr-text .w.an { color: var(--farbe-text); }
+.kino .tr-text .w.an.mark { color: var(--farbe-text); background: linear-gradient(transparent 62%, color-mix(in srgb, var(--farbe-gruen-hell) 80%, transparent) 62% 92%, transparent 92%); }
+.tr-text .mark { background: linear-gradient(transparent 62%, color-mix(in srgb, var(--farbe-gruen-hell) 80%, transparent) 62% 92%, transparent 92%); }
+.kino .tr-text .w.mark:not(.an) { background: none; }
+.tr-schwung { position: absolute; left: -5%; right: -5%; top: 50%; width: 110%; height: 14rem; margin-top: -7rem; fill: none; stroke: var(--farbe-gruen-hell); stroke-width: 2; opacity: .55; z-index: 0; }
+.kino .tr-schwung { transform: translate3d(0, calc((var(--p, .5) - .5) * -90px), 0); }
+
+/* ---------- 3. Leistungen als Stapel ---------- */
+.stapel-abschnitt .abschnitt-kopf { margin-bottom: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.stapel { list-style: none; margin: 0; padding: 0; counter-reset: stapel; }
+.stapel > li { position: sticky; top: calc(var(--kopf-hoehe) + .75rem); margin-bottom: 1.5rem; }
+.stapel > li:nth-child(2) { top: calc(var(--kopf-hoehe) + .75rem + 1 * .7rem); }
+.stapel > li:nth-child(3) { top: calc(var(--kopf-hoehe) + .75rem + 2 * .7rem); }
+.stapel > li:nth-child(4) { top: calc(var(--kopf-hoehe) + .75rem + 3 * .7rem); }
+.stapel > li:nth-child(5) { top: calc(var(--kopf-hoehe) + .75rem + 4 * .7rem); }
+.stapel > li:nth-child(6) { top: calc(var(--kopf-hoehe) + .75rem + 5 * .7rem); }
+.stapel > li:nth-child(7) { top: calc(var(--kopf-hoehe) + .75rem + 6 * .7rem); }
+.stapel > li:nth-child(8) { top: calc(var(--kopf-hoehe) + .75rem + 7 * .7rem); }
+.stapel-karte { position: relative; display: grid; gap: 0; overflow: hidden; border-radius: var(--radius-gross); background: var(--farbe-flaeche); color: var(--farbe-text); box-shadow: 0 -10px 40px rgba(18,20,18,.12), 0 2px 0 rgba(18,20,18,.06); border: 1px solid var(--farbe-linie); transform-origin: 50% 0; will-change: transform; }
+.stapel-karte:nth-child(odd) { background: var(--farbe-flaeche); }
+.stapel > li:nth-child(3n+2) .stapel-karte { background: #e9eee3; }
+.stapel > li:nth-child(3n+3) .stapel-karte { background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-color: var(--farbe-schwarz-hoch); }
+.stapel > li:nth-child(3n+3) .stapel-karte .stapel-kurz { color: var(--farbe-leise-hell); }
+.stapel > li:nth-child(3n+3) .stapel-karte .textlink { color: var(--farbe-gruen-hell); }
+.stapel-foto { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--farbe-schwarz-hoch); }
+.stapel-foto picture, .stapel-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.stapel-foto .patch { position: absolute; left: 1rem; bottom: 1rem; }
+.stapel-text { padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem); display: grid; gap: .75rem; align-content: center; }
+.stapel-name { font-family: var(--schrift-display); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2.4vw, 3.5rem); line-height: 1.02; margin: 0; }
+.stapel-kurz { margin: 0; color: var(--farbe-leise); max-width: 34rem; }
+.stapel-text .textlink { justify-self: start; }
+.stapel-zaehler { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-leise); margin: 0; }
+.stapel > li:nth-child(3n+3) .stapel-zaehler { color: var(--farbe-leise-hell); }
+@media (min-width: 52rem) {
+  .stapel-karte { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: min(62vh, 34rem); }
+  .stapel-foto { aspect-ratio: auto; height: 100%; }
+  .stapel > li:nth-child(even) .stapel-foto { order: 2; }
+}
+
+/* ---------- 4. Ablauf: waagerecht durchscrollen ---------- */
+.hz { --hz-rand: max(1.25rem, calc((100vw - 78rem) / 2)); background: var(--farbe-schwarz); color: var(--farbe-flaeche); position: relative; }
+.hz-kopf { padding-top: clamp(3rem, 2rem + 5vw, 6rem); }
+.hz-kopf h2 { color: var(--farbe-flaeche); max-width: 16ch; }
+.hz-buehne { padding-block: clamp(1.5rem, 1rem + 3vw, 3rem) clamp(3rem, 2rem + 5vw, 6rem); }
+.hz-spur { list-style: none; margin: 0; padding: 0 var(--hz-rand, 1.25rem); display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+.hz-schritt { flex: 0 0 min(82vw, 24rem); scroll-snap-align: start; border-radius: var(--radius-gross); background: var(--farbe-schwarz-hoch); border: 1px solid rgba(255,255,255,.1); padding: clamp(1.4rem, 1rem + 1.5vw, 2.25rem); display: grid; gap: .9rem; align-content: start; min-height: 20rem; }
+.hz-schritt .patch { width: 3.5rem; height: 3.5rem; }
+.hz-titel { font-family: var(--schrift-display); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1.02; margin: 0; color: var(--farbe-flaeche); }
+.hz-text { margin: 0; color: var(--farbe-leise-hell); }
+.hz-nr { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--farbe-gruen-hell); margin: 0; }
+.hz-weg { display: none; }
+.kino .hz { height: 320vh; }
+.kino .hz-pin { position: sticky; top: var(--kopf-hoehe); height: calc(100svh - var(--kopf-hoehe)); overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.kino .hz-kopf { padding-top: 0; }
+.kino .hz-buehne { padding-block: clamp(1.5rem, 3vh, 2.5rem) 0; }
+.kino .hz-spur { overflow: visible; scroll-snap-type: none; transform: translate3d(var(--hz-x, 0px), 0, 0); will-change: transform; width: max-content; }
+.kino .hz-schritt { flex-basis: min(80vw, 26rem); min-height: min(21rem, 44svh); }
+.kino .hz-weg { display: block; position: relative; height: 3px; margin: clamp(1.25rem, 3vh, 2.25rem) var(--hz-rand, 1.25rem) 0; background: rgba(255,255,255,.14); border-radius: 3px; overflow: hidden; }
+.kino .hz-weg::after { content: ""; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: var(--farbe-gruen-hell); box-shadow: 0 0 14px rgba(95,186,70,.8); }
+
+/* ---------- 5. Anfrage-Helfer (ohne Preise) ---------- */
+.konf { background: var(--farbe-grund); }
+.konf-karte { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem); border-radius: var(--radius-gross); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); padding: clamp(1.25rem, .8rem + 2.2vw, 3rem); box-shadow: 0 20px 60px rgba(18,20,18,.08); }
+.konf-form { display: grid; gap: 1.6rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.konf-gruppe { border: 0; margin: 0; padding: 0; min-width: 0; }
+.konf-gruppe legend { font-weight: 600; margin-bottom: .6rem; padding: 0; }
+.konf-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.konf-chip { position: relative; }
+.konf-chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.konf-chip span { display: inline-flex; align-items: center; min-height: 44px; padding: .45rem 1rem; border-radius: 999px; border: 1.5px solid var(--farbe-leise); background: var(--farbe-flaeche); transition: background .2s, color .2s, border-color .2s, transform .15s; }
+.konf-chip input:checked + span { background: var(--farbe-schwarz); color: var(--farbe-flaeche); border-color: var(--farbe-schwarz); box-shadow: inset 0 -3px 0 var(--farbe-gruen-hell); }
+.konf-chip input:focus-visible + span { outline: 3px solid var(--farbe-text); outline-offset: 2px; }
+.konf-chip input:active + span { transform: scale(.97); }
+.konf-flaeche { display: grid; gap: .5rem; }
+.konf-flaeche output { font-family: var(--schrift-display); font-size: 2.2rem; line-height: 1; }
+.konf-flaeche input[type=range] { width: 100%; height: 44px; margin: 0; accent-color: var(--farbe-schwarz); background: none; }
+.konf-erg { border-radius: var(--radius-gross); background: var(--farbe-schwarz); color: var(--farbe-flaeche); padding: clamp(1.4rem, 1rem + 1.6vw, 2.25rem); display: grid; gap: 1rem; align-content: start; }
+.konf-erg h3 { font-family: var(--schrift-display); font-weight: 400; font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.5rem); line-height: 1.05; margin: 0; }
+.konf-satz { margin: 0; color: var(--farbe-leise-hell); }
+.konf-satz strong { color: var(--farbe-flaeche); font-weight: 600; }
+.konf-erg .knopf { justify-self: start; }
+.konf-fuss { margin: 0; font-size: .88rem; color: var(--farbe-leise-hell); }
+@media (min-width: 64rem) { .konf-karte { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: stretch; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stapel-karte { transform: none !important; }
+}

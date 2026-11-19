@@ -167,7 +167,7 @@ ${LEI.map((l) => `          <li><a href="/${l.url}">${esc(l.name)}</a></li>`).jo
 }
 
 // ---------- CSS-Bündel (eine Anfrage statt drei, Name mit Inhalts-Hash) ----------
-const CSS_QUELLEN = ['marke.css', 'stil.css', 'bausteine.css'];
+const CSS_QUELLEN = ['marke.css', 'stil.css', 'bausteine.css', 'kino.css'];
 let CSS_DATEI = '';
 function cssBuendeln() {
   for (const f of readdirSync(new URL('css/', OUT))) if (/^mc\.[0-9a-f]{10}\.css$/.test(f)) unlinkSync(new URL(`css/${f}`, OUT));
@@ -230,7 +230,7 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}${datei === '404.ht
 ${preload}<script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${ld}</head>
+${klasse.includes('seite-start') ? '<script src="/js/kino.js" defer></script>\n' : ''}${ld}</head>
 <body${klasse ? ` class="${klasse}"` : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 ${kopfzeile(aktiv)}
@@ -389,59 +389,125 @@ const betrieb = () => ({
 cssBuendeln();
 
 // ---------- Startseite ----------
+// Relaunch 19.11.2026: Bewegungs-Kapitel (kino.css/kino.js): Hero zieht den Beschlag ab, Haltungssatz Wort für Wort,
+// Leistungen als Stapel, Ablauf waagerecht, Anfrage-Helfer. Ohne JS / bei „Bewegung reduzieren“ alles ruhig und vollständig.
+const woerterSpans = (text) => text.split(' ').map((w) => {
+  const mark = /^\*(.+)\*([.,:;!?]*)$/.exec(w);
+  return mark ? `<span class="w mark">${esc(mark[1])}</span>${esc(mark[2])}` : `<span class="w">${esc(w)}</span>`;
+}).join(' ');
+const KONF_OBJEKTE = [
+  ['Büro oder Praxis', 'bueroreinigung', 'Büro oder Praxis'],
+  ['Geschäft oder Gewerbe', 'unterhaltsreinigung', 'Geschäft oder Gewerbe'],
+  ['Treppenhaus oder Wohnanlage', 'treppenhausreinigung', 'Treppenhaus oder Wohnanlage'],
+  ['Wohnung oder Haus', 'privathaushalt', 'Wohnung oder Haus'],
+  ['Baustelle oder Umzug', 'sonderreinigung', 'Baustelle'],
+];
 {
   const H = S.hero;
-  const inhalt = `<section class="held" aria-labelledby="titel">
-  <div class="huelle held-in">
-    <div class="held-text">
+  const inhalt = `<section class="kh" aria-labelledby="titel">
+  <div class="huelle kh-stage">
+    <div class="kh-text">
       ${ueber(esc(H.ueberzeile))}
-      <h1 id="titel">${esc(H.h1_vor)}<span class="mit-schwung">${esc(H.h1_schwung)}${schwung('schwung schwung--h1')}</span></h1>
-      <p class="held-lead">${esc(H.lead)}</p>
+      <h1 id="titel">${esc(H.h1_vor)}<span class="kh-ort">${esc(H.h1_schwung)}</span></h1>
+      <p class="kh-lead">${esc(H.lead)}</p>
       ${zweiWege()}
-      <ul class="held-zusagen">
-        <li class="held-zusage">${zeichen('schild', 'patch--klein')}<span><strong>Zufriedenheitsgarantie</strong> Nachreinigung kostenlos, bei Meldung binnen 24&nbsp;h</span></li>
-        <li class="held-zusage">${zeichen('lupe', 'patch--klein')}<span><strong>Kostenlose Besichtigung</strong> vor jedem Angebot</span></li>
-      </ul>
     </div>
-    <figure class="held-bild"${pr(S.team_gruppe.pruefen)}>
-      <div class="rahmen" data-kippen>
-        <div class="rahmen-foto">${bild(S.team_gruppe, '(min-width: 64rem) 36rem, 100vw', { lazy: false, prio: true })}</div>
-        <span class="rahmen-etikett">Unser Team</span>
+    <figure class="kh-bild"${pr(S.team_gruppe.pruefen)}>
+      <div class="kh-foto">
+        ${bild(S.team_gruppe, '(min-width: 64rem) 58vw, 100vw', { lazy: false, prio: true })}
+        <div class="kh-nebel" aria-hidden="true"></div>
+        <i class="kh-naht" aria-hidden="true"></i>
+        <button class="kh-griff" type="button" role="slider" aria-label="Beschlag abziehen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></button>
       </div>
-      <figcaption>Das Team von Merys Clean in Arbeitskleidung</figcaption>
+      <figcaption>Das Team von Merys Clean · feste Kräfte, ein Ansprechpartner</figcaption>
+      <p class="kh-hinweis" aria-hidden="true">Ziehen oder scrollen: ein Zug, sauber</p>
     </figure>
   </div>
 </section>
 
 ${zusagen()}
 
-<section class="abschnitt haltung" aria-labelledby="haltung-titel">
+<section class="abschnitt tr" aria-labelledby="haltung-titel">
+  <svg class="tr-schwung" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 170C220 215 640 215 1200 30"/></svg>
   <div class="huelle">
     <h2 id="haltung-titel" class="unsichtbar">Was Sie von uns erwarten können</h2>
-    <p class="haltung-text"><span class="haltung-teil">Feste Kräfte, die Ihre Räume <em>kennen</em>.</span> <span class="haltung-teil">Ein Ansprechpartner, der <em>erreichbar</em> ist.</span> <span class="haltung-teil">Und passt etwas nicht, melden Sie sich binnen <em>24&nbsp;Stunden</em>: Wir reinigen kostenlos nach.</span></p>
+    <p class="tr-text">${woerterSpans('Feste Kräfte, die Ihre Räume *kennen*. Ein Ansprechpartner, der *erreichbar* ist. Und passt etwas nicht, melden Sie sich binnen *24* *Stunden*: Wir reinigen kostenlos nach.')}</p>
   </div>
 </section>
 
-<section class="abschnitt leistungen-start koeper" aria-labelledby="leistungen-titel">
+<section class="abschnitt stapel-abschnitt koeper" aria-labelledby="leistungen-titel">
   <div class="huelle">
-    <div class="abschnitt-kopf einblenden">
+    <div class="abschnitt-kopf">
       ${ueber('Leistungen')}
       <h2 id="leistungen-titel">Reinigung für Gewerbe und Zuhause</h2>
       <p class="abschnitt-text">Regelmäßig oder einmalig, für Firmen, Hausverwaltungen und Privathaushalte. Jede Leistung beginnt mit einer kostenlosen Besichtigung.</p>
     </div>
-    <div class="leistungen-raster">
-      <ul class="leistung-zeilen">
-${LEI.map((l, i) => `        <li class="einblenden${i === 0 ? ' ist-aktiv' : ''}"><a class="leistung-zeile" href="/${l.url}" data-bild="${i}">${zeichen(l.id)}<div class="leistung-foto" aria-hidden="true"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '6rem')}${zeichen(l.id, 'patch--klein')}</div><span class="leistung-name">${esc(l.name)}</span><span class="leistung-kurz">${esc(l.kurz)}</span>${pfeil}</a></li>`).join('\n')}
-      </ul>
-      <div class="leistungen-bilder" aria-hidden="true">
-${LEI.map((l, i) => `        <figure class="leistungen-bild${i === 0 ? ' ist-aktiv' : ''}"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 64rem) 30rem, 96vw')}<span class="leistungen-bild-name">${esc(l.name)}</span></figure>`).join('\n')}
-      </div>
-    </div>
+    <ol class="stapel">
+${LEI.map((l, i) => `      <li><article class="stapel-karte">
+        <figure class="stapel-foto"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 52rem) 40rem, 96vw')}${zeichen(l.id)}</figure>
+        <div class="stapel-text">
+          <p class="stapel-zaehler">${i + 1} von ${LEI.length}</p>
+          <h3 class="stapel-name">${esc(l.name)}</h3>
+          <p class="stapel-kurz">${esc(l.kurz)}</p>
+          <a class="textlink" href="/${l.url}">Mehr zu ${esc(l.name)} ${pfeil}</a>
+        </div>
+      </article></li>`).join('\n')}
+    </ol>
     <p class="weiter-link"><a class="textlink" href="/leistungen">Alle Leistungen im Überblick ${pfeil}</a></p>
   </div>
 </section>
 
-${ablauf()}
+<section class="hz" aria-labelledby="ablauf-titel">
+  <div class="hz-pin">
+    <div class="huelle hz-kopf">
+      ${ueber('Ablauf', true)}
+      <h2 id="ablauf-titel">Von der Anfrage bis zur festen Reinigung</h2>
+    </div>
+    <div class="hz-buehne">
+      <ol class="hz-spur">
+${S.ablauf.map((st, i) => `        <li class="hz-schritt">${zeichen(ABLAUF_Z[i])}<p class="hz-nr">Schritt ${i + 1}</p><h3 class="hz-titel">${esc(st.titel)}</h3><p class="hz-text">${esc(st.text)}</p></li>`).join('\n')}
+      </ol>
+      <div class="hz-weg" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt konf" aria-labelledby="konf-titel">
+  <div class="huelle">
+    <div class="abschnitt-kopf">
+      ${ueber('Anfrage vorbereiten')}
+      <h2 id="konf-titel">Was soll sauber werden?</h2>
+      <p class="abschnitt-text">Drei Angaben genügen. Wir übernehmen sie ins Formular, Sie ergänzen nur noch Name und Telefon. Einen Preis nennen wir erst nach der kostenlosen Besichtigung.</p>
+    </div>
+    <div class="konf-karte">
+      <form class="konf-form" action="/angebot" method="get" aria-label="Anfrage vorbereiten">
+        <fieldset class="konf-gruppe">
+          <legend>Objekt</legend>
+          <div class="konf-chips">
+${KONF_OBJEKTE.map(([n, l, o], i) => `            <label class="konf-chip"><input type="radio" name="objekt" value="${i}" data-leistung="${l}" data-objektart="${esc(o)}"${i === 0 ? ' checked' : ''}><span>${esc(n)}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+        <div class="konf-gruppe konf-flaeche">
+          <label for="konf-flaeche">Ungefähre Fläche</label>
+          <output for="konf-flaeche">ca. 150 m²</output>
+          <input id="konf-flaeche" name="flaeche" type="range" min="20" max="1000" step="10" value="150">
+        </div>
+        <fieldset class="konf-gruppe">
+          <legend>Wie oft?</legend>
+          <div class="konf-chips">
+${S.formular.rhythmen.map((r) => `            <label class="konf-chip"><input type="radio" name="rhythmus" value="${esc(r)}"${r === 'Wöchentlich' ? ' checked' : ''}><span>${esc(r)}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+      </form>
+      <div class="konf-erg">
+        <h3>Ihre Angaben, sofort im Formular</h3>
+        <p class="konf-satz" aria-live="polite">Wählen Sie links, was gereinigt werden soll. Wir übernehmen Ihre Angaben ins Formular.</p>
+        <a class="knopf knopf--stick gross" href="/angebot#formular">Weiter zur Anfrage ${pfeil}</a>
+        <p class="konf-fuss">Kostenlos und unverbindlich. Rückruf Mo–Fr 8–16 Uhr.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 ${garantie()}
 
