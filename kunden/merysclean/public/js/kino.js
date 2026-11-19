@@ -128,7 +128,8 @@
         if (Math.abs(hz.offsetHeight - hoehe) > 2) hz.style.height = `${hoehe}px`;
         const r = hz.getBoundingClientRect();
         const p = klemm((kopf - r.top) / Math.max(1, r.height - pinH));
-        spur.style.setProperty('--hz-x', `${(-p * weg).toFixed(1)}px`);
+        // Letzter Schritt steht schon bei ca. 92 % des Balkens vollständig im Bild: kleiner Spielraum am Ende
+        spur.style.setProperty('--hz-x', `${(-klemm(p / 0.92) * weg).toFixed(1)}px`);
         hz.style.setProperty('--p', p.toFixed(4));
       }
     }
