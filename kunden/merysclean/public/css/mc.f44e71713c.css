@@ -1252,6 +1252,10 @@ main { isolation: isolate; }
 .tr-text--mittel { font-size: clamp(1.7rem, 1.2rem + 2.2vw, 3rem); max-width: 30ch; margin-inline: 0; line-height: 1.18; }
 .ueber-text.tr .huelle { position: relative; z-index: 1; }
 
+/* Design-Skills-Durchgang 23.11.2026: Foto im Seitenkopf höher (4:3) (Fotos führen), Stapel-Text lesbarer */
+.seitenkopf-bild:not(.seitenkopf-bild--frei) img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.stapel-kurz { font-size: clamp(1.05rem, 1rem + .35vw, 1.3rem); line-height: 1.5; }
+
 /* ---------- 5. Anfrage-Helfer (ohne Preise) ---------- */
 .konf { background: var(--farbe-grund); }
 .konf-karte { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem); border-radius: var(--radius-gross); background: var(--farbe-flaeche); border: 1px solid var(--farbe-linie); padding: clamp(1.25rem, .8rem + 2.2vw, 3rem); box-shadow: 0 20px 60px rgba(18,20,18,.08); }
