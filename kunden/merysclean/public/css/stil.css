@@ -619,21 +619,29 @@ main { isolation: isolate; }
     radial-gradient(circle, color-mix(in srgb, var(--farbe-flaeche) 9%, transparent) .7px, transparent 1.2px) 0 0 / 7px 7px,
     var(--farbe-schwarz-hoch);
 }
-.karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 800 / 730; max-width: none; overflow: visible; }
-.karte-wege path { fill: none; stroke: var(--farbe-akzent); stroke-opacity: .7; stroke-width: 2; stroke-dasharray: 9 8; stroke-linecap: round; }
+.karte-svg { inline-size: 100%; block-size: auto; aspect-ratio: 900 / 860; max-width: none; overflow: hidden; border-radius: 14px; }
+.karte-wege path { fill: none; stroke: var(--farbe-akzent); stroke-opacity: .55; stroke-width: 2; stroke-dasharray: 9 8; stroke-linecap: round; }
+.karte-kreis { fill: color-mix(in srgb, var(--farbe-flaeche) 5%, transparent); stroke: color-mix(in srgb, var(--farbe-flaeche) 38%, transparent); stroke-width: 1.5; stroke-dasharray: 7 6; stroke-linejoin: round; }
+.karte-kreis--heim { fill: color-mix(in srgb, var(--farbe-akzent) 20%, transparent); stroke: var(--farbe-akzent); stroke-dasharray: none; stroke-width: 2.5; }
+.karte-fluss { fill: none; stroke: var(--farbe-wasser); stroke-opacity: .85; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.karte-fluss--gross { stroke-width: 7; stroke-opacity: .7; }
+.karte-bahn { fill: none; stroke: color-mix(in srgb, var(--farbe-flaeche) 55%, transparent); stroke-width: 2.5; stroke-dasharray: 3 9; stroke-linecap: round; }
+.karte-bahn-text { font: 600 18px var(--schrift-text); fill: color-mix(in srgb, var(--farbe-flaeche) 60%, transparent); }
+.karte-namen text { font: 600 16px var(--schrift-text); letter-spacing: .14em; text-transform: uppercase; fill: color-mix(in srgb, var(--farbe-flaeche) 38%, transparent); }
+.karte-pfeil { font: 500 19px var(--schrift-text); fill: var(--farbe-leise-hell); }
 .ort circle { fill: var(--farbe-flaeche); stroke: var(--farbe-schwarz); stroke-width: 3; }
-.ort text { font: 500 26px var(--schrift-text); fill: var(--farbe-flaeche); paint-order: stroke; stroke: var(--farbe-schwarz); stroke-width: 6px; stroke-linejoin: round; }
+.ort text { font: 500 25px var(--schrift-text); fill: var(--farbe-flaeche); paint-order: stroke; stroke: var(--farbe-schwarz); stroke-width: 6px; stroke-linejoin: round; }
 .ort--klein text { display: none; }
 @media (max-width: 39.99rem) { .ort--klein { display: none; } }
 .ort--sitz circle { fill: var(--farbe-akzent); stroke: var(--farbe-schwarz); stroke-width: 5; }
 .ort--sitz .ort-ring { fill: none; stroke: var(--farbe-akzent); stroke-width: 2; stroke-dasharray: 5 5; }
 @media (prefers-reduced-motion: no-preference) { .ort--sitz .ort-ring { transform-box: fill-box; transform-origin: center; animation: sitz-puls 3.4s var(--kurve-sanft) infinite; } }
 @keyframes sitz-puls { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.25; opacity: .45; } }
-.ort--sitz text { font-weight: 700; font-size: 30px; }
+.ort--sitz text { font-weight: 700; font-size: 27px; }
 @media (min-width: 40rem) {
-  .ort text { font-size: 20px; stroke-width: 5px; }
+  .ort text { font-size: 21px; stroke-width: 5px; }
   .ort--klein text { display: inline; }
-  .ort--sitz text { font-size: 23px; }
+  .ort--sitz text { font-size: 25px; }
 }
 .karte-feld figcaption { margin-top: .5rem; font-size: .9rem; color: var(--farbe-leise-hell); text-align: center; }
 .gebiet-text h2 + p { margin-top: 1rem; }

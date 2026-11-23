@@ -230,7 +230,8 @@ ${robots ? `<meta name="robots" content="${robots}">\n` : ''}${datei === '404.ht
 ${preload}<script>${KOPF_SKRIPT}</script>
 <script src="/js/bausteine.js" defer></script>
 <script src="/js/seite.js" defer></script>
-${klasse.includes('seite-start') ? '<script src="/js/kino.js" defer></script>\n' : ''}${ld}</head>
+<script src="/js/kino.js" defer></script>
+${ld}</head>
 <body${klasse ? ` class="${klasse}"` : ''}>
 <a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 ${kopfzeile(aktiv)}
@@ -271,16 +272,18 @@ ${S.zusagen.map((z, i) => `      <li${!klasse && IM_HELD.includes(i) ? ' class="
   </div>
 </section>`;
 
-const ablauf = (titel = 'So läuft es ab') => `<section class="abschnitt ablauf dunkel" aria-labelledby="ablauf-titel">
-  <div class="huelle">
-    <div class="abschnitt-kopf einblenden">
+const ablauf = (titel = 'Von der Anfrage bis zur festen Reinigung') => `<section class="hz" aria-labelledby="ablauf-titel">
+  <div class="hz-pin">
+    <div class="huelle hz-kopf">
       ${ueber('Ablauf', true)}
       <h2 id="ablauf-titel">${titel}</h2>
-      <p class="abschnitt-text">Von der ersten Anfrage bis zur festen Reinigung: Sie wissen vorher, was gereinigt wird und was es kostet.</p>
     </div>
-    <ol class="schritte">
-${S.ablauf.map((s, i) => `      <li class="schritt einblenden">${zeichen(ABLAUF_Z[i], 'patch--gross')}<h3>${esc(s.titel)}</h3><p>${esc(s.text)}</p></li>`).join('\n')}
-    </ol>
+    <div class="hz-buehne">
+      <ol class="hz-spur">
+${S.ablauf.map((st, i) => `        <li class="hz-schritt">${zeichen(ABLAUF_Z[i])}<p class="hz-nr">Schritt ${i + 1}</p><h3 class="hz-titel">${esc(st.titel)}</h3><p class="hz-text">${esc(st.text)}</p></li>`).join('\n')}
+      </ol>
+      <div class="hz-weg" aria-hidden="true"></div>
+    </div>
   </div>
 </section>`;
 
@@ -333,26 +336,41 @@ const anfrageBand = (titel = 'Kostenloses Angebot für Ihr Objekt', text = 'Erz�
   </div>
 </section>`;
 
-// ---------- Karte Einsatzgebiet (eigene SVG, Orte nach Koordinaten, schematisch) ----------
+// ---------- Karte Einsatzgebiet (eigene SVG, echte Geografie: Landkreise, Neckar, Fils, Rems, Donau, A 8; Orte nach Koordinaten) ----------
+// Kreisgrenzen und Neckar aus öffentlichen Geodaten (GADM / Natural Earth, vereinfacht, inhalt/geo.json); Fils, Rems, Donau und A 8
+// sind von Hand entlang der Orte gezeichnet (schematisch). Winkeltreue Projektion mit cos(Breite), nichts verzerrt.
+const GEO = JSON.parse(readFileSync(new URL('./inhalt/geo.json', import.meta.url), 'utf8'));
+const KARTE_W = 900, KARTE_H = 860, KARTE_S = 1500, KARTE_LON0 = 9.15, KARTE_LAT0 = 48.9;
+const kxy = ([lon, lat]) => [Math.round((lon - KARTE_LON0) * 0.659 * KARTE_S), Math.round((KARTE_LAT0 - lat) * KARTE_S)];
+const kpfad = (pts, zu = false) => `M${pts.map((p) => kxy(p).join(' ')).join('L')}${zu ? 'Z' : ''}`;
+const KARTE_FILS = [[9.64, 48.575], [9.71, 48.595], [9.77, 48.608], [9.83, 48.624], [9.781, 48.659], [9.757, 48.68], [9.706, 48.694], [9.652, 48.703], [9.59, 48.705], [9.524, 48.716], [9.419, 48.712]];
+const KARTE_REMS = [[10.0, 48.8], [9.9, 48.805], [9.798, 48.799], [9.7, 48.802], [9.62, 48.806], [9.527, 48.805], [9.47, 48.812], [9.4, 48.822], [9.32, 48.835], [9.29, 48.87]];
+const KARTE_DONAU = [[9.74, 48.285], [9.86, 48.34], [9.95, 48.39], [9.99, 48.402], [10.05, 48.425]];
+const KARTE_A8 = [[9.17, 48.725], [9.19, 48.69], [9.27, 48.67], [9.37, 48.66], [9.5, 48.642], [9.63, 48.652], [9.78, 48.58], [9.87, 48.49], [9.98, 48.41]];
+const KARTE_NAMEN = [['Landkreis Göppingen', 9.60, 48.605], ['Rems-Murr', 9.47, 48.85], ['Ostalbkreis', 9.93, 48.85], ['Alb-Donau', 9.62, 48.38], ['Esslingen', 9.33, 48.62], ['Schwäbische Alb', 9.78, 48.50]];
 function karte(id = 'karte') {
-  // Schematisch: Projektion um den Firmensitz mit Wurzel-Verzerrung (nahe Orte im Filstal bekommen Platz, ferne rücken heran).
   const K = S.karte; const sitz = K.orte.find((o) => o.sitz);
-  const xy = (o) => {
-    const dx = (o.lon - sitz.lon) * 0.659, dy = sitz.lat - o.lat; const r = Math.hypot(dx, dy); const f = r ? Math.sqrt(r) / r : 0;
-    return [Math.round((dx * f + 0.58) * 560 + 130), Math.round((dy * f + 0.65) * 560 + 50)];
-  };
+  const xy = (o) => kxy([o.lon, o.lat]);
   const [sx, sy] = xy(sitz);
-  // Lage der Beschriftung, unabhängig von der Schriftgröße (dominant-baseline statt fester Abstände)
-  const LAGE = { n: ['middle', 0, -12, 'auto'], s: ['middle', 0, 13, 'hanging'], o: ['start', 12, 0, 'central'], w: ['end', -12, 0, 'central'],
-    no: ['start', 8, -10, 'auto'], sw: ['end', -8, 10, 'hanging'] };
-  const wege = K.orte.filter((o) => !o.sitz).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.16, my = (sy + y) / 2 - (x - sx) * 0.16; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
-  const punkte = K.orte.map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="22"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 9 : 6}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  const LAGE = { n: ['middle', 0, -14, 'auto'], s: ['middle', 0, 15, 'hanging'], o: ['start', 13, 0, 'central'], w: ['end', -13, 0, 'central'],
+    no: ['start', 9, -12, 'auto'], nw: ['end', -9, -12, 'auto'], sw: ['end', -9, 12, 'hanging'] };
+  const kreise = GEO.kreise.map((k) => `<path class="karte-kreis${k.name === 'Göppingen' ? ' karte-kreis--heim' : ''}" d="${k.rings.map((r) => kpfad(r, true)).join('')}"/>`).join('');
+  const wege = K.orte.filter((o) => !o.sitz && ['geislingen', 'ulm', 'stuttgart', 'gmuend'].includes(o.id)).map((o) => { const [x, y] = xy(o); const mx = (sx + x) / 2 + (y - sy) * 0.12, my = (sy + y) / 2 - (x - sx) * 0.12; return `<path d="M${sx} ${sy}Q${Math.round(mx)} ${Math.round(my)} ${x} ${y}"/>`; }).join('');
+  const namen = KARTE_NAMEN.map(([t, lon, lat]) => { const [x, y] = kxy([lon, lat]); return `<text x="${x}" y="${y}" text-anchor="middle">${esc(t)}</text>`; }).join('');
+  const [a8x, a8y] = kxy([9.42, 48.652]);
+  const punkte = K.orte.filter((o) => o.lat <= KARTE_LAT0).map((o) => { const [x, y] = xy(o); const [a, dx, dy, b] = LAGE[o.id === 'stuttgart' ? 'no' : o.id === 'goeppingen' ? 'n' : o.id === 'gmuend' ? 'w' : o.sitz ? 'no' : o.label]; return `<g class="ort${o.sitz ? ' ort--sitz' : ''}${o.klein ? ' ort--klein' : ''}">${o.sitz ? `<circle class="ort-ring" cx="${x}" cy="${y}" r="24"/>` : ''}<circle cx="${x}" cy="${y}" r="${o.sitz ? 10 : 6.5}"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" dominant-baseline="${b}">${esc(o.kurz || o.name)}</text></g>`; }).join('');
+  const [hx] = kxy([9.737, 49]);
   return `<div class="karte"${pr(K.pruefen)}><figure class="karte-feld">
-      <svg class="karte-svg" viewBox="0 0 800 730" role="img" aria-label="Schematische Karte des Einsatzgebiets: Firmensitz Eislingen/Fils in der Mitte, Orte von Stuttgart im Westen bis Ulm im Südosten und Schwäbisch Hall im Norden">
+      <svg class="karte-svg" viewBox="0 0 ${KARTE_W} ${KARTE_H}" role="img" aria-label="Karte des Einsatzgebiets mit Landkreisen, Neckar, Fils, Rems und Autobahn A 8: Firmensitz Eislingen/Fils im Filstal, Orte von Stuttgart im Westen bis Ulm im Südosten, Schwäbisch Hall liegt weiter im Norden">
+        <g class="karte-flaechen">${kreise}</g>
+        <g class="karte-namen" aria-hidden="true">${namen}</g>
+        <path class="karte-bahn" d="${kpfad(KARTE_A8)}"/><text class="karte-bahn-text" x="${a8x}" y="${a8y + 30}" text-anchor="middle" aria-hidden="true">A 8</text>
+        <g class="karte-fluesse"><path class="karte-fluss karte-fluss--gross" d="${kpfad(GEO.neckar)}"/><path class="karte-fluss karte-fluss--gross" d="${kpfad(KARTE_DONAU)}"/><path class="karte-fluss" d="${kpfad(KARTE_FILS)}"/><path class="karte-fluss" d="${kpfad(KARTE_REMS)}"/></g>
         <g class="karte-wege">${wege}</g>
         ${punkte}
+        <text class="karte-pfeil" x="${hx}" y="34" text-anchor="middle">↑ Richtung Schwäbisch Hall</text>
       </svg>
-      <figcaption>Schematisch, nicht maßstäblich. Firmensitz grün hervorgehoben.</figcaption>
+      <figcaption>Vereinfachte Karte mit Landkreisen, Neckar, Fils, Rems und A&nbsp;8, nicht maßstäblich genau. Firmensitz grün hervorgehoben.</figcaption>
     </figure></div>`;
 }
 const gebietText = () => `<div class="gebiet-gruppen">
@@ -567,11 +585,11 @@ ${S.ablauf.slice(1, 4).map((a, i) => `        <li>${zeichen(ABLAUF_Z[i + 1], 'pa
 const seitenKopf = ({ ueberText, h1, lead, extra = '', bildHtml = '', bildPruefen = '', bildFrei = false, fach = '' }) => `<section class="seitenkopf${bildHtml || fach ? ' seitenkopf--bild' : ''}" aria-labelledby="titel">
   <div class="huelle seitenkopf-in">
     <div class="seitenkopf-text">
-      ${ueber(ueberText)}
+      ${ueber(ueberText, true)}
       <h1 id="titel">${h1}</h1>
       <p class="seitenkopf-lead">${lead}</p>
 ${extra ? `      ${extra}\n` : ''}    </div>
-${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--frei' : ''}"${pr(bildPruefen)}>${bildHtml}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
+${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--frei' : ''}"${pr(bildPruefen)}>${bildHtml}${bildFrei ? '' : '<div class="kh-nebel" aria-hidden="true"></div><i class="kh-naht" aria-hidden="true"></i>'}</figure>\n` : ''}${fach ? `    ${fach}\n` : ''}  </div>
 </section>`;
 
 // ---------- Leistungen (Übersicht) ----------
@@ -581,14 +599,17 @@ ${bildHtml ? `    <figure class="seitenkopf-bild${bildFrei ? ' seitenkopf-bild--
 <section class="abschnitt" aria-labelledby="alle-titel">
   <div class="huelle">
     <h2 id="alle-titel" class="unsichtbar">Alle Leistungen</h2>
-    <ul class="leistung-karten">
-${LEI.map((l, i) => `      <li class="leistung-karte">
-        <div class="leistung-karte-bild"${pr(l.bild.pruefen)}>${bild(l.bild, '(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw', { lazy: i > 2 })}${zeichen(l.id)}</div>
-        <h3><a href="/${l.url}">${esc(l.name)}</a></h3>
-        <p>${esc(l.lead)}</p>
-        <p class="leistung-karte-mehr" aria-hidden="true">Mehr erfahren ${pfeil}</p>
-      </li>`).join('\n')}
-    </ul>
+    <ol class="stapel">
+${LEI.map((l, i) => `      <li><article class="stapel-karte">
+        <figure class="stapel-foto"${pr(l.bild.pruefen)}>${bild({ ...l.bild, alt: '' }, '(min-width: 52rem) 40rem, 96vw', { lazy: i > 0 })}${zeichen(l.id)}</figure>
+        <div class="stapel-text">
+          <p class="stapel-zaehler">${i + 1} von ${LEI.length}</p>
+          <h3 class="stapel-name">${esc(l.name)}</h3>
+          <p class="stapel-kurz">${esc(l.lead)}</p>
+          <a class="textlink" href="/${l.url}">Mehr zu ${esc(l.name)} ${pfeil}</a>
+        </div>
+      </article></li>`).join('\n')}
+    </ol>
   </div>
 </section>
 
@@ -683,11 +704,11 @@ ${anfrageBand()}`;
 {
   const inhalt = `${seitenKopf({ ueberText: 'Über uns', h1: 'Über Merys Clean', lead: esc(S.team_text), bildHtml: bild(S.team_gruppe, '(min-width: 64rem) 34rem, 94vw', { lazy: false, prio: true }), bildPruefen: S.team_gruppe.pruefen, bildFrei: true })}
 
-<section class="abschnitt ueber-text koeper" aria-labelledby="mehr-titel">
+<section class="abschnitt ueber-text tr koeper" aria-labelledby="mehr-titel">
   <div class="huelle ueber-text-in einblenden">
     ${ueber('Mehr als nur ein Reinigungsunternehmen')}
     <h2 id="mehr-titel">Ein Ansprechpartner, <span class="akzent-wort">feste</span> Kräfte, klare Absprachen</h2>
-    <p class="gross-text"><span${pr(S.erfahrung.pruefen)}>${esc(S.erfahrung.text)}</span>: Darauf baut unser Reinigungsservice auf. Sie bekommen flexible Lösungen für Ihr Unternehmen oder Ihren Privathaushalt und einen persönlichen Ansprechpartner, der Sie über die gesamte Zeit betreut.</p>
+    <p class="tr-text tr-text--mittel"${pr(S.erfahrung.pruefen)}>${woerterSpans(`${S.erfahrung.text}: Darauf baut unser Reinigungsservice auf. Sie bekommen flexible Lösungen für Ihr Unternehmen oder Ihren Privathaushalt und einen persönlichen Ansprechpartner, der Sie über die gesamte Zeit betreut.`)}</p>
   </div>
 </section>
 
